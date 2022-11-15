@@ -8,17 +8,23 @@
 
 /* Begin PBXBuildFile section */
 		D4722149292454560063BDB7 /* tumble_iosApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4722148292454560063BDB7 /* tumble_iosApp.swift */; };
-		D472214B292454560063BDB7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D472214A292454560063BDB7 /* ContentView.swift */; };
+		D472214B292454560063BDB7 /* SchoolSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D472214A292454560063BDB7 /* SchoolSelectView.swift */; };
 		D472214D292454570063BDB7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D472214C292454570063BDB7 /* Assets.xcassets */; };
 		D4722150292454570063BDB7 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D472214F292454570063BDB7 /* Preview Assets.xcassets */; };
+		D472215F292455710063BDB7 /* APITypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = D472215C292455710063BDB7 /* APITypes.swift */; };
+		D4722160292455710063BDB7 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = D472215D292455710063BDB7 /* API.swift */; };
+		D4722161292455710063BDB7 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D472215E292455710063BDB7 /* APIClient.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		D4722145292454560063BDB7 /* tumble-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "tumble-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4722148292454560063BDB7 /* tumble_iosApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tumble_iosApp.swift; sourceTree = "<group>"; };
-		D472214A292454560063BDB7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		D472214A292454560063BDB7 /* SchoolSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolSelectView.swift; sourceTree = "<group>"; };
 		D472214C292454570063BDB7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D472214F292454570063BDB7 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		D472215C292455710063BDB7 /* APITypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APITypes.swift; sourceTree = "<group>"; };
+		D472215D292455710063BDB7 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
+		D472215E292455710063BDB7 /* APIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,8 +57,11 @@
 		D4722147292454560063BDB7 /* tumble-ios */ = {
 			isa = PBXGroup;
 			children = (
-				D4722148292454560063BDB7 /* tumble_iosApp.swift */,
-				D472214A292454560063BDB7 /* ContentView.swift */,
+				D47221622924557C0063BDB7 /* Remote */,
+				D472215B292454F60063BDB7 /* Resources */,
+				D472215A292454F10063BDB7 /* Controllers */,
+				D47221592924549B0063BDB7 /* Views */,
+				D47221582924548A0063BDB7 /* App */,
 				D472214C292454570063BDB7 /* Assets.xcassets */,
 				D472214E292454570063BDB7 /* Preview Content */,
 			);
@@ -65,6 +74,46 @@
 				D472214F292454570063BDB7 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		D47221582924548A0063BDB7 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				D4722148292454560063BDB7 /* tumble_iosApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		D47221592924549B0063BDB7 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				D472214A292454560063BDB7 /* SchoolSelectView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		D472215A292454F10063BDB7 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		D472215B292454F60063BDB7 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		D47221622924557C0063BDB7 /* Remote */ = {
+			isa = PBXGroup;
+			children = (
+				D472215D292455710063BDB7 /* API.swift */,
+				D472215E292455710063BDB7 /* APIClient.swift */,
+				D472215C292455710063BDB7 /* APITypes.swift */,
+			);
+			path = Remote;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,8 +186,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D472214B292454560063BDB7 /* ContentView.swift in Sources */,
+				D472214B292454560063BDB7 /* SchoolSelectView.swift in Sources */,
 				D4722149292454560063BDB7 /* tumble_iosApp.swift in Sources */,
+				D4722160292455710063BDB7 /* API.swift in Sources */,
+				D4722161292455710063BDB7 /* APIClient.swift in Sources */,
+				D472215F292455710063BDB7 /* APITypes.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
