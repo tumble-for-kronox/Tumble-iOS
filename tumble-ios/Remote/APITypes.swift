@@ -146,7 +146,7 @@ extension API {
             // MARK: - KronoxCompleteSchoolResourceElement
             struct KronoxCompleteUserResource: Codable {
                 let id, name: String
-                let timeSlots, locationIDS, date, availabilities: JSONNull?
+                let timeSlots, locationIDS, date, availabilities: Nullable.JSONNull?
 
                 enum CodingKeys: String, CodingKey {
                     case id, name, timeSlots
