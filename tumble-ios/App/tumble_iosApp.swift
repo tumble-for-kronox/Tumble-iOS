@@ -11,7 +11,7 @@ import SwiftUI
 struct tumble_iosApp: App {
     var body: some Scene {
         WindowGroup {
-            SchoolSelectView()
+            MasterView(masterController: MasterViewController())
         }
     }
 }

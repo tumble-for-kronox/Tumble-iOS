@@ -11,8 +11,8 @@ import SwiftUI
 struct SchoolSelectView: View {
     var body: some View {
         HStack {
-            SchoolRow(school: schools[0])
-                }
+            SchoolsList()
+        }
     }
 }
 
