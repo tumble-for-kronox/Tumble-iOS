@@ -1,0 +1,62 @@
+[
+        {
+                "id" : 0,
+                "url" : "schema.hkr.se",
+                "name" : "Kristianstad University",
+                "logoName" : "hkr_logo",
+                "loginRq" : false
+        },
+        {
+                "id" : 1,
+                "url" : "schema.mau.se",
+                "name" : "Malmö University",
+                "logoName" : "mau_logo",
+                "loginRq" : false
+        },{
+                "id" : 2,
+                "url" : "schema.oru.se",
+                "name" : "Örebro University",
+                "logoName" : "oru_logo",
+                "loginRq" : false
+        },
+        {
+                "id" : 3,
+                "url" : "schema.ltu.se",
+                "name" : "Luleå University of Technology",
+                "logoName" : "ltu_logo",
+                "loginRq" : true
+        },
+        {
+                "id" : 4,
+                "url" : "schema.hig.se",
+                "name" : "Högskolan i Gävle",
+                "logoName" : "hig_logo",
+                "loginRq" : false
+        },
+        {
+                "id" : 5,
+                "url" : "schema.sh.se",
+                "name" : "Södertörns Högskola",
+                "logoName" : "sh_logo",
+                "loginRq" : true
+        },
+        {
+                "id" : 6,
+                "url" : "schema.hv.se",
+                "name" : "Högskolan Väst",
+                "logoName" : "hv_logo",
+                "loginRq" : false
+        },{
+                "id" : 7,
+                "url" : "schema.hb.se",
+                "name" : "Högskolan i Borås",
+                "logoName" : "hb_logo",
+                "loginRq" : false
+        },{
+                "id" : 8,
+                "url" : "schema.mdh.se",
+                "name" : "Mälardalen Högskola",
+                "logoName" : "mdh_logo",
+                "loginRq" : true
+        }
+]

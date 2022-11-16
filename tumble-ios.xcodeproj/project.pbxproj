@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D40D808629246E34008CA68D /* SchoolsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40D808529246E34008CA68D /* SchoolsList.swift */; };
+		D40D808929247123008CA68D /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40D808829247123008CA68D /* HomeView.swift */; };
+		D40D808F292472FA008CA68D /* BottomBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40D808E292472FA008CA68D /* BottomBarView.swift */; };
 		D4722149292454560063BDB7 /* tumble_iosApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4722148292454560063BDB7 /* tumble_iosApp.swift */; };
 		D472214B292454560063BDB7 /* SchoolSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D472214A292454560063BDB7 /* SchoolSelectView.swift */; };
 		D472214D292454570063BDB7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D472214C292454570063BDB7 /* Assets.xcassets */; };
@@ -14,9 +17,16 @@
 		D472215F292455710063BDB7 /* APITypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = D472215C292455710063BDB7 /* APITypes.swift */; };
 		D4722160292455710063BDB7 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = D472215D292455710063BDB7 /* API.swift */; };
 		D4722161292455710063BDB7 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D472215E292455710063BDB7 /* APIClient.swift */; };
+		D4BAE5F82924636500143717 /* School.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BAE5F72924636500143717 /* School.swift */; };
+		D4BAE614292466F700143717 /* SchoolModelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BAE613292466F700143717 /* SchoolModelData.swift */; };
+		D4BAE61929246AA200143717 /* schools.json in Resources */ = {isa = PBXBuildFile; fileRef = D4BAE61829246AA200143717 /* schools.json */; };
+		D4BAE61C29246AF800143717 /* SchoolRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BAE61B29246AF800143717 /* SchoolRow.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D40D808529246E34008CA68D /* SchoolsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolsList.swift; sourceTree = "<group>"; };
+		D40D808829247123008CA68D /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		D40D808E292472FA008CA68D /* BottomBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomBarView.swift; sourceTree = "<group>"; };
 		D4722145292454560063BDB7 /* tumble-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "tumble-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4722148292454560063BDB7 /* tumble_iosApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tumble_iosApp.swift; sourceTree = "<group>"; };
 		D472214A292454560063BDB7 /* SchoolSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolSelectView.swift; sourceTree = "<group>"; };
@@ -25,6 +35,10 @@
 		D472215C292455710063BDB7 /* APITypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APITypes.swift; sourceTree = "<group>"; };
 		D472215D292455710063BDB7 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		D472215E292455710063BDB7 /* APIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
+		D4BAE5F72924636500143717 /* School.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = School.swift; sourceTree = "<group>"; };
+		D4BAE613292466F700143717 /* SchoolModelData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolModelData.swift; sourceTree = "<group>"; };
+		D4BAE61829246AA200143717 /* schools.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = schools.json; sourceTree = "<group>"; };
+		D4BAE61B29246AF800143717 /* SchoolRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolRow.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -38,6 +52,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D40D808729246FB9008CA68D /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				D40D808829247123008CA68D /* HomeView.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		D40D808D292472EA008CA68D /* BottomBar */ = {
+			isa = PBXGroup;
+			children = (
+				D40D808E292472FA008CA68D /* BottomBarView.swift */,
+			);
+			path = BottomBar;
+			sourceTree = "<group>";
+		};
 		D472213C292454560063BDB7 = {
 			isa = PBXGroup;
 			children = (
@@ -57,6 +87,7 @@
 		D4722147292454560063BDB7 /* tumble-ios */ = {
 			isa = PBXGroup;
 			children = (
+				D4BAE5F52924633D00143717 /* Models */,
 				D47221622924557C0063BDB7 /* Remote */,
 				D472215B292454F60063BDB7 /* Resources */,
 				D472215A292454F10063BDB7 /* Controllers */,
@@ -87,7 +118,9 @@
 		D47221592924549B0063BDB7 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				D472214A292454560063BDB7 /* SchoolSelectView.swift */,
+				D40D808D292472EA008CA68D /* BottomBar */,
+				D40D808729246FB9008CA68D /* Home */,
+				D4BAE61A29246AE800143717 /* SchoolSelection */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -102,6 +135,7 @@
 		D472215B292454F60063BDB7 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D4BAE61829246AA200143717 /* schools.json */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -114,6 +148,25 @@
 				D472215C292455710063BDB7 /* APITypes.swift */,
 			);
 			path = Remote;
+			sourceTree = "<group>";
+		};
+		D4BAE5F52924633D00143717 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				D4BAE613292466F700143717 /* SchoolModelData.swift */,
+				D4BAE5F72924636500143717 /* School.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		D4BAE61A29246AE800143717 /* SchoolSelection */ = {
+			isa = PBXGroup;
+			children = (
+				D472214A292454560063BDB7 /* SchoolSelectView.swift */,
+				D4BAE61B29246AF800143717 /* SchoolRow.swift */,
+				D40D808529246E34008CA68D /* SchoolsList.swift */,
+			);
+			path = SchoolSelection;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -174,6 +227,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4BAE61929246AA200143717 /* schools.json in Resources */,
 				D4722150292454570063BDB7 /* Preview Assets.xcassets in Resources */,
 				D472214D292454570063BDB7 /* Assets.xcassets in Resources */,
 			);
@@ -187,9 +241,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				D472214B292454560063BDB7 /* SchoolSelectView.swift in Sources */,
+				D4BAE5F82924636500143717 /* School.swift in Sources */,
+				D4BAE61C29246AF800143717 /* SchoolRow.swift in Sources */,
+				D40D808F292472FA008CA68D /* BottomBarView.swift in Sources */,
+				D40D808929247123008CA68D /* HomeView.swift in Sources */,
 				D4722149292454560063BDB7 /* tumble_iosApp.swift in Sources */,
+				D40D808629246E34008CA68D /* SchoolsList.swift in Sources */,
 				D4722160292455710063BDB7 /* API.swift in Sources */,
 				D4722161292455710063BDB7 /* APIClient.swift in Sources */,
+				D4BAE614292466F700143717 /* SchoolModelData.swift in Sources */,
 				D472215F292455710063BDB7 /* APITypes.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -325,8 +385,8 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIRequiresFullScreen = NO;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -354,8 +414,8 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIRequiresFullScreen = NO;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
