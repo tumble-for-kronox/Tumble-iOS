@@ -15,6 +15,8 @@ struct SearchBar: View {
             HStack {
                  Image(systemName: "magnifyingglass")
                 TextField("Search schedules..", text: $viewModel.searchText)
+                    .foregroundColor(.black)
+                    .onSubmit(of: .search, search)
              }
                  .foregroundColor(.gray)
                  .padding(.leading, 13)
@@ -23,10 +25,8 @@ struct SearchBar: View {
          .cornerRadius(13)
          .padding()
     }
-}
-
-struct SearchBar_Previews: PreviewProvider {
-    static var previews: some View {
-        SearchBar()
+    
+    func search() -> Void {
+        print("Searching!")
     }
 }

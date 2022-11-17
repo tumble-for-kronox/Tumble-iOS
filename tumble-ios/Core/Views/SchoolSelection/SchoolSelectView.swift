@@ -9,23 +9,17 @@
 import SwiftUI
 
 struct SchoolSelectView: View {
-    var selectSchoolCallback: (String) -> Void
+    var selectSchoolCallback: (School) -> Void
     var body: some View {
         NavigationView {
             HStack {
                 List(schools, id: \.id) { school in
                     SchoolRow(school: school)
                         .onTapGesture(perform: {
-                            selectSchoolCallback(school.name)
+                            selectSchoolCallback(school)
                         })
                 }
             }
         }
-    }
-}
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        Text("")
     }
 }

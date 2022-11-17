@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 enum Tab: String {
     case house = "house"
@@ -27,17 +28,27 @@ enum Tab: String {
     }
 }
 
+enum DrawerBottomSheetType: Int {
+    case school = 0
+    case theme = 1
+    case language = 2
+    case schedules = 3
+    case notifications = 4
+}
+
 extension RootView {
     @MainActor class RootViewModel: ObservableObject {
         @Published var selectedTab: Tab = Tab.house
+        @Published var showDrawerSheet: Bool = false
+        @Published var drawerSheetType: Int = 0
         @Published var menuOpened: Bool = false
         @Published var missingSchool: Bool = {
             let missingSchool: Bool? = !((UserDefaults.standard.getDefault(key: "SCHOOL") as? Bool) == nil)
             return missingSchool ?? true
         } ()
         
-        func selectSchool(school: String) -> Void {
-            UserDefaults.standard.setSchool(name: school)
+        func selectSchool(school: School) -> Void {
+            UserDefaults.standard.setSchool(id: school.id)
             print("Set school to \(school)")
             missingSchool = false
         }
@@ -48,6 +59,11 @@ extension RootView {
         
         func toggleDrawer() -> Void {
             menuOpened.toggle()
+        }
+        
+        func onClickDrawerRow(index: Int) -> Void {
+            self.showDrawerSheet = true
+            drawerSheetType = index
         }
     }
 }

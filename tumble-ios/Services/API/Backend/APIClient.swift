@@ -17,7 +17,7 @@ extension API {
         func fetch<Request, Response>(_ endpoint: Types.Endpoint, method: Types.Method = .get, body: Request? = nil,
             then callback: ((Result<Response, Types.Error>) -> Void)? = nil
         ) where Request: Codable, Response: Codable {
-            
+
             var urlRequest = URLRequest(url: endpoint.url)
             urlRequest.httpMethod = method.rawValue
             
@@ -51,31 +51,30 @@ extension API {
                     }
                 dataTask.resume()
             }
-            
-            // [HTTP GET]
-            func get<Response>(_ endpoint: Types.Endpoint, then callback: ((Result<Response, Types.Error>) -> Void)? = nil
-            ) where Response: Codable {
-                let body: Types.Request.Empty? = nil
-                fetch(endpoint, method: .get, body: body) { result in
-                    callback?(result)
-                }
+        }
+        // [HTTP GET]
+        func get<Response>(_ endpoint: Types.Endpoint, then callback: ((Result<Response, Types.Error>) -> Void)? = nil
+        ) where Response: Codable {
+            let body: Types.Request.Empty? = nil
+            fetch(endpoint, method: .get, body: body) { result in
+                callback?(result)
             }
-            
-            // [HTTP PUT]
-            func put<Request>(_ endpoint: Types.Endpoint, body: Request, then callback: ((Result<Request, Types.Error>) -> Void)? = nil
-            ) where Request: Codable {
-                fetch(endpoint, method: .put, body: body) { result in
-                    callback?(result)
-                }
+        }
+        
+        // [HTTP PUT]
+        func put<Request>(_ endpoint: Types.Endpoint, body: Request, then callback: ((Result<Request, Types.Error>) -> Void)? = nil
+        ) where Request: Codable {
+            fetch(endpoint, method: .put, body: body) { result in
+                callback?(result)
             }
-            
-            // [HTTP POST]
-            func post<Request>(_ endpoint: Types.Endpoint, body: Request, then callback:
-                               ((Result<Request, Types.Error>) -> Void)? = nil
-            ) where Request: Codable {
-                fetch(endpoint, method: .put, body: body) { result in
-                    callback?(result)
-                }
+        }
+        
+        // [HTTP POST]
+        func post<Request>(_ endpoint: Types.Endpoint, body: Request, then callback:
+                           ((Result<Request, Types.Error>) -> Void)? = nil
+        ) where Request: Codable {
+            fetch(endpoint, method: .put, body: body) { result in
+                callback?(result)
             }
         }
     }

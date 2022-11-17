@@ -8,18 +8,25 @@
 import SwiftUI
 
 struct DrawerRow: View {
+    var onClick: () -> Void
     let title: String
     let image: String
     var body: some View {
         HStack {
-            Text(title)
-                .font(.system(size: 18))
-            Spacer()
-            Image(systemName: image)
-                .font(.system(size: 22))
-                .padding(.trailing, 5)
+            Button(action: onClick, label: {
+                Text(title)
+                    .font(.system(size: 22))
+                    .foregroundColor(.black)
+                Spacer()
+                Image(systemName: image)
+                    .font(.system(size: 23))
+                    .foregroundColor(.black)
+                    .padding(.trailing, 5)
+            })
             
             
-        }.padding(.bottom, 25)
+        }
+        .padding(.bottom, 25)
+        .contentShape(Rectangle())
     }
 }

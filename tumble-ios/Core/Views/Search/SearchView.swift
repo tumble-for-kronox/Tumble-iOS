@@ -10,11 +10,21 @@ import SwiftUI
 struct SearchView: View {
     @StateObject var viewModel: SearchViewModel = SearchViewModel()
     var body: some View {
-        VStack {
-            SearchBar()
-                .environmentObject(viewModel)
-                .padding(.top, 50)
-            Spacer()
+        ZStack {
+            VStack (spacing: 0){
+                HStack {
+                    Text("Find schedules by program, course or name")
+                        .font(.system(size: 24, weight: .bold, design: .default))
+                        .padding(.leading, 20)
+                        .padding(.top, 10)
+                    Spacer()
+                }
+                SearchBar()
+                    .environmentObject(viewModel)
+                    .padding(.top, 5)
+                Spacer()
+            }
+            
         }
     }
 }

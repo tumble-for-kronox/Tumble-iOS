@@ -6,9 +6,25 @@
 //
 
 import Foundation
+import SwiftUI
 
-extension DrawerView {
+enum DrawerRowType: String {
+    case school = "school"
+    case theme = "theme"
+    case language = "language"
+    case schedules = "schedules"
+    case notifications = "notifications"
+    
+    static let allValues = [school, theme, language, schedules, notifications]
+}
+
+extension DrawerContent {
     @MainActor class DrawerViewModel: ObservableObject {
+        @Published var drawerView: String = ""
+        @Published var visibleBottomSheet: Bool = true
         
+        func onClick(index: Int) -> Void {
+            self.visibleBottomSheet = true
+        }
     }
 }

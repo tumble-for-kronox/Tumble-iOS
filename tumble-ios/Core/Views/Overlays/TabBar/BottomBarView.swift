@@ -20,7 +20,7 @@ struct BottomBarView: View {
                     VStack {
                         Image(systemName: viewModel.selectedTab == tab ? fillImage : tab.rawValue)
                             .scaleEffect(viewModel.selectedTab == tab ? 1.25 : 1.0)
-                            .foregroundColor(viewModel.selectedTab == tab ? Color("PrimaryColor") : .black)
+                            .foregroundColor(viewModel.selectedTab == tab ? Color("PrimaryColor").opacity(0.85) : .black)
                             .font(.system(size: 20))
                             .onTapGesture {
                                 withAnimation(.easeIn(duration: 0.1)) {
@@ -30,7 +30,7 @@ struct BottomBarView: View {
                             .padding(.bottom, 5)
                         Text(tab.displayName)
                             .font(.system(size: 10))
-                            .foregroundColor(viewModel.selectedTab == tab ? Color("PrimaryColor") : .black.opacity(0.90))
+                            .foregroundColor(viewModel.selectedTab == tab ? Color("PrimaryColor").opacity(0.85) : .black.opacity(0.90))
                     }
                     Spacer()
                 }

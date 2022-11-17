@@ -11,8 +11,8 @@ extension UserDefaults {
     
     
     // ----------- SET -----------
-    public func setSchool(name: String) -> Void {
-        UserDefaults.standard.set(name, forKey: "SCHOOL")
+    public func setSchool(id: Int) -> Void {
+        UserDefaults.standard.set(id, forKey: "SCHOOL")
         UserDefaults.standard.synchronize()
     }
     
