@@ -16,7 +16,7 @@ struct DrawerView: View {
         })
         .frame(width: drawerWidth, alignment: .center)
         .offset(x: rootViewModel.menuOpened ? 0 : -1 * drawerWidth, y: 0)
-        .animation(Animation.easeInOut.speed(2))
+        .animation(.easeInOut.speed(2))
         
     }
 }

@@ -12,7 +12,7 @@ extension UserDefaults {
     
     // ----------- SET -----------
     public func setSchool(id: Int) -> Void {
-        UserDefaults.standard.set(id, forKey: "SCHOOL")
+        UserDefaults.standard.set(id, forKey: StoreKey.school.rawValue)
         UserDefaults.standard.synchronize()
     }
     
@@ -57,6 +57,10 @@ extension UserDefaults {
     // ----------- GET -----------
     func getDefault(key: String) -> Any? {
         return UserDefaults.standard.object(forKey: key)
+    }
+    
+    func isKeyPresentInUserDefaults(key: String) -> Bool {
+        return UserDefaults.standard.object(forKey: key) != nil
     }
     
     enum StoreKey: String {

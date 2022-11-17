@@ -43,13 +43,12 @@ extension RootView {
         @Published var drawerSheetType: Int = 0
         @Published var menuOpened: Bool = false
         @Published var missingSchool: Bool = {
-            let missingSchool: Bool? = !((UserDefaults.standard.getDefault(key: "SCHOOL") as? Bool) == nil)
-            return missingSchool ?? true
+            return !UserDefaults.standard.isKeyPresentInUserDefaults(key: UserDefaults.StoreKey.school.rawValue)
         } ()
-        
+    
         func selectSchool(school: School) -> Void {
             UserDefaults.standard.setSchool(id: school.id)
-            print("Set school to \(school)")
+            print("Set school to \(school.name)")
             missingSchool = false
         }
         

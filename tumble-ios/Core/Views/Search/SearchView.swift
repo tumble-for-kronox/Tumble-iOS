@@ -17,11 +17,22 @@ struct SearchView: View {
                         .font(.system(size: 24, weight: .bold, design: .default))
                         .padding(.leading, 20)
                         .padding(.top, 10)
+                        .background(.gray)
+                        .cornerRadius(10)
                     Spacer()
                 }
                 SearchBar()
                     .environmentObject(viewModel)
                     .padding(.top, 5)
+                    .onSubmit {
+                        viewModel.status = .loading
+                        viewModel.fetchResults(searchQuery: viewModel.searchText)
+                        print("Submitted!")
+                    }
+                
+                if (viewModel.status == .loading) {
+                    ProgressView()
+                }
                 Spacer()
             }
             

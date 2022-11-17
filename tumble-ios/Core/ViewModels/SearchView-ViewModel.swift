@@ -18,24 +18,37 @@ enum SearchStatus {
 extension SearchView {
     @MainActor class SearchViewModel: ObservableObject {
         @Published var searchText: String = ""
+        @Published var isEditing: Bool = false
         @Published var status: SearchStatus = .initial
-        @Published var school: School = (UserDefaults.standard.getDefault(key: "SCHOOL") as! School)
+        @Published var searchResults: [API.Types.Response.Programme] = []
+        @Published var school: School = {
+            var id: Int = UserDefaults.standard.getDefault(key: UserDefaults.StoreKey.school.rawValue) as! Int
+            return schools.first(where: {$0.id == id})!
+        } ()
         
         func fetchResults(searchQuery: String) -> Void {
-            API.Client.shared.get(.searchProgramme(searchQuery: <#T##String#>, schoolId: <#T##String#>)) { (result: Result<API.Types.Response.Search, API.Types.Error>) in
+            API.Client.shared.get(.searchProgramme(searchQuery: searchQuery, schoolId: String(school.id))) { (result: Result<API.Types.Response.Search, API.Types.Error>) in
                 DispatchQueue.main.async {
                     switch result {
                     case .success(let success):
                         self.status = SearchStatus.loading
-                        //self.parseSearchResults(success)
+                        self.parseSearchResults(success)
                     case .failure(let failure):
                         self.status = SearchStatus.error
-                        // Show some error
+                        print("error")
                     }
                 }
             }
         }
         
-        //func parseSearchResults()
+        private func parseSearchResults(_ results: API.Types.Response.Search) {
+            var localResults = [API.Types.Response.Programme]()
+            
+            for result in results.items {
+                localResults.append(result)
+            }
+            print(localResults)
+            self.searchResults = localResults
+        }
     }
 }

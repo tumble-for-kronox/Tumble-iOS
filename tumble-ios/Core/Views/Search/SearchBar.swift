@@ -10,20 +10,31 @@ import SwiftUI
 struct SearchBar: View {
     @EnvironmentObject var viewModel: SearchView.SearchViewModel
     var body: some View {
-        ZStack {
-            Color(.gray).opacity(0.15)
-            HStack {
-                 Image(systemName: "magnifyingglass")
-                TextField("Search schedules..", text: $viewModel.searchText)
-                    .foregroundColor(.black)
-                    .onSubmit(of: .search, search)
-             }
-                 .foregroundColor(.gray)
-                 .padding(.leading, 13)
+        HStack {
+            TextField("Search schedules..", text: $viewModel.searchText)
+                .padding(7)
+                .padding(.horizontal, 25)
+                .background(Color(.systemGray6))
+                .cornerRadius(8)
+                .padding(.horizontal, 10)
+                .onTapGesture {
+                    viewModel.isEditing = true
+                    
+                }
+            if viewModel.isEditing {
+                Button(action: {
+                    viewModel.isEditing = false
+                    viewModel.searchText = ""
+                    
+                }) {
+                    Text("Cancel")
+                    
+                }
+                .padding(.trailing, 10)
+                .transition(.move(edge: .trailing))
+                .animation(.default)
+            }
         }
-        .frame(height: 40)
-         .cornerRadius(13)
-         .padding()
     }
     
     func search() -> Void {

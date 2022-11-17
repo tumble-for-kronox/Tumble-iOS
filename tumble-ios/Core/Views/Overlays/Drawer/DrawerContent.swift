@@ -12,7 +12,7 @@ struct DrawerContent: View {
     let showSheet: (Int) -> Void
     var body: some View {
         ZStack {
-            Color("PrimaryColor").opacity(0.5)
+            Color("PrimaryColor").opacity(0.2)
             VStack (alignment: .leading, spacing: 0) {
                 Group {
                     Text("Common")
