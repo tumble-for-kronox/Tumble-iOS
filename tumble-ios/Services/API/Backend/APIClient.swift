@@ -69,6 +69,7 @@ extension API {
                 }
             }
             
+            // [HTTP POST]
             func post<Request>(_ endpoint: Types.Endpoint, body: Request, then callback:
                                ((Result<Request, Types.Error>) -> Void)? = nil
             ) where Request: Codable {

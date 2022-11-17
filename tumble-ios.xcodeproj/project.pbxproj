@@ -7,14 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D40D808629246E34008CA68D /* SchoolsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40D808529246E34008CA68D /* SchoolsList.swift */; };
-		D40D808929247123008CA68D /* MasterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40D808829247123008CA68D /* MasterView.swift */; };
-		D40D809129251332008CA68D /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40D809029251332008CA68D /* MasterViewController.swift */; };
-		D40D809829251EEF008CA68D /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40D809729251EEF008CA68D /* Toast.swift */; };
+		D40D808929247123008CA68D /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40D808829247123008CA68D /* RootView.swift */; };
+		D40D809829251EEF008CA68D /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40D809729251EEF008CA68D /* ToastView.swift */; };
 		D40D809B29251FD7008CA68D /* ToastStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40D809A29251FD7008CA68D /* ToastStyle.swift */; };
 		D40D809D29251FF6008CA68D /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40D809C29251FF6008CA68D /* Toast.swift */; };
 		D40D80A0292520C5008CA68D /* ToastModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40D809F292520C5008CA68D /* ToastModifier.swift */; };
 		D40D80A629252165008CA68D /* ViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40D80A529252165008CA68D /* ViewExtensions.swift */; };
+		D40D80A929252688008CA68D /* RootView-ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40D80A829252688008CA68D /* RootView-ViewModel.swift */; };
+		D40D80AD29252849008CA68D /* UserDefaultContstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40D80AC29252849008CA68D /* UserDefaultContstants.swift */; };
+		D40D80B429252A5A008CA68D /* UserDefaultsClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40D80B329252A5A008CA68D /* UserDefaultsClient.swift */; };
+		D40D80BE29258CAF008CA68D /* BottomBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40D80BD29258CAF008CA68D /* BottomBarView.swift */; };
+		D40D80C1292590FE008CA68D /* DrawerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40D80C0292590FE008CA68D /* DrawerView.swift */; };
+		D40D80C32925911D008CA68D /* DrawerContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40D80C22925911D008CA68D /* DrawerContent.swift */; };
+		D40D80C52925B97F008CA68D /* DrawerView-ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40D80C42925B97F008CA68D /* DrawerView-ViewModel.swift */; };
+		D40D80C72925BA62008CA68D /* DrawerRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40D80C62925BA62008CA68D /* DrawerRow.swift */; };
 		D4722149292454560063BDB7 /* tumble_iosApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4722148292454560063BDB7 /* tumble_iosApp.swift */; };
 		D472214B292454560063BDB7 /* SchoolSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D472214A292454560063BDB7 /* SchoolSelectView.swift */; };
 		D472214D292454570063BDB7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D472214C292454570063BDB7 /* Assets.xcassets */; };
@@ -29,14 +35,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		D40D808529246E34008CA68D /* SchoolsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolsList.swift; sourceTree = "<group>"; };
-		D40D808829247123008CA68D /* MasterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterView.swift; sourceTree = "<group>"; };
-		D40D809029251332008CA68D /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
-		D40D809729251EEF008CA68D /* Toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
+		D40D808829247123008CA68D /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		D40D809729251EEF008CA68D /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
 		D40D809A29251FD7008CA68D /* ToastStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastStyle.swift; sourceTree = "<group>"; };
 		D40D809C29251FF6008CA68D /* Toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
 		D40D809F292520C5008CA68D /* ToastModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastModifier.swift; sourceTree = "<group>"; };
 		D40D80A529252165008CA68D /* ViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtensions.swift; sourceTree = "<group>"; };
+		D40D80A829252688008CA68D /* RootView-ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RootView-ViewModel.swift"; sourceTree = "<group>"; };
+		D40D80AC29252849008CA68D /* UserDefaultContstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultContstants.swift; sourceTree = "<group>"; };
+		D40D80B329252A5A008CA68D /* UserDefaultsClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsClient.swift; sourceTree = "<group>"; };
+		D40D80BD29258CAF008CA68D /* BottomBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomBarView.swift; sourceTree = "<group>"; };
+		D40D80C0292590FE008CA68D /* DrawerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawerView.swift; sourceTree = "<group>"; };
+		D40D80C22925911D008CA68D /* DrawerContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawerContent.swift; sourceTree = "<group>"; };
+		D40D80C42925B97F008CA68D /* DrawerView-ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DrawerView-ViewModel.swift"; sourceTree = "<group>"; };
+		D40D80C62925BA62008CA68D /* DrawerRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawerRow.swift; sourceTree = "<group>"; };
 		D4722145292454560063BDB7 /* tumble-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "tumble-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4722148292454560063BDB7 /* tumble_iosApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tumble_iosApp.swift; sourceTree = "<group>"; };
 		D472214A292454560063BDB7 /* SchoolSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolSelectView.swift; sourceTree = "<group>"; };
@@ -72,8 +84,9 @@
 		D40D8092292517D4008CA68D /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				D40D80AB29252838008CA68D /* Utilities */,
+				D40D80A72925267F008CA68D /* ViewModels */,
 				D40D80A429252156008CA68D /* Extensions */,
-				D472215A292454F10063BDB7 /* Controllers */,
 				D47221592924549B0063BDB7 /* Views */,
 			);
 			path = Core;
@@ -82,6 +95,8 @@
 		D40D809629251EA5008CA68D /* Overlays */ = {
 			isa = PBXGroup;
 			children = (
+				D40D80BF292590EE008CA68D /* Drawer */,
+				D40D80BC29258CA0008CA68D /* TabBar */,
 				D40D809929251FC5008CA68D /* Toast */,
 			);
 			path = Overlays;
@@ -90,7 +105,7 @@
 		D40D809929251FC5008CA68D /* Toast */ = {
 			isa = PBXGroup;
 			children = (
-				D40D809729251EEF008CA68D /* Toast.swift */,
+				D40D809729251EEF008CA68D /* ToastView.swift */,
 				D40D809A29251FD7008CA68D /* ToastStyle.swift */,
 			);
 			path = Toast;
@@ -110,6 +125,92 @@
 				D40D80A529252165008CA68D /* ViewExtensions.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		D40D80A72925267F008CA68D /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				D40D80A829252688008CA68D /* RootView-ViewModel.swift */,
+				D40D80C42925B97F008CA68D /* DrawerView-ViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		D40D80AA29252830008CA68D /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				D40D80AC29252849008CA68D /* UserDefaultContstants.swift */,
+			);
+			path = Constants;
+			sourceTree = "<group>";
+		};
+		D40D80AB29252838008CA68D /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				D40D80AA29252830008CA68D /* Constants */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		D40D80AE292529ED008CA68D /* API */ = {
+			isa = PBXGroup;
+			children = (
+				D40D80B229252A45008CA68D /* Notifications */,
+				D40D80B129252A33008CA68D /* UserDefaults */,
+				D40D80B0292529FF008CA68D /* Database */,
+				D40D80AF292529F9008CA68D /* Backend */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
+		D40D80AF292529F9008CA68D /* Backend */ = {
+			isa = PBXGroup;
+			children = (
+				D472215D292455710063BDB7 /* API.swift */,
+				D472215E292455710063BDB7 /* APIClient.swift */,
+				D472215C292455710063BDB7 /* APITypes.swift */,
+			);
+			path = Backend;
+			sourceTree = "<group>";
+		};
+		D40D80B0292529FF008CA68D /* Database */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Database;
+			sourceTree = "<group>";
+		};
+		D40D80B129252A33008CA68D /* UserDefaults */ = {
+			isa = PBXGroup;
+			children = (
+				D40D80B329252A5A008CA68D /* UserDefaultsClient.swift */,
+			);
+			path = UserDefaults;
+			sourceTree = "<group>";
+		};
+		D40D80B229252A45008CA68D /* Notifications */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Notifications;
+			sourceTree = "<group>";
+		};
+		D40D80BC29258CA0008CA68D /* TabBar */ = {
+			isa = PBXGroup;
+			children = (
+				D40D80BD29258CAF008CA68D /* BottomBarView.swift */,
+			);
+			path = TabBar;
+			sourceTree = "<group>";
+		};
+		D40D80BF292590EE008CA68D /* Drawer */ = {
+			isa = PBXGroup;
+			children = (
+				D40D80C0292590FE008CA68D /* DrawerView.swift */,
+				D40D80C22925911D008CA68D /* DrawerContent.swift */,
+				D40D80C62925BA62008CA68D /* DrawerRow.swift */,
+			);
+			path = Drawer;
 			sourceTree = "<group>";
 		};
 		D472213C292454560063BDB7 = {
@@ -163,19 +264,11 @@
 			children = (
 				D40D809E292520AA008CA68D /* ViewModifiers */,
 				D40D809629251EA5008CA68D /* Overlays */,
-				D40D808829247123008CA68D /* MasterView.swift */,
+				D40D808829247123008CA68D /* RootView.swift */,
 				D40D808729246FB9008CA68D /* Home */,
 				D4BAE61A29246AE800143717 /* SchoolSelection */,
 			);
 			path = Views;
-			sourceTree = "<group>";
-		};
-		D472215A292454F10063BDB7 /* Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				D40D809029251332008CA68D /* MasterViewController.swift */,
-			);
-			path = Controllers;
 			sourceTree = "<group>";
 		};
 		D472215B292454F60063BDB7 /* Resources */ = {
@@ -189,9 +282,7 @@
 		D47221622924557C0063BDB7 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				D472215D292455710063BDB7 /* API.swift */,
-				D472215E292455710063BDB7 /* APIClient.swift */,
-				D472215C292455710063BDB7 /* APITypes.swift */,
+				D40D80AE292529ED008CA68D /* API */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -211,7 +302,6 @@
 			children = (
 				D472214A292454560063BDB7 /* SchoolSelectView.swift */,
 				D4BAE61B29246AF800143717 /* SchoolRow.swift */,
-				D40D808529246E34008CA68D /* SchoolsList.swift */,
 			);
 			path = SchoolSelection;
 			sourceTree = "<group>";
@@ -288,16 +378,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				D472214B292454560063BDB7 /* SchoolSelectView.swift in Sources */,
-				D40D809829251EEF008CA68D /* Toast.swift in Sources */,
+				D40D809829251EEF008CA68D /* ToastView.swift in Sources */,
 				D4BAE5F82924636500143717 /* School.swift in Sources */,
 				D4BAE61C29246AF800143717 /* SchoolRow.swift in Sources */,
-				D40D808929247123008CA68D /* MasterView.swift in Sources */,
+				D40D808929247123008CA68D /* RootView.swift in Sources */,
+				D40D80AD29252849008CA68D /* UserDefaultContstants.swift in Sources */,
+				D40D80C32925911D008CA68D /* DrawerContent.swift in Sources */,
+				D40D80B429252A5A008CA68D /* UserDefaultsClient.swift in Sources */,
 				D4722149292454560063BDB7 /* tumble_iosApp.swift in Sources */,
-				D40D808629246E34008CA68D /* SchoolsList.swift in Sources */,
+				D40D80C1292590FE008CA68D /* DrawerView.swift in Sources */,
 				D4722160292455710063BDB7 /* API.swift in Sources */,
+				D40D80C52925B97F008CA68D /* DrawerView-ViewModel.swift in Sources */,
 				D40D809B29251FD7008CA68D /* ToastStyle.swift in Sources */,
-				D40D809129251332008CA68D /* MasterViewController.swift in Sources */,
+				D40D80BE29258CAF008CA68D /* BottomBarView.swift in Sources */,
 				D40D80A629252165008CA68D /* ViewExtensions.swift in Sources */,
+				D40D80C72925BA62008CA68D /* DrawerRow.swift in Sources */,
+				D40D80A929252688008CA68D /* RootView-ViewModel.swift in Sources */,
 				D4722161292455710063BDB7 /* APIClient.swift in Sources */,
 				D4BAE614292466F700143717 /* SchoolModelData.swift in Sources */,
 				D472215F292455710063BDB7 /* APITypes.swift in Sources */,

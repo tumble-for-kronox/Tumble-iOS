@@ -22,6 +22,7 @@ struct SchoolRow: View {
         }
         .padding(.bottom, 20)
         .padding(.top, 10)
+        .contentShape(Rectangle())
     }
 }
 
