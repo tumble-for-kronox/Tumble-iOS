@@ -20,7 +20,7 @@ struct BottomBarView: View {
                     VStack {
                         Image(systemName: viewModel.selectedTab == tab ? fillImage : tab.rawValue)
                             .scaleEffect(viewModel.selectedTab == tab ? 1.25 : 1.0)
-                            .foregroundColor(viewModel.selectedTab == tab ? Color("PrimaryColor") : .gray)
+                            .foregroundColor(viewModel.selectedTab == tab ? Color("PrimaryColor") : .black)
                             .font(.system(size: 20))
                             .onTapGesture {
                                 withAnimation(.easeIn(duration: 0.1)) {
@@ -30,23 +30,15 @@ struct BottomBarView: View {
                             .padding(.bottom, 5)
                         Text(tab.displayName)
                             .font(.system(size: 10))
-                            .foregroundColor(viewModel.selectedTab == tab ? Color("PrimaryColor") : .gray)
+                            .foregroundColor(viewModel.selectedTab == tab ? Color("PrimaryColor") : .black.opacity(0.90))
                     }
                     Spacer()
                 }
             }
             .frame(width: nil, height: 50)
-            .backgroundStyle(.thinMaterial)
-            //.cornerRadius(10)
             .padding(.leading, 10)
             .padding(.trailing, 10)
-            .padding(.bottom, 30)
+            .padding(.bottom, 10)
         }
-    }
-}
-
-struct TabBarView_Previews: PreviewProvider {
-    static var previews: some View {
-        BottomBarView()
     }
 }
