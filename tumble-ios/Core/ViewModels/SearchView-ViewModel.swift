@@ -20,6 +20,7 @@ extension SearchView {
         @Published var searchText: String = ""
         @Published var isEditing: Bool = false
         @Published var status: SearchStatus = .initial
+        @Published var numberOfSearchResults: Int = 0
         @Published var searchResults: [API.Types.Response.Programme] = []
         @Published var school: School = {
             var id: Int = UserDefaults.standard.getDefault(key: UserDefaults.StoreKey.school.rawValue) as! Int
@@ -27,8 +28,10 @@ extension SearchView {
         } ()
         
         func fetchResults(searchQuery: String) -> Void {
+            print("Got here ..")
             API.Client.shared.get(.searchProgramme(searchQuery: searchQuery, schoolId: String(school.id))) { (result: Result<API.Types.Response.Search, API.Types.Error>) in
                 DispatchQueue.main.async {
+                    
                     switch result {
                     case .success(let success):
                         self.status = SearchStatus.loading
@@ -41,14 +44,22 @@ extension SearchView {
             }
         }
         
-        private func parseSearchResults(_ results: API.Types.Response.Search) {
+        private func parseSearchResults(_ results: API.Types.Response.Search) -> Void {
             var localResults = [API.Types.Response.Programme]()
-            
+            self.numberOfSearchResults = results.count
             for result in results.items {
                 localResults.append(result)
             }
-            print(localResults)
             self.searchResults = localResults
+            self.status = .loaded
+        }
+        
+        func clearSearch() -> Void {
+            self.isEditing = false
+            self.searchText = ""
+            self.status = .initial
+            self.searchResults = []
+            self.numberOfSearchResults = 0
         }
     }
 }

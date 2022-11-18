@@ -11,37 +11,56 @@ struct SearchView: View {
     @StateObject var viewModel: SearchViewModel = SearchViewModel()
     var body: some View {
         ZStack {
-            VStack (spacing: 0){
-                HStack {
-                    Text("Find schedules by program, course or name")
-                        .font(.system(size: 24, weight: .bold, design: .default))
-                        .padding(.leading, 20)
-                        .padding(.top, 10)
-                        .background(.gray)
-                        .cornerRadius(10)
-                    Spacer()
+            VStack (spacing: 0) {
+                if (viewModel.status == .initial) {
+                    HStack (alignment: .center) {
+                        Text("Find schedules by program, course or name")
+                            .font(.title2)
+                            .padding(20)
+                            .foregroundColor(Color("BackgroundColor"))
+                            .cornerRadius(10)
+                            .background(Color("PrimaryColor").opacity(0.75))
+                            .clipShape(RoundedRectangle(cornerRadius: 25, style: .continuous))
+                            .padding(20)
+                    }
+                    .animation(.easeInOut)
                 }
                 SearchBar()
                     .environmentObject(viewModel)
-                    .padding(.top, 5)
+                    .padding(.leading, 30)
+                    .padding(.trailing, 30)
+                    .padding(.top, 15)
                     .onSubmit {
-                        viewModel.status = .loading
-                        viewModel.fetchResults(searchQuery: viewModel.searchText)
-                        print("Submitted!")
+                        if(!viewModel.searchText.trimmingCharacters(in: .whitespaces).isEmpty) {
+                            viewModel.status = .loading
+                            viewModel.fetchResults(searchQuery: viewModel.searchText)
+                        }
                     }
-                
+                Spacer()
                 if (viewModel.status == .loading) {
                     ProgressView()
+                    Spacer()
                 }
-                Spacer()
+                if (viewModel.status == .loaded) {
+                    VStack {
+                        HStack {
+                            Text("Results: \(viewModel.numberOfSearchResults)")
+                                .font(.headline)
+                                .padding(.leading, 20)
+                                .padding(.top, 20)
+                                .padding(.bottom, 10)
+                            Spacer()
+                        }
+                        List(viewModel.searchResults, id: \.id) { programme in
+                            ProgrammeCardView(logo: viewModel.school.logo, programme: programme)
+                                .onTapGesture(perform: {
+                                    // stub
+                                })
+                        }
+                    }
+                }
             }
             
         }
-    }
-}
-
-struct SearchView_Previews: PreviewProvider {
-    static var previews: some View {
-        SearchView()
     }
 }

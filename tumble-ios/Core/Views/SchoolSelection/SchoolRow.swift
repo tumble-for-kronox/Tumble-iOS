@@ -18,7 +18,7 @@ struct SchoolRow: View {
                 .padding(.trailing, 25)
             Text(school.name)
                 .padding(.top, 32)
-                .font(.system(size: 20))
+                .font(.title2)
         }
         .padding(.bottom, 20)
         .padding(.top, 10)

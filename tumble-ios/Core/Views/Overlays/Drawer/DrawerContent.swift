@@ -12,49 +12,31 @@ struct DrawerContent: View {
     let showSheet: (Int) -> Void
     var body: some View {
         ZStack {
-            Color("PrimaryColor").opacity(0.2)
-            VStack (alignment: .leading, spacing: 0) {
+            Color("PrimaryColor").opacity(0.65)
+            VStack (alignment: .center, spacing: 0) {
                 Group {
-                    Text("Common")
-                        .font(.system(size: 12, weight: .bold, design: .default))
-                        .padding(.bottom, 5)
-                    
-                    DrawerRow(onClick: {
+                    DrawerItem(onClick: {
                         showSheet(0)
                     }, title: "School", image: "arrow.left.arrow.right")
-                    DrawerRow(onClick: {
+                    DrawerItem(onClick: {
                         showSheet(1)
                         
                         
                     }, title: "Theme", image: "apps.iphone")
-                    DrawerRow(onClick: {
+                    DrawerItem(onClick: {
                         showSheet(2)
                     }, title: "Language", image: "textformat.abc")
-                    Divider()
-                        .padding(.bottom, 15)
                 }
                 Group {
-                    Text("Schedule")
-                        .font(.system(size: 12, weight: .bold, design: .default))
-                        .padding(.bottom, 5)
-                        .font(Font.headline.weight(.bold))
-                    DrawerRow(onClick: {
+                    DrawerItem(onClick: {
                         showSheet(3)
                     }, title: "Schedules", image: "bookmark")
-                    Divider()
-                        .padding(.bottom, 15)
                 }
                 
                 Group {
-                    Text("Notifications")
-                        .font(.system(size: 12, weight: .bold, design: .default))
-                        .padding(.bottom, 5)
-                        .font(Font.headline.weight(.bold))
-                    DrawerRow(onClick: {
+                    DrawerItem(onClick: {
                         showSheet(4)
                     }, title: "Notifications", image: "bell.badge")
-                    Divider()
-                        .padding(.bottom, 15)
                 }
                 Spacer()
             }

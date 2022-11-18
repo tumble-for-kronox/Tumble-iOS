@@ -32,7 +32,7 @@ struct RootView: View {
 
 struct HomeView: View {
     @EnvironmentObject var rootViewModel: RootView.RootViewModel
-    let drawerWidth: CGFloat = UIScreen.main.bounds.width/1.3
+    let drawerWidth: CGFloat = UIScreen.main.bounds.width/3.5
     var body: some View {
         ZStack(alignment: .leading) {
             DrawerView(drawerWidth: drawerWidth)
@@ -61,8 +61,9 @@ struct HomeView: View {
                     ToolbarItem(placement: .principal) {
                         VStack {
                             Text(rootViewModel.selectedTab.displayName)
-                                .font(.headline)
+                                .font(.title3)
                                 .foregroundColor(.black)
+                                .padding(.top, 10)
                         }
                     }
                 }
@@ -71,7 +72,10 @@ struct HomeView: View {
                 }, label: {
                     Image(systemName: "gearshape")
                         .foregroundColor(.black)
-                }), trailing: NavigationLink(destination: SearchView(), label: {
+                }), trailing: NavigationLink(destination:
+                    SearchView()
+                    .navigationBarBackButtonHidden(true)
+                    .navigationBarItems(leading: BackButton()), label: {
                     Image(systemName: "magnifyingglass")
                         .foregroundColor(.black)
                 }))

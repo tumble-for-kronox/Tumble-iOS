@@ -11,33 +11,31 @@ struct SearchBar: View {
     @EnvironmentObject var viewModel: SearchView.SearchViewModel
     var body: some View {
         HStack {
-            TextField("Search schedules..", text: $viewModel.searchText)
-                .padding(7)
-                .padding(.horizontal, 25)
-                .background(Color(.systemGray6))
-                .cornerRadius(8)
-                .padding(.horizontal, 10)
+            Image(systemName: "magnifyingglass")
+                .foregroundColor(.gray)
+                .padding(.leading, 5)
+            TextField("Search schedules", text: $viewModel.searchText)
+                .font(.headline)
+                .disableAutocorrection(true)
                 .onTapGesture {
                     viewModel.isEditing = true
-                    
                 }
             if viewModel.isEditing {
                 Button(action: {
-                    viewModel.isEditing = false
-                    viewModel.searchText = ""
+                    viewModel.clearSearch()
                     
                 }) {
-                    Text("Cancel")
+                    Image(systemName: "xmark.circle")
+                        .foregroundColor(Color("PrimaryColor"))
                     
                 }
                 .padding(.trailing, 10)
                 .transition(.move(edge: .trailing))
-                .animation(.default)
+                .animation(.easeInOut)
             }
         }
+        .padding(10)
+        .background(.gray.opacity(0.25))
+        .cornerRadius(10)
+        }
     }
-    
-    func search() -> Void {
-        print("Searching!")
-    }
-}
