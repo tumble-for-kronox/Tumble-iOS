@@ -42,51 +42,52 @@ extension API {
             
             // ------ SCHEDULE ------
             // ----------------------
+            
             // MARK: - Schedule
             struct Schedule: Codable {
-                let cachedAt, id: String
+                let id, cachedAt: String
                 let days: [Day]
-
-                enum CodingKeys: String, CodingKey {
-                    case cachedAt
-                    case id = "_id"
-                    case days
-                }
             }
 
             // MARK: - Day
             struct Day: Codable {
-                let name, date: String
-                let isoString: Date
+                let name: String
+                let date, isoString: String
                 let weekNumber: Int
                 let events: [Event]
             }
 
             // MARK: - Event
             struct Event: Codable {
-                let id, title: String
+                let title: String
                 let course: Course
-                let timeStart, timeEnd: Date
+                let from, to: String
                 let locations: [Location]
                 let teachers: [Teacher]
+                let id: String
                 let isSpecial: Bool
-                let lastModified: Date
+                let lastModified: String
             }
 
             // MARK: - Course
             struct Course: Codable {
-                let id, swedishName, englishName: String
+                let id: String
+                let swedishName, englishName: String
             }
 
             // MARK: - Location
             struct Location: Codable {
-                let id, name, building, floor: String
-                let maxSeats: String
+                let id: String
+                let name: String
+                let building, floor: String
+                let maxSeats: Int
             }
 
             // MARK: - Teacher
             struct Teacher: Codable {
-                let id, firstName, lastName: String
+                let id: String
+                let firstName: String
+                let lastName: String
             }
             
             
@@ -123,7 +124,7 @@ extension API {
             // MARK: - AvailableKronoxUserEvent
             struct AvailableKronoxUserEvent: Codable {
                 let id, title, type: String
-                let eventStart, eventEnd, lastSignupDate: Date
+                let eventStart, eventEnd, lastSignupDate: String
                 let participatorID, supportID, anonymousCode: String
                 let isRegistered, supportAvailable, requiresChoosingLocation: Bool
 
@@ -138,7 +139,7 @@ extension API {
             // MARK: - UpcomingKronoxUserEvent
             struct UpcomingKronoxUserEvent: Codable {
                 let title, type: String
-                let eventStart, eventEnd, firstSignupDate: Date
+                let eventStart, eventEnd, firstSignupDate: String
             }
             
             
@@ -163,7 +164,7 @@ extension API {
                 let id, name: String
                 let timeSlots: [TimeSlot]
                 let locationIDS: [String]
-                let date: Date
+                let date: String
                 let availabilities: Availabilities
 
                 enum CodingKeys: String, CodingKey {
@@ -208,7 +209,7 @@ extension API {
             // MARK: - TimeSlot
             struct TimeSlot: Codable {
                 let id: Int
-                let from, to: Date
+                let from, to: String
                 let duration: String
             }
         }
@@ -295,9 +296,8 @@ extension API {
                         URLQueryItem(name: "schoolId", value: schoolId)
                     ]
                 case .schedule(scheduleId: let scheduleId, schoolId: let schoolId):
-                    components.path = "/schedules/"
+                    components.path = "/schedules/\(scheduleId)"
                     components.queryItems = [
-                        URLQueryItem(name: "scheduleId", value: scheduleId),
                         URLQueryItem(name: "schoolId", value: schoolId)
                     ]
                 case .userEvents(sessionToken: let sessionToken, schoolId: let schoolId):

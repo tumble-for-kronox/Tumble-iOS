@@ -12,7 +12,7 @@ struct SearchView: View {
     var body: some View {
         ZStack {
             VStack (spacing: 0) {
-                if (viewModel.status == .initial) {
+                if (viewModel.status == .initial && !viewModel.isEditing) {
                     HStack (alignment: .center) {
                         Text("Find schedules by program, course or name")
                             .font(.title2)
@@ -23,9 +23,11 @@ struct SearchView: View {
                             .clipShape(RoundedRectangle(cornerRadius: 25, style: .continuous))
                             .padding(20)
                     }
-                    .animation(.easeInOut)
+                    .animation(.easeOut, value: viewModel.isEditing)
+                    .animation(.easeIn, value: viewModel.isEditing)
                 }
                 SearchBar()
+                    .animation(.easeOut, value: viewModel.isEditing)
                     .environmentObject(viewModel)
                     .padding(.leading, 30)
                     .padding(.trailing, 30)
@@ -54,13 +56,16 @@ struct SearchView: View {
                         List(viewModel.searchResults, id: \.id) { programme in
                             ProgrammeCardView(logo: viewModel.school.logo, programme: programme)
                                 .onTapGesture(perform: {
-                                    // stub
+                                    viewModel.loadSchedule(programme: programme)
                                 })
-                        }
+                        }.animation(.easeIn, value: viewModel.status == .loaded)
                     }
                 }
             }
             
+        }
+        .sheet(isPresented: $viewModel.presentPreview) {
+            SchedulePreviewView().environmentObject(viewModel)
         }
     }
 }

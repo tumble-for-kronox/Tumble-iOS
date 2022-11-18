@@ -32,7 +32,7 @@ struct RootView: View {
 
 struct HomeView: View {
     @EnvironmentObject var rootViewModel: RootView.RootViewModel
-    let drawerWidth: CGFloat = UIScreen.main.bounds.width/3.5
+    let drawerWidth: CGFloat = UIScreen.main.bounds.width/3.25
     var body: some View {
         ZStack(alignment: .leading) {
             DrawerView(drawerWidth: drawerWidth)
