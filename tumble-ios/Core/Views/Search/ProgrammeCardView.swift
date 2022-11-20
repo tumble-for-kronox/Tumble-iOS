@@ -18,8 +18,8 @@ struct ProgrammeCardView: View {
                     .multilineTextAlignment(.leading)
                     .padding(.bottom, 10)
                 HStack {
-                    Image(systemName: "building.columns")
-                        .font(.system(size: 16))
+                    Image(systemName: "menucard")
+                        .font(.system(size: 17))
                     Text(programme.title)
                         .font(.subheadline)
                         .multilineTextAlignment(.leading)

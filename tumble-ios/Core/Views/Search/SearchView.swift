@@ -40,7 +40,7 @@ struct SearchView: View {
                     }
                 Spacer()
                 if (viewModel.status == .loading) {
-                    ProgressView()
+                    CustomProgressView()
                     Spacer()
                 }
                 if (viewModel.status == .loaded) {

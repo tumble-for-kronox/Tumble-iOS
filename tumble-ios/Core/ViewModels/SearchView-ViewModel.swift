@@ -15,6 +15,13 @@ enum SearchStatus {
     case empty
 }
 
+enum PreviewDelegateStatus {
+    case loaded
+    case loading
+    case error
+    case empty
+}
+
 extension SearchView {
     @MainActor class SearchViewModel: ObservableObject {
         @Published var searchText: String = ""
@@ -24,6 +31,7 @@ extension SearchView {
         @Published var searchResults: [API.Types.Response.Programme] = []
         @Published var scheduleForPreview: API.Types.Response.Schedule? = nil
         @Published var presentPreview: Bool = false
+        @Published var previewDelegateStatus: PreviewDelegateStatus = .loading
         @Published var school: School = {
             var id: Int = UserDefaults.standard.getDefault(key: UserDefaults.StoreKey.school.rawValue) as! Int
             return schools.first(where: {$0.id == id})!
@@ -78,8 +86,9 @@ extension SearchView {
                     case .success(let schedule):
                         self.scheduleForPreview = schedule
                         self.presentPreview = true
+                        self.previewDelegateStatus = .loaded
                     case .failure(let failure):
-                        self.status = SearchStatus.error
+                        self.previewDelegateStatus = .error
                     }
                 }
             }

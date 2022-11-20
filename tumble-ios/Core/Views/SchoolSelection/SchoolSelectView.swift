@@ -13,7 +13,7 @@ struct SchoolSelectView: View {
     var body: some View {
         NavigationView {
             HStack {
-                List(schools, id: \.id) { school in
+                List(schools.sorted { $0.name < $1.name }, id: \.id) { school in
                     SchoolRow(school: school)
                         .onTapGesture(perform: {
                             selectSchoolCallback(school)

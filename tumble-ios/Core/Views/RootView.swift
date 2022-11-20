@@ -12,7 +12,6 @@ import SwiftUI
 
 struct RootView: View {
     @StateObject private var viewModel = RootViewModel()
-    
     var body: some View {
         ZStack {
             Color("BackgroundColor")
@@ -50,6 +49,18 @@ struct HomeView: View {
             NavigationView {
                 VStack {
                     VStack {
+                        HStack {
+                            HomePageContent(title: "Booked rooms", image: "studentdesk", onClick: {
+                                
+                            })
+                            HomePageContent(title: "Registered exams", image: "person.crop.circle.badge.checkmark", onClick: {
+                                
+                            })
+                            HomePageContent(title: "Your schedules", image: "list.star", onClick: {
+                                
+                            })
+                        }
+                        .padding(.top, 45)
                         Spacer()
                         BottomBarView()
                             .environmentObject(rootViewModel)
@@ -61,7 +72,7 @@ struct HomeView: View {
                     ToolbarItem(placement: .principal) {
                         VStack {
                             Text(rootViewModel.selectedTab.displayName)
-                                .font(.title3)
+                                .font(.headline)
                                 .foregroundColor(.black)
                                 .padding(.top, 10)
                         }

@@ -28,6 +28,10 @@
 		D45338F429280C4800198411 /* SchedulePreviewView-ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45338F329280C4800198411 /* SchedulePreviewView-ViewModel.swift */; };
 		D45338F629280E8400198411 /* ScheduleExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45338F529280E8400198411 /* ScheduleExtensions.swift */; };
 		D45338F9292825B200198411 /* ScheduleCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45338F8292825B200198411 /* ScheduleCardView.swift */; };
+		D45338FB2929730200198411 /* CustomProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45338FA2929730200198411 /* CustomProgressView.swift */; };
+		D45338FD29297C8B00198411 /* DayUIModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45338FC29297C8B00198411 /* DayUIModel.swift */; };
+		D45338FF2929805100198411 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45338FE2929805100198411 /* StringExtensions.swift */; };
+		D453390229299FB800198411 /* HomePageContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D453390129299FB800198411 /* HomePageContent.swift */; };
 		D4722149292454560063BDB7 /* tumble_iosApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4722148292454560063BDB7 /* tumble_iosApp.swift */; };
 		D472214B292454560063BDB7 /* SchoolSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D472214A292454560063BDB7 /* SchoolSelectView.swift */; };
 		D472214D292454570063BDB7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D472214C292454570063BDB7 /* Assets.xcassets */; };
@@ -78,6 +82,10 @@
 		D45338F329280C4800198411 /* SchedulePreviewView-ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SchedulePreviewView-ViewModel.swift"; sourceTree = "<group>"; };
 		D45338F529280E8400198411 /* ScheduleExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleExtensions.swift; sourceTree = "<group>"; };
 		D45338F8292825B200198411 /* ScheduleCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleCardView.swift; sourceTree = "<group>"; };
+		D45338FA2929730200198411 /* CustomProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomProgressView.swift; sourceTree = "<group>"; };
+		D45338FC29297C8B00198411 /* DayUIModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayUIModel.swift; sourceTree = "<group>"; };
+		D45338FE2929805100198411 /* StringExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
+		D453390129299FB800198411 /* HomePageContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageContent.swift; sourceTree = "<group>"; };
 		D4722145292454560063BDB7 /* tumble-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "tumble-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4722148292454560063BDB7 /* tumble_iosApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tumble_iosApp.swift; sourceTree = "<group>"; };
 		D472214A292454560063BDB7 /* SchoolSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolSelectView.swift; sourceTree = "<group>"; };
@@ -133,10 +141,12 @@
 		D40D809629251EA5008CA68D /* Overlays */ = {
 			isa = PBXGroup;
 			children = (
+				D453390029299F9800198411 /* HomePage */,
 				D40D80BF292590EE008CA68D /* Drawer */,
 				D40D80BC29258CA0008CA68D /* TabBar */,
 				D40D809929251FC5008CA68D /* Toast */,
 				D4D4DD042927C88E0083BB7F /* BackButton.swift */,
+				D45338FA2929730200198411 /* CustomProgressView.swift */,
 			);
 			path = Overlays;
 			sourceTree = "<group>";
@@ -164,6 +174,7 @@
 				D40D80A529252165008CA68D /* ViewExtensions.swift */,
 				D4D4DD1F2927CBDA0083BB7F /* FontExstensions.swift */,
 				D45338F529280E8400198411 /* ScheduleExtensions.swift */,
+				D45338FE2929805100198411 /* StringExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -275,6 +286,14 @@
 			path = Schedule;
 			sourceTree = "<group>";
 		};
+		D453390029299F9800198411 /* HomePage */ = {
+			isa = PBXGroup;
+			children = (
+				D453390129299FB800198411 /* HomePageContent.swift */,
+			);
+			path = HomePage;
+			sourceTree = "<group>";
+		};
 		D472213C292454560063BDB7 = {
 			isa = PBXGroup;
 			children = (
@@ -358,6 +377,7 @@
 				D4BAE613292466F700143717 /* SchoolModelData.swift */,
 				D4BAE5F72924636500143717 /* School.swift */,
 				D40D809C29251FF6008CA68D /* Toast.swift */,
+				D45338FC29297C8B00198411 /* DayUIModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -487,17 +507,21 @@
 				D4722160292455710063BDB7 /* API.swift in Sources */,
 				D45338F229280A7400198411 /* SchedulePreviewView.swift in Sources */,
 				D45338F629280E8400198411 /* ScheduleExtensions.swift in Sources */,
+				D45338FB2929730200198411 /* CustomProgressView.swift in Sources */,
 				D40D80C52925B97F008CA68D /* DrawerView-ViewModel.swift in Sources */,
 				D4D4DD032927C7DA0083BB7F /* ProgrammeCardView.swift in Sources */,
+				D453390229299FB800198411 /* HomePageContent.swift in Sources */,
 				D40D809B29251FD7008CA68D /* ToastStyle.swift in Sources */,
 				D40D80CA29265B98008CA68D /* SearchView.swift in Sources */,
 				D40D80BE29258CAF008CA68D /* BottomBarView.swift in Sources */,
 				D45338F9292825B200198411 /* ScheduleCardView.swift in Sources */,
 				D40D80A629252165008CA68D /* ViewExtensions.swift in Sources */,
+				D45338FD29297C8B00198411 /* DayUIModel.swift in Sources */,
 				D40D80C72925BA62008CA68D /* DrawerItem.swift in Sources */,
 				D40D80A929252688008CA68D /* RootView-ViewModel.swift in Sources */,
 				D4722161292455710063BDB7 /* APIClient.swift in Sources */,
 				D4BAE614292466F700143717 /* SchoolModelData.swift in Sources */,
+				D45338FF2929805100198411 /* StringExtensions.swift in Sources */,
 				D472215F292455710063BDB7 /* APITypes.swift in Sources */,
 				D4D4DD052927C88E0083BB7F /* BackButton.swift in Sources */,
 				D40D80A0292520C5008CA68D /* ToastModifier.swift in Sources */,
@@ -561,7 +585,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -615,7 +639,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -648,7 +672,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "tumble.tumble-ios";
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.tumble;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -679,7 +703,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "tumble.tumble-ios";
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.tumble;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

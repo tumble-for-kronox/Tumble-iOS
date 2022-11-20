@@ -10,3 +10,11 @@ import Foundation
 extension API.Types.Response.Schedule {
     
 }
+
+extension [API.Types.Response.Day] {
+    func toEvents() -> [API.Types.Response.Event] {
+        return self.map { day in
+            return day.events
+        }.reduce([], +)
+    }
+}
