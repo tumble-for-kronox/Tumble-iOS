@@ -7,16 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D40CC161292AFB9F00664776 /* ScheduleMainPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40CC160292AFB9F00664776 /* ScheduleMainPageView.swift */; };
+		D40CC163292AFE7200664776 /* SchedulePageMainView-ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40CC162292AFE7200664776 /* SchedulePageMainView-ViewModel.swift */; };
 		D40D808929247123008CA68D /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40D808829247123008CA68D /* RootView.swift */; };
 		D40D809829251EEF008CA68D /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40D809729251EEF008CA68D /* ToastView.swift */; };
 		D40D809B29251FD7008CA68D /* ToastStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40D809A29251FD7008CA68D /* ToastStyle.swift */; };
 		D40D809D29251FF6008CA68D /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40D809C29251FF6008CA68D /* Toast.swift */; };
 		D40D80A0292520C5008CA68D /* ToastModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40D809F292520C5008CA68D /* ToastModifier.swift */; };
 		D40D80A629252165008CA68D /* ViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40D80A529252165008CA68D /* ViewExtensions.swift */; };
-		D40D80A929252688008CA68D /* RootView-ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40D80A829252688008CA68D /* RootView-ViewModel.swift */; };
-		D40D80AD29252849008CA68D /* UserDefaultContstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40D80AC29252849008CA68D /* UserDefaultContstants.swift */; };
+		D40D80A929252688008CA68D /* TabSwitcherView-ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40D80A829252688008CA68D /* TabSwitcherView-ViewModel.swift */; };
 		D40D80B429252A5A008CA68D /* UserDefaultsClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40D80B329252A5A008CA68D /* UserDefaultsClient.swift */; };
-		D40D80BE29258CAF008CA68D /* BottomBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40D80BD29258CAF008CA68D /* BottomBarView.swift */; };
+		D40D80BE29258CAF008CA68D /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40D80BD29258CAF008CA68D /* TabBarView.swift */; };
 		D40D80C32925911D008CA68D /* DrawerContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40D80C22925911D008CA68D /* DrawerContent.swift */; };
 		D40D80C52925B97F008CA68D /* DrawerView-ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40D80C42925B97F008CA68D /* DrawerView-ViewModel.swift */; };
 		D40D80C72925BA62008CA68D /* DrawerItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40D80C62925BA62008CA68D /* DrawerItem.swift */; };
@@ -24,14 +25,29 @@
 		D40D80CC29265C36008CA68D /* SearchView-ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40D80CB29265C36008CA68D /* SearchView-ViewModel.swift */; };
 		D40D80CE29265D49008CA68D /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40D80CD29265D49008CA68D /* SearchBar.swift */; };
 		D40D80D22926A0A6008CA68D /* DrawerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40D80D12926A0A6008CA68D /* DrawerView.swift */; };
-		D45338F229280A7400198411 /* SchedulePreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45338F129280A7400198411 /* SchedulePreviewView.swift */; };
 		D45338F429280C4800198411 /* SchedulePreviewView-ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45338F329280C4800198411 /* SchedulePreviewView-ViewModel.swift */; };
 		D45338F629280E8400198411 /* ScheduleExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45338F529280E8400198411 /* ScheduleExtensions.swift */; };
 		D45338F9292825B200198411 /* ScheduleCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45338F8292825B200198411 /* ScheduleCardView.swift */; };
 		D45338FB2929730200198411 /* CustomProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45338FA2929730200198411 /* CustomProgressView.swift */; };
 		D45338FD29297C8B00198411 /* DayUIModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45338FC29297C8B00198411 /* DayUIModel.swift */; };
 		D45338FF2929805100198411 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45338FE2929805100198411 /* StringExtensions.swift */; };
-		D453390229299FB800198411 /* HomePageContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D453390129299FB800198411 /* HomePageContent.swift */; };
+		D453390229299FB800198411 /* HomePageQuickAccessOptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D453390129299FB800198411 /* HomePageQuickAccessOptionView.swift */; };
+		D4533904292A8A6100198411 /* HomePageQuickAccessSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4533903292A8A6100198411 /* HomePageQuickAccessSectionView.swift */; };
+		D4533907292A921B00198411 /* PermissionsSwiftUICamera in Frameworks */ = {isa = PBXBuildFile; productRef = D4533906292A921B00198411 /* PermissionsSwiftUICamera */; };
+		D4533909292A921B00198411 /* PermissionsSwiftUINotification in Frameworks */ = {isa = PBXBuildFile; productRef = D4533908292A921B00198411 /* PermissionsSwiftUINotification */; };
+		D4607632292AA39400DE9590 /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4607631292AA39400DE9590 /* Types.swift */; };
+		D4607634292AA83F00DE9590 /* TabSwitcherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4607633292AA83F00DE9590 /* TabSwitcherView.swift */; };
+		D4607637292AA8DE00DE9590 /* PopupView in Frameworks */ = {isa = PBXBuildFile; productRef = D4607636292AA8DE00DE9590 /* PopupView */; };
+		D460763B292AAD5400DE9590 /* PopupToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460763A292AAD5400DE9590 /* PopupToastView.swift */; };
+		D460763D292AAE7800DE9590 /* RootView-ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460763C292AAE7800DE9590 /* RootView-ViewModel.swift */; };
+		D4607641292AB18D00DE9590 /* HomePageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4607640292AB18D00DE9590 /* HomePageView.swift */; };
+		D4607643292AB1C000DE9590 /* HomePageView-ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4607642292AB1C000DE9590 /* HomePageView-ViewModel.swift */; };
+		D4607645292AC41D00DE9590 /* SearchResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4607644292AC41D00DE9590 /* SearchResultsView.swift */; };
+		D4607647292AE06600DE9590 /* SearchInitialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4607646292AE06600DE9590 /* SearchInitialView.swift */; };
+		D460764A292AE77E00DE9590 /* BubbleShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4607649292AE77E00DE9590 /* BubbleShape.swift */; };
+		D460764C292AEAEC00DE9590 /* ScheduleGrouperListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460764B292AEAEC00DE9590 /* ScheduleGrouperListView.swift */; };
+		D460764E292AF21900DE9590 /* SchedulePreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460764D292AF21900DE9590 /* SchedulePreviewView.swift */; };
+		D4607653292AF5DA00DE9590 /* DayHeaderSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4607652292AF5DA00DE9590 /* DayHeaderSectionView.swift */; };
 		D4722149292454560063BDB7 /* tumble_iosApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4722148292454560063BDB7 /* tumble_iosApp.swift */; };
 		D472214B292454560063BDB7 /* SchoolSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D472214A292454560063BDB7 /* SchoolSelectView.swift */; };
 		D472214D292454570063BDB7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D472214C292454570063BDB7 /* Assets.xcassets */; };
@@ -61,16 +77,17 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D40CC160292AFB9F00664776 /* ScheduleMainPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleMainPageView.swift; sourceTree = "<group>"; };
+		D40CC162292AFE7200664776 /* SchedulePageMainView-ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SchedulePageMainView-ViewModel.swift"; sourceTree = "<group>"; };
 		D40D808829247123008CA68D /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		D40D809729251EEF008CA68D /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
 		D40D809A29251FD7008CA68D /* ToastStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastStyle.swift; sourceTree = "<group>"; };
 		D40D809C29251FF6008CA68D /* Toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
 		D40D809F292520C5008CA68D /* ToastModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastModifier.swift; sourceTree = "<group>"; };
 		D40D80A529252165008CA68D /* ViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtensions.swift; sourceTree = "<group>"; };
-		D40D80A829252688008CA68D /* RootView-ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RootView-ViewModel.swift"; sourceTree = "<group>"; };
-		D40D80AC29252849008CA68D /* UserDefaultContstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultContstants.swift; sourceTree = "<group>"; };
+		D40D80A829252688008CA68D /* TabSwitcherView-ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TabSwitcherView-ViewModel.swift"; sourceTree = "<group>"; };
 		D40D80B329252A5A008CA68D /* UserDefaultsClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsClient.swift; sourceTree = "<group>"; };
-		D40D80BD29258CAF008CA68D /* BottomBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomBarView.swift; sourceTree = "<group>"; };
+		D40D80BD29258CAF008CA68D /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
 		D40D80C22925911D008CA68D /* DrawerContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawerContent.swift; sourceTree = "<group>"; };
 		D40D80C42925B97F008CA68D /* DrawerView-ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DrawerView-ViewModel.swift"; sourceTree = "<group>"; };
 		D40D80C62925BA62008CA68D /* DrawerItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawerItem.swift; sourceTree = "<group>"; };
@@ -78,14 +95,26 @@
 		D40D80CB29265C36008CA68D /* SearchView-ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SearchView-ViewModel.swift"; sourceTree = "<group>"; };
 		D40D80CD29265D49008CA68D /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		D40D80D12926A0A6008CA68D /* DrawerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawerView.swift; sourceTree = "<group>"; };
-		D45338F129280A7400198411 /* SchedulePreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulePreviewView.swift; sourceTree = "<group>"; };
 		D45338F329280C4800198411 /* SchedulePreviewView-ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SchedulePreviewView-ViewModel.swift"; sourceTree = "<group>"; };
 		D45338F529280E8400198411 /* ScheduleExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleExtensions.swift; sourceTree = "<group>"; };
 		D45338F8292825B200198411 /* ScheduleCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleCardView.swift; sourceTree = "<group>"; };
 		D45338FA2929730200198411 /* CustomProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomProgressView.swift; sourceTree = "<group>"; };
 		D45338FC29297C8B00198411 /* DayUIModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayUIModel.swift; sourceTree = "<group>"; };
 		D45338FE2929805100198411 /* StringExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
-		D453390129299FB800198411 /* HomePageContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageContent.swift; sourceTree = "<group>"; };
+		D453390129299FB800198411 /* HomePageQuickAccessOptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageQuickAccessOptionView.swift; sourceTree = "<group>"; };
+		D4533903292A8A6100198411 /* HomePageQuickAccessSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageQuickAccessSectionView.swift; sourceTree = "<group>"; };
+		D4607631292AA39400DE9590 /* Types.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Types.swift; sourceTree = "<group>"; };
+		D4607633292AA83F00DE9590 /* TabSwitcherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabSwitcherView.swift; sourceTree = "<group>"; };
+		D460763A292AAD5400DE9590 /* PopupToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupToastView.swift; sourceTree = "<group>"; };
+		D460763C292AAE7800DE9590 /* RootView-ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RootView-ViewModel.swift"; sourceTree = "<group>"; };
+		D4607640292AB18D00DE9590 /* HomePageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageView.swift; sourceTree = "<group>"; };
+		D4607642292AB1C000DE9590 /* HomePageView-ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomePageView-ViewModel.swift"; sourceTree = "<group>"; };
+		D4607644292AC41D00DE9590 /* SearchResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsView.swift; sourceTree = "<group>"; };
+		D4607646292AE06600DE9590 /* SearchInitialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchInitialView.swift; sourceTree = "<group>"; };
+		D4607649292AE77E00DE9590 /* BubbleShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleShape.swift; sourceTree = "<group>"; };
+		D460764B292AEAEC00DE9590 /* ScheduleGrouperListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleGrouperListView.swift; sourceTree = "<group>"; };
+		D460764D292AF21900DE9590 /* SchedulePreviewView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchedulePreviewView.swift; sourceTree = "<group>"; };
+		D4607652292AF5DA00DE9590 /* DayHeaderSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayHeaderSectionView.swift; sourceTree = "<group>"; };
 		D4722145292454560063BDB7 /* tumble-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "tumble-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4722148292454560063BDB7 /* tumble_iosApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tumble_iosApp.swift; sourceTree = "<group>"; };
 		D472214A292454560063BDB7 /* SchoolSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolSelectView.swift; sourceTree = "<group>"; };
@@ -121,6 +150,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4607637292AA8DE00DE9590 /* PopupView in Frameworks */,
+				D4533909292A921B00198411 /* PermissionsSwiftUINotification in Frameworks */,
+				D4533907292A921B00198411 /* PermissionsSwiftUICamera in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -130,6 +162,8 @@
 		D40D8092292517D4008CA68D /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				D4607648292AE77200DE9590 /* Shapes */,
+				D460763E292AB16300DE9590 /* Types */,
 				D40D80AB29252838008CA68D /* Utilities */,
 				D40D80A72925267F008CA68D /* ViewModels */,
 				D40D80A429252156008CA68D /* Extensions */,
@@ -141,7 +175,6 @@
 		D40D809629251EA5008CA68D /* Overlays */ = {
 			isa = PBXGroup;
 			children = (
-				D453390029299F9800198411 /* HomePage */,
 				D40D80BF292590EE008CA68D /* Drawer */,
 				D40D80BC29258CA0008CA68D /* TabBar */,
 				D40D809929251FC5008CA68D /* Toast */,
@@ -154,8 +187,8 @@
 		D40D809929251FC5008CA68D /* Toast */ = {
 			isa = PBXGroup;
 			children = (
-				D40D809729251EEF008CA68D /* ToastView.swift */,
-				D40D809A29251FD7008CA68D /* ToastStyle.swift */,
+				D4607639292AAD3B00DE9590 /* PopupViewToast */,
+				D4607638292AAD3100DE9590 /* CustomToast */,
 			);
 			path = Toast;
 			sourceTree = "<group>";
@@ -182,26 +215,20 @@
 		D40D80A72925267F008CA68D /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				D40D80A829252688008CA68D /* RootView-ViewModel.swift */,
+				D40D80A829252688008CA68D /* TabSwitcherView-ViewModel.swift */,
 				D40D80C42925B97F008CA68D /* DrawerView-ViewModel.swift */,
 				D40D80CB29265C36008CA68D /* SearchView-ViewModel.swift */,
 				D45338F329280C4800198411 /* SchedulePreviewView-ViewModel.swift */,
+				D460763C292AAE7800DE9590 /* RootView-ViewModel.swift */,
+				D4607642292AB1C000DE9590 /* HomePageView-ViewModel.swift */,
+				D40CC162292AFE7200664776 /* SchedulePageMainView-ViewModel.swift */,
 			);
 			path = ViewModels;
-			sourceTree = "<group>";
-		};
-		D40D80AA29252830008CA68D /* Constants */ = {
-			isa = PBXGroup;
-			children = (
-				D40D80AC29252849008CA68D /* UserDefaultContstants.swift */,
-			);
-			path = Constants;
 			sourceTree = "<group>";
 		};
 		D40D80AB29252838008CA68D /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				D40D80AA29252830008CA68D /* Constants */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -252,7 +279,7 @@
 		D40D80BC29258CA0008CA68D /* TabBar */ = {
 			isa = PBXGroup;
 			children = (
-				D40D80BD29258CAF008CA68D /* BottomBarView.swift */,
+				D40D80BD29258CAF008CA68D /* TabBarView.swift */,
 			);
 			path = TabBar;
 			sourceTree = "<group>";
@@ -270,10 +297,12 @@
 		D40D80C829265B85008CA68D /* Search */ = {
 			isa = PBXGroup;
 			children = (
+				D460764D292AF21900DE9590 /* SchedulePreviewView.swift */,
 				D40D80C929265B98008CA68D /* SearchView.swift */,
 				D40D80CD29265D49008CA68D /* SearchBar.swift */,
 				D4D4DD022927C7DA0083BB7F /* ProgrammeCardView.swift */,
-				D45338F129280A7400198411 /* SchedulePreviewView.swift */,
+				D4607644292AC41D00DE9590 /* SearchResultsView.swift */,
+				D4607646292AE06600DE9590 /* SearchInitialView.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -281,7 +310,10 @@
 		D45338F7292825A400198411 /* Schedule */ = {
 			isa = PBXGroup;
 			children = (
-				D45338F8292825B200198411 /* ScheduleCardView.swift */,
+				D4607651292AF5C600DE9590 /* Week */,
+				D4607650292AF5C100DE9590 /* Calendar */,
+				D460764F292AF5BB00DE9590 /* List */,
+				D40CC160292AFB9F00664776 /* ScheduleMainPageView.swift */,
 			);
 			path = Schedule;
 			sourceTree = "<group>";
@@ -289,9 +321,76 @@
 		D453390029299F9800198411 /* HomePage */ = {
 			isa = PBXGroup;
 			children = (
-				D453390129299FB800198411 /* HomePageContent.swift */,
+				D453390129299FB800198411 /* HomePageQuickAccessOptionView.swift */,
+				D4533903292A8A6100198411 /* HomePageQuickAccessSectionView.swift */,
+				D4607640292AB18D00DE9590 /* HomePageView.swift */,
 			);
 			path = HomePage;
+			sourceTree = "<group>";
+		};
+		D4607638292AAD3100DE9590 /* CustomToast */ = {
+			isa = PBXGroup;
+			children = (
+				D40D809729251EEF008CA68D /* ToastView.swift */,
+				D40D809A29251FD7008CA68D /* ToastStyle.swift */,
+			);
+			path = CustomToast;
+			sourceTree = "<group>";
+		};
+		D4607639292AAD3B00DE9590 /* PopupViewToast */ = {
+			isa = PBXGroup;
+			children = (
+				D460763A292AAD5400DE9590 /* PopupToastView.swift */,
+			);
+			path = PopupViewToast;
+			sourceTree = "<group>";
+		};
+		D460763E292AB16300DE9590 /* Types */ = {
+			isa = PBXGroup;
+			children = (
+				D4607631292AA39400DE9590 /* Types.swift */,
+			);
+			path = Types;
+			sourceTree = "<group>";
+		};
+		D460763F292AB17000DE9590 /* TabSwitcher */ = {
+			isa = PBXGroup;
+			children = (
+				D4607633292AA83F00DE9590 /* TabSwitcherView.swift */,
+			);
+			path = TabSwitcher;
+			sourceTree = "<group>";
+		};
+		D4607648292AE77200DE9590 /* Shapes */ = {
+			isa = PBXGroup;
+			children = (
+				D4607649292AE77E00DE9590 /* BubbleShape.swift */,
+			);
+			path = Shapes;
+			sourceTree = "<group>";
+		};
+		D460764F292AF5BB00DE9590 /* List */ = {
+			isa = PBXGroup;
+			children = (
+				D4607652292AF5DA00DE9590 /* DayHeaderSectionView.swift */,
+				D45338F8292825B200198411 /* ScheduleCardView.swift */,
+				D460764B292AEAEC00DE9590 /* ScheduleGrouperListView.swift */,
+			);
+			path = List;
+			sourceTree = "<group>";
+		};
+		D4607650292AF5C100DE9590 /* Calendar */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Calendar;
+			sourceTree = "<group>";
+		};
+		D4607651292AF5C600DE9590 /* Week */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Week;
 			sourceTree = "<group>";
 		};
 		D472213C292454560063BDB7 = {
@@ -344,6 +443,8 @@
 		D47221592924549B0063BDB7 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				D460763F292AB17000DE9590 /* TabSwitcher */,
+				D453390029299F9800198411 /* HomePage */,
 				D45338F7292825A400198411 /* Schedule */,
 				D40D80C829265B85008CA68D /* Search */,
 				D40D809E292520AA008CA68D /* ViewModifiers */,
@@ -426,6 +527,11 @@
 			dependencies = (
 			);
 			name = "tumble-ios";
+			packageProductDependencies = (
+				D4533906292A921B00198411 /* PermissionsSwiftUICamera */,
+				D4533908292A921B00198411 /* PermissionsSwiftUINotification */,
+				D4607636292AA8DE00DE9590 /* PopupView */,
+			);
 			productName = "tumble-ios";
 			productReference = D4722145292454560063BDB7 /* tumble-ios.app */;
 			productType = "com.apple.product-type.application";
@@ -454,6 +560,10 @@
 				Base,
 			);
 			mainGroup = D472213C292454560063BDB7;
+			packageReferences = (
+				D4533905292A921B00198411 /* XCRemoteSwiftPackageReference "PermissionsSwiftUI" */,
+				D4607635292AA8DE00DE9590 /* XCRemoteSwiftPackageReference "PopupView" */,
+			);
 			productRefGroup = D4722146292454560063BDB7 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -493,41 +603,54 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4607643292AB1C000DE9590 /* HomePageView-ViewModel.swift in Sources */,
 				D472214B292454560063BDB7 /* SchoolSelectView.swift in Sources */,
+				D460763D292AAE7800DE9590 /* RootView-ViewModel.swift in Sources */,
 				D40D809829251EEF008CA68D /* ToastView.swift in Sources */,
 				D4BAE5F82924636500143717 /* School.swift in Sources */,
 				D4BAE61C29246AF800143717 /* SchoolRow.swift in Sources */,
 				D40D808929247123008CA68D /* RootView.swift in Sources */,
 				D40D80D22926A0A6008CA68D /* DrawerView.swift in Sources */,
-				D40D80AD29252849008CA68D /* UserDefaultContstants.swift in Sources */,
+				D40CC161292AFB9F00664776 /* ScheduleMainPageView.swift in Sources */,
 				D40D80C32925911D008CA68D /* DrawerContent.swift in Sources */,
 				D40D80CE29265D49008CA68D /* SearchBar.swift in Sources */,
 				D40D80B429252A5A008CA68D /* UserDefaultsClient.swift in Sources */,
 				D4722149292454560063BDB7 /* tumble_iosApp.swift in Sources */,
 				D4722160292455710063BDB7 /* API.swift in Sources */,
-				D45338F229280A7400198411 /* SchedulePreviewView.swift in Sources */,
 				D45338F629280E8400198411 /* ScheduleExtensions.swift in Sources */,
 				D45338FB2929730200198411 /* CustomProgressView.swift in Sources */,
+				D4607634292AA83F00DE9590 /* TabSwitcherView.swift in Sources */,
 				D40D80C52925B97F008CA68D /* DrawerView-ViewModel.swift in Sources */,
+				D460763B292AAD5400DE9590 /* PopupToastView.swift in Sources */,
 				D4D4DD032927C7DA0083BB7F /* ProgrammeCardView.swift in Sources */,
-				D453390229299FB800198411 /* HomePageContent.swift in Sources */,
+				D453390229299FB800198411 /* HomePageQuickAccessOptionView.swift in Sources */,
+				D4533904292A8A6100198411 /* HomePageQuickAccessSectionView.swift in Sources */,
 				D40D809B29251FD7008CA68D /* ToastStyle.swift in Sources */,
 				D40D80CA29265B98008CA68D /* SearchView.swift in Sources */,
-				D40D80BE29258CAF008CA68D /* BottomBarView.swift in Sources */,
+				D40D80BE29258CAF008CA68D /* TabBarView.swift in Sources */,
+				D4607645292AC41D00DE9590 /* SearchResultsView.swift in Sources */,
 				D45338F9292825B200198411 /* ScheduleCardView.swift in Sources */,
+				D4607632292AA39400DE9590 /* Types.swift in Sources */,
+				D4607653292AF5DA00DE9590 /* DayHeaderSectionView.swift in Sources */,
 				D40D80A629252165008CA68D /* ViewExtensions.swift in Sources */,
 				D45338FD29297C8B00198411 /* DayUIModel.swift in Sources */,
+				D460764A292AE77E00DE9590 /* BubbleShape.swift in Sources */,
+				D460764C292AEAEC00DE9590 /* ScheduleGrouperListView.swift in Sources */,
 				D40D80C72925BA62008CA68D /* DrawerItem.swift in Sources */,
-				D40D80A929252688008CA68D /* RootView-ViewModel.swift in Sources */,
+				D40D80A929252688008CA68D /* TabSwitcherView-ViewModel.swift in Sources */,
 				D4722161292455710063BDB7 /* APIClient.swift in Sources */,
 				D4BAE614292466F700143717 /* SchoolModelData.swift in Sources */,
 				D45338FF2929805100198411 /* StringExtensions.swift in Sources */,
 				D472215F292455710063BDB7 /* APITypes.swift in Sources */,
 				D4D4DD052927C88E0083BB7F /* BackButton.swift in Sources */,
 				D40D80A0292520C5008CA68D /* ToastModifier.swift in Sources */,
+				D4607647292AE06600DE9590 /* SearchInitialView.swift in Sources */,
 				D40D809D29251FF6008CA68D /* Toast.swift in Sources */,
+				D40CC163292AFE7200664776 /* SchedulePageMainView-ViewModel.swift in Sources */,
 				D4D4DD202927CBDA0083BB7F /* FontExstensions.swift in Sources */,
 				D40D80CC29265C36008CA68D /* SearchView-ViewModel.swift in Sources */,
+				D4607641292AB18D00DE9590 /* HomePageView.swift in Sources */,
+				D460764E292AF21900DE9590 /* SchedulePreviewView.swift in Sources */,
 				D45338F429280C4800198411 /* SchedulePreviewView-ViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -585,7 +708,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -639,7 +762,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -661,6 +784,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "tumble-ios/Info.plist";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Camera is used for scanning QR codes for room booking functionality in Universities";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -692,6 +816,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "tumble-ios/Info.plist";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Camera is used for scanning QR codes for room booking functionality in Universities";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -733,6 +858,43 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		D4533905292A921B00198411 /* XCRemoteSwiftPackageReference "PermissionsSwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/jevonmao/PermissionsSwiftUI";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+		D4607635292AA8DE00DE9590 /* XCRemoteSwiftPackageReference "PopupView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/exyte/PopupView.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		D4533906292A921B00198411 /* PermissionsSwiftUICamera */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D4533905292A921B00198411 /* XCRemoteSwiftPackageReference "PermissionsSwiftUI" */;
+			productName = PermissionsSwiftUICamera;
+		};
+		D4533908292A921B00198411 /* PermissionsSwiftUINotification */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D4533905292A921B00198411 /* XCRemoteSwiftPackageReference "PermissionsSwiftUI" */;
+			productName = PermissionsSwiftUINotification;
+		};
+		D4607636292AA8DE00DE9590 /* PopupView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D4607635292AA8DE00DE9590 /* XCRemoteSwiftPackageReference "PopupView" */;
+			productName = PopupView;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = D472213D292454560063BDB7 /* Project object */;
 }

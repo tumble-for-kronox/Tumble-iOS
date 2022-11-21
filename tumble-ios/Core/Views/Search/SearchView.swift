@@ -12,60 +12,37 @@ struct SearchView: View {
     var body: some View {
         ZStack {
             VStack (spacing: 0) {
-                if (viewModel.status == .initial && !viewModel.isEditing) {
-                    HStack (alignment: .center) {
-                        Text("Find schedules by program, course or name")
-                            .font(.title2)
-                            .padding(20)
-                            .foregroundColor(Color("BackgroundColor"))
-                            .cornerRadius(10)
-                            .background(Color("PrimaryColor").opacity(0.75))
-                            .clipShape(RoundedRectangle(cornerRadius: 25, style: .continuous))
-                            .padding(20)
-                    }
-                    .animation(.easeOut, value: viewModel.isEditing)
-                    .animation(.easeIn, value: viewModel.isEditing)
-                }
-                SearchBar()
-                    .animation(.easeOut, value: viewModel.isEditing)
-                    .environmentObject(viewModel)
-                    .padding(.leading, 30)
-                    .padding(.trailing, 30)
-                    .padding(.top, 15)
-                    .onSubmit {
-                        if(!viewModel.searchText.trimmingCharacters(in: .whitespaces).isEmpty) {
-                            viewModel.status = .loading
-                            viewModel.fetchResults(searchQuery: viewModel.searchText)
-                        }
-                    }
                 Spacer()
-                if (viewModel.status == .loading) {
-                    CustomProgressView()
-                    Spacer()
-                }
-                if (viewModel.status == .loaded) {
-                    VStack {
-                        HStack {
-                            Text("Results: \(viewModel.numberOfSearchResults)")
-                                .font(.headline)
-                                .padding(.leading, 20)
-                                .padding(.top, 20)
-                                .padding(.bottom, 10)
-                            Spacer()
+                self.onBuild()
+                SearchBar()
+                    .environmentObject(viewModel)
+                    .onSubmit {
+                        if(!viewModel.searchBarText.trimmingCharacters(in: .whitespaces).isEmpty) {
+                            viewModel.onSearchProgrammes(searchQuery: viewModel.searchBarText)
                         }
-                        List(viewModel.searchResults, id: \.id) { programme in
-                            ProgrammeCardView(logo: viewModel.school.logo, programme: programme)
-                                .onTapGesture(perform: {
-                                    viewModel.loadSchedule(programme: programme)
-                                })
-                        }.animation(.easeIn, value: viewModel.status == .loaded)
                     }
-                }
             }
-            
         }
         .sheet(isPresented: $viewModel.presentPreview) {
-            SchedulePreviewView().environmentObject(viewModel)
+            SchedulePreviewView()
+                .environmentObject(viewModel)
         }
+    }
+    
+    private func onBuild() -> AnyView {
+        switch viewModel.status {
+            case .initial:
+                return AnyView(SearchInitialView())
+            case .loading:
+                return AnyView(CustomProgressView())
+            case .loaded:
+            return AnyView(SearchResultsView(searchText: viewModel.searchResultText, numberOfSearchResults: viewModel.numberOfSearchResults, searchResults: viewModel.searchResults, onLoadSchedule: { programme in
+                    viewModel.onLoadSchedule(programme: programme)
+                }))
+            case .error:
+                return AnyView(Text("Error"))
+            case .empty:
+                return AnyView(Text("Schedule is empty"))
+            }
     }
 }

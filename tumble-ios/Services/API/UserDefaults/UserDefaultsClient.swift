@@ -16,6 +16,11 @@ extension UserDefaults {
         UserDefaults.standard.synchronize()
     }
     
+    public func setUserOnboarded() -> Void {
+        UserDefaults.standard.set(true, forKey: StoreKey.userOnboarded.rawValue)
+        UserDefaults.standard.synchronize()
+    }
+    
     public func setOffset(offset: Int) -> Void {
         UserDefaults.standard.set(offset, forKey: StoreKey.notifOffset.rawValue)
         UserDefaults.standard.synchronize()
@@ -53,10 +58,20 @@ extension UserDefaults {
         UserDefaults.standard.synchronize()
     }
     
+    public func setViewType(viewType: Int) {
+        UserDefaults.standard.set(viewType, forKey: StoreKey.viewType.rawValue)
+        UserDefaults.standard.synchronize()
+    }
+    
     
     // ----------- GET -----------
     func getDefault(key: String) -> Any? {
         return UserDefaults.standard.object(forKey: key)
+    }
+    
+    func getDefaultSchool() -> School {
+        let id: Int = UserDefaults.standard.getDefault(key: UserDefaults.StoreKey.school.rawValue) as! Int
+        return schools.first(where: {$0.id == id})!
     }
     
     func isKeyPresentInUserDefaults(key: String) -> Bool {
@@ -64,34 +79,15 @@ extension UserDefaults {
     }
     
     enum StoreKey: String {
-        case school
-        case bookmark
-        case theme
-        case lang
-        case notifAllowed
-        case notifOffset
-        case locale
-        case autoSign
-        
-        var key: String {
-            switch self {
-            case .school:
-                return "SCHOOL"
-            case .bookmark:
-                return "BOOKMARK"
-            case .theme:
-                return "THEME"
-            case .lang:
-                return "LANG"
-            case .notifAllowed:
-                return "NOTIF_ALLOW"
-            case .notifOffset:
-                return "NOTIF_OFFSET"
-            case .locale:
-                return "LOCALE"
-            case .autoSign:
-                return "AUTO_SIGN"
-            }
-        }
+        case school = "SCHOOL"
+        case bookmark = "BOOKMARK"
+        case theme = "THEME"
+        case lang = "LANG"
+        case notifAllowed = "NOTIF_ALLOW"
+        case notifOffset = "NOTIF_OFFSET"
+        case locale = "LOCALE"
+        case autoSign = "AUTO_SIGN"
+        case viewType = "VIEW"
+        case userOnboarded = "USER_ONBOARDED"
     }
 }

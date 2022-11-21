@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 enum SearchStatus {
     case initial
@@ -24,7 +25,8 @@ enum PreviewDelegateStatus {
 
 extension SearchView {
     @MainActor class SearchViewModel: ObservableObject {
-        @Published var searchText: String = ""
+        @Published var searchBarText: String = ""
+        @Published var searchResultText: String = ""
         @Published var isEditing: Bool = false
         @Published var status: SearchStatus = .initial
         @Published var numberOfSearchResults: Int = 0
@@ -32,23 +34,19 @@ extension SearchView {
         @Published var scheduleForPreview: API.Types.Response.Schedule? = nil
         @Published var presentPreview: Bool = false
         @Published var previewDelegateStatus: PreviewDelegateStatus = .loading
-        @Published var school: School = {
-            var id: Int = UserDefaults.standard.getDefault(key: UserDefaults.StoreKey.school.rawValue) as! Int
-            return schools.first(where: {$0.id == id})!
-        } ()
-        
+        @Published var school: School = UserDefaults.standard.getDefaultSchool()
         private var client: API.Client = API.Client.shared
         
-        func fetchResults(searchQuery: String) -> Void {
-            print("Got here ..")
+        func onSearchProgrammes(searchQuery: String) -> Void {
+            self.status = .loading
+            self.searchResultText = self.searchBarText
             client.get(.searchProgramme(searchQuery: searchQuery, schoolId: String(school.id))) { (result: Result<API.Types.Response.Search, API.Types.Error>) in
                 DispatchQueue.main.async {
-                    
                     switch result {
                     case .success(let success):
                         self.status = SearchStatus.loading
                         self.parseSearchResults(success)
-                    case .failure(let failure):
+                    case .failure( _):
                         self.status = SearchStatus.error
                         print("error")
                     }
@@ -56,29 +54,14 @@ extension SearchView {
             }
         }
         
-        private func parseSearchResults(_ results: API.Types.Response.Search) -> Void {
-            var localResults = [API.Types.Response.Programme]()
-            self.numberOfSearchResults = results.count
-            for result in results.items {
-                localResults.append(result)
+        func onClearSearch(endEditing: Bool) -> Void {
+            if (endEditing) {
+                self.isEditing = false
             }
-            self.searchResults = localResults
-            self.status = .loaded
+            self.searchBarText = ""
         }
         
-        private func loadScheduleForPreview(schedule: API.Types.Response.Schedule) -> Void {
-            
-        }
-        
-        func clearSearch() -> Void {
-            self.isEditing = false
-            self.searchText = ""
-            self.status = .initial
-            self.searchResults = []
-            self.numberOfSearchResults = 0
-        }
-        
-        func loadSchedule(programme: API.Types.Response.Programme) -> Void {
+        func onLoadSchedule(programme: API.Types.Response.Programme) -> Void {
             self.presentPreview = true
             client.get(.schedule(scheduleId: programme.id, schoolId: String(school.id))) { (result: Result<API.Types.Response.Schedule, API.Types.Error>) in
                 DispatchQueue.main.async {
@@ -87,11 +70,23 @@ extension SearchView {
                         self.scheduleForPreview = schedule
                         self.presentPreview = true
                         self.previewDelegateStatus = .loaded
-                    case .failure(let failure):
+                    case .failure(_):
                         self.previewDelegateStatus = .error
                     }
                 }
             }
+        }
+        
+        
+        // Private functions
+        private func parseSearchResults(_ results: API.Types.Response.Search) -> Void {
+            var localResults = [API.Types.Response.Programme]()
+            self.numberOfSearchResults = results.count
+            for result in results.items {
+                localResults.append(result)
+            }
+            self.searchResults = localResults
+            self.status = .loaded
         }
     }
 }

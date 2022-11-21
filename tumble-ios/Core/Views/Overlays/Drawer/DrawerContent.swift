@@ -16,29 +16,29 @@ struct DrawerContent: View {
             VStack (alignment: .center, spacing: 0) {
                 Group {
                     DrawerItem(onClick: {
-                        showSheet(1)
+                        showSheet(0)
                     }, title: "Language", image: "textformat.abc")
                     
                 }
                 Group {
                     DrawerItem(onClick: {
-                        showSheet(2)
+                        showSheet(1)
                     }, title: "Notifications", image: "bell.badge")
                     DrawerItem(onClick: {
-                        showSheet(3)
+                        showSheet(2)
                     }, title: "Schedules", image: "bookmark")
                     DrawerItem(onClick: {
-                        showSheet(4)
+                        showSheet(3)
                     }, title: "School", image: "arrow.left.arrow.right")
                     
                     
                 }
                 Group {
                     DrawerItem(onClick: {
-                        showSheet(5)
+                        showSheet(4)
                     }, title: "Theme", image: "apps.iphone")
                     DrawerItem(onClick: {
-                        showSheet(6)
+                        showSheet(5)
                     }, title: "Support", image: "questionmark.circle")
                     
                 }
@@ -48,7 +48,7 @@ struct DrawerContent: View {
                     .font(.caption)
                     .foregroundColor(.white)
             }
-            .padding(.top, 70)
+            .padding(.top, 90)
             .padding(.leading, 15)
             .padding(.trailing, 15)
             

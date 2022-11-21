@@ -12,13 +12,7 @@ struct SchedulePreviewView: View {
     @StateObject var viewModel: SchedulePreviewViewModel = SchedulePreviewViewModel()
     var body: some View {
         if (parentViewModel.previewDelegateStatus == .loaded) {
-            ScrollView {
-                LazyVStack {
-                    ForEach(parentViewModel.scheduleForPreview!.days.toEvents(), id: \.id) { event in
-                        ScheduleCardView(event: event)
-                    }
-                }
-            }
+            ScheduleGrouperListView(days: parentViewModel.scheduleForPreview!.days.toUiModel())
         }
         if (parentViewModel.previewDelegateStatus == .loading) {
             CustomProgressView()
