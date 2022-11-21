@@ -13,6 +13,7 @@ extension Font {
     static let mediumSmallFont = Font.custom("roboto_regular", size: Font.TextStyle.footnote.size, relativeTo: .caption)
     static let smallFont = Font.custom("roboto_regular", size: Font.TextStyle.caption.size, relativeTo: .caption)
     static let verySmallFont = Font.custom("roboto_regular", size: Font.TextStyle.caption2.size, relativeTo: .caption)
+    static let drawerItemFont = Font.custom("roboto_regular", size: 16, relativeTo: .caption)
 }
 
 extension Font.TextStyle {
@@ -26,7 +27,7 @@ extension Font.TextStyle {
         case .subheadline, .callout: return 16
         case .footnote: return 14
         case .caption: return 15
-        case .caption2: return 10
+        case .caption2: return 18
         @unknown default:
             return 8
         }
