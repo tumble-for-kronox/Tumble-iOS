@@ -12,4 +12,9 @@ extension View {
     func toastView(toast: Binding<Toast?>) -> some View {
         self.modifier(ToastModifier(toast: toast))
     }
+    
+    func hideKeyboard() {
+        let resign = #selector(UIResponder.resignFirstResponder)
+        UIApplication.shared.sendAction(resign, to: nil, from: nil, for: nil)
+    }
 }

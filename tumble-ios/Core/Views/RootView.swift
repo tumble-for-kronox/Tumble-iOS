@@ -8,112 +8,25 @@
 import Foundation
 
 import SwiftUI
-
+import PermissionsSwiftUICamera
+import PermissionsSwiftUINotification
 
 struct RootView: View {
     @StateObject private var viewModel = RootViewModel()
     var body: some View {
         ZStack {
-            Color("BackgroundColor")
-                .ignoresSafeArea()
-            HomeView()
-                .environmentObject(viewModel)
+            TabSwitcherView()
                 // Picker sheet will appear if school is not set
                 .sheet(isPresented: $viewModel.missingSchool) {
                     SchoolSelectView(selectSchoolCallback: { school in
-                        viewModel.selectSchool(school: school)
+                        viewModel.onSelectSchool(school: school)
                     }).interactiveDismissDisabled(true)
                 
             }
         }
-    }
-}
-
-struct HomeView: View {
-    @EnvironmentObject var rootViewModel: RootView.RootViewModel
-    let drawerWidth: CGFloat = UIScreen.main.bounds.width/3.25
-    var body: some View {
-        ZStack(alignment: .leading) {
-            DrawerView(drawerWidth: drawerWidth)
-                .environmentObject(rootViewModel)
-                .sheet(isPresented: $rootViewModel.showDrawerSheet, content: {
-                    switch rootViewModel.drawerSheetType {
-                    case 0:
-                        SchoolSelectView(selectSchoolCallback: { schoolName in
-                            rootViewModel.selectSchool(school: schoolName)
-                        })
-                    default:
-                        Text("")
-                    }
-                })
-            NavigationView {
-                VStack {
-                    VStack {
-                        HStack {
-                            HomePageContent(title: "Booked rooms", image: "studentdesk", onClick: {
-                                
-                            })
-                            HomePageContent(title: "Registered exams", image: "person.crop.circle.badge.checkmark", onClick: {
-                                
-                            })
-                            HomePageContent(title: "Your schedules", image: "list.star", onClick: {
-                                
-                            })
-                        }
-                        .padding(.top, 45)
-                        Spacer()
-                        BottomBarView()
-                            .environmentObject(rootViewModel)
-                            
-                    }
-                }
-                .navigationBarTitleDisplayMode(.inline)
-                .toolbar {
-                    ToolbarItem(placement: .principal) {
-                        VStack {
-                            Text(rootViewModel.selectedTab.displayName)
-                                .font(.headline)
-                                .foregroundColor(.black)
-                                .padding(.top, 10)
-                        }
-                    }
-                }
-                .navigationBarItems(leading: Button(action: {
-                    rootViewModel.toggleDrawer()
-                }, label: {
-                    Image(systemName: "gearshape")
-                        .foregroundColor(.black)
-                }), trailing: NavigationLink(destination:
-                    SearchView()
-                    .navigationBarBackButtonHidden(true)
-                    .navigationBarItems(leading: BackButton()), label: {
-                    Image(systemName: "magnifyingglass")
-                        .foregroundColor(.black)
-                }))
-                    .foregroundColor(.gray)
-                    .font(.system(size: 22))
-            }
-            .overlay(
-                Group {
-                    if rootViewModel.menuOpened {
-                        Color.white
-                            .opacity(rootViewModel.menuOpened ? 0.01 : 0)
-                            .onTapGesture {
-                                rootViewModel.toggleDrawer()
-                            }
-                    } else {
-                        Color.clear
-                        .opacity(rootViewModel.menuOpened ? 0 : 0)
-                        .onTapGesture {
-                            rootViewModel.toggleDrawer()
-                        }
-                    }
-                }
-            )
-            .offset(x: rootViewModel.menuOpened ? drawerWidth : 0, y: 0)
-            .animation(Animation.easeInOut.speed(2))
-
+        .ignoresSafeArea(.keyboard)
+        .JMAlert(showModal: $viewModel.userOnboarded, for: [.notification, .camera]).onSubmit {
+            viewModel.onUserOnboarded()
         }
-        .edgesIgnoringSafeArea(.all)
     }
 }

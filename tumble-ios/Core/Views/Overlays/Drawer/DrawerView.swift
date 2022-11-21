@@ -8,15 +8,16 @@
 import SwiftUI
 
 struct DrawerView: View {
-    @EnvironmentObject var rootViewModel: RootView.RootViewModel
+    @EnvironmentObject var parentViewModel: TabSwitcherView.TabSwitcherViewModel
     var drawerWidth: CGFloat
     var body: some View {
         DrawerContent(showSheet: { id in
-            rootViewModel.onClickDrawerRow(index: id)
+            parentViewModel.onClickDrawerRow(drawerSheetType: id)
         })
         .frame(width: drawerWidth, alignment: .center)
-        .offset(x: rootViewModel.menuOpened ? 0 : -1 * drawerWidth, y: 0)
-        .animation(.easeInOut.speed(2))
+        .offset(x: parentViewModel.menuOpened ? 0 : -1 * drawerWidth, y: 0)
+        .animation(.easeIn.speed(2), value: parentViewModel.menuOpened)
+        .animation(.easeOut.speed(2), value: !parentViewModel.menuOpened)
         
     }
 }

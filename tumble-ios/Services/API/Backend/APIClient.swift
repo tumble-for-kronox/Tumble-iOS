@@ -17,10 +17,8 @@ extension API {
         func fetch<Request, Response>(_ endpoint: Types.Endpoint, method: Types.Method = .get, body: Request? = nil,
             then callback: ((Result<Response, Types.Error>) -> Void)? = nil
         ) where Request: Codable, Response: Codable {
-            print("HERE")
             var urlRequest = URLRequest(url: endpoint.url)
             urlRequest.httpMethod = method.rawValue
-            print(urlRequest)
             // If a body is attached to the fetch call, encode the request body
             if let body = body {
                 do {

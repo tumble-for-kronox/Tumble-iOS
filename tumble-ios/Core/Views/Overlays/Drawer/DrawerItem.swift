@@ -16,16 +16,18 @@ struct DrawerItem: View {
             Button(action: onClick, label: {
                 Image(systemName: image)
                     .font(.system(size: 23))
+                    .frame(width: 23, height: 23)
                     .foregroundColor(.white)
                     .padding(20)
-                    .background(Color("PrimaryColor").opacity(0.85))
+                    .background(Color("PrimaryColor").opacity(95))
                     .clipShape(Circle())
+                
             })
             Text(title)
                 .font(.mediumFont)
-                .fontWeight(.bold)
-                .foregroundColor(Color("BackgroundColor"))
+                .bold()
+                .foregroundColor(.white)
         }
-        .padding(.bottom, 25)
+        .padding(.bottom, 20)
     }
 }

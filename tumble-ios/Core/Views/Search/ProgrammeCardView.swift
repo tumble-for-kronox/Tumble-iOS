@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct ProgrammeCardView: View {
-    var logo: Image
     var programme: API.Types.Response.Programme
     var body: some View {
         HStack {

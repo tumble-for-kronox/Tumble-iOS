@@ -1,0 +1,32 @@
+{
+  "pins" : [
+    {
+      "identity" : "permissionsswiftui",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/jevonmao/PermissionsSwiftUI",
+      "state" : {
+        "revision" : "8b0b2e6b4ddf52d0d41f5f7b06e139f498f84e6b",
+        "version" : "1.5.6"
+      }
+    },
+    {
+      "identity" : "popupview",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/exyte/PopupView.git",
+      "state" : {
+        "revision" : "3c82a7d09ba44e1c7d8a2f7d17657de2e03d0f24",
+        "version" : "1.2.1"
+      }
+    },
+    {
+      "identity" : "swiftui-introspect",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/siteline/SwiftUI-Introspect",
+      "state" : {
+        "revision" : "f2616860a41f9d9932da412a8978fec79c06fe24",
+        "version" : "0.1.4"
+      }
+    }
+  ],
+  "version" : 2
+}

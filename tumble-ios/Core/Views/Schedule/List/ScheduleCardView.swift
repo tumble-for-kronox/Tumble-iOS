@@ -13,7 +13,7 @@ struct ScheduleCardView: View {
         ZStack {
             RoundedRectangle(cornerRadius: 10)
                 .fill(Color.red)
-                .shadow(radius: 2.5)
+                .shadow(radius: 1)
             Rectangle()
                 .fill(.white)
                 .offset(x: 10)
@@ -34,7 +34,6 @@ struct ScheduleCardView: View {
                 VStack (alignment: .leading) {
                     Text(event.title)
                         .font(.title2)
-                        .bold()
                         .padding(.leading, 25)
                         .padding(.trailing, 25)
                         .padding(.bottom, 2.5)
@@ -45,6 +44,17 @@ struct ScheduleCardView: View {
                             .padding(.bottom, 10)
                         Spacer()
                     }
+                    HStack {
+                        Spacer()
+                        Text(event.locations.first?.id ?? "Unknown")
+                            .font(.title3)
+                            .foregroundColor(.black)
+                        Image(systemName: "location")
+                            .font(.title3)
+                            .foregroundColor(.black)
+                            .padding(.trailing, 5)
+                    }
+                    .padding(.trailing, 10)
                     Spacer()
                 }
                 Spacer()
@@ -54,8 +64,6 @@ struct ScheduleCardView: View {
         .frame(height: 155)
         .padding(.leading, 20)
         .padding(.trailing, 20)
-        .padding(.bottom, 15)
-        .padding(.top, 15)
     }
 }
 

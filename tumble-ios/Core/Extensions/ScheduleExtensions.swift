@@ -12,9 +12,9 @@ extension API.Types.Response.Schedule {
 }
 
 extension [API.Types.Response.Day] {
-    func toEvents() -> [API.Types.Response.Event] {
+    func toUiModel() -> [DayUiModel] {
         return self.map { day in
-            return day.events
-        }.reduce([], +)
+            return DayUiModel(name: day.name, date: day.date, isoString: day.isoString, weekNumber: day.weekNumber, events: day.events)
+        }
     }
 }
