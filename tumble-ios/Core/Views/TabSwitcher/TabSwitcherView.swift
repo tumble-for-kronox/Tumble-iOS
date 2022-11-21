@@ -10,7 +10,7 @@ import PopupView
 
 struct TabSwitcherView: View {
     @StateObject var viewModel: TabSwitcherViewModel = TabSwitcherViewModel()
-    let drawerWidth: CGFloat = UIScreen.main.bounds.width/3.25
+    let drawerWidth: CGFloat = UIScreen.main.bounds.width/2.85
     var body: some View {
         ZStack(alignment: .leading) {
             DrawerView(drawerWidth: drawerWidth)
@@ -31,29 +31,18 @@ struct TabSwitcherView: View {
                             .environmentObject(viewModel)
                             
                     }
-                }
-                .navigationBarTitleDisplayMode(.inline)
-                .toolbar {
-                    ToolbarItem(placement: .principal) {
-                        VStack {
-                            Text(viewModel.selectedTab.displayName)
-                                .font(.headline)
-                                .foregroundColor(.black)
-                                .padding(.top, 10)
-                        }
-                    }
-                }
+                }                
                 .navigationBarItems(leading: Button(action: {
                     viewModel.onToggleDrawer()
                 }, label: {
                     Image(systemName: "gearshape")
-                        .foregroundColor(.black)
+                        .foregroundColor(Color("SecondaryColor"))
                 }), trailing: NavigationLink(destination:
                     SearchView()
                     .navigationBarBackButtonHidden(true)
                     .navigationBarItems(leading: BackButton()), label: {
                     Image(systemName: "magnifyingglass")
-                        .foregroundColor(.black)
+                        .foregroundColor(Color("SecondaryColor"))
                 }))
                     .foregroundColor(.gray)
                     .font(.system(size: 22))

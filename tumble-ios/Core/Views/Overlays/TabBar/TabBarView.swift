@@ -31,7 +31,7 @@ struct TabBarView: View {
                             .padding(.bottom, 5)
                         Text(tab.displayName)
                             .font(.system(size: 10))
-                            .foregroundColor(parentViewModel.selectedTab == tab ? Color("PrimaryColor").opacity(0.85) : .black.opacity(0.90))
+                            .foregroundColor(parentViewModel.selectedTab == tab ? Color("PrimaryColor").opacity(0.85) : Color("SecondaryColor").opacity(0.90))
                     }
                     .animation(Animation.easeIn.speed(2), value: parentViewModel.animateTransition)
                     Spacer()

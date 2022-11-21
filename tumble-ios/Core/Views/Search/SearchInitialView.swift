@@ -11,15 +11,15 @@ struct SearchInitialView: View {
     var body: some View {
         VStack {
             Spacer()
-            Text("So, this is where you find your schedules.")
+            Text("This is where you find your schedules.")
                 .font(.headline)
                 .padding(20)
                 .background(Color("PrimaryColor").opacity(0.75))
                 .clipShape(BubbleShape(myMessage: true))
                 .foregroundColor(.white)
-                .padding(.bottom, 30)
+                .padding(.bottom, 25)
                 .padding(.leading, 5)
-            Text("You can try searching for your program name, what you study, or even your own name if you're a teacher!")
+            Text("Try searching for your program code, what you study, or even your own name if you're a teacher!")
                 .font(.headline)
                 .padding(20)
                 .background(Color("PrimaryColor").opacity(0.75))
@@ -27,14 +27,8 @@ struct SearchInitialView: View {
                 .foregroundColor(.white)
                 .padding(.bottom, 30)
         }
-        .padding(.bottom, 30)
+        .padding(.bottom, 10)
         .padding(.leading, 15)
         .padding(.trailing, 15)
-    }
-}
-
-struct SearchInitialView_Previews: PreviewProvider {
-    static var previews: some View {
-        SearchInitialView()
     }
 }
