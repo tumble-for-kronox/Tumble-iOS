@@ -26,11 +26,13 @@ struct HomePageView: View {
             QuickAccessOption(id: .exams, title: "Registered exams", image: "text.badge.checkmark", onClick: {}, backgroundColor: backgroundColor, iconColor: iconColor),
             QuickAccessOption(id: .schedules, title: "View a schedule", image: "list.clipboard", onClick: {}, backgroundColor: backgroundColor, iconColor: iconColor)
         ])
+        .padding(.top, 25)
         
         HomePageQuickAccessSectionView(title: "Links", image: "paperclip.badge.ellipsis", quickAccessOptions: [
             QuickAccessOption(id: .canvas, title: "Canvas", image: "paperclip", onClick: {}, backgroundColor: Color.red.opacity(0.75), iconColor: Color.red.opacity(0.95)),
             QuickAccessOption(id: .ladok, title: "Ladok", image: "paperclip", onClick: {}, backgroundColor: Color.green.opacity(0.75), iconColor: Color.green.opacity(0.95)),
             QuickAccessOption(id: .kronox, title: "Kronox", image: "paperclip", onClick: {}, backgroundColor: Color.blue.opacity(0.75), iconColor: Color.blue.opacity(0.95))
             ])
+        .padding(.top, 25)
     }
 }

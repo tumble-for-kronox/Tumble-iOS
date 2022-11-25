@@ -13,35 +13,30 @@ struct TabBarView: View {
         parentViewModel.selectedTab.rawValue + ".fill"
     }
     var body: some View {
-        VStack {
-            
-            HStack {
-                ForEach(TabType.allValues, id: \.rawValue) { tab in
-                    Spacer()
-                    VStack {
-                        Image(systemName: parentViewModel.selectedTab == tab ? fillImage : tab.rawValue)
-                            .scaleEffect(parentViewModel.selectedTab == tab ? 1.25 : 1.0)
-                            .foregroundColor(parentViewModel.selectedTab == tab ? Color("PrimaryColor").opacity(0.85) : .black)
-                            .font(.system(size: 20))
-                            .onTapGesture {
-                                if !(parentViewModel.selectedTab == tab) {
-                                    parentViewModel.onChangeTab(tab: tab)
-                                }
+        HStack {
+            ForEach(TabType.allValues, id: \.rawValue) { tab in
+                Spacer()
+                VStack (spacing: 0) {
+                    Image(systemName: parentViewModel.selectedTab == tab ? fillImage : tab.rawValue)
+                        .scaleEffect(parentViewModel.selectedTab == tab ? 1.10 : 1.0)
+                        .foregroundColor(parentViewModel.selectedTab == tab ? Color("PrimaryColor").opacity(0.85) : Color("OnBackground"))
+                        .font(.system(size: 17))
+                        .onTapGesture {
+                            if !(parentViewModel.selectedTab == tab) {
+                                parentViewModel.onChangeTab(tab: tab)
                             }
-                            .padding(.bottom, 5)
-                        Text(tab.displayName)
-                            .font(.system(size: 10))
-                            .foregroundColor(parentViewModel.selectedTab == tab ? Color("PrimaryColor").opacity(0.85) : Color("SecondaryColor").opacity(0.90))
-                    }
-                    .animation(Animation.easeIn.speed(2), value: parentViewModel.animateTransition)
-                    Spacer()
+                        }
+                        .padding(.bottom, 5)
+                    Text(tab.displayName)
+                        .font(.system(size: 10))
+                        .foregroundColor(parentViewModel.selectedTab == tab ? Color("PrimaryColor") : Color("OnBackground"))
+                        
                 }
+                .animation(Animation.easeIn.speed(5), value: parentViewModel.animateTransition)
+                Spacer()
             }
-            .frame(width: nil, height: 35)
-            .padding(.top, 10)
-            .padding(.bottom, 5)
-            .padding(.leading, 15)
-            .padding(.trailing, 15)
         }
+        .frame(width: nil, height: 5)
+        .padding(.bottom, 15)
     }
 }

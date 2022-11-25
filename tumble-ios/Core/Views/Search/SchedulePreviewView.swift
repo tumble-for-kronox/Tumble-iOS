@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SchedulePreviewView: View {
-    @EnvironmentObject var parentViewModel: SearchView.SearchViewModel
+    @EnvironmentObject var parentViewModel: SearchParentView.SearchViewModel
     @StateObject var viewModel: SchedulePreviewViewModel = SchedulePreviewViewModel()
     var body: some View {
         if (parentViewModel.previewDelegateStatus == .loaded) {

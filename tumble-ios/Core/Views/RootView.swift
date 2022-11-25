@@ -15,6 +15,7 @@ struct RootView: View {
     @StateObject private var viewModel = RootViewModel()
     var body: some View {
         ZStack {
+            Color("BackgroundColor")
             TabSwitcherView()
                 // Picker sheet will appear if school is not set
                 .sheet(isPresented: $viewModel.missingSchool) {

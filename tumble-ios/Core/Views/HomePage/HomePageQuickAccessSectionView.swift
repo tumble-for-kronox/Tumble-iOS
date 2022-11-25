@@ -7,7 +7,11 @@
 
 import SwiftUI
 
-struct QuickAccessOption: Identifiable {
+struct QuickAccessOption: Identifiable, Equatable {
+    static func == (lhs: QuickAccessOption, rhs: QuickAccessOption) -> Bool {
+        return lhs.id == rhs.id
+    }
+    
     let id: QuickAccessId
     let title: String
     let image: String
@@ -25,30 +29,34 @@ struct HomePageQuickAccessSectionView: View {
             VStack (alignment: .leading) {
                 HStack {
                     Text(title)
-                        .font(.title)
-                        .foregroundColor(Color("SecondaryColor"))
+                        .font(.title2)
+                        .foregroundColor(Color("OnBackground"))
                         .bold()
                         .padding(.leading, 20)
                     Spacer()
                     Image(systemName: image)
-                        .font(.system(size: 26))
+                        .font(.system(size: 20))
                         .padding(.trailing, 20)
-                        .foregroundColor(Color("SecondaryColor"))
+                        .foregroundColor(Color("OnBackground"))
                 }
-                Divider()
-                    .background(.black)
-                    .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
-                    .padding(.leading, 20)
-                    .padding(.trailing, 20)
+                
             }
-            .padding(.top, 25)
+            .padding(.bottom, 5)
             VStack {
                 ForEach(quickAccessOptions, id: \.id) { option in
-                    HomePageQuickAccessOptionView(option: option)
+                    HomePageQuickAccessOptionView(option: option, isLast: option == quickAccessOptions.last)
+                    
                 }
             }
-            .padding(.top, 15)
-            .padding(.leading, 10)
+            .padding(.bottom, 15)
+            .padding(.top, 25)
+            .padding(.leading, 15)
+            .padding(.trailing, 15)
+            .frame(maxWidth: .infinity)
+            .background(Color("SurfaceColor"))
+            .clipShape(RoundedRectangle(cornerRadius: 10, style: .circular))
+            .padding(.horizontal, 20)
         }
+        
     }
 }

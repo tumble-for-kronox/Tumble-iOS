@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SearchBar: View {
-    @EnvironmentObject var viewModel: SearchView.SearchViewModel
+    @EnvironmentObject var viewModel: SearchParentView.SearchViewModel
     var body: some View {
         HStack {
             Image(systemName: "magnifyingglass")
@@ -42,8 +42,6 @@ struct SearchBar: View {
         .padding(10)
         .background(.gray.opacity(0.25))
         .cornerRadius(10)
-        .animation(.easeOut, value: viewModel.isEditing)
-        .animation(.easeIn, value: !viewModel.isEditing)
         .padding(.leading, 20)
         .padding(.trailing, 20)
         .padding(.bottom, 35)

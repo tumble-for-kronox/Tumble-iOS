@@ -15,7 +15,7 @@ struct ScheduleCardView: View {
                 .fill(Color.red)
                 .shadow(radius: 1)
             Rectangle()
-                .fill(.white)
+                .fill(Color("SurfaceColor"))
                 .offset(x: 10)
                 .cornerRadius(10, corners: [.topRight, .bottomRight])
             VStack (alignment: .leading, spacing: 0) {
@@ -25,7 +25,7 @@ struct ScheduleCardView: View {
                         .frame(height: 7)
                     Text("\(event.from.ISOtoHours()) - \(event.to.ISOtoHours())")
                         .font(.subheadline)
-                        .foregroundColor(.black.opacity(0.75))
+                        .foregroundColor(Color("OnSurface"))
                     Spacer()
                 }
                 .padding(.top, 20)
@@ -34,12 +34,14 @@ struct ScheduleCardView: View {
                 VStack (alignment: .leading) {
                     Text(event.title)
                         .font(.title2)
+                        .foregroundColor(Color("OnSurface"))
                         .padding(.leading, 25)
                         .padding(.trailing, 25)
                         .padding(.bottom, 2.5)
                     VStack {
                         Text(event.course.englishName.trimmingCharacters(in: .whitespaces))
                             .font(.title3)
+                            .foregroundColor(Color("OnSurface"))
                             .padding(.leading, 25)
                             .padding(.bottom, 10)
                         Spacer()
@@ -48,10 +50,10 @@ struct ScheduleCardView: View {
                         Spacer()
                         Text(event.locations.first?.id ?? "Unknown")
                             .font(.title3)
-                            .foregroundColor(.black)
+                            .foregroundColor(Color("OnSurface"))
                         Image(systemName: "location")
                             .font(.title3)
-                            .foregroundColor(.black)
+                            .foregroundColor(Color("OnSurface"))
                             .padding(.trailing, 5)
                     }
                     .padding(.trailing, 10)

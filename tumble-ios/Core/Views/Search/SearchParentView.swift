@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SearchView: View {
+struct SearchParentView: View {
     @StateObject var viewModel: SearchViewModel = SearchViewModel()
     var body: some View {
         ZStack {
@@ -21,7 +21,9 @@ struct SearchView: View {
                             viewModel.onSearchProgrammes(searchQuery: viewModel.searchBarText)
                         }
                     }
+                    
             }
+            
         }
         .sheet(isPresented: $viewModel.presentPreview) {
             SchedulePreviewView()
@@ -32,7 +34,7 @@ struct SearchView: View {
     private func onBuild() -> AnyView {
         switch viewModel.status {
             case .initial:
-                return AnyView(SearchInitialView())
+            return AnyView(SearchInitialView())
             case .loading:
                 return AnyView(CustomProgressView())
             case .loaded:

@@ -23,7 +23,7 @@ enum PreviewDelegateStatus {
     case empty
 }
 
-extension SearchView {
+extension SearchParentView {
     @MainActor class SearchViewModel: ObservableObject {
         @Published var searchBarText: String = ""
         @Published var searchResultText: String = ""
@@ -57,6 +57,8 @@ extension SearchView {
         func onClearSearch(endEditing: Bool) -> Void {
             if (endEditing) {
                 self.isEditing = false
+                self.searchResults = []
+                self.status = .initial
             }
             self.searchBarText = ""
         }
