@@ -20,6 +20,5 @@ struct DayHeaderSectionView: View {
             Spacer()
         }
         .padding(.leading, 20)
-        .padding(.bottom, 0)
     }
 }

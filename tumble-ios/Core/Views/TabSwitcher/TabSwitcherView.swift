@@ -10,9 +10,10 @@ import PopupView
 
 struct TabSwitcherView: View {
     @StateObject var viewModel: TabSwitcherViewModel = TabSwitcherViewModel()
-    let drawerWidth: CGFloat = UIScreen.main.bounds.width/2.85
+    let drawerWidth: CGFloat = UIScreen.main.bounds.width/3
     var body: some View {
         ZStack(alignment: .leading) {
+            Color("BackgroundColor")
             DrawerView(drawerWidth: drawerWidth)
                 .environmentObject(viewModel)
                 .sheet(isPresented: $viewModel.showDrawerSheet, onDismiss: {
@@ -21,7 +22,8 @@ struct TabSwitcherView: View {
                     viewModel.currentDrawerSheetView
                 })
             NavigationView {
-                VStack {
+                ZStack {
+                    Color("BackgroundColor")
                     VStack {
                         ScrollView {
                             // Main home page view switcher
@@ -36,21 +38,23 @@ struct TabSwitcherView: View {
                     viewModel.onToggleDrawer()
                 }, label: {
                     Image(systemName: "gearshape")
-                        .foregroundColor(Color("SecondaryColor"))
+                        .font(.system(size: 17))
+                        .foregroundColor(Color("OnBackground"))
                 }), trailing: NavigationLink(destination:
-                    SearchView()
+                    SearchParentView()
                     .navigationBarBackButtonHidden(true)
                     .navigationBarItems(leading: BackButton()), label: {
                     Image(systemName: "magnifyingglass")
-                        .foregroundColor(Color("SecondaryColor"))
+                            .font(.system(size: 17))
+                        .foregroundColor(Color("OnBackground"))
                 }))
-                    .foregroundColor(.gray)
+                .background(Color("BackgroundColor"))
                     .font(.system(size: 22))
             }
             .overlay(
                 Group {
                     if viewModel.menuOpened {
-                        Color.white
+                        Color("BackgroundColor")
                             .opacity(viewModel.menuOpened ? 0.01 : 0)
                             .onTapGesture {
                                 viewModel.onToggleDrawer()

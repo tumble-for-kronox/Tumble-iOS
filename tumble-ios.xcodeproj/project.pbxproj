@@ -21,7 +21,7 @@
 		D40D80C32925911D008CA68D /* DrawerContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40D80C22925911D008CA68D /* DrawerContent.swift */; };
 		D40D80C52925B97F008CA68D /* DrawerView-ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40D80C42925B97F008CA68D /* DrawerView-ViewModel.swift */; };
 		D40D80C72925BA62008CA68D /* DrawerItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40D80C62925BA62008CA68D /* DrawerItem.swift */; };
-		D40D80CA29265B98008CA68D /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40D80C929265B98008CA68D /* SearchView.swift */; };
+		D40D80CA29265B98008CA68D /* SearchParentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40D80C929265B98008CA68D /* SearchParentView.swift */; };
 		D40D80CC29265C36008CA68D /* SearchView-ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40D80CB29265C36008CA68D /* SearchView-ViewModel.swift */; };
 		D40D80CE29265D49008CA68D /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40D80CD29265D49008CA68D /* SearchBar.swift */; };
 		D40D80D22926A0A6008CA68D /* DrawerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40D80D12926A0A6008CA68D /* DrawerView.swift */; };
@@ -48,6 +48,10 @@
 		D460764C292AEAEC00DE9590 /* ScheduleGrouperListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460764B292AEAEC00DE9590 /* ScheduleGrouperListView.swift */; };
 		D460764E292AF21900DE9590 /* SchedulePreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460764D292AF21900DE9590 /* SchedulePreviewView.swift */; };
 		D4607653292AF5DA00DE9590 /* DayHeaderSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4607652292AF5DA00DE9590 /* DayHeaderSectionView.swift */; };
+		D46081512930051E00FFFB44 /* SwiftLMDB in Frameworks */ = {isa = PBXBuildFile; productRef = D46081502930051E00FFFB44 /* SwiftLMDB */; };
+		D46081532930052F00FFFB44 /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46081522930052F00FFFB44 /* Database.swift */; };
+		D46081552930053E00FFFB44 /* DBClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46081542930053E00FFFB44 /* DBClient.swift */; };
+		D4608158293006BE00FFFB44 /* SQLite in Frameworks */ = {isa = PBXBuildFile; productRef = D4608157293006BE00FFFB44 /* SQLite */; };
 		D4722149292454560063BDB7 /* tumble_iosApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4722148292454560063BDB7 /* tumble_iosApp.swift */; };
 		D472214B292454560063BDB7 /* SchoolSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D472214A292454560063BDB7 /* SchoolSelectView.swift */; };
 		D472214D292454570063BDB7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D472214C292454570063BDB7 /* Assets.xcassets */; };
@@ -91,7 +95,7 @@
 		D40D80C22925911D008CA68D /* DrawerContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawerContent.swift; sourceTree = "<group>"; };
 		D40D80C42925B97F008CA68D /* DrawerView-ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DrawerView-ViewModel.swift"; sourceTree = "<group>"; };
 		D40D80C62925BA62008CA68D /* DrawerItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawerItem.swift; sourceTree = "<group>"; };
-		D40D80C929265B98008CA68D /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		D40D80C929265B98008CA68D /* SearchParentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchParentView.swift; sourceTree = "<group>"; };
 		D40D80CB29265C36008CA68D /* SearchView-ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SearchView-ViewModel.swift"; sourceTree = "<group>"; };
 		D40D80CD29265D49008CA68D /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		D40D80D12926A0A6008CA68D /* DrawerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawerView.swift; sourceTree = "<group>"; };
@@ -115,6 +119,8 @@
 		D460764B292AEAEC00DE9590 /* ScheduleGrouperListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleGrouperListView.swift; sourceTree = "<group>"; };
 		D460764D292AF21900DE9590 /* SchedulePreviewView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchedulePreviewView.swift; sourceTree = "<group>"; };
 		D4607652292AF5DA00DE9590 /* DayHeaderSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayHeaderSectionView.swift; sourceTree = "<group>"; };
+		D46081522930052F00FFFB44 /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
+		D46081542930053E00FFFB44 /* DBClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBClient.swift; sourceTree = "<group>"; };
 		D4722145292454560063BDB7 /* tumble-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "tumble-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4722148292454560063BDB7 /* tumble_iosApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tumble_iosApp.swift; sourceTree = "<group>"; };
 		D472214A292454560063BDB7 /* SchoolSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolSelectView.swift; sourceTree = "<group>"; };
@@ -150,7 +156,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4608158293006BE00FFFB44 /* SQLite in Frameworks */,
 				D4607637292AA8DE00DE9590 /* PopupView in Frameworks */,
+				D46081512930051E00FFFB44 /* SwiftLMDB in Frameworks */,
 				D4533909292A921B00198411 /* PermissionsSwiftUINotification in Frameworks */,
 				D4533907292A921B00198411 /* PermissionsSwiftUICamera in Frameworks */,
 			);
@@ -257,6 +265,8 @@
 		D40D80B0292529FF008CA68D /* Database */ = {
 			isa = PBXGroup;
 			children = (
+				D46081522930052F00FFFB44 /* Database.swift */,
+				D46081542930053E00FFFB44 /* DBClient.swift */,
 			);
 			path = Database;
 			sourceTree = "<group>";
@@ -298,7 +308,7 @@
 			isa = PBXGroup;
 			children = (
 				D460764D292AF21900DE9590 /* SchedulePreviewView.swift */,
-				D40D80C929265B98008CA68D /* SearchView.swift */,
+				D40D80C929265B98008CA68D /* SearchParentView.swift */,
 				D40D80CD29265D49008CA68D /* SearchBar.swift */,
 				D4D4DD022927C7DA0083BB7F /* ProgrammeCardView.swift */,
 				D4607644292AC41D00DE9590 /* SearchResultsView.swift */,
@@ -531,6 +541,8 @@
 				D4533906292A921B00198411 /* PermissionsSwiftUICamera */,
 				D4533908292A921B00198411 /* PermissionsSwiftUINotification */,
 				D4607636292AA8DE00DE9590 /* PopupView */,
+				D46081502930051E00FFFB44 /* SwiftLMDB */,
+				D4608157293006BE00FFFB44 /* SQLite */,
 			);
 			productName = "tumble-ios";
 			productReference = D4722145292454560063BDB7 /* tumble-ios.app */;
@@ -563,6 +575,8 @@
 			packageReferences = (
 				D4533905292A921B00198411 /* XCRemoteSwiftPackageReference "PermissionsSwiftUI" */,
 				D4607635292AA8DE00DE9590 /* XCRemoteSwiftPackageReference "PopupView" */,
+				D460814F2930051E00FFFB44 /* XCRemoteSwiftPackageReference "SwiftLMDB" */,
+				D4608156293006BE00FFFB44 /* XCRemoteSwiftPackageReference "SQLite.swift" */,
 			);
 			productRefGroup = D4722146292454560063BDB7 /* Products */;
 			projectDirPath = "";
@@ -613,6 +627,7 @@
 				D40D80D22926A0A6008CA68D /* DrawerView.swift in Sources */,
 				D40CC161292AFB9F00664776 /* ScheduleMainPageView.swift in Sources */,
 				D40D80C32925911D008CA68D /* DrawerContent.swift in Sources */,
+				D46081552930053E00FFFB44 /* DBClient.swift in Sources */,
 				D40D80CE29265D49008CA68D /* SearchBar.swift in Sources */,
 				D40D80B429252A5A008CA68D /* UserDefaultsClient.swift in Sources */,
 				D4722149292454560063BDB7 /* tumble_iosApp.swift in Sources */,
@@ -626,11 +641,12 @@
 				D453390229299FB800198411 /* HomePageQuickAccessOptionView.swift in Sources */,
 				D4533904292A8A6100198411 /* HomePageQuickAccessSectionView.swift in Sources */,
 				D40D809B29251FD7008CA68D /* ToastStyle.swift in Sources */,
-				D40D80CA29265B98008CA68D /* SearchView.swift in Sources */,
+				D40D80CA29265B98008CA68D /* SearchParentView.swift in Sources */,
 				D40D80BE29258CAF008CA68D /* TabBarView.swift in Sources */,
 				D4607645292AC41D00DE9590 /* SearchResultsView.swift in Sources */,
 				D45338F9292825B200198411 /* ScheduleCardView.swift in Sources */,
 				D4607632292AA39400DE9590 /* Types.swift in Sources */,
+				D46081532930052F00FFFB44 /* Database.swift in Sources */,
 				D4607653292AF5DA00DE9590 /* DayHeaderSectionView.swift in Sources */,
 				D40D80A629252165008CA68D /* ViewExtensions.swift in Sources */,
 				D45338FD29297C8B00198411 /* DayUIModel.swift in Sources */,
@@ -876,6 +892,22 @@
 				minimumVersion = 1.0.0;
 			};
 		};
+		D460814F2930051E00FFFB44 /* XCRemoteSwiftPackageReference "SwiftLMDB" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/agisboye/SwiftLMDB.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
+		D4608156293006BE00FFFB44 /* XCRemoteSwiftPackageReference "SQLite.swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/stephencelis/SQLite.swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.9.2;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -893,6 +925,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D4607635292AA8DE00DE9590 /* XCRemoteSwiftPackageReference "PopupView" */;
 			productName = PopupView;
+		};
+		D46081502930051E00FFFB44 /* SwiftLMDB */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D460814F2930051E00FFFB44 /* XCRemoteSwiftPackageReference "SwiftLMDB" */;
+			productName = SwiftLMDB;
+		};
+		D4608157293006BE00FFFB44 /* SQLite */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D4608156293006BE00FFFB44 /* XCRemoteSwiftPackageReference "SQLite.swift" */;
+			productName = SQLite;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

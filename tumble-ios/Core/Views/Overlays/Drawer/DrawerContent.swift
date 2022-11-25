@@ -12,7 +12,7 @@ struct DrawerContent: View {
     let showSheet: (Int) -> Void
     var body: some View {
         ZStack {
-            Color("PrimaryColor").opacity(0.75)
+            Color("SurfaceColor")
             VStack (alignment: .center, spacing: 0) {
                 Group {
                     DrawerItem(onClick: {
@@ -46,7 +46,7 @@ struct DrawerContent: View {
                 Text("Tumble for Kronox V.3.0.0")
                     .padding(.bottom, 30)
                     .font(.caption)
-                    .foregroundColor(.white)
+                    .foregroundColor(Color("OnSurface"))
             }
             .padding(.top, 90)
             .padding(.leading, 15)
