@@ -12,7 +12,7 @@ struct SchedulePreviewView: View {
     @StateObject var viewModel: SchedulePreviewViewModel = SchedulePreviewViewModel()
     var body: some View {
         if (parentViewModel.previewDelegateStatus == .loaded) {
-            ScheduleGrouperListView(toggled: parentViewModel.schedulePreviewIsSaved, previewCourseColors: parentViewModel.scheduleForPreview!.assignCoursesColors(), days: parentViewModel.scheduleForPreview!.days.toUiModel(), inPreview: true) {
+            SchedulePreviewGrouperListView(toggled: parentViewModel.schedulePreviewIsSaved, previewCourseColors: parentViewModel.scheduleForPreview!.assignCoursesColors(), days: parentViewModel.scheduleForPreview!.days.toUiModel()) {
                 parentViewModel.onBookmark()
             }
         }
