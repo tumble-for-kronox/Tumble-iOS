@@ -44,13 +44,21 @@ extension API {
             // ----------------------
             
             // MARK: - Schedule
-            struct Schedule: Codable {
+            struct Schedule: Codable, Hashable {
+                static func == (lhs: API.Types.Response.Schedule, rhs: API.Types.Response.Schedule) -> Bool {
+                    return lhs.id == rhs.id
+                }
+                
                 let id, cachedAt: String
                 let days: [Day]
             }
 
             // MARK: - Day
-            struct Day: Codable {
+            struct Day: Codable, Hashable {
+                static func == (lhs: API.Types.Response.Day, rhs: API.Types.Response.Day) -> Bool {
+                    return lhs.name == rhs.name && lhs.isoString == rhs.isoString && lhs.weekNumber == rhs.weekNumber
+                }
+                
                 let name: String
                 let date, isoString: String
                 let weekNumber: Int
@@ -58,7 +66,12 @@ extension API {
             }
 
             // MARK: - Event
-            struct Event: Codable {
+            struct Event: Codable, Equatable, Hashable {
+                
+                static func == (lhs: API.Types.Response.Event, rhs:  API.Types.Response.Event) -> Bool {
+                    return lhs.id == rhs.id
+                }
+                
                 let title: String
                 let course: Course
                 let from, to: String
@@ -70,13 +83,13 @@ extension API {
             }
 
             // MARK: - Course
-            struct Course: Codable {
+            struct Course: Codable, Hashable {
                 let id: String
                 let swedishName, englishName: String
             }
 
             // MARK: - Location
-            struct Location: Codable {
+            struct Location: Codable, Hashable {
                 let id: String
                 let name: String
                 let building, floor: String
@@ -84,7 +97,7 @@ extension API {
             }
 
             // MARK: - Teacher
-            struct Teacher: Codable {
+            struct Teacher: Codable, Hashable {
                 let id: String
                 let firstName: String
                 let lastName: String

@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import PopupView
 
 struct TabSwitcherView: View {
     @StateObject var viewModel: TabSwitcherViewModel = TabSwitcherViewModel()
@@ -24,20 +23,20 @@ struct TabSwitcherView: View {
             NavigationView {
                 ZStack {
                     Color("BackgroundColor")
-                    VStack {
-                        ScrollView {
-                            // Main home page view switcher
-                            viewModel.currentNavigationView
-                        }
+                    VStack (alignment: .center) {
+                        // Main home page view switcher
+                        viewModel.currentNavigationView
                         TabBarView()
                             .environmentObject(viewModel)
-                            
                     }
-                }                
+                }
+                .navigationTitle(
+                    Text(viewModel.selectedTab.displayName))
+                .navigationBarTitleDisplayMode(.inline)
                 .navigationBarItems(leading: Button(action: {
                     viewModel.onToggleDrawer()
                 }, label: {
-                    Image(systemName: "gearshape")
+                    Image(systemName: viewModel.menuOpened ? "xmark" : "line.3.horizontal")
                         .font(.system(size: 17))
                         .foregroundColor(Color("OnBackground"))
                 }), trailing: NavigationLink(destination:
@@ -72,7 +71,7 @@ struct TabSwitcherView: View {
             .animation(Animation.easeIn.speed(2.0), value: viewModel.menuOpened)
             .animation(Animation.easeOut.speed(2.0), value: !viewModel.menuOpened)
 
-        }
+        }        
         .edgesIgnoringSafeArea(.all)
     }
 }

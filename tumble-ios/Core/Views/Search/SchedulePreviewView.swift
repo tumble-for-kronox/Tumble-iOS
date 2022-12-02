@@ -12,17 +12,17 @@ struct SchedulePreviewView: View {
     @StateObject var viewModel: SchedulePreviewViewModel = SchedulePreviewViewModel()
     var body: some View {
         if (parentViewModel.previewDelegateStatus == .loaded) {
-            ScheduleGrouperListView(days: parentViewModel.scheduleForPreview!.days.toUiModel())
+            ScheduleGrouperListView(toggled: parentViewModel.schedulePreviewIsSaved, previewCourseColors: parentViewModel.scheduleForPreview!.assignCoursesColors(), days: parentViewModel.scheduleForPreview!.days.toUiModel(), inPreview: true) {
+                parentViewModel.onBookmark()
+            }
         }
         if (parentViewModel.previewDelegateStatus == .loading) {
             CustomProgressView()
         }
-        if (parentViewModel.previewDelegateStatus == .error) {
+        if (parentViewModel.previewDelegateStatus == .error || parentViewModel.previewDelegateStatus == .empty) {
             Text("Error!")
-        }
-        if (parentViewModel.previewDelegateStatus == .empty) {
-            Text("Schedule is empty!")
         }
     }
 }
+
 

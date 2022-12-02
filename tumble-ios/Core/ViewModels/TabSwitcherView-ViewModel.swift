@@ -8,6 +8,10 @@
 import Foundation
 import SwiftUI
 
+enum ThemeMode: String {
+    case light = "light"
+    case dark = "dark"
+}
 
 extension TabSwitcherView {
     @MainActor class TabSwitcherViewModel: ObservableObject {
@@ -20,7 +24,7 @@ extension TabSwitcherView {
         } ()
         @Published var showDrawerSheet: Bool = false
         @Published var menuOpened: Bool = false
-        
+        private var userDefaults: UserDefaults = UserDefaults.standard
         
         func onToggleDrawer() -> Void {
             self.menuOpened.toggle()
@@ -70,5 +74,6 @@ extension TabSwitcherView {
         func onEndTransitionAnimation() -> Void {
             self.animateTransition = false
         }
+        
     }
 }

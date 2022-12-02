@@ -15,7 +15,9 @@ enum SchedulePreviewStatus {
 
 extension SchedulePreviewView {
     @MainActor class SchedulePreviewViewModel: ObservableObject {
-        @Published var status: SchedulePreviewStatus = .loading
-    
+        @Published var status: SchedulePreviewStatus = .loading        
+        
+        
+        
     }
 }
