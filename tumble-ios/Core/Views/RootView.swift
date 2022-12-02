@@ -12,6 +12,9 @@ import PermissionsSwiftUICamera
 import PermissionsSwiftUINotification
 
 struct RootView: View {
+    @Environment(\.colorScheme) var colorScheme: ColorScheme
+    @AppStorage(UserDefaults.StoreKey.overrideSystem.rawValue) private var overrideSystem = false
+    @AppStorage(UserDefaults.StoreKey.theme.rawValue) private var isDarkMode = false
     @StateObject private var viewModel = RootViewModel()
     var body: some View {
         ZStack {
@@ -22,9 +25,10 @@ struct RootView: View {
                     SchoolSelectView(selectSchoolCallback: { school in
                         viewModel.onSelectSchool(school: school)
                     }).interactiveDismissDisabled(true)
-                
             }
         }
+        .environment(\.colorScheme, isDarkMode && overrideSystem ? .dark : .light)
+        .preferredColorScheme(isDarkMode ? .dark : .light)
         .ignoresSafeArea(.keyboard)
         .JMAlert(showModal: $viewModel.userOnboarded, for: [.notification, .camera]).onSubmit {
             viewModel.onUserOnboarded()

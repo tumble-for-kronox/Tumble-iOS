@@ -36,7 +36,7 @@ struct TabBarView: View {
                 Spacer()
             }
         }
-        .frame(width: nil, height: 5)
+        .frame(width: nil, height: 50)
         .padding(.bottom, 15)
     }
 }

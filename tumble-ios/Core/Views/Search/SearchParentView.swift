@@ -42,7 +42,7 @@ struct SearchParentView: View {
                     viewModel.onLoadSchedule(programme: programme)
                 }))
             case .error:
-                return AnyView(Text("Error"))
+                return AnyView(SearchErrorView())
             case .empty:
                 return AnyView(Text("Schedule is empty"))
             }

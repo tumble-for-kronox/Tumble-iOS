@@ -8,11 +8,13 @@
 import SwiftUI
 
 struct ScheduleCardView: View {
+    let previewColor: Color?
     let event: API.Types.Response.Event
+    let isLast: Bool
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 10)
-                .fill(Color.red)
+                .fill(event.isSpecial ? .red : previewColor ?? event.color())
                 .shadow(radius: 1)
             Rectangle()
                 .fill(Color("SurfaceColor"))
@@ -21,12 +23,18 @@ struct ScheduleCardView: View {
             VStack (alignment: .leading, spacing: 0) {
                 HStack {
                     Circle()
-                        .foregroundColor(Color.red)
+                        .foregroundColor(event.isSpecial ? .red : previewColor ?? event.color())
                         .frame(height: 7)
                     Text("\(event.from.ISOtoHours()) - \(event.to.ISOtoHours())")
                         .font(.subheadline)
                         .foregroundColor(Color("OnSurface"))
                     Spacer()
+                    if event.isSpecial {
+                        Image(systemName: "person.crop.circle.badge.exclamationmark")
+                            .font(.title3)
+                            .foregroundColor(Color("OnSurface"))
+                            .padding(.trailing, 15)
+                    }
                 }
                 .padding(.top, 20)
                 .padding(.leading, 25)
@@ -66,6 +74,7 @@ struct ScheduleCardView: View {
         .frame(height: 155)
         .padding(.leading, 20)
         .padding(.trailing, 20)
+        .padding(.bottom, isLast ? 40 : 0)
     }
 }
 

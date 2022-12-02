@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 extension UserDefaults {
     
@@ -38,8 +39,14 @@ extension UserDefaults {
         UserDefaults.standard.synchronize()
     }
     
-    public func setTheme(theme: String) -> Void {
-        UserDefaults.standard.set(theme, forKey: StoreKey.theme.rawValue)
+    public func setTheme(isDarkMode: Bool) -> Void {
+        UserDefaults.standard.set(isDarkMode, forKey: StoreKey.theme.rawValue)
+        UserDefaults.standard.set(true, forKey: StoreKey.overrideSystem.rawValue)
+        UserDefaults.standard.synchronize()
+    }
+    
+    public func setOverrideSystemFalse() -> Void {
+        UserDefaults.standard.set(false, forKey: StoreKey.overrideSystem.rawValue)
         UserDefaults.standard.synchronize()
     }
     
@@ -60,6 +67,11 @@ extension UserDefaults {
     
     public func setViewType(viewType: Int) {
         UserDefaults.standard.set(viewType, forKey: StoreKey.viewType.rawValue)
+        UserDefaults.standard.synchronize()
+    }
+    
+    public func setOverrideSystem(value: Bool) {
+        UserDefaults.standard.set(value, forKey: StoreKey.overrideSystem.rawValue)
         UserDefaults.standard.synchronize()
     }
     
@@ -89,5 +101,6 @@ extension UserDefaults {
         case autoSign = "AUTO_SIGN"
         case viewType = "VIEW"
         case userOnboarded = "USER_ONBOARDED"
+        case overrideSystem = "OVERRIDE_THEME"
     }
 }

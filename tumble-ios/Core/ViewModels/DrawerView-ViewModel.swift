@@ -22,9 +22,18 @@ extension DrawerContent {
     @MainActor class DrawerViewModel: ObservableObject {
         @Published var drawerView: String = ""
         @Published var visibleBottomSheet: Bool = true
+        private var userDefaults = UserDefaults.standard
         
         func onClick(index: Int) -> Void {
             self.visibleBottomSheet = true
+        }
+        
+        func onToggleTheme(value: Bool) {
+            userDefaults.setTheme(isDarkMode: value)
+        }
+        
+        func onDisableOverrideTheme() {
+            userDefaults.setOverrideSystemFalse()
         }
     }
 }

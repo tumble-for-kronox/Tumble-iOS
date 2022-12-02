@@ -9,6 +9,5 @@ import Foundation
 
 extension HomePageView {
     @MainActor class HomePageViewModel: ObservableObject {
-        
     }
 }

@@ -1,29 +1,36 @@
 //
-//  HomePageQuickAccess.swift
+//  HomePageLinkSectionView.swift
 //  tumble-ios
 //
-//  Created by Adis Veletanlic on 11/20/22.
+//  Created by Adis Veletanlic on 11/28/22.
 //
 
 import SwiftUI
 
-struct QuickAccessOption: Identifiable, Equatable {
-    static func == (lhs: QuickAccessOption, rhs: QuickAccessOption) -> Bool {
+struct ExternalLink: Identifiable, Equatable {
+    
+    static func == (lhs: ExternalLink, rhs: ExternalLink) -> Bool {
         return lhs.id == rhs.id
     }
     
-    let id: QuickAccessId
+    let id: ExternalLinkId
     let title: String
     let image: String
-    let onClick: () -> Void
     let backgroundColor: Color
     let iconColor: Color
+    let url: String
 }
 
-struct HomePageQuickAccessSectionView: View {
+enum ExternalLinkId: String {
+    case canvas = "canvas"
+    case ladok = "ladok"
+    case kronox = "kronox"
+}
+
+struct HomePageLinkSectionView: View {
     let title: String
     let image: String
-    let quickAccessOptions: [QuickAccessOption]
+    let links: [ExternalLink]
     var body: some View {
         VStack {
             VStack (alignment: .leading) {
@@ -43,8 +50,8 @@ struct HomePageQuickAccessSectionView: View {
             }
             .padding(.bottom, 5)
             VStack {
-                ForEach(quickAccessOptions, id: \.id) { option in
-                    HomePageQuickAccessOptionView(option: option, isLast: option == quickAccessOptions.last)
+                ForEach(links, id: \.id) { link in
+                    HomePageLinkOptionView(link: link, isLast: link == links.last)
                     
                 }
             }
@@ -56,6 +63,5 @@ struct HomePageQuickAccessSectionView: View {
             .clipShape(RoundedRectangle(cornerRadius: 10, style: .circular))
             .padding(.horizontal, 15)
         }
-        
     }
 }

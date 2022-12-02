@@ -35,7 +35,52 @@ extension SearchParentView {
         @Published var presentPreview: Bool = false
         @Published var previewDelegateStatus: PreviewDelegateStatus = .loading
         @Published var school: School = UserDefaults.standard.getDefaultSchool()
+        @Published var schedulePreviewIsSaved: Bool = false
+        
+        private var store: ScheduleStore = ScheduleStore()
         private var client: API.Client = API.Client.shared
+        
+        private func checkSavedSchedule(scheduleId: String) -> Void {
+            ScheduleStore.load { result in
+                switch result {
+                case .failure(_):
+                    break
+                case .success(let schedules):
+                    if !schedules.isEmpty {
+                        if (schedules.contains(where: { $0.id == scheduleId })) {
+                            print("Schedule is saved")
+                            self.schedulePreviewIsSaved = true
+                        }
+                    }
+                }
+            }
+            
+        }
+        
+        func onBookmark() -> Void {
+            if !self.schedulePreviewIsSaved {
+                print("Saving schedule")
+                ScheduleStore.save(schedule: self.scheduleForPreview!) { result in
+                    if case .failure(let error) = result {
+                        fatalError(error.localizedDescription)
+                    } else {
+                        print("Saving schedule")
+                        self.schedulePreviewIsSaved = true
+                    }
+                }
+                
+            } else {
+                print("Removing schedule")
+                ScheduleStore.remove(schedule: self.scheduleForPreview!) { result in
+                    if case .failure(let error) = result {
+                        fatalError(error.localizedDescription)
+                    } else {
+                        print("Removed schedule")
+                        self.schedulePreviewIsSaved = false
+                    }
+                }
+            }
+        }
         
         func onSearchProgrammes(searchQuery: String) -> Void {
             self.status = .loading
@@ -64,7 +109,10 @@ extension SearchParentView {
         }
         
         func onLoadSchedule(programme: API.Types.Response.Programme) -> Void {
+            self.schedulePreviewIsSaved = false
+            self.previewDelegateStatus = .loading
             self.presentPreview = true
+            self.checkSavedSchedule(scheduleId: programme.id)
             client.get(.schedule(scheduleId: programme.id, schoolId: String(school.id))) { (result: Result<API.Types.Response.Schedule, API.Types.Error>) in
                 DispatchQueue.main.async {
                     switch result {
