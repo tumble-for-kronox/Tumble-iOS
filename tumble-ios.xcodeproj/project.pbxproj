@@ -59,6 +59,9 @@
 		D472215F292455710063BDB7 /* APITypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = D472215C292455710063BDB7 /* APITypes.swift */; };
 		D4722160292455710063BDB7 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = D472215D292455710063BDB7 /* API.swift */; };
 		D4722161292455710063BDB7 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D472215E292455710063BDB7 /* APIClient.swift */; };
+		D476BD2A293A31FD0027CFE8 /* SchedulePreviewGrouperListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D476BD29293A31FD0027CFE8 /* SchedulePreviewGrouperListView.swift */; };
+		D476BD2C293A326C0027CFE8 /* SchedulePreviewCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D476BD2B293A326C0027CFE8 /* SchedulePreviewCardView.swift */; };
+		D476BD2E293A32BF0027CFE8 /* RoundedCornerShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = D476BD2D293A32BF0027CFE8 /* RoundedCornerShape.swift */; };
 		D48F0D8829367A7F0039CD0F /* CourseStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48F0D8729367A7F0039CD0F /* CourseStore.swift */; };
 		D48F0D8A29367CAF0039CD0F /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48F0D8929367CAF0039CD0F /* Colors.swift */; };
 		D4BAE5F82924636500143717 /* School.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BAE5F72924636500143717 /* School.swift */; };
@@ -136,6 +139,9 @@
 		D472215C292455710063BDB7 /* APITypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APITypes.swift; sourceTree = "<group>"; };
 		D472215D292455710063BDB7 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		D472215E292455710063BDB7 /* APIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
+		D476BD29293A31FD0027CFE8 /* SchedulePreviewGrouperListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulePreviewGrouperListView.swift; sourceTree = "<group>"; };
+		D476BD2B293A326C0027CFE8 /* SchedulePreviewCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulePreviewCardView.swift; sourceTree = "<group>"; };
+		D476BD2D293A32BF0027CFE8 /* RoundedCornerShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedCornerShape.swift; sourceTree = "<group>"; };
 		D48F0D8729367A7F0039CD0F /* CourseStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseStore.swift; sourceTree = "<group>"; };
 		D48F0D8929367CAF0039CD0F /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		D4BAE5F72924636500143717 /* School.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = School.swift; sourceTree = "<group>"; };
@@ -323,13 +329,12 @@
 		D40D80C829265B85008CA68D /* Search */ = {
 			isa = PBXGroup;
 			children = (
-				D460764D292AF21900DE9590 /* SchedulePreviewView.swift */,
+				D476BD28293A31D90027CFE8 /* Preview */,
 				D40D80C929265B98008CA68D /* SearchParentView.swift */,
 				D40D80CD29265D49008CA68D /* SearchBar.swift */,
 				D4D4DD022927C7DA0083BB7F /* ProgrammeCardView.swift */,
 				D4607644292AC41D00DE9590 /* SearchResultsView.swift */,
 				D4607646292AE06600DE9590 /* SearchInitialView.swift */,
-				D4CF9B272935633800DDB5F0 /* SchedulePreviewError.swift */,
 				D4CF9B292935634800DDB5F0 /* SearchErrorView.swift */,
 			);
 			path = Search;
@@ -395,6 +400,7 @@
 			isa = PBXGroup;
 			children = (
 				D4607649292AE77E00DE9590 /* BubbleShape.swift */,
+				D476BD2D293A32BF0027CFE8 /* RoundedCornerShape.swift */,
 			);
 			path = Shapes;
 			sourceTree = "<group>";
@@ -501,6 +507,17 @@
 				D40D80AE292529ED008CA68D /* API */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		D476BD28293A31D90027CFE8 /* Preview */ = {
+			isa = PBXGroup;
+			children = (
+				D460764D292AF21900DE9590 /* SchedulePreviewView.swift */,
+				D4CF9B272935633800DDB5F0 /* SchedulePreviewError.swift */,
+				D476BD29293A31FD0027CFE8 /* SchedulePreviewGrouperListView.swift */,
+				D476BD2B293A326C0027CFE8 /* SchedulePreviewCardView.swift */,
+			);
+			path = Preview;
 			sourceTree = "<group>";
 		};
 		D4BAE5F52924633D00143717 /* Models */ = {
@@ -670,11 +687,13 @@
 				D40D80BE29258CAF008CA68D /* TabBarView.swift in Sources */,
 				D4607645292AC41D00DE9590 /* SearchResultsView.swift in Sources */,
 				D45338F9292825B200198411 /* ScheduleCardView.swift in Sources */,
+				D476BD2A293A31FD0027CFE8 /* SchedulePreviewGrouperListView.swift in Sources */,
 				D48F0D8A29367CAF0039CD0F /* Colors.swift in Sources */,
 				D4CF9B2229353FC800DDB5F0 /* HomePageLinkSectionView.swift in Sources */,
 				D4607632292AA39400DE9590 /* Types.swift in Sources */,
 				D4607653292AF5DA00DE9590 /* DayHeaderSectionView.swift in Sources */,
 				D40D80A629252165008CA68D /* ViewExtensions.swift in Sources */,
+				D476BD2E293A32BF0027CFE8 /* RoundedCornerShape.swift in Sources */,
 				D45338FD29297C8B00198411 /* DayUIModel.swift in Sources */,
 				D460764A292AE77E00DE9590 /* BubbleShape.swift in Sources */,
 				D460764C292AEAEC00DE9590 /* ScheduleGrouperListView.swift in Sources */,
@@ -685,6 +704,7 @@
 				D45338FF2929805100198411 /* StringExtensions.swift in Sources */,
 				D472215F292455710063BDB7 /* APITypes.swift in Sources */,
 				D4D4DD052927C88E0083BB7F /* BackButton.swift in Sources */,
+				D476BD2C293A326C0027CFE8 /* SchedulePreviewCardView.swift in Sources */,
 				D40D80A0292520C5008CA68D /* ToastModifier.swift in Sources */,
 				D4607647292AE06600DE9590 /* SearchInitialView.swift in Sources */,
 				D40D809D29251FF6008CA68D /* Toast.swift in Sources */,

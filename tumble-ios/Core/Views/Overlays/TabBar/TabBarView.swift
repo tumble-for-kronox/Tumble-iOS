@@ -37,6 +37,6 @@ struct TabBarView: View {
             }
         }
         .frame(width: nil, height: 50)
-        .padding(.bottom, 15)
+        .padding(.bottom, 0)
     }
 }

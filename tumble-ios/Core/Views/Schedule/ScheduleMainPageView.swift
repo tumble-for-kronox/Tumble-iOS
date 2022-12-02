@@ -31,7 +31,7 @@ struct ScheduleMainPageView: View {
                     .pickerStyle(SegmentedPickerStyle())
                     .foregroundColor(Color("PrimaryColor"))
                     if viewModel.viewType == .list {
-                        ScheduleGrouperListView(toggled: nil, previewCourseColors: nil, days: viewModel.days, inPreview: false, bookmark: nil)
+                        ScheduleGrouperListView(days: viewModel.days)
                     }
                     if viewModel.viewType == .week {
                         Text("Week")

@@ -1,20 +1,21 @@
 //
-//  ScheduleCardview.swift
+//  SchedulePreviewCardView.swift
 //  tumble-ios
 //
-//  Created by Adis Veletanlic on 11/18/22.
+//  Created by Adis Veletanlic on 2022-12-02.
 //
 
 import SwiftUI
 
-struct ScheduleCardView: View {
+struct SchedulePreviewCardView: View {
     @AppStorage(UserDefaults.StoreKey.theme.rawValue) private var isDarkMode = false
+    let previewColor: Color
     let event: API.Types.Response.Event
     let isLast: Bool
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 10)
-                .fill(event.isSpecial ? .red : event.color())
+                .fill(event.isSpecial ? .red : previewColor)
                 .shadow(radius: 1)
             Rectangle()
                 .fill(Color(isDarkMode ? "SurfaceColor" : "BackgroundColor"))
@@ -23,7 +24,7 @@ struct ScheduleCardView: View {
             VStack (alignment: .leading, spacing: 0) {
                 HStack {
                     Circle()
-                        .foregroundColor(event.isSpecial ? .red : event.color())
+                        .foregroundColor(event.isSpecial ? .red : previewColor)
                         .frame(height: 7)
                     Text("\(event.from.ISOtoHours()) - \(event.to.ISOtoHours())")
                         .font(.subheadline)
@@ -77,4 +78,3 @@ struct ScheduleCardView: View {
         .padding(.bottom, isLast ? 40 : 0)
     }
 }
-
