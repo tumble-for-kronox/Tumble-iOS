@@ -12,14 +12,17 @@ import SwiftUI
 let inDateFormatter = ISO8601DateFormatter()
 
 extension [API.Types.Response.Schedule] {
+    
     func flatten() -> [DayUiModel] {
         inDateFormatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
         var days: [DayUiModel] = []
         self.forEach { schedule in
             days.append(contentsOf: schedule.days.reduce(into: []) {
-                if inDateFormatter.date(from: $1.isoString)! >= Date() {$0.append($1)}}.toUiModel())
+                let day = Calendar.current.dateComponents([.day], from: inDateFormatter.date(from: $1.isoString)!).day!
+                let today = Calendar.current.dateComponents([.day], from: Date.now).day!
+                if day >= today {$0.append($1)}}.toUiModel())
         }
-        return days.compactMap { $0 }.merge().sorted(by: {inDateFormatter.date(from: $0.isoString)! < inDateFormatter.date(from: $1.isoString)!})
+        return days.toOrderedDayUiModels()
     }
     
     func removeDuplicateEvents() -> [API.Types.Response.Schedule] {
@@ -46,7 +49,7 @@ extension [API.Types.Response.Schedule] {
 }
 
 extension API.Types.Response.Schedule {
-    func assignCoursesColors() -> [String : [String : Color]] {
+    func assignRandomCoursesColors() -> [String : [String : Color]] {
         var coursesColors: [String : [String : Color]] = [:]
         for day in self.days {
             for event in day.events {
@@ -58,6 +61,8 @@ extension API.Types.Response.Schedule {
         }
         return coursesColors
     }
+    
+    
 }
 
 extension [DayUiModel] {
@@ -76,6 +81,13 @@ extension [DayUiModel] {
         }
         return days
     }
+    
+    func toOrderedDayUiModels() -> [DayUiModel] {
+        return self.compactMap { $0 }.merge().sorted(by: {
+            // Ascending order
+            inDateFormatter.date(from: $0.isoString)! < inDateFormatter.date(from: $1.isoString)!
+        })
+    }
 }
 
 extension [API.Types.Response.Day] {
@@ -83,6 +95,17 @@ extension [API.Types.Response.Day] {
         return self.map { day in
             return DayUiModel(name: day.name, date: day.date, isoString: day.isoString, weekNumber: day.weekNumber, events: day.events)
         }
+    }
+    
+    
+    func toOrderedDays() -> [DayUiModel] {
+        inDateFormatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+        var days: [DayUiModel] = []
+        days.append(contentsOf: self.reduce(into: []) {
+            let day = Calendar.current.dateComponents([.day], from: inDateFormatter.date(from: $1.isoString)!).day!
+            let today = Calendar.current.dateComponents([.day], from: Date.now).day!
+            if day >= today {$0.append($1)}}.toUiModel())
+        return days.toOrderedDayUiModels()
     }
 }
 

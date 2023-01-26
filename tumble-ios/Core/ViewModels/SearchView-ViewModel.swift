@@ -32,12 +32,13 @@ extension SearchParentView {
         @Published var numberOfSearchResults: Int = 0
         @Published var searchResults: [API.Types.Response.Programme] = []
         @Published var scheduleForPreview: API.Types.Response.Schedule? = nil
+        @Published var scheduleListOfDays: [DayUiModel]? = nil
         @Published var presentPreview: Bool = false
         @Published var previewDelegateStatus: PreviewDelegateStatus = .loading
         @Published var school: School? = UserDefaults.standard.getDefaultSchool()
         @Published var schedulePreviewIsSaved: Bool = false
+        @Published var courseColors: [String : String] = [:]
         
-        private var store: ScheduleStore = ScheduleStore()
         private var client: API.Client = API.Client.shared
         
         private func checkSavedSchedule(scheduleId: String) -> Void {
@@ -132,10 +133,31 @@ extension SearchParentView {
                     switch result {
                     case .success(let schedule):
                         self.scheduleForPreview = schedule
+                        self.scheduleListOfDays = schedule.days.toOrderedDays()
+                        self.initCourseColors()
                         self.presentPreview = true
                         self.previewDelegateStatus = .loaded
                     case .failure(_):
                         self.previewDelegateStatus = .error
+                    }
+                }
+            }
+        }
+        
+        func initCourseColors() -> Void {
+            for day in self.scheduleListOfDays! {
+                for event in day.events {
+                    CourseColorStore.load { result in
+                        DispatchQueue.main.async {
+                            switch result {
+                            case .failure(_):
+                                print("Error on course with id: \(event.course.id)")
+                            case .success(let courses):
+                                if !courses.isEmpty {
+                                    self.courseColors = courses
+                                }
+                            }
+                        }
                     }
                 }
             }

@@ -13,7 +13,22 @@ struct SearchParentView: View {
         ZStack {
             VStack (spacing: 0) {
                 Spacer()
-                self.onBuild()
+                switch viewModel.status {
+                    case .initial:
+                        SearchInitialView()
+                    case .loading:
+                        Spacer()
+                        CustomProgressView()
+                        Spacer()
+                    case .loaded:
+                        SearchResultsView(searchText: viewModel.searchResultText, numberOfSearchResults: viewModel.numberOfSearchResults, searchResults: viewModel.searchResults, onLoadSchedule: { programme in
+                                viewModel.onLoadSchedule(programme: programme)
+                            })
+                    case .error:
+                        SearchErrorView()
+                    case .empty:
+                        InfoView(title: "Schedule is empty", image: nil)
+                    }
                 SearchBar()
                     .environmentObject(viewModel)
                     .onSubmit {
@@ -29,23 +44,5 @@ struct SearchParentView: View {
             SchedulePreviewView()
                 .environmentObject(viewModel)
         }
-    }
-    
-    private func onBuild() -> AnyView {
-        switch viewModel.status {
-            case .initial:
-            return AnyView(SearchInitialView())
-            case .loading:
-                return AnyView(
-                    CustomProgressView())
-            case .loaded:
-            return AnyView(SearchResultsView(searchText: viewModel.searchResultText, numberOfSearchResults: viewModel.numberOfSearchResults, searchResults: viewModel.searchResults, onLoadSchedule: { programme in
-                    viewModel.onLoadSchedule(programme: programme)
-                }))
-            case .error:
-                return AnyView(SearchErrorView())
-            case .empty:
-                return AnyView(Text("Schedule is empty"))
-            }
     }
 }
