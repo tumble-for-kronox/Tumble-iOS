@@ -9,7 +9,7 @@ import SwiftUI
 
 struct DrawerContent: View {
     @StateObject private var viewModel = DrawerViewModel()
-    let showSheet: (Int) -> Void
+    let showSheet: (DrawerRowType) -> Void
     var body: some View {
         ZStack {
             Color("SurfaceColor")
@@ -130,17 +130,17 @@ struct DrawerContent: View {
                 Group {
                     
                     DrawerItem(onClick: {
-                        showSheet(2)
+                        showSheet(.schedules)
                     }, title: "Schedules", image: "bookmark")
                     DrawerItem(onClick: {
-                        showSheet(3)
+                        showSheet(.school)
                     }, title: "School", image: "arrow.left.arrow.right")
                     
                     
                 }
                 Group {
                     DrawerItem(onClick: {
-                        showSheet(4)
+                        showSheet(.support)
                     }, title: "Support", image: "questionmark.circle")
                     
                 }

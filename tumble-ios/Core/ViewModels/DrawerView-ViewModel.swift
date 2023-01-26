@@ -14,6 +14,7 @@ enum DrawerRowType: String {
     case language = "language"
     case schedules = "schedules"
     case notifications = "notifications"
+    case support = "support"
     
     static let allValues = [school, theme, language, schedules, notifications]
 }

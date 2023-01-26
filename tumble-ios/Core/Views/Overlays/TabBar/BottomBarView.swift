@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-struct TabBarView: View {
-    @EnvironmentObject var parentViewModel: TabSwitcherView.TabSwitcherViewModel
+struct BottomBarView: View {
+    @EnvironmentObject var parentViewModel: AppNavigatorView.AppNavigatorViewModel
     private var fillImage: String {
         parentViewModel.selectedTab.rawValue + ".fill"
     }
@@ -38,5 +38,6 @@ struct TabBarView: View {
         }
         .frame(width: nil, height: 50)
         .padding(.bottom, 0)
+        
     }
 }

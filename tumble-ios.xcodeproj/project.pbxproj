@@ -15,9 +15,9 @@
 		D40D809D29251FF6008CA68D /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40D809C29251FF6008CA68D /* Toast.swift */; };
 		D40D80A0292520C5008CA68D /* ToastModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40D809F292520C5008CA68D /* ToastModifier.swift */; };
 		D40D80A629252165008CA68D /* ViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40D80A529252165008CA68D /* ViewExtensions.swift */; };
-		D40D80A929252688008CA68D /* TabSwitcherView-ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40D80A829252688008CA68D /* TabSwitcherView-ViewModel.swift */; };
+		D40D80A929252688008CA68D /* AppNavigatorView-ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40D80A829252688008CA68D /* AppNavigatorView-ViewModel.swift */; };
 		D40D80B429252A5A008CA68D /* UserDefaultsClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40D80B329252A5A008CA68D /* UserDefaultsClient.swift */; };
-		D40D80BE29258CAF008CA68D /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40D80BD29258CAF008CA68D /* TabBarView.swift */; };
+		D40D80BE29258CAF008CA68D /* BottomBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40D80BD29258CAF008CA68D /* BottomBarView.swift */; };
 		D40D80C32925911D008CA68D /* DrawerContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40D80C22925911D008CA68D /* DrawerContent.swift */; };
 		D40D80C52925B97F008CA68D /* DrawerView-ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40D80C42925B97F008CA68D /* DrawerView-ViewModel.swift */; };
 		D40D80C72925BA62008CA68D /* DrawerItemSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40D80C62925BA62008CA68D /* DrawerItemSheet.swift */; };
@@ -25,7 +25,12 @@
 		D40D80CC29265C36008CA68D /* SearchView-ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40D80CB29265C36008CA68D /* SearchView-ViewModel.swift */; };
 		D40D80CE29265D49008CA68D /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40D80CD29265D49008CA68D /* SearchBar.swift */; };
 		D40D80D22926A0A6008CA68D /* DrawerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40D80D12926A0A6008CA68D /* DrawerView.swift */; };
+		D40E843B2981C85400C2CF2E /* AccountPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40E843A2981C85400C2CF2E /* AccountPageView.swift */; };
+		D40E843D2981C8B200C2CF2E /* AccountPageView-ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40E843C2981C8B200C2CF2E /* AccountPageView-ViewModel.swift */; };
+		D40E84422981E4E100C2CF2E /* ScheduleCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40E84412981E4E100C2CF2E /* ScheduleCalendarView.swift */; };
 		D4239079293686D7005A95D7 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4239078293686D7005A95D7 /* Color.swift */; };
+		D43E680229820C9700124F72 /* ElegantCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = D43E680129820C9700124F72 /* ElegantCalendar */; };
+		D43E680429820CBF00124F72 /* ElegantCalendar.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D43E680329820CBF00124F72 /* ElegantCalendar.xcassets */; };
 		D45338F429280C4800198411 /* SchedulePreviewView-ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45338F329280C4800198411 /* SchedulePreviewView-ViewModel.swift */; };
 		D45338F629280E8400198411 /* ScheduleExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45338F529280E8400198411 /* ScheduleExtensions.swift */; };
 		D45338F9292825B200198411 /* ScheduleCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45338F8292825B200198411 /* ScheduleCardView.swift */; };
@@ -37,7 +42,7 @@
 		D4533907292A921B00198411 /* PermissionsSwiftUICamera in Frameworks */ = {isa = PBXBuildFile; productRef = D4533906292A921B00198411 /* PermissionsSwiftUICamera */; };
 		D4533909292A921B00198411 /* PermissionsSwiftUINotification in Frameworks */ = {isa = PBXBuildFile; productRef = D4533908292A921B00198411 /* PermissionsSwiftUINotification */; };
 		D4607632292AA39400DE9590 /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4607631292AA39400DE9590 /* Types.swift */; };
-		D4607634292AA83F00DE9590 /* TabSwitcherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4607633292AA83F00DE9590 /* TabSwitcherView.swift */; };
+		D4607634292AA83F00DE9590 /* AppNavigatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4607633292AA83F00DE9590 /* AppNavigatorView.swift */; };
 		D4607637292AA8DE00DE9590 /* PopupView in Frameworks */ = {isa = PBXBuildFile; productRef = D4607636292AA8DE00DE9590 /* PopupView */; };
 		D460763B292AAD5400DE9590 /* PopupToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460763A292AAD5400DE9590 /* PopupToastView.swift */; };
 		D460763D292AAE7800DE9590 /* RootView-ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460763C292AAE7800DE9590 /* RootView-ViewModel.swift */; };
@@ -46,12 +51,10 @@
 		D4607645292AC41D00DE9590 /* SearchResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4607644292AC41D00DE9590 /* SearchResultsView.swift */; };
 		D4607647292AE06600DE9590 /* SearchInitialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4607646292AE06600DE9590 /* SearchInitialView.swift */; };
 		D460764A292AE77E00DE9590 /* BubbleShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4607649292AE77E00DE9590 /* BubbleShape.swift */; };
-		D460764C292AEAEC00DE9590 /* ScheduleGrouperListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460764B292AEAEC00DE9590 /* ScheduleGrouperListView.swift */; };
+		D460764C292AEAEC00DE9590 /* ScheduleListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460764B292AEAEC00DE9590 /* ScheduleListView.swift */; };
 		D460764E292AF21900DE9590 /* SchedulePreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460764D292AF21900DE9590 /* SchedulePreviewView.swift */; };
 		D4607653292AF5DA00DE9590 /* DayHeaderSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4607652292AF5DA00DE9590 /* DayHeaderSectionView.swift */; };
-		D46081512930051E00FFFB44 /* SwiftLMDB in Frameworks */ = {isa = PBXBuildFile; productRef = D46081502930051E00FFFB44 /* SwiftLMDB */; };
 		D46081552930053E00FFFB44 /* ScheduleStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46081542930053E00FFFB44 /* ScheduleStore.swift */; };
-		D4608158293006BE00FFFB44 /* SQLite in Frameworks */ = {isa = PBXBuildFile; productRef = D4608157293006BE00FFFB44 /* SQLite */; };
 		D4722149292454560063BDB7 /* tumble_iosApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4722148292454560063BDB7 /* tumble_iosApp.swift */; };
 		D472214B292454560063BDB7 /* SchoolSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D472214A292454560063BDB7 /* SchoolSelectView.swift */; };
 		D472214D292454570063BDB7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D472214C292454570063BDB7 /* Assets.xcassets */; };
@@ -62,8 +65,12 @@
 		D476BD2A293A31FD0027CFE8 /* SchedulePreviewGrouperListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D476BD29293A31FD0027CFE8 /* SchedulePreviewGrouperListView.swift */; };
 		D476BD2C293A326C0027CFE8 /* SchedulePreviewCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D476BD2B293A326C0027CFE8 /* SchedulePreviewCardView.swift */; };
 		D476BD2E293A32BF0027CFE8 /* RoundedCornerShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = D476BD2D293A32BF0027CFE8 /* RoundedCornerShape.swift */; };
-		D48F0D8829367A7F0039CD0F /* CourseStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48F0D8729367A7F0039CD0F /* CourseStore.swift */; };
+		D48F0D8829367A7F0039CD0F /* CourseColorStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48F0D8729367A7F0039CD0F /* CourseColorStore.swift */; };
 		D48F0D8A29367CAF0039CD0F /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48F0D8929367CAF0039CD0F /* Colors.swift */; };
+		D4967F812981EB9800DE872E /* BottomBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4967F802981EB9800DE872E /* BottomBarItem.swift */; };
+		D4967F832981F21000DE872E /* DateHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4967F822981F21000DE872E /* DateHolder.swift */; };
+		D4967F872981F37B00DE872E /* CalendarHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4967F862981F37B00DE872E /* CalendarHelper.swift */; };
+		D4967F8F2981FA7600DE872E /* Month.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4967F8E2981FA7600DE872E /* Month.swift */; };
 		D4BAE5F82924636500143717 /* School.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BAE5F72924636500143717 /* School.swift */; };
 		D4BAE614292466F700143717 /* SchoolModelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BAE613292466F700143717 /* SchoolModelData.swift */; };
 		D4BAE61929246AA200143717 /* schools.json in Resources */ = {isa = PBXBuildFile; fileRef = D4BAE61829246AA200143717 /* schools.json */; };
@@ -99,9 +106,9 @@
 		D40D809C29251FF6008CA68D /* Toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
 		D40D809F292520C5008CA68D /* ToastModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastModifier.swift; sourceTree = "<group>"; };
 		D40D80A529252165008CA68D /* ViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtensions.swift; sourceTree = "<group>"; };
-		D40D80A829252688008CA68D /* TabSwitcherView-ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TabSwitcherView-ViewModel.swift"; sourceTree = "<group>"; };
+		D40D80A829252688008CA68D /* AppNavigatorView-ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppNavigatorView-ViewModel.swift"; sourceTree = "<group>"; };
 		D40D80B329252A5A008CA68D /* UserDefaultsClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsClient.swift; sourceTree = "<group>"; };
-		D40D80BD29258CAF008CA68D /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
+		D40D80BD29258CAF008CA68D /* BottomBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomBarView.swift; sourceTree = "<group>"; };
 		D40D80C22925911D008CA68D /* DrawerContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawerContent.swift; sourceTree = "<group>"; };
 		D40D80C42925B97F008CA68D /* DrawerView-ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DrawerView-ViewModel.swift"; sourceTree = "<group>"; };
 		D40D80C62925BA62008CA68D /* DrawerItemSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawerItemSheet.swift; sourceTree = "<group>"; };
@@ -109,7 +116,11 @@
 		D40D80CB29265C36008CA68D /* SearchView-ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SearchView-ViewModel.swift"; sourceTree = "<group>"; };
 		D40D80CD29265D49008CA68D /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		D40D80D12926A0A6008CA68D /* DrawerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawerView.swift; sourceTree = "<group>"; };
+		D40E843A2981C85400C2CF2E /* AccountPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountPageView.swift; sourceTree = "<group>"; };
+		D40E843C2981C8B200C2CF2E /* AccountPageView-ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AccountPageView-ViewModel.swift"; sourceTree = "<group>"; };
+		D40E84412981E4E100C2CF2E /* ScheduleCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ScheduleCalendarView.swift; path = "tumble-ios/Core/Views/Schedule/Calendar/ScheduleCalendarView.swift"; sourceTree = SOURCE_ROOT; };
 		D4239078293686D7005A95D7 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		D43E680329820CBF00124F72 /* ElegantCalendar.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = ElegantCalendar.xcassets; path = "../../Library/Developer/Xcode/DerivedData/tumble-ios-bmdzgpsrrlqprxfymxolonszzycj/SourcePackages/checkouts/ElegantCalendar/ElegantCalendar.xcassets"; sourceTree = "<group>"; };
 		D45338F329280C4800198411 /* SchedulePreviewView-ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SchedulePreviewView-ViewModel.swift"; sourceTree = "<group>"; };
 		D45338F529280E8400198411 /* ScheduleExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleExtensions.swift; sourceTree = "<group>"; };
 		D45338F8292825B200198411 /* ScheduleCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleCardView.swift; sourceTree = "<group>"; };
@@ -119,7 +130,7 @@
 		D453390129299FB800198411 /* HomePageQuickAccessOptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageQuickAccessOptionView.swift; sourceTree = "<group>"; };
 		D4533903292A8A6100198411 /* HomePageQuickAccessSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageQuickAccessSectionView.swift; sourceTree = "<group>"; };
 		D4607631292AA39400DE9590 /* Types.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Types.swift; sourceTree = "<group>"; };
-		D4607633292AA83F00DE9590 /* TabSwitcherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabSwitcherView.swift; sourceTree = "<group>"; };
+		D4607633292AA83F00DE9590 /* AppNavigatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppNavigatorView.swift; sourceTree = "<group>"; };
 		D460763A292AAD5400DE9590 /* PopupToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupToastView.swift; sourceTree = "<group>"; };
 		D460763C292AAE7800DE9590 /* RootView-ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RootView-ViewModel.swift"; sourceTree = "<group>"; };
 		D4607640292AB18D00DE9590 /* HomePageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageView.swift; sourceTree = "<group>"; };
@@ -127,7 +138,7 @@
 		D4607644292AC41D00DE9590 /* SearchResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsView.swift; sourceTree = "<group>"; };
 		D4607646292AE06600DE9590 /* SearchInitialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchInitialView.swift; sourceTree = "<group>"; };
 		D4607649292AE77E00DE9590 /* BubbleShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleShape.swift; sourceTree = "<group>"; };
-		D460764B292AEAEC00DE9590 /* ScheduleGrouperListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleGrouperListView.swift; sourceTree = "<group>"; };
+		D460764B292AEAEC00DE9590 /* ScheduleListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleListView.swift; sourceTree = "<group>"; };
 		D460764D292AF21900DE9590 /* SchedulePreviewView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchedulePreviewView.swift; sourceTree = "<group>"; };
 		D4607652292AF5DA00DE9590 /* DayHeaderSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayHeaderSectionView.swift; sourceTree = "<group>"; };
 		D46081542930053E00FFFB44 /* ScheduleStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleStore.swift; sourceTree = "<group>"; };
@@ -142,8 +153,12 @@
 		D476BD29293A31FD0027CFE8 /* SchedulePreviewGrouperListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulePreviewGrouperListView.swift; sourceTree = "<group>"; };
 		D476BD2B293A326C0027CFE8 /* SchedulePreviewCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulePreviewCardView.swift; sourceTree = "<group>"; };
 		D476BD2D293A32BF0027CFE8 /* RoundedCornerShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedCornerShape.swift; sourceTree = "<group>"; };
-		D48F0D8729367A7F0039CD0F /* CourseStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseStore.swift; sourceTree = "<group>"; };
+		D48F0D8729367A7F0039CD0F /* CourseColorStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseColorStore.swift; sourceTree = "<group>"; };
 		D48F0D8929367CAF0039CD0F /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		D4967F802981EB9800DE872E /* BottomBarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomBarItem.swift; sourceTree = "<group>"; };
+		D4967F822981F21000DE872E /* DateHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHolder.swift; sourceTree = "<group>"; };
+		D4967F862981F37B00DE872E /* CalendarHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarHelper.swift; sourceTree = "<group>"; };
+		D4967F8E2981FA7600DE872E /* Month.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Month.swift; sourceTree = "<group>"; };
 		D4BAE5F72924636500143717 /* School.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = School.swift; sourceTree = "<group>"; };
 		D4BAE613292466F700143717 /* SchoolModelData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolModelData.swift; sourceTree = "<group>"; };
 		D4BAE61829246AA200143717 /* schools.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = schools.json; sourceTree = "<group>"; };
@@ -176,9 +191,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D4608158293006BE00FFFB44 /* SQLite in Frameworks */,
 				D4607637292AA8DE00DE9590 /* PopupView in Frameworks */,
-				D46081512930051E00FFFB44 /* SwiftLMDB in Frameworks */,
+				D43E680229820C9700124F72 /* ElegantCalendar in Frameworks */,
 				D4533909292A921B00198411 /* PermissionsSwiftUINotification in Frameworks */,
 				D4533907292A921B00198411 /* PermissionsSwiftUICamera in Frameworks */,
 			);
@@ -187,6 +201,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D4072F4829820944002ADC32 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		D40D8092292517D4008CA68D /* Core */ = {
 			isa = PBXGroup;
 			children = (
@@ -244,13 +265,14 @@
 		D40D80A72925267F008CA68D /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				D40D80A829252688008CA68D /* TabSwitcherView-ViewModel.swift */,
+				D40D80A829252688008CA68D /* AppNavigatorView-ViewModel.swift */,
 				D40D80C42925B97F008CA68D /* DrawerView-ViewModel.swift */,
 				D40D80CB29265C36008CA68D /* SearchView-ViewModel.swift */,
 				D45338F329280C4800198411 /* SchedulePreviewView-ViewModel.swift */,
 				D460763C292AAE7800DE9590 /* RootView-ViewModel.swift */,
 				D4607642292AB1C000DE9590 /* HomePageView-ViewModel.swift */,
 				D40CC162292AFE7200664776 /* SchedulePageMainView-ViewModel.swift */,
+				D40E843C2981C8B200C2CF2E /* AccountPageView-ViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -259,6 +281,7 @@
 			isa = PBXGroup;
 			children = (
 				D4239078293686D7005A95D7 /* Color.swift */,
+				D4967F862981F37B00DE872E /* CalendarHelper.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -288,7 +311,7 @@
 			isa = PBXGroup;
 			children = (
 				D46081542930053E00FFFB44 /* ScheduleStore.swift */,
-				D48F0D8729367A7F0039CD0F /* CourseStore.swift */,
+				D48F0D8729367A7F0039CD0F /* CourseColorStore.swift */,
 			);
 			path = Database;
 			sourceTree = "<group>";
@@ -311,7 +334,8 @@
 		D40D80BC29258CA0008CA68D /* TabBar */ = {
 			isa = PBXGroup;
 			children = (
-				D40D80BD29258CAF008CA68D /* TabBarView.swift */,
+				D40D80BD29258CAF008CA68D /* BottomBarView.swift */,
+				D4967F802981EB9800DE872E /* BottomBarItem.swift */,
 			);
 			path = TabBar;
 			sourceTree = "<group>";
@@ -340,11 +364,18 @@
 			path = Search;
 			sourceTree = "<group>";
 		};
+		D40E84392981C84700C2CF2E /* Account */ = {
+			isa = PBXGroup;
+			children = (
+				D40E843A2981C85400C2CF2E /* AccountPageView.swift */,
+			);
+			path = Account;
+			sourceTree = "<group>";
+		};
 		D45338F7292825A400198411 /* Schedule */ = {
 			isa = PBXGroup;
 			children = (
-				D4607651292AF5C600DE9590 /* Week */,
-				D4607650292AF5C100DE9590 /* Calendar */,
+				D4F145E62982144C00C3A351 /* Calendar */,
 				D460764F292AF5BB00DE9590 /* List */,
 				D40CC160292AFB9F00664776 /* ScheduleMainPageView.swift */,
 			);
@@ -388,12 +419,12 @@
 			path = Types;
 			sourceTree = "<group>";
 		};
-		D460763F292AB17000DE9590 /* TabSwitcher */ = {
+		D460763F292AB17000DE9590 /* AppNavigation */ = {
 			isa = PBXGroup;
 			children = (
-				D4607633292AA83F00DE9590 /* TabSwitcherView.swift */,
+				D4607633292AA83F00DE9590 /* AppNavigatorView.swift */,
 			);
-			path = TabSwitcher;
+			path = AppNavigation;
 			sourceTree = "<group>";
 		};
 		D4607648292AE77200DE9590 /* Shapes */ = {
@@ -410,30 +441,19 @@
 			children = (
 				D4607652292AF5DA00DE9590 /* DayHeaderSectionView.swift */,
 				D45338F8292825B200198411 /* ScheduleCardView.swift */,
-				D460764B292AEAEC00DE9590 /* ScheduleGrouperListView.swift */,
+				D460764B292AEAEC00DE9590 /* ScheduleListView.swift */,
 			);
 			path = List;
-			sourceTree = "<group>";
-		};
-		D4607650292AF5C100DE9590 /* Calendar */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Calendar;
-			sourceTree = "<group>";
-		};
-		D4607651292AF5C600DE9590 /* Week */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Week;
 			sourceTree = "<group>";
 		};
 		D472213C292454560063BDB7 = {
 			isa = PBXGroup;
 			children = (
+				D43E680329820CBF00124F72 /* ElegantCalendar.xcassets */,
+				D496CC5E298206710025C52A /* Packages */,
 				D4722147292454560063BDB7 /* tumble-ios */,
 				D4722146292454560063BDB7 /* Products */,
+				D4072F4829820944002ADC32 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -479,7 +499,8 @@
 		D47221592924549B0063BDB7 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				D460763F292AB17000DE9590 /* TabSwitcher */,
+				D40E84392981C84700C2CF2E /* Account */,
+				D460763F292AB17000DE9590 /* AppNavigation */,
 				D453390029299F9800198411 /* HomePage */,
 				D45338F7292825A400198411 /* Schedule */,
 				D40D80C829265B85008CA68D /* Search */,
@@ -520,6 +541,13 @@
 			path = Preview;
 			sourceTree = "<group>";
 		};
+		D496CC5E298206710025C52A /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Packages;
+			sourceTree = "<group>";
+		};
 		D4BAE5F52924633D00143717 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -527,6 +555,8 @@
 				D4BAE5F72924636500143717 /* School.swift */,
 				D40D809C29251FF6008CA68D /* Toast.swift */,
 				D45338FC29297C8B00198411 /* DayUIModel.swift */,
+				D4967F822981F21000DE872E /* DateHolder.swift */,
+				D4967F8E2981FA7600DE872E /* Month.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -559,6 +589,14 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
+		D4F145E62982144C00C3A351 /* Calendar */ = {
+			isa = PBXGroup;
+			children = (
+				D40E84412981E4E100C2CF2E /* ScheduleCalendarView.swift */,
+			);
+			path = Calendar;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -579,8 +617,7 @@
 				D4533906292A921B00198411 /* PermissionsSwiftUICamera */,
 				D4533908292A921B00198411 /* PermissionsSwiftUINotification */,
 				D4607636292AA8DE00DE9590 /* PopupView */,
-				D46081502930051E00FFFB44 /* SwiftLMDB */,
-				D4608157293006BE00FFFB44 /* SQLite */,
+				D43E680129820C9700124F72 /* ElegantCalendar */,
 			);
 			productName = "tumble-ios";
 			productReference = D4722145292454560063BDB7 /* tumble-ios.app */;
@@ -613,8 +650,7 @@
 			packageReferences = (
 				D4533905292A921B00198411 /* XCRemoteSwiftPackageReference "PermissionsSwiftUI" */,
 				D4607635292AA8DE00DE9590 /* XCRemoteSwiftPackageReference "PopupView" */,
-				D460814F2930051E00FFFB44 /* XCRemoteSwiftPackageReference "SwiftLMDB" */,
-				D4608156293006BE00FFFB44 /* XCRemoteSwiftPackageReference "SQLite.swift" */,
+				D43E680029820C9700124F72 /* XCRemoteSwiftPackageReference "ElegantCalendar" */,
 			);
 			productRefGroup = D4722146292454560063BDB7 /* Products */;
 			projectDirPath = "";
@@ -632,6 +668,7 @@
 			files = (
 				D4D4DD1A2927CA780083BB7F /* roboto.ttf in Resources */,
 				D4D4DD162927CA780083BB7F /* roboto_black_italic.ttf in Resources */,
+				D43E680429820CBF00124F72 /* ElegantCalendar.xcassets in Resources */,
 				D4D4DD1D2927CA780083BB7F /* roboto_regular.ttf in Resources */,
 				D4D4DD1B2927CA780083BB7F /* roboto_thin_italic.ttf in Resources */,
 				D4D4DD1C2927CA780083BB7F /* roboto_light.ttf in Resources */,
@@ -662,49 +699,56 @@
 				D4BAE5F82924636500143717 /* School.swift in Sources */,
 				D4BAE61C29246AF800143717 /* SchoolRow.swift in Sources */,
 				D40D808929247123008CA68D /* RootView.swift in Sources */,
-				D48F0D8829367A7F0039CD0F /* CourseStore.swift in Sources */,
+				D48F0D8829367A7F0039CD0F /* CourseColorStore.swift in Sources */,
 				D40D80D22926A0A6008CA68D /* DrawerView.swift in Sources */,
 				D40CC161292AFB9F00664776 /* ScheduleMainPageView.swift in Sources */,
 				D40D80C32925911D008CA68D /* DrawerContent.swift in Sources */,
 				D46081552930053E00FFFB44 /* ScheduleStore.swift in Sources */,
 				D40D80CE29265D49008CA68D /* SearchBar.swift in Sources */,
+				D4967F812981EB9800DE872E /* BottomBarItem.swift in Sources */,
 				D4CF9B282935633800DDB5F0 /* SchedulePreviewError.swift in Sources */,
 				D40D80B429252A5A008CA68D /* UserDefaultsClient.swift in Sources */,
 				D4722149292454560063BDB7 /* tumble_iosApp.swift in Sources */,
+				D4967F8F2981FA7600DE872E /* Month.swift in Sources */,
 				D4722160292455710063BDB7 /* API.swift in Sources */,
 				D4239079293686D7005A95D7 /* Color.swift in Sources */,
+				D4967F832981F21000DE872E /* DateHolder.swift in Sources */,
 				D45338F629280E8400198411 /* ScheduleExtensions.swift in Sources */,
 				D45338FB2929730200198411 /* CustomProgressView.swift in Sources */,
-				D4607634292AA83F00DE9590 /* TabSwitcherView.swift in Sources */,
+				D4607634292AA83F00DE9590 /* AppNavigatorView.swift in Sources */,
+				D40E84422981E4E100C2CF2E /* ScheduleCalendarView.swift in Sources */,
 				D40D80C52925B97F008CA68D /* DrawerView-ViewModel.swift in Sources */,
 				D460763B292AAD5400DE9590 /* PopupToastView.swift in Sources */,
 				D4D4DD032927C7DA0083BB7F /* ProgrammeCardView.swift in Sources */,
 				D453390229299FB800198411 /* HomePageQuickAccessOptionView.swift in Sources */,
 				D4533904292A8A6100198411 /* HomePageQuickAccessSectionView.swift in Sources */,
 				D4CF9B2A2935634800DDB5F0 /* SearchErrorView.swift in Sources */,
+				D40E843B2981C85400C2CF2E /* AccountPageView.swift in Sources */,
 				D40D809B29251FD7008CA68D /* ToastStyle.swift in Sources */,
 				D40D80CA29265B98008CA68D /* SearchParentView.swift in Sources */,
-				D40D80BE29258CAF008CA68D /* TabBarView.swift in Sources */,
+				D40D80BE29258CAF008CA68D /* BottomBarView.swift in Sources */,
 				D4607645292AC41D00DE9590 /* SearchResultsView.swift in Sources */,
 				D45338F9292825B200198411 /* ScheduleCardView.swift in Sources */,
 				D476BD2A293A31FD0027CFE8 /* SchedulePreviewGrouperListView.swift in Sources */,
 				D48F0D8A29367CAF0039CD0F /* Colors.swift in Sources */,
 				D4CF9B2229353FC800DDB5F0 /* HomePageLinkSectionView.swift in Sources */,
 				D4607632292AA39400DE9590 /* Types.swift in Sources */,
+				D4967F872981F37B00DE872E /* CalendarHelper.swift in Sources */,
 				D4607653292AF5DA00DE9590 /* DayHeaderSectionView.swift in Sources */,
 				D40D80A629252165008CA68D /* ViewExtensions.swift in Sources */,
 				D476BD2E293A32BF0027CFE8 /* RoundedCornerShape.swift in Sources */,
 				D45338FD29297C8B00198411 /* DayUIModel.swift in Sources */,
 				D460764A292AE77E00DE9590 /* BubbleShape.swift in Sources */,
-				D460764C292AEAEC00DE9590 /* ScheduleGrouperListView.swift in Sources */,
+				D460764C292AEAEC00DE9590 /* ScheduleListView.swift in Sources */,
 				D40D80C72925BA62008CA68D /* DrawerItemSheet.swift in Sources */,
-				D40D80A929252688008CA68D /* TabSwitcherView-ViewModel.swift in Sources */,
+				D40D80A929252688008CA68D /* AppNavigatorView-ViewModel.swift in Sources */,
 				D4722161292455710063BDB7 /* APIClient.swift in Sources */,
 				D4BAE614292466F700143717 /* SchoolModelData.swift in Sources */,
 				D45338FF2929805100198411 /* StringExtensions.swift in Sources */,
 				D472215F292455710063BDB7 /* APITypes.swift in Sources */,
 				D4D4DD052927C88E0083BB7F /* BackButton.swift in Sources */,
 				D476BD2C293A326C0027CFE8 /* SchedulePreviewCardView.swift in Sources */,
+				D40E843D2981C8B200C2CF2E /* AccountPageView-ViewModel.swift in Sources */,
 				D40D80A0292520C5008CA68D /* ToastModifier.swift in Sources */,
 				D4607647292AE06600DE9590 /* SearchInitialView.swift in Sources */,
 				D40D809D29251FF6008CA68D /* Toast.swift in Sources */,
@@ -928,6 +972,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		D43E680029820C9700124F72 /* XCRemoteSwiftPackageReference "ElegantCalendar" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ThasianX/ElegantCalendar.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
 		D4533905292A921B00198411 /* XCRemoteSwiftPackageReference "PermissionsSwiftUI" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/jevonmao/PermissionsSwiftUI";
@@ -944,25 +996,14 @@
 				minimumVersion = 1.0.0;
 			};
 		};
-		D460814F2930051E00FFFB44 /* XCRemoteSwiftPackageReference "SwiftLMDB" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/agisboye/SwiftLMDB.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.0.0;
-			};
-		};
-		D4608156293006BE00FFFB44 /* XCRemoteSwiftPackageReference "SQLite.swift" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/stephencelis/SQLite.swift.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.9.2;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		D43E680129820C9700124F72 /* ElegantCalendar */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D43E680029820C9700124F72 /* XCRemoteSwiftPackageReference "ElegantCalendar" */;
+			productName = ElegantCalendar;
+		};
 		D4533906292A921B00198411 /* PermissionsSwiftUICamera */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D4533905292A921B00198411 /* XCRemoteSwiftPackageReference "PermissionsSwiftUI" */;
@@ -977,16 +1018,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D4607635292AA8DE00DE9590 /* XCRemoteSwiftPackageReference "PopupView" */;
 			productName = PopupView;
-		};
-		D46081502930051E00FFFB44 /* SwiftLMDB */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D460814F2930051E00FFFB44 /* XCRemoteSwiftPackageReference "SwiftLMDB" */;
-			productName = SwiftLMDB;
-		};
-		D4608157293006BE00FFFB44 /* SQLite */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D4608156293006BE00FFFB44 /* XCRemoteSwiftPackageReference "SQLite.swift" */;
-			productName = SQLite;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -28,3 +28,25 @@ func hexStringToUIColor (hex:String) -> Color {
         blue: CGFloat(rgbValue & 0x0000FF) / 255.0
     )
 }
+
+func assignCardColor(event: API.Types.Response.Event) -> String {
+    var cardColor: String = ""
+    let group = DispatchGroup()
+    group.enter()
+    CourseColorStore.load { result in
+        DispatchQueue.main.async {
+            switch result {
+            case .failure(_):
+                print("Error on course with id: \(event.course.id)")
+            case .success(let courses):
+                if !courses.isEmpty {
+                    let hexColor = courses[event.course.id]!;
+                    cardColor = hexColor == "" ? colors.randomElement() ?? "FFFFFF" : hexColor
+                }
+            }
+        }
+        group.leave()
+    }
+    group.wait()
+    return cardColor
+}

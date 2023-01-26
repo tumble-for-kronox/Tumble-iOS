@@ -6,13 +6,13 @@
 //
 
 import Foundation
+import SwiftUI
 
 enum ScheduleViewType: String {
     case list = "List"
-    case week = "Week"
     case calendar = "Calendar"
     
-    static let allValues: [ScheduleViewType] = [list, week, calendar]
+    static let allValues: [ScheduleViewType] = [list, calendar]
 }
 
 enum ScheduleMainPageStatus {
@@ -28,6 +28,7 @@ extension ScheduleMainPageView {
         @Published var status: ScheduleMainPageStatus = .loading
         @Published var schedules: [API.Types.Response.Schedule] = []
         @Published var days: [DayUiModel] = []
+        @Published var courseColors: [String : String] = [:]
         @Published var viewType: ScheduleViewType = {
             let hasView: Bool = UserDefaults.standard.isKeyPresentInUserDefaults(key: UserDefaults.StoreKey.viewType.rawValue)
             if !(hasView) {
@@ -47,17 +48,39 @@ extension ScheduleMainPageView {
         
         private func initSchedules() -> Void {
             ScheduleStore.load { result in
-                switch result {
-                case .failure(_):
-                    self.status =  .error
-                case .success(let schedules):
-                    if !schedules.isEmpty {
-                        let days: [DayUiModel] = schedules.flatten()
-                        self.days = days
-                        self.status = .loaded
+                DispatchQueue.main.async {
+                    switch result {
+                    case .failure(_):
+                        self.status =  .error
+                    case .success(let schedules):
+                        if !schedules.isEmpty {
+                            let days: [DayUiModel] = schedules.removeDuplicateEvents().flatten()
+                            self.days = days
+                            self.status = .loaded
+                            self.initCourseColors()
+                        }
+                        else {
+                            self.status = .uninitialized
+                        }
                     }
-                    else {
-                        self.status = .uninitialized
+                }
+            }
+        }
+        
+        private func initCourseColors() -> Void {
+            for day in self.days {
+                for event in day.events {
+                    CourseColorStore.load { result in
+                        DispatchQueue.main.async {
+                            switch result {
+                            case .failure(_):
+                                print("Error on course with id: \(event.course.id)")
+                            case .success(let courses):
+                                if !courses.isEmpty {
+                                    self.courseColors = courses
+                                }
+                            }
+                        }
                     }
                 }
             }

@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-///To convert API result date (ISO8601) to `Date`, this property should not be inside any methods
+//To convert API result date (ISO8601) to `Date`, this property should not be inside any methods
 let inDateFormatter = ISO8601DateFormatter()
 
 extension [API.Types.Response.Schedule] {
@@ -16,19 +16,43 @@ extension [API.Types.Response.Schedule] {
         inDateFormatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
         var days: [DayUiModel] = []
         self.forEach { schedule in
-            days.append(contentsOf: schedule.days.reduce(into: []) { if inDateFormatter.date(from: $1.isoString)! >= Date() {$0.append($1)}}.toUiModel())
+            days.append(contentsOf: schedule.days.reduce(into: []) {
+                if inDateFormatter.date(from: $1.isoString)! >= Date() {$0.append($1)}}.toUiModel())
         }
         return days.compactMap { $0 }.merge().sorted(by: {inDateFormatter.date(from: $0.isoString)! < inDateFormatter.date(from: $1.isoString)!})
     }
+    
+    func removeDuplicateEvents() -> [API.Types.Response.Schedule] {
+        var uniqueSchedules = [API.Types.Response.Schedule]()
+        var eventIds = Set<String>()
+        for schedule in self {
+            var uniqueDays = [API.Types.Response.Day]()
+            for day in schedule.days {
+                var uniqueEvents = [API.Types.Response.Event]()
+                for event in day.events {
+                    if eventIds.insert(event.id).inserted {
+                        uniqueEvents.append(event)
+                    }
+                }
+                let uniqueDay = API.Types.Response.Day(name: day.name, date: day.date, isoString: day.isoString, weekNumber: day.weekNumber, events: uniqueEvents)
+                uniqueDays.append(uniqueDay)
+            }
+            let uniqueSchedule = API.Types.Response.Schedule(id: schedule.id, cachedAt: schedule.cachedAt, days: uniqueDays)
+            uniqueSchedules.append(uniqueSchedule)
+        }
+        return uniqueSchedules
+    }
+
 }
 
 extension API.Types.Response.Schedule {
-    func assignCoursesColors() -> [String : Color] {
-        var coursesColors: [String : Color] = [:]
+    func assignCoursesColors() -> [String : [String : Color]] {
+        var coursesColors: [String : [String : Color]] = [:]
         for day in self.days {
             for event in day.events {
                 if coursesColors[event.course.id] == nil {
-                    coursesColors[event.course.id] = hexStringToUIColor(hex: colors.randomElement()!)
+                    let hexColorString = colors.randomElement()!;
+                    coursesColors[event.course.id] = [hexColorString : hexStringToUIColor(hex: hexColorString)]
                 }
             }
         }
@@ -65,13 +89,14 @@ extension [API.Types.Response.Day] {
 extension API.Types.Response.Event {
     func color() -> Color {
         var hexColor: String = ""
-        CourseStore.load { result in
+        CourseColorStore.load { result in
             switch result {
             case .failure(_):
                 print("Error on course with id: \(self.id)")
             case .success(let courses):
                 if !courses.isEmpty {
-                    hexColor = courses.first(where: {$0.id == self.course.id})!.hexColor
+                    print(course.id)
+                    hexColor = courses[course.id]!
                 }
             }
         }

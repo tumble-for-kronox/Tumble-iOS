@@ -6,13 +6,14 @@
 //
 
 import Foundation
+import SwiftUI
 
 struct Course: Codable {
     let id: String
     let hexColor: String
 }
 
-class CourseStore: ObservableObject {
+class CourseColorStore: ObservableObject {
     private static func fileURL() throws -> URL {
             try FileManager.default.url(for: .documentDirectory,
                in: .userDomainMask,
@@ -21,17 +22,17 @@ class CourseStore: ObservableObject {
                 .appendingPathComponent("colors.data")
         }
 
-    static func load(completion: @escaping (Result<[Course], Error>)->Void) {
+    static func load(completion: @escaping (Result<[String : String], Error>)->Void) {
         DispatchQueue.global(qos: .background).async {
             do {
                 let fileURL = try fileURL()
                 guard let file = try? FileHandle(forReadingFrom: fileURL) else {
                         DispatchQueue.main.async {
-                            completion(.success([]))
+                            completion(.success([:]))
                         }
                         return
                     }
-                let courses = try JSONDecoder().decode([Course].self, from: file.availableData)
+                let courses = try JSONDecoder().decode([String : String].self, from: file.availableData)
                 DispatchQueue.main.async {
                     completion(.success(courses))
                 }
@@ -43,7 +44,7 @@ class CourseStore: ObservableObject {
             }
     }
 
-    static func save(course: Course, completion: @escaping (Result<Int, Error>)->Void) {
+    static func save(newCourses: [String: [String : Color]], completion: @escaping (Result<Int, Error>)->Void) {
         DispatchQueue.global(qos: .background).async {
             do {
                 let fileURL = try fileURL()
@@ -55,10 +56,14 @@ class CourseStore: ObservableObject {
                         }
                     case .success(let courses):
                         do {
-                            var newCourses = courses
-                            newCourses.append(course)
-                            
-                            let data = try JSONEncoder().encode(newCourses)
+                            var newCourseColorDict: [String : String] = [:];
+                            for (course, colors) in newCourses {
+                                for (hexColor, _) in colors {
+                                    newCourseColorDict[course] = hexColor;
+                                }
+                            }
+                            let finalCourseColorDict = courses.merging(newCourseColorDict, uniquingKeysWith: +)
+                            let data = try JSONEncoder().encode(finalCourseColorDict)
                             try data.write(to: fileURL)
                             DispatchQueue.main.async {
                                 completion(.success(1))
@@ -75,6 +80,34 @@ class CourseStore: ObservableObject {
                     completion(.failure(error))
                 }
             }
+        }
+    }
+    
+    static func removeAll(completion: @escaping (Result<Int, Error>) -> Void) {
+        DispatchQueue.global(qos: .background).async {
+            do {
+                let fileURL = try fileURL()
+                guard let file = try? FileHandle(forReadingFrom: fileURL) else {
+                        DispatchQueue.main.async {
+                            completion(.success(1))
+                        }
+                        return
+                    }
+                var courses = try JSONDecoder().decode([String : String].self, from: file.availableData)
+                
+                courses.removeAll()
+                
+                let data = try JSONEncoder().encode(courses)
+                try data.write(to: fileURL)
+                
+                DispatchQueue.main.async {
+                    completion(.success(courses.count))
+                }
+            } catch {
+                DispatchQueue.main.async {
+                        completion(.failure(error))
+                    }
+                }
         }
     }
     

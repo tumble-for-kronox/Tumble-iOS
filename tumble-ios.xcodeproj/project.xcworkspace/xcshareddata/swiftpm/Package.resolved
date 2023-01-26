@@ -1,12 +1,21 @@
 {
   "pins" : [
     {
-      "identity" : "clmdb",
+      "identity" : "elegantcalendar",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/agisboye/CLMDB.git",
+      "location" : "https://github.com/ThasianX/ElegantCalendar.git",
       "state" : {
-        "revision" : "24fd75459dd82fee490a2609c80a8def94fc695c",
-        "version" : "0.9.29"
+        "revision" : "d446234f27e60f5bef15f91c35d384f388ff2c7d",
+        "version" : "4.3.2"
+      }
+    },
+    {
+      "identity" : "elegantpages",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/ThasianX/ElegantPages",
+      "state" : {
+        "revision" : "d598ce4824c40296decc84eae5b3c042d3dff842",
+        "version" : "1.4.2"
       }
     },
     {
@@ -25,24 +34,6 @@
       "state" : {
         "revision" : "3c82a7d09ba44e1c7d8a2f7d17657de2e03d0f24",
         "version" : "1.2.1"
-      }
-    },
-    {
-      "identity" : "sqlite.swift",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/stephencelis/SQLite.swift.git",
-      "state" : {
-        "revision" : "7a2e3cd27de56f6d396e84f63beefd0267b55ccb",
-        "version" : "0.14.1"
-      }
-    },
-    {
-      "identity" : "swiftlmdb",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/agisboye/SwiftLMDB.git",
-      "state" : {
-        "revision" : "085980b58c47de262face184ee5534caa7710531",
-        "version" : "2.1.4"
       }
     },
     {

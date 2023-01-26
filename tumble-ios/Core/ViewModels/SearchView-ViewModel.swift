@@ -34,7 +34,7 @@ extension SearchParentView {
         @Published var scheduleForPreview: API.Types.Response.Schedule? = nil
         @Published var presentPreview: Bool = false
         @Published var previewDelegateStatus: PreviewDelegateStatus = .loading
-        @Published var school: School = UserDefaults.standard.getDefaultSchool()
+        @Published var school: School? = UserDefaults.standard.getDefaultSchool()
         @Published var schedulePreviewIsSaved: Bool = false
         
         private var store: ScheduleStore = ScheduleStore()
@@ -42,41 +42,55 @@ extension SearchParentView {
         
         private func checkSavedSchedule(scheduleId: String) -> Void {
             ScheduleStore.load { result in
-                switch result {
-                case .failure(_):
-                    break
-                case .success(let schedules):
-                    if !schedules.isEmpty {
-                        if (schedules.contains(where: { $0.id == scheduleId })) {
-                            print("Schedule is saved")
-                            self.schedulePreviewIsSaved = true
+                DispatchQueue.main.async {
+                    switch result {
+                    case .failure(_):
+                        break
+                    case .success(let schedules):
+                        if !schedules.isEmpty {
+                            if (schedules.contains(where: { $0.id == scheduleId })) {
+                                print("Schedule is saved")
+                                self.schedulePreviewIsSaved = true
+                            }
                         }
                     }
                 }
             }
-            
         }
         
-        func onBookmark() -> Void {
+        func onBookmark(courseColors: [String : [String : Color]]) -> Void {
+            // If the schedule isn't already saved in the local database
             if !self.schedulePreviewIsSaved {
                 print("Saving schedule")
                 ScheduleStore.save(schedule: self.scheduleForPreview!) { result in
-                    if case .failure(let error) = result {
-                        fatalError(error.localizedDescription)
-                    } else {
-                        print("Saving schedule")
-                        self.schedulePreviewIsSaved = true
+                    DispatchQueue.main.async {
+                        if case .failure(let error) = result {
+                            fatalError(error.localizedDescription)
+                        } else {
+                            print("Saving schedule")
+                            self.schedulePreviewIsSaved = true
+                            CourseColorStore.save(newCourses: courseColors) { result in
+                                if case .failure(let error) = result {
+                                    fatalError(error.localizedDescription)
+                                } else {
+                                    print("Applying course colors ...")
+                                }
+                            }
+                        }
                     }
                 }
-                
-            } else {
+            }
+            // Otherwise we remove (untoggle) the schedule
+            else {
                 print("Removing schedule")
                 ScheduleStore.remove(schedule: self.scheduleForPreview!) { result in
-                    if case .failure(let error) = result {
-                        fatalError(error.localizedDescription)
-                    } else {
-                        print("Removed schedule")
-                        self.schedulePreviewIsSaved = false
+                    DispatchQueue.main.async {
+                        if case .failure(let error) = result {
+                            fatalError(error.localizedDescription)
+                        } else {
+                            print("Removed schedule")
+                            self.schedulePreviewIsSaved = false
+                        }
                     }
                 }
             }
@@ -85,7 +99,7 @@ extension SearchParentView {
         func onSearchProgrammes(searchQuery: String) -> Void {
             self.status = .loading
             self.searchResultText = self.searchBarText
-            client.get(.searchProgramme(searchQuery: searchQuery, schoolId: String(school.id))) { (result: Result<API.Types.Response.Search, API.Types.Error>) in
+            client.get(.searchProgramme(searchQuery: searchQuery, schoolId: String(school!.id))) { (result: Result<API.Types.Response.Search, API.Types.Error>) in
                 DispatchQueue.main.async {
                     switch result {
                     case .success(let success):
@@ -113,7 +127,7 @@ extension SearchParentView {
             self.previewDelegateStatus = .loading
             self.presentPreview = true
             self.checkSavedSchedule(scheduleId: programme.id)
-            client.get(.schedule(scheduleId: programme.id, schoolId: String(school.id))) { (result: Result<API.Types.Response.Schedule, API.Types.Error>) in
+            client.get(.schedule(scheduleId: programme.id, schoolId: String(school!.id))) { (result: Result<API.Types.Response.Schedule, API.Types.Error>) in
                 DispatchQueue.main.async {
                     switch result {
                     case .success(let schedule):

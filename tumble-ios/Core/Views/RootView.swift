@@ -18,14 +18,17 @@ struct RootView: View {
     @StateObject private var viewModel = RootViewModel()
     var body: some View {
         ZStack {
-            Color("BackgroundColor")
-            TabSwitcherView()
-                // Picker sheet will appear if school is not set
-                .sheet(isPresented: $viewModel.missingSchool) {
-                    SchoolSelectView(selectSchoolCallback: { school in
-                        viewModel.onSelectSchool(school: school)
-                    }).interactiveDismissDisabled(true)
+            Color("BackgroundColor").edgesIgnoringSafeArea(.all)
+            // Only show rest of the app if a school is chosen
+            if !(viewModel.missingSchool) {
+                AppNavigatorView()
             }
+        }
+        // Picker sheet will appear if school is not set
+        .sheet(isPresented: $viewModel.missingSchool) {
+            SchoolSelectView(selectSchoolCallback: { school in
+                viewModel.onSelectSchool(school: school)
+            }).interactiveDismissDisabled(true)
         }
         .environment(\.colorScheme, isDarkMode && overrideSystem ? .dark : .light)
         .preferredColorScheme(isDarkMode ? .dark : .light)

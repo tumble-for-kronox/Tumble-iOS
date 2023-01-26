@@ -10,9 +10,12 @@ import SwiftUI
 
 struct School: Hashable, Codable, Identifiable {
     let id: Int
-    let url: String
+    let kronoxUrl: String
     let name: String
     let loginRq: Bool
+    let color: String
+    let schoolUrl: String
+    let domain: String
     
     private var logoName: String
     var logo: Image {

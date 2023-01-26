@@ -11,14 +11,12 @@ import SwiftUI
 struct SchoolSelectView: View {
     var selectSchoolCallback: (School) -> Void
     var body: some View {
-        NavigationView {
-            HStack {
-                List(schools.sorted { $0.name < $1.name }, id: \.id) { school in
-                    SchoolRow(school: school)
-                        .onTapGesture(perform: {
-                            selectSchoolCallback(school)
-                        })
-                }
+        HStack {
+            List(schools.sorted { $0.name < $1.name }, id: \.id) { school in
+                SchoolRow(school: school)
+                    .onTapGesture(perform: {
+                        selectSchoolCallback(school)
+                    })
             }
         }
     }

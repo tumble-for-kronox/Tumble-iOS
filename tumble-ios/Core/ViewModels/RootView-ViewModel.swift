@@ -15,7 +15,6 @@ extension RootView {
         @Published var userOnboarded: Bool = {
             return !UserDefaults.standard.isKeyPresentInUserDefaults(key: UserDefaults.StoreKey.userOnboarded.rawValue)
         }()
-        
 
         func onUserOnboarded() -> Void {
             UserDefaults.standard.setUserOnboarded()
@@ -23,8 +22,9 @@ extension RootView {
         
         func onSelectSchool(school: School) -> Void {
             UserDefaults.standard.setSchool(id: school.id)
-            print("Set school to \(school.name)")
-            self.missingSchool = false
+            DispatchQueue.main.async {
+                self.missingSchool = false
+            }
         }
     }
 }

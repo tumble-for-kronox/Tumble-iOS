@@ -14,6 +14,7 @@ struct SchoolRow: View {
         HStack {
             school.logo
                 .resizable()
+                .aspectRatio(contentMode: .fit)
                 .frame(width: 60, height: 60)
                 .padding(.trailing, 25)
             Text(school.name)

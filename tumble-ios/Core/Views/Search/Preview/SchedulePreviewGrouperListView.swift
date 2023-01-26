@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SchedulePreviewGrouperListView: View {
     @State var toggled: Bool
-    let previewCourseColors: [String : Color]
+    let courseColors: [String : [String : Color]]
     let days: [DayUiModel]
     let bookmark: (() -> Void)?
     var body: some View {
@@ -20,7 +20,7 @@ struct SchedulePreviewGrouperListView: View {
                         if !(day.events.isEmpty) {
                             Section(header: DayHeaderSectionView(day: day), content: {
                                 ForEach(day.events, id: \.id) { event in
-                                    SchedulePreviewCardView(previewColor: previewCourseColors[event.course.id]!, event: event, isLast: event == day.events.last)
+                                    SchedulePreviewCardView(previewColor: courseColors[event.course.id]!.values.first!, event: event, isLast: event == day.events.last)
                                 }
                             })
                             .padding(.top, 35)

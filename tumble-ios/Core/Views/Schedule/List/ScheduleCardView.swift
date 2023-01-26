@@ -11,10 +11,11 @@ struct ScheduleCardView: View {
     @AppStorage(UserDefaults.StoreKey.theme.rawValue) private var isDarkMode = false
     let event: API.Types.Response.Event
     let isLast: Bool
+    let color: Color
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 10)
-                .fill(event.isSpecial ? .red : event.color())
+                .fill(event.isSpecial ? .red : color)
                 .shadow(radius: 1)
             Rectangle()
                 .fill(Color(isDarkMode ? "SurfaceColor" : "BackgroundColor"))
@@ -23,7 +24,7 @@ struct ScheduleCardView: View {
             VStack (alignment: .leading, spacing: 0) {
                 HStack {
                     Circle()
-                        .foregroundColor(event.isSpecial ? .red : event.color())
+                        .foregroundColor(event.isSpecial ? .red : color)
                         .frame(height: 7)
                     Text("\(event.from.ISOtoHours()) - \(event.to.ISOtoHours())")
                         .font(.subheadline)
@@ -71,7 +72,7 @@ struct ScheduleCardView: View {
             }
             
         }
-        .frame(height: 155)
+        .frame(height: 150)
         .padding(.leading, 20)
         .padding(.trailing, 20)
         .padding(.bottom, isLast ? 40 : 0)
