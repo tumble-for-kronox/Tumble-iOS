@@ -69,7 +69,6 @@
 		D48F0D8A29367CAF0039CD0F /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48F0D8929367CAF0039CD0F /* Colors.swift */; };
 		D4967F812981EB9800DE872E /* BottomBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4967F802981EB9800DE872E /* BottomBarItem.swift */; };
 		D4967F832981F21000DE872E /* DateHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4967F822981F21000DE872E /* DateHolder.swift */; };
-		D4967F872981F37B00DE872E /* CalendarHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4967F862981F37B00DE872E /* CalendarHelper.swift */; };
 		D4967F8F2981FA7600DE872E /* Month.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4967F8E2981FA7600DE872E /* Month.swift */; };
 		D4BAE5F82924636500143717 /* School.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BAE5F72924636500143717 /* School.swift */; };
 		D4BAE614292466F700143717 /* SchoolModelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BAE613292466F700143717 /* SchoolModelData.swift */; };
@@ -157,7 +156,6 @@
 		D48F0D8929367CAF0039CD0F /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		D4967F802981EB9800DE872E /* BottomBarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomBarItem.swift; sourceTree = "<group>"; };
 		D4967F822981F21000DE872E /* DateHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHolder.swift; sourceTree = "<group>"; };
-		D4967F862981F37B00DE872E /* CalendarHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarHelper.swift; sourceTree = "<group>"; };
 		D4967F8E2981FA7600DE872E /* Month.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Month.swift; sourceTree = "<group>"; };
 		D4BAE5F72924636500143717 /* School.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = School.swift; sourceTree = "<group>"; };
 		D4BAE613292466F700143717 /* SchoolModelData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolModelData.swift; sourceTree = "<group>"; };
@@ -281,7 +279,6 @@
 			isa = PBXGroup;
 			children = (
 				D4239078293686D7005A95D7 /* Color.swift */,
-				D4967F862981F37B00DE872E /* CalendarHelper.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -733,7 +730,6 @@
 				D48F0D8A29367CAF0039CD0F /* Colors.swift in Sources */,
 				D4CF9B2229353FC800DDB5F0 /* HomePageLinkSectionView.swift in Sources */,
 				D4607632292AA39400DE9590 /* Types.swift in Sources */,
-				D4967F872981F37B00DE872E /* CalendarHelper.swift in Sources */,
 				D4607653292AF5DA00DE9590 /* DayHeaderSectionView.swift in Sources */,
 				D40D80A629252165008CA68D /* ViewExtensions.swift in Sources */,
 				D476BD2E293A32BF0027CFE8 /* RoundedCornerShape.swift in Sources */,
