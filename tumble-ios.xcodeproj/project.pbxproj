@@ -28,6 +28,7 @@
 		D40E843B2981C85400C2CF2E /* AccountPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40E843A2981C85400C2CF2E /* AccountPageView.swift */; };
 		D40E843D2981C8B200C2CF2E /* AccountPageView-ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40E843C2981C8B200C2CF2E /* AccountPageView-ViewModel.swift */; };
 		D40E84422981E4E100C2CF2E /* ScheduleCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40E84412981E4E100C2CF2E /* ScheduleCalendarView.swift */; };
+		D412F4542982D35F003154CC /* BottomBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D412F4532982D35F003154CC /* BottomBarItem.swift */; };
 		D4239079293686D7005A95D7 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4239078293686D7005A95D7 /* Color.swift */; };
 		D43E680229820C9700124F72 /* ElegantCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = D43E680129820C9700124F72 /* ElegantCalendar */; };
 		D43E680429820CBF00124F72 /* ElegantCalendar.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D43E680329820CBF00124F72 /* ElegantCalendar.xcassets */; };
@@ -67,7 +68,6 @@
 		D476BD2E293A32BF0027CFE8 /* RoundedCornerShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = D476BD2D293A32BF0027CFE8 /* RoundedCornerShape.swift */; };
 		D48F0D8829367A7F0039CD0F /* CourseColorStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48F0D8729367A7F0039CD0F /* CourseColorStore.swift */; };
 		D48F0D8A29367CAF0039CD0F /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48F0D8929367CAF0039CD0F /* Colors.swift */; };
-		D4967F812981EB9800DE872E /* BottomBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4967F802981EB9800DE872E /* BottomBarItem.swift */; };
 		D4967F832981F21000DE872E /* DateHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4967F822981F21000DE872E /* DateHolder.swift */; };
 		D4967F8F2981FA7600DE872E /* Month.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4967F8E2981FA7600DE872E /* Month.swift */; };
 		D4BAE5F82924636500143717 /* School.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BAE5F72924636500143717 /* School.swift */; };
@@ -118,6 +118,7 @@
 		D40E843A2981C85400C2CF2E /* AccountPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountPageView.swift; sourceTree = "<group>"; };
 		D40E843C2981C8B200C2CF2E /* AccountPageView-ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AccountPageView-ViewModel.swift"; sourceTree = "<group>"; };
 		D40E84412981E4E100C2CF2E /* ScheduleCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ScheduleCalendarView.swift; path = "tumble-ios/Core/Views/Schedule/Calendar/ScheduleCalendarView.swift"; sourceTree = SOURCE_ROOT; };
+		D412F4532982D35F003154CC /* BottomBarItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BottomBarItem.swift; path = ../../../../../../../.Trash/BottomBarItem.swift; sourceTree = "<group>"; };
 		D4239078293686D7005A95D7 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		D43E680329820CBF00124F72 /* ElegantCalendar.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = ElegantCalendar.xcassets; path = "../../Library/Developer/Xcode/DerivedData/tumble-ios-bmdzgpsrrlqprxfymxolonszzycj/SourcePackages/checkouts/ElegantCalendar/ElegantCalendar.xcassets"; sourceTree = "<group>"; };
 		D45338F329280C4800198411 /* SchedulePreviewView-ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SchedulePreviewView-ViewModel.swift"; sourceTree = "<group>"; };
@@ -154,7 +155,6 @@
 		D476BD2D293A32BF0027CFE8 /* RoundedCornerShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedCornerShape.swift; sourceTree = "<group>"; };
 		D48F0D8729367A7F0039CD0F /* CourseColorStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseColorStore.swift; sourceTree = "<group>"; };
 		D48F0D8929367CAF0039CD0F /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
-		D4967F802981EB9800DE872E /* BottomBarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomBarItem.swift; sourceTree = "<group>"; };
 		D4967F822981F21000DE872E /* DateHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHolder.swift; sourceTree = "<group>"; };
 		D4967F8E2981FA7600DE872E /* Month.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Month.swift; sourceTree = "<group>"; };
 		D4BAE5F72924636500143717 /* School.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = School.swift; sourceTree = "<group>"; };
@@ -223,7 +223,7 @@
 			isa = PBXGroup;
 			children = (
 				D40D80BF292590EE008CA68D /* Drawer */,
-				D40D80BC29258CA0008CA68D /* TabBar */,
+				D40D80BC29258CA0008CA68D /* BottomBar */,
 				D40D809929251FC5008CA68D /* Toast */,
 				D4D4DD042927C88E0083BB7F /* BackButton.swift */,
 				D45338FA2929730200198411 /* CustomProgressView.swift */,
@@ -328,13 +328,13 @@
 			path = Notifications;
 			sourceTree = "<group>";
 		};
-		D40D80BC29258CA0008CA68D /* TabBar */ = {
+		D40D80BC29258CA0008CA68D /* BottomBar */ = {
 			isa = PBXGroup;
 			children = (
+				D412F4532982D35F003154CC /* BottomBarItem.swift */,
 				D40D80BD29258CAF008CA68D /* BottomBarView.swift */,
-				D4967F802981EB9800DE872E /* BottomBarItem.swift */,
 			);
-			path = TabBar;
+			path = BottomBar;
 			sourceTree = "<group>";
 		};
 		D40D80BF292590EE008CA68D /* Drawer */ = {
@@ -699,10 +699,10 @@
 				D48F0D8829367A7F0039CD0F /* CourseColorStore.swift in Sources */,
 				D40D80D22926A0A6008CA68D /* DrawerView.swift in Sources */,
 				D40CC161292AFB9F00664776 /* ScheduleMainPageView.swift in Sources */,
+				D412F4542982D35F003154CC /* BottomBarItem.swift in Sources */,
 				D40D80C32925911D008CA68D /* DrawerContent.swift in Sources */,
 				D46081552930053E00FFFB44 /* ScheduleStore.swift in Sources */,
 				D40D80CE29265D49008CA68D /* SearchBar.swift in Sources */,
-				D4967F812981EB9800DE872E /* BottomBarItem.swift in Sources */,
 				D4CF9B282935633800DDB5F0 /* SchedulePreviewError.swift in Sources */,
 				D40D80B429252A5A008CA68D /* UserDefaultsClient.swift in Sources */,
 				D4722149292454560063BDB7 /* tumble_iosApp.swift in Sources */,
