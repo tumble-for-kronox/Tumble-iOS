@@ -87,13 +87,7 @@ struct AppNavigatorView: View {
                         })
                     })
                     ToolbarItemGroup(placement: .bottomBar, content: {
-                        Spacer()
-                        BottomBarItem(selectedTab: viewModel.selectedTab, thisTab: .home, fillImage: TabType.home.rawValue + ".fill", skeletonImage: TabType.home.rawValue, onChangeTab: onChangeTab, animateTransition: viewModel.animateTransition)
-                        Spacer()
-                        BottomBarItem(selectedTab: viewModel.selectedTab, thisTab: .schedule, fillImage: TabType.schedule.rawValue + ".fill", skeletonImage: TabType.schedule.rawValue, onChangeTab: onChangeTab, animateTransition: viewModel.animateTransition)
-                        Spacer()
-                        BottomBarItem(selectedTab: viewModel.selectedTab, thisTab: .account, fillImage: TabType.account.rawValue + ".fill", skeletonImage: TabType.account.rawValue, onChangeTab: onChangeTab, animateTransition: viewModel.animateTransition)
-                        Spacer()
+                        BottomBarView(onChangeTab: onChangeTab).environmentObject(viewModel)
                     })
                 }
                 .background(Color("BackgroundColor"))
