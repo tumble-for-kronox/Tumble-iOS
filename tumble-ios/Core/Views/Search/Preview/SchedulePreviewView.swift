@@ -9,11 +9,10 @@ import SwiftUI
 
 struct SchedulePreviewView: View {
     @EnvironmentObject var parentViewModel: SearchParentView.SearchViewModel
-    @StateObject var viewModel: SchedulePreviewViewModel = SchedulePreviewViewModel()
     var body: some View {
         if (parentViewModel.previewDelegateStatus == .loaded) {
-            let courseColors = parentViewModel.scheduleForPreview!.assignCoursesColors();
-            SchedulePreviewGrouperListView(toggled: parentViewModel.schedulePreviewIsSaved, courseColors: courseColors, days: parentViewModel.scheduleForPreview!.days.toUiModel()) {
+            let courseColors = parentViewModel.scheduleForPreview!.assignRandomCoursesColors();
+            SchedulePreviewListView(toggled: parentViewModel.schedulePreviewIsSaved, randomCourseColors: courseColors, existingCourseColors: parentViewModel.courseColors, days: parentViewModel.scheduleListOfDays!) {
                 parentViewModel.onBookmark(courseColors: courseColors)
             }
         }

@@ -7,9 +7,10 @@
 
 import SwiftUI
 
-struct SchedulePreviewGrouperListView: View {
+struct SchedulePreviewListView: View {
     @State var toggled: Bool
-    let courseColors: [String : [String : Color]]
+    let randomCourseColors: [String : [String : Color]]
+    let existingCourseColors: [String : String]
     let days: [DayUiModel]
     let bookmark: (() -> Void)?
     var body: some View {
@@ -20,7 +21,8 @@ struct SchedulePreviewGrouperListView: View {
                         if !(day.events.isEmpty) {
                             Section(header: DayHeaderSectionView(day: day), content: {
                                 ForEach(day.events, id: \.id) { event in
-                                    SchedulePreviewCardView(previewColor: courseColors[event.course.id]!.values.first!, event: event, isLast: event == day.events.last)
+                                    SchedulePreviewCardView(
+                                        previewColor: existingCourseColors[event.course.id] != nil ? hexStringToUIColor(hex: existingCourseColors[event.course.id]!) : randomCourseColors[event.course.id]!.values.first!, event: event, isLast: event == day.events.last)
                                 }
                             })
                             .padding(.top, 35)
