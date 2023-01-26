@@ -7,8 +7,9 @@
 
 import SwiftUI
 
-struct ScheduleGrouperListView: View {
+struct ScheduleListView: View {
     let days: [DayUiModel]
+    let courseColors: [String : String]
     var body: some View {
         ZStack {
             ScrollView {
@@ -17,7 +18,7 @@ struct ScheduleGrouperListView: View {
                         if !(day.events.isEmpty) {
                             Section(header: DayHeaderSectionView(day: day), content: {
                                 ForEach(day.events, id: \.id) { event in
-                                    ScheduleCardView(event: event, isLast: event == day.events.last)
+                                    ScheduleCardView(event: event, isLast: event == day.events.last, color: hexStringToUIColor(hex: courseColors[event.course.id] ?? "FFFFFF"))
                                 }
                             })
                             .padding(.top, 35)

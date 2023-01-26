@@ -25,6 +25,7 @@ enum ExternalLinkId: String {
     case canvas = "canvas"
     case ladok = "ladok"
     case kronox = "kronox"
+    case university = "university"
 }
 
 struct HomePageLinkSectionView: View {
@@ -51,8 +52,9 @@ struct HomePageLinkSectionView: View {
             .padding(.bottom, 5)
             VStack {
                 ForEach(links, id: \.id) { link in
-                    HomePageLinkOptionView(link: link, isLast: link == links.last)
-                    
+                    if URL(string: link.url) != nil {
+                        HomePageLinkOptionView(link: link, isLast: link == links.last)
+                    }
                 }
             }
             .padding(.bottom, 15)

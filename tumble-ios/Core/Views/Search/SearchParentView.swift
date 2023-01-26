@@ -36,7 +36,8 @@ struct SearchParentView: View {
             case .initial:
             return AnyView(SearchInitialView())
             case .loading:
-                return AnyView(CustomProgressView())
+                return AnyView(
+                    CustomProgressView())
             case .loaded:
             return AnyView(SearchResultsView(searchText: viewModel.searchResultText, numberOfSearchResults: viewModel.numberOfSearchResults, searchResults: viewModel.searchResults, onLoadSchedule: { programme in
                     viewModel.onLoadSchedule(programme: programme)

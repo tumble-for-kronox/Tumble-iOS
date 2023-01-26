@@ -1,62 +1,89 @@
 [
         {
                 "id" : 0,
-                "url" : "schema.hkr.se",
+                "kronoxUrl" : "https://schema.hkr.se",
                 "name" : "Kristianstad University",
                 "logoName" : "hkr_logo",
-                "loginRq" : false
+                "loginRq" : false,
+                "color": "green",
+                "schoolUrl": "https://www.hkr.se/",
+                "domain": "hkr"
         },
         {
                 "id" : 1,
-                "url" : "schema.mau.se",
+                "kronoxUrl" : "https://schema.mau.se",
                 "name" : "Malmö University",
                 "logoName" : "mau_logo",
-                "loginRq" : false
+                "loginRq" : false,
+                "color": "red",
+                "schoolUrl": "https://mau.se/",
+                "domain": "mau"
         },{
                 "id" : 2,
-                "url" : "schema.oru.se",
+                "kronoxUrl" : "https://schema.oru.se",
                 "name" : "Örebro University",
                 "logoName" : "oru_logo",
-                "loginRq" : false
+                "loginRq" : false,
+                "color": "red",
+                "schoolUrl": "https://www.oru.se/",
+                "domain": "oru",
         },
         {
                 "id" : 3,
-                "url" : "schema.ltu.se",
+                "kronoxUrl" : "https://schema.ltu.se",
                 "name" : "Luleå University of Technology",
                 "logoName" : "ltu_logo",
-                "loginRq" : true
+                "loginRq" : true,
+                "color": "blue",
+                "schoolUrl": "https://www.ltu.se/",
+                "domain": "ltu"
         },
         {
                 "id" : 4,
-                "url" : "schema.hig.se",
+                "kronoxUrl" : "https://schema.hig.se",
                 "name" : "Högskolan i Gävle",
                 "logoName" : "hig_logo",
-                "loginRq" : false
+                "loginRq" : false,
+                "color": "yellow",
+                "schoolUrl": "https://www.hig.se/",
+                "domain": "hig"
         },
         {
                 "id" : 5,
-                "url" : "schema.sh.se",
+                "kronoxUrl" : "https://schema.sh.se",
                 "name" : "Södertörns Högskola",
                 "logoName" : "sh_logo",
-                "loginRq" : true
+                "loginRq" : true,
+                "color": "yellow",
+                "schoolUrl": "https://www.sh.se/",
+                "domain": "sh"
         },
         {
                 "id" : 6,
-                "url" : "schema.hv.se",
+                "kronoxUrl" : "https://schema.hv.se",
                 "name" : "Högskolan Väst",
                 "logoName" : "hv_logo",
-                "loginRq" : false
+                "loginRq" : false,
+                "color": "blue",
+                "schoolUrl": "https://www.hv.se/",
+                "domain": "hv"
         },{
                 "id" : 7,
-                "url" : "schema.hb.se",
+                "kronoxUrl" : "https://schema.hb.se",
                 "name" : "Högskolan i Borås",
                 "logoName" : "hb_logo",
-                "loginRq" : false
+                "loginRq" : false,
+                "color": "brown",
+                "schoolUrl": "https://www.hb.se/",
+                "domain": "hb"
         },{
                 "id" : 8,
-                "url" : "schema.mdh.se",
-                "name" : "Mälardalen Högskola",
-                "logoName" : "mdh_logo",
-                "loginRq" : true
+                "kronoxUrl" : "https://webbschema.mdh.se",
+                "name" : "Mälardalen University",
+                "logoName" : "mdu_logo",
+                "loginRq" : true,
+                "color": "orange",
+                "schoolUrl": "https://www.mdu.se",
+                "domain": "mdh"
         }
 ]

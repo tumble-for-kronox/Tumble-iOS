@@ -16,7 +16,7 @@ struct SearchBar: View {
                 .font(.headline)
                 .padding(.leading, 5)
             TextField("Search schedules", text: $viewModel.searchBarText)
-                .font(.title2)
+                .font(.title3)
                 .padding(.leading, 5)
                 .disableAutocorrection(true)
                 .onTapGesture {

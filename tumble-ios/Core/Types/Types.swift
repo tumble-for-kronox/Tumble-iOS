@@ -15,6 +15,17 @@ enum TabType: String {
     
     static let allValues = [home, schedule, account]
     
+    var navigationView: TabType {
+            switch self {
+            case .home:
+                return .home
+            case .schedule:
+                return .schedule
+            case .account:
+                return .account
+            }
+        }
+    
     var displayName: String {
         switch self {
         case .home:

@@ -81,8 +81,11 @@ extension UserDefaults {
         return UserDefaults.standard.object(forKey: key)
     }
     
-    func getDefaultSchool() -> School {
-        let id: Int = UserDefaults.standard.getDefault(key: UserDefaults.StoreKey.school.rawValue) as! Int
+    func getDefaultSchool() -> School? {
+        let id: Int = UserDefaults.standard.getDefault(key: UserDefaults.StoreKey.school.rawValue) as? Int ?? -1
+        if id == -1 {
+            return nil
+        }
         return schools.first(where: {$0.id == id})!
     }
     

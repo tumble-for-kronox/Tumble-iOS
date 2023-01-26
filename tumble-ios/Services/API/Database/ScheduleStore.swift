@@ -76,6 +76,33 @@ class ScheduleStore: ObservableObject {
         }
     }
     
+    static func removeAll(completion: @escaping (Result<Int, Error>) -> Void) {
+        DispatchQueue.global(qos: .background).async {
+            do {
+                let fileURL = try fileURL()
+                guard let file = try? FileHandle(forReadingFrom: fileURL) else {
+                    DispatchQueue.main.async {
+                        completion(.success(1))
+                    }
+                    return
+                }
+                var schedules = try JSONDecoder().decode([API.Types.Response.Schedule].self, from: file.availableData)
+                schedules.removeAll()
+                let data = try JSONEncoder().encode(schedules)
+                try data.write(to: fileURL)
+                
+                DispatchQueue.main.async {
+                    print("Removed all schedules")
+                    completion(.success(schedules.count))
+                }
+            } catch {
+                DispatchQueue.main.async {
+                        completion(.failure(error))
+                    }
+            }
+        }
+    }
+    
     static func remove(schedule: API.Types.Response.Schedule, completion: @escaping (Result<Int, Error>)->Void) {
         DispatchQueue.global(qos: .background).async {
             do {

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct DayUiModel: Identifiable {
+struct DayUiModel: Identifiable, Hashable {
     let id: UUID = UUID()
     let name, date: String
     let isoString: String

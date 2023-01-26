@@ -9,14 +9,8 @@ import SwiftUI
 
 struct CustomProgressView: View {
     var body: some View {
-        VStack {
-            Spacer()
-            ProgressView()
-                .progressViewStyle(CircularProgressViewStyle(tint: Color("PrimaryColor")))
-                .scaleEffect(1.5, anchor: .center)
-            Spacer()
-        }
-        
-                    
+        ProgressView()
+            .progressViewStyle(CircularProgressViewStyle(tint: Color("PrimaryColor")))
+            .scaleEffect(1.5, anchor: .center)
     }
 }
