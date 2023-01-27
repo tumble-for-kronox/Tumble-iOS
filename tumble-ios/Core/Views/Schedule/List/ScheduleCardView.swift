@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ScheduleCardView: View {
     @AppStorage(UserDefaults.StoreKey.theme.rawValue) private var isDarkMode = false
+    @State private var isDisclosed: Bool = false
     let event: API.Types.Response.Event
     let isLast: Bool
     let color: Color
@@ -22,59 +23,28 @@ struct ScheduleCardView: View {
                 .offset(x: 10)
                 .cornerRadius(8, corners: [.topRight, .bottomRight])
             VStack (alignment: .leading, spacing: 0) {
-                HStack {
-                    Circle()
-                        .foregroundColor(event.isSpecial ? .red : color)
-                        .frame(height: 7)
-                    Text("\(event.from.ISOtoHours()) - \(event.to.ISOtoHours())")
-                        .font(.subheadline)
-                        .foregroundColor(Color("OnSurface"))
-                    Spacer()
-                    if event.isSpecial {
-                        Image(systemName: "person.crop.circle.badge.exclamationmark")
-                            .font(.title3)
-                            .foregroundColor(Color("OnSurface"))
-                            .padding(.trailing, 15)
-                    }
-                }
-                .padding(.top, 20)
-                .padding(.leading, 25)
-                .padding(.bottom, 10)
-                VStack (alignment: .leading) {
-                    Text(event.title)
-                        .font(.title2)
-                        .foregroundColor(Color("OnSurface"))
-                        .padding(.leading, 25)
-                        .padding(.trailing, 25)
-                        .padding(.bottom, 2.5)
-                    VStack {
-                        Text(event.course.englishName.trimmingCharacters(in: .whitespaces))
-                            .font(.title3)
-                            .foregroundColor(Color("OnSurface"))
-                            .padding(.leading, 25)
-                            .padding(.bottom, 10)
-                        Spacer()
-                    }
-                    HStack {
-                        Spacer()
-                        Text(event.locations.first?.id ?? "Unknown")
-                            .font(.title3)
-                            .foregroundColor(Color("OnSurface"))
-                        Image(systemName: "location")
-                            .font(.title3)
-                            .foregroundColor(Color("OnSurface"))
-                            .padding(.trailing, 5)
-                    }
-                    .padding(.trailing, 10)
-                    Spacer()
+                CardBannerView(color: event.isSpecial ? .red : color, timeSpan: "\(event.from.ISOtoHours()) - \(event.to.ISOtoHours())", isSpecial: event.isSpecial, courseName: event.course.englishName, isDisclosed: isDisclosed)
+                    
+                if isDisclosed {
+                    CardInformationView(title: event.title, courseName: event.course.englishName.trimmingCharacters(in: .whitespaces), location: event.locations.first?.id ?? "Unknown")
+                        
                 }
                 Spacer()
             }
             
         }
-        .frame(height: 150)
-        .padding(.leading, 20)
-        .padding(.trailing, 20)
+        .onTapGesture {
+            withAnimation {
+                isDisclosed.toggle()
+            }
+        }
+        .onLongPressGesture {
+            print("long press!")
+        }
+        
+        .frame(height: isDisclosed ? 145 : 50)
+        .padding(.leading, 8)
+        .padding(.trailing, 8)
         .padding(.bottom, isLast ? 40 : 0)
     }
 }

@@ -16,7 +16,7 @@ enum SearchStatus {
     case empty
 }
 
-enum PreviewDelegateStatus {
+enum SchedulePreviewStatus {
     case loaded
     case loading
     case error
@@ -34,10 +34,10 @@ extension SearchParentView {
         @Published var scheduleForPreview: API.Types.Response.Schedule? = nil
         @Published var scheduleListOfDays: [DayUiModel]? = nil
         @Published var presentPreview: Bool = false
-        @Published var previewDelegateStatus: PreviewDelegateStatus = .loading
+        @Published var schedulePreviewStatus: SchedulePreviewStatus = .loading
         @Published var school: School? = UserDefaults.standard.getDefaultSchool()
         @Published var schedulePreviewIsSaved: Bool = false
-        @Published var courseColors: [String : String] = [:]
+        @Published var courseColors: CourseAndColorDict = [:]
         
         private var client: API.Client = API.Client.shared
         
@@ -59,19 +59,48 @@ extension SearchParentView {
             }
         }
         
+        // Handles child modal status, [.loaded, .loading, .error, .empty]
+        func onLoadSchedule(programme: API.Types.Response.Programme) -> Void {
+            self.schedulePreviewIsSaved = false
+            self.schedulePreviewStatus = .loading
+            self.presentPreview = true
+            self.checkSavedSchedule(scheduleId: programme.id)
+            client.get(.schedule(scheduleId: programme.id, schoolId: String(school!.id))) { (result: Result<API.Types.Response.Schedule, API.Types.Error>) in
+                DispatchQueue.main.async {
+                    switch result {
+                    case .success(let result):
+                        self.scheduleForPreview = result
+                        self.scheduleListOfDays = result.days.toOrderedDays()
+                        self.initCourseColors()
+                        self.presentPreview = true
+                        self.schedulePreviewStatus = .loaded
+                    case .failure(_):
+                        self.schedulePreviewStatus = .error
+                    }
+                }
+            }
+        }
+        
+        func getCourseColors() -> [String : [String : Color]] {
+            return courseColors.reduce(into: [:]) { (coursesAndColorsDict, course) in
+                let (courseId, color) = course
+                coursesAndColorsDict[courseId, default: [:]][color] = hexStringToUIColor(hex: color)
+            }
+        }
+
+        
         func onBookmark(courseColors: [String : [String : Color]]) -> Void {
             // If the schedule isn't already saved in the local database
             if !self.schedulePreviewIsSaved {
-                print("Saving schedule")
-                ScheduleStore.save(schedule: self.scheduleForPreview!) { result in
+                ScheduleStore.save(schedule: self.scheduleForPreview!) { scheduleResult in
                     DispatchQueue.main.async {
-                        if case .failure(let error) = result {
+                        if case .failure(let error) = scheduleResult {
                             fatalError(error.localizedDescription)
                         } else {
                             print("Saving schedule")
                             self.schedulePreviewIsSaved = true
-                            CourseColorStore.save(newCourses: courseColors) { result in
-                                if case .failure(let error) = result {
+                            CourseColorStore.save(coursesAndColors: courseColors) { courseResult in
+                                if case .failure(let error) = courseResult {
                                     fatalError(error.localizedDescription)
                                 } else {
                                     print("Applying course colors ...")
@@ -91,6 +120,13 @@ extension SearchParentView {
                         } else {
                             print("Removed schedule")
                             self.schedulePreviewIsSaved = false
+                            CourseColorStore.remove(removeCourses: self.scheduleForPreview!.courses()) { result in
+                                if case .failure(let error) = result {
+                                    fatalError(error.localizedDescription)
+                                } else {
+                                    print("Removed course colors ...")
+                                }
+                            }
                         }
                     }
                 }
@@ -103,9 +139,9 @@ extension SearchParentView {
             client.get(.searchProgramme(searchQuery: searchQuery, schoolId: String(school!.id))) { (result: Result<API.Types.Response.Search, API.Types.Error>) in
                 DispatchQueue.main.async {
                     switch result {
-                    case .success(let success):
+                    case .success(let result):
                         self.status = SearchStatus.loading
-                        self.parseSearchResults(success)
+                        self.parseSearchResults(result)
                     case .failure( _):
                         self.status = SearchStatus.error
                         print("error")
@@ -121,27 +157,6 @@ extension SearchParentView {
                 self.status = .initial
             }
             self.searchBarText = ""
-        }
-        
-        func onLoadSchedule(programme: API.Types.Response.Programme) -> Void {
-            self.schedulePreviewIsSaved = false
-            self.previewDelegateStatus = .loading
-            self.presentPreview = true
-            self.checkSavedSchedule(scheduleId: programme.id)
-            client.get(.schedule(scheduleId: programme.id, schoolId: String(school!.id))) { (result: Result<API.Types.Response.Schedule, API.Types.Error>) in
-                DispatchQueue.main.async {
-                    switch result {
-                    case .success(let schedule):
-                        self.scheduleForPreview = schedule
-                        self.scheduleListOfDays = schedule.days.toOrderedDays()
-                        self.initCourseColors()
-                        self.presentPreview = true
-                        self.previewDelegateStatus = .loaded
-                    case .failure(_):
-                        self.previewDelegateStatus = .error
-                    }
-                }
-            }
         }
         
         func initCourseColors() -> Void {

@@ -16,7 +16,7 @@ struct HomePageLinkOptionView: View {
                 HStack (spacing: 0) {
                     HStack {
                         Image(systemName: link.image)
-                            .font(.system(size: 17))
+                            .font(.largeIconFont)
                             .frame(width: 17, height: 17)
                             .padding(15)
                             .foregroundColor(Color("OnPrimary"))

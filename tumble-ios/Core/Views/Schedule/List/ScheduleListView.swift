@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ScheduleListView: View {
     let days: [DayUiModel]
-    let courseColors: [String : String]
+    let courseColors: CourseAndColorDict
     var body: some View {
         ZStack {
             ScrollView {
@@ -19,6 +19,7 @@ struct ScheduleListView: View {
                             Section(header: DayHeaderSectionView(day: day), content: {
                                 ForEach(day.events, id: \.id) { event in
                                     ScheduleCardView(event: event, isLast: event == day.events.last, color: hexStringToUIColor(hex: courseColors[event.course.id] ?? "FFFFFF"))
+                                        .animation(.default)
                                 }
                             })
                             .padding(.top, 35)

@@ -22,57 +22,13 @@ struct SchedulePreviewCardView: View {
                 .offset(x: 10)
                 .cornerRadius(8, corners: [.topRight, .bottomRight])
             VStack (alignment: .leading, spacing: 0) {
-                HStack {
-                    Circle()
-                        .foregroundColor(event.isSpecial ? .red : previewColor)
-                        .frame(height: 7)
-                    Text("\(event.from.ISOtoHours()) - \(event.to.ISOtoHours())")
-                        .font(.subheadline)
-                        .foregroundColor(Color("OnSurface"))
-                    Spacer()
-                    if event.isSpecial {
-                        Image(systemName: "person.crop.circle.badge.exclamationmark")
-                            .font(.title3)
-                            .foregroundColor(Color("OnSurface"))
-                            .padding(.trailing, 15)
-                    }
-                }
-                .padding(.top, 20)
-                .padding(.leading, 25)
-                .padding(.bottom, 10)
-                VStack (alignment: .leading) {
-                    Text(event.title)
-                        .font(.title2)
-                        .foregroundColor(Color("OnSurface"))
-                        .padding(.leading, 25)
-                        .padding(.trailing, 25)
-                        .padding(.bottom, 2.5)
-                    VStack {
-                        Text(event.course.englishName.trimmingCharacters(in: .whitespaces))
-                            .font(.title3)
-                            .foregroundColor(Color("OnSurface"))
-                            .padding(.leading, 25)
-                            .padding(.bottom, 10)
-                        Spacer()
-                    }
-                    HStack {
-                        Spacer()
-                        Text(event.locations.first?.id ?? "Unknown")
-                            .font(.title3)
-                            .foregroundColor(Color("OnSurface"))
-                        Image(systemName: "location")
-                            .font(.title3)
-                            .foregroundColor(Color("OnSurface"))
-                            .padding(.trailing, 5)
-                    }
-                    .padding(.trailing, 10)
-                    Spacer()
-                }
+                PreviewCardBannerView(color: event.isSpecial ? .red : previewColor, timeSpan: "\(event.from.ISOtoHours()) - \(event.to.ISOtoHours())", isSpecial: event.isSpecial)
+                PreviewCardInformationView(title: event.title, courseName: event.course.englishName.trimmingCharacters(in: .whitespaces), location: event.locations.first?.id ?? "Unknown")
                 Spacer()
             }
             
         }
-        .frame(height: 155)
+        .frame(height: 145)
         .padding(.leading, 20)
         .padding(.trailing, 20)
         .padding(.bottom, isLast ? 40 : 0)

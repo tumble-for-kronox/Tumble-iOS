@@ -8,10 +8,7 @@
 import Foundation
 import SwiftUI
 
-struct Course: Codable {
-    let id: String
-    let hexColor: String
-}
+typealias CourseAndColorDict = [String : String]
 
 class CourseColorStore: ObservableObject {
     private static func fileURL() throws -> URL {
@@ -22,7 +19,7 @@ class CourseColorStore: ObservableObject {
                 .appendingPathComponent("colors.data")
         }
 
-    static func load(completion: @escaping (Result<[String : String], Error>)->Void) {
+    static func load(completion: @escaping (Result<CourseAndColorDict, Error>)->Void) {
         DispatchQueue.global(qos: .background).async {
             do {
                 let fileURL = try fileURL()
@@ -32,7 +29,7 @@ class CourseColorStore: ObservableObject {
                         }
                         return
                     }
-                let courses = try JSONDecoder().decode([String : String].self, from: file.availableData)
+                let courses = try JSONDecoder().decode(CourseAndColorDict.self, from: file.availableData)
                 DispatchQueue.main.async {
                     completion(.success(courses))
                 }
@@ -43,8 +40,15 @@ class CourseColorStore: ObservableObject {
                 }
             }
     }
-
-    static func save(newCourses: [String: [String : Color]], completion: @escaping (Result<Int, Error>)->Void) {
+    
+    // [String : [String : Color]] is a dictionary of
+    // course names with its respective dictionary of hexColor: String, and color: Color
+    // {
+    //      "course_one" : {
+    //                      "#45F327" : Color.blue
+    //                     }
+    // }
+    static func save(coursesAndColors: [String : [String : Color]], completion: @escaping (Result<Int, Error>)->Void) {
         DispatchQueue.global(qos: .background).async {
             do {
                 let fileURL = try fileURL()
@@ -56,13 +60,14 @@ class CourseColorStore: ObservableObject {
                         }
                     case .success(let courses):
                         do {
-                            var newCourseColorDict: [String : String] = [:];
-                            for (course, colors) in newCourses {
-                                for (hexColor, _) in colors {
-                                    newCourseColorDict[course] = hexColor;
+                            var newCourseColorsDict: CourseAndColorDict = [:]
+                            for (course, colorDict) in coursesAndColors {
+                                for (hexColor, _) in colorDict {
+                                    newCourseColorsDict[course] = hexColor;
                                 }
                             }
-                            let finalCourseColorDict = courses.merging(newCourseColorDict, uniquingKeysWith: +)
+
+                            let finalCourseColorDict = courses.merging(newCourseColorsDict) { (_, new) in new }
                             let data = try JSONEncoder().encode(finalCourseColorDict)
                             try data.write(to: fileURL)
                             DispatchQueue.main.async {
@@ -93,7 +98,7 @@ class CourseColorStore: ObservableObject {
                         }
                         return
                     }
-                var courses = try JSONDecoder().decode([String : String].self, from: file.availableData)
+                var courses = try JSONDecoder().decode(CourseAndColorDict.self, from: file.availableData)
                 
                 courses.removeAll()
                 
@@ -111,7 +116,7 @@ class CourseColorStore: ObservableObject {
         }
     }
     
-    static func remove(courseId: String, completion: @escaping (Result<Int, Error>)->Void) {
+    static func remove(removeCourses: [String], completion: @escaping (Result<Int, Error>)->Void) {
         DispatchQueue.global(qos: .background).async {
             do {
                 let fileURL = try fileURL()
@@ -121,10 +126,11 @@ class CourseColorStore: ObservableObject {
                         }
                         return
                     }
-                var courses = try JSONDecoder().decode([Course].self, from: file.availableData)
+                var courses = try JSONDecoder().decode(CourseAndColorDict.self, from: file.availableData)
                 
-                
-                courses.removeAll(where: {$0.id == courseId})
+                for courseId in removeCourses {
+                    courses.removeValue(forKey: courseId)
+                }
                 
                 let data = try JSONEncoder().encode(courses)
                 try data.write(to: fileURL)

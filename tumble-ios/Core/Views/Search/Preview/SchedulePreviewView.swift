@@ -10,18 +10,18 @@ import SwiftUI
 struct SchedulePreviewView: View {
     @EnvironmentObject var parentViewModel: SearchParentView.SearchViewModel
     var body: some View {
-        if (parentViewModel.previewDelegateStatus == .loaded) {
-            let courseColors = parentViewModel.scheduleForPreview!.assignRandomCoursesColors();
+        if (parentViewModel.schedulePreviewStatus == .loaded) {
+            let courseColors = parentViewModel.scheduleForPreview!.assignCoursesRandomColors()
             SchedulePreviewListView(toggled: parentViewModel.schedulePreviewIsSaved, randomCourseColors: courseColors, existingCourseColors: parentViewModel.courseColors, days: parentViewModel.scheduleListOfDays!) {
                 parentViewModel.onBookmark(courseColors: courseColors)
             }
         }
-        if (parentViewModel.previewDelegateStatus == .loading) {
+        if (parentViewModel.schedulePreviewStatus == .loading) {
             Spacer()
             CustomProgressView()
             Spacer()
         }
-        if (parentViewModel.previewDelegateStatus == .error || parentViewModel.previewDelegateStatus == .empty) {
+        if (parentViewModel.schedulePreviewStatus == .error || parentViewModel.schedulePreviewStatus == .empty) {
             Text("Error!")
         }
     }

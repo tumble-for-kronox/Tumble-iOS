@@ -44,7 +44,6 @@ extension HomePageView {
             }
             
             let schoolUrl: String = schools.first(where: {$0.name == school!.name})!.schoolUrl
-            print(schoolUrl)
             return schoolUrl
         }
         

@@ -46,7 +46,7 @@ class ScheduleStore: ObservableObject {
                     switch result {
                     case .failure(let error):
                         DispatchQueue.main.async {
-                            print("failed to save \(schedule.id)")
+                            print("Failed to save \(schedule.id)")
                             completion(.failure(error))
                         }
                     case .success(let schedules):

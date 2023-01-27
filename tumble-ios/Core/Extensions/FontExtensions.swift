@@ -13,7 +13,10 @@ extension Font {
     static let mediumSmallFont = Font.custom("roboto_regular", size: Font.TextStyle.footnote.size, relativeTo: .caption)
     static let smallFont = Font.custom("roboto_regular", size: Font.TextStyle.caption.size, relativeTo: .caption)
     static let verySmallFont = Font.custom("roboto_regular", size: Font.TextStyle.caption2.size, relativeTo: .caption)
-    static let drawerItemFont = Font.custom("roboto_regular", size: 16, relativeTo: .caption)
+    static let smallIconFont = Font.custom("roboto_regular", size: 14, relativeTo: .caption)
+    static let mediumIconFont = Font.custom("roboto_regular", size: 16, relativeTo: .caption)
+    static let largeIconFont = Font.custom("roboto_regular", size: 18, relativeTo: .caption)
+    static let veryLargeIconFont = Font.custom("roboto_regular", size: 20, relativeTo: .caption)
 }
 
 extension Font.TextStyle {

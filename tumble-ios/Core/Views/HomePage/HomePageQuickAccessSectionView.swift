@@ -31,11 +31,11 @@ struct HomePageQuickAccessSectionView: View {
                     Text(title)
                         .font(.title2)
                         .foregroundColor(Color("OnBackground"))
-                        .bold()
+                        //.bold()
                         .padding(.leading, 15)
                     Spacer()
                     Image(systemName: image)
-                        .font(.system(size: 20))
+                        .font(.veryLargeIconFont)
                         .padding(.trailing, 20)
                         .foregroundColor(Color("OnBackground"))
                 }
