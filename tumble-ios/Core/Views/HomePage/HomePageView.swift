@@ -17,8 +17,6 @@ struct HomePageView: View {
     @StateObject var viewModel: HomePageViewModel = HomePageViewModel()
     let backgroundColor: Color = Color("PrimaryColor").opacity(0.75)
     let iconColor: Color = Color("PrimaryColor").opacity(0.95)
-    @State private var uniColor: Color = Color.black
-    @State private var uniLink: String = "schema.hkr.se"
     
     var body: some View {
         ScrollView {
@@ -27,8 +25,8 @@ struct HomePageView: View {
                 QuickAccessOption(id: .exams, title: "Registered exams", image: "text.badge.checkmark", onClick: {}, backgroundColor: backgroundColor, iconColor: iconColor),
                 QuickAccessOption(id: .schedules, title: "View a schedule", image: "list.clipboard", onClick: {}, backgroundColor: backgroundColor, iconColor: iconColor)
             ])
-            .padding(.top, 20)
-            
+            .padding(.top, 30)
+                        
             HomePageLinkSectionView(title: "Links", image: "link", links: [
                 ExternalLink(id: .university, title: viewModel.getUniversityName(), image: "paperclip", backgroundColor: viewModel.getUniversityColor(), iconColor: viewModel.getUniversityColor(), url: viewModel.getUniversityUrl()),
                 ExternalLink(id: .canvas, title: "Canvas", image: "paperclip", backgroundColor: .red, iconColor: .red, url: viewModel.getCanvasUrl()),
@@ -37,10 +35,6 @@ struct HomePageView: View {
             ])
             .padding(.top, 20)
         }
-    }
-    
-    func redrawUniSpecifics() -> Void {
-        uniColor = viewModel.getUniversityColor()
-        uniLink = viewModel.getUniversityUrl()
+        .padding([.leading, .trailing], 2.5)
     }
 }

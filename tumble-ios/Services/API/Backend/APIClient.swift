@@ -38,7 +38,6 @@ extension API {
                         if let data = data {
                             do {
                                 let result = try self.decoder.decode(Response.self, from: data)
-                                print("Success")
                                 callback?(.success(result))
                             } catch {
                                 print("Decoding error: \(error)")
@@ -53,7 +52,6 @@ extension API {
         // [HTTP GET]
         func get<Response>(_ endpoint: Types.Endpoint, then callback: ((Result<Response, Types.Error>) -> Void)? = nil
         ) where Response: Codable {
-            print(endpoint.url)
             let body: Types.Request.Empty? = nil
             fetch(endpoint, method: .get, body: body) { result in
                 callback?(result)

@@ -68,23 +68,10 @@ struct AppNavigatorView: View {
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading, content: {
-                        Button(action: {
-                            viewModel.onToggleDrawer()
-                        }, label: {
-                            Image(systemName: viewModel.menuOpened ? "xmark" : "line.3.horizontal")
-                                .font(.system(size: 17))
-                                .foregroundColor(Color("OnBackground"))
-                        })
+                        DrawerButtonView(onToggleDrawer: onToggleDrawer, menuOpened: viewModel.menuOpened)
                     })
                     ToolbarItem(placement: .navigationBarTrailing, content: {
-                        NavigationLink(destination:
-                            SearchParentView()
-                            .navigationBarBackButtonHidden(true)
-                            .navigationBarItems(leading: BackButton()), label: {
-                            Image(systemName: "magnifyingglass")
-                                    .font(.system(size: 17))
-                                .foregroundColor(Color("OnBackground"))
-                        })
+                        SearchButtonView()
                     })
                     ToolbarItemGroup(placement: .bottomBar, content: {
                         BottomBarView(onChangeTab: onChangeTab).environmentObject(viewModel)
@@ -124,6 +111,10 @@ struct AppNavigatorView: View {
     
     func onChangeTab(tab: TabType) -> Void {
         viewModel.onChangeTab(tab: tab)
+    }
+    
+    func onToggleDrawer() -> Void {
+        viewModel.onToggleDrawer()
     }
 }
 

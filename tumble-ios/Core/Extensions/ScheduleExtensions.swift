@@ -11,6 +11,8 @@ import SwiftUI
 //To convert API result date (ISO8601) to `Date`, this property should not be inside any methods
 let inDateFormatter = ISO8601DateFormatter()
 
+
+
 extension [API.Types.Response.Schedule] {
     
     func flatten() -> [DayUiModel] {
@@ -18,9 +20,7 @@ extension [API.Types.Response.Schedule] {
         var days: [DayUiModel] = []
         self.forEach { schedule in
             days.append(contentsOf: schedule.days.reduce(into: []) {
-                let day = Calendar.current.dateComponents([.day], from: inDateFormatter.date(from: $1.isoString)!).day!
-                let today = Calendar.current.dateComponents([.day], from: Date.now).day!
-                if day >= today {$0.append($1)}}.toUiModel())
+                if $1.isValidDay() {$0.append($1)}}.toUiModel())
         }
         return days.toOrderedDayUiModels()
     }
@@ -49,20 +49,31 @@ extension [API.Types.Response.Schedule] {
 }
 
 extension API.Types.Response.Schedule {
-    func assignRandomCoursesColors() -> [String : [String : Color]] {
-        var coursesColors: [String : [String : Color]] = [:]
+    
+    func assignCoursesRandomColors() -> [String : [String : Color]] {
+        var courseColors: [String : [String : Color]] = [:]
         for day in self.days {
             for event in day.events {
-                if coursesColors[event.course.id] == nil {
+                if courseColors[event.course.id] == nil {
                     let hexColorString = colors.randomElement()!;
-                    coursesColors[event.course.id] = [hexColorString : hexStringToUIColor(hex: hexColorString)]
+                    courseColors[event.course.id] = [hexColorString : hexStringToUIColor(hex: hexColorString)]
                 }
             }
         }
-        return coursesColors
+        return courseColors
     }
     
-    
+    func courses() -> [String] {
+        var courses: [String] = []
+        for day in self.days {
+            for event in day.events {
+                if !courses.contains(event.course.id) {
+                    courses.append(event.course.id)
+                }
+            }
+        }
+        return courses
+    }
 }
 
 extension [DayUiModel] {
@@ -90,39 +101,34 @@ extension [DayUiModel] {
     }
 }
 
+
 extension [API.Types.Response.Day] {
     func toUiModel() -> [DayUiModel] {
         return self.map { day in
             return DayUiModel(name: day.name, date: day.date, isoString: day.isoString, weekNumber: day.weekNumber, events: day.events)
         }
     }
-    
-    
+
+    // Used in ScheduleMainPageView when loading a schedule
+    // from the local database and converting into a list of UI models
     func toOrderedDays() -> [DayUiModel] {
         inDateFormatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
         var days: [DayUiModel] = []
         days.append(contentsOf: self.reduce(into: []) {
-            let day = Calendar.current.dateComponents([.day], from: inDateFormatter.date(from: $1.isoString)!).day!
-            let today = Calendar.current.dateComponents([.day], from: Date.now).day!
-            if day >= today {$0.append($1)}}.toUiModel())
+            if $1.isValidDay() {$0.append($1)}}.toUiModel())
         return days.toOrderedDayUiModels()
     }
 }
 
-extension API.Types.Response.Event {
-    func color() -> Color {
-        var hexColor: String = ""
-        CourseColorStore.load { result in
-            switch result {
-            case .failure(_):
-                print("Error on course with id: \(self.id)")
-            case .success(let courses):
-                if !courses.isEmpty {
-                    print(course.id)
-                    hexColor = courses[course.id]!
-                }
-            }
-        }
-        return hexColor == "" ? hexStringToUIColor(hex: colors.randomElement() ?? "FFFFFF") : hexStringToUIColor(hex: hexColor)
+extension API.Types.Response.Day {
+    // Determines if a schedule should be shown in the UI view based
+    // on whether or not the day of the month has already passed or not
+    func isValidDay() -> Bool {
+        let dayIsoString: String = self.isoString
+        let day: Int = Calendar.current.dateComponents([.day], from: inDateFormatter.date(from: dayIsoString)!).day!
+        let today: Int = Calendar.current.dateComponents([.day], from: inDateFormatter.date(from: dayIsoString)!).day!
+        let month: Int = Calendar.current.dateComponents([.month], from: Date.now).month!
+        let todaysMonth: Int = Calendar.current.dateComponents([.month], from: Date.now).month!
+        return ((day >= today && month == todaysMonth) || (month != todaysMonth))
     }
 }

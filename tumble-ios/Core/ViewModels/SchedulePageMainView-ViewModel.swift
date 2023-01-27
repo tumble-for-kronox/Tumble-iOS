@@ -26,9 +26,8 @@ extension ScheduleMainPageView {
     @MainActor class ScheduleMainPageViewModel: ObservableObject {
         @Published var scheduleViewTypes: [ScheduleViewType] = ScheduleViewType.allValues
         @Published var status: ScheduleMainPageStatus = .loading
-        @Published var schedules: [API.Types.Response.Schedule] = []
         @Published var days: [DayUiModel] = []
-        @Published var courseColors: [String : String] = [:]
+        @Published var courseColors: CourseAndColorDict = [:]
         @Published var viewType: ScheduleViewType = {
             let hasView: Bool = UserDefaults.standard.isKeyPresentInUserDefaults(key: UserDefaults.StoreKey.viewType.rawValue)
             if !(hasView) {

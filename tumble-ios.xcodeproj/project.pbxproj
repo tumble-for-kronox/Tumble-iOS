@@ -29,7 +29,6 @@
 		D40E843D2981C8B200C2CF2E /* AccountPageView-ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40E843C2981C8B200C2CF2E /* AccountPageView-ViewModel.swift */; };
 		D40E84422981E4E100C2CF2E /* ScheduleCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40E84412981E4E100C2CF2E /* ScheduleCalendarView.swift */; };
 		D412F4542982D35F003154CC /* BottomBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D412F4532982D35F003154CC /* BottomBarItem.swift */; };
-		D423321A29827C4E00F6CE9C /* ElegantCalendar.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D423321929827C4E00F6CE9C /* ElegantCalendar.xcassets */; };
 		D4239079293686D7005A95D7 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4239078293686D7005A95D7 /* Color.swift */; };
 		D43E680229820C9700124F72 /* ElegantCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = D43E680129820C9700124F72 /* ElegantCalendar */; };
 		D45338F629280E8400198411 /* ScheduleExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45338F529280E8400198411 /* ScheduleExtensions.swift */; };
@@ -65,6 +64,8 @@
 		D476BD2A293A31FD0027CFE8 /* SchedulePreviewListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D476BD29293A31FD0027CFE8 /* SchedulePreviewListView.swift */; };
 		D476BD2C293A326C0027CFE8 /* SchedulePreviewCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D476BD2B293A326C0027CFE8 /* SchedulePreviewCardView.swift */; };
 		D476BD2E293A32BF0027CFE8 /* RoundedCornerShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = D476BD2D293A32BF0027CFE8 /* RoundedCornerShape.swift */; };
+		D4861DEB29834E1900C4CA6F /* PreviewCardBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4861DEA29834E1900C4CA6F /* PreviewCardBannerView.swift */; };
+		D4861DED29834EB900C4CA6F /* PreviewCardInformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4861DEC29834EB900C4CA6F /* PreviewCardInformationView.swift */; };
 		D48F0D8829367A7F0039CD0F /* CourseColorStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48F0D8729367A7F0039CD0F /* CourseColorStore.swift */; };
 		D48F0D8A29367CAF0039CD0F /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48F0D8929367CAF0039CD0F /* Colors.swift */; };
 		D4967F832981F21000DE872E /* DateHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4967F822981F21000DE872E /* DateHolder.swift */; };
@@ -73,6 +74,11 @@
 		D4BAE614292466F700143717 /* SchoolModelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BAE613292466F700143717 /* SchoolModelData.swift */; };
 		D4BAE61929246AA200143717 /* schools.json in Resources */ = {isa = PBXBuildFile; fileRef = D4BAE61829246AA200143717 /* schools.json */; };
 		D4BAE61C29246AF800143717 /* SchoolRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BAE61B29246AF800143717 /* SchoolRow.swift */; };
+		D4CE2DAD2982D60000B81052 /* ElegantCalendar.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D4CE2DAC2982D60000B81052 /* ElegantCalendar.xcassets */; };
+		D4CE2DB22982DD3500B81052 /* CardBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CE2DB12982DD3500B81052 /* CardBannerView.swift */; };
+		D4CE2DB42982DDFE00B81052 /* CardInformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CE2DB32982DDFE00B81052 /* CardInformationView.swift */; };
+		D4CE2DBB2982E4D700B81052 /* DrawerButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CE2DBA2982E4D700B81052 /* DrawerButtonView.swift */; };
+		D4CE2DBD2982E55200B81052 /* SearchButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CE2DBC2982E55200B81052 /* SearchButtonView.swift */; };
 		D4CF9B2229353FC800DDB5F0 /* HomePageLinkSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CF9B2129353FC800DDB5F0 /* HomePageLinkSectionView.swift */; };
 		D4CF9B242935405200DDB5F0 /* HomePageLinkOptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CF9B232935405200DDB5F0 /* HomePageLinkOptionView.swift */; };
 		D4CF9B282935633800DDB5F0 /* SchedulePreviewError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CF9B272935633800DDB5F0 /* SchedulePreviewError.swift */; };
@@ -92,7 +98,7 @@
 		D4D4DD1C2927CA780083BB7F /* roboto_light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D4D4DD102927CA780083BB7F /* roboto_light.ttf */; };
 		D4D4DD1D2927CA780083BB7F /* roboto_regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D4D4DD112927CA780083BB7F /* roboto_regular.ttf */; };
 		D4D4DD1E2927CA780083BB7F /* roboto_light_italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D4D4DD122927CA780083BB7F /* roboto_light_italic.ttf */; };
-		D4D4DD202927CBDA0083BB7F /* FontExstensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D4DD1F2927CBDA0083BB7F /* FontExstensions.swift */; };
+		D4D4DD202927CBDA0083BB7F /* FontExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D4DD1F2927CBDA0083BB7F /* FontExtensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -118,7 +124,6 @@
 		D40E843C2981C8B200C2CF2E /* AccountPageView-ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AccountPageView-ViewModel.swift"; sourceTree = "<group>"; };
 		D40E84412981E4E100C2CF2E /* ScheduleCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ScheduleCalendarView.swift; path = "tumble-ios/Core/Views/Schedule/Calendar/ScheduleCalendarView.swift"; sourceTree = SOURCE_ROOT; };
 		D412F4532982D35F003154CC /* BottomBarItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BottomBarItem.swift; path = ../../../../../../../.Trash/BottomBarItem.swift; sourceTree = "<group>"; };
-		D423321929827C4E00F6CE9C /* ElegantCalendar.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = ElegantCalendar.xcassets; path = "../../Library/Developer/Xcode/DerivedData/tumble-ios-fexkmcwqhbcmhwhafpnwukjkdktx/SourcePackages/checkouts/ElegantCalendar/ElegantCalendar.xcassets"; sourceTree = "<group>"; };
 		D4239078293686D7005A95D7 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		D45338F529280E8400198411 /* ScheduleExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleExtensions.swift; sourceTree = "<group>"; };
 		D45338F8292825B200198411 /* ScheduleCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleCardView.swift; sourceTree = "<group>"; };
@@ -151,6 +156,8 @@
 		D476BD29293A31FD0027CFE8 /* SchedulePreviewListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulePreviewListView.swift; sourceTree = "<group>"; };
 		D476BD2B293A326C0027CFE8 /* SchedulePreviewCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulePreviewCardView.swift; sourceTree = "<group>"; };
 		D476BD2D293A32BF0027CFE8 /* RoundedCornerShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedCornerShape.swift; sourceTree = "<group>"; };
+		D4861DEA29834E1900C4CA6F /* PreviewCardBannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewCardBannerView.swift; sourceTree = "<group>"; };
+		D4861DEC29834EB900C4CA6F /* PreviewCardInformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewCardInformationView.swift; sourceTree = "<group>"; };
 		D48F0D8729367A7F0039CD0F /* CourseColorStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseColorStore.swift; sourceTree = "<group>"; };
 		D48F0D8929367CAF0039CD0F /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		D4967F822981F21000DE872E /* DateHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHolder.swift; sourceTree = "<group>"; };
@@ -159,6 +166,11 @@
 		D4BAE613292466F700143717 /* SchoolModelData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolModelData.swift; sourceTree = "<group>"; };
 		D4BAE61829246AA200143717 /* schools.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = schools.json; sourceTree = "<group>"; };
 		D4BAE61B29246AF800143717 /* SchoolRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolRow.swift; sourceTree = "<group>"; };
+		D4CE2DAC2982D60000B81052 /* ElegantCalendar.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = ElegantCalendar.xcassets; path = "../../Library/Developer/Xcode/DerivedData/tumble-ios-bmdzgpsrrlqprxfymxolonszzycj/SourcePackages/checkouts/ElegantCalendar/ElegantCalendar.xcassets"; sourceTree = "<group>"; };
+		D4CE2DB12982DD3500B81052 /* CardBannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardBannerView.swift; sourceTree = "<group>"; };
+		D4CE2DB32982DDFE00B81052 /* CardInformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardInformationView.swift; sourceTree = "<group>"; };
+		D4CE2DBA2982E4D700B81052 /* DrawerButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawerButtonView.swift; sourceTree = "<group>"; };
+		D4CE2DBC2982E55200B81052 /* SearchButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchButtonView.swift; sourceTree = "<group>"; };
 		D4CF9B2129353FC800DDB5F0 /* HomePageLinkSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageLinkSectionView.swift; sourceTree = "<group>"; };
 		D4CF9B232935405200DDB5F0 /* HomePageLinkOptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageLinkOptionView.swift; sourceTree = "<group>"; };
 		D4CF9B272935633800DDB5F0 /* SchedulePreviewError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulePreviewError.swift; sourceTree = "<group>"; };
@@ -178,7 +190,7 @@
 		D4D4DD102927CA780083BB7F /* roboto_light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = roboto_light.ttf; sourceTree = "<group>"; };
 		D4D4DD112927CA780083BB7F /* roboto_regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = roboto_regular.ttf; sourceTree = "<group>"; };
 		D4D4DD122927CA780083BB7F /* roboto_light_italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = roboto_light_italic.ttf; sourceTree = "<group>"; };
-		D4D4DD1F2927CBDA0083BB7F /* FontExstensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontExstensions.swift; sourceTree = "<group>"; };
+		D4D4DD1F2927CBDA0083BB7F /* FontExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontExtensions.swift; sourceTree = "<group>"; };
 		D4D4DD212927CFFA0083BB7F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -251,7 +263,7 @@
 			isa = PBXGroup;
 			children = (
 				D40D80A529252165008CA68D /* ViewExtensions.swift */,
-				D4D4DD1F2927CBDA0083BB7F /* FontExstensions.swift */,
+				D4D4DD1F2927CBDA0083BB7F /* FontExtensions.swift */,
 				D45338F529280E8400198411 /* ScheduleExtensions.swift */,
 				D45338FE2929805100198411 /* StringExtensions.swift */,
 			);
@@ -417,6 +429,8 @@
 			isa = PBXGroup;
 			children = (
 				D4607633292AA83F00DE9590 /* AppNavigatorView.swift */,
+				D4CE2DBA2982E4D700B81052 /* DrawerButtonView.swift */,
+				D4CE2DBC2982E55200B81052 /* SearchButtonView.swift */,
 			);
 			path = AppNavigation;
 			sourceTree = "<group>";
@@ -436,6 +450,8 @@
 				D4607652292AF5DA00DE9590 /* DayHeaderSectionView.swift */,
 				D45338F8292825B200198411 /* ScheduleCardView.swift */,
 				D460764B292AEAEC00DE9590 /* ScheduleListView.swift */,
+				D4CE2DB12982DD3500B81052 /* CardBannerView.swift */,
+				D4CE2DB32982DDFE00B81052 /* CardInformationView.swift */,
 			);
 			path = List;
 			sourceTree = "<group>";
@@ -443,7 +459,7 @@
 		D472213C292454560063BDB7 = {
 			isa = PBXGroup;
 			children = (
-				D423321929827C4E00F6CE9C /* ElegantCalendar.xcassets */,
+				D4CE2DAC2982D60000B81052 /* ElegantCalendar.xcassets */,
 				D496CC5E298206710025C52A /* Packages */,
 				D4722147292454560063BDB7 /* tumble-ios */,
 				D4722146292454560063BDB7 /* Products */,
@@ -531,6 +547,8 @@
 				D4CF9B272935633800DDB5F0 /* SchedulePreviewError.swift */,
 				D476BD29293A31FD0027CFE8 /* SchedulePreviewListView.swift */,
 				D476BD2B293A326C0027CFE8 /* SchedulePreviewCardView.swift */,
+				D4861DEA29834E1900C4CA6F /* PreviewCardBannerView.swift */,
+				D4861DEC29834EB900C4CA6F /* PreviewCardInformationView.swift */,
 			);
 			path = Preview;
 			sourceTree = "<group>";
@@ -667,8 +685,8 @@
 				D4D4DD1C2927CA780083BB7F /* roboto_light.ttf in Resources */,
 				D4D4DD1E2927CA780083BB7F /* roboto_light_italic.ttf in Resources */,
 				D4D4DD142927CA780083BB7F /* roboto_thin.ttf in Resources */,
-				D423321A29827C4E00F6CE9C /* ElegantCalendar.xcassets in Resources */,
 				D4D4DD152927CA780083BB7F /* roboto_black.ttf in Resources */,
+				D4CE2DAD2982D60000B81052 /* ElegantCalendar.xcassets in Resources */,
 				D4D4DD182927CA780083BB7F /* roboto_bold_italic.ttf in Resources */,
 				D4D4DD192927CA780083BB7F /* roboto_medium.ttf in Resources */,
 				D4D4DD132927CA780083BB7F /* roboto_bold.ttf in Resources */,
@@ -694,6 +712,7 @@
 				D4BAE61C29246AF800143717 /* SchoolRow.swift in Sources */,
 				D40D808929247123008CA68D /* RootView.swift in Sources */,
 				D48F0D8829367A7F0039CD0F /* CourseColorStore.swift in Sources */,
+				D4861DED29834EB900C4CA6F /* PreviewCardInformationView.swift in Sources */,
 				D40D80D22926A0A6008CA68D /* DrawerView.swift in Sources */,
 				D40CC161292AFB9F00664776 /* ScheduleMainPageView.swift in Sources */,
 				D412F4542982D35F003154CC /* BottomBarItem.swift in Sources */,
@@ -702,6 +721,7 @@
 				D40D80CE29265D49008CA68D /* SearchBar.swift in Sources */,
 				D4CF9B282935633800DDB5F0 /* SchedulePreviewError.swift in Sources */,
 				D40D80B429252A5A008CA68D /* UserDefaultsClient.swift in Sources */,
+				D4861DEB29834E1900C4CA6F /* PreviewCardBannerView.swift in Sources */,
 				D4722149292454560063BDB7 /* tumble_iosApp.swift in Sources */,
 				D4967F8F2981FA7600DE872E /* Month.swift in Sources */,
 				D4722160292455710063BDB7 /* API.swift in Sources */,
@@ -720,7 +740,9 @@
 				D40E843B2981C85400C2CF2E /* AccountPageView.swift in Sources */,
 				D40D809B29251FD7008CA68D /* ToastStyle.swift in Sources */,
 				D40D80CA29265B98008CA68D /* SearchParentView.swift in Sources */,
+				D4CE2DB42982DDFE00B81052 /* CardInformationView.swift in Sources */,
 				D40D80BE29258CAF008CA68D /* BottomBarView.swift in Sources */,
+				D4CE2DBD2982E55200B81052 /* SearchButtonView.swift in Sources */,
 				D4607645292AC41D00DE9590 /* SearchResultsView.swift in Sources */,
 				D45338F9292825B200198411 /* ScheduleCardView.swift in Sources */,
 				D476BD2A293A31FD0027CFE8 /* SchedulePreviewListView.swift in Sources */,
@@ -729,6 +751,7 @@
 				D4607632292AA39400DE9590 /* Types.swift in Sources */,
 				D4607653292AF5DA00DE9590 /* DayHeaderSectionView.swift in Sources */,
 				D40D80A629252165008CA68D /* ViewExtensions.swift in Sources */,
+				D4CE2DBB2982E4D700B81052 /* DrawerButtonView.swift in Sources */,
 				D476BD2E293A32BF0027CFE8 /* RoundedCornerShape.swift in Sources */,
 				D45338FD29297C8B00198411 /* DayUIModel.swift in Sources */,
 				D460764A292AE77E00DE9590 /* BubbleShape.swift in Sources */,
@@ -739,6 +762,7 @@
 				D4BAE614292466F700143717 /* SchoolModelData.swift in Sources */,
 				D45338FF2929805100198411 /* StringExtensions.swift in Sources */,
 				D472215F292455710063BDB7 /* APITypes.swift in Sources */,
+				D4CE2DB22982DD3500B81052 /* CardBannerView.swift in Sources */,
 				D4D4DD052927C88E0083BB7F /* BackButton.swift in Sources */,
 				D476BD2C293A326C0027CFE8 /* SchedulePreviewCardView.swift in Sources */,
 				D40E843D2981C8B200C2CF2E /* AccountPageView-ViewModel.swift in Sources */,
@@ -747,7 +771,7 @@
 				D40D809D29251FF6008CA68D /* Toast.swift in Sources */,
 				D4CF9B2C293572BE00DDB5F0 /* InfoView.swift in Sources */,
 				D40CC163292AFE7200664776 /* SchedulePageMainView-ViewModel.swift in Sources */,
-				D4D4DD202927CBDA0083BB7F /* FontExstensions.swift in Sources */,
+				D4D4DD202927CBDA0083BB7F /* FontExtensions.swift in Sources */,
 				D40D80CC29265C36008CA68D /* SearchView-ViewModel.swift in Sources */,
 				D4CF9B242935405200DDB5F0 /* HomePageLinkOptionView.swift in Sources */,
 				D4607641292AB18D00DE9590 /* HomePageView.swift in Sources */,
