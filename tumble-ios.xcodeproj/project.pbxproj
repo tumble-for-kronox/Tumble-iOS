@@ -28,7 +28,7 @@
 		D40E843B2981C85400C2CF2E /* AccountPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40E843A2981C85400C2CF2E /* AccountPageView.swift */; };
 		D40E843D2981C8B200C2CF2E /* AccountPageView-ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40E843C2981C8B200C2CF2E /* AccountPageView-ViewModel.swift */; };
 		D40E84422981E4E100C2CF2E /* ScheduleCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40E84412981E4E100C2CF2E /* ScheduleCalendarView.swift */; };
-		D412F4542982D35F003154CC /* BottomBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D412F4532982D35F003154CC /* BottomBarItem.swift */; };
+		D41ED5392983D2D4009DCF8B /* BottomBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41ED5382983D2D4009DCF8B /* BottomBarItem.swift */; };
 		D4239079293686D7005A95D7 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4239078293686D7005A95D7 /* Color.swift */; };
 		D43E680229820C9700124F72 /* ElegantCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = D43E680129820C9700124F72 /* ElegantCalendar */; };
 		D45338F629280E8400198411 /* ScheduleExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45338F529280E8400198411 /* ScheduleExtensions.swift */; };
@@ -123,7 +123,7 @@
 		D40E843A2981C85400C2CF2E /* AccountPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountPageView.swift; sourceTree = "<group>"; };
 		D40E843C2981C8B200C2CF2E /* AccountPageView-ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AccountPageView-ViewModel.swift"; sourceTree = "<group>"; };
 		D40E84412981E4E100C2CF2E /* ScheduleCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ScheduleCalendarView.swift; path = "tumble-ios/Core/Views/Schedule/Calendar/ScheduleCalendarView.swift"; sourceTree = SOURCE_ROOT; };
-		D412F4532982D35F003154CC /* BottomBarItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BottomBarItem.swift; path = ../../../../../../../.Trash/BottomBarItem.swift; sourceTree = "<group>"; };
+		D41ED5382983D2D4009DCF8B /* BottomBarItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomBarItem.swift; sourceTree = "<group>"; };
 		D4239078293686D7005A95D7 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		D45338F529280E8400198411 /* ScheduleExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleExtensions.swift; sourceTree = "<group>"; };
 		D45338F8292825B200198411 /* ScheduleCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleCardView.swift; sourceTree = "<group>"; };
@@ -340,7 +340,7 @@
 		D40D80BC29258CA0008CA68D /* BottomBar */ = {
 			isa = PBXGroup;
 			children = (
-				D412F4532982D35F003154CC /* BottomBarItem.swift */,
+				D41ED5382983D2D4009DCF8B /* BottomBarItem.swift */,
 				D40D80BD29258CAF008CA68D /* BottomBarView.swift */,
 			);
 			path = BottomBar;
@@ -715,7 +715,6 @@
 				D4861DED29834EB900C4CA6F /* PreviewCardInformationView.swift in Sources */,
 				D40D80D22926A0A6008CA68D /* DrawerView.swift in Sources */,
 				D40CC161292AFB9F00664776 /* ScheduleMainPageView.swift in Sources */,
-				D412F4542982D35F003154CC /* BottomBarItem.swift in Sources */,
 				D40D80C32925911D008CA68D /* DrawerContent.swift in Sources */,
 				D46081552930053E00FFFB44 /* ScheduleStore.swift in Sources */,
 				D40D80CE29265D49008CA68D /* SearchBar.swift in Sources */,
@@ -764,6 +763,7 @@
 				D472215F292455710063BDB7 /* APITypes.swift in Sources */,
 				D4CE2DB22982DD3500B81052 /* CardBannerView.swift in Sources */,
 				D4D4DD052927C88E0083BB7F /* BackButton.swift in Sources */,
+				D41ED5392983D2D4009DCF8B /* BottomBarItem.swift in Sources */,
 				D476BD2C293A326C0027CFE8 /* SchedulePreviewCardView.swift in Sources */,
 				D40E843D2981C8B200C2CF2E /* AccountPageView-ViewModel.swift in Sources */,
 				D40D80A0292520C5008CA68D /* ToastModifier.swift in Sources */,
