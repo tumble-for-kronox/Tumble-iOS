@@ -11,7 +11,7 @@ import SwiftUI
 struct tumble_iosApp: App {
     var body: some Scene {
         WindowGroup {
-            RootView().onAppear()
+            RootView(viewModel: ViewModelFactory().makeViewModelRoot()).onAppear()
         }
     }
 }

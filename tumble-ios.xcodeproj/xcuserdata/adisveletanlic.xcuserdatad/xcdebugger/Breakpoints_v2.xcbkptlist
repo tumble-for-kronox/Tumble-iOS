@@ -3,4 +3,54 @@
    uuid = "A9383E38-2E26-4828-99C8-45C03575E718"
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "88918B78-47CF-4BE6-9040-FCCCD10D0E1A"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "tumble-ios/App/Data/DataSource/API/APIClient.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "16"
+            endingLineNumber = "16"
+            landmarkName = "fetch(_:method:body:then:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "88918B78-47CF-4BE6-9040-FCCCD10D0E1A - f2378e3a5e1ff419"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "default argument 1 of tumble_ios.APIClient.fetch&lt;&#x3c4;_0_0, &#x3c4;_0_1 where &#x3c4;_0_0: Swift.Decodable, &#x3c4;_0_0: Swift.Encodable, &#x3c4;_0_1: Swift.Decodable, &#x3c4;_0_1: Swift.Encodable&gt;(_: tumble_ios.Endpoint, method: tumble_ios.Method, body: Swift.Optional&lt;&#x3c4;_0_0&gt;, then: Swift.Optional&lt;(Swift.Result&lt;&#x3c4;_0_1, tumble_ios.Error&gt;) -&gt; ()&gt;) -&gt; ()"
+                  moduleName = "tumble-ios"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/adisveletanlic/git/tumble-ios/tumble-ios/App/Data/DataSource/API/APIClient.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "16"
+                  endingLineNumber = "16"
+                  offsetFromSymbolStart = "14">
+               </Location>
+               <Location
+                  uuid = "88918B78-47CF-4BE6-9040-FCCCD10D0E1A - bfb0ed821a9791ba"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "tumble_ios.APIClient.fetch&lt;&#x3c4;_0_0, &#x3c4;_0_1 where &#x3c4;_0_0: Swift.Decodable, &#x3c4;_0_0: Swift.Encodable, &#x3c4;_0_1: Swift.Decodable, &#x3c4;_0_1: Swift.Encodable&gt;(_: tumble_ios.Endpoint, method: tumble_ios.Method, body: Swift.Optional&lt;&#x3c4;_0_0&gt;, then: Swift.Optional&lt;(Swift.Result&lt;&#x3c4;_0_1, tumble_ios.Error&gt;) -&gt; ()&gt;) -&gt; ()"
+                  moduleName = "tumble-ios"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/adisveletanlic/git/tumble-ios/tumble-ios/App/Data/DataSource/API/APIClient.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "19"
+                  endingLineNumber = "19"
+                  offsetFromSymbolStart = "588">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>
