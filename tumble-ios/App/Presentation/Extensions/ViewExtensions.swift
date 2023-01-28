@@ -21,9 +21,15 @@ extension View {
     func cornerRadius(_ radius: CGFloat, corners: UIRectCorner) -> some View {
         clipShape( RoundedCorner(radius: radius, corners: corners) )
     }
-    func eventDetailsSheet<Content>(isPresented: Binding<Bool>, onDismiss: (() -> Void)? = nil, @ViewBuilder content: @escaping () -> Content) -> some View where Content : View {
-        return content()
-            .offset(y: UIScreen.main.bounds.height/2)
+    
+    func eventDetailsSheet<Content>(isPresented: Binding<Bool>, onDismiss: (() -> Void)? = nil, @ViewBuilder content: @escaping () -> Content)
+        -> some View where Content : View {
+        ZStack {
+            if isPresented.wrappedValue {
+                content()
+                    .transition(.move(edge: .bottom))
+            }
+        }
     }
 }
 

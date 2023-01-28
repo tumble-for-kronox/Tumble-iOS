@@ -28,7 +28,7 @@ struct DrawerSheetView: View {
         case .schedules:
             Text("Stub")
         case .support:
-            Text("Stub")
+            SupportView()
         }
     }
 }
