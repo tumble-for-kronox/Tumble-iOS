@@ -7,8 +7,10 @@
 
 import SwiftUI
 
-struct AppView: View {
-    @ObservedObject var viewModel: AppViewModel
+
+/// All navigation occurs from this view
+struct MainAppView: View {
+    @ObservedObject var viewModel: MainAppViewModel
     
     @State private var isPickerSheetPresented = false
     @State private var pickerSheetView: AnyView? = nil
@@ -18,7 +20,7 @@ struct AppView: View {
     
     private let drawerWidth: CGFloat = UIScreen.main.bounds.width/3
     
-    init(viewModel: AppViewModel) {
+    init(viewModel: MainAppViewModel) {
         self.viewModel = viewModel
         let coloredAppearance = UINavigationBarAppearance()
         coloredAppearance.configureWithOpaqueBackground()
@@ -32,7 +34,7 @@ struct AppView: View {
     
     var body: some View {
         ZStack(alignment: .leading) {
-            Color("BackgroundColor")
+            Color("BackgroundColor").edgesIgnoringSafeArea(.all)
             DrawerView(isDrawerOpened: isDrawerOpened, onClickDrawerRow: { draweRowType in
                 viewModel.onClickDrawerRow(drawerRowType: draweRowType)
             }, drawerWidth: drawerWidth)
@@ -42,24 +44,22 @@ struct AppView: View {
                     Color("BackgroundColor")
                     VStack (alignment: .center) {
                         // Main home page view switcher
-                        if viewModel.schoolIsChosen {
-                            switch viewModel.selectedTab {
-                            case .home:
-                                HomePageView(viewModel: viewModel.homePageViewModel).onAppear {
-                                    viewModel.onEndTransitionAnimation()
-                                }
-                            case .schedule:
-                                ScheduleMainPageView(viewModel: viewModel.schedulePageViewModel, onTapCard: { event in
-                                    self.animateEventSheetIntoView()
-                                }).onAppear{
-                                    viewModel.onEndTransitionAnimation()
-                                }
-                            case .account:
-                                AccountPageView(viewModel: viewModel.accountPageViewModel).onAppear {
-                                    viewModel.onEndTransitionAnimation()
-                                }
-                                
+                        switch viewModel.selectedTab {
+                        case .home:
+                            HomePageView(viewModel: viewModel.homePageViewModel).onAppear {
+                                viewModel.onEndTransitionAnimation()
                             }
+                        case .schedule:
+                            ScheduleMainPageView(viewModel: viewModel.schedulePageViewModel, onTapCard: { event in
+                                self.animateEventSheetIntoView()
+                            }).onAppear{
+                                viewModel.onEndTransitionAnimation()
+                            }
+                        case .account:
+                            AccountPageView(viewModel: viewModel.accountPageViewModel).onAppear {
+                                viewModel.onEndTransitionAnimation()
+                            }
+                            
                         }
                         Spacer()
                         
@@ -85,12 +85,9 @@ struct AppView: View {
                 .background(Color("BackgroundColor"))
                 .font(.system(size: 22))
             }
-            .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
             .overlay(
                 Group {
-                    
                     if eventSheetToggled() {
-                        
                         Color.clear
                             .onTapGesture {
                                 print("Should be here")
@@ -126,10 +123,13 @@ struct AppView: View {
                 Text("Some text!")
             }
         }
+        .edgesIgnoringSafeArea(.all)
     }
     
     func onChangeTab(tab: TabType) -> Void {
-        viewModel.onChangeTab(tab: tab)
+        withAnimation (.easeIn(duration: 0.1)) {
+            viewModel.onChangeTab(tab: tab)
+        }
     }
     
     func animateEventSheetIntoView() -> Void {

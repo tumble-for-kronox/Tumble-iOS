@@ -10,9 +10,10 @@ import SwiftUI
 
 class PreferenceServiceImpl: PreferenceService {
     // ----------- SET -----------
-    func setSchool(id: Int) -> Void {
+    func setSchool(id: Int, closure: @escaping () -> Void) -> Void {
         UserDefaults.standard.set(id, forKey: StoreKey.school.rawValue)
         UserDefaults.standard.synchronize()
+        closure()
     }
     
     func setUserOnboarded() -> Void {

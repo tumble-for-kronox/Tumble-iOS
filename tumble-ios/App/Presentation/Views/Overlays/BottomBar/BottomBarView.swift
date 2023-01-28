@@ -10,7 +10,7 @@ import SwiftUI
 typealias OnChangeTab = (TabType) -> Void
 
 struct BottomBarView: View {
-    @EnvironmentObject var parentViewModel: AppView.AppViewModel
+    @EnvironmentObject var parentViewModel: MainAppView.MainAppViewModel
     var onChangeTab: OnChangeTab
     private var fillImage: String {
         parentViewModel.selectedTab.rawValue + ".fill"

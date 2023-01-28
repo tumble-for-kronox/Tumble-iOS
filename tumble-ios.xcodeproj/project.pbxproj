@@ -37,6 +37,19 @@
 		D41ED5502984350A009DCF8B /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41ED54F2984350A009DCF8B /* Endpoint.swift */; };
 		D41ED5522984351F009DCF8B /* Method.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41ED5512984351F009DCF8B /* Method.swift */; };
 		D4239079293686D7005A95D7 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4239078293686D7005A95D7 /* Color.swift */; };
+		D43419A429853F34001089A0 /* OnBoardingMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43419A329853F34001089A0 /* OnBoardingMainView.swift */; };
+		D43419A9298546B0001089A0 /* FeatureCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43419A8298546B0001089A0 /* FeatureCardView.swift */; };
+		D43419AE29854E6B001089A0 /* OnBoardingViewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43419AD29854E6B001089A0 /* OnBoardingViewBuilder.swift */; };
+		D43419B029854FCA001089A0 /* AppFeaturesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43419AF29854FCA001089A0 /* AppFeaturesListView.swift */; };
+		D43419B229855022001089A0 /* SavingSchedulesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43419B129855022001089A0 /* SavingSchedulesView.swift */; };
+		D43419B5298550BE001089A0 /* UsageStepCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43419B4298550BE001089A0 /* UsageStepCardView.swift */; };
+		D43419B829855A9C001089A0 /* SkipButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43419B729855A9C001089A0 /* SkipButtonView.swift */; };
+		D43419BA29855CF6001089A0 /* BookingRoomsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43419B929855CF6001089A0 /* BookingRoomsView.swift */; };
+		D43419BC29856159001089A0 /* SigningUpExamsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43419BB29856159001089A0 /* SigningUpExamsView.swift */; };
+		D43419BE2985628C001089A0 /* SettingNotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43419BD2985628C001089A0 /* SettingNotificationsView.swift */; };
+		D43419C02985639D001089A0 /* CustomizeCourseColorsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43419BF2985639D001089A0 /* CustomizeCourseColorsView.swift */; };
+		D43419C2298566DB001089A0 /* SchoolSelectionOnBoardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43419C1298566DB001089A0 /* SchoolSelectionOnBoardingView.swift */; };
+		D43419C42985684C001089A0 /* OnBoardingView-ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43419C32985684C001089A0 /* OnBoardingView-ViewModel.swift */; };
 		D43E680229820C9700124F72 /* ElegantCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = D43E680129820C9700124F72 /* ElegantCalendar */; };
 		D45338F629280E8400198411 /* ScheduleExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45338F529280E8400198411 /* ScheduleExtensions.swift */; };
 		D45338F9292825B200198411 /* ScheduleCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45338F8292825B200198411 /* ScheduleCardView.swift */; };
@@ -48,7 +61,7 @@
 		D4533907292A921B00198411 /* PermissionsSwiftUICamera in Frameworks */ = {isa = PBXBuildFile; productRef = D4533906292A921B00198411 /* PermissionsSwiftUICamera */; };
 		D4533909292A921B00198411 /* PermissionsSwiftUINotification in Frameworks */ = {isa = PBXBuildFile; productRef = D4533908292A921B00198411 /* PermissionsSwiftUINotification */; };
 		D4607632292AA39400DE9590 /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4607631292AA39400DE9590 /* Types.swift */; };
-		D4607634292AA83F00DE9590 /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4607633292AA83F00DE9590 /* AppView.swift */; };
+		D4607634292AA83F00DE9590 /* MainAppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4607633292AA83F00DE9590 /* MainAppView.swift */; };
 		D4607637292AA8DE00DE9590 /* PopupView in Frameworks */ = {isa = PBXBuildFile; productRef = D4607636292AA8DE00DE9590 /* PopupView */; };
 		D460763B292AAD5400DE9590 /* PopupToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460763A292AAD5400DE9590 /* PopupToastView.swift */; };
 		D460763D292AAE7800DE9590 /* RootView-ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460763C292AAE7800DE9590 /* RootView-ViewModel.swift */; };
@@ -67,7 +80,7 @@
 		D46ABF1229843D3000B059F6 /* StoreKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46ABF1129843D3000B059F6 /* StoreKey.swift */; };
 		D46ABF14298443AC00B059F6 /* ViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46ABF13298443AC00B059F6 /* ViewModelFactory.swift */; };
 		D4722149292454560063BDB7 /* tumble_iosApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4722148292454560063BDB7 /* tumble_iosApp.swift */; };
-		D472214B292454560063BDB7 /* SchoolSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D472214A292454560063BDB7 /* SchoolSelectView.swift */; };
+		D472214B292454560063BDB7 /* SchoolSelectViewForSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = D472214A292454560063BDB7 /* SchoolSelectViewForSheet.swift */; };
 		D472214D292454570063BDB7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D472214C292454570063BDB7 /* Assets.xcassets */; };
 		D4722150292454570063BDB7 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D472214F292454570063BDB7 /* Preview Assets.xcassets */; };
 		D4722161292455710063BDB7 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D472215E292455710063BDB7 /* APIClient.swift */; };
@@ -142,6 +155,19 @@
 		D41ED54F2984350A009DCF8B /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		D41ED5512984351F009DCF8B /* Method.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Method.swift; sourceTree = "<group>"; };
 		D4239078293686D7005A95D7 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		D43419A329853F34001089A0 /* OnBoardingMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingMainView.swift; sourceTree = "<group>"; };
+		D43419A8298546B0001089A0 /* FeatureCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureCardView.swift; sourceTree = "<group>"; };
+		D43419AD29854E6B001089A0 /* OnBoardingViewBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingViewBuilder.swift; sourceTree = "<group>"; };
+		D43419AF29854FCA001089A0 /* AppFeaturesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFeaturesListView.swift; sourceTree = "<group>"; };
+		D43419B129855022001089A0 /* SavingSchedulesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavingSchedulesView.swift; sourceTree = "<group>"; };
+		D43419B4298550BE001089A0 /* UsageStepCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsageStepCardView.swift; sourceTree = "<group>"; };
+		D43419B729855A9C001089A0 /* SkipButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkipButtonView.swift; sourceTree = "<group>"; };
+		D43419B929855CF6001089A0 /* BookingRoomsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingRoomsView.swift; sourceTree = "<group>"; };
+		D43419BB29856159001089A0 /* SigningUpExamsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigningUpExamsView.swift; sourceTree = "<group>"; };
+		D43419BD2985628C001089A0 /* SettingNotificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingNotificationsView.swift; sourceTree = "<group>"; };
+		D43419BF2985639D001089A0 /* CustomizeCourseColorsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomizeCourseColorsView.swift; sourceTree = "<group>"; };
+		D43419C1298566DB001089A0 /* SchoolSelectionOnBoardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolSelectionOnBoardingView.swift; sourceTree = "<group>"; };
+		D43419C32985684C001089A0 /* OnBoardingView-ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OnBoardingView-ViewModel.swift"; sourceTree = "<group>"; };
 		D45338F529280E8400198411 /* ScheduleExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleExtensions.swift; sourceTree = "<group>"; };
 		D45338F8292825B200198411 /* ScheduleCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleCardView.swift; sourceTree = "<group>"; };
 		D45338FA2929730200198411 /* CustomProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomProgressView.swift; sourceTree = "<group>"; };
@@ -150,7 +176,7 @@
 		D453390129299FB800198411 /* HomePageQuickAccessOptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageQuickAccessOptionView.swift; sourceTree = "<group>"; };
 		D4533903292A8A6100198411 /* HomePageQuickAccessSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageQuickAccessSectionView.swift; sourceTree = "<group>"; };
 		D4607631292AA39400DE9590 /* Types.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Types.swift; sourceTree = "<group>"; };
-		D4607633292AA83F00DE9590 /* AppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
+		D4607633292AA83F00DE9590 /* MainAppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainAppView.swift; sourceTree = "<group>"; };
 		D460763A292AAD5400DE9590 /* PopupToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupToastView.swift; sourceTree = "<group>"; };
 		D460763C292AAE7800DE9590 /* RootView-ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RootView-ViewModel.swift"; sourceTree = "<group>"; };
 		D4607640292AB18D00DE9590 /* HomePageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageView.swift; sourceTree = "<group>"; };
@@ -169,7 +195,7 @@
 		D46ABF13298443AC00B059F6 /* ViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelFactory.swift; sourceTree = "<group>"; };
 		D4722145292454560063BDB7 /* tumble-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "tumble-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4722148292454560063BDB7 /* tumble_iosApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tumble_iosApp.swift; sourceTree = "<group>"; };
-		D472214A292454560063BDB7 /* SchoolSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolSelectView.swift; sourceTree = "<group>"; };
+		D472214A292454560063BDB7 /* SchoolSelectViewForSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolSelectViewForSheet.swift; sourceTree = "<group>"; };
 		D472214C292454570063BDB7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D472214F292454570063BDB7 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		D472215E292455710063BDB7 /* APIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
@@ -289,6 +315,7 @@
 				D4607642292AB1C000DE9590 /* HomePageView-ViewModel.swift */,
 				D40CC162292AFE7200664776 /* SchedulePageMainView-ViewModel.swift */,
 				D40E843C2981C8B200C2CF2E /* AccountPageView-ViewModel.swift */,
+				D43419C32985684C001089A0 /* OnBoardingView-ViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -442,6 +469,41 @@
 			path = Database;
 			sourceTree = "<group>";
 		};
+		D43419A229853EAF001089A0 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				D43419B629855A64001089A0 /* Welcome */,
+				D43419B3298550A1001089A0 /* Usage */,
+				D43419A329853F34001089A0 /* OnBoardingMainView.swift */,
+				D43419AD29854E6B001089A0 /* OnBoardingViewBuilder.swift */,
+				D43419C1298566DB001089A0 /* SchoolSelectionOnBoardingView.swift */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		D43419B3298550A1001089A0 /* Usage */ = {
+			isa = PBXGroup;
+			children = (
+				D43419B129855022001089A0 /* SavingSchedulesView.swift */,
+				D43419B4298550BE001089A0 /* UsageStepCardView.swift */,
+				D43419B929855CF6001089A0 /* BookingRoomsView.swift */,
+				D43419BB29856159001089A0 /* SigningUpExamsView.swift */,
+				D43419BD2985628C001089A0 /* SettingNotificationsView.swift */,
+				D43419BF2985639D001089A0 /* CustomizeCourseColorsView.swift */,
+			);
+			path = Usage;
+			sourceTree = "<group>";
+		};
+		D43419B629855A64001089A0 /* Welcome */ = {
+			isa = PBXGroup;
+			children = (
+				D43419A8298546B0001089A0 /* FeatureCardView.swift */,
+				D43419AF29854FCA001089A0 /* AppFeaturesListView.swift */,
+				D43419B729855A9C001089A0 /* SkipButtonView.swift */,
+			);
+			path = Welcome;
+			sourceTree = "<group>";
+		};
 		D45338F7292825A400198411 /* Schedule */ = {
 			isa = PBXGroup;
 			children = (
@@ -492,7 +554,7 @@
 		D460763F292AB17000DE9590 /* MainApp */ = {
 			isa = PBXGroup;
 			children = (
-				D4607633292AA83F00DE9590 /* AppView.swift */,
+				D4607633292AA83F00DE9590 /* MainAppView.swift */,
 				D4CE2DBA2982E4D700B81052 /* DrawerButtonView.swift */,
 				D4CE2DBC2982E55200B81052 /* SearchButtonView.swift */,
 			);
@@ -624,6 +686,7 @@
 		D47221592924549B0063BDB7 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				D43419A229853EAF001089A0 /* Onboarding */,
 				D40E84392981C84700C2CF2E /* Account */,
 				D460763F292AB17000DE9590 /* MainApp */,
 				D453390029299F9800198411 /* HomePage */,
@@ -695,7 +758,7 @@
 		D4BAE61A29246AE800143717 /* SchoolSelection */ = {
 			isa = PBXGroup;
 			children = (
-				D472214A292454560063BDB7 /* SchoolSelectView.swift */,
+				D472214A292454560063BDB7 /* SchoolSelectViewForSheet.swift */,
 				D4BAE61B29246AF800143717 /* SchoolRow.swift */,
 			);
 			path = SchoolSelection;
@@ -823,13 +886,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				D4607643292AB1C000DE9590 /* HomePageView-ViewModel.swift in Sources */,
-				D472214B292454560063BDB7 /* SchoolSelectView.swift in Sources */,
+				D472214B292454560063BDB7 /* SchoolSelectViewForSheet.swift in Sources */,
 				D460763D292AAE7800DE9590 /* RootView-ViewModel.swift in Sources */,
 				D40D809829251EEF008CA68D /* ToastView.swift in Sources */,
+				D43419B229855022001089A0 /* SavingSchedulesView.swift in Sources */,
 				D4BAE5F82924636500143717 /* School.swift in Sources */,
 				D4BAE61C29246AF800143717 /* SchoolRow.swift in Sources */,
 				D40D808929247123008CA68D /* RootView.swift in Sources */,
+				D43419A9298546B0001089A0 /* FeatureCardView.swift in Sources */,
 				D48F0D8829367A7F0039CD0F /* CourseColorServiceImpl.swift in Sources */,
+				D43419B029854FCA001089A0 /* AppFeaturesListView.swift in Sources */,
 				D46ABF0A29843B9D00B059F6 /* ScheduleService.swift in Sources */,
 				D4861DED29834EB900C4CA6F /* PreviewCardInformationView.swift in Sources */,
 				D40D80D22926A0A6008CA68D /* DrawerView.swift in Sources */,
@@ -843,15 +909,20 @@
 				D41ED53B2983F393009DCF8B /* DateExtensions.swift in Sources */,
 				D4861DEB29834E1900C4CA6F /* PreviewCardBannerView.swift in Sources */,
 				D4722149292454560063BDB7 /* tumble_iosApp.swift in Sources */,
+				D43419BE2985628C001089A0 /* SettingNotificationsView.swift in Sources */,
+				D43419B5298550BE001089A0 /* UsageStepCardView.swift in Sources */,
 				D4239079293686D7005A95D7 /* Color.swift in Sources */,
 				D45338F629280E8400198411 /* ScheduleExtensions.swift in Sources */,
 				D45338FB2929730200198411 /* CustomProgressView.swift in Sources */,
 				D41ED54129840B2C009DCF8B /* EventSheetView.swift in Sources */,
-				D4607634292AA83F00DE9590 /* AppView.swift in Sources */,
+				D4607634292AA83F00DE9590 /* MainAppView.swift in Sources */,
 				D40D80C52925B97F008CA68D /* DrawerView-ViewModel.swift in Sources */,
+				D43419C02985639D001089A0 /* CustomizeCourseColorsView.swift in Sources */,
 				D460763B292AAD5400DE9590 /* PopupToastView.swift in Sources */,
 				D4D4DD032927C7DA0083BB7F /* ProgrammeCardView.swift in Sources */,
 				D453390229299FB800198411 /* HomePageQuickAccessOptionView.swift in Sources */,
+				D43419AE29854E6B001089A0 /* OnBoardingViewBuilder.swift in Sources */,
+				D43419C42985684C001089A0 /* OnBoardingView-ViewModel.swift in Sources */,
 				D4533904292A8A6100198411 /* HomePageQuickAccessSectionView.swift in Sources */,
 				D4CF9B2A2935634800DDB5F0 /* SearchErrorView.swift in Sources */,
 				D40E843B2981C85400C2CF2E /* AccountPageView.swift in Sources */,
@@ -880,10 +951,13 @@
 				D46ABF14298443AC00B059F6 /* ViewModelFactory.swift in Sources */,
 				D460764C292AEAEC00DE9590 /* ScheduleListView.swift in Sources */,
 				D40D80C72925BA62008CA68D /* DrawerItemSheet.swift in Sources */,
+				D43419B829855A9C001089A0 /* SkipButtonView.swift in Sources */,
+				D43419BA29855CF6001089A0 /* BookingRoomsView.swift in Sources */,
 				D40D80A929252688008CA68D /* App-ViewModel.swift in Sources */,
 				D4722161292455710063BDB7 /* APIClient.swift in Sources */,
 				D4BAE614292466F700143717 /* SchoolModelData.swift in Sources */,
 				D45338FF2929805100198411 /* StringExtensions.swift in Sources */,
+				D43419BC29856159001089A0 /* SigningUpExamsView.swift in Sources */,
 				D4CE2DB22982DD3500B81052 /* CardBannerView.swift in Sources */,
 				D41ED53F298403FB009DCF8B /* DrawerSheetView.swift in Sources */,
 				D4D4DD052927C88E0083BB7F /* BackButton.swift in Sources */,
@@ -902,7 +976,9 @@
 				D40D80CC29265C36008CA68D /* SearchView-ViewModel.swift in Sources */,
 				D4CF9B242935405200DDB5F0 /* HomePageLinkOptionView.swift in Sources */,
 				D4607641292AB18D00DE9590 /* HomePageView.swift in Sources */,
+				D43419C2298566DB001089A0 /* SchoolSelectionOnBoardingView.swift in Sources */,
 				D41ED54E298434C1009DCF8B /* Nullable.swift in Sources */,
+				D43419A429853F34001089A0 /* OnBoardingMainView.swift in Sources */,
 				D460764E292AF21900DE9590 /* SchedulePreviewView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

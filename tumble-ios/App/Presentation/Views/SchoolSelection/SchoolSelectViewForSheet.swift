@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct SchoolSelectView: View {
+struct SchoolSelectViewForSheet: View {
     var selectSchoolCallback: (School) -> Void
     var body: some View {
         HStack {

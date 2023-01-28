@@ -1,0 +1,41 @@
+//
+//  OnBoardingViewBuilder.swift
+//  tumble-ios
+//
+//  Created by Adis Veletanlic on 2023-01-28.
+//
+
+import SwiftUI
+
+struct OnBoardingViewBuilder<Content : View>: View {
+    let header: String
+    let subHeader: String
+    let content: Content
+    
+    init(header: String, subHeader: String, @ViewBuilder content: () -> Content) {
+        self.header = header
+        self.subHeader = subHeader
+        self.content = content()
+    }
+    
+    var body: some View {
+        VStack (alignment: .center) {
+            Text(header)
+                .mainheader()
+            
+            VStack (alignment: .center) {
+                Text(subHeader)
+                    .subHeader()
+                VStack {
+                    content
+                }
+                .padding(.top, 40)
+            }
+            .padding(.top, 30)
+            Spacer()
+        }
+        .padding([.leading, .trailing], 10)
+        .padding(.top, 20)
+    }
+}
+
