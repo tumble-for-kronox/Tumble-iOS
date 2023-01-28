@@ -8,8 +8,7 @@
 import Foundation
 
 import SwiftUI
-import PermissionsSwiftUICamera
-import PermissionsSwiftUINotification
+
 
 struct RootView: View {
     @Environment(\.colorScheme) var colorScheme: ColorScheme
@@ -19,22 +18,24 @@ struct RootView: View {
     var body: some View {
         ZStack {
             Color("BackgroundColor").edgesIgnoringSafeArea(.all)
-            // Only show rest of the app if a school is chosen
-            if !(viewModel.missingSchool) {
-                AppView(viewModel: ViewModelFactory().makeViewModelApp())
+            
+            if viewModel.userNotOnBoarded {
+                OnBoardingMainView(viewModel: viewModel.onBoardingViewModel, updateUserOnBoarded: updateUserOnBoarded)
+                    
+            } else {
+                MainAppView(viewModel: viewModel.appViewModel)
             }
         }
-        // Picker sheet will appear if school is not set
-        .sheet(isPresented: $viewModel.missingSchool) {
-            SchoolSelectView(selectSchoolCallback: { school in
-                viewModel.onSelectSchool(school: school)
-            }).interactiveDismissDisabled(true)
-        }
+        .transition(.slide)
         .environment(\.colorScheme, isDarkMode && overrideSystem ? .dark : .light)
         .preferredColorScheme(isDarkMode ? .dark : .light)
         .ignoresSafeArea(.keyboard)
-        .JMAlert(showModal: $viewModel.userOnBoarded, for: [.notification, .camera]).onSubmit {
-            viewModel.onUserOnboarded()
+    }
+    
+    func updateUserOnBoarded() -> Void {
+        withAnimation {
+            self.viewModel.userNotOnBoarded.toggle()
         }
+        self.viewModel.appViewModel.schoolIsChosen.toggle()
     }
 }

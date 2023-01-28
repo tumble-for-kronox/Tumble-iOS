@@ -14,8 +14,8 @@ enum ThemeMode: String {
 }
 
 
-extension AppView {
-    @MainActor final class AppViewModel: ObservableObject {
+extension MainAppView {
+    @MainActor final class MainAppViewModel: ObservableObject {
         @Published var currentDrawerSheetView: DrawerSheetViewType? = nil
         @Published var currentNavigationView: TabType = .home
         @Published var animateTransition: Bool = false
@@ -23,7 +23,7 @@ extension AppView {
         @Published var showModal: Bool = true
         @Published var showDrawerSheet: Bool = false
         
-        @Published var schoolIsChosen: Bool;
+        @Published var schoolIsChosen: Bool
         let databaseService: PreferenceServiceImpl
         let scheduleService: ScheduleServiceImpl
         let courseColorService: CourseColorServiceImpl
@@ -46,7 +46,7 @@ extension AppView {
         
         func onSelectSchool(school: School) -> Void {
             
-            databaseService.setSchool(id: school.id)
+            databaseService.setSchool(id: school.id, closure: {})
             
             scheduleService.removeAll { result in
                 switch result {

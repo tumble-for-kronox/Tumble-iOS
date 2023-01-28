@@ -43,9 +43,7 @@ struct HomePageLinkSectionView: View {
                         .padding(.leading, 15)
                     Spacer()
                     Image(systemName: image)
-                        .font(.veryLargeIconFont)
-                        .padding(.trailing, 20)
-                        .foregroundColor(Color("OnBackground"))
+                        .optionBigIcon()
                 }
                 
             }

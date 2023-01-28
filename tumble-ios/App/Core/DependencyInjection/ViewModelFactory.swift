@@ -23,12 +23,10 @@ class ViewModelFactory {
     
     @MainActor func makeViewModelRoot() -> RootView.RootViewModel {
         .init(
-            missingSchool: !preferenceService.isKeyPresentInUserDefaults(key: StoreKey.school.rawValue),
-            userOnboarded: !preferenceService.isKeyPresentInUserDefaults(key: StoreKey.userOnboarded.rawValue),
-            databaseService: preferenceService)
+            userNotOnBoarded: !preferenceService.isKeyPresentInUserDefaults(key: StoreKey.userOnboarded.rawValue))
     }
     
-    @MainActor func makeViewModelApp() -> AppView.AppViewModel {
+    @MainActor func makeViewModelApp() -> MainAppView.MainAppViewModel {
         .init(
             schoolIsChosen: preferenceService.isKeyPresentInUserDefaults(key: StoreKey.school.rawValue),
             databaseService: self.preferenceService,
@@ -54,6 +52,10 @@ class ViewModelFactory {
     
     @MainActor func makeViewModelAccountPage() -> AccountPageView.AccountPageViewModel {
         .init()
+    }
+    
+    @MainActor func makeViewModelOnBoarding() -> OnBoardingMainView.OnBoardingViewModel {
+        .init(preferenceService: preferenceService)
     }
     
 }

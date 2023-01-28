@@ -16,21 +16,15 @@ struct HomePageQuickAccessOptionView: View {
                 HStack (spacing: 0) {
                     HStack {
                         Image(systemName: option.image)
-                            .font(.largeIconFont)
-                            .frame(width: 17, height: 17)
-                            .padding(15)
-                            .foregroundColor(Color("OnPrimary"))
-                            .background(option.iconColor)
-                            .clipShape(RoundedRectangle(cornerRadius: 7.5))
+                            .homePageOptionIcon(color: option.iconColor)
+                            
                         Text(option.title)
-                            .font(.subheadline)
-                            .foregroundColor(Color("OnSurface"))
-                            .padding(.trailing, 15)
-                            .padding(.leading, 15)
+                            .homePageOption()
+                            
                         Spacer()
                         Image(systemName: "chevron.forward")
-                            .font(.system(size: 12))
-                            .foregroundColor(Color("OnSurface").opacity(0.75))
+                            .font(.system(size: 14))
+                            .foregroundColor(Color("OnSurface"))
                     }
                 }
                 .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)

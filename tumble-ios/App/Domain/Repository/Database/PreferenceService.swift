@@ -9,7 +9,7 @@ import Foundation
 
 protocol PreferenceService {
     // ----------- SET -----------
-    func setSchool(id: Int) -> Void
+    func setSchool(id: Int, closure: @escaping () -> Void) -> Void
     
     func setUserOnboarded() -> Void
     
