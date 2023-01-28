@@ -26,16 +26,17 @@ struct OnBoardingViewBuilder<Content : View>: View {
             VStack (alignment: .center) {
                 Text(subHeader)
                     .subHeader()
+                    .multilineTextAlignment(.center)
                 VStack {
                     content
                 }
-                .padding(.top, 40)
+                .padding(.top, 25)
             }
             .padding(.top, 30)
             Spacer()
         }
         .padding([.leading, .trailing], 10)
-        .padding(.top, 20)
+        .padding(.top, 15)
     }
 }
 

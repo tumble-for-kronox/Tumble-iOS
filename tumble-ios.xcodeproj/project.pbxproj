@@ -27,6 +27,7 @@
 		D40D80D22926A0A6008CA68D /* DrawerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40D80D12926A0A6008CA68D /* DrawerView.swift */; };
 		D40E843B2981C85400C2CF2E /* AccountPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40E843A2981C85400C2CF2E /* AccountPageView.swift */; };
 		D40E843D2981C8B200C2CF2E /* AccountPageView-ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40E843C2981C8B200C2CF2E /* AccountPageView-ViewModel.swift */; };
+		D41172B32985D3190082BB4F /* VarelaRound-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D41172B22985D3120082BB4F /* VarelaRound-Regular.ttf */; };
 		D41ED5392983D2D4009DCF8B /* BottomBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41ED5382983D2D4009DCF8B /* BottomBarItem.swift */; };
 		D41ED53B2983F393009DCF8B /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41ED53A2983F393009DCF8B /* DateExtensions.swift */; };
 		D41ED53F298403FB009DCF8B /* DrawerSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41ED53E298403FB009DCF8B /* DrawerSheetView.swift */; };
@@ -37,7 +38,7 @@
 		D41ED5502984350A009DCF8B /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41ED54F2984350A009DCF8B /* Endpoint.swift */; };
 		D41ED5522984351F009DCF8B /* Method.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41ED5512984351F009DCF8B /* Method.swift */; };
 		D4239079293686D7005A95D7 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4239078293686D7005A95D7 /* Color.swift */; };
-		D43419A429853F34001089A0 /* OnBoardingMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43419A329853F34001089A0 /* OnBoardingMainView.swift */; };
+		D43419A429853F34001089A0 /* OnBoardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43419A329853F34001089A0 /* OnBoardingView.swift */; };
 		D43419A9298546B0001089A0 /* FeatureCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43419A8298546B0001089A0 /* FeatureCardView.swift */; };
 		D43419AE29854E6B001089A0 /* OnBoardingViewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43419AD29854E6B001089A0 /* OnBoardingViewBuilder.swift */; };
 		D43419B029854FCA001089A0 /* AppFeaturesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43419AF29854FCA001089A0 /* AppFeaturesListView.swift */; };
@@ -48,9 +49,24 @@
 		D43419BC29856159001089A0 /* SigningUpExamsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43419BB29856159001089A0 /* SigningUpExamsView.swift */; };
 		D43419BE2985628C001089A0 /* SettingNotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43419BD2985628C001089A0 /* SettingNotificationsView.swift */; };
 		D43419C02985639D001089A0 /* CustomizeCourseColorsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43419BF2985639D001089A0 /* CustomizeCourseColorsView.swift */; };
-		D43419C2298566DB001089A0 /* SchoolSelectionOnBoardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43419C1298566DB001089A0 /* SchoolSelectionOnBoardingView.swift */; };
+		D43419C2298566DB001089A0 /* SchoolSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43419C1298566DB001089A0 /* SchoolSelectionView.swift */; };
 		D43419C42985684C001089A0 /* OnBoardingView-ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43419C32985684C001089A0 /* OnBoardingView-ViewModel.swift */; };
 		D43E680229820C9700124F72 /* ElegantCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = D43E680129820C9700124F72 /* ElegantCalendar */; };
+		D4462C0A29857FB00067DA65 /* MainAppOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4462C0929857FB00067DA65 /* MainAppOverlay.swift */; };
+		D4462C3029858A280067DA65 /* TextExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4462C2F29858A280067DA65 /* TextExtensions.swift */; };
+		D4462C3229858A7D0067DA65 /* ImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4462C3129858A7D0067DA65 /* ImageExtensions.swift */; };
+		D4462C9929858E8A0067DA65 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D4462C8F29858E5A0067DA65 /* OpenSans-Bold.ttf */; };
+		D4462C9A29858E8C0067DA65 /* OpenSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D4462C9829858E5A0067DA65 /* OpenSans-BoldItalic.ttf */; };
+		D4462C9B29858E8D0067DA65 /* OpenSans-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D4462C8D29858E5A0067DA65 /* OpenSans-ExtraBold.ttf */; };
+		D4462C9C29858E8F0067DA65 /* OpenSans-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D4462C9629858E5A0067DA65 /* OpenSans-ExtraBoldItalic.ttf */; };
+		D4462C9D29858E900067DA65 /* OpenSans-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D4462C8E29858E5A0067DA65 /* OpenSans-Italic.ttf */; };
+		D4462C9E29858E920067DA65 /* OpenSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D4462C9429858E5A0067DA65 /* OpenSans-Light.ttf */; };
+		D4462C9F29858E930067DA65 /* OpenSans-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D4462C9329858E5A0067DA65 /* OpenSans-LightItalic.ttf */; };
+		D4462CA029858E940067DA65 /* OpenSans-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D4462C9729858E5A0067DA65 /* OpenSans-Medium.ttf */; };
+		D4462CA129858E960067DA65 /* OpenSans-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D4462C9029858E5A0067DA65 /* OpenSans-MediumItalic.ttf */; };
+		D4462CA229858E970067DA65 /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D4462C9529858E5A0067DA65 /* OpenSans-Regular.ttf */; };
+		D4462CA329858E980067DA65 /* OpenSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D4462C9129858E5A0067DA65 /* OpenSans-SemiBold.ttf */; };
+		D4462CA429858E990067DA65 /* OpenSans-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D4462C9229858E5A0067DA65 /* OpenSans-SemiBoldItalic.ttf */; };
 		D45338F629280E8400198411 /* ScheduleExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45338F529280E8400198411 /* ScheduleExtensions.swift */; };
 		D45338F9292825B200198411 /* ScheduleCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45338F8292825B200198411 /* ScheduleCardView.swift */; };
 		D45338FB2929730200198411 /* CustomProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45338FA2929730200198411 /* CustomProgressView.swift */; };
@@ -80,7 +96,6 @@
 		D46ABF1229843D3000B059F6 /* StoreKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46ABF1129843D3000B059F6 /* StoreKey.swift */; };
 		D46ABF14298443AC00B059F6 /* ViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46ABF13298443AC00B059F6 /* ViewModelFactory.swift */; };
 		D4722149292454560063BDB7 /* tumble_iosApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4722148292454560063BDB7 /* tumble_iosApp.swift */; };
-		D472214B292454560063BDB7 /* SchoolSelectViewForSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = D472214A292454560063BDB7 /* SchoolSelectViewForSheet.swift */; };
 		D472214D292454570063BDB7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D472214C292454570063BDB7 /* Assets.xcassets */; };
 		D4722150292454570063BDB7 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D472214F292454570063BDB7 /* Preview Assets.xcassets */; };
 		D4722161292455710063BDB7 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D472215E292455710063BDB7 /* APIClient.swift */; };
@@ -109,18 +124,6 @@
 		D4CF9B2C293572BE00DDB5F0 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CF9B2B293572BE00DDB5F0 /* InfoView.swift */; };
 		D4D4DD032927C7DA0083BB7F /* ProgrammeCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D4DD022927C7DA0083BB7F /* ProgrammeCardView.swift */; };
 		D4D4DD052927C88E0083BB7F /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D4DD042927C88E0083BB7F /* BackButton.swift */; };
-		D4D4DD132927CA780083BB7F /* roboto_bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D4D4DD072927CA780083BB7F /* roboto_bold.ttf */; };
-		D4D4DD142927CA780083BB7F /* roboto_thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D4D4DD082927CA780083BB7F /* roboto_thin.ttf */; };
-		D4D4DD152927CA780083BB7F /* roboto_black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D4D4DD092927CA780083BB7F /* roboto_black.ttf */; };
-		D4D4DD162927CA780083BB7F /* roboto_black_italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D4D4DD0A2927CA780083BB7F /* roboto_black_italic.ttf */; };
-		D4D4DD172927CA780083BB7F /* roboto_medium_italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D4D4DD0B2927CA780083BB7F /* roboto_medium_italic.ttf */; };
-		D4D4DD182927CA780083BB7F /* roboto_bold_italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D4D4DD0C2927CA780083BB7F /* roboto_bold_italic.ttf */; };
-		D4D4DD192927CA780083BB7F /* roboto_medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D4D4DD0D2927CA780083BB7F /* roboto_medium.ttf */; };
-		D4D4DD1A2927CA780083BB7F /* roboto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D4D4DD0E2927CA780083BB7F /* roboto.ttf */; };
-		D4D4DD1B2927CA780083BB7F /* roboto_thin_italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D4D4DD0F2927CA780083BB7F /* roboto_thin_italic.ttf */; };
-		D4D4DD1C2927CA780083BB7F /* roboto_light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D4D4DD102927CA780083BB7F /* roboto_light.ttf */; };
-		D4D4DD1D2927CA780083BB7F /* roboto_regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D4D4DD112927CA780083BB7F /* roboto_regular.ttf */; };
-		D4D4DD1E2927CA780083BB7F /* roboto_light_italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D4D4DD122927CA780083BB7F /* roboto_light_italic.ttf */; };
 		D4D4DD202927CBDA0083BB7F /* FontExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D4DD1F2927CBDA0083BB7F /* FontExtensions.swift */; };
 /* End PBXBuildFile section */
 
@@ -145,6 +148,7 @@
 		D40D80D12926A0A6008CA68D /* DrawerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawerView.swift; sourceTree = "<group>"; };
 		D40E843A2981C85400C2CF2E /* AccountPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountPageView.swift; sourceTree = "<group>"; };
 		D40E843C2981C8B200C2CF2E /* AccountPageView-ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AccountPageView-ViewModel.swift"; sourceTree = "<group>"; };
+		D41172B22985D3120082BB4F /* VarelaRound-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "VarelaRound-Regular.ttf"; path = "../../../../../../Downloads/Varela_Round/VarelaRound-Regular.ttf"; sourceTree = "<group>"; };
 		D41ED5382983D2D4009DCF8B /* BottomBarItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomBarItem.swift; sourceTree = "<group>"; };
 		D41ED53A2983F393009DCF8B /* DateExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
 		D41ED53E298403FB009DCF8B /* DrawerSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawerSheetView.swift; sourceTree = "<group>"; };
@@ -155,7 +159,7 @@
 		D41ED54F2984350A009DCF8B /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		D41ED5512984351F009DCF8B /* Method.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Method.swift; sourceTree = "<group>"; };
 		D4239078293686D7005A95D7 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
-		D43419A329853F34001089A0 /* OnBoardingMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingMainView.swift; sourceTree = "<group>"; };
+		D43419A329853F34001089A0 /* OnBoardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingView.swift; sourceTree = "<group>"; };
 		D43419A8298546B0001089A0 /* FeatureCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureCardView.swift; sourceTree = "<group>"; };
 		D43419AD29854E6B001089A0 /* OnBoardingViewBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingViewBuilder.swift; sourceTree = "<group>"; };
 		D43419AF29854FCA001089A0 /* AppFeaturesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFeaturesListView.swift; sourceTree = "<group>"; };
@@ -166,8 +170,23 @@
 		D43419BB29856159001089A0 /* SigningUpExamsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigningUpExamsView.swift; sourceTree = "<group>"; };
 		D43419BD2985628C001089A0 /* SettingNotificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingNotificationsView.swift; sourceTree = "<group>"; };
 		D43419BF2985639D001089A0 /* CustomizeCourseColorsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomizeCourseColorsView.swift; sourceTree = "<group>"; };
-		D43419C1298566DB001089A0 /* SchoolSelectionOnBoardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolSelectionOnBoardingView.swift; sourceTree = "<group>"; };
+		D43419C1298566DB001089A0 /* SchoolSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolSelectionView.swift; sourceTree = "<group>"; };
 		D43419C32985684C001089A0 /* OnBoardingView-ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OnBoardingView-ViewModel.swift"; sourceTree = "<group>"; };
+		D4462C0929857FB00067DA65 /* MainAppOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainAppOverlay.swift; sourceTree = "<group>"; };
+		D4462C2F29858A280067DA65 /* TextExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextExtensions.swift; sourceTree = "<group>"; };
+		D4462C3129858A7D0067DA65 /* ImageExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageExtensions.swift; sourceTree = "<group>"; };
+		D4462C8D29858E5A0067DA65 /* OpenSans-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "OpenSans-ExtraBold.ttf"; path = "../../../../../../Downloads/Open_Sans/static/OpenSans/OpenSans-ExtraBold.ttf"; sourceTree = "<group>"; };
+		D4462C8E29858E5A0067DA65 /* OpenSans-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "OpenSans-Italic.ttf"; path = "../../../../../../Downloads/Open_Sans/static/OpenSans/OpenSans-Italic.ttf"; sourceTree = "<group>"; };
+		D4462C8F29858E5A0067DA65 /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "OpenSans-Bold.ttf"; path = "../../../../../../Downloads/Open_Sans/static/OpenSans/OpenSans-Bold.ttf"; sourceTree = "<group>"; };
+		D4462C9029858E5A0067DA65 /* OpenSans-MediumItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "OpenSans-MediumItalic.ttf"; path = "../../../../../../Downloads/Open_Sans/static/OpenSans/OpenSans-MediumItalic.ttf"; sourceTree = "<group>"; };
+		D4462C9129858E5A0067DA65 /* OpenSans-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "OpenSans-SemiBold.ttf"; path = "../../../../../../Downloads/Open_Sans/static/OpenSans/OpenSans-SemiBold.ttf"; sourceTree = "<group>"; };
+		D4462C9229858E5A0067DA65 /* OpenSans-SemiBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "OpenSans-SemiBoldItalic.ttf"; path = "../../../../../../Downloads/Open_Sans/static/OpenSans/OpenSans-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
+		D4462C9329858E5A0067DA65 /* OpenSans-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "OpenSans-LightItalic.ttf"; path = "../../../../../../Downloads/Open_Sans/static/OpenSans/OpenSans-LightItalic.ttf"; sourceTree = "<group>"; };
+		D4462C9429858E5A0067DA65 /* OpenSans-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "OpenSans-Light.ttf"; path = "../../../../../../Downloads/Open_Sans/static/OpenSans/OpenSans-Light.ttf"; sourceTree = "<group>"; };
+		D4462C9529858E5A0067DA65 /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "OpenSans-Regular.ttf"; path = "../../../../../../Downloads/Open_Sans/static/OpenSans/OpenSans-Regular.ttf"; sourceTree = "<group>"; };
+		D4462C9629858E5A0067DA65 /* OpenSans-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "OpenSans-ExtraBoldItalic.ttf"; path = "../../../../../../Downloads/Open_Sans/static/OpenSans/OpenSans-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
+		D4462C9729858E5A0067DA65 /* OpenSans-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "OpenSans-Medium.ttf"; path = "../../../../../../Downloads/Open_Sans/static/OpenSans/OpenSans-Medium.ttf"; sourceTree = "<group>"; };
+		D4462C9829858E5A0067DA65 /* OpenSans-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "OpenSans-BoldItalic.ttf"; path = "../../../../../../Downloads/Open_Sans/static/OpenSans/OpenSans-BoldItalic.ttf"; sourceTree = "<group>"; };
 		D45338F529280E8400198411 /* ScheduleExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleExtensions.swift; sourceTree = "<group>"; };
 		D45338F8292825B200198411 /* ScheduleCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleCardView.swift; sourceTree = "<group>"; };
 		D45338FA2929730200198411 /* CustomProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomProgressView.swift; sourceTree = "<group>"; };
@@ -195,7 +214,6 @@
 		D46ABF13298443AC00B059F6 /* ViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelFactory.swift; sourceTree = "<group>"; };
 		D4722145292454560063BDB7 /* tumble-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "tumble-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4722148292454560063BDB7 /* tumble_iosApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tumble_iosApp.swift; sourceTree = "<group>"; };
-		D472214A292454560063BDB7 /* SchoolSelectViewForSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolSelectViewForSheet.swift; sourceTree = "<group>"; };
 		D472214C292454570063BDB7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D472214F292454570063BDB7 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		D472215E292455710063BDB7 /* APIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
@@ -224,18 +242,6 @@
 		D4CF9B2B293572BE00DDB5F0 /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
 		D4D4DD022927C7DA0083BB7F /* ProgrammeCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgrammeCardView.swift; sourceTree = "<group>"; };
 		D4D4DD042927C88E0083BB7F /* BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
-		D4D4DD072927CA780083BB7F /* roboto_bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = roboto_bold.ttf; sourceTree = "<group>"; };
-		D4D4DD082927CA780083BB7F /* roboto_thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = roboto_thin.ttf; sourceTree = "<group>"; };
-		D4D4DD092927CA780083BB7F /* roboto_black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = roboto_black.ttf; sourceTree = "<group>"; };
-		D4D4DD0A2927CA780083BB7F /* roboto_black_italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = roboto_black_italic.ttf; sourceTree = "<group>"; };
-		D4D4DD0B2927CA780083BB7F /* roboto_medium_italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = roboto_medium_italic.ttf; sourceTree = "<group>"; };
-		D4D4DD0C2927CA780083BB7F /* roboto_bold_italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = roboto_bold_italic.ttf; sourceTree = "<group>"; };
-		D4D4DD0D2927CA780083BB7F /* roboto_medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = roboto_medium.ttf; sourceTree = "<group>"; };
-		D4D4DD0E2927CA780083BB7F /* roboto.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = roboto.ttf; sourceTree = "<group>"; };
-		D4D4DD0F2927CA780083BB7F /* roboto_thin_italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = roboto_thin_italic.ttf; sourceTree = "<group>"; };
-		D4D4DD102927CA780083BB7F /* roboto_light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = roboto_light.ttf; sourceTree = "<group>"; };
-		D4D4DD112927CA780083BB7F /* roboto_regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = roboto_regular.ttf; sourceTree = "<group>"; };
-		D4D4DD122927CA780083BB7F /* roboto_light_italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = roboto_light_italic.ttf; sourceTree = "<group>"; };
 		D4D4DD1F2927CBDA0083BB7F /* FontExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontExtensions.swift; sourceTree = "<group>"; };
 		D4D4DD212927CFFA0083BB7F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -265,6 +271,7 @@
 		D40D809629251EA5008CA68D /* Overlays */ = {
 			isa = PBXGroup;
 			children = (
+				D4BAE61A29246AE800143717 /* SchoolSelection */,
 				D40D80BF292590EE008CA68D /* Drawer */,
 				D40D80BC29258CA0008CA68D /* BottomBar */,
 				D40D809929251FC5008CA68D /* Toast */,
@@ -272,6 +279,7 @@
 				D45338FA2929730200198411 /* CustomProgressView.swift */,
 				D4CF9B2B293572BE00DDB5F0 /* InfoView.swift */,
 				D41ED54029840B2C009DCF8B /* EventSheetView.swift */,
+				D4462C0929857FB00067DA65 /* MainAppOverlay.swift */,
 			);
 			path = Overlays;
 			sourceTree = "<group>";
@@ -301,6 +309,8 @@
 				D45338F529280E8400198411 /* ScheduleExtensions.swift */,
 				D45338FE2929805100198411 /* StringExtensions.swift */,
 				D41ED53A2983F393009DCF8B /* DateExtensions.swift */,
+				D4462C2F29858A280067DA65 /* TextExtensions.swift */,
+				D4462C3129858A7D0067DA65 /* ImageExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -474,9 +484,8 @@
 			children = (
 				D43419B629855A64001089A0 /* Welcome */,
 				D43419B3298550A1001089A0 /* Usage */,
-				D43419A329853F34001089A0 /* OnBoardingMainView.swift */,
+				D43419A329853F34001089A0 /* OnBoardingView.swift */,
 				D43419AD29854E6B001089A0 /* OnBoardingViewBuilder.swift */,
-				D43419C1298566DB001089A0 /* SchoolSelectionOnBoardingView.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -695,7 +704,6 @@
 				D40D809E292520AA008CA68D /* ViewModifiers */,
 				D40D809629251EA5008CA68D /* Overlays */,
 				D40D808829247123008CA68D /* RootView.swift */,
-				D4BAE61A29246AE800143717 /* SchoolSelection */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -758,7 +766,7 @@
 		D4BAE61A29246AE800143717 /* SchoolSelection */ = {
 			isa = PBXGroup;
 			children = (
-				D472214A292454560063BDB7 /* SchoolSelectViewForSheet.swift */,
+				D43419C1298566DB001089A0 /* SchoolSelectionView.swift */,
 				D4BAE61B29246AF800143717 /* SchoolRow.swift */,
 			);
 			path = SchoolSelection;
@@ -767,18 +775,19 @@
 		D4D4DD062927CA660083BB7F /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
-				D4D4DD0A2927CA780083BB7F /* roboto_black_italic.ttf */,
-				D4D4DD092927CA780083BB7F /* roboto_black.ttf */,
-				D4D4DD0C2927CA780083BB7F /* roboto_bold_italic.ttf */,
-				D4D4DD072927CA780083BB7F /* roboto_bold.ttf */,
-				D4D4DD122927CA780083BB7F /* roboto_light_italic.ttf */,
-				D4D4DD102927CA780083BB7F /* roboto_light.ttf */,
-				D4D4DD0B2927CA780083BB7F /* roboto_medium_italic.ttf */,
-				D4D4DD0D2927CA780083BB7F /* roboto_medium.ttf */,
-				D4D4DD112927CA780083BB7F /* roboto_regular.ttf */,
-				D4D4DD0F2927CA780083BB7F /* roboto_thin_italic.ttf */,
-				D4D4DD082927CA780083BB7F /* roboto_thin.ttf */,
-				D4D4DD0E2927CA780083BB7F /* roboto.ttf */,
+				D41172B22985D3120082BB4F /* VarelaRound-Regular.ttf */,
+				D4462C8F29858E5A0067DA65 /* OpenSans-Bold.ttf */,
+				D4462C9829858E5A0067DA65 /* OpenSans-BoldItalic.ttf */,
+				D4462C8D29858E5A0067DA65 /* OpenSans-ExtraBold.ttf */,
+				D4462C9629858E5A0067DA65 /* OpenSans-ExtraBoldItalic.ttf */,
+				D4462C8E29858E5A0067DA65 /* OpenSans-Italic.ttf */,
+				D4462C9429858E5A0067DA65 /* OpenSans-Light.ttf */,
+				D4462C9329858E5A0067DA65 /* OpenSans-LightItalic.ttf */,
+				D4462C9729858E5A0067DA65 /* OpenSans-Medium.ttf */,
+				D4462C9029858E5A0067DA65 /* OpenSans-MediumItalic.ttf */,
+				D4462C9529858E5A0067DA65 /* OpenSans-Regular.ttf */,
+				D4462C9129858E5A0067DA65 /* OpenSans-SemiBold.ttf */,
+				D4462C9229858E5A0067DA65 /* OpenSans-SemiBoldItalic.ttf */,
 			);
 			path = Fonts;
 			sourceTree = "<group>";
@@ -859,21 +868,22 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D4D4DD1A2927CA780083BB7F /* roboto.ttf in Resources */,
-				D4D4DD162927CA780083BB7F /* roboto_black_italic.ttf in Resources */,
-				D4D4DD1D2927CA780083BB7F /* roboto_regular.ttf in Resources */,
-				D4D4DD1B2927CA780083BB7F /* roboto_thin_italic.ttf in Resources */,
-				D4D4DD1C2927CA780083BB7F /* roboto_light.ttf in Resources */,
-				D4D4DD1E2927CA780083BB7F /* roboto_light_italic.ttf in Resources */,
-				D4D4DD142927CA780083BB7F /* roboto_thin.ttf in Resources */,
-				D4D4DD152927CA780083BB7F /* roboto_black.ttf in Resources */,
 				D4CE2DAD2982D60000B81052 /* ElegantCalendar.xcassets in Resources */,
-				D4D4DD182927CA780083BB7F /* roboto_bold_italic.ttf in Resources */,
-				D4D4DD192927CA780083BB7F /* roboto_medium.ttf in Resources */,
-				D4D4DD132927CA780083BB7F /* roboto_bold.ttf in Resources */,
+				D4462C9929858E8A0067DA65 /* OpenSans-Bold.ttf in Resources */,
+				D4462C9A29858E8C0067DA65 /* OpenSans-BoldItalic.ttf in Resources */,
+				D4462C9C29858E8F0067DA65 /* OpenSans-ExtraBoldItalic.ttf in Resources */,
+				D41172B32985D3190082BB4F /* VarelaRound-Regular.ttf in Resources */,
 				D4BAE61929246AA200143717 /* schools.json in Resources */,
+				D4462C9F29858E930067DA65 /* OpenSans-LightItalic.ttf in Resources */,
+				D4462CA429858E990067DA65 /* OpenSans-SemiBoldItalic.ttf in Resources */,
+				D4462CA129858E960067DA65 /* OpenSans-MediumItalic.ttf in Resources */,
+				D4462CA329858E980067DA65 /* OpenSans-SemiBold.ttf in Resources */,
+				D4462C9B29858E8D0067DA65 /* OpenSans-ExtraBold.ttf in Resources */,
+				D4462CA229858E970067DA65 /* OpenSans-Regular.ttf in Resources */,
+				D4462CA029858E940067DA65 /* OpenSans-Medium.ttf in Resources */,
+				D4462C9E29858E920067DA65 /* OpenSans-Light.ttf in Resources */,
+				D4462C9D29858E900067DA65 /* OpenSans-Italic.ttf in Resources */,
 				D4722150292454570063BDB7 /* Preview Assets.xcassets in Resources */,
-				D4D4DD172927CA780083BB7F /* roboto_medium_italic.ttf in Resources */,
 				D472214D292454570063BDB7 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -886,10 +896,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				D4607643292AB1C000DE9590 /* HomePageView-ViewModel.swift in Sources */,
-				D472214B292454560063BDB7 /* SchoolSelectViewForSheet.swift in Sources */,
 				D460763D292AAE7800DE9590 /* RootView-ViewModel.swift in Sources */,
 				D40D809829251EEF008CA68D /* ToastView.swift in Sources */,
 				D43419B229855022001089A0 /* SavingSchedulesView.swift in Sources */,
+				D4462C3029858A280067DA65 /* TextExtensions.swift in Sources */,
 				D4BAE5F82924636500143717 /* School.swift in Sources */,
 				D4BAE61C29246AF800143717 /* SchoolRow.swift in Sources */,
 				D40D808929247123008CA68D /* RootView.swift in Sources */,
@@ -940,6 +950,7 @@
 				D46ABF0F29843CF300B059F6 /* PreferenceService.swift in Sources */,
 				D48F0D8A29367CAF0039CD0F /* Colors.swift in Sources */,
 				D4CF9B2229353FC800DDB5F0 /* HomePageLinkSectionView.swift in Sources */,
+				D4462C0A29857FB00067DA65 /* MainAppOverlay.swift in Sources */,
 				D4607632292AA39400DE9590 /* Types.swift in Sources */,
 				D48CE45A29849D8A00D312EC /* SupportOption.swift in Sources */,
 				D4607653292AF5DA00DE9590 /* DayHeaderSectionView.swift in Sources */,
@@ -947,6 +958,7 @@
 				D4CE2DBB2982E4D700B81052 /* DrawerButtonView.swift in Sources */,
 				D476BD2E293A32BF0027CFE8 /* RoundedCornerShape.swift in Sources */,
 				D45338FD29297C8B00198411 /* DayUIModel.swift in Sources */,
+				D4462C3229858A7D0067DA65 /* ImageExtensions.swift in Sources */,
 				D460764A292AE77E00DE9590 /* BubbleShape.swift in Sources */,
 				D46ABF14298443AC00B059F6 /* ViewModelFactory.swift in Sources */,
 				D460764C292AEAEC00DE9590 /* ScheduleListView.swift in Sources */,
@@ -976,9 +988,9 @@
 				D40D80CC29265C36008CA68D /* SearchView-ViewModel.swift in Sources */,
 				D4CF9B242935405200DDB5F0 /* HomePageLinkOptionView.swift in Sources */,
 				D4607641292AB18D00DE9590 /* HomePageView.swift in Sources */,
-				D43419C2298566DB001089A0 /* SchoolSelectionOnBoardingView.swift in Sources */,
+				D43419C2298566DB001089A0 /* SchoolSelectionView.swift in Sources */,
 				D41ED54E298434C1009DCF8B /* Nullable.swift in Sources */,
-				D43419A429853F34001089A0 /* OnBoardingMainView.swift in Sources */,
+				D43419A429853F34001089A0 /* OnBoardingView.swift in Sources */,
 				D460764E292AF21900DE9590 /* SchedulePreviewView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

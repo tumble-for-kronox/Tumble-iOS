@@ -18,7 +18,7 @@ struct BottomBarItem: View {
         VStack (spacing: 0) {
             Image(systemName: selectedTab == thisTab ? fillImage : thisTab.rawValue)
                 .scaleEffect(selectedTab == thisTab ? 1.10 : 1.0)
-                .foregroundColor(selectedTab == thisTab ? Color("PrimaryColor").opacity(0.85) : Color("OnBackground"))
+                .foregroundColor(self.foregroundColor())
                 .font(.mediumIconFont)
                 .onTapGesture {
                     if !(selectedTab == thisTab) {
@@ -27,11 +27,15 @@ struct BottomBarItem: View {
                 }
                 .padding(.bottom, 4)
             Text(thisTab.displayName)
-                .font(.system(size: 10))
-                .foregroundColor(selectedTab == thisTab ? Color("PrimaryColor") : Color("OnBackground"))
+                .bottomBarItem(selectedTab: selectedTab, thisTab: thisTab)
+                .scaleEffect(selectedTab == thisTab ? 1.10 : 1.0)
                 
         }
         .animation(Animation.easeIn.speed(5), value: animateTransition)
+    }
+    
+    func foregroundColor() -> Color {
+        return selectedTab == thisTab ? Color("PrimaryColor").opacity(0.85) : Color("OnBackground")
     }
 }
 

@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension OnBoardingMainView {
+extension OnBoardingView {
     @MainActor final class OnBoardingViewModel: ObservableObject {
         
         let preferenceService: PreferenceServiceImpl

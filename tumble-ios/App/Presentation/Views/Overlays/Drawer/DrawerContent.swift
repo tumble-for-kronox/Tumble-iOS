@@ -20,33 +20,30 @@ struct DrawerContent: View {
                             viewModel.onToggleTheme(value: false)
                         }, label: {
                             Text("Light")
+                                .caption().foregroundColor(Color("OnBackground"))
                             Image(systemName: "sun.max")
                         })
                         Button(action: {
                             viewModel.onToggleTheme(value: true)
                         }, label: {
                             Text("Dark")
+                                .caption().foregroundColor(Color("OnBackground"))
                             Image(systemName: "moon")
                         })
                         Button(action: {
                             viewModel.onDisableOverrideTheme()
                         }, label: {
                             Text("System")
+                                .caption().foregroundColor(Color("OnBackground"))
                             Image(systemName: "apps.iphone")
                         })
                     } label: {
                         VStack {
                             Image(systemName: "paintbrush")
-                                .font(.system(size: 17))
-                                .frame(width: 17, height: 17)
-                                .foregroundColor(Color("OnPrimary"))
-                                .padding(15)
-                                .background(Color("PrimaryColor").opacity(95))
-                                .clipShape(RoundedRectangle(cornerRadius: 10))
+                                .drawerIcon()
                             Text("Theme")
-                                .padding(.top, 5)
-                                .font(.subheadline)
-                                .foregroundColor(Color("OnSurface"))
+                                .caption()
+                                .foregroundColor(Color("OnBackground"))
                         }
                     }
                     .padding(.bottom, 30)
@@ -56,35 +53,32 @@ struct DrawerContent: View {
                             // stub
                         }, label: {
                             Text("System")
+                                .caption().foregroundColor(Color("OnBackground"))
                         })
                         Button(action: {
                             // stub
                         }, label: {
                             Text("English")
+                                .caption().foregroundColor(Color("OnBackground"))
                         })
                         Button(action: {
                             // stub
                         }, label: {
                             Text("German")
+                                .caption().foregroundColor(Color("OnBackground"))
                         })
                         Button(action: {
                             // stub
                         }, label: {
                             Text("French")
+                                .caption().foregroundColor(Color("OnBackground"))
                         })
                     } label: {
                         VStack {
                             Image(systemName: "globe.europe.africa")
-                                .font(.system(size: 17))
-                                .frame(width: 17, height: 17)
-                                .foregroundColor(Color("OnPrimary"))
-                                .padding(15)
-                                .background(Color("PrimaryColor").opacity(95))
-                                .clipShape(RoundedRectangle(cornerRadius: 10))
+                                .drawerIcon()
                             Text("Language")
-                                .padding(.top, 5)
-                                .font(.subheadline)
-                                .foregroundColor(Color("OnSurface"))
+                                .caption().foregroundColor(Color("OnBackground"))
                         }
                     }
                     .padding(.bottom, 30)
@@ -94,35 +88,32 @@ struct DrawerContent: View {
                             // stub
                         }, label: {
                             Text("15 minutes")
+                                .caption().foregroundColor(Color("OnBackground"))
                         })
                         Button(action: {
                             // stub
                         }, label: {
                             Text("30 minutes")
+                                .caption().foregroundColor(Color("OnBackground"))
                         })
                         Button(action: {
                             // stub
                         }, label: {
                             Text("1 hour")
+                                .caption().foregroundColor(Color("OnBackground"))
                         })
                         Button(action: {
                             // stub
                         }, label: {
                             Text("3 hours")
+                                .caption().foregroundColor(Color("OnBackground"))
                         })
                     } label: {
                         VStack {
                             Image(systemName: "bell.badge")
-                                .font(.system(size: 17))
-                                .frame(width: 17, height: 17)
-                                .foregroundColor(Color("OnPrimary"))
-                                .padding(15)
-                                .background(Color("PrimaryColor").opacity(95))
-                                .clipShape(RoundedRectangle(cornerRadius: 10))
+                                .drawerIcon()
                             Text("Notifications")
-                                .padding(.top, 5)
-                                .font(.subheadline)
-                                .foregroundColor(Color("OnSurface"))
+                                .caption().foregroundColor(Color("OnBackground"))
                         }
                     }
                     .padding(.bottom, 30)

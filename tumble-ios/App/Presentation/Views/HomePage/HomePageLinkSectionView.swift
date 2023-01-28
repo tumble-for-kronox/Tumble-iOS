@@ -37,10 +37,8 @@ struct HomePageLinkSectionView: View {
             VStack (alignment: .leading) {
                 HStack {
                     Text(title)
-                        .font(.title2)
-                        .foregroundColor(Color("OnBackground"))
-                        .bold()
-                        .padding(.leading, 15)
+                        .appHeader()
+                        
                     Spacer()
                     Image(systemName: image)
                         .optionBigIcon()

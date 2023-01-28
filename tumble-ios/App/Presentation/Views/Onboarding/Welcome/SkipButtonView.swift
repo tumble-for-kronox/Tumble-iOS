@@ -14,17 +14,9 @@ struct SkipButtonView: View {
     var body: some View {
         Button(action: onClickSkip) {
                 Text("Skip")
-                    .font(.system(size: 20))
-                    .bold()
-                    .padding()
-                    .foregroundColor(Color("OnPrimary"))
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 10)
-                            .stroke(Color.white, lineWidth: 2)
-                            .frame(width: 150)
-                )
+                    .onPrimaryMedium()
             }
-            .frame(width: 150)
+            .frame(width: 140)
             .background(Color("PrimaryColor"))
             .cornerRadius(10)
     }

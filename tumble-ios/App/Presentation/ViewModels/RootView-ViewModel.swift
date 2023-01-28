@@ -12,7 +12,7 @@ extension RootView {
 
         @Published var userNotOnBoarded: Bool
         let appViewModel: MainAppView.MainAppViewModel = ViewModelFactory().makeViewModelApp()
-        let onBoardingViewModel: OnBoardingMainView.OnBoardingViewModel = ViewModelFactory().makeViewModelOnBoarding()
+        let onBoardingViewModel: OnBoardingView.OnBoardingViewModel = ViewModelFactory().makeViewModelOnBoarding()
         
         
         init (userNotOnBoarded: Bool) {

@@ -20,7 +20,7 @@ struct RootView: View {
             Color("BackgroundColor").edgesIgnoringSafeArea(.all)
             
             if viewModel.userNotOnBoarded {
-                OnBoardingMainView(viewModel: viewModel.onBoardingViewModel, updateUserOnBoarded: updateUserOnBoarded)
+                OnBoardingView(viewModel: viewModel.onBoardingViewModel, updateUserOnBoarded: updateUserOnBoarded)
                     
             } else {
                 MainAppView(viewModel: viewModel.appViewModel)
