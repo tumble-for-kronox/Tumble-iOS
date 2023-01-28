@@ -20,21 +20,9 @@ struct MainAppView: View {
     
     private let drawerWidth: CGFloat = UIScreen.main.bounds.width/3
     
-    init(viewModel: MainAppViewModel) {
-        self.viewModel = viewModel
-        let coloredAppearance = UINavigationBarAppearance()
-        coloredAppearance.configureWithOpaqueBackground()
-        coloredAppearance.backgroundColor = UIColor(Color("BackgroundColor"))
-        UINavigationBar.appearance().standardAppearance = coloredAppearance
-        UINavigationBar.appearance().compactAppearance = coloredAppearance
-        UINavigationBar.appearance().scrollEdgeAppearance = coloredAppearance
-        UINavigationBar.appearance().tintColor = .white
-    }
-
-    
     var body: some View {
         ZStack(alignment: .leading) {
-            Color("BackgroundColor").edgesIgnoringSafeArea(.all)
+            Color("BackgroundColor")
             DrawerView(isDrawerOpened: isDrawerOpened, onClickDrawerRow: { draweRowType in
                 viewModel.onClickDrawerRow(drawerRowType: draweRowType)
             }, drawerWidth: drawerWidth)
@@ -68,9 +56,6 @@ struct MainAppView: View {
                     .padding([.leading, .trailing], 5)
                 }
                 
-                .navigationTitle(
-                    Text(viewModel.selectedTab.displayName))
-                .navigationBarTitleDisplayMode(.inline)
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading, content: {
                         DrawerButtonView(onToggleDrawer: onToggleDrawer, menuOpened: isDrawerOpened)
@@ -85,32 +70,7 @@ struct MainAppView: View {
                 .background(Color("BackgroundColor"))
                 .font(.system(size: 22))
             }
-            .overlay(
-                Group {
-                    if eventSheetToggled() {
-                        Color.clear
-                            .onTapGesture {
-                                print("Should be here")
-                                self.animateEventSheetOutOfView()
-                            }
-                    }
-                    
-                    else if isDrawerOpened {
-                        Color("BackgroundColor")
-                            .opacity(isDrawerOpened ? 0.01 : 0)
-                            .onTapGesture {
-                                onToggleDrawer()
-                            }
-                    } else {
-                        Color.clear
-                        .opacity(0)
-                        .onTapGesture {
-                            print("Should not be here")
-                            onToggleDrawer()
-                        }
-                    }
-                }
-            )
+            .overlay(MainAppOverlay(eventSheetToggled: self.eventSheetToggled, animateEventSheetOutOfView: self.animateEventSheetOutOfView, isDrawerOpened: self.isDrawerOpened, onToggleDrawer: self.onToggleDrawer))
             .offset(x: isDrawerOpened ? drawerWidth : 0, y: 0)
             .animation(Animation.easeIn.speed(2.0), value: isDrawerOpened)
             .animation(Animation.easeOut.speed(2.0), value: !isDrawerOpened)

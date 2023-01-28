@@ -54,7 +54,7 @@ class ViewModelFactory {
         .init()
     }
     
-    @MainActor func makeViewModelOnBoarding() -> OnBoardingMainView.OnBoardingViewModel {
+    @MainActor func makeViewModelOnBoarding() -> OnBoardingView.OnBoardingViewModel {
         .init(preferenceService: preferenceService)
     }
     

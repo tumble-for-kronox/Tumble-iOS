@@ -20,7 +20,7 @@ struct DrawerSheetView: View {
     var body: some View {
         switch currentDrawerSheetView {
         case .school:
-            SchoolSelectViewForSheet(selectSchoolCallback: { school in
+            SchoolSelectionView(onSelectSchool: { school in
                 onSelectSchool(school)
                 toggleDrawerSheet()
             })

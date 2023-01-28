@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct AppFeaturesListView: View {
-    let onClickSkip: OnClickSkip
     var body: some View {
         ScrollView {
             FeatureCardView(title: "Saving schedules", image: "list.bullet.clipboard.fill")
@@ -21,8 +20,6 @@ struct AppFeaturesListView: View {
             
             FeatureCardView(title: "Customizing course colors", image: "paintbrush.pointed.fill")
             
-            SkipButtonView(onClickSkip: onClickSkip)
-                .padding(.top, 50)
         }
         .padding(.bottom, 30)
     }
@@ -30,6 +27,6 @@ struct AppFeaturesListView: View {
 
 struct AppFeaturesListView_Previews: PreviewProvider {
     static var previews: some View {
-        AppFeaturesListView(onClickSkip: {})
+        AppFeaturesListView()
     }
 }

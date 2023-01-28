@@ -15,18 +15,11 @@ struct DrawerItem: View {
         VStack {
             Button(action: onClick, label: {
                 Image(systemName: image)
-                    .font(.system(size: 17))
-                    .frame(width: 17, height: 17)
-                    .foregroundColor(Color("OnPrimary"))
-                    .padding(15)
-                    .background(Color("PrimaryColor").opacity(95))
-                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                    .drawerIcon()
                 
             })
             Text(title)
-                .padding(.top, 5)
-                .font(.subheadline)
-                .foregroundColor(Color("OnSurface"))
+                .caption().foregroundColor(Color("OnBackground"))
                 
         }
         .padding(.bottom, 30)

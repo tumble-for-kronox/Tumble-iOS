@@ -20,10 +20,9 @@ struct UsageStepCardView: View {
                 .padding(10)
             VStack (alignment: .leading, spacing: 0) {
                 Text(titleInstruction)
-                    .font(.system(size: 18))
-                    .bold()
-                    .padding(.bottom, 3)
+                    .titleInstructions()
                 Text(bodyInstruction)
+                    .titleBody()
             }
             .frame(minHeight: 70, alignment: .top)
             .padding(.trailing, 10)

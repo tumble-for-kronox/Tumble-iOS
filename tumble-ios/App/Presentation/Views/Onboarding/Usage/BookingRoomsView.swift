@@ -21,6 +21,7 @@ struct BookingRoomsView: View {
             UsageStepCardView(titleInstruction: "Date", bodyInstruction: "Choose a time to search for available dates and select an opening", image: "calendar")
             
             UsageStepCardView(titleInstruction: "Confirm", bodyInstruction: "Now confirm your selected booking by pressing the confirm button", image: "checkmark.seal")
+                .padding(.bottom, 55)
         }
         .padding(.bottom, 30)
     }
