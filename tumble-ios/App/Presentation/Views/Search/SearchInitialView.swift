@@ -16,9 +16,7 @@ struct SearchInitialView: View {
                 .foregroundColor(Color("OnBackground"))
                 .padding(.bottom, 15)
             Text("This is where you find your schedules")
-                .font(.headline)
-                .foregroundColor(Color("OnBackground"))
-                .padding(.bottom, 25)
+                .info()
             Spacer()
                 
         }

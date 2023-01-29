@@ -19,8 +19,8 @@ enum DrawerRowType: String {
     static let allValues = [school, theme, language, schedules, notifications]
 }
 
-extension DrawerContent {
-    @MainActor final class DrawerViewModel: ObservableObject {
+extension SideBarContent {
+    @MainActor final class SideBarViewModel: ObservableObject {
         @Published var drawerView: String = ""
         @Published var visibleBottomSheet: Bool = true
         

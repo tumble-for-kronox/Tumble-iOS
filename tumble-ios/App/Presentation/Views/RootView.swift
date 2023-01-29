@@ -17,7 +17,7 @@ struct RootView: View {
     @ObservedObject var viewModel: RootViewModel
     var body: some View {
         ZStack {
-            Color("BackgroundColor").edgesIgnoringSafeArea(.all)
+            Color("BackgroundColor")
             
             if viewModel.userNotOnBoarded {
                 OnBoardingView(viewModel: viewModel.onBoardingViewModel, updateUserOnBoarded: updateUserOnBoarded)
@@ -30,6 +30,7 @@ struct RootView: View {
         .environment(\.colorScheme, isDarkMode && overrideSystem ? .dark : .light)
         .preferredColorScheme(isDarkMode ? .dark : .light)
         .ignoresSafeArea(.keyboard)
+        .edgesIgnoringSafeArea(.all)
     }
     
     func updateUserOnBoarded() -> Void {

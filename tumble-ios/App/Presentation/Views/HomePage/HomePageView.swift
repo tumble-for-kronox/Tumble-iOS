@@ -25,7 +25,7 @@ struct HomePageView: View {
                 QuickAccessOption(id: .exams, title: "Registered exams", image: "text.badge.checkmark", onClick: {}, backgroundColor: backgroundColor, iconColor: iconColor),
                 QuickAccessOption(id: .schedules, title: "View a schedule", image: "list.clipboard", onClick: {}, backgroundColor: backgroundColor, iconColor: iconColor)
             ])
-            .padding(.top, 30)
+            .padding(.top, 20)
                         
             HomePageLinkSectionView(title: "Links", image: "link", links: [
                 ExternalLink(id: .university, title: viewModel.getUniversityName(), image: "paperclip", backgroundColor: viewModel.getUniversityColor(), iconColor: viewModel.getUniversityColor(), url: viewModel.getUniversityUrl()),

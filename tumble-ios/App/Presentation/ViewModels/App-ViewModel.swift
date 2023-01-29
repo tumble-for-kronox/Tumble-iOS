@@ -16,7 +16,7 @@ enum ThemeMode: String {
 
 extension MainAppView {
     @MainActor final class MainAppViewModel: ObservableObject {
-        @Published var currentDrawerSheetView: DrawerSheetViewType? = nil
+        @Published var currentSideBarSheetView: SideBarSheetViewType? = nil
         @Published var currentNavigationView: TabType = .home
         @Published var animateTransition: Bool = false
         @Published var selectedTab: TabType = .home
@@ -30,6 +30,7 @@ extension MainAppView {
         let homePageViewModel: HomePageView.HomePageViewModel
         let accountPageViewModel: AccountPageView.AccountPageViewModel
         let schedulePageViewModel: ScheduleMainPageView.ScheduleMainPageViewModel
+        let sideBarViewModel: SideBarContent.SideBarViewModel
         
         
         init(schoolIsChosen: Bool, databaseService: PreferenceServiceImpl, scheduleService: ScheduleServiceImpl, courseColorService: CourseColorServiceImpl) {
@@ -41,6 +42,7 @@ extension MainAppView {
             self.homePageViewModel = ViewModelFactory().makeViewModelHomePage()
             self.accountPageViewModel = ViewModelFactory().makeViewModelAccountPage()
             self.schedulePageViewModel = ViewModelFactory().makeViewModelScheduleMainPage()
+            self.sideBarViewModel = ViewModelFactory().makeViewModelSideBar()
             
         }
         
@@ -77,15 +79,15 @@ extension MainAppView {
         func onClickDrawerRow(drawerRowType: DrawerRowType) -> Void {
             switch drawerRowType {
             case .school:
-                self.currentDrawerSheetView = .school
+                self.currentSideBarSheetView = .school
             case .schedules:
-                self.currentDrawerSheetView = .schedules
+                self.currentSideBarSheetView = .schedules
             case .support:
-                self.currentDrawerSheetView = .support
+                self.currentSideBarSheetView = .support
             default:
-                self.currentDrawerSheetView = nil
+                self.currentSideBarSheetView = nil
             }
-            if self.currentDrawerSheetView != nil {
+            if self.currentSideBarSheetView != nil {
                 self.showDrawerSheet = true
             }
         }

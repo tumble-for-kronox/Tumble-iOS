@@ -9,6 +9,8 @@ import SwiftUI
 
 struct SearchBar: View {
     @EnvironmentObject var viewModel: SearchParentView.SearchViewModel
+    @State private var closeButtonOffset: CGFloat = 300.0
+    @State private var hasTimeElapsed: Bool = false
     var body: some View {
         HStack {
             Image(systemName: "magnifyingglass")
@@ -16,35 +18,39 @@ struct SearchBar: View {
                 .font(.headline)
                 .padding(.leading, 5)
             TextField("Search schedules", text: $viewModel.searchBarText)
-                .font(.title3)
-                .padding(.leading, 5)
-                .disableAutocorrection(true)
+                .searchBoxText()
                 .onTapGesture {
-                    viewModel.isEditing = true
+                    self.animateCloseButtonIntoView()
                 }
-            if viewModel.isEditing {
-                Button(action: {
-                    if (viewModel.searchBarText.isEmpty) {
-                        hideKeyboard()
-                    }
-                    viewModel.onClearSearch(endEditing: viewModel.searchBarText.isEmpty)
-                    
-                }) {
-                    Image(systemName: "xmark.circle")
-                        .foregroundColor(Color("PrimaryColor"))
-                        .font(.headline)
-                    
+            Button(action: {
+                if (viewModel.searchBarText.isEmpty) {
+                    hideKeyboard()
+                    self.animateCloseButtonOutOfView()
                 }
-                .animation(.easeIn, value: viewModel.isEditing)
-                .animation(.easeOut, value: !viewModel.isEditing)
+                viewModel.onClearSearch(endEditing: viewModel.searchBarText.isEmpty)
+                
+            }) {
+                Image(systemName: "xmark.circle")
+                    .foregroundColor(Color("PrimaryColor"))
+                    .font(.headline)
+            }
+            .offset(x: closeButtonOffset)
+        }
+        .searchBox()
+    }
+    
+    private func animateCloseButtonIntoView() -> Void {
+        if self.closeButtonOffset == 300.0 {
+            withAnimation(.spring().delay(0.5)) {
+                self.closeButtonOffset -= 300
             }
         }
-        .padding(10)
-        .background(.gray.opacity(0.25))
-        .cornerRadius(10)
-        .padding(.leading, 20)
-        .padding(.trailing, 20)
-        .padding(.bottom, 35)
-        .padding(.top, 25)
     }
+    
+    private func animateCloseButtonOutOfView() -> Void {
+        withAnimation(.spring().delay(0.5)) {
+            self.closeButtonOffset += 300
+        }
+    }
+    
 }

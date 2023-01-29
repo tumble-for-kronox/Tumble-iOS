@@ -13,16 +13,12 @@ struct ProgrammeCardView: View {
         HStack {
             VStack(alignment:.leading) {
                 Text(programme.subtitle.trimmingCharacters(in: .whitespaces))
-                    .font(.headline)
-                    .multilineTextAlignment(.leading)
-                    .padding(.bottom, 10)
+                    .programmeTitle()
                 HStack {
                     Image(systemName: "menucard")
                         .font(.system(size: 17))
                     Text(programme.title)
-                        .font(.subheadline)
-                        .multilineTextAlignment(.leading)
-                    
+                        .programmeSubTitle()
                 }
             }
         }

@@ -16,7 +16,6 @@ extension RootView {
         
         
         init (userNotOnBoarded: Bool) {
-            print("User not onboarded: \(userNotOnBoarded)")
             self.userNotOnBoarded = userNotOnBoarded
         }
     }

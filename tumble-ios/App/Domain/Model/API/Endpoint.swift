@@ -18,8 +18,9 @@ enum Endpoint {
     
     var url: URL {
         var components = URLComponents()
-        components.host = "tumble.hkr.se"
-        components.scheme = "https"
+        let networkSettings = NetworkSettings()
+        components.host = networkSettings.tumbleUrl
+        components.scheme = networkSettings.scheme
         switch self {
         case .searchProgramme(searchQuery: let searchQuery, schoolId: let schoolId):
             components.path = "/schedules/search"

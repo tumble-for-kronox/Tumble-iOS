@@ -19,8 +19,7 @@ struct CardBannerView: View {
                 .foregroundColor(color)
                 .frame(height: 7)
             Text(timeSpan)
-                .font(.subheadline)
-                .foregroundColor(Color("OnSurface"))
+                .timeSpanCard()
             Spacer()
             
             if isSpecial {
