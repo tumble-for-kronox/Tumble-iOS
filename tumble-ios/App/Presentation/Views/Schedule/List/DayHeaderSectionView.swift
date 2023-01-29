@@ -13,11 +13,9 @@ struct DayHeaderSectionView: View {
     var body: some View {
         HStack (spacing: 0) {
             Text(day.name)
-                .font(.title2)
-                .padding(.trailing, 10)
+                .dayHeader()
             Text(day.date)
-                .font(.title2)
-                .padding(.trailing, 10)
+                .dayHeader()
             Rectangle()
                 .fill(Color("OnBackground"))
                 .offset(x: 7.5)

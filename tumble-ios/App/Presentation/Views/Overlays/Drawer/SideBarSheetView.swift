@@ -7,18 +7,18 @@
 
 import SwiftUI
 
-enum DrawerSheetViewType {
+enum SideBarSheetViewType {
     case school
     case schedules
     case support
 }
 
-struct DrawerSheetView: View {
-    let currentDrawerSheetView: DrawerSheetViewType
+struct SideBarSheetView: View {
+    let currentSideBarSheetView: SideBarSheetViewType
     let onSelectSchool: (School) -> Void
     let toggleDrawerSheet: () -> Void
     var body: some View {
-        switch currentDrawerSheetView {
+        switch currentSideBarSheetView {
         case .school:
             SchoolSelectionView(onSelectSchool: { school in
                 onSelectSchool(school)

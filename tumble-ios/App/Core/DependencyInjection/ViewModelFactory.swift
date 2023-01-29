@@ -34,7 +34,7 @@ class ViewModelFactory {
             courseColorService: self.courseColorService)
     }
     
-    @MainActor func makeViewModelDrawer() -> DrawerContent.DrawerViewModel {
+    @MainActor func makeViewModelSideBar() -> SideBarContent.SideBarViewModel {
         .init(databaseService: preferenceService)
     }
     

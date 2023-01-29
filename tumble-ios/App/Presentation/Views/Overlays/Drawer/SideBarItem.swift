@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct DrawerItem: View {
+struct SideBarItem: View {
     var onClick: () -> Void
     let title: String
     let image: String

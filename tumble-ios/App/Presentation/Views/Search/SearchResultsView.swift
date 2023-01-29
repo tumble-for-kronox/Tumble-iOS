@@ -16,10 +16,7 @@ struct SearchResultsView: View {
         VStack {
             HStack {
                 Text("\(numberOfSearchResults) results for \"\(searchText)\"")
-                    .font(.headline)
-                    .padding(.leading, 20)
-                    .padding(.top, 20)
-                    .padding(.bottom, 10)
+                    .searchResultsField()
                 Spacer()
             }
             List(searchResults, id: \.id) { programme in

@@ -14,76 +14,65 @@ struct MainAppView: View {
     
     @State private var isPickerSheetPresented = false
     @State private var pickerSheetView: AnyView? = nil
-    @State private var isDrawerOpened: Bool = false
     @State private var eventSheetPositionSize: CGSize = CGSize(width: 0, height: UIScreen.main.bounds.height)
     @State private var blurRadius: CGFloat = 0
+    @State private var showSideBar: Bool = false
     
     private let drawerWidth: CGFloat = UIScreen.main.bounds.width/3
     
+    init(viewModel: MainAppViewModel) {
+        UINavigationBar.appearance().titleTextAttributes = [.font : UIFont(name: "Montserrat-Regular", size: 18)!]
+        self.viewModel = viewModel
+    }
+    
     var body: some View {
-        ZStack(alignment: .leading) {
-            Color("BackgroundColor")
-            DrawerView(isDrawerOpened: isDrawerOpened, onClickDrawerRow: { draweRowType in
-                viewModel.onClickDrawerRow(drawerRowType: draweRowType)
-            }, drawerWidth: drawerWidth)
-                
-            NavigationView {
-                ZStack {
-                    Color("BackgroundColor")
-                    VStack (alignment: .center) {
-                        // Main home page view switcher
-                        switch viewModel.selectedTab {
-                        case .home:
-                            HomePageView(viewModel: viewModel.homePageViewModel).onAppear {
-                                viewModel.onEndTransitionAnimation()
+        SideBarStack(sidebarWidth: 125, showSidebar: $showSideBar) {
+            SideBarContent(viewModel: viewModel.sideBarViewModel, showSheet: { drawerType in
+                    viewModel.onClickDrawerRow(drawerRowType: drawerType)
+                })
+                .frame(width: drawerWidth, alignment: .leading)
+                .offset(x: showSideBar ? 0 : -drawerWidth, y: 0)
+                .animation(.easeIn.speed(2), value: showSideBar)
+                .animation(.easeOut.speed(2), value: !showSideBar)
+                } content: {
+                    NavigationView {
+                        ZStack {
+                            // Main home page view switcher
+                            switch viewModel.selectedTab {
+                            case .home:
+                                HomePageView(viewModel: viewModel.homePageViewModel).onAppear {
+                                    viewModel.onEndTransitionAnimation()
+                                }
+                            case .schedule:
+                                ScheduleMainPageView(viewModel: viewModel.schedulePageViewModel, onTapCard: { event in
+                                    self.animateEventSheetIntoView()
+                                }).onAppear{
+                                    viewModel.onEndTransitionAnimation()
+                                }
+                            case .account:
+                                AccountPageView(viewModel: viewModel.accountPageViewModel).onAppear {
+                                    viewModel.onEndTransitionAnimation()
+                                }
+                                
                             }
-                        case .schedule:
-                            ScheduleMainPageView(viewModel: viewModel.schedulePageViewModel, onTapCard: { event in
-                                self.animateEventSheetIntoView()
-                            }).onAppear{
-                                viewModel.onEndTransitionAnimation()
-                            }
-                        case .account:
-                            AccountPageView(viewModel: viewModel.accountPageViewModel).onAppear {
-                                viewModel.onEndTransitionAnimation()
-                            }
-                            
                         }
-                        Spacer()
-                        
+                        .navigationTitle(viewModel.selectedTab.displayName)
+                        .navigationBarTitleDisplayMode(.inline)
+                        .toolbar {
+                            ToolbarItem(placement: .navigationBarLeading, content: {
+                                DrawerButtonView(onToggleDrawer: onToggleDrawer, menuOpened: showSideBar)
+                            })
+                            ToolbarItem(placement: .navigationBarTrailing, content: {
+                                SearchButtonView(checkForNewSchedules: checkForNewSchedules)
+                            })
+                            ToolbarItemGroup(placement: .bottomBar, content: {
+                                BottomBarView(onChangeTab: onChangeTab).environmentObject(viewModel)
+                            })
+                        }.background(Color("BackgroundColor"))
+                            
                     }
-                    
-                    .padding([.leading, .trailing], 5)
-                }
-                
-                .toolbar {
-                    ToolbarItem(placement: .navigationBarLeading, content: {
-                        DrawerButtonView(onToggleDrawer: onToggleDrawer, menuOpened: isDrawerOpened)
-                    })
-                    ToolbarItem(placement: .navigationBarTrailing, content: {
-                        SearchButtonView(checkForNewSchedules: checkForNewSchedules)
-                    })
-                    ToolbarItemGroup(placement: .bottomBar, content: {
-                        BottomBarView(onChangeTab: onChangeTab).environmentObject(viewModel)
-                    })
-                }
-                .background(Color("BackgroundColor"))
-                .font(.system(size: 22))
-            }
-            .overlay(MainAppOverlay(eventSheetToggled: self.eventSheetToggled, animateEventSheetOutOfView: self.animateEventSheetOutOfView, isDrawerOpened: self.isDrawerOpened, onToggleDrawer: self.onToggleDrawer))
-            .offset(x: isDrawerOpened ? drawerWidth : 0, y: 0)
-            .animation(Animation.easeIn.speed(2.0), value: isDrawerOpened)
-            .animation(Animation.easeOut.speed(2.0), value: !isDrawerOpened)
-            .sheet(isPresented: $viewModel.showDrawerSheet, onDismiss: {
-                viewModel.onToggleDrawerSheet()
-            }, content: {
-                DrawerSheetView(currentDrawerSheetView: viewModel.currentDrawerSheetView!, onSelectSchool: onSelectSchool, toggleDrawerSheet: onToggleDrawerSheet)
-            })
-            EventSheetView (eventSheetPositionSize: $eventSheetPositionSize, animateEventSheetOutOfView: animateEventSheetOutOfView) {
-                Text("Some text!")
-            }
-        }
-        .edgesIgnoringSafeArea(.all)
+                }.edgesIgnoringSafeArea(.all)
+        
     }
     
     func onChangeTab(tab: TabType) -> Void {
@@ -103,7 +92,9 @@ struct MainAppView: View {
     }
     
     func onToggleDrawer() -> Void {
-        isDrawerOpened.toggle()
+        withAnimation {
+            showSideBar.toggle()
+        }
     }
     
     func onToggleDrawerSheet() -> Void {

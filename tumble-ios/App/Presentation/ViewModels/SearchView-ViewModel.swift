@@ -27,7 +27,6 @@ extension SearchParentView {
     @MainActor final class SearchViewModel: ObservableObject {
         @Published var searchBarText: String = ""
         @Published var searchResultText: String = ""
-        @Published var isEditing: Bool = false
         @Published var status: SearchStatus = .initial
         @Published var numberOfSearchResults: Int = 0
         @Published var searchResults: [Response.Programme] = []
@@ -167,7 +166,6 @@ extension SearchParentView {
         
         func onClearSearch(endEditing: Bool) -> Void {
             if (endEditing) {
-                self.isEditing = false
                 self.searchResults = []
                 self.status = .initial
             }

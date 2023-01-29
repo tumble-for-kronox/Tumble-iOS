@@ -31,7 +31,7 @@ extension Image {
     }
     
     func drawerIcon() -> some View {
-        self.font(.system(size: 17))
+        self.font(.system(size: 19))
             .frame(width: 17, height: 17)
             .foregroundColor(Color("OnPrimary"))
             .padding(15)

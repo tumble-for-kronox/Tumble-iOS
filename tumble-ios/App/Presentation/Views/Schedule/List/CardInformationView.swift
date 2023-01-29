@@ -15,24 +15,16 @@ struct CardInformationView: View {
     var body: some View {
         VStack (alignment: .leading) {
             Text(title)
-                .font(.title2)
-                .foregroundColor(Color("OnSurface"))
-                .padding(.leading, 25)
-                .padding(.trailing, 25)
-                .padding(.bottom, 2.5)
+                .titleCard()
             VStack {
                 Text(courseName)
-                    .font(.title3)
-                    .foregroundColor(Color("OnSurface"))
-                    .padding(.leading, 25)
-                    .padding(.bottom, 10)
+                    .courseNameCard()
                 Spacer()
             }
             HStack {
                 Spacer()
                 Text(location)
-                    .font(.title3)
-                    .foregroundColor(Color("OnSurface"))
+                    .locationCard()
                 Image(systemName: "location")
                     .font(.title3)
                     .foregroundColor(Color("OnSurface"))

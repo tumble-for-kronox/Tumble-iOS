@@ -19,9 +19,7 @@ struct InfoView: View {
                 .padding(.bottom, 15)
         }
         Text(title)
-            .font(.headline)
-            .foregroundColor(Color("OnBackground"))
-            .padding(.bottom, 25)
+            .info()
         
     }
 }

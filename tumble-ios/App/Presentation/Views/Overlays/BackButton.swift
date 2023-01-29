@@ -15,11 +15,12 @@ struct BackButton: View {
         }) {
             HStack {
                 Spacer()
-                Image(systemName: "chevron.left.circle")
+                Image(systemName: "arrow.backward.circle")
+                    .font(.system(size: 16))
                 Text("Back")
-                    .font(.headline)
+                    .backButton()
             }
-            .foregroundColor(Color("PrimaryColor"))
+            .foregroundColor(Color("OnBackground"))
         }
     }
 }

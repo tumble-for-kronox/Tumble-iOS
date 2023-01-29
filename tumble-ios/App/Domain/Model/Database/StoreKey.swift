@@ -19,4 +19,5 @@ enum StoreKey: String {
     case viewType = "VIEW"
     case userOnboarded = "USER_ONBOARDED"
     case overrideSystem = "OVERRIDE_THEME"
+    case networkSettings = "networkSettings"
 }
