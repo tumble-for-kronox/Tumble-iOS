@@ -12,48 +12,41 @@ import SwiftUI
 struct MainAppView: View {
     @ObservedObject var viewModel: MainAppViewModel
     
-    @State private var isPickerSheetPresented = false
+    @State private var showSideBarSheet = false
+    @State private var showScheduleEventSheet = false
     @State private var pickerSheetView: AnyView? = nil
     @State private var eventSheetPositionSize: CGSize = CGSize(width: 0, height: UIScreen.main.bounds.height)
-    @State private var blurRadius: CGFloat = 0
+    @State private var blurRadius: CGFloat = .zero
     @State private var showSideBar: Bool = false
+    @State var sideBarOffset: CGFloat = .zero
     
-    private let drawerWidth: CGFloat = UIScreen.main.bounds.width/3
+    private let sideBarWidth: CGFloat = 110
     
-    init(viewModel: MainAppViewModel) {
-        UINavigationBar.appearance().titleTextAttributes = [.font : UIFont(name: "Montserrat-Regular", size: 18)!]
-        self.viewModel = viewModel
-    }
+    //init(viewModel: MainAppViewModel) {
+    //    UINavigationBar.appearance().titleTextAttributes = [.font : UIFont(name: "Montserrat-Regular", size: 18)!]
+    //    self.viewModel = viewModel
+    //}
     
     var body: some View {
-        SideBarStack(sidebarWidth: 125, showSidebar: $showSideBar) {
+        SideBarStack(sideBarOffset: $sideBarOffset, showSidebar: $showSideBar) {
             SideBarContent(viewModel: viewModel.sideBarViewModel, showSheet: { drawerType in
-                    viewModel.onClickDrawerRow(drawerRowType: drawerType)
+                    onClickDrawerRow(drawerRowType: drawerType)
                 })
-                .frame(width: drawerWidth, alignment: .leading)
-                .offset(x: showSideBar ? 0 : -drawerWidth, y: 0)
-                .animation(.easeIn.speed(2), value: showSideBar)
-                .animation(.easeOut.speed(2), value: !showSideBar)
+                .frame(width: sideBarWidth, alignment: .center)
+                .offset(x: sideBarOffset + 7)
                 } content: {
                     NavigationView {
                         ZStack {
                             // Main home page view switcher
                             switch viewModel.selectedTab {
                             case .home:
-                                HomePageView(viewModel: viewModel.homePageViewModel).onAppear {
-                                    viewModel.onEndTransitionAnimation()
-                                }
+                                HomePageView(viewModel: viewModel.homePageViewModel)
                             case .schedule:
                                 ScheduleMainPageView(viewModel: viewModel.schedulePageViewModel, onTapCard: { event in
-                                    self.animateEventSheetIntoView()
-                                }).onAppear{
-                                    viewModel.onEndTransitionAnimation()
-                                }
+                                    onToggleScheduleEventSheet()
+                                })
                             case .account:
-                                AccountPageView(viewModel: viewModel.accountPageViewModel).onAppear {
-                                    viewModel.onEndTransitionAnimation()
-                                }
-                                
+                                AccountPageView(viewModel: viewModel.accountPageViewModel)
                             }
                         }
                         .navigationTitle(viewModel.selectedTab.displayName)
@@ -61,6 +54,7 @@ struct MainAppView: View {
                         .toolbar {
                             ToolbarItem(placement: .navigationBarLeading, content: {
                                 DrawerButtonView(onToggleDrawer: onToggleDrawer, menuOpened: showSideBar)
+                                    
                             })
                             ToolbarItem(placement: .navigationBarTrailing, content: {
                                 SearchButtonView(checkForNewSchedules: checkForNewSchedules)
@@ -69,7 +63,15 @@ struct MainAppView: View {
                                 BottomBarView(onChangeTab: onChangeTab).environmentObject(viewModel)
                             })
                         }.background(Color("BackgroundColor"))
-                            
+                    }
+                    // Sheet toggled from sidebar content
+                    .sheet(isPresented: $showSideBarSheet) {
+                        SideBarSheetView(currentSideBarSheetView: viewModel.currentSideBarSheetView!, onSelectSchool: onSelectSchool, toggleDrawerSheet: onToggleSideBarSheet)
+                    }.onDisappear {
+                        onToggleSideBarSheet()
+                    }
+                    .sheet(isPresented: $showScheduleEventSheet) {
+                        EmptyView()
                     }
                 }.edgesIgnoringSafeArea(.all)
         
@@ -81,36 +83,49 @@ struct MainAppView: View {
         }
     }
     
-    func animateEventSheetIntoView() -> Void {
-        self.eventSheetPositionSize.height = .zero
-        withAnimation (.easeIn) { self.blurRadius = 3 }
+    func onToggleSideBarSheet() -> Void {
+        self.showSideBarSheet.toggle()
     }
     
-    func animateEventSheetOutOfView() -> Void {
-        self.eventSheetPositionSize.height = UIScreen.main.bounds.height
-        withAnimation (.easeOut) { self.blurRadius = 0 }
+    func onToggleScheduleEventSheet() -> Void {
+        self.showScheduleEventSheet.toggle()
     }
     
     func onToggleDrawer() -> Void {
         withAnimation {
+            if showSideBar {
+                sideBarOffset -= 110
+            } else {
+                sideBarOffset += 110
+            }
             showSideBar.toggle()
         }
-    }
-    
-    func onToggleDrawerSheet() -> Void {
-        viewModel.showDrawerSheet.toggle()
     }
     
     func onSelectSchool(school: School) -> Void {
         viewModel.onSelectSchool(school: school)
     }
     
-    func eventSheetToggled() -> Bool {
-        return self.eventSheetPositionSize.height < UIScreen.main.bounds.height
-    }
-    
     func checkForNewSchedules() -> Void {
         viewModel.schedulePageViewModel.loadSchedules()
+    }
+    
+    // Assigns the corresponding drawer view type
+    // based on which row in the drawer was clicked
+    func onClickDrawerRow(drawerRowType: DrawerRowType) -> Void {
+        switch drawerRowType {
+        case .school:
+            viewModel.currentSideBarSheetView = .school
+        case .schedules:
+            viewModel.currentSideBarSheetView = .schedules
+        case .support:
+            viewModel.currentSideBarSheetView = .support
+        default:
+            viewModel.currentSideBarSheetView = nil
+        }
+        if viewModel.currentSideBarSheetView != nil {
+            showSideBarSheet = true
+        }
     }
 }
 

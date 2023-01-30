@@ -11,22 +11,23 @@ struct SideBarStack<SidebarContent: View, Content: View>: View {
     
     let sidebarContent: SidebarContent
     let mainContent: Content
-    let sidebarWidth: CGFloat
     @Binding var showSidebar: Bool
+    @Binding var sideBarOffset: CGFloat
+    private let internalOffset: CGFloat = -110
     
-    init(sidebarWidth: CGFloat, showSidebar: Binding<Bool>, @ViewBuilder sidebar: ()->SidebarContent, @ViewBuilder content: ()->Content) {
-        self.sidebarWidth = sidebarWidth
+    init(sideBarOffset: Binding<CGFloat>, showSidebar: Binding<Bool>, @ViewBuilder sidebar: ()->SidebarContent, @ViewBuilder content: ()->Content) {
         self._showSidebar = showSidebar
+        self._sideBarOffset = sideBarOffset
         sidebarContent = sidebar()
         mainContent = content()
     }
     
     var body: some View {
         ZStack(alignment: .leading) {
+            Color("SurfaceColor")
             sidebarContent
-                .frame(width: sidebarWidth, alignment: .center)
-                .offset(x: showSidebar ? 0 : -1 * sidebarWidth, y: 0)
-                .animation(Animation.easeInOut.speed(2))
+                .frame(width: 110, alignment: .leading)
+                .offset(x: internalOffset)
             mainContent
                 .overlay(
                     Group {
@@ -34,20 +35,24 @@ struct SideBarStack<SidebarContent: View, Content: View>: View {
                             Color.white
                                 .opacity(showSidebar ? 0.01 : 0)
                                 .onTapGesture {
+                                    withAnimation {
+                                        self.sideBarOffset += internalOffset
+                                    }
                                     self.showSidebar = false
                                 }
                         } else {
                             Color.clear
                             .opacity(showSidebar ? 0 : 0)
                             .onTapGesture {
+                                withAnimation {
+                                    self.sideBarOffset += internalOffset
+                                }
                                 self.showSidebar = false
                             }
                         }
                     }
                 )
-                .offset(x: showSidebar ? sidebarWidth : 0, y: 0)
-                .animation(Animation.easeInOut.speed(2))
-                
+                .offset(x: sideBarOffset)
         }
     }
 }

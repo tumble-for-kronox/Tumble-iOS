@@ -26,7 +26,6 @@ struct RootView: View {
                 MainAppView(viewModel: viewModel.appViewModel)
             }
         }
-        .transition(.slide)
         .environment(\.colorScheme, isDarkMode && overrideSystem ? .dark : .light)
         .preferredColorScheme(isDarkMode ? .dark : .light)
         .ignoresSafeArea(.keyboard)

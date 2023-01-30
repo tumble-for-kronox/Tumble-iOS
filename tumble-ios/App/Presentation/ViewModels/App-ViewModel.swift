@@ -18,7 +18,6 @@ extension MainAppView {
     @MainActor final class MainAppViewModel: ObservableObject {
         @Published var currentSideBarSheetView: SideBarSheetViewType? = nil
         @Published var currentNavigationView: TabType = .home
-        @Published var animateTransition: Bool = false
         @Published var selectedTab: TabType = .home
         @Published var showModal: Bool = true
         @Published var showDrawerSheet: Bool = false
@@ -74,36 +73,13 @@ extension MainAppView {
             self.schoolIsChosen = true
         }
         
-        // Assigns the corresponding drawer view type
-        // based on which row in the drawer was clicked
-        func onClickDrawerRow(drawerRowType: DrawerRowType) -> Void {
-            switch drawerRowType {
-            case .school:
-                self.currentSideBarSheetView = .school
-            case .schedules:
-                self.currentSideBarSheetView = .schedules
-            case .support:
-                self.currentSideBarSheetView = .support
-            default:
-                self.currentSideBarSheetView = nil
-            }
-            if self.currentSideBarSheetView != nil {
-                self.showDrawerSheet = true
-            }
-        }
-        
         func onToggleDrawerSheet() -> Void {
             self.showDrawerSheet = false
         }
         
         func onChangeTab(tab: TabType) -> Void {
-            self.animateTransition = true
             self.selectedTab = tab
         }
 
-        
-        func onEndTransitionAnimation() -> Void {
-            self.animateTransition = false
-        }
     }
 }

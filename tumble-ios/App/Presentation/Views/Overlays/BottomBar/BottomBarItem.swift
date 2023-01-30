@@ -13,7 +13,6 @@ struct BottomBarItem: View {
     let fillImage: String
     let skeletonImage: String
     let onChangeTab: OnChangeTab
-    let animateTransition: Bool
     var body: some View {
         VStack (spacing: 0) {
             Image(systemName: selectedTab == thisTab ? fillImage : thisTab.rawValue)
@@ -31,7 +30,6 @@ struct BottomBarItem: View {
                 .scaleEffect(selectedTab == thisTab ? 1.10 : 1.0)
                 
         }
-        .animation(Animation.easeIn.speed(5), value: animateTransition)
     }
     
     func foregroundColor() -> Color {

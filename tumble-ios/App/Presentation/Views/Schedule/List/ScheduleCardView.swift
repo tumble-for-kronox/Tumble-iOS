@@ -8,9 +8,7 @@
 import SwiftUI
 
 struct ScheduleCardView: View {
-    @AppStorage(StoreKey.theme.rawValue) private var isDarkMode = false
     @State private var isDisclosed: Bool = false
-    @State private var isAnimating: Bool = false
     
     let onTapCard: OnTapCard
     let event: Response.Event
@@ -34,14 +32,12 @@ struct ScheduleCardView: View {
             }
             
         }
-        .animation(.easeIn.repeatForever(autoreverses: false), value: isAnimating)
+        
         .onTapGesture {
             print("Tapped card")
             onTapCard(event)
         }
-        .onLongPressGesture {
-            print("long press!")
-        }
+
         .frame(height: 145)
         .padding([.leading, .trailing], 8)
         .padding(.bottom, isLast ? 40 : 10)
