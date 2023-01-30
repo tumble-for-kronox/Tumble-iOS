@@ -17,7 +17,8 @@ struct ScheduleListView: View {
     var body: some View {
         ZStack {
             ScrollView {
-                LazyVStack (spacing: 0) {
+                LazyVStack {
+                    Rectangle().foregroundColor(.clear).frame(height: 1.0)
                     ForEach(days, id: \.id) { day in
                         if !(day.events.isEmpty) {
                             Section(header: DayHeaderSectionView(day: day), content: {

@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct SchedulePreviewCardView: View {
-    @AppStorage(StoreKey.theme.rawValue) private var isDarkMode = false
     let previewColor: Color
     let event: Response.Event
     let isLast: Bool

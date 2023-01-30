@@ -31,7 +31,6 @@
 		D41ED5392983D2D4009DCF8B /* BottomBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41ED5382983D2D4009DCF8B /* BottomBarItem.swift */; };
 		D41ED53B2983F393009DCF8B /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41ED53A2983F393009DCF8B /* DateExtensions.swift */; };
 		D41ED53F298403FB009DCF8B /* SideBarSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41ED53E298403FB009DCF8B /* SideBarSheetView.swift */; };
-		D41ED54129840B2C009DCF8B /* EventSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41ED54029840B2C009DCF8B /* EventSheetView.swift */; };
 		D41ED54A29843460009DCF8B /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41ED54929843460009DCF8B /* Request.swift */; };
 		D41ED54C29843469009DCF8B /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41ED54B29843469009DCF8B /* Response.swift */; };
 		D41ED54E298434C1009DCF8B /* Nullable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41ED54D298434C1009DCF8B /* Nullable.swift */; };
@@ -145,7 +144,6 @@
 		D41ED5382983D2D4009DCF8B /* BottomBarItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomBarItem.swift; sourceTree = "<group>"; };
 		D41ED53A2983F393009DCF8B /* DateExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
 		D41ED53E298403FB009DCF8B /* SideBarSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideBarSheetView.swift; sourceTree = "<group>"; };
-		D41ED54029840B2C009DCF8B /* EventSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventSheetView.swift; sourceTree = "<group>"; };
 		D41ED54929843460009DCF8B /* Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
 		D41ED54B29843469009DCF8B /* Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
 		D41ED54D298434C1009DCF8B /* Nullable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Nullable.swift; sourceTree = "<group>"; };
@@ -257,13 +255,11 @@
 			children = (
 				D41172C02985EB2C0082BB4F /* SideBar */,
 				D4BAE61A29246AE800143717 /* SchoolSelection */,
-				D40D80BF292590EE008CA68D /* Drawer */,
 				D40D80BC29258CA0008CA68D /* BottomBar */,
 				D40D809929251FC5008CA68D /* Toast */,
 				D4D4DD042927C88E0083BB7F /* BackButton.swift */,
 				D45338FA2929730200198411 /* CustomProgressView.swift */,
 				D4CF9B2B293572BE00DDB5F0 /* InfoView.swift */,
-				D41ED54029840B2C009DCF8B /* EventSheetView.swift */,
 				D4462C0929857FB00067DA65 /* MainAppOverlay.swift */,
 			);
 			path = Overlays;
@@ -343,17 +339,6 @@
 			path = BottomBar;
 			sourceTree = "<group>";
 		};
-		D40D80BF292590EE008CA68D /* Drawer */ = {
-			isa = PBXGroup;
-			children = (
-				D48CE45829849D7D00D312EC /* Support */,
-				D41ED53E298403FB009DCF8B /* SideBarSheetView.swift */,
-				D40D80C22925911D008CA68D /* SideBarContent.swift */,
-				D40D80C62925BA62008CA68D /* SideBarItem.swift */,
-			);
-			path = Drawer;
-			sourceTree = "<group>";
-		};
 		D40D80C829265B85008CA68D /* Search */ = {
 			isa = PBXGroup;
 			children = (
@@ -379,6 +364,10 @@
 		D41172C02985EB2C0082BB4F /* SideBar */ = {
 			isa = PBXGroup;
 			children = (
+				D48CE45829849D7D00D312EC /* Support */,
+				D41ED53E298403FB009DCF8B /* SideBarSheetView.swift */,
+				D40D80C22925911D008CA68D /* SideBarContent.swift */,
+				D40D80C62925BA62008CA68D /* SideBarItem.swift */,
 				D41172C12985EB3C0082BB4F /* SideBarStack.swift */,
 			);
 			path = SideBar;
@@ -897,7 +886,6 @@
 				D45338F629280E8400198411 /* ScheduleExtensions.swift in Sources */,
 				D41172C22985EB3C0082BB4F /* SideBarStack.swift in Sources */,
 				D45338FB2929730200198411 /* CustomProgressView.swift in Sources */,
-				D41ED54129840B2C009DCF8B /* EventSheetView.swift in Sources */,
 				D4607634292AA83F00DE9590 /* MainAppView.swift in Sources */,
 				D40D80C52925B97F008CA68D /* DrawerView-ViewModel.swift in Sources */,
 				D4563E802985FBFB003261FA /* NetworkExtensions.swift in Sources */,
