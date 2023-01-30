@@ -20,6 +20,7 @@ enum Endpoint {
         var components = URLComponents()
         let networkSettings = NetworkSettings()
         components.host = networkSettings.tumbleUrl
+        components.port = networkSettings.port
         components.scheme = networkSettings.scheme
         switch self {
         case .searchProgramme(searchQuery: let searchQuery, schoolId: let schoolId):

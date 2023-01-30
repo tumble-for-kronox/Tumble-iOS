@@ -27,7 +27,6 @@
 		D40E843B2981C85400C2CF2E /* AccountPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40E843A2981C85400C2CF2E /* AccountPageView.swift */; };
 		D40E843D2981C8B200C2CF2E /* AccountPageView-ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40E843C2981C8B200C2CF2E /* AccountPageView-ViewModel.swift */; };
 		D41172B52985DA740082BB4F /* TextFieldExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41172B42985DA740082BB4F /* TextFieldExtensions.swift */; };
-		D41172BF2985E8600082BB4F /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D41172BE2985E84F0082BB4F /* Montserrat-Regular.ttf */; };
 		D41172C22985EB3C0082BB4F /* SideBarStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41172C12985EB3C0082BB4F /* SideBarStack.swift */; };
 		D41ED5392983D2D4009DCF8B /* BottomBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41ED5382983D2D4009DCF8B /* BottomBarItem.swift */; };
 		D41ED53B2983F393009DCF8B /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41ED53A2983F393009DCF8B /* DateExtensions.swift */; };
@@ -39,6 +38,7 @@
 		D41ED5502984350A009DCF8B /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41ED54F2984350A009DCF8B /* Endpoint.swift */; };
 		D41ED5522984351F009DCF8B /* Method.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41ED5512984351F009DCF8B /* Method.swift */; };
 		D4239079293686D7005A95D7 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4239078293686D7005A95D7 /* Color.swift */; };
+		D42FBA44298757A800772239 /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D42FBA432987578300772239 /* Montserrat-Regular.ttf */; };
 		D43419A429853F34001089A0 /* OnBoardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43419A329853F34001089A0 /* OnBoardingView.swift */; };
 		D43419A9298546B0001089A0 /* FeatureCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43419A8298546B0001089A0 /* FeatureCardView.swift */; };
 		D43419AE29854E6B001089A0 /* OnBoardingViewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43419AD29854E6B001089A0 /* OnBoardingViewBuilder.swift */; };
@@ -141,7 +141,6 @@
 		D41172B22985D3120082BB4F /* VarelaRound-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "VarelaRound-Regular.ttf"; path = "../../../../../../Downloads/Varela_Round/VarelaRound-Regular.ttf"; sourceTree = "<group>"; };
 		D41172B42985DA740082BB4F /* TextFieldExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldExtensions.swift; sourceTree = "<group>"; };
 		D41172B82985E4CE0082BB4F /* Satoshi-Variable.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Satoshi-Variable.ttf"; path = "../../../../../../Downloads/Satoshi_Complete/Fonts/Variable/Satoshi-Variable.ttf"; sourceTree = "<group>"; };
-		D41172BE2985E84F0082BB4F /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-Regular.ttf"; path = "../../../../../../Documents/Montserrat-Regular.ttf"; sourceTree = "<group>"; };
 		D41172C12985EB3C0082BB4F /* SideBarStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideBarStack.swift; sourceTree = "<group>"; };
 		D41ED5382983D2D4009DCF8B /* BottomBarItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomBarItem.swift; sourceTree = "<group>"; };
 		D41ED53A2983F393009DCF8B /* DateExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
@@ -153,6 +152,7 @@
 		D41ED54F2984350A009DCF8B /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		D41ED5512984351F009DCF8B /* Method.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Method.swift; sourceTree = "<group>"; };
 		D4239078293686D7005A95D7 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		D42FBA432987578300772239 /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-Regular.ttf"; path = "../../../../../../Documents/Montserrat/static/Montserrat-Regular.ttf"; sourceTree = "<group>"; };
 		D43419A329853F34001089A0 /* OnBoardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingView.swift; sourceTree = "<group>"; };
 		D43419A8298546B0001089A0 /* FeatureCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureCardView.swift; sourceTree = "<group>"; };
 		D43419AD29854E6B001089A0 /* OnBoardingViewBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingViewBuilder.swift; sourceTree = "<group>"; };
@@ -447,7 +447,6 @@
 				D41ED54929843460009DCF8B /* Request.swift */,
 				D41ED54B29843469009DCF8B /* Response.swift */,
 				D41ED54D298434C1009DCF8B /* Nullable.swift */,
-				D41ED54F2984350A009DCF8B /* Endpoint.swift */,
 				D41ED5512984351F009DCF8B /* Method.swift */,
 			);
 			path = API;
@@ -531,6 +530,7 @@
 		D4563E7C2985F960003261FA /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				D41ED54F2984350A009DCF8B /* Endpoint.swift */,
 				D4563E7D2985F96C003261FA /* NetworkSettings.swift */,
 			);
 			path = Network;
@@ -771,7 +771,7 @@
 			isa = PBXGroup;
 			children = (
 				D41172B22985D3120082BB4F /* VarelaRound-Regular.ttf */,
-				D41172BE2985E84F0082BB4F /* Montserrat-Regular.ttf */,
+				D42FBA432987578300772239 /* Montserrat-Regular.ttf */,
 				D41172B82985E4CE0082BB4F /* Satoshi-Variable.ttf */,
 			);
 			path = Fonts;
@@ -854,7 +854,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D4CE2DAD2982D60000B81052 /* ElegantCalendar.xcassets in Resources */,
-				D41172BF2985E8600082BB4F /* Montserrat-Regular.ttf in Resources */,
+				D42FBA44298757A800772239 /* Montserrat-Regular.ttf in Resources */,
 				D4BAE61929246AA200143717 /* schools.json in Resources */,
 				D4722150292454570063BDB7 /* Preview Assets.xcassets in Resources */,
 				D472214D292454570063BDB7 /* Assets.xcassets in Resources */,
