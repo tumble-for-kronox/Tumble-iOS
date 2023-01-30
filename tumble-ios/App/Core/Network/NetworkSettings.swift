@@ -14,16 +14,17 @@ struct NetworkSettings {
         
         // Production URL
         static let production = NetworkSettings(
-            scheme: "https", tumbleUrl: "tumble.hkr.se"
+            port: 443, scheme: "https", tumbleUrl: "tumble.hkr.se"
         )
 
         // Debug URL
         static let testing = NetworkSettings(
-            scheme: "http", tumbleUrl: "localhost"
+            port: 7036, scheme: "https", tumbleUrl: "localhost"
         )
 
     }
 
+    let port: Int
     let scheme: String
     let tumbleUrl: String
 }
