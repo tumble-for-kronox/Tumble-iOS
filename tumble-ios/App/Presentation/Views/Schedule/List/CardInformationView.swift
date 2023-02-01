@@ -27,7 +27,7 @@ struct CardInformationView: View {
                     .locationCard()
                 Image(systemName: "location")
                     .font(.title3)
-                    .foregroundColor(Color("OnSurface"))
+                    .foregroundColor(.onSurface)
                     .padding(.trailing, 5)
             }
             .padding(.trailing, 10)

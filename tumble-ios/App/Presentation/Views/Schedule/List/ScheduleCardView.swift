@@ -21,7 +21,7 @@ struct ScheduleCardView: View {
                 .fill(event.isSpecial ? .red : color)
                 
             Rectangle()
-                .fill(Color("SurfaceColor"))
+                .fill(Color.surface)
                 .offset(x: 7.5)
                 .cornerRadius(5, corners: [.topRight, .bottomRight])
             VStack (alignment: .leading, spacing: 0) {
@@ -34,8 +34,7 @@ struct ScheduleCardView: View {
         }
         
         .onTapGesture {
-            print("Tapped card")
-            onTapCard(event)
+            onTapCard(event, color)
         }
 
         .frame(height: 145)

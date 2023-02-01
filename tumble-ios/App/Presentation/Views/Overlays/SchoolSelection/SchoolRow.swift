@@ -16,11 +16,11 @@ struct SchoolRow: View {
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 50, height: 50)
-                .foregroundColor(Color("PrimaryColor"))
+                .foregroundColor(.primary)
                 .frame(width: 60)
                 .padding(10)
             
-            VStack (alignment: .center) {
+            VStack (alignment: .leading) {
                 Spacer()
                 Text(school.name)
                     .titleSchool()
@@ -31,9 +31,11 @@ struct SchoolRow: View {
             .padding(.trailing, 10)
             .padding([.top, .bottom], 10)
             Spacer()
+            Image(systemName: "chevron.right")
+                .padding([.leading, .trailing], 20)
         }
         .frame(minWidth: 0, maxWidth: .infinity, minHeight: 70, alignment: .center)
-        .background(Color("SurfaceColor"))
+        .background(Color.surface)
         .cornerRadius(10)
         .padding([.leading, .trailing], 20)
         .padding([.bottom, .top], 10)

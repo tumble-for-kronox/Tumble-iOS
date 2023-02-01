@@ -22,7 +22,7 @@ struct ScheduleMainPageView: View {
                     Picker("ViewType", selection: $viewModel.defaultViewType) {
                         ForEach(viewModel.scheduleViewTypes, id: \.self) {
                             Text($0.rawValue)
-                                .foregroundColor(Color("OnSurface"))
+                                .foregroundColor(.onSurface)
                                 .font(.caption)
                         }
                     }
@@ -33,7 +33,7 @@ struct ScheduleMainPageView: View {
                     .padding(.trailing, 10)
                     .padding(.top, 10)
                     .pickerStyle(SegmentedPickerStyle())
-                    .foregroundColor(Color("PrimaryColor"))
+                    .foregroundColor(.primary)
                     
                     switch viewModel.defaultViewType {
                     case .list:
