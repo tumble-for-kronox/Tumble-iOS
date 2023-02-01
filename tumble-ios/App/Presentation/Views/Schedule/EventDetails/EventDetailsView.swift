@@ -8,13 +8,14 @@
 import SwiftUI
 
 struct EventDetailsView: View {
-    let event: Response.Event
-    let color: Color
+    
+    @ObservedObject var viewModel: EventDetailsViewModel
+    
     var body: some View {
         ScrollView {
             VStack (spacing: 0) {
-                EventDetailsCardView(event: event, color: color)
-                EventDetailsBodyView(event: event)
+                EventDetailsCardView(event: viewModel.event!, color: viewModel.color!)
+                EventDetailsBodyView(event: viewModel.event!)
                 Spacer()
             }
         }

@@ -17,7 +17,7 @@ struct RootView: View {
     @ObservedObject var viewModel: RootViewModel
     var body: some View {
         ZStack {
-            Color("BackgroundColor")
+            Color.background
             
             if viewModel.userNotOnBoarded {
                 OnBoardingView(viewModel: viewModel.onBoardingViewModel, updateUserOnBoarded: updateUserOnBoarded)

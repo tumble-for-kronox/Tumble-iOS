@@ -9,7 +9,7 @@ import SwiftUI
 
 typealias OnToggleDrawer = () -> Void
 
-struct SideBarButtonView: View {
+struct MenuButtonView: View {
     
     let onToggleDrawer: OnToggleDrawer
     let sideBarOpened: Bool

@@ -8,14 +8,15 @@
 import Foundation
 
 // Bottom tab bar
-enum TabType: String {
+enum BottomTabType: String {
     case home = "house"
     case schedule = "list.bullet.clipboard"
-    case account = "graduationcap"
+    case account = "person"
+    case settings = "gearshape"
     
     static let allValues = [home, schedule, account]
     
-    var navigationView: TabType {
+    var navigationView: BottomTabType {
             switch self {
             case .home:
                 return .home
@@ -23,6 +24,8 @@ enum TabType: String {
                 return .schedule
             case .account:
                 return .account
+            case .settings:
+                return .settings
             }
         }
     
@@ -34,8 +37,21 @@ enum TabType: String {
             return "Schedule"
         case .account:
             return "Account"
+        case .settings:
+            return "Settings"
         }
     }
+}
+
+enum SideBarTabType: String {
+    case home = "Home"
+    case notifications = "Notifications"
+    case schedule = "Schedules"
+    case settings = "Settings"
+    case school = "Schools"
+    case support = "Support"
+    case account = "Account"
+    case logOut = ""
 }
 
 // Drawer sheet type specifically for the settings menu

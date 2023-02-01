@@ -42,16 +42,11 @@ struct ScheduleMainPageView: View {
                         Text("stub")
                             .padding(.top, 10)
                     }
-                    Spacer()
                 }
             case .uninitialized:
-                Spacer()
                 InfoView(title: "No bookmarked schedules", image: "bookmark.slash")
-                Spacer()
             case .error:
-                Spacer()
                 InfoView(title: "There was an error retrieving your schedules", image: "exclamationmark.circle")
-                Spacer()
             }
         }
     }

@@ -41,4 +41,8 @@ extension View {
         .padding(.bottom, 35)
         .padding(.top, 25)
     }
+    
+    func getRect() -> CGRect {
+        return UIScreen.main.bounds
+    }
 }

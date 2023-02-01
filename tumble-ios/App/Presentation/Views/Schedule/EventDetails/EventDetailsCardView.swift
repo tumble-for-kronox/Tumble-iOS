@@ -18,19 +18,19 @@ struct EventDetailsCardView: View {
                         VStack (alignment: .leading, spacing: 0) {
                             Text(event.title)
                                 .font(.system(size: 28, design: .rounded))
-                                .foregroundColor(.background)
+                                .foregroundColor(color.isDarkBackground(color: color) ? .bright : .dark)
                                 .padding(.bottom, 7)
                             Text(event.course.englishName)
                                 .font(.system(size: 20))
                                 .italic()
-                                .foregroundColor(.background)
+                                .foregroundColor(color.isDarkBackground(color: color) ? .bright : .dark)
                         }
                         .padding(.bottom, 30)
                         Spacer()
                     }
                     HStack (spacing: 15) {
-                        EventDetailsPill(event: event, title: "Notification", image: "bell.badge")
-                        EventDetailsPill(event: event, title: "Settings", image: "gear")
+                        EventDetailsPill(title: "Notification", image: "bell.badge")
+                        EventDetailsPill(title: "Settings", image: "gearshape")
                         Spacer()
                     }
                 }
