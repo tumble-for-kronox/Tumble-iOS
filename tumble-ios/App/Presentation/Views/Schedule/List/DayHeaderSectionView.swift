@@ -17,7 +17,7 @@ struct DayHeaderSectionView: View {
             Text(day.date)
                 .dayHeader()
             Rectangle()
-                .fill(Color("OnBackground"))
+                .fill(Color.onBackground)
                 .offset(x: 7.5)
                 .frame(height: 1.5)
                 .padding(.trailing, 8)

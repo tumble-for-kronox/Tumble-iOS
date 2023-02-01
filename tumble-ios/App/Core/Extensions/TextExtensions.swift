@@ -14,7 +14,7 @@ extension Text {
         self
             .font(.system(size: 24, design: .rounded))
             .bold()
-            .foregroundColor(Color("OnBackground"))
+            .foregroundColor(.onBackground)
             .padding(.leading, 15)
     }
     
@@ -26,6 +26,7 @@ extension Text {
     
     func titleInstructions() -> some View {
         self.font(.system(size: 18, design: .rounded))
+            .bold()
             .padding(.bottom, 3)
     }
     
@@ -39,19 +40,26 @@ extension Text {
     
     func featureText() -> some View {
         self.font(.system(size: 20, design: .rounded))
-            .foregroundColor(Color("OnSurface"))
+            .foregroundColor(.onSurface)
     }
     
     func onPrimaryMedium() -> some View {
         self.font(.system(size: 20, design: .rounded))
             .padding(8)
-            .foregroundColor(Color("OnPrimary"))
+            .foregroundColor(.onPrimary)
+    }
+    
+    func onPrimaryMediumBold() -> some View {
+        self.font(.system(size: 20, design: .rounded))
+            .bold()
+            .padding(8)
+            .foregroundColor(.onPrimary)
     }
     
     func homePageOption() -> some View {
         self
             .font(.system(size: 17, design: .rounded))
-            .foregroundColor(Color("OnSurface"))
+            .foregroundColor(.onSurface)
             .padding(.trailing, 15)
             .padding(.leading, 15)
     }
@@ -62,25 +70,28 @@ extension Text {
             .lineLimit(1)
     }
     
-    func mainheader() -> some View {
-        self.font(.system(size: 23, design: .rounded))
+    func mainHeaderBoldPrimary() -> some View {
+        self.font(.system(size: 26, design: .rounded))
+            .bold()
             .padding(.top, 20)
-            .foregroundColor(Color("PrimaryColor"))
+            .foregroundColor(.primary)
     }
     
-    func subHeader() -> some View {
+    func subHeaderBold() -> some View {
         self.font(.system(size: 22, design: .rounded))
+            .foregroundColor(.onBackground)
+            .bold()
             .padding([.leading, .trailing], 20)
     }
     
     func bottomBarItem(selectedTab: TabType, thisTab: TabType) -> some View {
         self.font(.system(size: 10, design: .rounded))
-            .foregroundColor(selectedTab == thisTab ? Color("PrimaryColor") : Color("OnBackground"))
+            .foregroundColor(selectedTab == thisTab ? .primary : .onBackground)
     }
     
     func info() -> some View {
         self.font(.system(size: 20, design: .rounded))
-            .foregroundColor(Color("OnBackground"))
+            .foregroundColor(.onBackground)
             .padding(.bottom, 25)
             .padding([.leading, .trailing], 15)
             .multilineTextAlignment(.center)
@@ -110,12 +121,13 @@ extension Text {
     
     func timeSpanCard() -> some View {
         self.font(.system(size: 16, design: .rounded))
-            .foregroundColor(Color("OnSurface"))
+            .bold()
+            .foregroundColor(.onSurface)
     }
     
     func titleCard() -> some View {
         self.font(.system(size: 24, design: .rounded))
-            .foregroundColor(Color("OnSurface"))
+            .foregroundColor(.onSurface)
             .padding(.leading, 25)
             .padding(.trailing, 25)
             .padding(.bottom, 2.5)
@@ -123,14 +135,15 @@ extension Text {
     
     func courseNameCard() -> some View {
         self.font(.system(size: 18, design: .rounded))
-            .foregroundColor(Color("OnSurface"))
+            .foregroundColor(.onSurface)
             .padding(.leading, 25)
             .padding(.bottom, 10)
     }
     
     func locationCard() -> some View {
         self.font(.system(size: 18, design: .rounded))
-            .foregroundColor(Color("OnSurface"))
+            .bold()
+            .foregroundColor(.onSurface)
     }
     
     func dayHeader() -> some View {
@@ -141,7 +154,19 @@ extension Text {
     func appVersionDrawer() -> some View {
         self.padding(.bottom, 30)
             .font(.system(size: 12, design: .rounded))
-            .foregroundColor(Color("OnSurface"))
+            .foregroundColor(.onSurface)
     }
     
+    func popupToast() -> some View {
+        self.font(.system(size: 16, design: .rounded))
+            .padding(.leading, 15)
+            .padding(.trailing, 15)
+            .foregroundColor(.white)
+            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 45, alignment: .leading)
+            .background(.primary).opacity(0.75)
+            .cornerRadius(10)
+            .padding(.bottom, 165)
+            .padding(.leading, 15)
+            .padding(.trailing, 15)
+    }
 }

@@ -18,7 +18,7 @@ struct BottomBarItem: View {
             Image(systemName: selectedTab == thisTab ? fillImage : thisTab.rawValue)
                 .scaleEffect(selectedTab == thisTab ? 1.10 : 1.0)
                 .foregroundColor(self.foregroundColor())
-                .font(.mediumIconFont)
+                .font(.system(size: 15, design: .rounded))
                 .onTapGesture {
                     if !(selectedTab == thisTab) {
                         onChangeTab(thisTab)

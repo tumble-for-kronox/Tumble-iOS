@@ -11,7 +11,6 @@ import SwiftUI
 /// All navigation occurs from this view
 struct MainAppView: View {
     @ObservedObject var viewModel: MainAppViewModel
-    
     @State private var showSideBarSheet = false
     @State private var showScheduleEventSheet = false
     @State private var pickerSheetView: AnyView? = nil
@@ -22,10 +21,10 @@ struct MainAppView: View {
     
     private let sideBarWidth: CGFloat = 110
     
-    //init(viewModel: MainAppViewModel) {
-    //    UINavigationBar.appearance().titleTextAttributes = [.font : UIFont(name: "Montserrat-Regular", size: 18)!]
-    //    self.viewModel = viewModel
-    //}
+    init(viewModel: MainAppViewModel) {
+        UINavigationBar.appearance().titleTextAttributes = [.font: navigationBarFont()]
+        self.viewModel = viewModel
+    }
     
     var body: some View {
         SideBarStack(sideBarOffset: $sideBarOffset, showSidebar: $showSideBar) {
@@ -42,8 +41,8 @@ struct MainAppView: View {
                             case .home:
                                 HomePageView(viewModel: viewModel.homePageViewModel)
                             case .schedule:
-                                ScheduleMainPageView(viewModel: viewModel.schedulePageViewModel, onTapCard: { event in
-                                    onToggleScheduleEventSheet()
+                                ScheduleMainPageView(viewModel: viewModel.schedulePageViewModel, onTapCard: { (event, color) in
+                                    onToggleScheduleEventSheet(event: event, color: color)
                                 })
                             case .account:
                                 AccountPageView(viewModel: viewModel.accountPageViewModel)
@@ -53,7 +52,7 @@ struct MainAppView: View {
                         .navigationBarTitleDisplayMode(.inline)
                         .toolbar {
                             ToolbarItem(placement: .navigationBarLeading, content: {
-                                DrawerButtonView(onToggleDrawer: onToggleDrawer, menuOpened: showSideBar)
+                                SideBarButtonView(onToggleDrawer: onToggleDrawer, sideBarOpened: showSideBar)
                                     
                             })
                             ToolbarItem(placement: .navigationBarTrailing, content: {
@@ -61,8 +60,9 @@ struct MainAppView: View {
                             })
                             ToolbarItemGroup(placement: .bottomBar, content: {
                                 BottomBarView(onChangeTab: onChangeTab).environmentObject(viewModel)
+                                    .padding([.bottom, .top], 10)
                             })
-                        }.background(Color("BackgroundColor"))
+                        }.background(Color.background)
                     }
                     // Sheet toggled from sidebar content
                     .sheet(isPresented: $showSideBarSheet) {
@@ -71,7 +71,10 @@ struct MainAppView: View {
                         onToggleSideBarSheet()
                     }
                     .sheet(isPresented: $showScheduleEventSheet) {
-                        EmptyView()
+                        pickerSheetView
+                    }
+                    .onDisappear {
+                        self.showScheduleEventSheet = false
                     }
                 }.edgesIgnoringSafeArea(.all)
         
@@ -87,7 +90,8 @@ struct MainAppView: View {
         self.showSideBarSheet.toggle()
     }
     
-    func onToggleScheduleEventSheet() -> Void {
+    func onToggleScheduleEventSheet(event: Response.Event, color: Color) -> Void {
+        self.pickerSheetView = AnyView(EventDetailsView(event: event, color: color))
         self.showScheduleEventSheet.toggle()
     }
     

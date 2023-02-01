@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-typealias OnTapCard = (Response.Event) -> Void
+typealias OnTapCard = (Response.Event, Color) -> Void
 
 struct ScheduleListView: View {
     let days: [DayUiModel]

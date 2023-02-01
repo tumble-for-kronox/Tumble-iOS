@@ -8,11 +8,13 @@
 import SwiftUI
 
 struct CardBannerView: View {
+    
     let color: Color
     let timeSpan: String
     let isSpecial: Bool
     let courseName: String
     let isDisclosed: Bool
+    
     var body: some View {
         HStack {
             Circle()
@@ -25,7 +27,7 @@ struct CardBannerView: View {
             if isSpecial {
                 Image(systemName: "person.crop.circle.badge.exclamationmark")
                     .font(.title3)
-                    .foregroundColor(Color("OnSurface"))
+                    .foregroundColor(.onSurface)
                     .padding(.trailing, 15)
             }
         }

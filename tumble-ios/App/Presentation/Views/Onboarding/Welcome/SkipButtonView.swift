@@ -14,7 +14,7 @@ struct SkipButtonView: View {
     var body: some View {
         Button(action: onClickSkip) {
                 Text("Skip")
-                    .onPrimaryMedium()
+                    .onPrimaryMediumBold()
             }
             .frame(width: 140)
             .background(Color("PrimaryColor"))

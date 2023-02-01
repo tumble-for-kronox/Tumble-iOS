@@ -21,11 +21,11 @@ struct OnBoardingViewBuilder<Content : View>: View {
     var body: some View {
         VStack (alignment: .center) {
             Text(header)
-                .mainheader()
+                .mainHeaderBoldPrimary()
             
             VStack (alignment: .center) {
                 Text(subHeader)
-                    .subHeader()
+                    .subHeaderBold()
                     .multilineTextAlignment(.center)
                 VStack {
                     content
