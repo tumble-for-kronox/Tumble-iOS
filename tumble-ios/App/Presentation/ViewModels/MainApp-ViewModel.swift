@@ -17,37 +17,52 @@ enum ThemeMode: String {
 extension MainAppView {
     @MainActor final class MainAppViewModel: ObservableObject {
         @Published var currentSideBarSheetView: SideBarSheetViewType? = nil
-        @Published var currentNavigationView: TabType = .home
-        @Published var selectedTab: TabType = .home
         @Published var showModal: Bool = true
         @Published var showDrawerSheet: Bool = false
-        
         @Published var schoolIsChosen: Bool
-        let databaseService: PreferenceServiceImpl
+        
+        // Service
+        let preferenceService: PreferenceServiceImpl
         let scheduleService: ScheduleServiceImpl
         let courseColorService: CourseColorServiceImpl
+        
+        // Child ViewModels
         let homePageViewModel: HomePageView.HomePageViewModel
         let accountPageViewModel: AccountPageView.AccountPageViewModel
         let schedulePageViewModel: ScheduleMainPageView.ScheduleMainPageViewModel
-        let sideBarViewModel: SideBarContent.SideBarViewModel
         
         
-        init(schoolIsChosen: Bool, databaseService: PreferenceServiceImpl, scheduleService: ScheduleServiceImpl, courseColorService: CourseColorServiceImpl) {
+        init(schoolIsChosen: Bool, preferenceService: PreferenceServiceImpl, scheduleService: ScheduleServiceImpl, courseColorService: CourseColorServiceImpl) {
             self.schoolIsChosen = schoolIsChosen
-            self.databaseService = databaseService
+            self.preferenceService = preferenceService
             self.scheduleService = scheduleService
             self.courseColorService = courseColorService
             
             self.homePageViewModel = ViewModelFactory().makeViewModelHomePage()
             self.accountPageViewModel = ViewModelFactory().makeViewModelAccountPage()
             self.schedulePageViewModel = ViewModelFactory().makeViewModelScheduleMainPage()
-            self.sideBarViewModel = ViewModelFactory().makeViewModelSideBar()
             
+        }
+        
+        func getUniversityImage() -> Image? {
+            guard let school: School = self.preferenceService.getDefaultSchool() else { return nil }
+
+            
+            let schoolImage: Image = schools.first(where: {$0.name == school.name})!.logo
+            return schoolImage
+        }
+        
+        func getUniversityName() -> String? {
+            guard let school: School = self.preferenceService.getDefaultSchool() else { return nil }
+
+            
+            let schoolName: String = schools.first(where: {$0.name == school.name})!.name
+            return schoolName
         }
         
         func onSelectSchool(school: School) -> Void {
             
-            databaseService.setSchool(id: school.id, closure: {})
+            preferenceService.setSchool(id: school.id, closure: {})
             
             scheduleService.removeAll { result in
                 switch result {
@@ -76,10 +91,5 @@ extension MainAppView {
         func onToggleDrawerSheet() -> Void {
             self.showDrawerSheet = false
         }
-        
-        func onChangeTab(tab: TabType) -> Void {
-            self.selectedTab = tab
-        }
-
     }
 }

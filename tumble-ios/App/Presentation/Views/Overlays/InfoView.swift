@@ -11,15 +11,22 @@ struct InfoView: View {
     let title: String
     let image: String?
     var body: some View {
-        
-        if image != nil {
-            Image(systemName: image!)
-                .font(.system(size: 24))
-                .foregroundColor(Color("OnBackground"))
-                .padding(.bottom, 15)
+        VStack (alignment: .center) {
+            if image != nil {
+                Image(systemName: image!)
+                    .font(.system(size: 24))
+                    .foregroundColor(.onSurface)
+                    .padding(.bottom, 15)
+            }
+            Text(title)
+                .info()
         }
-        Text(title)
-            .info()
-        
+        .frame(
+              minWidth: 0,
+              maxWidth: .infinity,
+              minHeight: 0,
+              maxHeight: .infinity,
+              alignment: .center
+            )
     }
 }

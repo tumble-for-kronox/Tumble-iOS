@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 class ViewModelFactory {
     private let scheduleService: ScheduleServiceImpl
@@ -29,14 +30,11 @@ class ViewModelFactory {
     @MainActor func makeViewModelApp() -> MainAppView.MainAppViewModel {
         .init(
             schoolIsChosen: preferenceService.isKeyPresentInUserDefaults(key: StoreKey.school.rawValue),
-            databaseService: self.preferenceService,
+            preferenceService: self.preferenceService,
             scheduleService: self.scheduleService,
             courseColorService: self.courseColorService)
     }
-    
-    @MainActor func makeViewModelSideBar() -> SideBarContent.SideBarViewModel {
-        .init(databaseService: preferenceService)
-    }
+
     
     @MainActor func makeViewModelSearch() -> SearchParentView.SearchViewModel {
         .init(school: preferenceService.getDefaultSchool(), scheduleService: scheduleService, courseColorService: courseColorService)
@@ -58,4 +56,7 @@ class ViewModelFactory {
         .init(preferenceService: preferenceService)
     }
     
+    @MainActor func makeViewModelEventSheet(event: Response.Event, color: Color) -> EventDetailsView.EventDetailsViewModel {
+        .init(event: event, color: color)
+    }
 }

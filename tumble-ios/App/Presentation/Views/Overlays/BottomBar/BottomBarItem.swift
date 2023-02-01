@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct BottomBarItem: View {
-    let selectedTab: TabType
-    let thisTab: TabType
+    let selectedTab: BottomTabType
+    let thisTab: BottomTabType
     let fillImage: String
     let skeletonImage: String
     let onChangeTab: OnChangeTab

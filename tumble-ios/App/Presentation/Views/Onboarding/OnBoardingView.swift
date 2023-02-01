@@ -22,8 +22,8 @@ struct OnBoardingView: View {
     let constButtonOffset: CGFloat = 485.0
     
     init(viewModel: OnBoardingViewModel, updateUserOnBoarded: @escaping UpdateUserOnBoarded) {
-        UIPageControl.appearance().currentPageIndicatorTintColor = UIColor(Color("OnBackground"))
-        UIPageControl.appearance().pageIndicatorTintColor = UIColor.black.withAlphaComponent(0.2)
+        UIPageControl.appearance().currentPageIndicatorTintColor = UIColor(Color.primary)
+        UIPageControl.appearance().pageIndicatorTintColor = UIColor(Color.surface)
     
         self.viewModel = viewModel
         self.updateUserOnBoarded = updateUserOnBoarded

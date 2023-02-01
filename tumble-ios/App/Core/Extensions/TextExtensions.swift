@@ -21,7 +21,12 @@ extension Text {
     func caption() -> some View {
         self
             .font(.system(size: 13, design: .rounded))
-        
+    }
+
+    func onSurfaceSmall() -> some View {
+        self
+            .font(.system(size: 15))
+            .foregroundColor(.onSurface)
     }
     
     func titleInstructions() -> some View {
@@ -84,7 +89,7 @@ extension Text {
             .padding([.leading, .trailing], 20)
     }
     
-    func bottomBarItem(selectedTab: TabType, thisTab: TabType) -> some View {
+    func bottomBarItem(selectedTab: BottomTabType, thisTab: BottomTabType) -> some View {
         self.font(.system(size: 10, design: .rounded))
             .foregroundColor(selectedTab == thisTab ? .primary : .onBackground)
     }
