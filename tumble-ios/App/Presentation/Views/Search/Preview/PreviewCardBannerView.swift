@@ -17,13 +17,12 @@ struct PreviewCardBannerView: View {
                 .foregroundColor(color)
                 .frame(height: 7)
             Text(timeSpan)
-                .font(.subheadline)
-                .foregroundColor(Color("OnSurface"))
+                .timeSpanCard()
             Spacer()
             if isSpecial {
                 Image(systemName: "person.crop.circle.badge.exclamationmark")
                     .font(.title3)
-                    .foregroundColor(Color("OnSurface"))
+                    .foregroundColor(.surface)
                     .padding(.trailing, 15)
             }
         }

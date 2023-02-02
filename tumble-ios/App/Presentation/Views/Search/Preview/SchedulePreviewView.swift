@@ -10,6 +10,7 @@ import SwiftUI
 struct SchedulePreviewView: View {
     @EnvironmentObject var parentViewModel: SearchParentView.SearchViewModel
     @Binding var courseColors: [String : String]?
+    
     let checkForNewSchedules: CheckForNewSchedules
     
     var body: some View {
