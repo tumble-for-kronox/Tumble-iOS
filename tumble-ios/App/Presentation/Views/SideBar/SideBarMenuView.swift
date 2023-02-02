@@ -31,14 +31,16 @@ struct SideBarMenuView: View {
                 }, label: {
                     // Should be replaced based on if user is signed in or not
                         Text(universityName)
-                            .font(.system(size: 18, design: .rounded))
+                            .font(.system(size: 20, design: .rounded))
                             .fontWeight(.semibold)
+                            .multilineTextAlignment(.leading)
                             .foregroundColor(.surface)
                             .padding(.top, 10)
                 })
             }
             .padding(.leading, 10)
             .padding(.top, 40)
+            .padding(.trailing, 120)
             
             VStack (alignment: .leading, spacing: 0) {
                 SideBarButtonView(sideBarTabType: .bookmarks, title: SideBarTabType.bookmarks.rawValue, image: "bookmark", selectedSideBarTab: $selectedSideBarTab, sideBarSheet: $sideBarSheet, animation: animation)
@@ -47,7 +49,7 @@ struct SideBarMenuView: View {
                 SideBarButtonView(sideBarTabType: .support, title: SideBarTabType.support.rawValue, image: "questionmark.circle", selectedSideBarTab: $selectedSideBarTab, sideBarSheet: $sideBarSheet, animation: animation)
                 SideBarButtonView(sideBarTabType: .more, title: SideBarTabType.more.rawValue, image: "ellipsis", selectedSideBarTab: $selectedSideBarTab, sideBarSheet: $sideBarSheet, animation: animation)
             }
-            .padding(.top, 20)
+            .padding(.top, 40)
             .padding(.leading, -16)
             
             Spacer()

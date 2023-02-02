@@ -11,79 +11,39 @@ import SwiftUI
 extension HomePageView {
     @MainActor final class HomePageViewModel: ObservableObject {
         
+        @Published var kronoxUrl: String?
+        @Published var canvasUrl: String?
+        @Published var domain: String?
+        
         let preferenceService: PreferenceServiceImpl
         
-        init(preferenceService: PreferenceServiceImpl) {
+        init(preferenceService: PreferenceServiceImpl, kronoxUrl: String?, canvasUrl: String?, domain: String?) {
             self.preferenceService = preferenceService
+            self.kronoxUrl = kronoxUrl
+            self.canvasUrl = canvasUrl
+            self.domain = domain
         }
         
-        func getUniversityColor() -> Color {
-            let school: School? = self.preferenceService.getDefaultSchool()
-            let uniColor: Color
-            
-            switch school?.color {
-                case "blue":
-                    uniColor = Color.blue
-                case "orange":
-                    uniColor = Color.orange
-                case "green":
-                    uniColor = Color.green
-                case "yellow":
-                    uniColor = Color.yellow
-                case "brown":
-                    uniColor = Color.brown
-                case "red":
-                    uniColor = Color.red
-                default:
-                    uniColor = Color.black
-                }
+        func updateUniversityLocalsForView() -> Void {
+            self.kronoxUrl = preferenceService.getUniversityKronoxUrl()
+            self.canvasUrl = preferenceService.getCanvasUrl()
+            self.domain = preferenceService.getUniversityDomain()
+        }
+        
+        func getTimeOfDay() -> String {
+            let date = Date()
+            let calendar = Calendar.current
+            let hour = calendar.component(.hour, from: date)
 
-                return uniColor
-        }
-        
-        func getUniversityUrl() -> String {
-            let school: School? = self.preferenceService.getDefaultSchool()
-            
-            if school == nil {
-                return ""
+            switch hour {
+            case 0...11:
+                return "morning"
+            case 12...16:
+                return "afternoon"
+            default:
+                return "evening"
             }
-            
-            let schoolUrl: String = schools.first(where: {$0.name == school!.name})!.schoolUrl
-            return schoolUrl
         }
-        
-        func getUniversityKronoxUrl() -> String {
-            let school: School? = self.preferenceService.getDefaultSchool()
-            
-            if school == nil {
-                return ""
-            }
-            
-            let kronoxUrl: String = schools.first(where: {$0.name == school!.name})!.kronoxUrl
-            return kronoxUrl
-        }
-        
-        func getUniversityName() -> String {
-            let school: School? = self.preferenceService.getDefaultSchool()
-            
-            if school == nil {
-                return ""
-            }
-            
-            let schoolName: String = schools.first(where: {$0.name == school!.name})!.name
-            return schoolName
-        }
-        
-        func getCanvasUrl() -> String {
-            let school: School? = self.preferenceService.getDefaultSchool()
-            
-            if school == nil {
-                return ""
-            }
-            
-            let domain: String = schools.first(where: {$0.name == school!.name})!.domain
-            let canvasUrl: String = "https://\(domain).instructure.com"
-            return canvasUrl
-        }
+
     }
 }

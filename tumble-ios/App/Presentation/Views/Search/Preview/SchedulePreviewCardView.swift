@@ -31,6 +31,6 @@ struct SchedulePreviewCardView: View {
         .frame(height: 140)
         .padding(.leading, 20)
         .padding(.trailing, 20)
-        .padding(.bottom, isLast ? 40 : 0)
+        .padding(.bottom, isLast ? 40 : 10)
     }
 }

@@ -16,9 +16,9 @@ enum ThemeMode: String {
 
 extension MainAppView {
     @MainActor final class MainAppViewModel: ObservableObject {
+        
         @Published var universityImage: Image?
         @Published var universityName: String?
-        
         
         // Service
         let preferenceService: PreferenceServiceImpl
