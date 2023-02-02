@@ -59,15 +59,7 @@ extension Response.Schedule {
 
     
     func courses() -> [String] {
-        var courses: [String] = []
-        for day in self.days {
-            for event in day.events {
-                if !courses.contains(event.course.id) {
-                    courses.append(event.course.id)
-                }
-            }
-        }
-        return courses
+        return Array(Set(self.days.flatMap { $0.events.map { $0.course.id } }))
     }
     
     func isEmpty() -> Bool {

@@ -21,7 +21,7 @@ struct SideBarSheet: Identifiable {
     let sideBarType: SideBarTabType
 }
 
-/// All navigation occurs from this view
+// All navigation occurs from this view
 struct MainAppView: View {
     
     @ObservedObject var viewModel: MainAppViewModel
@@ -54,12 +54,12 @@ struct MainAppView: View {
                 FadedPageView(backgroundOpacity: 0.6, offset: -25, verticalPadding: 30, showSideBar: $showSideBar)
                 FadedPageView(backgroundOpacity: 0.4, offset: -50, verticalPadding: 60, showSideBar: $showSideBar)
                 NavigationView {
-                    VStack {
+                    VStack (alignment: .leading) {
                         // Main home page view switcher
                         switch selectedBottomTab {
                         case .home:
                             HomePageView(viewModel: viewModel.homePageViewModel)
-                        case .schedule:
+                        case .bookmarks:
                             ScheduleMainPageView(viewModel: viewModel.schedulePageViewModel, onTapCard: { (event, color) in
                                 onOpenEventDetailsSheet(event: event, color: color)
                             })
@@ -68,13 +68,12 @@ struct MainAppView: View {
                         }
                         Spacer()
                         BottomBarView(selectedBottomTab: $selectedBottomTab)
-                            .padding([.top], 10)
                     }
-                    .navigationTitle(selectedBottomTab.displayName)
-                    .navigationBarTitleDisplayMode(.inline)
+                    //.navigationTitle(selectedBottomTab.displayName)
+                    //.navigationBarTitleDisplayMode(.inline)
                     .toolbar {
                         ToolbarItem(placement: .navigationBarLeading, content: {
-                            SideBarToggleButtonView(showSideBar: $showSideBar, selectedSideBarTab: $selectedSideBarTab)
+                            SideBarToggleButtonView(showSideBar: $showSideBar, selectedSideBarTab: $selectedSideBarTab, handleClose: handleSideBarAction)
                         })
                         ToolbarItem(placement: .navigationBarTrailing, content: {
                             SearchNavigationButtonView(backButtonTitle: selectedBottomTab.displayName, checkForNewSchedules: checkForNewSchedules)
@@ -82,11 +81,28 @@ struct MainAppView: View {
                     }.background(Color.background)
                     
                 }
+                
+                .blur(radius: showSideBar ? 30 : 0)
+                .overlay(
+                    // If the sidebar is shown, blur the navigation view
+                    // and make the whole navigation page clickable so the sidebar
+                    // closes if it is tapped
+                    Group {
+                        if showSideBar {
+                            Color.white.opacity(0.1)
+                                .onTapGesture {
+                                    withAnimation {
+                                        handleSideBarAction(shouldShowSideBar: false, newSideBarTab: .none)
+                                    }
+                                }
+                        }
+                    }
+                )
                 .sheet(item: $eventSheet) { (eventSheet: EventSheet) in
                     EventDetailsSheetView(viewModel: ViewModelFactory().makeViewModelEventDetailsSheet(event: eventSheet.event, color: eventSheet.color))
                 }
                 .onDisappear {
-                    selectedSideBarTab = .none
+                    handleSideBarAction(shouldShowSideBar: false, newSideBarTab: .none)
                 }
                 .sheet(item: $sideBarSheet) { (sideBarSheet: SideBarSheet) in
                     SideBarSheetView(sideBarTabType: sideBarSheet.sideBarType, onChangeSchool: onChangeSchool)
@@ -98,6 +114,26 @@ struct MainAppView: View {
             .toastView(toast: $toast)
             .ignoresSafeArea()
         }
+        .gesture(DragGesture(minimumDistance: 3.0, coordinateSpace: .local)
+            .onEnded(handleSwipe)
+        )
+    }
+    
+    func handleSwipe(value: DragGesture.Value) -> Void {
+        switch(value.translation.width, value.translation.height) {
+            case (...0, -30...30):  withAnimation {
+                handleSideBarAction(shouldShowSideBar: false, newSideBarTab: .none)
+            }
+            case (0..., -30...30):  withAnimation {
+                showSideBar = true
+            }
+            default: break
+        }
+    }
+    
+    func handleSideBarAction(shouldShowSideBar: Bool, newSideBarTab: SideBarTabType) -> Void {
+        showSideBar = shouldShowSideBar
+        selectedSideBarTab = newSideBarTab
     }
     
     func onChangeSchool(school: School) -> Void {
@@ -105,6 +141,7 @@ struct MainAppView: View {
             toast = Toast(type: .success, title: "New school", message: "Set \(school.name) to default")
             viewModel.updateUniversityLocalsForView()
             checkForNewSchedules()
+            viewModel.homePageViewModel.updateUniversityLocalsForView()
         })
     }
     

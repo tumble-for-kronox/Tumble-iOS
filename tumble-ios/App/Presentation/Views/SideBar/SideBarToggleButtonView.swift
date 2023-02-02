@@ -10,11 +10,11 @@ import SwiftUI
 struct SideBarToggleButtonView: View {
     @Binding var showSideBar: Bool
     @Binding var selectedSideBarTab: SideBarTabType
+    let handleClose: (Bool, SideBarTabType) -> Void
     var body: some View {
         Button(action: {
             withAnimation(.spring()) {
-                showSideBar.toggle()
-                selectedSideBarTab = .none
+                handleClose(showSideBar ? false : true, showSideBar ? .none : .none)
             }
         }, label: {
             VStack (spacing: 5) {

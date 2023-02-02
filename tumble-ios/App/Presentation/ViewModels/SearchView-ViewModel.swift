@@ -35,8 +35,7 @@ extension SearchParentView {
         @Published var schedulePreviewStatus: SchedulePreviewStatus = .loading
         @Published var schedulePreviewIsSaved: Bool = false
         
-        
-        // Course name and hex color
+        // Course names and hex colors
         @Published var courseColors: [String : String]? = nil
         
         @Published var school: School?
@@ -53,7 +52,7 @@ extension SearchParentView {
         
         // When user presses a programme card
         func onOpenProgrammeSchedule(programmeId: String) -> Void {
-            print("Opening schedule")
+
             // Set sheet view as loading and reset possible old
             // value for the save button
             self.schedulePreviewIsSaved = false
@@ -155,26 +154,16 @@ extension SearchParentView {
         // This function should ONLY be called when a schedule is found in the local storage.
         // The purpose is to check for new schedules and add them accordingly
         fileprivate func assignCourseColorsToSavedSchedule(courses: [String : String], closure: @escaping ([String : String]) -> Void) -> Void {
-            
             var availableColors = Set(colors)
             var courseColors = courses
-            var visitedCourses: [String] = []
-            
-            // Check for new courses and update local storage since it is saved
-            for day in self.scheduleListOfDays! {
-                for event in day.events {
-                    if !(visitedCourses.contains(event.course.id)) {
-                        visitedCourses.append(event.course.id)
-                    }
-                    // If a new course is found in force loaded schedule
-                    if (courseColors[event.course.id] == nil) {
-                        courseColors[event.course.id] = availableColors.popFirst()
-                    }
-                }
+            let visitedCourses = self.scheduleListOfDays!.flatMap { $0.events.map { $0.course.id } }.filter { !courseColors.keys.contains($0) }
+            for course in visitedCourses {
+                courseColors[course] = availableColors.popFirst()
             }
             self.saveCourseColors(courseColors: courseColors)
             closure(courseColors)
         }
+
         
         // API Call to fetch a schedule from backend
         fileprivate func fetchSchedule(programmeId: String, closure: @escaping () -> Void) -> Void {

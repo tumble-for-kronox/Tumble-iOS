@@ -44,7 +44,12 @@ class ViewModelFactory {
     }
     
     @MainActor func makeViewModelHomePage() -> HomePageView.HomePageViewModel {
-        .init(preferenceService: preferenceService)
+        .init(
+            preferenceService: preferenceService,
+            kronoxUrl: preferenceService.getUniversityKronoxUrl(),
+            canvasUrl: preferenceService.getCanvasUrl(),
+            domain: preferenceService.getUniversityDomain()
+        )
     }
     
     @MainActor func makeViewModelScheduleMainPage() -> ScheduleMainPageView.ScheduleMainPageViewModel {

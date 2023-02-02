@@ -25,10 +25,11 @@ struct SideBarButtonView: View {
         }, label: {
             HStack (spacing: 10) {
                 Image(systemName: image)
-                    .font(.system(size: 18, design: .rounded))
-                    .frame(width: 30)
+                    .font(.system(size: 20))
+                    .frame(width: 32)
                 Text(title)
                     .fontWeight(.semibold)
+                    .font(.system(size: 20, design: .rounded))
             }
             .foregroundColor(selectedSideBarTab.rawValue == title ? .primary : .surface)
             .padding(.vertical, 12)
