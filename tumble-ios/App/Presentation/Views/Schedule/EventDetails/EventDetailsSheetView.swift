@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct EventDetailsView: View {
+struct EventDetailsSheetView: View {
     
     @ObservedObject var viewModel: EventDetailsViewModel
     

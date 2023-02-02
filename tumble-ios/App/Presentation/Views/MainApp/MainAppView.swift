@@ -16,17 +16,26 @@ struct EventSheet: Identifiable {
     let color: Color
 }
 
+struct SideBarSheet: Identifiable {
+    var id: UUID = UUID()
+    let sideBarType: SideBarTabType
+}
+
 /// All navigation occurs from this view
 struct MainAppView: View {
     
     @ObservedObject var viewModel: MainAppViewModel
-    @State var selectedSideBarTab: SideBarTabType = .home
+    
+    @State private var toast: Toast? = nil
+    @State var selectedSideBarTab: SideBarTabType = .none
     @State var eventSheet: EventSheet? = nil
+    @State var sideBarSheet: SideBarSheet? = nil
     @State var selectedBottomTab: BottomTabType = .home
-    @State var showMenu: Bool = false
+    @State var showSideBar: Bool = false
     @Namespace var animation
     
     private let sideBarWidth: CGFloat = 110
+    
     init(viewModel: MainAppViewModel) {
         UINavigationBar.appearance().titleTextAttributes = [.font: navigationBarFont()]
         self.viewModel = viewModel
@@ -38,12 +47,12 @@ struct MainAppView: View {
                 .ignoresSafeArea()
             
             ScrollView (getRect().height < 750 ? .vertical : .init(), showsIndicators: false) {
-                SideBarMenuView(selectedSideBarTab: $selectedSideBarTab, selectedBottomTab: $selectedBottomTab, universityImage: viewModel.getUniversityImage()!, universityName: viewModel.getUniversityName()!)
+                SideBarMenuView(selectedSideBarTab: $selectedSideBarTab, selectedBottomTab: $selectedBottomTab, sideBarSheet: $sideBarSheet, universityImage: viewModel.universityImage ?? Image(systemName: "building.columns"), universityName: viewModel.universityName ?? "")
             }
             
             ZStack {
-                FadedPageView(backgroundOpacity: 0.6, offset: -25, verticalPadding: 30, showMenu: $showMenu)
-                FadedPageView(backgroundOpacity: 0.4, offset: -50, verticalPadding: 60, showMenu: $showMenu)
+                FadedPageView(backgroundOpacity: 0.6, offset: -25, verticalPadding: 30, showSideBar: $showSideBar)
+                FadedPageView(backgroundOpacity: 0.4, offset: -50, verticalPadding: 60, showSideBar: $showSideBar)
                 NavigationView {
                     VStack {
                         // Main home page view switcher
@@ -52,54 +61,59 @@ struct MainAppView: View {
                             HomePageView(viewModel: viewModel.homePageViewModel)
                         case .schedule:
                             ScheduleMainPageView(viewModel: viewModel.schedulePageViewModel, onTapCard: { (event, color) in
-                                onOpenEventSheet(event: event, color: color)
+                                onOpenEventDetailsSheet(event: event, color: color)
                             })
                         case .account:
                             AccountPageView(viewModel: viewModel.accountPageViewModel)
-                        case .settings:
-                            EmptyView()
                         }
                         Spacer()
-                        BottomBarView(selectedBottomTab: $selectedBottomTab, selectedSideBarTab: $selectedSideBarTab)
+                        BottomBarView(selectedBottomTab: $selectedBottomTab)
                             .padding([.top], 10)
                     }
                     .navigationTitle(selectedBottomTab.displayName)
                     .navigationBarTitleDisplayMode(.inline)
                     .toolbar {
                         ToolbarItem(placement: .navigationBarLeading, content: {
-                            SideBarToggleButtonView(showMenu: $showMenu)
+                            SideBarToggleButtonView(showSideBar: $showSideBar, selectedSideBarTab: $selectedSideBarTab)
                         })
                         ToolbarItem(placement: .navigationBarTrailing, content: {
-                            SearchButtonView(backButtonTitle: selectedBottomTab.displayName, checkForNewSchedules: checkForNewSchedules)
+                            SearchNavigationButtonView(backButtonTitle: selectedBottomTab.displayName, checkForNewSchedules: checkForNewSchedules)
                         })
                     }.background(Color.background)
                     
                 }
                 .sheet(item: $eventSheet) { (eventSheet: EventSheet) in
-                    EventDetailsView(viewModel: ViewModelFactory().makeViewModelEventSheet(event: eventSheet.event, color: eventSheet.color))
+                    EventDetailsSheetView(viewModel: ViewModelFactory().makeViewModelEventDetailsSheet(event: eventSheet.event, color: eventSheet.color))
                 }
                 .onDisappear {
-                    // on disappear of sidebar sheet, change to the sidebar
-                    // tab to be bottom tab
+                    selectedSideBarTab = .none
                 }
-                .cornerRadius(showMenu ? 15 : 0)
+                .sheet(item: $sideBarSheet) { (sideBarSheet: SideBarSheet) in
+                    SideBarSheetView(sideBarTabType: sideBarSheet.sideBarType, onChangeSchool: onChangeSchool)
+                }
+                .cornerRadius(showSideBar ? 15 : 0)
             }
-            .scaleEffect(showMenu ? 0.84 : 1)
-            .offset(x: showMenu ? getRect().width - 120 : 0)
+            .scaleEffect(showSideBar ? 0.84 : 1)
+            .offset(x: showSideBar ? getRect().width - 120 : 0)
+            .toastView(toast: $toast)
             .ignoresSafeArea()
         }
     }
     
-    func onOpenEventSheet(event: Response.Event, color: Color) -> Void {
-        self.eventSheet = EventSheet(event: event, color: color)
-    }
-    
-    func onSelectSchool(school: School) -> Void {
-        viewModel.onSelectSchool(school: school)
+    func onChangeSchool(school: School) -> Void {
+        viewModel.changeSchool(school: school, closure: {
+            toast = Toast(type: .success, title: "New school", message: "Set \(school.name) to default")
+            viewModel.updateUniversityLocalsForView()
+            checkForNewSchedules()
+        })
     }
     
     func checkForNewSchedules() -> Void {
-        viewModel.schedulePageViewModel.loadSchedules()
+        viewModel.checkForNewSchedules()
+    }
+    
+    func onOpenEventDetailsSheet(event: Response.Event, color: Color) -> Void {
+        self.eventSheet = EventSheet(event: event, color: color)
     }
 }
 

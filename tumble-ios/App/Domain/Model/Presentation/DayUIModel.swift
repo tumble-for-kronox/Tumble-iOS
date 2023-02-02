@@ -12,5 +12,5 @@ struct DayUiModel: Identifiable, Hashable {
     let name, date: String
     let isoString: String
     let weekNumber: Int
-    let events: [Response.Event]
+    var events: [Response.Event]
 }

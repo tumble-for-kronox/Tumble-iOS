@@ -22,7 +22,7 @@ class PreferenceServiceImpl: PreferenceService {
     }
     
     func setOffset(offset: Int) -> Void {
-        UserDefaults.standard.set(offset, forKey: StoreKey.notifOffset.rawValue)
+        UserDefaults.standard.set(offset, forKey: StoreKey.notificationOffset.rawValue)
         UserDefaults.standard.synchronize()
     }
     
@@ -50,12 +50,12 @@ class PreferenceServiceImpl: PreferenceService {
     }
     
     func setLang(lang: String) -> Void {
-        UserDefaults.standard.set(lang, forKey: StoreKey.lang.rawValue)
+        UserDefaults.standard.set(lang, forKey: StoreKey.language.rawValue)
         UserDefaults.standard.synchronize()
     }
     
     func setNotifAllowed(notifAllowed: Bool) {
-        UserDefaults.standard.set(notifAllowed, forKey: StoreKey.notifAllowed.rawValue)
+        UserDefaults.standard.set(notifAllowed, forKey: StoreKey.notificationAllowed.rawValue)
         UserDefaults.standard.synchronize()
     }
     

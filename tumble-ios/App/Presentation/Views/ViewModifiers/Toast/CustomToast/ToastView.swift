@@ -4,6 +4,8 @@
 //
 //  Created by Adis Veletanlic on 11/16/22.
 //
+// Source code for this toast:
+// https://betterprogramming.pub/swiftui-create-a-fancy-toast-component-in-10-minutes-e6bae6021984
 
 import SwiftUI
 

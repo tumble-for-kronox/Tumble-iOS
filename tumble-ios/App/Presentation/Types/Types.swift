@@ -12,7 +12,6 @@ enum BottomTabType: String {
     case home = "house"
     case schedule = "list.bullet.clipboard"
     case account = "person"
-    case settings = "gearshape"
     
     static let allValues = [home, schedule, account]
     
@@ -24,8 +23,7 @@ enum BottomTabType: String {
                 return .schedule
             case .account:
                 return .account
-            case .settings:
-                return .settings
+
             }
         }
     
@@ -37,22 +35,18 @@ enum BottomTabType: String {
             return "Schedule"
         case .account:
             return "Account"
-        case .settings:
-            return "Settings"
         }
     }
 }
 
 enum SideBarTabType: String {
-    case home = "Home"
+    case none = ""
     case notifications = "Notifications" // Opens sheet
-    case schedule = "Schedules"
-    case settings = "Settings"
+    case bookmarks = "Bookmarks"
+    case more = "More"
     case school = "Schools" // Opens sheet
     case support = "Support" // Opens sheet
-    case account = "Account"
-    case theme = "Theme" // Opens sheet
-    case logOut = "" // Performs api call
+    case logOut = "Log out" // Performs api call
 }
 
 // Drawer sheet type specifically for the settings menu

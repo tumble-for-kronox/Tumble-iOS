@@ -11,6 +11,7 @@ struct SideBarMenuView: View {
     
     @Binding var selectedSideBarTab: SideBarTabType
     @Binding var selectedBottomTab: BottomTabType
+    @Binding var sideBarSheet: SideBarSheet?
     @Namespace var animation
     
     let universityImage: Image
@@ -26,7 +27,7 @@ struct SideBarMenuView: View {
                     .frame(width: 75, height: 75)
                     .cornerRadius(10)
                 Button(action: {
-                    // Sign in action
+                    // Log out action
                 }, label: {
                     // Should be replaced based on if user is signed in or not
                         Text(universityName)
@@ -40,14 +41,11 @@ struct SideBarMenuView: View {
             .padding(.top, 40)
             
             VStack (alignment: .leading, spacing: 0) {
-                SideBarButtonView(sideBarTabType: .home, title: "Home", image: "house", selectedSideBarTab: $selectedSideBarTab, selectedBottomTab: $selectedBottomTab, animation: animation)
-                SideBarButtonView(sideBarTabType: .schedule, title: "Schedules", image: "bookmark", selectedSideBarTab: $selectedSideBarTab, selectedBottomTab: $selectedBottomTab, animation: animation)
-                SideBarButtonView(sideBarTabType: .account, title: "Account", image: "person", selectedSideBarTab: $selectedSideBarTab, selectedBottomTab: $selectedBottomTab, animation: animation)
-                SideBarButtonView(sideBarTabType: .settings, title: "Settings", image: "gearshape", selectedSideBarTab: $selectedSideBarTab, selectedBottomTab: $selectedBottomTab, animation: animation)
-                SideBarButtonView(sideBarTabType: .theme, title: "Theme", image: "paintbrush", selectedSideBarTab: $selectedSideBarTab, selectedBottomTab: $selectedBottomTab, animation: animation)
-                SideBarButtonView(sideBarTabType: .notifications, title: "Notifications", image: "bell.badge", selectedSideBarTab: $selectedSideBarTab, selectedBottomTab: $selectedBottomTab, animation: animation)
-                SideBarButtonView(sideBarTabType: .school, title: "Schools", image: "arrow.left.arrow.right", selectedSideBarTab: $selectedSideBarTab, selectedBottomTab: $selectedBottomTab, animation: animation)
-                SideBarButtonView(sideBarTabType: .support, title: "Support", image: "questionmark.circle", selectedSideBarTab: $selectedSideBarTab, selectedBottomTab: $selectedBottomTab, animation: animation)
+                SideBarButtonView(sideBarTabType: .bookmarks, title: SideBarTabType.bookmarks.rawValue, image: "bookmark", selectedSideBarTab: $selectedSideBarTab, sideBarSheet: $sideBarSheet, animation: animation)
+                SideBarButtonView(sideBarTabType: .notifications, title: SideBarTabType.notifications.rawValue, image: "bell.badge", selectedSideBarTab: $selectedSideBarTab, sideBarSheet: $sideBarSheet, animation: animation)
+                SideBarButtonView(sideBarTabType: .school, title: SideBarTabType.school.rawValue, image: "arrow.left.arrow.right", selectedSideBarTab: $selectedSideBarTab, sideBarSheet: $sideBarSheet, animation: animation)
+                SideBarButtonView(sideBarTabType: .support, title: SideBarTabType.support.rawValue, image: "questionmark.circle", selectedSideBarTab: $selectedSideBarTab, sideBarSheet: $sideBarSheet, animation: animation)
+                SideBarButtonView(sideBarTabType: .more, title: SideBarTabType.more.rawValue, image: "ellipsis", selectedSideBarTab: $selectedSideBarTab, sideBarSheet: $sideBarSheet, animation: animation)
             }
             .padding(.top, 20)
             .padding(.leading, -16)
@@ -55,7 +53,7 @@ struct SideBarMenuView: View {
             Spacer()
             
             VStack (alignment: .leading, spacing: 0) {
-                SideBarButtonView(sideBarTabType: .logOut, title: "Log out", image: "rectangle.righthalf.inset.fill.arrow.right", selectedSideBarTab: $selectedSideBarTab, selectedBottomTab: $selectedBottomTab, animation: animation)
+                SideBarButtonView(sideBarTabType: .logOut, title: "Log out", image: "rectangle.righthalf.inset.fill.arrow.right", selectedSideBarTab: $selectedSideBarTab, sideBarSheet: $sideBarSheet, animation: animation)
                     .padding(.leading, -16)
                 Text("App Version 3.0.0")
                     .font(.system(size: 14, design: .rounded))
@@ -67,7 +65,7 @@ struct SideBarMenuView: View {
             }
             
         }
-        .padding(.top, 15)
+        .padding(.top, 20)
         .padding(8)
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
     }

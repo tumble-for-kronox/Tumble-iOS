@@ -16,10 +16,9 @@ enum ThemeMode: String {
 
 extension MainAppView {
     @MainActor final class MainAppViewModel: ObservableObject {
-        @Published var currentSideBarSheetView: SideBarSheetViewType? = nil
-        @Published var showModal: Bool = true
-        @Published var showDrawerSheet: Bool = false
-        @Published var schoolIsChosen: Bool
+        @Published var universityImage: Image?
+        @Published var universityName: String?
+        
         
         // Service
         let preferenceService: PreferenceServiceImpl
@@ -31,9 +30,8 @@ extension MainAppView {
         let accountPageViewModel: AccountPageView.AccountPageViewModel
         let schedulePageViewModel: ScheduleMainPageView.ScheduleMainPageViewModel
         
-        
-        init(schoolIsChosen: Bool, preferenceService: PreferenceServiceImpl, scheduleService: ScheduleServiceImpl, courseColorService: CourseColorServiceImpl) {
-            self.schoolIsChosen = schoolIsChosen
+        // Initialize dependencies from ViewModelFactory class
+        init(preferenceService: PreferenceServiceImpl, scheduleService: ScheduleServiceImpl, courseColorService: CourseColorServiceImpl, universityName: String?, universityImage: Image?) {
             self.preferenceService = preferenceService
             self.scheduleService = scheduleService
             self.courseColorService = courseColorService
@@ -42,54 +40,45 @@ extension MainAppView {
             self.accountPageViewModel = ViewModelFactory().makeViewModelAccountPage()
             self.schedulePageViewModel = ViewModelFactory().makeViewModelScheduleMainPage()
             
+            self.universityName = universityName
+            self.universityImage = universityImage
         }
         
-        func getUniversityImage() -> Image? {
-            guard let school: School = self.preferenceService.getDefaultSchool() else { return nil }
-
-            
-            let schoolImage: Image = schools.first(where: {$0.name == school.name})!.logo
-            return schoolImage
+        func updateUniversityLocalsForView() -> Void {
+            self.universityImage = preferenceService.getUniversityImage()
+            self.universityName = preferenceService.getUniversityName()
         }
         
-        func getUniversityName() -> String? {
-            guard let school: School = self.preferenceService.getDefaultSchool() else { return nil }
-
+        func changeSchool(school: School, closure: @escaping () -> Void) -> Void {
             
-            let schoolName: String = schools.first(where: {$0.name == school.name})!.name
-            return schoolName
-        }
-        
-        func onSelectSchool(school: School) -> Void {
-            
-            preferenceService.setSchool(id: school.id, closure: {})
-            
-            scheduleService.removeAll { result in
-                switch result {
-                case .failure(let error):
-                    // Todo: Add error message for user
-                    print("Could not remove schedules: \(error)")
-                case .success:
-                    // Todo: Add success message for user
-                    print("Removed all schedules from local storage")
+            preferenceService.setSchool(id: school.id, closure: { [self] in
+                scheduleService.removeAll { [self] result in
+                    switch result {
+                    case .failure(let error):
+                        // Todo: Add error message for user
+                        print("Could not remove schedules: \(error)")
+                    case .success:
+                        // Todo: Add success message for user
+                        print("Removed all schedules from local storage")
+                        courseColorService.removeAll { result in
+                            switch result {
+                            case .failure(let error):
+                                // Todo: Add error message for user
+                                print("Could not remove course colors: \(error)")
+                            case .success:
+                                // Todo: Add success message for user
+                                print("Removed all course colors from local storage")
+                                self.checkForNewSchedules()
+                                closure()
+                            }
+                        }
+                    }
                 }
-            }
-            courseColorService.removeAll { result in
-                switch result {
-                case .failure(let error):
-                    // Todo: Add error message for user
-                    print("Could not remove course colors: \(error)")
-                case .success:
-                    // Todo: Add success message for user
-                    print("Removed all course colors from local storage")
-                }
-            }
-            print("Set school to \(school.name)")
-            self.schoolIsChosen = true
+            })
         }
         
-        func onToggleDrawerSheet() -> Void {
-            self.showDrawerSheet = false
+        func checkForNewSchedules() -> Void {
+            self.schedulePageViewModel.loadSchedules()
         }
     }
 }

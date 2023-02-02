@@ -9,9 +9,11 @@ import SwiftUI
 
 typealias CheckForNewSchedules = () -> Void
 
-struct SearchButtonView: View {
+struct SearchNavigationButtonView: View {
+        
     let backButtonTitle: String
-    let checkForNewSchedules: CheckForNewSchedules
+    let checkForNewSchedules: () -> Void
+    
     var body: some View {
         NavigationLink(destination:
                         SearchParentView(viewModel: ViewModelFactory().makeViewModelSearch(), checkForNewSchedules: checkForNewSchedules)

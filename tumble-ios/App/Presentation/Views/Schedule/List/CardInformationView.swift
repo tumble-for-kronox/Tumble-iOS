@@ -25,7 +25,7 @@ struct CardInformationView: View {
                 Spacer()
                 Text(location)
                     .locationCard()
-                Image(systemName: "location")
+                Image(systemName: "mappin.and.ellipse")
                     .font(.title3)
                     .foregroundColor(.onSurface)
                     .padding(.trailing, 5)

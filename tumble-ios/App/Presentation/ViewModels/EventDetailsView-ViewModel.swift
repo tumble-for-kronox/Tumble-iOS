@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-extension EventDetailsView {
+extension EventDetailsSheetView {
     @MainActor final class EventDetailsViewModel: ObservableObject {
         @Published var event: Response.Event?
         @Published var color: Color?

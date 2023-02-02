@@ -28,7 +28,7 @@ struct SchedulePreviewView: View {
         case .loading:
             CustomProgressView()
         case .error:
-            InfoView(title: "Something went wrong on KronoX", image: "wifi.exclamationmark")
+            InfoView(title: "Something went wrong", image: "wifi.exclamationmark")
         case .empty:
             InfoView(title: "Schedule seems to be empty", image: "questionmark.bubble")
         }

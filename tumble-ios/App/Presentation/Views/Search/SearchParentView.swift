@@ -12,7 +12,7 @@ struct SearchParentView: View {
     @ObservedObject var viewModel: SearchViewModel
     @State var searchBarText: String = ""
     
-    let checkForNewSchedules: CheckForNewSchedules
+    let checkForNewSchedules: () -> Void
     
     var body: some View {
         ZStack {
@@ -26,9 +26,7 @@ struct SearchParentView: View {
                         CustomProgressView()
                         Spacer()
                     case .loaded:
-                        SearchResultsView(searchText: searchBarText, numberOfSearchResults: viewModel.numberOfSearchResults, searchResults: viewModel.programmeSearchResults, onLoadSchedule: { programme in
-                                viewModel.onOpenProgramme(programmeId: programme.id)
-                            })
+                        SearchResultsView(searchText: searchBarText, numberOfSearchResults: viewModel.numberOfSearchResults, searchResults: viewModel.programmeSearchResults, onOpenProgramme: onOpenProgramme)
                     case .error:
                         SearchErrorView()
                     case .empty:
@@ -50,6 +48,10 @@ struct SearchParentView: View {
     
     func onClearSearch(endEditing: Bool) -> Void {
         viewModel.onClearSearch(endEditing: endEditing)
+    }
+    
+    func onOpenProgramme(programmeId: String) -> Void {
+        viewModel.onOpenProgrammeSchedule(programmeId: programmeId)
     }
     
 }

@@ -51,77 +51,9 @@ extension SearchParentView {
         
         private var client: APIClient = APIClient.shared
         
-        // Checks if a schedule based on its programme Id is already in the
-        // local storage -> schedulePreviewIsSaved = true
-        private func checkSavedSchedule(programmeId: String, closure: @escaping () -> Void) -> Void {
-            scheduleService.load { result in
-                DispatchQueue.main.async {
-                    switch result {
-                    case .failure(_):
-                        break
-                    case .success(let schedule):
-                        if !schedule.isEmpty {
-                            if (schedule.contains(where: { $0.id == programmeId })) {
-                                self.schedulePreviewIsSaved = true
-                            }
-                        }
-                    }
-                    closure()
-                }
-            }
-        }
-        
-        fileprivate func handleFetchedSchedule(schedule: Response.Schedule) -> Void {
-            if schedule.isEmpty() {
-                self.schedulePreviewStatus = .empty
-            } else {
-                self.scheduleForPreview = schedule
-                self.scheduleListOfDays = schedule.days.toOrderedDays()
-            }
-        }
-        
-        // Assigns course colors to a schedule if it was found in the local storage.
-        // This function should ONLY be called when a schedule is found in the local storage.
-        // The purpose is to check for new schedules and add them accordingly
-        fileprivate func assignCourseColorsToSavedSchedule(courses: [String : String]) -> Void {
-            var availableColors = Set(colors)
-            var courseColors = courses
-            var visitedCourses: [String] = []
-            // Check for new courses and update local storage since it is saved
-            for day in self.scheduleListOfDays! {
-                for event in day.events {
-                    if !(visitedCourses.contains(event.course.id)) {
-                        visitedCourses.append(event.course.id)
-                    }
-                    // If a new course is found in force loaded schedule
-                    if (courseColors[event.course.id] == nil) {
-                        courseColors[event.course.id] = availableColors.popFirst()
-                    }
-                }
-            }
-            self.saveCourseColors(courseColors: courses)
-            // Assign possibly updated course colors
-            self.courseColors = courses
-        }
-        
-        // API Call to fetch a schedule from backend
-        fileprivate func fetchSchedule(programmeId: String, closure: @escaping () -> Void) -> Void {
-            client.get(.schedule(scheduleId: programmeId, schoolId: String(school!.id))) { (result: Result<Response.Schedule, Error>) in
-                DispatchQueue.main.async {
-                    switch result {
-                    case .success(let result):
-                        self.handleFetchedSchedule(schedule: result)
-                    case .failure(_):
-                        self.schedulePreviewStatus = .error
-                    }
-                    closure()
-                }
-            }
-        }
-        
         // When user presses a programme card
-        func onOpenProgramme(programmeId: String) -> Void {
-            
+        func onOpenProgrammeSchedule(programmeId: String) -> Void {
+            print("Opening schedule")
             // Set sheet view as loading and reset possible old
             // value for the save button
             self.schedulePreviewIsSaved = false
@@ -136,14 +68,19 @@ extension SearchParentView {
                     // If the schedule is saved just make sure all colors are available
                     // and loaded into view
                     if self.schedulePreviewIsSaved {
-                        self.loadProgrammeCourseColors()
+                        self.loadProgrammeCourseColors() { courseColors in
+                            self.courseColors = courseColors
+                            self.schedulePreviewStatus = .loaded
+                        }
                     }
                     // Otherwise load random course colors
                     else {
-                        self.assignRandomCourseColors()
+                        self.assignRandomCourseColors() { courseColors in
+                            // Assign possibly updated course colors
+                            self.courseColors = courseColors
+                            self.schedulePreviewStatus = .loaded
+                        }
                     }
-                    
-                    self.schedulePreviewStatus = .loaded
                 }
             }
         }
@@ -154,7 +91,6 @@ extension SearchParentView {
                 DispatchQueue.main.async {
                     switch result {
                     case .success(let result):
-                        self.status = SearchStatus.loading
                         self.parseSearchResults(result)
                     case .failure( _):
                         self.status = SearchStatus.error
@@ -182,8 +118,84 @@ extension SearchParentView {
             }
         }
         
-        fileprivate func assignRandomCourseColors() -> Void {
-            self.courseColors = self.scheduleForPreview!.assignCoursesRandomColors()
+        // Checks if a schedule based on its programme Id is already in the
+        // local storage -> schedulePreviewIsSaved = true
+        fileprivate func checkSavedSchedule(programmeId: String, closure: @escaping () -> Void) -> Void {
+            scheduleService.load { result in
+                DispatchQueue.main.async {
+                    switch result {
+                    case .failure(_):
+                        print("Schedule was not previously saved")
+                        break
+                    case .success(let schedule):
+                        if !schedule.isEmpty {
+                            if (schedule.contains(where: { $0.id == programmeId })) {
+                                self.schedulePreviewIsSaved = true
+                                print("Schedule is already saved")
+                            }
+                        }
+                    }
+                    closure()
+                }
+            }
+        }
+        
+        fileprivate func handleFetchedSchedule(schedule: Response.Schedule, closure: @escaping () -> Void) -> Void {
+            if schedule.isEmpty() {
+                self.schedulePreviewStatus = .empty
+            } else {
+                self.scheduleForPreview = schedule
+                self.scheduleListOfDays = schedule.days.toOrderedDays()
+                print("Set schedule local variables")
+            }
+            closure()
+        }
+        
+        // Assigns course colors to a schedule if it was found in the local storage.
+        // This function should ONLY be called when a schedule is found in the local storage.
+        // The purpose is to check for new schedules and add them accordingly
+        fileprivate func assignCourseColorsToSavedSchedule(courses: [String : String], closure: @escaping ([String : String]) -> Void) -> Void {
+            
+            var availableColors = Set(colors)
+            var courseColors = courses
+            var visitedCourses: [String] = []
+            
+            // Check for new courses and update local storage since it is saved
+            for day in self.scheduleListOfDays! {
+                for event in day.events {
+                    if !(visitedCourses.contains(event.course.id)) {
+                        visitedCourses.append(event.course.id)
+                    }
+                    // If a new course is found in force loaded schedule
+                    if (courseColors[event.course.id] == nil) {
+                        courseColors[event.course.id] = availableColors.popFirst()
+                    }
+                }
+            }
+            self.saveCourseColors(courseColors: courseColors)
+            closure(courseColors)
+        }
+        
+        // API Call to fetch a schedule from backend
+        fileprivate func fetchSchedule(programmeId: String, closure: @escaping () -> Void) -> Void {
+            client.get(.schedule(scheduleId: programmeId, schoolId: String(school!.id))) { (result: Result<Response.Schedule, Error>) in
+                DispatchQueue.main.async {
+                    switch result {
+                    case .success(let result):
+                        print("Fetched schedule")
+                        self.handleFetchedSchedule(schedule: result) {
+                            closure()
+                        }
+                    case .failure(_):
+                        self.schedulePreviewStatus = .error
+                    }
+                }
+            }
+        }
+        
+        fileprivate func assignRandomCourseColors(closure: @escaping ([String : String]) -> Void) -> Void {
+            let randomCourseColors = self.scheduleForPreview!.assignCoursesRandomColors()
+            closure(randomCourseColors)
         }
         
         fileprivate func saveSchedule(checkForNewSchedules: @escaping () -> Void) -> Void {
@@ -210,6 +222,7 @@ extension SearchParentView {
                             if case .failure(let error) = result {
                                 fatalError(error.localizedDescription)
                             } else {
+                                print("Removed course colors")
                                 checkForNewSchedules()
                             }
                         }
@@ -218,15 +231,17 @@ extension SearchParentView {
             }
         }
         
-        fileprivate func loadProgrammeCourseColors() -> Void {
+        fileprivate func loadProgrammeCourseColors(closure: @escaping ([String : String]) -> Void) -> Void {
             courseColorService.load { result in
                 DispatchQueue.main.async {
                     switch result {
                     case .failure(_):
-                        print("Could not load course colors")
+                        print("Could not load course colors for saved schedule")
                     case .success(let courses):
                         if !courses.isEmpty {
-                            self.assignCourseColorsToSavedSchedule(courses: courses)
+                            self.assignCourseColorsToSavedSchedule(courses: courses) { newCourseColors in
+                                closure(newCourseColors)
+                            }
                         }
                     }
                 }
@@ -237,6 +252,8 @@ extension SearchParentView {
             self.courseColorService.save(coursesAndColors: courseColors) { courseResult in
                 if case .failure(let error) = courseResult {
                     fatalError(error.localizedDescription)
+                } else {
+                    print("Saved course colors")
                 }
             }
         }
