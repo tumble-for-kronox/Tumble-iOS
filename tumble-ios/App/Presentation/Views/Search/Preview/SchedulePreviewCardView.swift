@@ -17,7 +17,7 @@ struct SchedulePreviewCardView: View {
                 .fill(event.isSpecial ? .red : previewColor)
                 
             Rectangle()
-                .fill(Color("SurfaceColor"))
+                .fill(Color.surface)
                 .offset(x: 7.5)
                 .cornerRadius(5, corners: [.topRight, .bottomRight])
             VStack (alignment: .leading, spacing: 0) {
@@ -28,7 +28,7 @@ struct SchedulePreviewCardView: View {
             }
             
         }
-        .frame(height: 145)
+        .frame(height: 140)
         .padding(.leading, 20)
         .padding(.trailing, 20)
         .padding(.bottom, isLast ? 40 : 0)

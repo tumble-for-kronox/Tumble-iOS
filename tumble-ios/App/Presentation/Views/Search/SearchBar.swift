@@ -8,26 +8,31 @@
 import SwiftUI
 
 struct SearchBar: View {
-    @EnvironmentObject var viewModel: SearchParentView.SearchViewModel
+    @Binding var searchBarText: String
     @State private var closeButtonOffset: CGFloat = 300.0
     @State private var hasTimeElapsed: Bool = false
+    
+    let onSearch: (String) -> Void
+    let onClearSearch: (Bool) -> Void
+    
     var body: some View {
         HStack {
             Image(systemName: "magnifyingglass")
                 .foregroundColor(.gray)
                 .font(.headline)
                 .padding(.leading, 5)
-            TextField("Search schedules", text: $viewModel.searchBarText)
+            TextField("Search schedules", text: $searchBarText)
                 .searchBoxText()
                 .onTapGesture {
                     self.animateCloseButtonIntoView()
                 }
             Button(action: {
-                if (viewModel.searchBarText.isEmpty) {
+                if (searchBarText.isEmpty) {
                     hideKeyboard()
                     self.animateCloseButtonOutOfView()
                 }
-                viewModel.onClearSearch(endEditing: viewModel.searchBarText.isEmpty)
+                onClearSearch(searchBarText.isEmpty)
+                searchBarText = ""
                 
             }) {
                 Image(systemName: "xmark.circle")
@@ -37,6 +42,11 @@ struct SearchBar: View {
             .offset(x: closeButtonOffset)
         }
         .searchBox()
+        .onSubmit {
+            if searchBoxNotEmpty() {
+                onSearch(searchBarText)
+            }
+        }
     }
     
     private func animateCloseButtonIntoView() -> Void {
@@ -51,6 +61,10 @@ struct SearchBar: View {
         withAnimation(.spring().delay(0.5)) {
             self.closeButtonOffset += 300
         }
+    }
+    
+    private func searchBoxNotEmpty() -> Bool {
+        return !searchBarText.trimmingCharacters(in: .whitespaces).isEmpty
     }
     
 }

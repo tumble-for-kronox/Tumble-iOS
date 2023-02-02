@@ -25,17 +25,15 @@ enum SchedulePreviewStatus {
 
 extension SearchParentView {
     @MainActor final class SearchViewModel: ObservableObject {
-        @Published var searchBarText: String = ""
-        @Published var searchResultText: String = ""
+        
         @Published var status: SearchStatus = .initial
         @Published var numberOfSearchResults: Int = 0
-        @Published var searchResults: [Response.Programme] = []
+        @Published var programmeSearchResults: [Response.Programme] = []
         @Published var scheduleForPreview: Response.Schedule? = nil
         @Published var scheduleListOfDays: [DayUiModel]? = nil
         @Published var presentPreview: Bool = false
         @Published var schedulePreviewStatus: SchedulePreviewStatus = .loading
         @Published var schedulePreviewIsSaved: Bool = false
-        @Published var availableCourseColors: CourseAndColorDict = [:]
         
         
         // Course name and hex color
@@ -152,7 +150,6 @@ extension SearchParentView {
         
         func onSearchProgrammes(searchQuery: String) -> Void {
             self.status = .loading
-            self.searchResultText = self.searchBarText
             client.get(.searchProgramme(searchQuery: searchQuery, schoolId: String(school!.id))) { (result: Result<Response.Search, Error>) in
                 DispatchQueue.main.async {
                     switch result {
@@ -169,10 +166,9 @@ extension SearchParentView {
         
         func onClearSearch(endEditing: Bool) -> Void {
             if (endEditing) {
-                self.searchResults = []
+                self.programmeSearchResults = []
                 self.status = .initial
             }
-            self.searchBarText = ""
         }
         
         func onBookmark(checkForNewSchedules: @escaping () -> Void) -> Void {
@@ -251,7 +247,7 @@ extension SearchParentView {
             for result in results.items {
                 localResults.append(result)
             }
-            self.searchResults = localResults
+            self.programmeSearchResults = localResults
             self.status = .loaded
         }
     }

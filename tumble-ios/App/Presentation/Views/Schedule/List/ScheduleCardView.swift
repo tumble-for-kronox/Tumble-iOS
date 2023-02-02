@@ -36,7 +36,7 @@ struct ScheduleCardView: View {
         .onTapGesture {
             onTapCard(event, color)
         }
-        .frame(height: 145)
+        .frame(height: 140)
         .padding([.leading, .trailing], 8)
         .padding(.bottom, isLast ? 40 : 10)
         

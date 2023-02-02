@@ -39,12 +39,7 @@ struct SchedulePreviewListView: View {
                         self.bookmark!()
                         }) {
                             HStack {
-                                Image(systemName: toggled ? "bookmark.fill" : "bookmark")
-                                    .font(.system(size: 20))
-                                    .foregroundColor(Color("OnPrimary"))
-                                Text(toggled ? "Un-bookmark" : "Bookmark")
-                                    .font(.headline)
-                                    .foregroundColor(Color("OnPrimary"))
+                                
                             }
                             .padding()
                             

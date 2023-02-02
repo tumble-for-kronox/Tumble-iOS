@@ -8,8 +8,12 @@
 import SwiftUI
 
 struct SearchParentView: View {
+    
     @ObservedObject var viewModel: SearchViewModel
+    @State var searchBarText: String = ""
+    
     let checkForNewSchedules: CheckForNewSchedules
+    
     var body: some View {
         ZStack {
             VStack (spacing: 0) {
@@ -22,7 +26,7 @@ struct SearchParentView: View {
                         CustomProgressView()
                         Spacer()
                     case .loaded:
-                        SearchResultsView(searchText: viewModel.searchResultText, numberOfSearchResults: viewModel.numberOfSearchResults, searchResults: viewModel.searchResults, onLoadSchedule: { programme in
+                        SearchResultsView(searchText: searchBarText, numberOfSearchResults: viewModel.numberOfSearchResults, searchResults: viewModel.programmeSearchResults, onLoadSchedule: { programme in
                                 viewModel.onOpenProgramme(programmeId: programme.id)
                             })
                     case .error:
@@ -30,14 +34,7 @@ struct SearchParentView: View {
                     case .empty:
                         InfoView(title: "Schedule is empty", image: nil)
                     }
-                SearchBar()
-                    .environmentObject(viewModel)
-                    .onSubmit {
-                        if(!viewModel.searchBarText.trimmingCharacters(in: .whitespaces).isEmpty) {
-                            viewModel.onSearchProgrammes(searchQuery: viewModel.searchBarText)
-                        }
-                    }
-                    
+                SearchBar(searchBarText: $searchBarText, onSearch: onSearch, onClearSearch: onClearSearch)
             }
             
         }
@@ -46,4 +43,13 @@ struct SearchParentView: View {
                 .environmentObject(viewModel)
         }
     }
+    
+    func onSearch(query: String) -> Void {
+        viewModel.onSearchProgrammes(searchQuery: query)
+    }
+    
+    func onClearSearch(endEditing: Bool) -> Void {
+        viewModel.onClearSearch(endEditing: endEditing)
+    }
+    
 }
