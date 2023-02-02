@@ -45,13 +45,14 @@ enum BottomTabType: String {
 
 enum SideBarTabType: String {
     case home = "Home"
-    case notifications = "Notifications"
+    case notifications = "Notifications" // Opens sheet
     case schedule = "Schedules"
     case settings = "Settings"
-    case school = "Schools"
-    case support = "Support"
+    case school = "Schools" // Opens sheet
+    case support = "Support" // Opens sheet
     case account = "Account"
-    case logOut = ""
+    case theme = "Theme" // Opens sheet
+    case logOut = "" // Performs api call
 }
 
 // Drawer sheet type specifically for the settings menu

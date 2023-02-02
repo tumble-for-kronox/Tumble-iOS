@@ -96,6 +96,7 @@ extension Text {
     
     func info() -> some View {
         self.font(.system(size: 20, design: .rounded))
+            .fontWeight(.semibold)
             .foregroundColor(.onBackground)
             .padding(.bottom, 25)
             .padding([.leading, .trailing], 15)

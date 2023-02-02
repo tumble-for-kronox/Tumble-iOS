@@ -48,7 +48,7 @@ class CourseColorServiceImpl: ObservableObject, CourseColorService {
     //                      "#45F327" : Color.blue
     //                     }
     // }
-    func save(coursesAndColors: [String : [String : Color]], completion: @escaping (Result<Int, Error>)->Void) {
+    func save(coursesAndColors: [String : String], completion: @escaping (Result<Int, Error>)->Void) {
         DispatchQueue.global(qos: .background).async {
             do {
                 let fileURL = try self.fileURL()
@@ -60,14 +60,8 @@ class CourseColorServiceImpl: ObservableObject, CourseColorService {
                         }
                     case .success(let courses):
                         do {
-                            var newCourseColorsDict: CourseAndColorDict = [:]
-                            for (course, colorDict) in coursesAndColors {
-                                for (hexColor, _) in colorDict {
-                                    newCourseColorsDict[course] = hexColor;
-                                }
-                            }
 
-                            let finalCourseColorDict = courses.merging(newCourseColorsDict) { (_, new) in new }
+                            let finalCourseColorDict = courses.merging(coursesAndColors) { (_, new) in new }
                             let data = try JSONEncoder().encode(finalCourseColorDict)
                             try data.write(to: fileURL)
                             DispatchQueue.main.async {

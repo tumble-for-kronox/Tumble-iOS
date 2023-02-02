@@ -29,7 +29,7 @@ struct SideBarButtonView: View {
                 Text(title)
                     .fontWeight(.semibold)
             }
-            .foregroundColor(selectedSideBarTab.rawValue == title ? .primary : .onPrimary)
+            .foregroundColor(selectedSideBarTab.rawValue == title ? .primary : .surface)
             .padding(.vertical, 12)
             .padding(.horizontal, 20)
             .frame(maxWidth: getRect().width - 170, alignment: .leading)
@@ -37,7 +37,7 @@ struct SideBarButtonView: View {
                 // Hero animation
                 ZStack {
                     if selectedSideBarTab.rawValue == title {
-                        Color.onPrimary.opacity(selectedSideBarTab.rawValue == title ? 1 : 0)
+                        Color.surface.opacity(selectedSideBarTab.rawValue == title ? 1 : 0)
                             .clipShape(CustomCorners(corners: [.topRight, .bottomRight], radius: 10))
                             .matchedGeometryEffect(id: "SIDEBARTAB", in: animation)
                     }
@@ -56,6 +56,8 @@ struct SideBarButtonView: View {
             selectedBottomTab = BottomTabType.account
         case .settings:
             selectedBottomTab = BottomTabType.settings
+        case .theme:
+            print("change theme")
         case .notifications:
             print("open notifications drawer")
         case .school:

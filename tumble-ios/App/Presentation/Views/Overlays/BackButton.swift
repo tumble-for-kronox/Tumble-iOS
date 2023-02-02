@@ -9,18 +9,19 @@ import SwiftUI
 
 struct BackButton: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    let previousPage: String
     var body: some View {
         Button(action: {
             self.presentationMode.wrappedValue.dismiss()
         }) {
             HStack {
                 Spacer()
-                Image(systemName: "arrow.backward.circle")
+                Image(systemName: "chevron.backward")
                     .font(.system(size: 16))
-                Text("Back")
+                Text(previousPage)
                     .backButton()
             }
-            .foregroundColor(Color("OnBackground"))
+            .foregroundColor(.onBackground)
         }
     }
 }

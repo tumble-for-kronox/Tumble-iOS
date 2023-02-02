@@ -32,7 +32,7 @@ struct SideBarMenuView: View {
                         Text(universityName)
                             .font(.system(size: 18, design: .rounded))
                             .fontWeight(.semibold)
-                            .foregroundColor(.onPrimary)
+                            .foregroundColor(.surface)
                             .padding(.top, 10)
                 })
             }
@@ -44,6 +44,7 @@ struct SideBarMenuView: View {
                 SideBarButtonView(sideBarTabType: .schedule, title: "Schedules", image: "bookmark", selectedSideBarTab: $selectedSideBarTab, selectedBottomTab: $selectedBottomTab, animation: animation)
                 SideBarButtonView(sideBarTabType: .account, title: "Account", image: "person", selectedSideBarTab: $selectedSideBarTab, selectedBottomTab: $selectedBottomTab, animation: animation)
                 SideBarButtonView(sideBarTabType: .settings, title: "Settings", image: "gearshape", selectedSideBarTab: $selectedSideBarTab, selectedBottomTab: $selectedBottomTab, animation: animation)
+                SideBarButtonView(sideBarTabType: .theme, title: "Theme", image: "paintbrush", selectedSideBarTab: $selectedSideBarTab, selectedBottomTab: $selectedBottomTab, animation: animation)
                 SideBarButtonView(sideBarTabType: .notifications, title: "Notifications", image: "bell.badge", selectedSideBarTab: $selectedSideBarTab, selectedBottomTab: $selectedBottomTab, animation: animation)
                 SideBarButtonView(sideBarTabType: .school, title: "Schools", image: "arrow.left.arrow.right", selectedSideBarTab: $selectedSideBarTab, selectedBottomTab: $selectedBottomTab, animation: animation)
                 SideBarButtonView(sideBarTabType: .support, title: "Support", image: "questionmark.circle", selectedSideBarTab: $selectedSideBarTab, selectedBottomTab: $selectedBottomTab, animation: animation)
@@ -58,15 +59,15 @@ struct SideBarMenuView: View {
                     .padding(.leading, -16)
                 Text("App Version 3.0.0")
                     .font(.system(size: 14, design: .rounded))
-                    .foregroundColor(.onPrimary)
+                    .foregroundColor(.surface)
                     .fontWeight(.semibold)
                     .opacity(0.7)
-                    .padding(.bottom, 50)
+                    .padding(.bottom, 55)
                     .padding(.leading, 8)
             }
             
         }
-        .padding(.top, 45)
+        .padding(.top, 15)
         .padding(8)
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
     }

@@ -9,20 +9,23 @@ import SwiftUI
 
 struct SchedulePreviewView: View {
     @EnvironmentObject var parentViewModel: SearchParentView.SearchViewModel
+    @Binding var courseColors: [String : String]?
     let checkForNewSchedules: CheckForNewSchedules
+    
     var body: some View {
         switch parentViewModel.schedulePreviewStatus {
         case .loaded:
-            let courseColors = parentViewModel.scheduleForPreview!.assignCoursesRandomColors()
-            SchedulePreviewListView(toggled: parentViewModel.schedulePreviewIsSaved, randomCourseColors: courseColors, existingCourseColors: parentViewModel.courseColors, days: parentViewModel.scheduleListOfDays!) {
-                parentViewModel.onBookmark(courseColors: courseColors, checkForNewSchedules: {
-                    checkForNewSchedules()
-                })
+            if courseColors != nil {
+                SchedulePreviewListView(toggled: parentViewModel.schedulePreviewIsSaved, courseColors: courseColors!, days: parentViewModel.scheduleListOfDays!) {
+                    parentViewModel.onBookmark(checkForNewSchedules: {
+                        checkForNewSchedules()
+                    })
+                }
+            } else {
+                CustomProgressView()
             }
         case .loading:
-            Spacer()
             CustomProgressView()
-            Spacer()
         case .error:
             InfoView(title: "Something went wrong on KronoX", image: "wifi.exclamationmark")
         case .empty:

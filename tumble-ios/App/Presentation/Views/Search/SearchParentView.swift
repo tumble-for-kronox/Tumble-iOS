@@ -23,7 +23,7 @@ struct SearchParentView: View {
                         Spacer()
                     case .loaded:
                         SearchResultsView(searchText: viewModel.searchResultText, numberOfSearchResults: viewModel.numberOfSearchResults, searchResults: viewModel.searchResults, onLoadSchedule: { programme in
-                                viewModel.onLoadSchedule(programme: programme)
+                                viewModel.onOpenProgramme(programmeId: programme.id)
                             })
                     case .error:
                         SearchErrorView()
@@ -42,7 +42,7 @@ struct SearchParentView: View {
             
         }
         .sheet(isPresented: $viewModel.presentPreview) {
-            SchedulePreviewView(checkForNewSchedules: checkForNewSchedules)
+            SchedulePreviewView(courseColors: $viewModel.courseColors, checkForNewSchedules: checkForNewSchedules)
                 .environmentObject(viewModel)
         }
     }
