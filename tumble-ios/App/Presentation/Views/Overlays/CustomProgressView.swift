@@ -10,7 +10,7 @@ import SwiftUI
 struct CustomProgressView: View {
     var body: some View {
         ProgressView()
-            .progressViewStyle(CircularProgressViewStyle(tint: Color("PrimaryColor")))
+            .progressViewStyle(CircularProgressViewStyle(tint: .primary))
             .scaleEffect(1.5, anchor: .center)
     }
 }

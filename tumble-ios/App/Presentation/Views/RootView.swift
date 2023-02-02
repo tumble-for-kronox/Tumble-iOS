@@ -26,8 +26,10 @@ struct RootView: View {
                 MainAppView(viewModel: viewModel.appViewModel)
             }
         }
-        .environment(\.colorScheme, isDarkMode && overrideSystem ? .dark : .light)
-        .preferredColorScheme(isDarkMode ? .dark : .light)
+        .environment(\.colorScheme, .dark)
+        .preferredColorScheme(.dark)
+        //.environment(\.colorScheme, isDarkMode && overrideSystem ? .dark : .light)
+        //.preferredColorScheme(isDarkMode ? .dark : .light)
         .ignoresSafeArea(.keyboard)
         .edgesIgnoringSafeArea(.all)
     }

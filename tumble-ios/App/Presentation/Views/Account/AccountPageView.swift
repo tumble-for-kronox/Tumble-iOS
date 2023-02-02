@@ -13,11 +13,7 @@ struct AccountPageView: View {
         VStack (alignment: .center) {
             switch viewModel.status {
             case .loading:
-                Spacer()
-                CustomProgressView()
-                    .padding(.bottom, 15)
-                InfoView(title: "Attempting to sign in user", image: nil)
-                Spacer()
+                InfoLoadingView(title: "Attempting to sign in")
             case .signedIn:
                 Text("User is signed in!")
             case .notSignedIn:

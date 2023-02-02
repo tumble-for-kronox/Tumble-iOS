@@ -70,7 +70,7 @@ struct MainAppView: View {
                             SideBarToggleButtonView(showMenu: $showMenu)
                         })
                         ToolbarItem(placement: .navigationBarTrailing, content: {
-                            SearchButtonView(checkForNewSchedules: checkForNewSchedules)
+                            SearchButtonView(backButtonTitle: selectedBottomTab.displayName, checkForNewSchedules: checkForNewSchedules)
                         })
                     }.background(Color.background)
                     

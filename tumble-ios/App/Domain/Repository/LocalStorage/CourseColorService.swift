@@ -12,7 +12,7 @@ protocol CourseColorService {
     
     func load(completion: @escaping (Result<CourseAndColorDict, Error>)->Void)
     
-    func save(coursesAndColors: [String : [String : Color]], completion: @escaping (Result<Int, Error>)->Void)
+    func save(coursesAndColors: [String : String], completion: @escaping (Result<Int, Error>)->Void)
     
     func removeAll(completion: @escaping (Result<Int, Error>) -> Void)
     

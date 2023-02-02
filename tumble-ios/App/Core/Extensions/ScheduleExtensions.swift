@@ -42,14 +42,15 @@ extension [Response.Schedule] {
 
 extension Response.Schedule {
     
-    func assignCoursesRandomColors() -> [String : [String : Color]] {
-        var courseColors: [String : [String : Color]] = [:]
+    // Returns dictionary of random colors for each course in a schedule
+    func assignCoursesRandomColors() -> [String : String] {
+        var courseColors: [String : String] = [:]
         var availableColors = Set(colors)
         for day in self.days {
             for event in day.events {
                 if courseColors[event.course.id] == nil {
                     if let hexColorString = availableColors.popFirst() {
-                        courseColors[event.course.id] = [hexColorString : hexStringToUIColor(hex: hexColorString)]
+                        courseColors[event.course.id] = hexColorString
                     }
                 }
             }

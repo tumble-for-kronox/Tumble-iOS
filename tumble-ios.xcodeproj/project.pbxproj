@@ -88,6 +88,7 @@
 		D46BB112298B0E2800887A24 /* SideBarToggleButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46BB111298B0E2800887A24 /* SideBarToggleButtonView.swift */; };
 		D46BB114298B0F5800887A24 /* FadedPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46BB113298B0F5800887A24 /* FadedPageView.swift */; };
 		D46BB116298B10AA00887A24 /* BottomBarButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46BB115298B10AA00887A24 /* BottomBarButtonView.swift */; };
+		D46BB118298B21DA00887A24 /* InfoLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46BB117298B21DA00887A24 /* InfoLoadingView.swift */; };
 		D4722149292454560063BDB7 /* tumble_iosApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4722148292454560063BDB7 /* tumble_iosApp.swift */; };
 		D472214D292454570063BDB7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D472214C292454570063BDB7 /* Assets.xcassets */; };
 		D4722150292454570063BDB7 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D472214F292454570063BDB7 /* Preview Assets.xcassets */; };
@@ -206,6 +207,7 @@
 		D46BB111298B0E2800887A24 /* SideBarToggleButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideBarToggleButtonView.swift; sourceTree = "<group>"; };
 		D46BB113298B0F5800887A24 /* FadedPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FadedPageView.swift; sourceTree = "<group>"; };
 		D46BB115298B10AA00887A24 /* BottomBarButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomBarButtonView.swift; sourceTree = "<group>"; };
+		D46BB117298B21DA00887A24 /* InfoLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoLoadingView.swift; sourceTree = "<group>"; };
 		D4722145292454560063BDB7 /* tumble-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "tumble-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4722148292454560063BDB7 /* tumble_iosApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tumble_iosApp.swift; sourceTree = "<group>"; };
 		D472214C292454570063BDB7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -279,6 +281,7 @@
 				D45338FA2929730200198411 /* CustomProgressView.swift */,
 				D4CF9B2B293572BE00DDB5F0 /* InfoView.swift */,
 				D4462C0929857FB00067DA65 /* MainAppOverlay.swift */,
+				D46BB117298B21DA00887A24 /* InfoLoadingView.swift */,
 			);
 			path = Overlays;
 			sourceTree = "<group>";
@@ -915,6 +918,7 @@
 				D48F0D8829367A7F0039CD0F /* CourseColorServiceImpl.swift in Sources */,
 				D43419B029854FCA001089A0 /* AppFeaturesListView.swift in Sources */,
 				D46ABF0A29843B9D00B059F6 /* ScheduleService.swift in Sources */,
+				D46BB118298B21DA00887A24 /* InfoLoadingView.swift in Sources */,
 				D4861DED29834EB900C4CA6F /* PreviewCardInformationView.swift in Sources */,
 				D40CC161292AFB9F00664776 /* ScheduleMainPageView.swift in Sources */,
 				D46081552930053E00FFFB44 /* ScheduleServiceImpl.swift in Sources */,

@@ -9,8 +9,7 @@ import SwiftUI
 
 struct SchedulePreviewListView: View {
     @State var toggled: Bool
-    let randomCourseColors: [String : [String : Color]]
-    let existingCourseColors: [String : String]
+    let courseColors: [String : String]
     let days: [DayUiModel]
     let bookmark: (() -> Void)?
     var body: some View {
@@ -22,7 +21,7 @@ struct SchedulePreviewListView: View {
                             Section(header: DayHeaderSectionView(day: day), content: {
                                 ForEach(day.events, id: \.id) { event in
                                     SchedulePreviewCardView(
-                                        previewColor: existingCourseColors[event.course.id] != nil ? hexStringToUIColor(hex: existingCourseColors[event.course.id]!) : randomCourseColors[event.course.id]!.values.first!, event: event, isLast: event == day.events.last)
+                                        previewColor: hexStringToUIColor(hex: courseColors[event.course.id]!), event: event, isLast: event == day.events.last)
                                 }
                             })
                             .padding(.top, 35)
