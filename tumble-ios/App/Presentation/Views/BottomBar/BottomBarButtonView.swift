@@ -12,13 +12,11 @@ struct BottomBarButtonView: View {
     let bottomTab: BottomTabType
     
     @Binding var selectedBottomTab: BottomTabType
-    @Binding var selectedSideBarTab: SideBarTabType
     
     var body: some View {
         Button(action: {
             withAnimation(.spring()) {
                 self.selectedBottomTab = bottomTab
-                translateBottomTabToSideBar(bottomTab: bottomTab)
             }
         }, label: {
             VStack(spacing: 8) {
@@ -35,18 +33,4 @@ struct BottomBarButtonView: View {
             .frame(maxWidth: .infinity)
         })
     }
-    
-    func translateBottomTabToSideBar(bottomTab: BottomTabType) -> Void {
-        switch bottomTab {
-        case .home:
-            selectedSideBarTab = SideBarTabType.home
-        case .schedule:
-            selectedSideBarTab = SideBarTabType.schedule
-        case .account:
-            selectedSideBarTab = SideBarTabType.account
-        case .settings:
-            selectedSideBarTab = SideBarTabType.settings
-        }
-    }
-    
 }

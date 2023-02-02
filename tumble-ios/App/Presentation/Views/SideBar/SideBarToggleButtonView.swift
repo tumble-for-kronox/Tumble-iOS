@@ -8,19 +8,21 @@
 import SwiftUI
 
 struct SideBarToggleButtonView: View {
-    @Binding var showMenu: Bool
+    @Binding var showSideBar: Bool
+    @Binding var selectedSideBarTab: SideBarTabType
     var body: some View {
         Button(action: {
             withAnimation(.spring()) {
-                showMenu.toggle()
+                showSideBar.toggle()
+                selectedSideBarTab = .none
             }
         }, label: {
             VStack (spacing: 5) {
                  Capsule()
                     .fill(Color.onBackground)
-                    .frame(width: 25, height: showMenu ? 3 : 2)
-                    .rotationEffect(.init(degrees: showMenu ? -45 : 0))
-                    .offset(x: showMenu ? 2 : 0, y: showMenu ? 8.3 : 0)
+                    .frame(width: 25, height: showSideBar ? 3 : 2)
+                    .rotationEffect(.init(degrees: showSideBar ? -45 : 0))
+                    .offset(x: showSideBar ? 2 : 0, y: showSideBar ? 8.3 : 0)
                 // These two capsules appear animated
                 VStack (spacing: 5) {
                     Capsule()
@@ -29,9 +31,9 @@ struct SideBarToggleButtonView: View {
                     Capsule()
                        .fill(Color.onBackground)
                        .frame(width: 25, height: 2)
-                       .offset(y: showMenu ? -8 : 0)
+                       .offset(y: showSideBar ? -8 : 0)
                 }
-                .rotationEffect(.init(degrees: showMenu ? 43 : 0))
+                .rotationEffect(.init(degrees: showSideBar ? 43 : 0))
             }
         })
     }

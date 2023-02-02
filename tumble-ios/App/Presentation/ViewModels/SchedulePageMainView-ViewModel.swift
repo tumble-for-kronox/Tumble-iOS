@@ -24,6 +24,7 @@ enum ScheduleMainPageStatus {
 
 extension ScheduleMainPageView {
     @MainActor final class ScheduleMainPageViewModel: ObservableObject {
+        
         @Published var scheduleViewTypes: [ScheduleViewType] = ScheduleViewType.allValues
         @Published var status: ScheduleMainPageStatus = .loading
         @Published var days: [DayUiModel] = []
@@ -45,39 +46,18 @@ extension ScheduleMainPageView {
         
         func loadSchedules() -> Void {
             scheduleService.load { result in
-                DispatchQueue.main.async {
-                    switch result {
-                    case .failure(_):
-                        self.status =  .error
-                    case .success(let schedules):
-                        if !schedules.isEmpty {
-                            let days: [DayUiModel] = schedules.removeDuplicateEvents().flatten()
-                            self.days = days
-                            self.status = .loaded
-                            self.loadCourseColors()
-                        }
-                        else {
-                            self.status = .uninitialized
-                        }
+                switch result {
+                case .failure(_):
+                    self.status =  .error
+                case .success(let schedules):
+                    if !schedules.isEmpty {
+                        let days: [DayUiModel] = schedules.removeDuplicateEvents().flatten()
+                        self.days = days
+                        self.status = .loaded
+                        self.loadCourseColors()
                     }
-                }
-            }
-        }
-        
-        private func loadCourseColors() -> Void {
-            for day in self.days {
-                for event in day.events {
-                    courseColorService.load { result in
-                        DispatchQueue.main.async {
-                            switch result {
-                            case .failure(_):
-                                print("Error on course with id: \(event.course.id)")
-                            case .success(let courses):
-                                if !courses.isEmpty {
-                                    self.courseColors = courses
-                                }
-                            }
-                        }
+                    else {
+                        self.status = .uninitialized
                     }
                 }
             }
@@ -86,6 +66,20 @@ extension ScheduleMainPageView {
         func onChangeViewType(viewType: ScheduleViewType) -> Void {
             let viewTypeIndex: Int = scheduleViewTypes.firstIndex(of: viewType)!
             preferenceService.setViewType(viewType: viewTypeIndex)
+        }
+        
+        fileprivate func loadCourseColors() -> Void {
+            courseColorService.load { result in
+                switch result {
+                case .failure(_):
+                    // TODO: Add user notification toast that something went wrong
+                    print("Could not load course colors")
+                case .success(let courses):
+                    if !courses.isEmpty {
+                        self.courseColors = courses
+                    }
+                }
+            }
         }
     }
 }

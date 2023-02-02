@@ -9,6 +9,8 @@ import Foundation
 import SwiftUI
 
 class ViewModelFactory {
+    
+    // Injects repositories into view models
     private let scheduleService: ScheduleServiceImpl
     private let courseColorService: CourseColorServiceImpl
     private let preferenceService: PreferenceServiceImpl
@@ -29,10 +31,11 @@ class ViewModelFactory {
     
     @MainActor func makeViewModelApp() -> MainAppView.MainAppViewModel {
         .init(
-            schoolIsChosen: preferenceService.isKeyPresentInUserDefaults(key: StoreKey.school.rawValue),
             preferenceService: self.preferenceService,
             scheduleService: self.scheduleService,
-            courseColorService: self.courseColorService)
+            courseColorService: self.courseColorService,
+            universityName: self.preferenceService.getUniversityName(),
+            universityImage: self.preferenceService.getUniversityImage())
     }
 
     
@@ -56,7 +59,7 @@ class ViewModelFactory {
         .init(preferenceService: preferenceService)
     }
     
-    @MainActor func makeViewModelEventSheet(event: Response.Event, color: Color) -> EventDetailsView.EventDetailsViewModel {
+    @MainActor func makeViewModelEventDetailsSheet(event: Response.Event, color: Color) -> EventDetailsSheetView.EventDetailsViewModel {
         .init(event: event, color: color)
     }
 }

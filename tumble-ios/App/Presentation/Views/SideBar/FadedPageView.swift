@@ -13,14 +13,14 @@ struct FadedPageView: View {
     let offset: CGFloat
     let verticalPadding: CGFloat
     
-    @Binding var showMenu: Bool
+    @Binding var showSideBar: Bool
     
     var body: some View {
         Color.background.opacity(backgroundOpacity)
             .opacity(0.5)
-            .cornerRadius(showMenu ? 15 : 0)
+            .cornerRadius(showSideBar ? 15 : 0)
             .shadow(color: Color.dark.opacity(0.07), radius: 5, x: -5, y: 0)
-            .offset(x: showMenu ? offset : 0)
+            .offset(x: showSideBar ? offset : 0)
             .padding(.vertical, verticalPadding)
     }
 }

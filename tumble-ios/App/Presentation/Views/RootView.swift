@@ -38,6 +38,6 @@ struct RootView: View {
         withAnimation {
             self.viewModel.userNotOnBoarded.toggle()
         }
-        self.viewModel.appViewModel.schoolIsChosen.toggle()
+        self.viewModel.appViewModel.updateUniversityLocalsForView()
     }
 }

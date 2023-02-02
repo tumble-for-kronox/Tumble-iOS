@@ -11,15 +11,16 @@ struct SideBarButtonView: View {
     let sideBarTabType: SideBarTabType
     let title: String
     let image: String
+    
     @Binding var selectedSideBarTab: SideBarTabType
-    @Binding var selectedBottomTab: BottomTabType
+    @Binding var sideBarSheet: SideBarSheet?
     var animation: Namespace.ID
     
     var body: some View {
         Button(action: {
             withAnimation(.spring()) {
                 selectedSideBarTab = sideBarTabType
-                translateSideBarToBottomTab(sideBarTab: sideBarTabType)
+                sideBarSheet = SideBarSheet(sideBarType: sideBarTabType)
             }
         }, label: {
             HStack (spacing: 10) {
@@ -44,28 +45,5 @@ struct SideBarButtonView: View {
                 }
             )
         })
-    }
-    
-    func translateSideBarToBottomTab(sideBarTab: SideBarTabType) -> Void {
-        switch sideBarTab {
-        case .home:
-            selectedBottomTab = BottomTabType.home
-        case .schedule:
-            selectedBottomTab = BottomTabType.schedule
-        case .account:
-            selectedBottomTab = BottomTabType.account
-        case .settings:
-            selectedBottomTab = BottomTabType.settings
-        case .theme:
-            print("change theme")
-        case .notifications:
-            print("open notifications drawer")
-        case .school:
-            print("open schedule drawer")
-        case .support:
-            print("open support drawer")
-        case .logOut:
-            print("log out callback")
-        }
     }
 }

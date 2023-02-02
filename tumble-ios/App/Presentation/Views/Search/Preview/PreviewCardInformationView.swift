@@ -14,27 +14,19 @@ struct PreviewCardInformationView: View {
     var body: some View {
         VStack (alignment: .leading) {
             Text(title)
-                .font(.title2)
-                .foregroundColor(Color("OnSurface"))
-                .padding(.leading, 25)
-                .padding(.trailing, 25)
-                .padding(.bottom, 2.5)
+                .titleCard()
             VStack {
                 Text(courseName)
-                    .font(.title3)
-                    .foregroundColor(Color("OnSurface"))
-                    .padding(.leading, 25)
-                    .padding(.bottom, 10)
+                    .courseNameCard()
                 Spacer()
             }
             HStack {
                 Spacer()
                 Text(location)
+                    .locationCard()
+                Image(systemName: "mappin.and.ellipse")
                     .font(.title3)
-                    .foregroundColor(Color("OnSurface"))
-                Image(systemName: "location")
-                    .font(.title3)
-                    .foregroundColor(Color("OnSurface"))
+                    .foregroundColor(.onSurface)
                     .padding(.trailing, 5)
             }
             .padding(.trailing, 10)
