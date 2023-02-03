@@ -19,7 +19,6 @@ struct SettingNotificationsView: View {
             UsageStepCardView(titleInstruction: "Done", bodyInstruction: "A notification will be set for the specified event or course", image: "checkmark.seal")
             
         }
-        .padding(.bottom, 30)
     }
 }
 

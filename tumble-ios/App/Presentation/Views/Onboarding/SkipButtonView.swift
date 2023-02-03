@@ -13,11 +13,13 @@ struct SkipButtonView: View {
     let onClickSkip: OnClickSkip
     var body: some View {
         Button(action: onClickSkip) {
-                Text("Skip")
-                    .onPrimaryMediumBold()
+                Image(systemName: "arrow.uturn.right")
+                .font(.system(size: 22))
+                .foregroundColor(.onPrimary)
+                .padding(15)
+                .background(Color.primary)
+                .clipShape(Circle())
             }
-            .frame(width: 140)
-            .background(Color("PrimaryColor"))
-            .cornerRadius(10)
+        .shadow(radius: 5, x: 5, y: 5)
     }
 }

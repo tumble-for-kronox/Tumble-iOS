@@ -7,16 +7,21 @@
 
 import Foundation
 
+enum RootViewStatus {
+    case onboarding
+    case app
+}
+
 extension RootView {
     @MainActor final class RootViewModel: ObservableObject {
-
-        @Published var userNotOnBoarded: Bool
+        
+        @Published var currentView: RootViewStatus
         let appViewModel: MainAppView.MainAppViewModel = ViewModelFactory().makeViewModelApp()
         let onBoardingViewModel: OnBoardingView.OnBoardingViewModel = ViewModelFactory().makeViewModelOnBoarding()
         
         
         init (userNotOnBoarded: Bool) {
-            self.userNotOnBoarded = userNotOnBoarded
+            self.currentView = userNotOnBoarded ? .onboarding : .app
         }
     }
 }

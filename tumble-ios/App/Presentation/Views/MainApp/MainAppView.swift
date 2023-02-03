@@ -117,6 +117,8 @@ struct MainAppView: View {
         .gesture(DragGesture(minimumDistance: 3.0, coordinateSpace: .local)
             .onEnded(handleSwipe)
         )
+        .zIndex(1)
+        .transition(.asymmetric(insertion: .move(edge: .trailing), removal: .move(edge: .leading)))
     }
     
     func handleSwipe(value: DragGesture.Value) -> Void {

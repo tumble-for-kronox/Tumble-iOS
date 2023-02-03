@@ -404,6 +404,7 @@
 		D41ED54429843371009DCF8B /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				D40D809E292520AA008CA68D /* ViewModifiers */,
 				D4607648292AE77200DE9590 /* Shapes */,
 				D460763E292AB16300DE9590 /* Types */,
 				D40D80AB29252838008CA68D /* Utilities */,
@@ -472,7 +473,9 @@
 		D43419A229853EAF001089A0 /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
-				D43419B629855A64001089A0 /* Welcome */,
+				D43419AF29854FCA001089A0 /* AppFeaturesListView.swift */,
+				D43419A8298546B0001089A0 /* FeatureCardView.swift */,
+				D43419B729855A9C001089A0 /* SkipButtonView.swift */,
 				D43419B3298550A1001089A0 /* Usage */,
 				D43419A329853F34001089A0 /* OnBoardingView.swift */,
 				D43419AD29854E6B001089A0 /* OnBoardingViewBuilder.swift */,
@@ -491,16 +494,6 @@
 				D43419BF2985639D001089A0 /* CustomizeCourseColorsView.swift */,
 			);
 			path = Usage;
-			sourceTree = "<group>";
-		};
-		D43419B629855A64001089A0 /* Welcome */ = {
-			isa = PBXGroup;
-			children = (
-				D43419A8298546B0001089A0 /* FeatureCardView.swift */,
-				D43419AF29854FCA001089A0 /* AppFeaturesListView.swift */,
-				D43419B729855A9C001089A0 /* SkipButtonView.swift */,
-			);
-			path = Welcome;
 			sourceTree = "<group>";
 		};
 		D45338F7292825A400198411 /* Schedule */ = {
@@ -692,11 +685,10 @@
 		D47221592924549B0063BDB7 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				D43419A229853EAF001089A0 /* Onboarding */,
 				D4BAE61A29246AE800143717 /* SchoolSelection */,
 				D40D80BC29258CA0008CA68D /* BottomBar */,
 				D41172C02985EB2C0082BB4F /* SideBar */,
-				D40D809E292520AA008CA68D /* ViewModifiers */,
-				D43419A229853EAF001089A0 /* Onboarding */,
 				D40E84392981C84700C2CF2E /* Account */,
 				D460763F292AB17000DE9590 /* MainApp */,
 				D453390029299F9800198411 /* HomePage */,

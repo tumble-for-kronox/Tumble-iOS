@@ -15,11 +15,11 @@ struct OnBoardingView: View {
     @ObservedObject var viewModel: OnBoardingViewModel
     @State private var viewedTab: Int = 0
     @State private var animateButton: Bool = true
-    @State private var buttonOffset: CGFloat = 800
+    @State private var buttonOffset: CGFloat = 900.0
     let updateUserOnBoarded: UpdateUserOnBoarded
     
-    let constResetButtonHeight: CGFloat = 800.0
-    let constButtonOffset: CGFloat = 485.0
+    let constResetButtonHeight: CGFloat = 900.0
+    let constButtonOffset: CGFloat = 585.0
     
     init(viewModel: OnBoardingViewModel, updateUserOnBoarded: @escaping UpdateUserOnBoarded) {
         UIPageControl.appearance().currentPageIndicatorTintColor = UIColor(Color.primary)
@@ -60,11 +60,11 @@ struct OnBoardingView: View {
                 .onChange(of: viewedTab, perform: { newValue in
                     if newValue == 6 {
                         withAnimation (.spring()) {
-                            self.buttonOffset += self.constButtonOffset
+                            self.buttonOffset += self.constResetButtonHeight
                         }
                     } else if newValue < 6 && self.buttonOffset == self.constResetButtonHeight {
                         withAnimation (.spring()) {
-                            self.buttonOffset -= self.constButtonOffset
+                            self.buttonOffset -= self.constResetButtonHeight
                         }
                     }
 
@@ -72,13 +72,17 @@ struct OnBoardingView: View {
                 
             }
             SkipButtonView(onClickSkip: onClickSkip)
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomTrailing)
+                .padding(30)
                 .offset(y: buttonOffset)
                 .onAppear {
-                    withAnimation (.spring()) {
-                        self.buttonOffset -= self.constButtonOffset
+                    withAnimation(.spring()) {
+                        buttonOffset -= constResetButtonHeight
                     }
                 }
         }
+        .zIndex(0)
+        .transition(.asymmetric(insertion: .move(edge: .trailing), removal: .move(edge: .leading)))
     }
     
     func onClickSkip() -> Void {
