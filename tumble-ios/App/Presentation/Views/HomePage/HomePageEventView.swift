@@ -27,6 +27,7 @@ struct HomePageEventView: View {
                             .font(.system(size: 22, design: .rounded))
                             .foregroundColor(.onSurface)
                             .bold()
+                            .padding(.bottom, 5)
                         Text(bodyText)
                             .foregroundColor(.onSurface)
                             .font(.system(size: 18, design: .rounded))
@@ -43,7 +44,6 @@ struct HomePageEventView: View {
                 .frame(minWidth: 0, maxWidth: .infinity, minHeight: 60, alignment: .center)
                 .background(Color.surface)
                 .cornerRadius(10)
-                .padding([.leading, .trailing], 20)
                 .padding([.bottom, .top], 10)
                 
             }

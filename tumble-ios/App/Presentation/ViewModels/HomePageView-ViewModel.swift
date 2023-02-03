@@ -11,24 +11,13 @@ import SwiftUI
 extension HomePageView {
     @MainActor final class HomePageViewModel: ObservableObject {
         
-        @Published var kronoxUrl: String?
-        @Published var canvasUrl: String?
-        @Published var domain: String?
-        
         let preferenceService: PreferenceServiceImpl
         
-        init(preferenceService: PreferenceServiceImpl, kronoxUrl: String?, canvasUrl: String?, domain: String?) {
+        init(preferenceService: PreferenceServiceImpl) {
             self.preferenceService = preferenceService
-            self.kronoxUrl = kronoxUrl
-            self.canvasUrl = canvasUrl
-            self.domain = domain
+            
         }
-        
-        func updateUniversityLocalsForView() -> Void {
-            self.kronoxUrl = preferenceService.getUniversityKronoxUrl()
-            self.canvasUrl = preferenceService.getCanvasUrl()
-            self.domain = preferenceService.getUniversityDomain()
-        }
+
         
         func getTimeOfDay() -> String {
             let date = Date()
@@ -44,6 +33,6 @@ extension HomePageView {
                 return "evening"
             }
         }
-
+        
     }
 }

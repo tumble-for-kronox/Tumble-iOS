@@ -35,7 +35,11 @@ class ViewModelFactory {
             scheduleService: self.scheduleService,
             courseColorService: self.courseColorService,
             universityName: self.preferenceService.getUniversityName(),
-            universityImage: self.preferenceService.getUniversityImage())
+            universityImage: self.preferenceService.getUniversityImage(),
+            kronoxUrl: self.preferenceService.getUniversityKronoxUrl(),
+            canvasUrl: self.preferenceService.getCanvasUrl(),
+            domain: self.preferenceService.getUniversityDomain()
+        )
     }
 
     
@@ -45,10 +49,7 @@ class ViewModelFactory {
     
     @MainActor func makeViewModelHomePage() -> HomePageView.HomePageViewModel {
         .init(
-            preferenceService: preferenceService,
-            kronoxUrl: preferenceService.getUniversityKronoxUrl(),
-            canvasUrl: preferenceService.getCanvasUrl(),
-            domain: preferenceService.getUniversityDomain()
+            preferenceService: preferenceService
         )
     }
     
