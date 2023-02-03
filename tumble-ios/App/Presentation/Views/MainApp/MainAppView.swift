@@ -60,7 +60,7 @@ struct MainAppView: View {
                         case .home:
                             HomePageView(viewModel: viewModel.homePageViewModel, domain: $viewModel.domain, canvasUrl: $viewModel.canvasUrl, kronoxUrl: $viewModel.kronoxUrl)
                         case .bookmarks:
-                            ScheduleMainPageView(viewModel: viewModel.schedulePageViewModel, onTapCard: { (event, color) in
+                            ScheduleMainPageView(viewModel: viewModel.scheduleMainPageViewModel, onTapCard: { (event, color) in
                                 onOpenEventDetailsSheet(event: event, color: color)
                             })
                         case .account:
@@ -76,13 +76,12 @@ struct MainAppView: View {
                             SideBarToggleButtonView(showSideBar: $showSideBar, selectedSideBarTab: $selectedSideBarTab, handleClose: handleSideBarAction)
                         })
                         ToolbarItem(placement: .navigationBarTrailing, content: {
-                            SearchNavigationButtonView(backButtonTitle: selectedBottomTab.displayName, checkForNewSchedules: checkForNewSchedules)
+                            SearchNavigationButtonView(backButtonTitle: selectedBottomTab.displayName, checkForNewSchedules: checkForNewSchedules, universityImage: $viewModel.universityImage)
                         })
                     }.background(Color.background)
                     
                 }
-                
-                .blur(radius: showSideBar ? 30 : 0)
+                .blur(radius: showSideBar ? 50 : 0)
                 .overlay(
                     // If the sidebar is shown, blur the navigation view
                     // and make the whole navigation page clickable so the sidebar
@@ -99,7 +98,7 @@ struct MainAppView: View {
                     }
                 )
                 .sheet(item: $eventSheet) { (eventSheet: EventSheet) in
-                    EventDetailsSheetView(viewModel: ViewModelFactory().makeViewModelEventDetailsSheet(event: eventSheet.event, color: eventSheet.color))
+                    EventDetailsSheetView(viewModel: viewModel.generateViewModelEventSheet(event: eventSheet.event, color: eventSheet.color))
                 }
                 .onDisappear {
                     handleSideBarAction(shouldShowSideBar: false, newSideBarTab: .none)
@@ -147,7 +146,7 @@ struct MainAppView: View {
     }
     
     func checkForNewSchedules() -> Void {
-        viewModel.checkForNewSchedules()
+        viewModel.updateSchedulesChildView()
     }
     
     func onOpenEventDetailsSheet(event: Response.Event, color: Color) -> Void {

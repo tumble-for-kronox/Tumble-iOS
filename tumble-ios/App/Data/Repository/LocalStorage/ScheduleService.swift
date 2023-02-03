@@ -1,37 +1,34 @@
 //
-//  ColorStore.swift
+//  DBClient.swift
 //  tumble-ios
 //
-//  Created by Adis Veletanlic on 11/29/22.
+//  Created by Adis Veletanlic on 11/24/22.
 //
 
 import Foundation
-import SwiftUI
 
-typealias CourseAndColorDict = [String : String]
-
-class CourseColorServiceImpl: ObservableObject, CourseColorService {
+class ScheduleService: ObservableObject, ScheduleServiceProtocol {
     private func fileURL() throws -> URL {
             try FileManager.default.url(for: .documentDirectory,
                in: .userDomainMask,
                appropriateFor: nil,
                create: false)
-                .appendingPathComponent("colors.data")
+                .appendingPathComponent("schedules.data")
         }
 
-    func load(completion: @escaping (Result<CourseAndColorDict, Error>)->Void) {
+    func load(completion: @escaping (Result<[Response.Schedule], Error>)->Void) {
         DispatchQueue.global(qos: .background).async {
             do {
                 let fileURL = try self.fileURL()
                 guard let file = try? FileHandle(forReadingFrom: fileURL) else {
                         DispatchQueue.main.async {
-                            completion(.success([:]))
+                            completion(.success([]))
                         }
                         return
                     }
-                let courses = try JSONDecoder().decode(CourseAndColorDict.self, from: file.availableData)
+                let schedules = try JSONDecoder().decode([Response.Schedule].self, from: file.availableData)
                 DispatchQueue.main.async {
-                    completion(.success(courses))
+                    completion(.success(schedules))
                 }
             } catch {
                 DispatchQueue.main.async {
@@ -40,15 +37,8 @@ class CourseColorServiceImpl: ObservableObject, CourseColorService {
                 }
             }
     }
-    
-    // [String : [String : Color]] is a dictionary of
-    // course names with its respective dictionary of hexColor: String, and color: Color
-    // {
-    //      "course_one" : {
-    //                      "#45F327" : Color.blue
-    //                     }
-    // }
-    func save(coursesAndColors: [String : String], completion: @escaping (Result<Int, Error>)->Void) {
+
+    func save(schedule: Response.Schedule, completion: @escaping (Result<Int, Error>)->Void) {
         DispatchQueue.global(qos: .background).async {
             do {
                 let fileURL = try self.fileURL()
@@ -56,19 +46,23 @@ class CourseColorServiceImpl: ObservableObject, CourseColorService {
                     switch result {
                     case .failure(let error):
                         DispatchQueue.main.async {
+                            AppLogger.shared.info("Failed to save \(schedule.id)")
                             completion(.failure(error))
                         }
-                    case .success(let courses):
+                    case .success(let schedules):
                         do {
-
-                            let finalCourseColorDict = courses.merging(coursesAndColors) { (_, new) in new }
-                            let data = try JSONEncoder().encode(finalCourseColorDict)
+                            var newSchedules = schedules
+                            newSchedules.append(schedule)
+                            
+                            let data = try JSONEncoder().encode(newSchedules)
                             try data.write(to: fileURL)
                             DispatchQueue.main.async {
+                                AppLogger.shared.info("Successfully saved schedule \(schedule.id)")
                                 completion(.success(1))
                             }
                         } catch {
                             DispatchQueue.main.async {
+                                AppLogger.shared.info("Failed to save \(schedule.id)")
                                 completion(.failure(error as! Error))
                             }
                         }
@@ -87,30 +81,29 @@ class CourseColorServiceImpl: ObservableObject, CourseColorService {
             do {
                 let fileURL = try self.fileURL()
                 guard let file = try? FileHandle(forReadingFrom: fileURL) else {
-                        DispatchQueue.main.async {
-                            completion(.success(1))
-                        }
-                        return
+                    DispatchQueue.main.async {
+                        completion(.success(1))
                     }
-                var courses = try JSONDecoder().decode(CourseAndColorDict.self, from: file.availableData)
-                
-                courses.removeAll()
-                
-                let data = try JSONEncoder().encode(courses)
+                    return
+                }
+                var schedules = try JSONDecoder().decode([Response.Schedule].self, from: file.availableData)
+                schedules.removeAll()
+                let data = try JSONEncoder().encode(schedules)
                 try data.write(to: fileURL)
                 
                 DispatchQueue.main.async {
-                    completion(.success(courses.count))
+                    AppLogger.shared.info("Removed all schedules")
+                    completion(.success(schedules.count))
                 }
             } catch {
                 DispatchQueue.main.async {
                     completion(.failure(error as! Error))
                     }
-                }
+            }
         }
     }
     
-    func remove(removeCourses: [String], completion: @escaping (Result<Int, Error>)->Void) {
+    func remove(schedule: Response.Schedule, completion: @escaping (Result<Int, Error>)->Void) {
         DispatchQueue.global(qos: .background).async {
             do {
                 let fileURL = try self.fileURL()
@@ -120,17 +113,17 @@ class CourseColorServiceImpl: ObservableObject, CourseColorService {
                         }
                         return
                     }
-                var courses = try JSONDecoder().decode(CourseAndColorDict.self, from: file.availableData)
+                var schedules = try JSONDecoder().decode([Response.Schedule].self, from: file.availableData)
                 
-                for courseId in removeCourses {
-                    courses.removeValue(forKey: courseId)
-                }
                 
-                let data = try JSONEncoder().encode(courses)
+                schedules.removeAll(where: {$0.id == schedule.id})
+                
+                let data = try JSONEncoder().encode(schedules)
                 try data.write(to: fileURL)
                 
                 DispatchQueue.main.async {
-                    completion(.success(courses.count))
+                    AppLogger.shared.info("Removed schedule \(schedule.id)")
+                    completion(.success(schedules.count))
                 }
             } catch {
                 DispatchQueue.main.async {
@@ -140,3 +133,4 @@ class CourseColorServiceImpl: ObservableObject, CourseColorService {
         }
     }
 }
+

@@ -15,6 +15,8 @@ struct tumble_iosApp: App {
         if let networkSettings = ProcessInfo.processInfo.environment["NETWORK_SETTINGS"] {
             UserDefaults.standard.set(networkSettings, forKey: StoreKey.networkSettings.rawValue)
         }
+        // Initialize dependency providers
+        _ = Dependencies()
     }
     
     var body: some Scene {

@@ -25,23 +25,20 @@ enum ScheduleMainPageStatus {
 extension ScheduleMainPageView {
     @MainActor final class ScheduleMainPageViewModel: ObservableObject {
         
+        @Inject var scheduleService: ScheduleService
+        @Inject var preferenceService: PreferenceService
+        @Inject var courseColorService: CourseColorService
+        
         @Published var scheduleViewTypes: [ScheduleViewType] = ScheduleViewType.allValues
         @Published var status: ScheduleMainPageStatus = .loading
         @Published var days: [DayUiModel] = []
         @Published var courseColors: CourseAndColorDict = [:]
         @Published var defaultViewType: ScheduleViewType
         
-        let scheduleService: ScheduleServiceImpl
-        let courseColorService: CourseColorServiceImpl
-        let preferenceService: PreferenceServiceImpl
-        
-        init (defaultViewType: ScheduleViewType, scheduleService: ScheduleServiceImpl, courseColorService: CourseColorServiceImpl, preferenceService: PreferenceServiceImpl) {
-            self.defaultViewType = defaultViewType
-            self.scheduleService = scheduleService
-            self.courseColorService = courseColorService
-            self.preferenceService = preferenceService
-            
+        init () {
+            self.defaultViewType = .list
             self.loadSchedules()
+            self.defaultViewType = preferenceService.getDefaultViewType()
         }
         
         func loadSchedules() -> Void {
@@ -73,7 +70,7 @@ extension ScheduleMainPageView {
                 switch result {
                 case .failure(_):
                     // TODO: Add user notification toast that something went wrong
-                    print("Could not load course colors")
+                    AppLogger.shared.info("Could not load course colors")
                 case .success(let courses):
                     if !courses.isEmpty {
                         self.courseColors = courses

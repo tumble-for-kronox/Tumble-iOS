@@ -11,13 +11,9 @@ import SwiftUI
 extension HomePageView {
     @MainActor final class HomePageViewModel: ObservableObject {
         
-        let preferenceService: PreferenceServiceImpl
+        @Inject var preferenceService: PreferenceService
         
-        init(preferenceService: PreferenceServiceImpl) {
-            self.preferenceService = preferenceService
-            
-        }
-
+        let ladokUrl: String = "https://www.student.ladok.se/student/app/studentwebb/"
         
         func getTimeOfDay() -> String {
             let date = Date()
@@ -34,5 +30,13 @@ extension HomePageView {
             }
         }
         
+        func makeCanvasUrl() -> URL? {
+            return URL(string: preferenceService.getCanvasUrl() ?? "")
+        }
+        
+        func makeUniversityUrl() -> URL? {
+            return URL(string: preferenceService.getUniversityUrl() ?? "")
+        }
+
     }
 }

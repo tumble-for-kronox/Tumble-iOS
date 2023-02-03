@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol ScheduleService {
+protocol ScheduleServiceProtocol {
     
     func load(completion: @escaping (Result<[Response.Schedule], Error>)->Void)
 

@@ -14,6 +14,8 @@ struct SearchResultsView: View {
     let searchResults: [Response.Programme]
     let onOpenProgramme: (String) -> Void
     
+    @Binding var universityImage: Image?
+    
     var body: some View {
         VStack {
             HStack {
@@ -22,11 +24,12 @@ struct SearchResultsView: View {
                 Spacer()
             }
             List(searchResults, id: \.id) { programme in
-                ProgrammeCardView(programme: programme)
+                ProgrammeCardView(programme: programme, universityImage: universityImage)
                     .onTapGesture {
                         onOpenProgramme(programme.id)
                     }
             }
+            .listStyle(PlainListStyle())
         }
     }
 }

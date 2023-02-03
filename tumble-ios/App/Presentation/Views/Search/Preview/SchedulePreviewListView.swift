@@ -7,11 +7,21 @@
 
 import SwiftUI
 
+enum ButtonState {
+    case loading
+    case saved
+    case notSaved
+}
+
 struct SchedulePreviewListView: View {
-    @State var toggled: Bool
+    
+    @Namespace var animation
+    
+    @Binding var buttonState: ButtonState
     let courseColors: [String : String]
     let days: [DayUiModel]
     let bookmark: (() -> Void)?
+    
     var body: some View {
         ZStack {
             ScrollView {
@@ -35,21 +45,34 @@ struct SchedulePreviewListView: View {
                 Spacer()
                 HStack {
                     Button(action: {
-                        toggled.toggle()
-                        self.bookmark!()
+                        if buttonState != .loading {
+                            withAnimation {
+                                buttonState = .loading
+                            }
+                            self.bookmark!()
+                        }
                         }) {
                             HStack {
-                                Image(systemName: toggled ? "bookmark.fill" : "bookmark")
-                                    .font(.system(size: 20))
-                                    .foregroundColor(Color("OnPrimary"))
-                                Text(toggled ? "Un-bookmark" : "Bookmark")
-                                    .font(.headline)
-                                    .foregroundColor(Color("OnPrimary"))
+                                switch buttonState {
+                                case .loading:
+                                    CustomProgressView()
+                                        .matchedGeometryEffect(id: "BOOKMARKBTN", in: animation)
+                                case .saved:
+                                    Image(systemName: "bookmark.fill")
+                                        .font(.system(size: 20))
+                                        .foregroundColor(.onPrimary)
+                                        .matchedGeometryEffect(id: "BOOKMARKBTN", in: animation)
+                                case .notSaved:
+                                    Image(systemName: "bookmark")
+                                        .font(.system(size: 20))
+                                        .foregroundColor(.onPrimary)
+                                        .matchedGeometryEffect(id: "BOOKMARKBTN", in: animation)
+                                }
                             }
                             .padding()
                             
                         }
-                        .background(Color("PrimaryColor"))
+                        .background(Color.primary)
                         .cornerRadius(10)
                         .padding(15)
                         .padding(.leading, 5)

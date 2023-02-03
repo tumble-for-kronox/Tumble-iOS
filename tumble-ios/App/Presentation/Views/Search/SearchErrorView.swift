@@ -11,12 +11,12 @@ struct SearchErrorView: View {
     var body: some View {
         VStack (alignment: .center) {
             Spacer()
-            Image(systemName: "exclamationmark.questionmark")
+            Image(systemName: "wifi.exclamationmark")
                 .font(.system(size: 24))
                 .padding(.bottom, 20)
             Text("Oops! Looks like something went wrong.")
                 .font(.headline)
-                .foregroundColor(Color("OnBackground"))
+                .foregroundColor(.onBackground)
                 .padding(.bottom, 25)
             Spacer()
         }

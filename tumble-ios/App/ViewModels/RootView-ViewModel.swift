@@ -19,7 +19,6 @@ extension RootView {
         let appViewModel: MainAppView.MainAppViewModel = ViewModelFactory().makeViewModelApp()
         let onBoardingViewModel: OnBoardingView.OnBoardingViewModel = ViewModelFactory().makeViewModelOnBoarding()
         
-        
         init (userNotOnBoarded: Bool) {
             self.currentView = userNotOnBoarded ? .onboarding : .app
         }
