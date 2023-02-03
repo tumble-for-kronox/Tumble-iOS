@@ -8,8 +8,10 @@
 import SwiftUI
 
 struct ScheduleMainPageView: View {
+    
     @ObservedObject var viewModel: ScheduleMainPageViewModel
     let onTapCard: OnTapCard
+    
     var body: some View {
         VStack (alignment: .center) {
             switch viewModel.status {

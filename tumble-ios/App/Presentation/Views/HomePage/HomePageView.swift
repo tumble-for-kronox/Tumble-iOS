@@ -14,6 +14,7 @@ enum QuickAccessId: String {
 }
 
 struct HomePageView: View {
+    
     @ObservedObject var viewModel: HomePageViewModel
     
     @Binding var domain: String?
@@ -34,9 +35,9 @@ struct HomePageView: View {
                     .font(.system(size: 25, design: .rounded))
                     .padding(.trailing, 30)
                 HStack {
-                    EventDetailsPill(title: domain?.uppercased() ?? "", image: "link")
-                    EventDetailsPill(title: "Canvas", image: "link")
-                    EventDetailsPill(title: "Ladok", image: "link")
+                    LinkPillView(title: domain?.uppercased() ?? "", image: "link", url: viewModel.makeUniversityUrl())
+                    LinkPillView(title: "Canvas", image: "link", url: viewModel.makeCanvasUrl())
+                    LinkPillView(title: "Ladok", image: "link", url: URL(string: viewModel.ladokUrl))
                 }
                 .padding(.top, 25)
 

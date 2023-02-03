@@ -7,10 +7,19 @@
 
 import Foundation
 
-class APIClient {
-    static let shared = APIClient()
+class NetworkManager: NetworkManagerProtocol {
+    
     private let encoder = JSONEncoder()
     private let decoder = JSONDecoder()
+    private let session: URLSession
+    
+    init() {
+        let config: URLSessionConfiguration = URLSessionConfiguration.default
+        config.timeoutIntervalForRequest = 20
+        config.timeoutIntervalForResource = 20
+        self.session = URLSession(configuration: config)
+    }
+    
     
     // Generic network request function handling network logic
     func fetch<Request, Response>(_ endpoint: Endpoint, method: Method = .get, body: Request? = nil,
@@ -18,7 +27,8 @@ class APIClient {
     ) where Request: Codable, Response: Codable {
         var urlRequest = URLRequest(url: endpoint.url)
         urlRequest.httpMethod = method.rawValue
-        // If a body is attached to the fetch call, encode the request body
+        
+        // If a body is attached to the fetch call, attempt to encode the request body
         if let body = body {
             do {
                 urlRequest.httpBody = try encoder.encode(body)
@@ -28,26 +38,26 @@ class APIClient {
             }
         }
         
-        let dataTask = URLSession.shared
+        let networkTask = self.session
             .dataTask(with: urlRequest) { data, response, error in
                 if let error = error {
-                    print("Fetch error: \(error)")
+                    AppLogger.shared.info("Fetch error: \(error)")
                     callback?(.failure(.generic(reason: "Could not fetch data: \(error.localizedDescription)")))
-                } else {
-                    // If data is received and is not null
-                    if let data = data {
-                        do {
-                            let result = try self.decoder.decode(Response.self, from: data)
-                            callback?(.success(result))
-                        } catch {
-                            print("Decoding error: \(error)")
-                            callback?(.failure(.generic(reason: "Could not decode data: \(error.localizedDescription)")))
-                        }
+                    return
+                }
+                // If data is received and is not null
+                if let data = data {
+                    do {
+                        let result = try self.decoder.decode(Response.self, from: data)
+                        callback?(.success(result))
+                    } catch {
+                        AppLogger.shared.info("Decoding error: \(error)")
+                        callback?(.failure(.generic(reason: "Could not decode data: \(error.localizedDescription)")))
                     }
                 }
             }
         
-        dataTask.resume()
+        networkTask.resume()
     }
     // [HTTP GET]
     func get<Response>(_ endpoint: Endpoint, then callback: ((Result<Response, Error>) -> Void)? = nil

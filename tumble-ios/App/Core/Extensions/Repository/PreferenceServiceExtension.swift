@@ -10,7 +10,7 @@ import SwiftUI
 
 
 // Functions not inherently related to iOS local storage
-extension PreferenceService {
+extension PreferenceServiceProtocol {
     
     func getUniversityImage() -> Image? {
         guard let school: School = self.getDefaultSchool() else { return nil }

@@ -12,12 +12,12 @@ struct SearchParentView: View {
     @ObservedObject var viewModel: SearchViewModel
     @State var searchBarText: String = ""
     
+    @Binding var universityImage: Image?
     let checkForNewSchedules: () -> Void
     
     var body: some View {
         ZStack {
             VStack (spacing: 0) {
-                Spacer()
                 switch viewModel.status {
                     case .initial:
                         SearchInitialView()
@@ -26,7 +26,7 @@ struct SearchParentView: View {
                         CustomProgressView()
                         Spacer()
                     case .loaded:
-                        SearchResultsView(searchText: searchBarText, numberOfSearchResults: viewModel.numberOfSearchResults, searchResults: viewModel.programmeSearchResults, onOpenProgramme: onOpenProgramme)
+                        SearchResultsView(searchText: searchBarText, numberOfSearchResults: viewModel.numberOfSearchResults, searchResults: viewModel.programmeSearchResults, onOpenProgramme: onOpenProgramme, universityImage: $universityImage)
                     case .error:
                         SearchErrorView()
                     case .empty:

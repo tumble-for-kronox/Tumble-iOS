@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-class PreferenceServiceImpl: PreferenceService {
+class PreferenceService: PreferenceServiceProtocol {
     // ----------- SET -----------
     func setSchool(id: Int, closure: @escaping () -> Void) -> Void {
         UserDefaults.standard.set(id, forKey: StoreKey.school.rawValue)

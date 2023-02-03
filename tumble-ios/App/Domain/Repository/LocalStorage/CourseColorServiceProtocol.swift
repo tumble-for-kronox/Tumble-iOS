@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-protocol CourseColorService {
+protocol CourseColorServiceProtocol {
     
     func load(completion: @escaping (Result<CourseAndColorDict, Error>)->Void)
     

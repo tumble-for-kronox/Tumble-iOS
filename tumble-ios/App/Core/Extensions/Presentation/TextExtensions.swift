@@ -104,7 +104,7 @@ extension Text {
     }
     
     func programmeTitle() -> some View {
-        self.font(.system(size: 18, design: .rounded))
+        self.font(.system(size: 18, weight: .semibold, design: .rounded))
             .multilineTextAlignment(.leading)
             .padding(.bottom, 10)
     }
@@ -115,14 +115,14 @@ extension Text {
     }
     
     func searchResultsField() -> some View {
-        self.font(.system(size: 16, design: .rounded))
-            .padding(.leading, 20)
-            .padding(.top, 20)
+        self.font(.system(size: 18, weight: .semibold, design: .rounded))
+            .foregroundColor(.onBackground)
+            .padding([.leading, .top], 20)
             .padding(.bottom, 10)
     }
     
     func backButton() -> some View {
-        self.font(.system(size: 18, design: .rounded))
+        self.font(.system(size: 18, weight: .semibold, design: .rounded))
     }
     
     func timeSpanCard() -> some View {

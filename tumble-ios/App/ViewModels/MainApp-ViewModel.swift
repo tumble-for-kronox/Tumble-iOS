@@ -17,37 +17,34 @@ enum ThemeMode: String {
 extension MainAppView {
     @MainActor final class MainAppViewModel: ObservableObject {
         
+        let viewModelFactory: ViewModelFactory = ViewModelFactory()
+        
+        @Inject var scheduleService: ScheduleService
+        @Inject var courseColorService: CourseColorService
+        @Inject var preferenceService: PreferenceService
+        
         @Published var universityImage: Image?
         @Published var universityName: String?
         @Published var kronoxUrl: String?
         @Published var canvasUrl: String?
         @Published var domain: String?
-        
-        // Service
-        let preferenceService: PreferenceServiceImpl
-        let scheduleService: ScheduleServiceImpl
-        let courseColorService: CourseColorServiceImpl
-        
-        // Child ViewModels
+
         let homePageViewModel: HomePageView.HomePageViewModel
+        let scheduleMainPageViewModel: ScheduleMainPageView.ScheduleMainPageViewModel
         let accountPageViewModel: AccountPageView.AccountPageViewModel
-        let schedulePageViewModel: ScheduleMainPageView.ScheduleMainPageViewModel
         
-        // Initialize dependencies from ViewModelFactory class
-        init(preferenceService: PreferenceServiceImpl, scheduleService: ScheduleServiceImpl, courseColorService: CourseColorServiceImpl, universityName: String?, universityImage: Image?, kronoxUrl: String?, canvasUrl: String?, domain: String?) {
-            self.preferenceService = preferenceService
-            self.scheduleService = scheduleService
-            self.courseColorService = courseColorService
+        init() {
             
-            self.homePageViewModel = ViewModelFactory().makeViewModelHomePage()
-            self.accountPageViewModel = ViewModelFactory().makeViewModelAccountPage()
-            self.schedulePageViewModel = ViewModelFactory().makeViewModelScheduleMainPage()
+            // ViewModels to subviews
+            self.homePageViewModel = viewModelFactory.makeViewModelHomePage()
+            self.scheduleMainPageViewModel = viewModelFactory.makeViewModelScheduleMainPage()
+            self.accountPageViewModel = viewModelFactory.makeViewModelAccountPage()
             
-            self.universityName = universityName
-            self.universityImage = universityImage
-            self.canvasUrl = canvasUrl
-            self.kronoxUrl = kronoxUrl
-            self.domain = domain
+            self.universityName = preferenceService.getUniversityName()
+            self.universityImage = preferenceService.getUniversityImage()
+            self.canvasUrl = preferenceService.getCanvasUrl()
+            self.kronoxUrl = preferenceService.getUniversityKronoxUrl()
+            self.domain = preferenceService.getUniversityDomain()
         }
         
         func updateUniversityLocalsForView() -> Void {
@@ -58,6 +55,14 @@ extension MainAppView {
             self.domain = preferenceService.getUniversityDomain()
         }
         
+        func generateViewModelEventSheet(event: Response.Event, color: Color) -> EventDetailsSheetView.EventDetailsViewModel {
+            return viewModelFactory.makeViewModelEventDetailsSheet(event: event, color: color)
+        }
+        
+        func updateSchedulesChildView() -> Void {
+            scheduleMainPageViewModel.loadSchedules()
+        }
+        
         func changeSchool(school: School, closure: @escaping () -> Void) -> Void {
             
             preferenceService.setSchool(id: school.id, closure: { [self] in
@@ -65,29 +70,24 @@ extension MainAppView {
                     switch result {
                     case .failure(let error):
                         // Todo: Add error message for user
-                        print("Could not remove schedules: \(error)")
+                        AppLogger.shared.info("Could not remove schedules: \(error)")
                     case .success:
                         // Todo: Add success message for user
-                        print("Removed all schedules from local storage")
+                        AppLogger.shared.info("Removed all schedules from local storage")
                         courseColorService.removeAll { result in
                             switch result {
                             case .failure(let error):
                                 // Todo: Add error message for user
-                                print("Could not remove course colors: \(error)")
+                                AppLogger.shared.info("Could not remove course colors: \(error)")
                             case .success:
                                 // Todo: Add success message for user
-                                print("Removed all course colors from local storage")
-                                self.checkForNewSchedules()
+                                AppLogger.shared.info("Removed all course colors from local storage")
                                 closure()
                             }
                         }
                     }
                 }
             })
-        }
-        
-        func checkForNewSchedules() -> Void {
-            self.schedulePageViewModel.loadSchedules()
         }
     }
 }

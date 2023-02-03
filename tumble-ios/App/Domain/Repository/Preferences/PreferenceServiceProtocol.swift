@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol PreferenceService {
+protocol PreferenceServiceProtocol {
     // ----------- SET -----------
     func setSchool(id: Int, closure: @escaping () -> Void) -> Void
     
