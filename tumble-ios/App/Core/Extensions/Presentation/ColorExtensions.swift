@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 extension Color {
-    static let primary      = Color("PrimaryColor").opacity(0.9)
+    static let primary      = Color("PrimaryColor")
     static let onPrimary    = Color("OnPrimary")
     static let secondary    = Color("SecondaryColor")
     static let background   = Color("BackgroundColor")

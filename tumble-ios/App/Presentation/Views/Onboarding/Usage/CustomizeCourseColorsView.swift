@@ -21,7 +21,6 @@ struct CustomizeCourseColorsView: View {
             UsageStepCardView(titleInstruction: "Done", bodyInstruction: "The specific course under the event will have a new color", image: "checkmark.seal")
                 .padding(.bottom, 55)
         }
-        .padding(.bottom, 30)
     }
 }
 

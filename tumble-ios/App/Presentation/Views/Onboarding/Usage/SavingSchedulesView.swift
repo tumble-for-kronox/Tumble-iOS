@@ -18,7 +18,6 @@ struct SavingSchedulesView: View {
             
             UsageStepCardView(titleInstruction: "Check it out", bodyInstruction: "View your schedule in your schedule view", image: "arrowshape.turn.up.backward")
         }
-        .padding(.bottom, 30)
     }
 }
 

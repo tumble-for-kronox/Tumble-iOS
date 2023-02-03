@@ -11,18 +11,20 @@ import SwiftUI
 
 
 struct RootView: View {
+    
+    @ObservedObject var viewModel: RootViewModel
+    
     @Environment(\.colorScheme) var colorScheme: ColorScheme
     @AppStorage(StoreKey.overrideSystem.rawValue) private var overrideSystem = false
     @AppStorage(StoreKey.theme.rawValue) private var isDarkMode = false
-    @ObservedObject var viewModel: RootViewModel
+    
     var body: some View {
         ZStack {
             Color.background
-            
-            if viewModel.userNotOnBoarded {
-                OnBoardingView(viewModel: viewModel.onBoardingViewModel, updateUserOnBoarded: updateUserOnBoarded)
-                    
-            } else {
+            switch viewModel.currentView {
+            case .onboarding:
+                OnBoardingView(viewModel: viewModel.onBoardingViewModel, updateUserOnBoarded: setUserOnBoarded)
+            case .app:
                 MainAppView(viewModel: viewModel.appViewModel)
             }
         }
@@ -34,9 +36,9 @@ struct RootView: View {
         .edgesIgnoringSafeArea(.all)
     }
     
-    func updateUserOnBoarded() -> Void {
-        withAnimation {
-            self.viewModel.userNotOnBoarded.toggle()
+    func setUserOnBoarded() -> Void {
+        withAnimation(.linear(duration: 0.3)) {
+            self.viewModel.currentView = .app
         }
         self.viewModel.appViewModel.updateUniversityLocalsForView()
     }

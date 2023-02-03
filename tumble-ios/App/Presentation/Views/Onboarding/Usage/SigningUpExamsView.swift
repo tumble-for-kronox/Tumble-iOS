@@ -21,7 +21,6 @@ struct SigningUpExamsView: View {
             UsageStepCardView(titleInstruction: "Done", bodyInstruction: "Now you've signed up for the specified exam, check your email for confirmation", image: "checkmark.seal")
                 .padding(.bottom, 55)
         }
-        .padding(.bottom, 30)
     }
 }
 

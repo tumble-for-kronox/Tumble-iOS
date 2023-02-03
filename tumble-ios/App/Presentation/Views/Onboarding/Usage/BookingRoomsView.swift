@@ -23,7 +23,6 @@ struct BookingRoomsView: View {
             UsageStepCardView(titleInstruction: "Confirm", bodyInstruction: "Now confirm your selected booking by pressing the confirm button", image: "checkmark.seal")
                 .padding(.bottom, 55)
         }
-        .padding(.bottom, 30)
     }
 }
 

@@ -37,7 +37,7 @@ struct HomePageView: View {
 
             }
             .padding([.leading], 15)
-            .padding(.top, 25)
+            
             
             // Schedules, booked rooms, registered exams
             VStack (alignment: .leading, spacing: 0) {
@@ -45,7 +45,8 @@ struct HomePageView: View {
                 HomePageEventView(titleText: "Booked rooms", bodyText: "Need to study?", image: "books.vertical")
                 HomePageEventView(titleText: "Registered exams", bodyText: "You've got this!", image: "newspaper")
             }
-            .padding(.top, 50)
+            .padding(.top, 40)
         }
+        .padding(.top, 10)
     }
 }
