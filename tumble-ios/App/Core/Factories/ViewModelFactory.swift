@@ -10,6 +10,8 @@ import SwiftUI
 
 class ViewModelFactory {
     
+    static let shared = ViewModelFactory()
+    
     @Inject var preferenceService: PreferenceService
     
     @MainActor func makeViewModelApp() -> MainAppView.MainAppViewModel { .init() }
