@@ -20,6 +20,5 @@ struct SkipButtonView: View {
                 .background(Color.primary)
                 .clipShape(Circle())
             }
-        .shadow(radius: 5, x: 5, y: 5)
     }
 }

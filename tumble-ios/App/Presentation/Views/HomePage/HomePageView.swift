@@ -15,6 +15,11 @@ enum QuickAccessId: String {
 
 struct HomePageView: View {
     @ObservedObject var viewModel: HomePageViewModel
+    
+    @Binding var domain: String?
+    @Binding var canvasUrl: String?
+    @Binding var kronoxUrl: String?
+    
     let backgroundColor: Color = .primary.opacity(0.75)
     let iconColor: Color = .primary.opacity(0.95)
     
@@ -24,20 +29,18 @@ struct HomePageView: View {
                 Text("Good \(viewModel.getTimeOfDay())!")
                     .font(.system(size: 30, design: .rounded))
                     .fontWeight(.semibold)
-                    .padding(.bottom, 5)
+                    .padding(.bottom, 10)
                 Text("Where do you want to get started?")
                     .font(.system(size: 25, design: .rounded))
                     .padding(.trailing, 30)
                 HStack {
-                    EventDetailsPill(title: viewModel.domain?.uppercased() ?? "", image: "link")
+                    EventDetailsPill(title: domain?.uppercased() ?? "", image: "link")
                     EventDetailsPill(title: "Canvas", image: "link")
                     EventDetailsPill(title: "Ladok", image: "link")
                 }
                 .padding(.top, 25)
 
             }
-            .padding([.leading], 15)
-            
             
             // Schedules, booked rooms, registered exams
             VStack (alignment: .leading, spacing: 0) {
@@ -48,5 +51,6 @@ struct HomePageView: View {
             .padding(.top, 40)
         }
         .padding(.top, 10)
+        .padding(.horizontal, 16)
     }
 }

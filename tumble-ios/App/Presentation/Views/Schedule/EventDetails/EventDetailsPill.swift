@@ -17,7 +17,7 @@ struct EventDetailsPill: View {
                     .font(.system(size: 14))
                     .foregroundColor(.onSurface)
                 Text(title)
-                    .font(.system(size: 15, design: .rounded))
+                    .font(.system(size: 15, weight: .semibold, design: .rounded))
                     .foregroundColor(.onSurface)
             }
             .padding(.all, 10)

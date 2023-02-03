@@ -19,6 +19,9 @@ extension MainAppView {
         
         @Published var universityImage: Image?
         @Published var universityName: String?
+        @Published var kronoxUrl: String?
+        @Published var canvasUrl: String?
+        @Published var domain: String?
         
         // Service
         let preferenceService: PreferenceServiceImpl
@@ -31,7 +34,7 @@ extension MainAppView {
         let schedulePageViewModel: ScheduleMainPageView.ScheduleMainPageViewModel
         
         // Initialize dependencies from ViewModelFactory class
-        init(preferenceService: PreferenceServiceImpl, scheduleService: ScheduleServiceImpl, courseColorService: CourseColorServiceImpl, universityName: String?, universityImage: Image?) {
+        init(preferenceService: PreferenceServiceImpl, scheduleService: ScheduleServiceImpl, courseColorService: CourseColorServiceImpl, universityName: String?, universityImage: Image?, kronoxUrl: String?, canvasUrl: String?, domain: String?) {
             self.preferenceService = preferenceService
             self.scheduleService = scheduleService
             self.courseColorService = courseColorService
@@ -42,11 +45,17 @@ extension MainAppView {
             
             self.universityName = universityName
             self.universityImage = universityImage
+            self.canvasUrl = canvasUrl
+            self.kronoxUrl = kronoxUrl
+            self.domain = domain
         }
         
         func updateUniversityLocalsForView() -> Void {
             self.universityImage = preferenceService.getUniversityImage()
             self.universityName = preferenceService.getUniversityName()
+            self.kronoxUrl = preferenceService.getUniversityKronoxUrl()
+            self.canvasUrl = preferenceService.getCanvasUrl()
+            self.domain = preferenceService.getUniversityDomain()
         }
         
         func changeSchool(school: School, closure: @escaping () -> Void) -> Void {

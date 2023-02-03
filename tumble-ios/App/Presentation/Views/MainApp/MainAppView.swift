@@ -58,7 +58,7 @@ struct MainAppView: View {
                         // Main home page view switcher
                         switch selectedBottomTab {
                         case .home:
-                            HomePageView(viewModel: viewModel.homePageViewModel)
+                            HomePageView(viewModel: viewModel.homePageViewModel, domain: $viewModel.domain, canvasUrl: $viewModel.canvasUrl, kronoxUrl: $viewModel.kronoxUrl)
                         case .bookmarks:
                             ScheduleMainPageView(viewModel: viewModel.schedulePageViewModel, onTapCard: { (event, color) in
                                 onOpenEventDetailsSheet(event: event, color: color)
@@ -143,7 +143,6 @@ struct MainAppView: View {
             toast = Toast(type: .success, title: "New school", message: "Set \(school.name) to default")
             viewModel.updateUniversityLocalsForView()
             checkForNewSchedules()
-            viewModel.homePageViewModel.updateUniversityLocalsForView()
         })
     }
     
