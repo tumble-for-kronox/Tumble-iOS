@@ -15,7 +15,7 @@ class NotificationManager: NotificationManagerProtocol {
 
     func scheduleNotification(_ notification: Notification, userOffset: Int) {
         AppLogger.shared.info("Trying to set notification")
-        notificationsAreAllowed { result in
+        notificationsAreAllowed {   result in
             switch result {
             case .success:
                 self.notificationCenter.add(self.request(for: notification, userOffset: userOffset))

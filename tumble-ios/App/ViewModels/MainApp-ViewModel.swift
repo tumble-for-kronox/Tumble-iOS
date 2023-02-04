@@ -66,7 +66,7 @@ extension MainAppView {
         func changeSchool(school: School, closure: @escaping () -> Void) -> Void {
             
             preferenceService.setSchool(id: school.id, closure: { [self] in
-                scheduleService.removeAll { [self] result in
+                scheduleService.removeAll { [weak self] result in
                     switch result {
                     case .failure(let error):
                         // Todo: Add error message for user
@@ -74,7 +74,7 @@ extension MainAppView {
                     case .success:
                         // Todo: Add success message for user
                         AppLogger.shared.info("Removed all schedules from local storage")
-                        courseColorService.removeAll { result in
+                        self?.courseColorService.removeAll { result in
                             switch result {
                             case .failure(let error):
                                 // Todo: Add error message for user

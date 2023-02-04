@@ -83,13 +83,13 @@ extension SearchParentView {
         
         func onSearchProgrammes(searchQuery: String) -> Void {
             self.status = .loading
-            networkManager.get(.searchProgramme(searchQuery: searchQuery, schoolId: String(school!.id))) { (result: Result<Response.Search, NetworkError>) in
+            networkManager.get(.searchProgramme(searchQuery: searchQuery, schoolId: String(school!.id))) { [weak self] (result: Result<Response.Search, NetworkError>) in
                 DispatchQueue.main.async {
                     switch result {
                     case .success(let result):
-                        self.parseSearchResults(result)
+                        self?.parseSearchResults(result)
                     case .failure(let error):
-                        self.status = SearchStatus.error
+                        self?.status = SearchStatus.error
                         AppLogger.shared.info("Encountered error when trying to search for programme \(searchQuery): \(error)")
                     }
                 }
@@ -119,7 +119,7 @@ extension SearchParentView {
         // Checks if a schedule based on its programme Id is already in the
         // local storage -> schedulePreviewIsSaved = true
         fileprivate func checkSavedSchedule(programmeId: String, closure: @escaping () -> Void) -> Void {
-            scheduleService.load { result in
+            scheduleService.load { [weak self] result in
                 DispatchQueue.main.async {
                     switch result {
                     case .failure(_):
@@ -128,7 +128,7 @@ extension SearchParentView {
                     case .success(let schedule):
                         if !schedule.isEmpty {
                             if (schedule.contains(where: { $0.id == programmeId })) {
-                                self.schedulePreviewIsSaved = true
+                                self?.schedulePreviewIsSaved = true
                                 AppLogger.shared.info("Schedule is already saved")
                             }
                         }
@@ -166,16 +166,16 @@ extension SearchParentView {
         
         // API Call to fetch a schedule from backend
         fileprivate func fetchSchedule(programmeId: String, closure: @escaping () -> Void) -> Void {
-            networkManager.get(.schedule(scheduleId: programmeId, schoolId: String(school!.id))) { (result: Result<Response.Schedule, NetworkError>) in
+            networkManager.get(.schedule(scheduleId: programmeId, schoolId: String(school!.id))) { [weak self] (result: Result<Response.Schedule, NetworkError>) in
                 DispatchQueue.main.async {
                     switch result {
                     case .success(let result):
                         AppLogger.shared.info("Fetched schedule")
-                        self.handleFetchedSchedule(schedule: result) {
+                        self?.handleFetchedSchedule(schedule: result) {
                             closure()
                         }
                     case .failure(let error):
-                        self.schedulePreviewStatus = .error
+                        self?.schedulePreviewStatus = .error
                         AppLogger.shared.info("Encountered error when attempting to load schedule for programme \(programmeId): \(error)")
                     }
                 }
@@ -188,13 +188,13 @@ extension SearchParentView {
         }
         
         fileprivate func saveSchedule(checkForNewSchedules: @escaping () -> Void) -> Void {
-            scheduleService.save(schedule: self.scheduleForPreview!) { scheduleResult in
+            scheduleService.save(schedule: self.scheduleForPreview!) { [weak self] scheduleResult in
                 DispatchQueue.main.async {
                     if case .failure(let error) = scheduleResult {
                         fatalError(error.localizedDescription)
                     } else {
-                        self.saveCourseColors(courseColors: self.courseColors!)
-                        self.schedulePreviewIsSaved = true
+                        self?.saveCourseColors(courseColors: (self?.courseColors!)!)
+                        self?.schedulePreviewIsSaved = true
                         checkForNewSchedules()
                     }
                 }
@@ -202,13 +202,13 @@ extension SearchParentView {
         }
         
         fileprivate func removeSchedule(checkForNewSchedules: @escaping () -> Void) -> Void {
-            scheduleService.remove(schedule: self.scheduleForPreview!) { result in
+            scheduleService.remove(schedule: self.scheduleForPreview!) { [weak self] result in
                 DispatchQueue.main.async {
                     if case .failure(let error) = result {
                         fatalError(error.localizedDescription)
                     } else {
-                        self.schedulePreviewIsSaved = false
-                        self.courseColorService.remove(removeCourses: self.scheduleForPreview!.courses()) { result in
+                        self?.schedulePreviewIsSaved = false
+                        self?.courseColorService.remove(removeCourses: (self?.scheduleForPreview!.courses())!) { result in
                             if case .failure(let error) = result {
                                 fatalError(error.localizedDescription)
                             } else {
