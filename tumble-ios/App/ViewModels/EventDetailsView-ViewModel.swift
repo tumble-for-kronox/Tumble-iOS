@@ -10,6 +10,10 @@ import SwiftUI
 
 extension EventDetailsSheetView {
     @MainActor final class EventDetailsViewModel: ObservableObject {
+        
+        @Inject var notificationManager: NotificationManager
+        @Inject var preferenceService: PreferenceService
+        
         @Published var event: Response.Event?
         @Published var color: Color?
         
@@ -21,6 +25,12 @@ extension EventDetailsSheetView {
         func setEventSheetView(event: Response.Event, color: Color) -> Void {
             self.event = event
             self.color = color
+        }
+        
+        func setNotification(notification: Notification) {
+            AppLogger.shared.info("\(notification.dateComponents)")
+            let userOffset: Int = preferenceService.getNotificationOffset()
+            notificationManager.scheduleNotification(notification, userOffset: userOffset)
         }
         
     }

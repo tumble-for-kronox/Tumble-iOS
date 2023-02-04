@@ -60,9 +60,7 @@ struct MainAppView: View {
                         case .home:
                             HomePageView(viewModel: viewModel.homePageViewModel, domain: $viewModel.domain, canvasUrl: $viewModel.canvasUrl, kronoxUrl: $viewModel.kronoxUrl)
                         case .bookmarks:
-                            ScheduleMainPageView(viewModel: viewModel.scheduleMainPageViewModel, onTapCard: { (event, color) in
-                                onOpenEventDetailsSheet(event: event, color: color)
-                            })
+                            ScheduleMainPageView(viewModel: viewModel.scheduleMainPageViewModel, onTapCard: onOpenEventDetailsSheet)
                         case .account:
                             AccountPageView(viewModel: viewModel.accountPageViewModel)
                         }

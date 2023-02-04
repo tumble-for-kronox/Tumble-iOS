@@ -10,10 +10,12 @@
 import SwiftUI
 
 struct ToastView: View {
+    
     var type: ToastStyle
     var title: String
     var message: String
     var onCancelTapped: (() -> Void)
+    
     var body: some View {
         VStack(alignment: .leading) {
             HStack(alignment: .top) {
@@ -23,10 +25,11 @@ struct ToastView: View {
                 VStack(alignment: .leading) {
                     Text(title)
                         .font(.system(size: 14, weight: .semibold))
+                        .foregroundColor(.onBackground)
                     
                     Text(message)
                         .font(.system(size: 12))
-                        .foregroundColor(Color.black.opacity(0.6))
+                        .foregroundColor(.onBackground.opacity(0.6))
                 }
                 
                 Spacer(minLength: 10)
@@ -35,12 +38,12 @@ struct ToastView: View {
                     onCancelTapped()
                 } label: {
                     Image(systemName: "xmark")
-                        .foregroundColor(Color.black)
+                        .foregroundColor(.onBackground)
                 }
             }
             .padding()
         }
-        .background(Color.white)
+        .background(Color.background)
         .overlay(
             Rectangle()
                 .fill(type.themeColor)
@@ -52,6 +55,6 @@ struct ToastView: View {
         .cornerRadius(8)
         .shadow(color: Color.black.opacity(0.25), radius: 4, x: 0, y: 1)
         .padding(.horizontal, 16)
-        .padding(.bottom, 95)
+        .padding(.bottom, 55)
     }
 }
