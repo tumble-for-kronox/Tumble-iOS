@@ -8,8 +8,13 @@
 import SwiftUI
 
 struct EventDetailsCardView: View {
+    
+    @Environment(\.presentationMode) var presentationMode
+    
     let event: Response.Event
     let color: Color
+    let setNotification: (Notification) -> Void
+    
     var body: some View {
         VStack (alignment: .leading, spacing: 0) {
             HStack {
@@ -29,8 +34,13 @@ struct EventDetailsCardView: View {
                         Spacer()
                     }
                     HStack (spacing: 15) {
-                        EventDetailsPill(title: "Notification", image: "bell.badge")
-                        EventDetailsPill(title: "Settings", image: "gearshape")
+                        EventDetailsPill(title: "Notification", image: "bell.badge") {
+                            setNotification(Notification(id: event.id, title: event.title, subtitle: event.course.englishName, dateComponents: event.dateComponents!))
+                            presentationMode.wrappedValue.dismiss()
+                        }
+                        EventDetailsPill(title: "Settings", image: "gearshape") {
+                            
+                        }
                         Spacer()
                     }
                 }

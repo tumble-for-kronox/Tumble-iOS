@@ -8,7 +8,7 @@
 import Foundation
 
 import SwiftUI
-
+import PermissionsSwiftUINotification
 
 struct RootView: View {
     
@@ -28,12 +28,13 @@ struct RootView: View {
                 MainAppView(viewModel: viewModel.appViewModel)
             }
         }
-        //.environment(\.colorScheme, .dark)
-        //.preferredColorScheme(.dark)
-        .environment(\.colorScheme, isDarkMode && overrideSystem ? .dark : .light)
-        .preferredColorScheme(isDarkMode ? .dark : .light)
+        .environment(\.colorScheme, .dark)
+        .preferredColorScheme(.dark)
+        //.environment(\.colorScheme, isDarkMode && overrideSystem ? .dark : .light)
+        //.preferredColorScheme(isDarkMode ? .dark : .light)
         .ignoresSafeArea(.keyboard)
         .edgesIgnoringSafeArea(.all)
+        .JMModal(showModal: $viewModel.showNotificationsPermission, for: [.notification])
     }
     
     func setUserOnBoarded() -> Void {

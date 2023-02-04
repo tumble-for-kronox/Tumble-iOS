@@ -99,6 +99,15 @@ class PreferenceService: PreferenceServiceProtocol {
         return schools.first(where: {$0.id == id})!
     }
     
+    func getNotificationOffset() -> Int {
+        let hasOffset: Bool = self.isKeyPresentInUserDefaults(key: StoreKey.notificationOffset.rawValue)
+        if !hasOffset {
+            self.setOffset(offset: 60)
+            return 60
+        }
+        return self.getDefault(key: StoreKey.notificationOffset.rawValue) as! Int
+    }
+    
     func isKeyPresentInUserDefaults(key: String) -> Bool {
         return UserDefaults.standard.object(forKey: key) != nil
     }

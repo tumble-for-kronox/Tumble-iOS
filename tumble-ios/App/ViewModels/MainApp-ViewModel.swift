@@ -17,7 +17,7 @@ enum ThemeMode: String {
 extension MainAppView {
     @MainActor final class MainAppViewModel: ObservableObject {
         
-        let viewModelFactory: ViewModelFactory = ViewModelFactory()
+        let viewModelFactory: ViewModelFactory = ViewModelFactory.shared
         
         @Inject var scheduleService: ScheduleService
         @Inject var courseColorService: CourseColorService

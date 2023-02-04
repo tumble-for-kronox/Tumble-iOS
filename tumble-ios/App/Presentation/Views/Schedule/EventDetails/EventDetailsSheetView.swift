@@ -14,10 +14,16 @@ struct EventDetailsSheetView: View {
     var body: some View {
         ScrollView {
             VStack (spacing: 0) {
-                EventDetailsCardView(event: viewModel.event!, color: viewModel.color!)
+                EventDetailsCardView(event: viewModel.event!, color: viewModel.color!, setNotification: setNotification)
                 EventDetailsBodyView(event: viewModel.event!)
                 Spacer()
             }
+        }
+    }
+    
+    func setNotification(notification: Notification) -> Void {
+        if !notification.dateComponents.hasDatePassed() {
+            viewModel.setNotification(notification: notification)
         }
     }
 }

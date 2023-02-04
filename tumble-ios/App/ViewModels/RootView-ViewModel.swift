@@ -18,6 +18,7 @@ extension RootView {
         let viewModelFactory: ViewModelFactory = ViewModelFactory.shared
         
         @Published var currentView: RootViewStatus
+        @Published var showNotificationsPermission: Bool
         let appViewModel: MainAppView.MainAppViewModel
         let onBoardingViewModel: OnBoardingView.OnBoardingViewModel
         
@@ -27,6 +28,7 @@ extension RootView {
             self.onBoardingViewModel = viewModelFactory.makeViewModelOnBoarding()
             
             self.currentView = userNotOnBoarded ? .onboarding : .app
+            self.showNotificationsPermission = userNotOnBoarded ? true : false
         }
     }
 }

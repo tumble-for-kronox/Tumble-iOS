@@ -49,6 +49,17 @@ enum Response {
         let id: String
         let isSpecial: Bool
         let lastModified: String
+        
+        var dateComponents: DateComponents? {
+            let formatter = ISO8601DateFormatter()
+            guard let fromDate = formatter.date(from: from) else {
+                return nil
+            }
+            let calendar = Calendar.current
+            let components = calendar.dateComponents([.year, .month, .day, .hour, .minute, .second], from: fromDate)
+            return components
+        }
+        
     }
 
     // MARK: - Course

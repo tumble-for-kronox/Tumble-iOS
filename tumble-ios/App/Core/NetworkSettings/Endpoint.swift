@@ -8,6 +8,7 @@
 import Foundation
 
 enum Endpoint {
+    
     case searchProgramme(searchQuery: String, schoolId: String)
     case schedule(scheduleId: String, schoolId: String)
     case userEvents(sessionToken: String, schoolId: String)
@@ -17,11 +18,14 @@ enum Endpoint {
     case userBookings(sessionToken: String, schoolId: String)
     
     var url: URL {
+        
         var components = URLComponents()
         let networkSettings = NetworkSettings()
+        
         components.host = networkSettings.tumbleUrl
         components.port = networkSettings.port
         components.scheme = networkSettings.scheme
+        
         switch self {
         case .searchProgramme(searchQuery: let searchQuery, schoolId: let schoolId):
             components.path = "/schedules/search"

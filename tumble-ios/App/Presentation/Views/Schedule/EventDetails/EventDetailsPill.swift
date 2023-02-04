@@ -8,10 +8,13 @@
 import SwiftUI
 
 struct EventDetailsPill: View {
+    
     let title: String
     let image: String
+    let onTap: () -> Void
+    
     var body: some View {
-        Button(action: {}, label: {
+        Button(action: onTap, label: {
             HStack {
                 Image(systemName: image)
                     .font(.system(size: 14))
@@ -24,11 +27,5 @@ struct EventDetailsPill: View {
             .background(Color.surface)
             .cornerRadius(20)
         })
-    }
-}
-
-struct EventDetailsPill_Previews: PreviewProvider {
-    static var previews: some View {
-        EventDetailsPill(title: "Notification", image: "bell")
     }
 }

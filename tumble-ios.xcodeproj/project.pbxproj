@@ -30,7 +30,6 @@
 		D41ED54E298434C1009DCF8B /* Nullable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41ED54D298434C1009DCF8B /* Nullable.swift */; };
 		D41ED5502984350A009DCF8B /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41ED54F2984350A009DCF8B /* Endpoint.swift */; };
 		D41ED5522984351F009DCF8B /* Method.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41ED5512984351F009DCF8B /* Method.swift */; };
-		D4239079293686D7005A95D7 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4239078293686D7005A95D7 /* Color.swift */; };
 		D42BAC15298D21E40025EAA9 /* BottomBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42BAC14298D21E40025EAA9 /* BottomBarView.swift */; };
 		D42BAC17298D282B0025EAA9 /* LinkPillView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42BAC16298D282B0025EAA9 /* LinkPillView.swift */; };
 		D42BAC19298D31A70025EAA9 /* URLSessionExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42BAC18298D31A70025EAA9 /* URLSessionExtension.swift */; };
@@ -79,6 +78,11 @@
 		D460764E292AF21900DE9590 /* SchedulePreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460764D292AF21900DE9590 /* SchedulePreviewView.swift */; };
 		D4607653292AF5DA00DE9590 /* DayHeaderSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4607652292AF5DA00DE9590 /* DayHeaderSectionView.swift */; };
 		D46081552930053E00FFFB44 /* ScheduleService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46081542930053E00FFFB44 /* ScheduleService.swift */; };
+		D4644A23298DA93A00B0BB28 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4644A22298DA93A00B0BB28 /* NotificationManager.swift */; };
+		D4644A26298DAA4F00B0BB28 /* NotificationManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4644A25298DAA4F00B0BB28 /* NotificationManagerProtocol.swift */; };
+		D4644A29298DD79D00B0BB28 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4644A28298DD79D00B0BB28 /* Notification.swift */; };
+		D4644A2B298DD7B000B0BB28 /* NotificatonError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4644A2A298DD7B000B0BB28 /* NotificatonError.swift */; };
+		D4644A2D298DE35F00B0BB28 /* DateComponentsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4644A2C298DE35F00B0BB28 /* DateComponentsExtension.swift */; };
 		D46ABF0A29843B9D00B059F6 /* ScheduleServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46ABF0929843B9D00B059F6 /* ScheduleServiceProtocol.swift */; };
 		D46ABF0C29843C2400B059F6 /* CourseColorServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46ABF0B29843C2400B059F6 /* CourseColorServiceProtocol.swift */; };
 		D46ABF0F29843CF300B059F6 /* PreferenceServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46ABF0E29843CF300B059F6 /* PreferenceServiceProtocol.swift */; };
@@ -158,7 +162,6 @@
 		D41ED54D298434C1009DCF8B /* Nullable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Nullable.swift; sourceTree = "<group>"; };
 		D41ED54F2984350A009DCF8B /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		D41ED5512984351F009DCF8B /* Method.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Method.swift; sourceTree = "<group>"; };
-		D4239078293686D7005A95D7 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		D42BAC14298D21E40025EAA9 /* BottomBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomBarView.swift; sourceTree = "<group>"; };
 		D42BAC16298D282B0025EAA9 /* LinkPillView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkPillView.swift; sourceTree = "<group>"; };
 		D42BAC18298D31A70025EAA9 /* URLSessionExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionExtension.swift; sourceTree = "<group>"; };
@@ -202,6 +205,11 @@
 		D460764D292AF21900DE9590 /* SchedulePreviewView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchedulePreviewView.swift; sourceTree = "<group>"; };
 		D4607652292AF5DA00DE9590 /* DayHeaderSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayHeaderSectionView.swift; sourceTree = "<group>"; };
 		D46081542930053E00FFFB44 /* ScheduleService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleService.swift; sourceTree = "<group>"; };
+		D4644A22298DA93A00B0BB28 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
+		D4644A25298DAA4F00B0BB28 /* NotificationManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManagerProtocol.swift; sourceTree = "<group>"; };
+		D4644A28298DD79D00B0BB28 /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
+		D4644A2A298DD7B000B0BB28 /* NotificatonError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificatonError.swift; sourceTree = "<group>"; };
+		D4644A2C298DE35F00B0BB28 /* DateComponentsExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateComponentsExtension.swift; sourceTree = "<group>"; };
 		D46ABF0929843B9D00B059F6 /* ScheduleServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleServiceProtocol.swift; sourceTree = "<group>"; };
 		D46ABF0B29843C2400B059F6 /* CourseColorServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseColorServiceProtocol.swift; sourceTree = "<group>"; };
 		D46ABF0E29843CF300B059F6 /* PreferenceServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceServiceProtocol.swift; sourceTree = "<group>"; };
@@ -334,14 +342,6 @@
 			path = ViewModels;
 			sourceTree = "<group>";
 		};
-		D40D80AB29252838008CA68D /* Utilities */ = {
-			isa = PBXGroup;
-			children = (
-				D4239078293686D7005A95D7 /* Color.swift */,
-			);
-			path = Utilities;
-			sourceTree = "<group>";
-		};
 		D40D80B0292529FF008CA68D /* LocalStorage */ = {
 			isa = PBXGroup;
 			children = (
@@ -422,7 +422,6 @@
 				D40D809E292520AA008CA68D /* ViewModifiers */,
 				D4607648292AE77200DE9590 /* Shapes */,
 				D460763E292AB16300DE9590 /* Types */,
-				D40D80AB29252838008CA68D /* Utilities */,
 				D47221592924549B0063BDB7 /* Views */,
 			);
 			path = Presentation;
@@ -431,9 +430,10 @@
 		D41ED545298433A3009DCF8B /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				D46ABF1029843D2700B059F6 /* Database */,
+				D4644A27298DD78800B0BB28 /* Notifications */,
+				D46ABF1029843D2700B059F6 /* Preferences */,
 				D41ED554298436CE009DCF8B /* Presentation */,
-				D41ED553298436C3009DCF8B /* API */,
+				D41ED553298436C3009DCF8B /* Network */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -441,6 +441,7 @@
 		D41ED546298433AA009DCF8B /* Repository */ = {
 			isa = PBXGroup;
 			children = (
+				D4644A24298DAA3F00B0BB28 /* Notifications */,
 				D40D80B0292529FF008CA68D /* LocalStorage */,
 				D41ED55529843728009DCF8B /* Preferences */,
 			);
@@ -454,7 +455,7 @@
 			path = UseCase;
 			sourceTree = "<group>";
 		};
-		D41ED553298436C3009DCF8B /* API */ = {
+		D41ED553298436C3009DCF8B /* Network */ = {
 			isa = PBXGroup;
 			children = (
 				D41ED54929843460009DCF8B /* Request.swift */,
@@ -462,7 +463,7 @@
 				D41ED54D298434C1009DCF8B /* Nullable.swift */,
 				D41ED5512984351F009DCF8B /* Method.swift */,
 			);
-			path = API;
+			path = Network;
 			sourceTree = "<group>";
 		};
 		D41ED554298436CE009DCF8B /* Presentation */ = {
@@ -597,9 +598,35 @@
 			path = List;
 			sourceTree = "<group>";
 		};
+		D4644A21298DA92500B0BB28 /* Notifications */ = {
+			isa = PBXGroup;
+			children = (
+				D4644A25298DAA4F00B0BB28 /* NotificationManagerProtocol.swift */,
+			);
+			path = Notifications;
+			sourceTree = "<group>";
+		};
+		D4644A24298DAA3F00B0BB28 /* Notifications */ = {
+			isa = PBXGroup;
+			children = (
+				D4644A22298DA93A00B0BB28 /* NotificationManager.swift */,
+			);
+			path = Notifications;
+			sourceTree = "<group>";
+		};
+		D4644A27298DD78800B0BB28 /* Notifications */ = {
+			isa = PBXGroup;
+			children = (
+				D4644A28298DD79D00B0BB28 /* Notification.swift */,
+				D4644A2A298DD7B000B0BB28 /* NotificatonError.swift */,
+			);
+			path = Notifications;
+			sourceTree = "<group>";
+		};
 		D46ABF032984385700B059F6 /* Repository */ = {
 			isa = PBXGroup;
 			children = (
+				D4644A21298DA92500B0BB28 /* Notifications */,
 				D46ABF0D29843CE700B059F6 /* Preferences */,
 				D46ABF042984387000B059F6 /* LocalStorage */,
 			);
@@ -639,12 +666,12 @@
 			path = Preferences;
 			sourceTree = "<group>";
 		};
-		D46ABF1029843D2700B059F6 /* Database */ = {
+		D46ABF1029843D2700B059F6 /* Preferences */ = {
 			isa = PBXGroup;
 			children = (
 				D46ABF1129843D3000B059F6 /* StoreKey.swift */,
 			);
-			path = Database;
+			path = Preferences;
 			sourceTree = "<group>";
 		};
 		D472213C292454560063BDB7 = {
@@ -788,6 +815,7 @@
 				D41172B42985DA740082BB4F /* TextFieldExtensions.swift */,
 				D4563E7F2985FBFB003261FA /* NetworkExtensions.swift */,
 				D4E39E312989BBD9004C30DF /* ColorExtensions.swift */,
+				D4644A2C298DE35F00B0BB28 /* DateComponentsExtension.swift */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -1001,13 +1029,14 @@
 				D4861DEB29834E1900C4CA6F /* PreviewCardBannerView.swift in Sources */,
 				D4722149292454560063BDB7 /* tumble_iosApp.swift in Sources */,
 				D441B10D298A8CEC00D22142 /* EventDetailsView-ViewModel.swift in Sources */,
+				D4644A29298DD79D00B0BB28 /* Notification.swift in Sources */,
 				D43419BE2985628C001089A0 /* SettingNotificationsView.swift in Sources */,
 				D4ABD270298C2E15002FD8F5 /* DayUiModelExtension.swift in Sources */,
 				D43419B5298550BE001089A0 /* UsageStepCardView.swift in Sources */,
-				D4239079293686D7005A95D7 /* Color.swift in Sources */,
 				D45338F629280E8400198411 /* ScheduleExtensions.swift in Sources */,
 				D42BAC1E298D3D6A0025EAA9 /* AppLogger.swift in Sources */,
 				D45338FB2929730200198411 /* CustomProgressView.swift in Sources */,
+				D4644A23298DA93A00B0BB28 /* NotificationManager.swift in Sources */,
 				D4ABD272298C2E32002FD8F5 /* DayExtension.swift in Sources */,
 				D46BB112298B0E2800887A24 /* SideBarToggleButtonView.swift in Sources */,
 				D4607634292AA83F00DE9590 /* MainAppView.swift in Sources */,
@@ -1035,6 +1064,7 @@
 				D41ED5522984351F009DCF8B /* Method.swift in Sources */,
 				D4CE2DBD2982E55200B81052 /* SearchNavigationButtonView.swift in Sources */,
 				D4607645292AC41D00DE9590 /* SearchResultsView.swift in Sources */,
+				D4644A2B298DD7B000B0BB28 /* NotificatonError.swift in Sources */,
 				D4E39E322989BBD9004C30DF /* ColorExtensions.swift in Sources */,
 				D45338F9292825B200198411 /* ScheduleCardView.swift in Sources */,
 				D476BD2A293A31FD0027CFE8 /* SchedulePreviewListView.swift in Sources */,
@@ -1073,6 +1103,7 @@
 				D40E843D2981C8B200C2CF2E /* AccountPageView-ViewModel.swift in Sources */,
 				D4ABD26B298C19AB002FD8F5 /* SideBarSheetView.swift in Sources */,
 				D40D80A0292520C5008CA68D /* ToastModifier.swift in Sources */,
+				D4644A26298DAA4F00B0BB28 /* NotificationManagerProtocol.swift in Sources */,
 				D4ABD27B298C5C45002FD8F5 /* HomePageEventView.swift in Sources */,
 				D4607647292AE06600DE9590 /* SearchInitialView.swift in Sources */,
 				D40D809D29251FF6008CA68D /* Toast.swift in Sources */,
@@ -1082,6 +1113,7 @@
 				D46ABF0C29843C2400B059F6 /* CourseColorServiceProtocol.swift in Sources */,
 				D40D80CC29265C36008CA68D /* SearchView-ViewModel.swift in Sources */,
 				D4607641292AB18D00DE9590 /* HomePageView.swift in Sources */,
+				D4644A2D298DE35F00B0BB28 /* DateComponentsExtension.swift in Sources */,
 				D43419C2298566DB001089A0 /* SchoolSelectionView.swift in Sources */,
 				D4E39E3E2989D79B004C30DF /* EventDetailsPill.swift in Sources */,
 				D41ED54E298434C1009DCF8B /* Nullable.swift in Sources */,
