@@ -7,15 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D40CC161292AFB9F00664776 /* ScheduleMainPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40CC160292AFB9F00664776 /* ScheduleMainPageView.swift */; };
-		D40CC163292AFE7200664776 /* SchedulePageMainView-ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40CC162292AFE7200664776 /* SchedulePageMainView-ViewModel.swift */; };
+		D40CC161292AFB9F00664776 /* BookmarksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40CC160292AFB9F00664776 /* BookmarksView.swift */; };
+		D40CC163292AFE7200664776 /* BookmarksView-ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40CC162292AFE7200664776 /* BookmarksView-ViewModel.swift */; };
 		D40D808929247123008CA68D /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40D808829247123008CA68D /* RootView.swift */; };
 		D40D809829251EEF008CA68D /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40D809729251EEF008CA68D /* ToastView.swift */; };
 		D40D809B29251FD7008CA68D /* ToastStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40D809A29251FD7008CA68D /* ToastStyle.swift */; };
 		D40D809D29251FF6008CA68D /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40D809C29251FF6008CA68D /* Toast.swift */; };
 		D40D80A0292520C5008CA68D /* ToastModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40D809F292520C5008CA68D /* ToastModifier.swift */; };
 		D40D80A629252165008CA68D /* ViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40D80A529252165008CA68D /* ViewExtensions.swift */; };
-		D40D80A929252688008CA68D /* MainApp-ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40D80A829252688008CA68D /* MainApp-ViewModel.swift */; };
+		D40D80A929252688008CA68D /* ParentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40D80A829252688008CA68D /* ParentViewModel.swift */; };
 		D40D80B429252A5A008CA68D /* PreferenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40D80B329252A5A008CA68D /* PreferenceService.swift */; };
 		D40D80C72925BA62008CA68D /* SideBarButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40D80C62925BA62008CA68D /* SideBarButtonView.swift */; };
 		D40D80CA29265B98008CA68D /* SearchParentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40D80C929265B98008CA68D /* SearchParentView.swift */; };
@@ -65,7 +65,7 @@
 		D4563E7E2985F96C003261FA /* NetworkSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4563E7D2985F96C003261FA /* NetworkSettings.swift */; };
 		D4563E802985FBFB003261FA /* NetworkExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4563E7F2985FBFB003261FA /* NetworkExtensions.swift */; };
 		D4607632292AA39400DE9590 /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4607631292AA39400DE9590 /* Types.swift */; };
-		D4607634292AA83F00DE9590 /* MainAppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4607633292AA83F00DE9590 /* MainAppView.swift */; };
+		D4607634292AA83F00DE9590 /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4607633292AA83F00DE9590 /* AppView.swift */; };
 		D4607637292AA8DE00DE9590 /* PopupView in Frameworks */ = {isa = PBXBuildFile; productRef = D4607636292AA8DE00DE9590 /* PopupView */; };
 		D460763B292AAD5400DE9590 /* PopupToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460763A292AAD5400DE9590 /* PopupToastView.swift */; };
 		D460763D292AAE7800DE9590 /* RootView-ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460763C292AAE7800DE9590 /* RootView-ViewModel.swift */; };
@@ -137,15 +137,15 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		D40CC160292AFB9F00664776 /* ScheduleMainPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleMainPageView.swift; sourceTree = "<group>"; };
-		D40CC162292AFE7200664776 /* SchedulePageMainView-ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SchedulePageMainView-ViewModel.swift"; sourceTree = "<group>"; };
+		D40CC160292AFB9F00664776 /* BookmarksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksView.swift; sourceTree = "<group>"; };
+		D40CC162292AFE7200664776 /* BookmarksView-ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BookmarksView-ViewModel.swift"; sourceTree = "<group>"; };
 		D40D808829247123008CA68D /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		D40D809729251EEF008CA68D /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
 		D40D809A29251FD7008CA68D /* ToastStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastStyle.swift; sourceTree = "<group>"; };
 		D40D809C29251FF6008CA68D /* Toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
 		D40D809F292520C5008CA68D /* ToastModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastModifier.swift; sourceTree = "<group>"; };
 		D40D80A529252165008CA68D /* ViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtensions.swift; sourceTree = "<group>"; };
-		D40D80A829252688008CA68D /* MainApp-ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainApp-ViewModel.swift"; sourceTree = "<group>"; };
+		D40D80A829252688008CA68D /* ParentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentViewModel.swift; sourceTree = "<group>"; };
 		D40D80B329252A5A008CA68D /* PreferenceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceService.swift; sourceTree = "<group>"; };
 		D40D80C62925BA62008CA68D /* SideBarButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideBarButtonView.swift; sourceTree = "<group>"; };
 		D40D80C929265B98008CA68D /* SearchParentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchParentView.swift; sourceTree = "<group>"; };
@@ -193,7 +193,7 @@
 		D4563E7D2985F96C003261FA /* NetworkSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkSettings.swift; sourceTree = "<group>"; };
 		D4563E7F2985FBFB003261FA /* NetworkExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkExtensions.swift; sourceTree = "<group>"; };
 		D4607631292AA39400DE9590 /* Types.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Types.swift; sourceTree = "<group>"; };
-		D4607633292AA83F00DE9590 /* MainAppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainAppView.swift; sourceTree = "<group>"; };
+		D4607633292AA83F00DE9590 /* AppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
 		D460763A292AAD5400DE9590 /* PopupToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupToastView.swift; sourceTree = "<group>"; };
 		D460763C292AAE7800DE9590 /* RootView-ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RootView-ViewModel.swift"; sourceTree = "<group>"; };
 		D4607640292AB18D00DE9590 /* HomePageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageView.swift; sourceTree = "<group>"; };
@@ -291,6 +291,7 @@
 		D40D809629251EA5008CA68D /* General */ = {
 			isa = PBXGroup;
 			children = (
+				D418B46A298F244C00834BC1 /* Buttons */,
 				D45338FA2929730200198411 /* CustomProgressView.swift */,
 				D4CF9B2B293572BE00DDB5F0 /* InfoView.swift */,
 				D46BB117298B21DA00887A24 /* InfoLoadingView.swift */,
@@ -330,11 +331,11 @@
 		D40D80A72925267F008CA68D /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				D40D80A829252688008CA68D /* MainApp-ViewModel.swift */,
+				D40D80A829252688008CA68D /* ParentViewModel.swift */,
 				D40D80CB29265C36008CA68D /* SearchView-ViewModel.swift */,
 				D460763C292AAE7800DE9590 /* RootView-ViewModel.swift */,
 				D4607642292AB1C000DE9590 /* HomePageView-ViewModel.swift */,
-				D40CC162292AFE7200664776 /* SchedulePageMainView-ViewModel.swift */,
+				D40CC162292AFE7200664776 /* BookmarksView-ViewModel.swift */,
 				D40E843C2981C8B200C2CF2E /* AccountPageView-ViewModel.swift */,
 				D43419C32985684C001089A0 /* OnBoardingView-ViewModel.swift */,
 				D441B10C298A8CEC00D22142 /* EventDetailsView-ViewModel.swift */,
@@ -363,7 +364,6 @@
 		D40D80C829265B85008CA68D /* Search */ = {
 			isa = PBXGroup;
 			children = (
-				D4D4DD042927C88E0083BB7F /* BackButton.swift */,
 				D476BD28293A31D90027CFE8 /* Preview */,
 				D40D80C929265B98008CA68D /* SearchParentView.swift */,
 				D40D80CD29265D49008CA68D /* SearchBar.swift */,
@@ -394,6 +394,16 @@
 				D46BB113298B0F5800887A24 /* FadedPageView.swift */,
 			);
 			path = SideBar;
+			sourceTree = "<group>";
+		};
+		D418B46A298F244C00834BC1 /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				D4D4DD042927C88E0083BB7F /* BackButton.swift */,
+				D4CE2DBC2982E55200B81052 /* SearchNavigationButtonView.swift */,
+				D4CE2DBA2982E4D700B81052 /* MenuButtonView.swift */,
+			);
+			path = Buttons;
 			sourceTree = "<group>";
 		};
 		D41ED54229843366009DCF8B /* Domain */ = {
@@ -511,15 +521,15 @@
 			path = Usage;
 			sourceTree = "<group>";
 		};
-		D45338F7292825A400198411 /* Schedule */ = {
+		D45338F7292825A400198411 /* Bookmarks */ = {
 			isa = PBXGroup;
 			children = (
 				D4E39E382989CE76004C30DF /* EventDetails */,
 				D4F145E62982144C00C3A351 /* Calendar */,
 				D460764F292AF5BB00DE9590 /* List */,
-				D40CC160292AFB9F00664776 /* ScheduleMainPageView.swift */,
+				D40CC160292AFB9F00664776 /* BookmarksView.swift */,
 			);
-			path = Schedule;
+			path = Bookmarks;
 			sourceTree = "<group>";
 		};
 		D453390029299F9800198411 /* HomePage */ = {
@@ -564,16 +574,6 @@
 				D4607631292AA39400DE9590 /* Types.swift */,
 			);
 			path = Types;
-			sourceTree = "<group>";
-		};
-		D460763F292AB17000DE9590 /* MainApp */ = {
-			isa = PBXGroup;
-			children = (
-				D4607633292AA83F00DE9590 /* MainAppView.swift */,
-				D4CE2DBA2982E4D700B81052 /* MenuButtonView.swift */,
-				D4CE2DBC2982E55200B81052 /* SearchNavigationButtonView.swift */,
-			);
-			path = MainApp;
 			sourceTree = "<group>";
 		};
 		D4607648292AE77200DE9590 /* Shapes */ = {
@@ -729,16 +729,16 @@
 			isa = PBXGroup;
 			children = (
 				D43419A229853EAF001089A0 /* Onboarding */,
-				D460763F292AB17000DE9590 /* MainApp */,
 				D4BAE61A29246AE800143717 /* SchoolSelection */,
 				D40D80BC29258CA0008CA68D /* BottomBar */,
 				D41172C02985EB2C0082BB4F /* SideBar */,
 				D40E84392981C84700C2CF2E /* Account */,
 				D453390029299F9800198411 /* HomePage */,
-				D45338F7292825A400198411 /* Schedule */,
+				D45338F7292825A400198411 /* Bookmarks */,
 				D40D80C829265B85008CA68D /* Search */,
 				D40D809629251EA5008CA68D /* General */,
 				D40D808829247123008CA68D /* RootView.swift */,
+				D4607633292AA83F00DE9590 /* AppView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1019,7 +1019,7 @@
 				D46ABF0A29843B9D00B059F6 /* ScheduleServiceProtocol.swift in Sources */,
 				D46BB118298B21DA00887A24 /* InfoLoadingView.swift in Sources */,
 				D4861DED29834EB900C4CA6F /* PreviewCardInformationView.swift in Sources */,
-				D40CC161292AFB9F00664776 /* ScheduleMainPageView.swift in Sources */,
+				D40CC161292AFB9F00664776 /* BookmarksView.swift in Sources */,
 				D46081552930053E00FFFB44 /* ScheduleService.swift in Sources */,
 				D40D80CE29265D49008CA68D /* SearchBar.swift in Sources */,
 				D4CF9B282935633800DDB5F0 /* SchedulePreviewError.swift in Sources */,
@@ -1039,7 +1039,7 @@
 				D4644A23298DA93A00B0BB28 /* NotificationManager.swift in Sources */,
 				D4ABD272298C2E32002FD8F5 /* DayExtension.swift in Sources */,
 				D46BB112298B0E2800887A24 /* SideBarToggleButtonView.swift in Sources */,
-				D4607634292AA83F00DE9590 /* MainAppView.swift in Sources */,
+				D4607634292AA83F00DE9590 /* AppView.swift in Sources */,
 				D4563E802985FBFB003261FA /* NetworkExtensions.swift in Sources */,
 				D46BB114298B0F5800887A24 /* FadedPageView.swift in Sources */,
 				D43419C02985639D001089A0 /* CustomizeCourseColorsView.swift in Sources */,
@@ -1087,7 +1087,7 @@
 				D40D80C72925BA62008CA68D /* SideBarButtonView.swift in Sources */,
 				D43419B829855A9C001089A0 /* SkipButtonView.swift in Sources */,
 				D43419BA29855CF6001089A0 /* BookingRoomsView.swift in Sources */,
-				D40D80A929252688008CA68D /* MainApp-ViewModel.swift in Sources */,
+				D40D80A929252688008CA68D /* ParentViewModel.swift in Sources */,
 				D4722161292455710063BDB7 /* NetworkManager.swift in Sources */,
 				D4BAE614292466F700143717 /* SchoolModelData.swift in Sources */,
 				D42BAC25298D5EBC0025EAA9 /* Dependencies.swift in Sources */,
@@ -1109,7 +1109,7 @@
 				D40D809D29251FF6008CA68D /* Toast.swift in Sources */,
 				D4CF9B2C293572BE00DDB5F0 /* InfoView.swift in Sources */,
 				D41ED54A29843460009DCF8B /* Request.swift in Sources */,
-				D40CC163292AFE7200664776 /* SchedulePageMainView-ViewModel.swift in Sources */,
+				D40CC163292AFE7200664776 /* BookmarksView-ViewModel.swift in Sources */,
 				D46ABF0C29843C2400B059F6 /* CourseColorServiceProtocol.swift in Sources */,
 				D40D80CC29265C36008CA68D /* SearchView-ViewModel.swift in Sources */,
 				D4607641292AB18D00DE9590 /* HomePageView.swift in Sources */,

@@ -37,7 +37,7 @@ protocol PreferenceServiceProtocol {
     // ----------- GET -----------
     func getDefault(key: String) -> Any?
     
-    func getDefaultViewType() -> ScheduleViewType
+    func getDefaultViewType() -> BookmarksViewType
     
     func getDefaultSchool() -> School?
     

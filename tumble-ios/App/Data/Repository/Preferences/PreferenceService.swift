@@ -80,15 +80,15 @@ class PreferenceService: PreferenceServiceProtocol {
         return UserDefaults.standard.object(forKey: key)
     }
     
-    func getDefaultViewType() -> ScheduleViewType {
+    func getDefaultViewType() -> BookmarksViewType {
         let hasView: Bool = self.isKeyPresentInUserDefaults(key: StoreKey.viewType.rawValue)
         if !(hasView) {
             self.setViewType(viewType: 0)
-            return ScheduleViewType.allValues[0]
+            return BookmarksViewType.allValues[0]
         }
         
         let viewType: Int = self.getDefault(key: StoreKey.viewType.rawValue) as! Int
-        return ScheduleViewType.allValues[viewType]
+        return BookmarksViewType.allValues[viewType]
     }
     
     func getDefaultSchool() -> School? {

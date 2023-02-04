@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-struct ScheduleMainPageView: View {
+struct BookmarksView: View {
     
-    @ObservedObject var viewModel: ScheduleMainPageViewModel
+    @ObservedObject var viewModel: BookmarksViewModel
     let onTapCard: OnTapCard
     
     var body: some View {
