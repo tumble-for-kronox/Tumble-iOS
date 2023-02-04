@@ -22,9 +22,9 @@ struct SideBarSheet: Identifiable {
 }
 
 // All navigation occurs from this view
-struct MainAppView: View {
+struct AppView: View {
     
-    @ObservedObject var viewModel: MainAppViewModel
+    @ObservedObject var viewModel: ParentViewModel
     
     @State private var toast: Toast? = nil
     @State var selectedSideBarTab: SideBarTabType = .none
@@ -36,7 +36,7 @@ struct MainAppView: View {
     
     private let sideBarWidth: CGFloat = 110
     
-    init(viewModel: MainAppViewModel) {
+    init(viewModel: ParentViewModel) {
         UINavigationBar.appearance().titleTextAttributes = [.font: navigationBarFont()]
         self.viewModel = viewModel
     }
@@ -60,7 +60,7 @@ struct MainAppView: View {
                         case .home:
                             HomePageView(viewModel: viewModel.homePageViewModel, domain: $viewModel.domain, canvasUrl: $viewModel.canvasUrl, kronoxUrl: $viewModel.kronoxUrl)
                         case .bookmarks:
-                            ScheduleMainPageView(viewModel: viewModel.scheduleMainPageViewModel, onTapCard: onOpenEventDetailsSheet)
+                            BookmarksView(viewModel: viewModel.bookmarksViewModel, onTapCard: onOpenEventDetailsSheet)
                         case .account:
                             AccountPageView(viewModel: viewModel.accountPageViewModel)
                         }

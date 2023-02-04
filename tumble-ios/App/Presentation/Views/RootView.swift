@@ -25,7 +25,7 @@ struct RootView: View {
             case .onboarding:
                 OnBoardingView(viewModel: viewModel.onBoardingViewModel, updateUserOnBoarded: setUserOnBoarded)
             case .app:
-                MainAppView(viewModel: viewModel.appViewModel)
+                AppView(viewModel: viewModel.parentViewModel)
             }
         }
         .environment(\.colorScheme, .dark)
@@ -38,7 +38,7 @@ struct RootView: View {
     }
     
     func setUserOnBoarded() -> Void {
-        self.viewModel.appViewModel.updateUniversityLocalsForView()
+        self.viewModel.parentViewModel.updateUniversityLocalsForView()
         withAnimation(.linear(duration: 0.3)) {
             self.viewModel.currentView = .app
         }

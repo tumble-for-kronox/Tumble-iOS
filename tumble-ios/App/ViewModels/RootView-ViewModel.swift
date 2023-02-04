@@ -19,12 +19,12 @@ extension RootView {
         
         @Published var currentView: RootViewStatus
         @Published var showNotificationsPermission: Bool
-        let appViewModel: MainAppView.MainAppViewModel
+        let parentViewModel: ParentViewModel
         let onBoardingViewModel: OnBoardingView.OnBoardingViewModel
         
         init (userNotOnBoarded: Bool) {
             
-            self.appViewModel = viewModelFactory.makeViewModelApp()
+            self.parentViewModel = viewModelFactory.makeViewModelParent()
             self.onBoardingViewModel = viewModelFactory.makeViewModelOnBoarding()
             
             self.currentView = userNotOnBoarded ? .onboarding : .app
