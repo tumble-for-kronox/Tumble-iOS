@@ -25,7 +25,7 @@ struct ScheduleCardView: View {
                 .offset(x: 7.5)
                 .cornerRadius(5, corners: [.topRight, .bottomRight])
             VStack (alignment: .leading, spacing: 0) {
-                CardBannerView(color: event.isSpecial ? .red : color, timeSpan: "\(event.from.ISOtoHours()) - \(event.to.ISOtoHours())", isSpecial: event.isSpecial, courseName: event.course.englishName, isDisclosed: isDisclosed)
+                CardBannerView(color: event.isSpecial ? .red : color, timeSpan: "\(event.from.ISOtoHoursAndMinutes()) - \(event.to.ISOtoHoursAndMinutes())", isSpecial: event.isSpecial, courseName: event.course.englishName, isDisclosed: isDisclosed)
                     
                 CardInformationView(title: event.title, courseName: event.course.englishName.trimmingCharacters(in: .whitespaces), location: event.locations.first?.id ?? "Unknown")
                 Spacer()

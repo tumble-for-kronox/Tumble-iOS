@@ -11,6 +11,7 @@ import Foundation
 actor Dependencies {
     init() {
         @Provider var networkManager = NetworkManager()
+        @Provider var notificationManager = NotificationManager()
         @Provider var scheduleService = ScheduleService()
         @Provider var preferenceService = PreferenceService()
         @Provider var courseColorService = CourseColorService()

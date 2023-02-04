@@ -31,7 +31,7 @@ struct SchedulePreviewListView: View {
                             Section(header: DayHeaderSectionView(day: day), content: {
                                 ForEach(day.events, id: \.id) { event in
                                     SchedulePreviewCardView(
-                                        previewColor: hexStringToUIColor(hex: courseColors[event.course.id]!), event: event, isLast: event == day.events.last)
+                                        previewColor: courseColors[event.course.id]!.toColor(), event: event, isLast: event == day.events.last)
                                 }
                             })
                             .padding(.top, 35)

@@ -8,13 +8,18 @@
 import SwiftUI
 
 struct SideBarSheetView: View {
+    
+    @Environment(\.presentationMode) var presentationMode
+    
     let sideBarTabType: SideBarTabType
     let onChangeSchool: (School) -> Void
+    
     var body: some View {
         switch sideBarTabType {
         case .school:
             SchoolSelectionView(onSelectSchool: { school in
                 onChangeSchool(school)
+                presentationMode.wrappedValue.dismiss()
             })
             
         case .bookmarks:

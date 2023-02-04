@@ -8,32 +8,32 @@
 import Foundation
 import SwiftUI
 
-enum ScheduleViewType: String {
+enum BookmarksViewType: String {
     case list = "List"
     case calendar = "Calendar"
     
-    static let allValues: [ScheduleViewType] = [list, calendar]
+    static let allValues: [BookmarksViewType] = [list, calendar]
 }
 
-enum ScheduleMainPageStatus {
+enum BookmarksViewStatus {
     case loading
     case loaded
     case uninitialized
     case error
 }
 
-extension ScheduleMainPageView {
-    @MainActor final class ScheduleMainPageViewModel: ObservableObject {
+extension BookmarksView {
+    @MainActor final class BookmarksViewModel: ObservableObject {
         
         @Inject var scheduleService: ScheduleService
         @Inject var preferenceService: PreferenceService
         @Inject var courseColorService: CourseColorService
         
-        @Published var scheduleViewTypes: [ScheduleViewType] = ScheduleViewType.allValues
-        @Published var status: ScheduleMainPageStatus = .loading
+        @Published var scheduleViewTypes: [BookmarksViewType] = BookmarksViewType.allValues
+        @Published var status: BookmarksViewStatus = .loading
         @Published var days: [DayUiModel] = []
         @Published var courseColors: CourseAndColorDict = [:]
-        @Published var defaultViewType: ScheduleViewType
+        @Published var defaultViewType: BookmarksViewType
         
         init () {
             self.defaultViewType = .list
@@ -42,38 +42,38 @@ extension ScheduleMainPageView {
         }
         
         func loadSchedules() -> Void {
-            scheduleService.load { result in
+            scheduleService.load { [weak self] result in
                 switch result {
                 case .failure(_):
-                    self.status =  .error
+                    self?.status =  .error
                 case .success(let schedules):
                     if !schedules.isEmpty {
                         let days: [DayUiModel] = schedules.removeDuplicateEvents().flatten()
-                        self.days = days
-                        self.status = .loaded
-                        self.loadCourseColors()
+                        self?.days = days
+                        self?.status = .loaded
+                        self?.loadCourseColors()
                     }
                     else {
-                        self.status = .uninitialized
+                        self?.status = .uninitialized
                     }
                 }
             }
         }
         
-        func onChangeViewType(viewType: ScheduleViewType) -> Void {
+        func onChangeViewType(viewType: BookmarksViewType) -> Void {
             let viewTypeIndex: Int = scheduleViewTypes.firstIndex(of: viewType)!
             preferenceService.setViewType(viewType: viewTypeIndex)
         }
         
         fileprivate func loadCourseColors() -> Void {
-            courseColorService.load { result in
+            courseColorService.load { [weak self] result in
                 switch result {
                 case .failure(_):
                     // TODO: Add user notification toast that something went wrong
                     AppLogger.shared.info("Could not load course colors")
                 case .success(let courses):
                     if !courses.isEmpty {
-                        self.courseColors = courses
+                        self?.courseColors = courses
                     }
                 }
             }

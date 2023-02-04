@@ -38,7 +38,7 @@ struct EventDetailsBodyView: View {
                     }
                 }
                 EventDetailsBodyBuilder(title: "Time", image: "clock") {
-                    Text("\(event.from.ISOtoHours()) - \(event.to.ISOtoHours())")
+                    Text("\(event.from.ISOtoHoursAndMinutes()) - \(event.to.ISOtoHoursAndMinutes())")
                         .font(.system(size: 17, design: .rounded))
                         .foregroundColor(.onSurface)
                 }
