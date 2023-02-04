@@ -10,10 +10,11 @@ import SwiftUI
 struct EventDetailsCardView: View {
     
     @Environment(\.presentationMode) var presentationMode
+    @EnvironmentObject var parentViewModel: EventDetailsSheetView.EventDetailsViewModel
     
+    let createToast: (ToastStyle, String, String) -> Void
     let event: Response.Event
     let color: Color
-    let setNotification: (Notification) -> Void
     
     var body: some View {
         VStack (alignment: .leading, spacing: 0) {
@@ -33,25 +34,54 @@ struct EventDetailsCardView: View {
                         .padding(.bottom, 30)
                         Spacer()
                     }
-                    HStack (spacing: 15) {
-                        EventDetailsPill(title: "Notification", image: "bell.badge") {
-                            setNotification(Notification(id: event.id, title: event.title, subtitle: event.course.englishName, dateComponents: event.dateComponents!))
-                            presentationMode.wrappedValue.dismiss()
+                    HStack (spacing: 7.5) {
+                        if !parentViewModel.isNotificationSetForEvent {
+                            EventDetailsPill(title: "Event", image: "bell.badge", onTap: onSetNotificationEvent)
+                        } else {
+                            EventDetailsPill(title: "Remove", image: "bell.badge", onTap: onRemoveNotificationForEvent)
                         }
-                        EventDetailsPill(title: "Settings", image: "gearshape") {
-                            
+                        if !parentViewModel.isNotificationSetForCourse {
+                            EventDetailsPill(title: "Course", image: "bell.badge.fill", onTap: onSetNotificationForCourse)
+                        } else {
+                            EventDetailsPill(title: "Remove", image: "bell.badge.fill", onTap: onRemoveNotification)
                         }
+                        
+                        EventDetailsPill(title: "Color", image: "paintbrush", onTap: {})
                         Spacer()
                     }
                 }
                 Spacer()
             }
-            
         }
         .frame(minWidth: UIScreen.main.bounds.width - 60)
-        .padding(15)
+        .padding(10)
         .background(event.isSpecial ? LinearGradient(gradient: Gradient(colors: [.red, .red.opacity(0.7)]), startPoint: .leading, endPoint: .trailing) : LinearGradient(gradient: Gradient(colors: [color, color.opacity(0.7)]), startPoint: .leading, endPoint: .trailing))
         .cornerRadius(20)
         .padding(.all, 15)
     }
+    
+    func onSetNotificationEvent() -> Void {
+        parentViewModel.scheduleNotificationForEvent()
+        presentationMode.wrappedValue.dismiss()
+        createToast(.success, "Notification set!", "Notification was created for \(event.title)")
+    }
+    
+    func onSetNotificationForCourse() -> Void {
+        parentViewModel.scheduleNotificationsForCourse()
+        presentationMode.wrappedValue.dismiss()
+        createToast(.success, "Notifications set!", "Notifications were created for available events in \(event.course.englishName)")
+    }
+    
+    func onRemoveNotificationForEvent() -> Void {
+        parentViewModel.cancelNotificationForEvent()
+        presentationMode.wrappedValue.dismiss()
+        createToast(.success, "Notification removed!", "Notification for \(event.title) was removed")
+    }
+    
+    func onRemoveNotification() -> Void {
+        parentViewModel.cancelNotificationsForCourse()
+        presentationMode.wrappedValue.dismiss()
+        createToast(.success, "Notifications removed!", "Notifications for \(event.course.englishName) were removed")
+    }
+
 }

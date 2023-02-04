@@ -12,4 +12,5 @@ struct Notification: Identifiable {
     let title: String
     let subtitle: String
     let dateComponents: DateComponents
+    let categoryIdentifier: String?
 }
