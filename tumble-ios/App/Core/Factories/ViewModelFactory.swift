@@ -10,15 +10,17 @@ import SwiftUI
 
 class ViewModelFactory {
     
+    static let shared = ViewModelFactory()
+    
     @Inject var preferenceService: PreferenceService
     
-    @MainActor func makeViewModelApp() -> MainAppView.MainAppViewModel { .init() }
+    @MainActor func makeViewModelParent() -> ParentViewModel { .init() }
 
     @MainActor func makeViewModelSearch() -> SearchParentView.SearchViewModel { .init() }
     
     @MainActor func makeViewModelHomePage() -> HomePageView.HomePageViewModel { .init() }
     
-    @MainActor func makeViewModelScheduleMainPage() -> ScheduleMainPageView.ScheduleMainPageViewModel { .init() }
+    @MainActor func makeViewModelBookmarks() -> BookmarksView.BookmarksViewModel { .init() }
     
     @MainActor func makeViewModelAccountPage() -> AccountPageView.AccountPageViewModel { .init() }
     

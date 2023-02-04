@@ -8,27 +8,25 @@
 import SwiftUI
 
 struct EventDetailsPill: View {
+    
     let title: String
     let image: String
+    let onTap: () -> Void
+    
     var body: some View {
-        Button(action: {}, label: {
+        Button(action: onTap, label: {
             HStack {
                 Image(systemName: image)
                     .font(.system(size: 14))
                     .foregroundColor(.onSurface)
                 Text(title)
                     .font(.system(size: 15, weight: .semibold, design: .rounded))
+                    .multilineTextAlignment(.leading)
                     .foregroundColor(.onSurface)
             }
             .padding(.all, 10)
             .background(Color.surface)
             .cornerRadius(20)
         })
-    }
-}
-
-struct EventDetailsPill_Previews: PreviewProvider {
-    static var previews: some View {
-        EventDetailsPill(title: "Notification", image: "bell")
     }
 }

@@ -8,7 +8,7 @@
 import Foundation
 
 import SwiftUI
-
+import PermissionsSwiftUINotification
 
 struct RootView: View {
     
@@ -25,19 +25,20 @@ struct RootView: View {
             case .onboarding:
                 OnBoardingView(viewModel: viewModel.onBoardingViewModel, updateUserOnBoarded: setUserOnBoarded)
             case .app:
-                MainAppView(viewModel: viewModel.appViewModel)
+                AppView(viewModel: viewModel.parentViewModel)
             }
         }
-        //.environment(\.colorScheme, .dark)
-        //.preferredColorScheme(.dark)
-        .environment(\.colorScheme, isDarkMode && overrideSystem ? .dark : .light)
-        .preferredColorScheme(isDarkMode ? .dark : .light)
+        .environment(\.colorScheme, .dark)
+        .preferredColorScheme(.dark)
+        //.environment(\.colorScheme, isDarkMode && overrideSystem ? .dark : .light)
+        //.preferredColorScheme(isDarkMode ? .dark : .light)
         .ignoresSafeArea(.keyboard)
         .edgesIgnoringSafeArea(.all)
+        .JMModal(showModal: $viewModel.showNotificationsPermission, for: [.notification])
     }
     
     func setUserOnBoarded() -> Void {
-        self.viewModel.appViewModel.updateUniversityLocalsForView()
+        self.viewModel.parentViewModel.updateUniversityLocalsForView()
         withAnimation(.linear(duration: 0.3)) {
             self.viewModel.currentView = .app
         }

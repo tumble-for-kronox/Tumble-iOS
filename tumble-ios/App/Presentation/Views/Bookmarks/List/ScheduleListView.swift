@@ -22,7 +22,7 @@ struct ScheduleListView: View {
                     if !(day.events.isEmpty) {
                         Section(header: DayHeaderSectionView(day: day), content: {
                             ForEach(day.events, id: \.id) { event in
-                                ScheduleCardView(onTapCard: onTapCard, event: event, isLast: event == day.events.last, color: hexStringToUIColor(hex: courseColors[event.course.id] ?? "FFFFFF"))
+                                ScheduleCardView(onTapCard: onTapCard, event: event, isLast: event == day.events.last, color: courseColors[event.course.id] != nil ? courseColors[event.course.id]!.toColor() : "FFFFFF".toColor())
                             }
                         })
                         .padding(.top, 35)

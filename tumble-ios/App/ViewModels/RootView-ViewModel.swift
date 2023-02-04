@@ -15,12 +15,20 @@ enum RootViewStatus {
 extension RootView {
     @MainActor final class RootViewModel: ObservableObject {
         
+        let viewModelFactory: ViewModelFactory = ViewModelFactory.shared
+        
         @Published var currentView: RootViewStatus
-        let appViewModel: MainAppView.MainAppViewModel = ViewModelFactory().makeViewModelApp()
-        let onBoardingViewModel: OnBoardingView.OnBoardingViewModel = ViewModelFactory().makeViewModelOnBoarding()
+        @Published var showNotificationsPermission: Bool
+        let parentViewModel: ParentViewModel
+        let onBoardingViewModel: OnBoardingView.OnBoardingViewModel
         
         init (userNotOnBoarded: Bool) {
+            
+            self.parentViewModel = viewModelFactory.makeViewModelParent()
+            self.onBoardingViewModel = viewModelFactory.makeViewModelOnBoarding()
+            
             self.currentView = userNotOnBoarded ? .onboarding : .app
+            self.showNotificationsPermission = userNotOnBoarded ? true : false
         }
     }
 }

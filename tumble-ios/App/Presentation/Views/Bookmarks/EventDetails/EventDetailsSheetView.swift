@@ -11,11 +11,14 @@ struct EventDetailsSheetView: View {
     
     @ObservedObject var viewModel: EventDetailsViewModel
     
+    let createToast: (ToastStyle, String, String) -> Void
+    
     var body: some View {
         ScrollView {
             VStack (spacing: 0) {
-                EventDetailsCardView(event: viewModel.event!, color: viewModel.color!)
-                EventDetailsBodyView(event: viewModel.event!)
+                EventDetailsCardView(createToast: createToast, event: viewModel.event, color: viewModel.color!)
+                    .environmentObject(viewModel)
+                EventDetailsBodyView(event: viewModel.event)
                 Spacer()
             }
         }
