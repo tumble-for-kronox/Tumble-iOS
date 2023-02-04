@@ -13,7 +13,7 @@ class NotificationManager: NotificationManagerProtocol {
     private let notificationCenter = UNUserNotificationCenter.current()
     private let authorizationOptions: UNAuthorizationOptions = [.alert, .sound, .badge]
 
-    func scheduleNotification(_ notification: Notification, userOffset: Int) {
+    func scheduleNotification(for notification: Notification, userOffset: Int) {
         AppLogger.shared.info("Trying to set notification")
         notificationsAreAllowed {   result in
             switch result {
@@ -26,14 +26,32 @@ class NotificationManager: NotificationManagerProtocol {
         }
     }
 
-    func cancelNotification(eventId: String) {
+    func cancelNotification(for eventId: String) {
         notificationCenter.removePendingNotificationRequests(withIdentifiers: [eventId])
     }
     
-    func isNotificationScheduled(notificationId: String, completion: @escaping (Bool) -> Void) {
+    func isNotificationScheduled(eventId: String, completion: @escaping (Bool) -> Void) -> Void {
         notificationCenter.getPendingNotificationRequests { requests in
-            let isScheduled = requests.contains { $0.identifier == notificationId }
+            let isScheduled = requests.contains { $0.identifier == eventId }
             completion(isScheduled)
+        }
+    }
+    
+    func isNotificationScheduled(categoryIdentifier: String, completion: @escaping (Bool) -> Void) -> Void {
+        notificationCenter.getPendingNotificationRequests { (requests) in
+            let requestsWithMatchingCategory = requests.filter { $0.content.categoryIdentifier == categoryIdentifier }
+            completion(!requestsWithMatchingCategory.isEmpty)
+        }
+    }
+
+    
+    func cancelNotifications(with categoryIdentifier: String) {
+        let center = UNUserNotificationCenter.current()
+        
+        center.getPendingNotificationRequests { (requests) in
+            let requestsWithMatchingCategory = requests.filter { $0.content.categoryIdentifier == categoryIdentifier }
+            let identifiers = requestsWithMatchingCategory.map { $0.identifier }
+            center.removePendingNotificationRequests(withIdentifiers: identifiers)
         }
     }
 }
@@ -45,6 +63,8 @@ extension NotificationManager {
         let content = UNMutableNotificationContent()
         content.title = notification.title
         content.subtitle = notification.subtitle
+        // Optional course id
+        content.categoryIdentifier = notification.categoryIdentifier ?? ""
         content.sound = .default
         content.badge = 1
         

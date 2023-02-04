@@ -21,6 +21,7 @@ struct EventDetailsPill: View {
                     .foregroundColor(.onSurface)
                 Text(title)
                     .font(.system(size: 15, weight: .semibold, design: .rounded))
+                    .multilineTextAlignment(.leading)
                     .foregroundColor(.onSurface)
             }
             .padding(.all, 10)

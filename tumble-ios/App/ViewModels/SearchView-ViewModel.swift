@@ -83,7 +83,7 @@ extension SearchParentView {
         
         func onSearchProgrammes(searchQuery: String) -> Void {
             self.status = .loading
-            networkManager.get(.searchProgramme(searchQuery: searchQuery, schoolId: String(school!.id))) { [weak self] (result: Result<Response.Search, NetworkError>) in
+            networkManager.get(.searchProgramme(searchQuery: searchQuery, schoolId: String(school!.id))) { [weak self] (result: Result<Response.Search, AppError>) in
                 DispatchQueue.main.async {
                     switch result {
                     case .success(let result):
@@ -166,7 +166,7 @@ extension SearchParentView {
         
         // API Call to fetch a schedule from backend
         fileprivate func fetchSchedule(programmeId: String, closure: @escaping () -> Void) -> Void {
-            networkManager.get(.schedule(scheduleId: programmeId, schoolId: String(school!.id))) { [weak self] (result: Result<Response.Schedule, NetworkError>) in
+            networkManager.get(.schedule(scheduleId: programmeId, schoolId: String(school!.id))) { [weak self] (result: Result<Response.Schedule, AppError>) in
                 DispatchQueue.main.async {
                     switch result {
                     case .success(let result):

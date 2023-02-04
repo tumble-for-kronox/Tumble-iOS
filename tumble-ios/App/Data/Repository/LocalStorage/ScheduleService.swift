@@ -16,7 +16,7 @@ class ScheduleService: ObservableObject, ScheduleServiceProtocol {
                 .appendingPathComponent("schedules.data")
         }
 
-    func load(completion: @escaping (Result<[Response.Schedule], NetworkError>)->Void) {
+    func load(completion: @escaping (Result<[Response.Schedule], AppError>) -> Void) {
         DispatchQueue.global(qos: .background).async {
             do {
                 let fileURL = try self.fileURL()
@@ -32,13 +32,13 @@ class ScheduleService: ObservableObject, ScheduleServiceProtocol {
                 }
             } catch {
                 DispatchQueue.main.async {
-                    completion(.failure(error as! NetworkError))
+                    completion(.failure(error as! AppError))
                     }
                 }
             }
     }
 
-    func save(schedule: Response.Schedule, completion: @escaping (Result<Int, NetworkError>)->Void) {
+    func save(schedule: Response.Schedule, completion: @escaping (Result<Int, AppError>)->Void) {
         DispatchQueue.global(qos: .background).async {
             do {
                 let fileURL = try self.fileURL()
@@ -63,20 +63,20 @@ class ScheduleService: ObservableObject, ScheduleServiceProtocol {
                         } catch {
                             DispatchQueue.main.async {
                                 AppLogger.shared.info("Failed to save \(schedule.id)")
-                                completion(.failure(error as! NetworkError))
+                                completion(.failure(error as! AppError))
                             }
                         }
                     }
                 }
             } catch {
                 DispatchQueue.main.async {
-                    completion(.failure(error as! NetworkError))
+                    completion(.failure(error as! AppError))
                 }
             }
         }
     }
     
-    func removeAll(completion: @escaping (Result<Int, NetworkError>) -> Void) {
+    func removeAll(completion: @escaping (Result<Int, AppError>) -> Void) {
         DispatchQueue.global(qos: .background).async {
             do {
                 let fileURL = try self.fileURL()
@@ -97,13 +97,13 @@ class ScheduleService: ObservableObject, ScheduleServiceProtocol {
                 }
             } catch {
                 DispatchQueue.main.async {
-                    completion(.failure(error as! NetworkError))
+                    completion(.failure(error as! AppError))
                     }
             }
         }
     }
     
-    func remove(schedule: Response.Schedule, completion: @escaping (Result<Int, NetworkError>)->Void) {
+    func remove(schedule: Response.Schedule, completion: @escaping (Result<Int, AppError>)->Void) {
         DispatchQueue.global(qos: .background).async {
             do {
                 let fileURL = try self.fileURL()
@@ -127,7 +127,7 @@ class ScheduleService: ObservableObject, ScheduleServiceProtocol {
                 }
             } catch {
                 DispatchQueue.main.async {
-                    completion(.failure(error as! NetworkError))
+                    completion(.failure(error as! AppError))
                     }
                 }
         }

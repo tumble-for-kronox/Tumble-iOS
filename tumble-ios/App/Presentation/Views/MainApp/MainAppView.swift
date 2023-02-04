@@ -96,7 +96,7 @@ struct MainAppView: View {
                     }
                 )
                 .sheet(item: $eventSheet) { (eventSheet: EventSheet) in
-                    EventDetailsSheetView(viewModel: viewModel.generateViewModelEventSheet(event: eventSheet.event, color: eventSheet.color))
+                    EventDetailsSheetView(viewModel: viewModel.generateViewModelEventSheet(event: eventSheet.event, color: eventSheet.color), createToast: createToast)
                 }
                 .onDisappear {
                     handleSideBarAction(shouldShowSideBar: false, newSideBarTab: .none)
@@ -141,6 +141,10 @@ struct MainAppView: View {
             viewModel.updateUniversityLocalsForView()
             checkForNewSchedules()
         })
+    }
+    
+    fileprivate func createToast(type: ToastStyle, title: String, message: String) -> Void {
+        toast = Toast(type: type, title: title, message: message)
     }
     
     func checkForNewSchedules() -> Void {

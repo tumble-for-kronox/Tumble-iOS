@@ -54,7 +54,7 @@ enum Request {
 
 
 
-enum NetworkError: LocalizedError {
+enum AppError: LocalizedError {
     case generic(reason: String)
     case `internal`(reason: String)
     

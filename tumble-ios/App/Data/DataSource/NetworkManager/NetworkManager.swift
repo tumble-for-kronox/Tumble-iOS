@@ -23,7 +23,7 @@ class NetworkManager: NetworkManagerProtocol {
     
     // Generic network request function handling network logic
     func fetch<Request, Response>(_ endpoint: Endpoint, method: Method = .get, body: Request? = nil,
-        then callback: ((Result<Response, NetworkError>) -> Void)? = nil
+        then callback: ((Result<Response, AppError>) -> Void)? = nil
     ) where Request: Codable, Response: Codable {
         var urlRequest = URLRequest(url: endpoint.url)
         urlRequest.httpMethod = method.rawValue
@@ -60,7 +60,7 @@ class NetworkManager: NetworkManagerProtocol {
         networkTask.resume()
     }
     // [HTTP GET]
-    func get<Response>(_ endpoint: Endpoint, then callback: ((Result<Response, NetworkError>) -> Void)? = nil
+    func get<Response>(_ endpoint: Endpoint, then callback: ((Result<Response, AppError>) -> Void)? = nil
     ) where Response: Codable {
         let body: Request.Empty? = nil
         fetch(endpoint, method: .get, body: body) { result in
@@ -69,7 +69,7 @@ class NetworkManager: NetworkManagerProtocol {
     }
     
     // [HTTP PUT]
-    func put<Request>(_ endpoint: Endpoint, body: Request, then callback: ((Result<Request, NetworkError>) -> Void)? = nil
+    func put<Request>(_ endpoint: Endpoint, body: Request, then callback: ((Result<Request, AppError>) -> Void)? = nil
     ) where Request: Codable {
         fetch(endpoint, method: .put, body: body) { result in
             callback?(result)
@@ -78,7 +78,7 @@ class NetworkManager: NetworkManagerProtocol {
     
     // [HTTP POST]
     func post<Request>(_ endpoint: Endpoint, body: Request, then callback:
-                       ((Result<Request, NetworkError>) -> Void)? = nil
+                       ((Result<Request, AppError>) -> Void)? = nil
     ) where Request: Codable {
         fetch(endpoint, method: .put, body: body) { result in
             callback?(result)
