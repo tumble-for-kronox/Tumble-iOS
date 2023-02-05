@@ -19,7 +19,7 @@ class CourseColorService: ObservableObject, CourseColorServiceProtocol {
                 .appendingPathComponent("colors.data")
         }
 
-    func load(completion: @escaping (Result<CourseAndColorDict, AppError>)->Void) {
+    func load(completion: @escaping (Result<CourseAndColorDict, Error>)->Void) {
         DispatchQueue.global(qos: .background).async {
             do {
                 let fileURL = try self.fileURL()
@@ -35,7 +35,7 @@ class CourseColorService: ObservableObject, CourseColorServiceProtocol {
                 }
             } catch {
                 DispatchQueue.main.async {
-                    completion(.failure(error as! AppError))
+                    completion(.failure(error as! Error))
                     }
                 }
             }
@@ -48,7 +48,7 @@ class CourseColorService: ObservableObject, CourseColorServiceProtocol {
     //                      "#45F327" : Color.blue
     //                     }
     // }
-    func save(coursesAndColors: [String : String], completion: @escaping (Result<Int, AppError>)->Void) {
+    func save(coursesAndColors: [String : String], completion: @escaping (Result<Int, Error>)->Void) {
         DispatchQueue.global(qos: .background).async {
             do {
                 let fileURL = try self.fileURL()
@@ -69,20 +69,20 @@ class CourseColorService: ObservableObject, CourseColorServiceProtocol {
                             }
                         } catch {
                             DispatchQueue.main.async {
-                                completion(.failure(error as! AppError))
+                                completion(.failure(error as! Error))
                             }
                         }
                     }
                 }
             } catch {
                 DispatchQueue.main.async {
-                    completion(.failure(error as! AppError))
+                    completion(.failure(error as! Error))
                 }
             }
         }
     }
     
-    func removeAll(completion: @escaping (Result<Int, AppError>) -> Void) {
+    func removeAll(completion: @escaping (Result<Int, Error>) -> Void) {
         DispatchQueue.global(qos: .background).async {
             do {
                 let fileURL = try self.fileURL()
@@ -104,13 +104,13 @@ class CourseColorService: ObservableObject, CourseColorServiceProtocol {
                 }
             } catch {
                 DispatchQueue.main.async {
-                    completion(.failure(error as! AppError))
+                    completion(.failure(error as! Error))
                     }
                 }
         }
     }
     
-    func remove(removeCourses: [String], completion: @escaping (Result<Int, AppError>)->Void) {
+    func remove(removeCourses: [String], completion: @escaping (Result<Int, Error>)->Void) {
         DispatchQueue.global(qos: .background).async {
             do {
                 let fileURL = try self.fileURL()
@@ -134,7 +134,7 @@ class CourseColorService: ObservableObject, CourseColorServiceProtocol {
                 }
             } catch {
                 DispatchQueue.main.async {
-                    completion(.failure(error as! AppError))
+                    completion(.failure(error as! Error))
                     }
                 }
         }

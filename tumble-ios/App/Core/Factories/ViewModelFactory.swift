@@ -18,7 +18,7 @@ class ViewModelFactory {
 
     @MainActor func makeViewModelSearch() -> SearchParentView.SearchViewModel { .init() }
     
-    @MainActor func makeViewModelHomePage() -> HomePageView.HomePageViewModel { .init() }
+    @MainActor func makeViewModelHomePage() -> HomeView.HomeViewModel { .init() }
     
     @MainActor func makeViewModelBookmarks() -> BookmarksView.BookmarksViewModel { .init() }
     
