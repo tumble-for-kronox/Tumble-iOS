@@ -67,14 +67,17 @@ enum ThemeMode: String {
     
     func changeSchool(school: School, closure: @escaping () -> Void) -> Void {
         preferenceService.setSchool(id: school.id, closure: { [weak self] in
-            self?.removeAllSchedules()
-            self?.removeAllCourseColors()
-            self?.cancelAllNotifications()
-            closure()
+            self?.removeAllSchedules() {
+                self?.removeAllCourseColors() {
+                    self?.cancelAllNotifications() {
+                        closure()
+                    }
+                }
+            }
         })
     }
     
-    fileprivate func removeAllCourseColors() -> Void {
+    fileprivate func removeAllCourseColors(completion: @escaping () -> Void) -> Void {
         self.courseColorService.removeAll { result in
             switch result {
             case .failure(let error):
@@ -83,11 +86,12 @@ enum ThemeMode: String {
             case .success:
                 // TODO: Add success message for user
                 AppLogger.shared.info("Removed all course colors from local storage")
+                completion()
             }
         }
     }
     
-    fileprivate func removeAllSchedules() -> Void {
+    fileprivate func removeAllSchedules(completion: @escaping () -> Void) -> Void {
         scheduleService.removeAll { result in
             switch result {
             case .failure(let error):
@@ -96,12 +100,13 @@ enum ThemeMode: String {
             case .success:
                 // TODO: Add success message for user
                 AppLogger.shared.info("Removed all schedules from local storage")
-                
+                completion()
             }
         }
     }
     
-    fileprivate func cancelAllNotifications() -> Void {
+    fileprivate func cancelAllNotifications(completion: @escaping () -> Void) -> Void {
         notificationManager.cancelNotifications()
+        completion()
     }
 }
