@@ -409,9 +409,9 @@
 		D41ED54229843366009DCF8B /* Domain */ = {
 			isa = PBXGroup;
 			children = (
+				D4644A21298DA92500B0BB28 /* Notifications */,
 				D4EAD3B6298D632500678DF8 /* DataSource */,
 				D46ABF032984385700B059F6 /* Repository */,
-				D41ED547298433B3009DCF8B /* UseCase */,
 				D41ED545298433A3009DCF8B /* Model */,
 			);
 			path = Domain;
@@ -420,6 +420,7 @@
 		D41ED5432984336B009DCF8B /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				D4644A24298DAA3F00B0BB28 /* Notifications */,
 				D46ABF0729843A4600B059F6 /* DataSource */,
 				D41ED546298433AA009DCF8B /* Repository */,
 			);
@@ -451,18 +452,10 @@
 		D41ED546298433AA009DCF8B /* Repository */ = {
 			isa = PBXGroup;
 			children = (
-				D4644A24298DAA3F00B0BB28 /* Notifications */,
 				D40D80B0292529FF008CA68D /* LocalStorage */,
 				D41ED55529843728009DCF8B /* Preferences */,
 			);
 			path = Repository;
-			sourceTree = "<group>";
-		};
-		D41ED547298433B3009DCF8B /* UseCase */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = UseCase;
 			sourceTree = "<group>";
 		};
 		D41ED553298436C3009DCF8B /* Network */ = {
@@ -626,7 +619,6 @@
 		D46ABF032984385700B059F6 /* Repository */ = {
 			isa = PBXGroup;
 			children = (
-				D4644A21298DA92500B0BB28 /* Notifications */,
 				D46ABF0D29843CE700B059F6 /* Preferences */,
 				D46ABF042984387000B059F6 /* LocalStorage */,
 			);
