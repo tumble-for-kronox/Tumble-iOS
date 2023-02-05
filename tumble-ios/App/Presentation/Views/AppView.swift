@@ -74,7 +74,7 @@ struct AppView: View {
                             SideBarToggleButtonView(showSideBar: $showSideBar, selectedSideBarTab: $selectedSideBarTab, handleClose: handleSideBarAction)
                         })
                         ToolbarItem(placement: .navigationBarTrailing, content: {
-                            SearchNavigationButtonView(backButtonTitle: selectedBottomTab.displayName, checkForNewSchedules: checkForNewSchedules, universityImage: $viewModel.universityImage)
+                            SearchNavigationButtonView(viewModel: viewModel.searchViewModel, backButtonTitle: selectedBottomTab.displayName, checkForNewSchedules: checkForNewSchedules, universityImage: $viewModel.universityImage)
                         })
                     }.background(Color.background)
                     
@@ -138,8 +138,7 @@ struct AppView: View {
     func onChangeSchool(school: School) -> Void {
         viewModel.changeSchool(school: school, closure: {
             toast = Toast(type: .success, title: "New school", message: "Set \(school.name) to default")
-            viewModel.updateUniversityLocalsForView()
-            checkForNewSchedules()
+            viewModel.updateViews()
         })
     }
     

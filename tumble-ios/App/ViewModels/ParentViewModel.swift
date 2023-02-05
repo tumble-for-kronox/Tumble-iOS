@@ -34,6 +34,7 @@ enum ThemeMode: String {
     let homeViewModel: HomeView.HomeViewModel
     let bookmarksViewModel: BookmarksView.BookmarksViewModel
     let accountPageViewModel: AccountPageView.AccountPageViewModel
+    let searchViewModel: SearchParentView.SearchViewModel
     
     init() {
         
@@ -41,6 +42,7 @@ enum ThemeMode: String {
         self.homeViewModel = viewModelFactory.makeViewModelHomePage()
         self.bookmarksViewModel = viewModelFactory.makeViewModelBookmarks()
         self.accountPageViewModel = viewModelFactory.makeViewModelAccountPage()
+        self.searchViewModel = viewModelFactory.makeViewModelSearch()
         
         self.universityName = preferenceService.getUniversityName()
         self.universityImage = preferenceService.getUniversityImage()
@@ -49,12 +51,15 @@ enum ThemeMode: String {
         self.domain = preferenceService.getUniversityDomain()
     }
     
-    func updateUniversityLocalsForView() -> Void {
+    func updateViews() -> Void {
+        AppLogger.shared.info("Updating child views and local university specifics")
         self.universityImage = preferenceService.getUniversityImage()
         self.universityName = preferenceService.getUniversityName()
         self.kronoxUrl = preferenceService.getUniversityKronoxUrl()
         self.canvasUrl = preferenceService.getCanvasUrl()
         self.domain = preferenceService.getUniversityDomain()
+        self.searchViewModel.update()
+        self.bookmarksViewModel.loadSchedules()
     }
     
     func generateViewModelEventSheet(event: Response.Event, color: Color) -> EventDetailsSheetView.EventDetailsViewModel {
@@ -75,6 +80,10 @@ enum ThemeMode: String {
                 }
             }
         })
+    }
+    
+    func getSearchViewModel() -> SearchParentView.SearchViewModel {
+        return viewModelFactory.makeViewModelSearch()
     }
     
     fileprivate func removeAllCourseColors(completion: @escaping () -> Void) -> Void {
