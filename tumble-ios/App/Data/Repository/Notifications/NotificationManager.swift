@@ -13,21 +13,23 @@ class NotificationManager: NotificationManagerProtocol {
     private let notificationCenter = UNUserNotificationCenter.current()
     private let authorizationOptions: UNAuthorizationOptions = [.alert, .sound, .badge]
 
-    func scheduleNotification(for notification: Notification, userOffset: Int) {
-        AppLogger.shared.info("Trying to set notification")
-        notificationsAreAllowed {   result in
+    func scheduleNotification(for notification: Notification, userOffset: Int, completion: @escaping (Result<Int, NotificationError>) -> Void) {
+        notificationsAreAllowed { result in
             switch result {
             case .success:
                 self.notificationCenter.add(self.request(for: notification, userOffset: userOffset))
                 AppLogger.shared.info("Successfully set notification for event with id -> \(notification.id)")
-            case .failure:
+                completion(.success(1))
+            case .failure(let error):
                 AppLogger.shared.info("Could not set notification")
+                completion(.failure(error))
             }
         }
     }
 
     func cancelNotification(for eventId: String) {
         notificationCenter.removePendingNotificationRequests(withIdentifiers: [eventId])
+        AppLogger.shared.info("Cancelled notifications with eventId -> \(eventId)")
     }
     
     func isNotificationScheduled(eventId: String, completion: @escaping (Bool) -> Void) -> Void {
@@ -46,13 +48,17 @@ class NotificationManager: NotificationManagerProtocol {
 
     
     func cancelNotifications(with categoryIdentifier: String) {
-        let center = UNUserNotificationCenter.current()
-        
-        center.getPendingNotificationRequests { (requests) in
+        notificationCenter.getPendingNotificationRequests { [weak self] (requests) in
             let requestsWithMatchingCategory = requests.filter { $0.content.categoryIdentifier == categoryIdentifier }
             let identifiers = requestsWithMatchingCategory.map { $0.identifier }
-            center.removePendingNotificationRequests(withIdentifiers: identifiers)
+            AppLogger.shared.info("Cancelling notifications with categoryIdentifier -> \(categoryIdentifier)")
+            self?.notificationCenter.removePendingNotificationRequests(withIdentifiers: identifiers)
         }
+    }
+    
+    func cancelNotifications() -> Void {
+        notificationCenter.removeAllPendingNotificationRequests()
+        AppLogger.shared.info("Cancelled all notifications for this school")
     }
 }
 

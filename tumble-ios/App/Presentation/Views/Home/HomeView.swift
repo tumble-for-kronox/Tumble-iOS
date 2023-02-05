@@ -7,15 +7,9 @@
 
 import SwiftUI
 
-enum QuickAccessId: String {
-    case book = "book"
-    case exams = "exams"
-    case schedules = "schedules"
-}
-
-struct HomePageView: View {
+struct HomeView: View {
     
-    @ObservedObject var viewModel: HomePageViewModel
+    @ObservedObject var viewModel: HomeView.HomeViewModel
     
     @Binding var domain: String?
     @Binding var canvasUrl: String?

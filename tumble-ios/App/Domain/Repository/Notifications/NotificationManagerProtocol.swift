@@ -9,11 +9,13 @@ import Foundation
 
 protocol NotificationManagerProtocol {
     
-    func scheduleNotification(for notification: Notification, userOffset: Int)
+    func scheduleNotification(for notification: Notification, userOffset: Int, completion: @escaping (Result<Int, NotificationError>) -> Void)
     
     func cancelNotification(for eventId: String)
     
     func cancelNotifications(with categoryIdentifier: String)
+    
+    func cancelNotifications() -> Void
     
     func isNotificationScheduled(categoryIdentifier: String, completion: @escaping (Bool) -> Void) -> Void
     

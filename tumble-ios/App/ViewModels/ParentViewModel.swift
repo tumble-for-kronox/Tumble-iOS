@@ -23,6 +23,7 @@ enum ThemeMode: String {
     @Inject var scheduleService: ScheduleService
     @Inject var courseColorService: CourseColorService
     @Inject var preferenceService: PreferenceService
+    @Inject var notificationManager: NotificationManager
     
     @Published var universityImage: Image?
     @Published var universityName: String?
@@ -30,14 +31,14 @@ enum ThemeMode: String {
     @Published var canvasUrl: String?
     @Published var domain: String?
 
-    let homePageViewModel: HomePageView.HomePageViewModel
+    let homeViewModel: HomeView.HomeViewModel
     let bookmarksViewModel: BookmarksView.BookmarksViewModel
     let accountPageViewModel: AccountPageView.AccountPageViewModel
     
     init() {
         
         // ViewModels to subviews
-        self.homePageViewModel = viewModelFactory.makeViewModelHomePage()
+        self.homeViewModel = viewModelFactory.makeViewModelHomePage()
         self.bookmarksViewModel = viewModelFactory.makeViewModelBookmarks()
         self.accountPageViewModel = viewModelFactory.makeViewModelAccountPage()
         
@@ -65,29 +66,42 @@ enum ThemeMode: String {
     }
     
     func changeSchool(school: School, closure: @escaping () -> Void) -> Void {
-        
-        preferenceService.setSchool(id: school.id, closure: { [self] in
-            scheduleService.removeAll { [weak self] result in
-                switch result {
-                case .failure(let error):
-                    // Todo: Add error message for user
-                    AppLogger.shared.info("Could not remove schedules: \(error)")
-                case .success:
-                    // Todo: Add success message for user
-                    AppLogger.shared.info("Removed all schedules from local storage")
-                    self?.courseColorService.removeAll { result in
-                        switch result {
-                        case .failure(let error):
-                            // Todo: Add error message for user
-                            AppLogger.shared.info("Could not remove course colors: \(error)")
-                        case .success:
-                            // Todo: Add success message for user
-                            AppLogger.shared.info("Removed all course colors from local storage")
-                            closure()
-                        }
-                    }
-                }
-            }
+        preferenceService.setSchool(id: school.id, closure: { [weak self] in
+            self?.removeAllSchedules()
+            self?.removeAllCourseColors()
+            self?.cancelAllNotifications()
+            closure()
         })
+    }
+    
+    fileprivate func removeAllCourseColors() -> Void {
+        self.courseColorService.removeAll { result in
+            switch result {
+            case .failure(let error):
+                // TODO: Add error message for user
+                AppLogger.shared.info("Could not remove course colors: \(error)")
+            case .success:
+                // TODO: Add success message for user
+                AppLogger.shared.info("Removed all course colors from local storage")
+            }
+        }
+    }
+    
+    fileprivate func removeAllSchedules() -> Void {
+        scheduleService.removeAll { result in
+            switch result {
+            case .failure(let error):
+                // TODO: Add error message for user
+                AppLogger.shared.info("Could not remove schedules: \(error)")
+            case .success:
+                // TODO: Add success message for user
+                AppLogger.shared.info("Removed all schedules from local storage")
+                
+            }
+        }
+    }
+    
+    fileprivate func cancelAllNotifications() -> Void {
+        notificationManager.cancelNotifications()
     }
 }

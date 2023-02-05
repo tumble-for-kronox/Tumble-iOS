@@ -8,8 +8,8 @@
 import Foundation
 import SwiftUI
 
-extension HomePageView {
-    @MainActor final class HomePageViewModel: ObservableObject {
+extension HomeView {
+    @MainActor final class HomeViewModel: ObservableObject {
         
         @Inject var preferenceService: PreferenceService
         

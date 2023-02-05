@@ -58,7 +58,7 @@ struct AppView: View {
                         // Main home page view switcher
                         switch selectedBottomTab {
                         case .home:
-                            HomePageView(viewModel: viewModel.homePageViewModel, domain: $viewModel.domain, canvasUrl: $viewModel.canvasUrl, kronoxUrl: $viewModel.kronoxUrl)
+                            HomeView(viewModel: viewModel.homeViewModel, domain: $viewModel.domain, canvasUrl: $viewModel.canvasUrl, kronoxUrl: $viewModel.kronoxUrl)
                         case .bookmarks:
                             BookmarksView(viewModel: viewModel.bookmarksViewModel, onTapCard: onOpenEventDetailsSheet)
                         case .account:
