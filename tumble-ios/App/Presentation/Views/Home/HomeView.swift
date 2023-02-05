@@ -39,9 +39,9 @@ struct HomeView: View {
             
             // Schedules, booked rooms, registered exams
             VStack (alignment: .leading, spacing: 0) {
-                HomePageEventView(titleText: "Schedules", bodyText: "Got a class coming up?", image: "list.bullet.clipboard")
-                HomePageEventView(titleText: "Booked rooms", bodyText: "Need to study?", image: "books.vertical")
-                HomePageEventView(titleText: "Registered exams", bodyText: "You've got this!", image: "newspaper")
+                HomeEventView(titleText: "Schedules", bodyText: "Got a class coming up?", image: "list.bullet.clipboard")
+                HomeEventView(titleText: "Booked rooms", bodyText: "Need to study?", image: "books.vertical")
+                HomeEventView(titleText: "Registered exams", bodyText: "You've got this!", image: "newspaper")
             }
             .padding(.top, 40)
         }
