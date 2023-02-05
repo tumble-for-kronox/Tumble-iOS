@@ -49,10 +49,11 @@ class NotificationManager: NotificationManagerProtocol {
     
     func cancelNotifications(with categoryIdentifier: String) {
         notificationCenter.getPendingNotificationRequests { [weak self] (requests) in
+            guard let self = self else { return }
             let requestsWithMatchingCategory = requests.filter { $0.content.categoryIdentifier == categoryIdentifier }
             let identifiers = requestsWithMatchingCategory.map { $0.identifier }
             AppLogger.shared.info("Cancelling notifications with categoryIdentifier -> \(categoryIdentifier)")
-            self?.notificationCenter.removePendingNotificationRequests(withIdentifiers: identifiers)
+            self.notificationCenter.removePendingNotificationRequests(withIdentifiers: identifiers)
         }
     }
     

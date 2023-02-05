@@ -72,9 +72,10 @@ enum ThemeMode: String {
     
     func changeSchool(school: School, closure: @escaping () -> Void) -> Void {
         preferenceService.setSchool(id: school.id, closure: { [weak self] in
-            self?.removeAllSchedules() {
-                self?.removeAllCourseColors() {
-                    self?.cancelAllNotifications() {
+            guard let self = self else { return }
+            self.removeAllSchedules() {
+                self.removeAllCourseColors() {
+                    self.cancelAllNotifications() {
                         closure()
                     }
                 }
