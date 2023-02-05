@@ -46,9 +46,7 @@ struct AppView: View {
             Color.primary
                 .ignoresSafeArea()
             
-            ScrollView (getRect().height < 750 ? .vertical : .init(), showsIndicators: false) {
-                SideBarMenuView(selectedSideBarTab: $selectedSideBarTab, selectedBottomTab: $selectedBottomTab, sideBarSheet: $sideBarSheet, universityImage: viewModel.universityImage ?? Image(systemName: "building.columns"), universityName: viewModel.universityName ?? "")
-            }
+            SideBarMenuView(selectedSideBarTab: $selectedSideBarTab, selectedBottomTab: $selectedBottomTab, sideBarSheet: $sideBarSheet, universityImage: viewModel.universityImage ?? Image(systemName: "building.columns"), universityName: viewModel.universityName ?? "")
             
             ZStack {
                 FadedPageView(backgroundOpacity: 0.6, offset: -25, verticalPadding: 30, showSideBar: $showSideBar)
@@ -67,8 +65,8 @@ struct AppView: View {
                         Spacer()
                         BottomBarView(selectedBottomTab: $selectedBottomTab)
                     }
-                    //.navigationTitle(selectedBottomTab.displayName)
-                    //.navigationBarTitleDisplayMode(.inline)
+                    .navigationTitle(selectedBottomTab.displayName)
+                    .navigationBarTitleDisplayMode(.inline)
                     .toolbar {
                         ToolbarItem(placement: .navigationBarLeading, content: {
                             SideBarToggleButtonView(showSideBar: $showSideBar, selectedSideBarTab: $selectedSideBarTab, handleClose: handleSideBarAction)

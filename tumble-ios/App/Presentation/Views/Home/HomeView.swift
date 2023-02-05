@@ -28,7 +28,7 @@ struct HomeView: View {
                 Text("Where do you want to get started?")
                     .font(.system(size: 25, design: .rounded))
                     .padding(.trailing, 30)
-                HStack {
+                HStack (spacing: 10) {
                     LinkPillView(title: domain?.uppercased() ?? "", image: "link", url: viewModel.makeUniversityUrl())
                     LinkPillView(title: "Canvas", image: "link", url: viewModel.makeCanvasUrl())
                     LinkPillView(title: "Ladok", image: "link", url: URL(string: viewModel.ladokUrl))
@@ -45,7 +45,7 @@ struct HomeView: View {
             }
             .padding(.top, 40)
         }
-        .padding(.top, 10)
+        .padding(.top, 20)
         .padding(.horizontal, 16)
     }
 }
