@@ -61,15 +61,27 @@ struct EventDetailsCardView: View {
     }
     
     func onSetNotificationEvent() -> Void {
-        parentViewModel.scheduleNotificationForEvent()
-        presentationMode.wrappedValue.dismiss()
-        createToast(.success, "Notification set!", "Notification was created for \(event.title)")
+        parentViewModel.scheduleNotificationForEvent() { success in
+            if success {
+                presentationMode.wrappedValue.dismiss()
+                createToast(.success, "Notification set!", "Notification was created for \(event.title)")
+            } else {
+                presentationMode.wrappedValue.dismiss()
+                createToast(.error, "Notification not set!", "Looks like you need to allow notifications in your phone settings")
+            }
+        }
     }
     
     func onSetNotificationForCourse() -> Void {
-        parentViewModel.scheduleNotificationsForCourse()
-        presentationMode.wrappedValue.dismiss()
-        createToast(.success, "Notifications set!", "Notifications were created for available events in \(event.course.englishName)")
+        parentViewModel.scheduleNotificationsForCourse() { success in
+            if success {
+                presentationMode.wrappedValue.dismiss()
+                createToast(.success, "Notifications set!", "Notifications were created for available events in \(event.course.englishName)")
+            } else {
+                presentationMode.wrappedValue.dismiss()
+                createToast(.error, "Notifications not set!", "Looks like you need to allow notifications in your phone settings")
+            }
+        }
     }
     
     func onRemoveNotificationForEvent() -> Void {
