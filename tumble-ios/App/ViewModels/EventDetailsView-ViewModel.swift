@@ -34,7 +34,7 @@ extension EventDetailsSheetView {
             self.color = color
         }
         
-        func scheduleNotificationForEvent() -> Void {
+        func scheduleNotificationForEvent(completion: @escaping (Bool) -> Void) -> Void {
             let userOffset: Int = preferenceService.getNotificationOffset()
             
             // Create notification for event without categoryIdentifier,
@@ -45,7 +45,17 @@ extension EventDetailsSheetView {
                 subtitle: event.course.englishName,
                 dateComponents: event.dateComponents!,
                 categoryIdentifier: nil)
-            notificationManager.scheduleNotification(for: notification, userOffset: userOffset)
+            
+            notificationManager.scheduleNotification(for: notification, userOffset: userOffset, completion: { result in
+                switch result {
+                case .success(let success):
+                    AppLogger.shared.info("Scheduled \(success) notifications")
+                    completion(true)
+                case .failure(let failure):
+                    AppLogger.shared.info("Failed to schedule notifications -> \(failure)")
+                    completion(false)
+                }
+            })
         }
         
         func cancelNotificationForEvent() -> Void {
@@ -56,12 +66,18 @@ extension EventDetailsSheetView {
             notificationManager.cancelNotifications(with: event.course.id)
         }
         
-        func scheduleNotificationsForCourse() -> Void {
+        func scheduleNotificationsForCourse(completion: @escaping (Bool) -> Void) -> Void {
             scheduleService.load { [weak self] result in
                 switch result {
                 case .success(let success):
                     let schedules = success
-                    self?.applyNotificationForScheduleEventsInCourse(schedules: schedules)
+                    self?.applyNotificationForScheduleEventsInCourse(schedules: schedules) { success in
+                        if success {
+                            completion(true)
+                        } else {
+                            completion(false)
+                        }
+                    }
                 case .failure(let failure):
                     AppLogger.shared.info("\(failure.localizedDescription)")
                     // TODO: Handle error in view
@@ -70,26 +86,34 @@ extension EventDetailsSheetView {
         }
         
         // Apply scheduleNotifaction for each event under specific course id
-        fileprivate func applyNotificationForScheduleEventsInCourse(schedules: [Response.Schedule]) -> Void {
+        fileprivate func applyNotificationForScheduleEventsInCourse(schedules: [Response.Schedule], completion: @escaping (Bool) -> Void)
+                -> Void {
             let events = schedules
                 .flatMap { $0.days }
                 .flatMap { $0.events }
                 .filter { $0.course.id == self.event.course.id }
 
-            events.forEach { event in
-                let notification = Notification(
-                    id: event.id,
-                    title: event.course.englishName,
-                    subtitle: event.title,
-                    dateComponents: event.dateComponents!,
-                    categoryIdentifier: event.course.id)
-                // Sets notifications for course. If events already have notifications set for them without a categoryIdentifier,
-                // they will be reset in order to be able to remove course notifications on a categoryIdentifier basis
-                self.notificationManager.scheduleNotification(
-                    for: notification,
-                    userOffset: self.notificationOffset)
-                AppLogger.shared.info("Set notification for \(event.title)")
-            }
+                    events.forEach { event in
+                        let notification = Notification(
+                            id: event.id,
+                            title: event.course.englishName,
+                            subtitle: event.title,
+                            dateComponents: event.dateComponents!,
+                            categoryIdentifier: event.course.id)
+                        // Sets notifications for course. If events already have notifications set for them without a categoryIdentifier,
+                        // they will be reset in order to be able to remove course notifications on a categoryIdentifier basis
+                        self.notificationManager.scheduleNotification(for: notification, userOffset: self.notificationOffset) { result in
+                            switch result {
+                            case .success(let success):
+                                AppLogger.shared.info("Scheduled \(success) notifications")
+                            case .failure(let failure):
+                                AppLogger.shared.info("Failed to schedule notifications -> \(failure)")
+                                completion(false)
+                            }
+                        }
+                        AppLogger.shared.info("Set notification for \(event.title)")
+                        completion(true)
+                    }
         }
         
         fileprivate func checkNotificationIsSetForCourse() -> Void {
