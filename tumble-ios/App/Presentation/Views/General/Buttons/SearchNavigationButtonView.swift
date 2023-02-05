@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SearchNavigationButtonView: View {
     
-    @StateObject var viewModel: SearchParentView.SearchViewModel = SearchParentView.SearchViewModel()
+    @StateObject var viewModel: SearchParentView.SearchViewModel
     let backButtonTitle: String
     let checkForNewSchedules: () -> Void
     @Binding var universityImage: Image?

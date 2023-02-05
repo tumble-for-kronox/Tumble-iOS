@@ -46,7 +46,17 @@ extension SearchParentView {
         init() {
             self.school = preferenceService.getDefaultSchool()
         }
-                
+        
+        func update() -> Void {
+            self.presentPreview = false
+            self.status = .initial
+            self.scheduleForPreview = nil
+            self.numberOfSearchResults = 0
+            self.programmeSearchResults.removeAll()
+            self.courseColors = nil
+            self.school = preferenceService.getDefaultSchool()
+        }
+        
         // When user presses a programme card
         func onOpenProgrammeSchedule(programmeId: String) -> Void {
 
