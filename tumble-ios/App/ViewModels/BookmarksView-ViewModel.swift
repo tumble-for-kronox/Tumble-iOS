@@ -43,18 +43,19 @@ extension BookmarksView {
         
         func loadSchedules() -> Void {
             scheduleService.load { [weak self] result in
+                guard let self = self else { return }
                 switch result {
                 case .failure(_):
-                    self?.status =  .error
+                    self.status =  .error
                 case .success(let schedules):
                     if !schedules.isEmpty {
                         let days: [DayUiModel] = schedules.removeDuplicateEvents().flatten()
-                        self?.days = days
-                        self?.status = .loaded
-                        self?.loadCourseColors()
+                        self.days = days
+                        self.status = .loaded
+                        self.loadCourseColors()
                     }
                     else {
-                        self?.status = .uninitialized
+                        self.status = .uninitialized
                     }
                 }
             }
@@ -67,13 +68,14 @@ extension BookmarksView {
         
         fileprivate func loadCourseColors() -> Void {
             courseColorService.load { [weak self] result in
+                guard let self = self else { return }
                 switch result {
                 case .failure(_):
                     // TODO: Add user notification toast that something went wrong
                     AppLogger.shared.info("Could not load course colors")
                 case .success(let courses):
                     if !courses.isEmpty {
-                        self?.courseColors = courses
+                        self.courseColors = courses
                     }
                 }
             }

@@ -68,10 +68,11 @@ extension EventDetailsSheetView {
         
         func scheduleNotificationsForCourse(completion: @escaping (Bool) -> Void) -> Void {
             scheduleService.load { [weak self] result in
+                guard let self = self else { return }
                 switch result {
                 case .success(let success):
                     let schedules = success
-                    self?.applyNotificationForScheduleEventsInCourse(schedules: schedules) { success in
+                    self.applyNotificationForScheduleEventsInCourse(schedules: schedules) { success in
                         if success {
                             completion(true)
                         } else {
