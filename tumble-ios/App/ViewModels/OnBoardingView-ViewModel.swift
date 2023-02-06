@@ -14,6 +14,7 @@ extension OnBoardingView {
         
         var showModal: Bool = true
         
+        
         func onSelectSchool(school: School, updateUserOnBoarded: @escaping UpdateUserOnBoarded) -> Void {
             preferenceService.setSchool(id: school.id) {
                 self.preferenceService.setUserOnboarded()

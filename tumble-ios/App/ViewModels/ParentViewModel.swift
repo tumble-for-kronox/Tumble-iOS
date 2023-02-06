@@ -36,6 +36,7 @@ enum ThemeMode: String {
     let accountPageViewModel: AccountPageView.AccountPageViewModel
     let searchViewModel: SearchParentView.SearchViewModel
     
+    
     init() {
         
         // ViewModels to subviews
@@ -51,7 +52,8 @@ enum ThemeMode: String {
         self.domain = preferenceService.getUniversityDomain()
     }
     
-    func updateViews() -> Void {
+    
+    func updateLocalsAndChildViews() -> Void {
         AppLogger.shared.info("Updating child views and local university specifics")
         self.universityImage = preferenceService.getUniversityImage()
         self.universityName = preferenceService.getUniversityName()
@@ -59,16 +61,20 @@ enum ThemeMode: String {
         self.canvasUrl = preferenceService.getCanvasUrl()
         self.domain = preferenceService.getUniversityDomain()
         self.searchViewModel.update()
-        self.bookmarksViewModel.loadSchedules()
+        self.bookmarksViewModel.update()
+        self.bookmarksViewModel.loadBookmarkedSchedules()
     }
+    
     
     func generateViewModelEventSheet(event: Response.Event, color: Color) -> EventDetailsSheetView.EventDetailsViewModel {
         return viewModelFactory.makeViewModelEventDetailsSheet(event: event, color: color)
     }
     
+    
     func updateSchedulesChildView() -> Void {
-        bookmarksViewModel.loadSchedules()
+        bookmarksViewModel.loadBookmarkedSchedules()
     }
+    
     
     func changeSchool(school: School, closure: @escaping () -> Void) -> Void {
         preferenceService.setSchool(id: school.id, closure: { [weak self] in
@@ -83,9 +89,14 @@ enum ThemeMode: String {
         })
     }
     
+    
     func getSearchViewModel() -> SearchParentView.SearchViewModel {
         return viewModelFactory.makeViewModelSearch()
     }
+}
+
+
+extension ParentViewModel {
     
     fileprivate func removeAllCourseColors(completion: @escaping () -> Void) -> Void {
         self.courseColorService.removeAll { result in
@@ -100,6 +111,7 @@ enum ThemeMode: String {
             }
         }
     }
+    
     
     fileprivate func removeAllSchedules(completion: @escaping () -> Void) -> Void {
         scheduleService.removeAll { result in
