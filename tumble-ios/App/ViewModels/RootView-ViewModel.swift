@@ -22,6 +22,7 @@ extension RootView {
         let parentViewModel: ParentViewModel
         let onBoardingViewModel: OnBoardingView.OnBoardingViewModel
         
+        
         init (userNotOnBoarded: Bool) {
             
             self.parentViewModel = viewModelFactory.makeViewModelParent()

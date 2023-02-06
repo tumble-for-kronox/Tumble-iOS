@@ -20,4 +20,5 @@ enum StoreKey: String {
     case userOnboarded = "USER_ONBOARDED"
     case overrideSystem = "OVERRIDE_THEME"
     case networkSettings = "networkSettings"
+    case lastBookmarksUpdate = "last_bookmark_update"
 }

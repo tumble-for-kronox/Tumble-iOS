@@ -134,6 +134,7 @@
 		D4E39E3E2989D79B004C30DF /* EventDetailsPill.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E39E3D2989D79B004C30DF /* EventDetailsPill.swift */; };
 		D4E39E402989DDDC004C30DF /* EventDetailsBodyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E39E3F2989DDDC004C30DF /* EventDetailsBodyView.swift */; };
 		D4EAD3B9298D633B00678DF8 /* NetworkManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EAD3B8298D633B00678DF8 /* NetworkManagerProtocol.swift */; };
+		D4FF4726299156FC0080C898 /* ScheduleStoreObjectExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FF4725299156FC0080C898 /* ScheduleStoreObjectExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -263,6 +264,7 @@
 		D4E39E3D2989D79B004C30DF /* EventDetailsPill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailsPill.swift; sourceTree = "<group>"; };
 		D4E39E3F2989DDDC004C30DF /* EventDetailsBodyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailsBodyView.swift; sourceTree = "<group>"; };
 		D4EAD3B8298D633B00678DF8 /* NetworkManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManagerProtocol.swift; sourceTree = "<group>"; };
+		D4FF4725299156FC0080C898 /* ScheduleStoreObjectExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleStoreObjectExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -420,6 +422,7 @@
 		D41ED5432984336B009DCF8B /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				D40D80A429252156008CA68D /* Extensions */,
 				D4644A24298DAA3F00B0BB28 /* Notifications */,
 				D46ABF0729843A4600B059F6 /* DataSource */,
 				D41ED546298433AA009DCF8B /* Repository */,
@@ -763,7 +766,6 @@
 			children = (
 				D4EAD3BA298D8A8E00678DF8 /* Factories */,
 				D4E39E352989CE1D004C30DF /* Utilities */,
-				D40D80A429252156008CA68D /* Extensions */,
 				D4563E7C2985F960003261FA /* NetworkSettings */,
 				D48CE4552984912B00D312EC /* DependencyInjection */,
 			);
@@ -826,6 +828,7 @@
 				D45338F529280E8400198411 /* ScheduleExtensions.swift */,
 				D4ABD26F298C2E15002FD8F5 /* DayUiModelExtension.swift */,
 				D4ABD271298C2E32002FD8F5 /* DayExtension.swift */,
+				D4FF4725299156FC0080C898 /* ScheduleStoreObjectExtension.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1042,6 +1045,7 @@
 				D42BAC19298D31A70025EAA9 /* URLSessionExtension.swift in Sources */,
 				D4E39E402989DDDC004C30DF /* EventDetailsBodyView.swift in Sources */,
 				D4E39E3A2989CE84004C30DF /* EventDetailsSheetView.swift in Sources */,
+				D4FF4726299156FC0080C898 /* ScheduleStoreObjectExtension.swift in Sources */,
 				D42BAC17298D282B0025EAA9 /* LinkPillView.swift in Sources */,
 				D43419AE29854E6B001089A0 /* OnBoardingViewBuilder.swift in Sources */,
 				D43419C42985684C001089A0 /* OnBoardingView-ViewModel.swift in Sources */,
