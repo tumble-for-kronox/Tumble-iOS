@@ -7,6 +7,16 @@
 
 import Foundation
 
+struct ScheduleStoreObject: Codable, Hashable {
+    static func == (lhs: ScheduleStoreObject, rhs: ScheduleStoreObject) -> Bool {
+        return lhs.id == rhs.id
+    }
+    
+    let id, cachedAt: String
+    let days: [Response.Day]
+    let lastUpdated: Date
+}
+
 class ScheduleService: ObservableObject, ScheduleServiceProtocol {
     private func fileURL() throws -> URL {
             try FileManager.default.url(for: .documentDirectory,
@@ -16,7 +26,7 @@ class ScheduleService: ObservableObject, ScheduleServiceProtocol {
                 .appendingPathComponent("schedules.data")
         }
 
-    func load(completion: @escaping (Result<[Response.Schedule], Error>) -> Void) {
+    func load(completion: @escaping (Result<[ScheduleStoreObject], Error>) -> Void) {
         DispatchQueue.global(qos: .background).async {
             do {
                 let fileURL = try self.fileURL()
@@ -26,7 +36,7 @@ class ScheduleService: ObservableObject, ScheduleServiceProtocol {
                         }
                         return
                     }
-                let schedules = try JSONDecoder().decode([Response.Schedule].self, from: file.availableData)
+                let schedules = try JSONDecoder().decode([ScheduleStoreObject].self, from: file.availableData)
                 DispatchQueue.main.async {
                     completion(.success(schedules))
                 }
@@ -51,8 +61,8 @@ class ScheduleService: ObservableObject, ScheduleServiceProtocol {
                         }
                     case .success(let schedules):
                         do {
-                            var newSchedules = schedules
-                            newSchedules.append(schedule)
+                            
+                            let newSchedules = self.insertOrReplace(for: schedule, with: schedules)
                             
                             let data = try JSONEncoder().encode(newSchedules)
                             try data.write(to: fileURL)
@@ -86,7 +96,7 @@ class ScheduleService: ObservableObject, ScheduleServiceProtocol {
                     }
                     return
                 }
-                var schedules = try JSONDecoder().decode([Response.Schedule].self, from: file.availableData)
+                var schedules = try JSONDecoder().decode([ScheduleStoreObject].self, from: file.availableData)
                 schedules.removeAll()
                 let data = try JSONEncoder().encode(schedules)
                 try data.write(to: fileURL)
@@ -103,7 +113,7 @@ class ScheduleService: ObservableObject, ScheduleServiceProtocol {
         }
     }
     
-    func remove(schedule: Response.Schedule, completion: @escaping (Result<Int, Error>)->Void) {
+    func remove(scheduleId: String, completion: @escaping (Result<Int, Error>)->Void) {
         DispatchQueue.global(qos: .background).async {
             do {
                 let fileURL = try self.fileURL()
@@ -113,16 +123,15 @@ class ScheduleService: ObservableObject, ScheduleServiceProtocol {
                         }
                         return
                     }
-                var schedules = try JSONDecoder().decode([Response.Schedule].self, from: file.availableData)
+                var schedules = try JSONDecoder().decode([ScheduleStoreObject].self, from: file.availableData)
                 
-                
-                schedules.removeAll(where: {$0.id == schedule.id})
+                schedules.removeAll(where: {$0.id == scheduleId})
                 
                 let data = try JSONEncoder().encode(schedules)
                 try data.write(to: fileURL)
                 
                 DispatchQueue.main.async {
-                    AppLogger.shared.info("Removed schedule \(schedule.id)")
+                    AppLogger.shared.info("Removed schedule \(scheduleId)")
                     completion(.success(schedules.count))
                 }
             } catch {
@@ -134,3 +143,25 @@ class ScheduleService: ObservableObject, ScheduleServiceProtocol {
     }
 }
 
+extension ScheduleService {
+    
+    fileprivate func insertOrReplace(for schedule: Response.Schedule, with schedules: [ScheduleStoreObject]) -> [ScheduleStoreObject] {
+        let calendar = Calendar(identifier: .gregorian)
+        let components = calendar.dateComponents([.day, .month, .year], from: Date())
+        let date = calendar.date(from: components)
+        
+        var newSchedules: [ScheduleStoreObject] = schedules
+        
+        if newSchedules.contains(where: { $0.id == schedule.id }) {
+            for (index, bookmark) in newSchedules.enumerated() {
+                if schedule.id == bookmark.id {
+                    newSchedules[index] = ScheduleStoreObject(id: schedule.id, cachedAt: schedule.cachedAt, days: schedule.days, lastUpdated: date!)
+                }
+            }
+        } else {
+            newSchedules.append(ScheduleStoreObject(id: schedule.id, cachedAt: schedule.cachedAt, days: schedule.days, lastUpdated: date!))
+        }
+        return newSchedules
+    }
+    
+}

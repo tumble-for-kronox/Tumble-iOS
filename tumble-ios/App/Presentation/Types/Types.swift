@@ -48,3 +48,10 @@ enum SideBarTabType: String {
     case support = "Support" // Opens sheet
     case logOut = "Log out" // Performs api call
 }
+
+enum BookmarksViewType: String {
+    case list = "List"
+    case calendar = "Calendar"
+    
+    static let allValues: [BookmarksViewType] = [list, calendar]
+}
