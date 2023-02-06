@@ -136,7 +136,7 @@ struct AppView: View {
     func onChangeSchool(school: School) -> Void {
         viewModel.changeSchool(school: school, closure: {
             toast = Toast(type: .success, title: "New school", message: "Set \(school.name) to default")
-            viewModel.updateViews()
+            viewModel.updateLocalsAndChildViews()
         })
     }
     

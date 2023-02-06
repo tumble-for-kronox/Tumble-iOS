@@ -16,27 +16,27 @@ let inDateFormatter = ISO8601DateFormatter()
 extension [Response.Schedule] {
     
     func flatten() -> [DayUiModel] {
-        var days: [DayUiModel] = []
-        self.forEach { schedule in
-            let generatedDaysForSchedule = schedule.days.reduce(into: []) {
-                if $1.isValidDay() {$0.append($1)}}.toUiModel()
-            days = days.combine(generatedDays: generatedDaysForSchedule)
-        }
-        return days.toOrderedDayUiModels()
-    }
-    
-    func removeDuplicateEvents() -> [Response.Schedule] {
-        var eventIds = Set<String>()
-        return self.map { schedule in
-            let uniqueDays = schedule.days.map { day in
-                let uniqueEvents = day.events.filter { event in
-                    eventIds.insert(event.id).inserted
-                }
-                return Response.Day(name: day.name, date: day.date, isoString: day.isoString, weekNumber: day.weekNumber, events: uniqueEvents)
+            var days: [DayUiModel] = []
+            self.forEach { schedule in
+                let generatedDaysForSchedule = schedule.days.reduce(into: []) {
+                    if $1.isValidDay() {$0.append($1)}}.toUiModel()
+                days = days.combine(generatedDays: generatedDaysForSchedule)
             }
-            return Response.Schedule(id: schedule.id, cachedAt: schedule.cachedAt, days: uniqueDays)
+            return days.toOrderedDayUiModels()
         }
-    }
+        
+        func removeDuplicateEvents() -> [Response.Schedule] {
+            var eventIds = Set<String>()
+            return self.map { schedule in
+                let uniqueDays = schedule.days.map { day in
+                    let uniqueEvents = day.events.filter { event in
+                        eventIds.insert(event.id).inserted
+                    }
+                    return Response.Day(name: day.name, date: day.date, isoString: day.isoString, weekNumber: day.weekNumber, events: uniqueEvents)
+                }
+                return Response.Schedule(id: schedule.id, cachedAt: schedule.cachedAt, days: uniqueDays)
+            }
+        }
 }
 
 extension Response.Schedule {

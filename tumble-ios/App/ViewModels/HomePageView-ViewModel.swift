@@ -15,6 +15,7 @@ extension HomeView {
         
         let ladokUrl: String = "https://www.student.ladok.se/student/app/studentwebb/"
         
+        
         func getTimeOfDay() -> String {
             let date = Date()
             let calendar = Calendar.current
@@ -30,9 +31,11 @@ extension HomeView {
             }
         }
         
+        
         func makeCanvasUrl() -> URL? {
             return URL(string: preferenceService.getCanvasUrl() ?? "")
         }
+        
         
         func makeUniversityUrl() -> URL? {
             return URL(string: preferenceService.getUniversityUrl() ?? "")
