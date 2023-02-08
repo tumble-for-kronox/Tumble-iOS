@@ -39,7 +39,7 @@ struct Root: View {
     
     func setUserOnBoarded() -> Void {
         self.viewModel.parentViewModel.updateLocalsAndChildViews()
-        withAnimation(.linear(duration: 0.3)) {
+        withAnimation(.linear(duration: 0.2)) {
             self.viewModel.currentView = .app
         }
     }

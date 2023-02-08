@@ -19,6 +19,8 @@ enum BookmarksViewStatus {
 extension BookmarkPage {
     @MainActor final class BookmarkPageViewModel: ObservableObject {
         
+        let viewModelFactory: ViewModelFactory = ViewModelFactory()
+        
         @Inject var scheduleService: ScheduleService
         @Inject var preferenceService: PreferenceService
         @Inject var courseColorService: CourseColorService
@@ -37,6 +39,11 @@ extension BookmarkPage {
             self.loadBookmarkedSchedules()
             self.defaultViewType = preferenceService.getDefaultViewType()
             self.school = preferenceService.getDefaultSchool()
+        }
+        
+        
+        func generateViewModelEventSheet(event: Response.Event, color: Color) -> EventDetailsSheet.EventDetailsSheetViewModel {
+            return viewModelFactory.makeViewModelEventDetailsSheet(event: event, color: color)
         }
         
         
