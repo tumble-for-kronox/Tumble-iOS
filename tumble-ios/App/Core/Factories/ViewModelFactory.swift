@@ -16,24 +16,24 @@ class ViewModelFactory {
     
     @MainActor func makeViewModelParent() -> ParentViewModel { .init() }
 
-    @MainActor func makeViewModelSearch() -> SearchParentView.SearchViewModel { .init() }
+    @MainActor func makeViewModelSearch() -> SearchPage.SearchPageViewModel { .init() }
     
-    @MainActor func makeViewModelHomePage() -> HomeView.HomeViewModel { .init() }
+    @MainActor func makeViewModelHomePage() -> HomePage.HomePageViewModel { .init() }
     
-    @MainActor func makeViewModelBookmarks() -> BookmarksView.BookmarksViewModel { .init() }
+    @MainActor func makeViewModelBookmarks() -> BookmarkPage.BookmarkPageViewModel { .init() }
     
-    @MainActor func makeViewModelAccountPage() -> AccountPageView.AccountPageViewModel { .init() }
+    @MainActor func makeViewModelAccountPage() -> AccountPage.AccountPageViewModel { .init() }
     
-    @MainActor func makeViewModelOnBoarding() -> OnBoardingView.OnBoardingViewModel { .init() }
+    @MainActor func makeViewModelOnBoarding() -> OnBoarding.OnBoardingViewModel { .init() }
     
     // Special viewmodel important for checking user onboarding in order to change
     // the displayed child view
-    @MainActor func makeViewModelRoot() -> RootView.RootViewModel {
+    @MainActor func makeViewModelRoot() -> Root.RootViewModel {
             .init(
                 userNotOnBoarded: !preferenceService.isKeyPresentInUserDefaults(key: StoreKey.userOnboarded.rawValue))
         }
     // Isolated viewmodel requiring an event and color
-    @MainActor func makeViewModelEventDetailsSheet(event: Response.Event, color: Color) -> EventDetailsSheetView.EventDetailsViewModel {
+    @MainActor func makeViewModelEventDetailsSheet(event: Response.Event, color: Color) -> EventDetailsSheet.EventDetailsSheetViewModel {
         .init(event: event, color: color)
     }
 }

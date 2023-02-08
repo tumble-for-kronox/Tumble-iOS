@@ -89,7 +89,7 @@ extension Text {
             .padding([.leading, .trailing], 20)
     }
     
-    func bottomBarItem(selectedTab: BottomTabType, thisTab: BottomTabType) -> some View {
+    func bottomBarItem(selectedTab: TabbarTabType, thisTab: TabbarTabType) -> some View {
         self.font(.system(size: 10, design: .rounded))
             .foregroundColor(selectedTab == thisTab ? .primary : .onBackground)
     }

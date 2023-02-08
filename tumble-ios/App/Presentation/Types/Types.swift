@@ -8,14 +8,14 @@
 import Foundation
 
 // Bottom tab bar
-enum BottomTabType: String {
+enum TabbarTabType: String {
     case home = "house"
     case bookmarks = "bookmark"
     case account = "person"
     
     static let allValues = [home, bookmarks, account]
     
-    var navigationView: BottomTabType {
+    var navigationView: TabbarTabType {
             switch self {
             case .home:
                 return .home
@@ -39,7 +39,7 @@ enum BottomTabType: String {
     }
 }
 
-enum SideBarTabType: String {
+enum SidebarTabType: String {
     case none = ""
     case notifications = "Notifications" // Opens sheet
     case bookmarks = "Bookmarks"
@@ -55,3 +55,4 @@ enum BookmarksViewType: String {
     
     static let allValues: [BookmarksViewType] = [list, calendar]
 }
+

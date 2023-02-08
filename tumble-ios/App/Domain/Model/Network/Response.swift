@@ -23,7 +23,7 @@ enum Response {
     }
 
     // MARK: - Day
-    struct Day: Codable, Hashable {
+    struct Day: Identifiable, Codable, Hashable {
         static func == (lhs: Response.Day, rhs: Response.Day) -> Bool {
             return lhs.name == rhs.name && lhs.isoString == rhs.isoString && lhs.weekNumber == rhs.weekNumber
         }
@@ -32,6 +32,7 @@ enum Response {
         let date, isoString: String
         let weekNumber: Int
         let events: [Event]
+        var id: UUID = UUID()
     }
 
     // MARK: - Event
