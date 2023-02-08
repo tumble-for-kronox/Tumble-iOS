@@ -31,10 +31,10 @@ enum ThemeMode: String {
     @Published var canvasUrl: String?
     @Published var domain: String?
 
-    let homeViewModel: HomeView.HomeViewModel
-    let bookmarksViewModel: BookmarksView.BookmarksViewModel
-    let accountPageViewModel: AccountPageView.AccountPageViewModel
-    let searchViewModel: SearchParentView.SearchViewModel
+    let homeViewModel: HomePage.HomePageViewModel
+    let bookmarksViewModel: BookmarkPage.BookmarkPageViewModel
+    let accountPageViewModel: AccountPage.AccountPageViewModel
+    let searchViewModel: SearchPage.SearchPageViewModel
     
     
     init() {
@@ -66,7 +66,7 @@ enum ThemeMode: String {
     }
     
     
-    func generateViewModelEventSheet(event: Response.Event, color: Color) -> EventDetailsSheetView.EventDetailsViewModel {
+    func generateViewModelEventSheet(event: Response.Event, color: Color) -> EventDetailsSheet.EventDetailsSheetViewModel {
         return viewModelFactory.makeViewModelEventDetailsSheet(event: event, color: color)
     }
     
@@ -90,10 +90,12 @@ enum ThemeMode: String {
     }
     
     
-    func getSearchViewModel() -> SearchParentView.SearchViewModel {
+    func getSearchViewModel() -> SearchPage.SearchPageViewModel {
         return viewModelFactory.makeViewModelSearch()
     }
 }
+
+
 
 
 extension ParentViewModel {

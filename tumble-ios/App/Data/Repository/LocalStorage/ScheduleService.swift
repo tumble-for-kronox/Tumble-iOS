@@ -147,8 +147,7 @@ extension ScheduleService {
     
     fileprivate func insertOrReplace(for schedule: Response.Schedule, with schedules: [ScheduleStoreObject]) -> [ScheduleStoreObject] {
         let calendar = Calendar(identifier: .gregorian)
-        let components = calendar.dateComponents([.day, .month, .year], from: Date())
-        let date = calendar.date(from: components)
+        let date = calendar.dateComponents(in: calendar.timeZone, from: Date.now).date
         
         var newSchedules: [ScheduleStoreObject] = schedules
         
