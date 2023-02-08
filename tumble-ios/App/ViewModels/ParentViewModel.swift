@@ -66,27 +66,26 @@ enum ThemeMode: String {
     }
     
     
-    func generateViewModelEventSheet(event: Response.Event, color: Color) -> EventDetailsSheet.EventDetailsSheetViewModel {
-        return viewModelFactory.makeViewModelEventDetailsSheet(event: event, color: color)
-    }
-    
-    
     func updateSchedulesChildView() -> Void {
         bookmarksViewModel.loadBookmarkedSchedules()
     }
     
     
-    func changeSchool(school: School, closure: @escaping () -> Void) -> Void {
-        preferenceService.setSchool(id: school.id, closure: { [weak self] in
-            guard let self = self else { return }
-            self.removeAllSchedules() {
-                self.removeAllCourseColors() {
-                    self.cancelAllNotifications() {
-                        closure()
+    func changeSchool(school: School, closure: @escaping (Bool) -> Void) -> Void {
+        if school == self.preferenceService.getDefaultSchool() {
+            closure(false)
+        } else {
+            self.preferenceService.setSchool(id: school.id, closure: { [weak self] in
+                guard let self = self else { return }
+                self.removeAllSchedules() {
+                    self.removeAllCourseColors() {
+                        self.cancelAllNotifications() {
+                            closure(true)
+                        }
                     }
                 }
-            }
-        })
+            })
+        }
     }
     
     

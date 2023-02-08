@@ -11,6 +11,9 @@ struct BookmarkPage: View {
     
     @ObservedObject var viewModel: BookmarkPageViewModel
     let onTapCard: OnTapCard
+    let createToast: (ToastStyle, String, String) -> Void
+    @Binding var eventSheet: EventSheetModel?
+    
     
     var body: some View {
         VStack (alignment: .center) {
@@ -58,6 +61,9 @@ struct BookmarkPage: View {
                     Info(title: "There was an error retrieving your schedules", image: "exclamationmark.circle")
                 }
             }
+        }
+        .sheet(item: $eventSheet) { (eventSheet: EventSheetModel) in
+            EventDetailsSheet(viewModel: viewModel.generateViewModelEventSheet(event: eventSheet.event, color: eventSheet.color), createToast: createToast)
         }
     }
 }

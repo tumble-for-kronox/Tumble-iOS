@@ -35,7 +35,7 @@ struct AppParent: View {
             Color.primary
                 .ignoresSafeArea()
             
-            SidebarMenu(selectedSideBarTab: $selectedSideBarTab, selectedBottomTab: $selectedBottomTab, sideBarSheet: $sideBarSheet, universityImage: viewModel.universityImage ?? Image(systemName: "building.columns"), universityName: viewModel.universityName ?? "")
+            SidebarMenu(selectedSideBarTab: $selectedSideBarTab, selectedBottomTab: $selectedBottomTab, sideBarSheet: $sideBarSheet, onChangeSchool: onChangeSchool, universityImage: viewModel.universityImage ?? Image(systemName: "building.columns"), universityName: viewModel.universityName ?? "")
             
             ZStack {
                 FadedPageUnderlay(backgroundOpacity: 0.6, offset: -25, verticalPadding: 30, showSideBar: $showSideBar)
@@ -47,7 +47,7 @@ struct AppParent: View {
                         case .home:
                             HomePage(viewModel: viewModel.homeViewModel, domain: $viewModel.domain, canvasUrl: $viewModel.canvasUrl, kronoxUrl: $viewModel.kronoxUrl)
                         case .bookmarks:
-                            BookmarkPage(viewModel: viewModel.bookmarksViewModel, onTapCard: onOpenEventDetailsSheet)
+                            BookmarkPage(viewModel: viewModel.bookmarksViewModel, onTapCard: onOpenEventDetailsSheet,  createToast: createToast, eventSheet: $eventSheet)
                         case .account:
                             AccountPage(viewModel: viewModel.accountPageViewModel)
                         }
@@ -64,7 +64,6 @@ struct AppParent: View {
                             NavigationbarSearch(viewModel: viewModel.searchViewModel, backButtonTitle: selectedBottomTab.displayName, checkForNewSchedules: checkForNewSchedules, universityImage: $viewModel.universityImage)
                         })
                     }.background(Color.background)
-                    
                 }
                 .blur(radius: showSideBar ? 50 : 0)
                 .overlay(
@@ -82,15 +81,6 @@ struct AppParent: View {
                         }
                     }
                 )
-                .sheet(item: $eventSheet) { (eventSheet: EventSheetModel) in
-                    EventDetailsSheet(viewModel: viewModel.generateViewModelEventSheet(event: eventSheet.event, color: eventSheet.color), createToast: createToast)
-                }
-                .onDisappear {
-                    handleSideBarAction(shouldShowSideBar: false, newSideBarTab: .none)
-                }
-                .sheet(item: $sideBarSheet) { (sideBarSheet: SideBarSheetModel) in
-                    SideBarSheet(sideBarTabType: sideBarSheet.sideBarType, onChangeSchool: onChangeSchool)
-                }
                 .cornerRadius(showSideBar ? 15 : 0)
             }
             .scaleEffect(showSideBar ? 0.84 : 1)
@@ -123,9 +113,13 @@ struct AppParent: View {
     }
     
     func onChangeSchool(school: School) -> Void {
-        viewModel.changeSchool(school: school, closure: {
-            toast = Toast(type: .success, title: "New school", message: "Set \(school.name) to default")
-            viewModel.updateLocalsAndChildViews()
+        viewModel.changeSchool(school: school, closure: { success in
+            if success {
+                toast = Toast(type: .success, title: "New school", message: "Set \(school.name) to default")
+                viewModel.updateLocalsAndChildViews()
+            } else {
+                toast = Toast(type: .info, title: "School already selected", message: "You already have \(school.name) as your default school")
+            }
         })
     }
     

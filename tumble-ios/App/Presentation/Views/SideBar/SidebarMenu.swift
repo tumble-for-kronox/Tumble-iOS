@@ -14,6 +14,7 @@ struct SidebarMenu: View {
     @Binding var sideBarSheet: SideBarSheetModel?
     @Namespace var animation
     
+    let onChangeSchool: (School) -> Void
     let universityImage: Image
     let universityName: String
     
@@ -70,6 +71,9 @@ struct SidebarMenu: View {
         .padding(.top, 20)
         .padding(8)
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+        .sheet(item: $sideBarSheet) { (sideBarSheet: SideBarSheetModel) in
+            SideBarSheet(sideBarTabType: sideBarSheet.sideBarType, onChangeSchool: onChangeSchool)
+        }
     }
 }
 
