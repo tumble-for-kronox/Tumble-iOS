@@ -15,9 +15,9 @@ protocol PreferenceServiceProtocol {
     
     func setOffset(offset: Int) -> Void
     
-    func setBookmark(bookmark: String) -> Void
+    func setBookmarks(bookmark: String) -> Void
     
-    func setLocale(locale: String) -> Void
+    func setBookmarks(bookmarks: [Bookmark]) -> Void
     
     func setTheme(isDarkMode: Bool) -> Void
     
@@ -25,14 +25,13 @@ protocol PreferenceServiceProtocol {
     
     func setLang(lang: String) -> Void
     
-    func setNotifAllowed(notifAllowed: Bool)
+    func setAutoSign(autoSignup: Bool) -> Void
     
-    func setAutoSign(autoSign: Bool)
+    func setViewType(viewType: Int) -> Void
     
-    func setViewType(viewType: Int)
+    func setOverrideSystem(value: Bool) -> Void
     
-    func setOverrideSystem(value: Bool)
-    
+    func toggleBookmark(bookmark: String, value: Bool) -> Void
     
     // ----------- GET -----------
     func getDefault(key: String) -> Any?

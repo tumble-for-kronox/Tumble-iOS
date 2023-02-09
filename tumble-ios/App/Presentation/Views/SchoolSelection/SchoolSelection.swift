@@ -22,8 +22,7 @@ struct SchoolSelection: View {
                     })
                 }
         }
-        .padding([.top], 30)
-        
+        .padding([.top], 5)
     }
 }
 

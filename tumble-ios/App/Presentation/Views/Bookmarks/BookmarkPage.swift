@@ -56,7 +56,7 @@ struct BookmarkPage: View {
                             .padding(.top, 10)
                     }
                 case .uninitialized:
-                    Info(title: "No bookmarked schedules", image: "bookmark.slash")
+                    Info(title: "No bookmarks yet", image: "bookmark.slash")
                 case .error:
                     Info(title: "There was an error retrieving your schedules", image: "exclamationmark.circle")
                 }

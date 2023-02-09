@@ -121,6 +121,7 @@ extension SearchPage {
             // If the schedule isn't already saved in the local database
             if !self.schedulePreviewIsSaved {
                 self.saveSchedule(checkForNewSchedules: checkForNewSchedules)
+                self.preferenceService.setBookmarks(bookmark: scheduleForPreview!.id)
                 return .saved
             }
             // Otherwise we remove (untoggle) the schedule

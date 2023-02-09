@@ -90,7 +90,7 @@ extension BookmarkPage {
 // Fileprivate methods
 extension BookmarkPage.BookmarkPageViewModel {
     
-    fileprivate func checkUpdatesRequired(for bookmarks: [ScheduleStoreObject], completion: @escaping () -> Void) -> Void {
+    fileprivate func checkUpdatesRequired(for bookmarks: [ScheduleStoreModel], completion: @escaping () -> Void) -> Void {
         var updatedBookmarks: [Response.Schedule] = []
         let group = DispatchGroup()
         let calendar = Calendar(identifier: .gregorian)
@@ -171,7 +171,7 @@ extension BookmarkPage.BookmarkPageViewModel {
     }
     
     
-    fileprivate func loadSchedules(completion: @escaping ([ScheduleStoreObject]) -> Void) -> Void {
+    fileprivate func loadSchedules(completion: @escaping ([ScheduleStoreModel]) -> Void) -> Void {
         DispatchQueue.main.async {
             self.scheduleService.load { [weak self] result in
                 guard let self = self else { return }

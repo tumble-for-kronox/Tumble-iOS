@@ -9,11 +9,24 @@ import Foundation
 import SwiftUI
 
 class PreferenceService: PreferenceServiceProtocol {
+    
+    func toggleBookmark(bookmark: String, value: Bool) {
+        var bookmarks: [String : Bool] = UserDefaults.standard.object(forKey: StoreKey.bookmarks.rawValue) as? [String : Bool] ?? [:]
+        bookmarks[bookmark] = value
+        UserDefaults.standard.set(bookmarks, forKey: StoreKey.bookmarks.rawValue)
+        UserDefaults.standard.synchronize()
+    }
+    
     // ----------- SET -----------
     func setSchool(id: Int, closure: @escaping () -> Void) -> Void {
         UserDefaults.standard.set(id, forKey: StoreKey.school.rawValue)
         UserDefaults.standard.synchronize()
         closure()
+    }
+    
+    func setBookmarks(bookmarks: [Bookmark]) {
+        UserDefaults.standard.set(Dictionary(uniqueKeysWithValues: bookmarks.map { ($0.id, $0.toggled) }), forKey: StoreKey.bookmarks.rawValue)
+        UserDefaults.standard.synchronize()
     }
     
     func setUserOnboarded() -> Void {
@@ -26,26 +39,21 @@ class PreferenceService: PreferenceServiceProtocol {
         UserDefaults.standard.synchronize()
     }
     
-    func setBookmark(bookmark: String) -> Void {
-        var bookmarks: [String] = UserDefaults.standard.object(forKey: StoreKey.bookmark.rawValue) as? [String] ?? []
-        bookmarks.append(bookmark)
-        UserDefaults.standard.set(bookmarks, forKey: StoreKey.bookmark.rawValue)
-        UserDefaults.standard.synchronize()
-    }
-    
-    func setLocale(locale: String) -> Void {
-        UserDefaults.standard.set(locale, forKey: StoreKey.locale.rawValue)
+    func setBookmarks(bookmark: String) -> Void {
+        var bookmarks: [String : Bool] = UserDefaults.standard.object(forKey: StoreKey.bookmarks.rawValue) as? [String : Bool] ?? [:]
+        bookmarks[bookmark] = true
+        UserDefaults.standard.set(bookmarks, forKey: StoreKey.bookmarks.rawValue)
         UserDefaults.standard.synchronize()
     }
     
     func setTheme(isDarkMode: Bool) -> Void {
         UserDefaults.standard.set(isDarkMode, forKey: StoreKey.theme.rawValue)
-        UserDefaults.standard.set(true, forKey: StoreKey.overrideSystem.rawValue)
+        UserDefaults.standard.set(true, forKey: StoreKey.overrideSystemTheme.rawValue)
         UserDefaults.standard.synchronize()
     }
     
     func setOverrideSystemFalse() -> Void {
-        UserDefaults.standard.set(false, forKey: StoreKey.overrideSystem.rawValue)
+        UserDefaults.standard.set(false, forKey: StoreKey.overrideSystemTheme.rawValue)
         UserDefaults.standard.synchronize()
     }
     
@@ -54,13 +62,8 @@ class PreferenceService: PreferenceServiceProtocol {
         UserDefaults.standard.synchronize()
     }
     
-    func setNotifAllowed(notifAllowed: Bool) {
-        UserDefaults.standard.set(notifAllowed, forKey: StoreKey.notificationAllowed.rawValue)
-        UserDefaults.standard.synchronize()
-    }
-    
-    func setAutoSign(autoSign: Bool) {
-        UserDefaults.standard.set(autoSign, forKey: StoreKey.autoSign.rawValue)
+    func setAutoSign(autoSignup: Bool) {
+        UserDefaults.standard.set(autoSignup, forKey: StoreKey.autoSignup.rawValue)
         UserDefaults.standard.synchronize()
     }
     
@@ -70,7 +73,7 @@ class PreferenceService: PreferenceServiceProtocol {
     }
     
     func setOverrideSystem(value: Bool) {
-        UserDefaults.standard.set(value, forKey: StoreKey.overrideSystem.rawValue)
+        UserDefaults.standard.set(value, forKey: StoreKey.overrideSystemTheme.rawValue)
         UserDefaults.standard.synchronize()
     }
     
@@ -78,6 +81,11 @@ class PreferenceService: PreferenceServiceProtocol {
     // ----------- GET -----------
     func getDefault(key: String) -> Any? {
         return UserDefaults.standard.object(forKey: key)
+    }
+    
+    func getBookmarks() -> [Bookmark]? {
+        let dict: [String : Bool] = UserDefaults.standard.object(forKey: StoreKey.bookmarks.rawValue) as? [String : Bool] ?? [:]
+        return dict.map{ Bookmark(toggled: $0.value, id: $0.key) }
     }
     
     func getDefaultViewType() -> BookmarksViewType {

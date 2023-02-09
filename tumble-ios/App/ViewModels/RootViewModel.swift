@@ -24,10 +24,8 @@ extension Root {
         
         
         init (userNotOnBoarded: Bool) {
-            
             self.parentViewModel = viewModelFactory.makeViewModelParent()
             self.onBoardingViewModel = viewModelFactory.makeViewModelOnBoarding()
-            
             self.currentView = userNotOnBoarded ? .onboarding : .app
             self.showNotificationsPermission = userNotOnBoarded ? true : false
         }

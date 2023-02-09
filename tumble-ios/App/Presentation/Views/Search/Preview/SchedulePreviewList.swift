@@ -58,15 +58,9 @@ struct SchedulePreviewList: View {
                                     CustomProgressIndicator()
                                         .matchedGeometryEffect(id: "BOOKMARKBTN", in: animation)
                                 case .saved:
-                                    Image(systemName: "bookmark.fill")
-                                        .font(.system(size: 20))
-                                        .foregroundColor(.onPrimary)
-                                        .matchedGeometryEffect(id: "BOOKMARKBTN", in: animation)
+                                    BookmarkButton(animation: animation, title: "Remove", image: "bookmark.fill")
                                 case .notSaved:
-                                    Image(systemName: "bookmark")
-                                        .font(.system(size: 20))
-                                        .foregroundColor(.onPrimary)
-                                        .matchedGeometryEffect(id: "BOOKMARKBTN", in: animation)
+                                    BookmarkButton(animation: animation, title: "Bookmark", image: "bookmark")
                                 }
                             }
                             .padding()

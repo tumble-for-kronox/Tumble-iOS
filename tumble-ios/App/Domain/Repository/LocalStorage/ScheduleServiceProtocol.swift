@@ -9,11 +9,11 @@ import Foundation
 
 protocol ScheduleServiceProtocol {
     
-    func load(completion: @escaping (Result<[ScheduleStoreObject], Error>)->Void)
-
-    func save(schedule: Response.Schedule, completion: @escaping (Result<Int, Error>)->Void)
+    func load(completion: @escaping (Result<[ScheduleStoreModel], Error>) -> Void)
+    
+    func save(schedule: Response.Schedule, completion: @escaping (Result<Int, Error>) -> Void)
     
     func removeAll(completion: @escaping (Result<Int, Error>) -> Void)
     
-    func remove(scheduleId: String, completion: @escaping (Result<Int, Error>)->Void)
+    func remove(scheduleId: String, completion: @escaping (Result<Int, Error>) -> Void)
 }

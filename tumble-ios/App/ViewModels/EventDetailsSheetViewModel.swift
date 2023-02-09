@@ -98,7 +98,7 @@ extension EventDetailsSheet {
 extension EventDetailsSheet.EventDetailsSheetViewModel {
     
     // Apply scheduleNotifaction for each event under specific course id
-    fileprivate func applyNotificationForScheduleEventsInCourse(schedules: [ScheduleStoreObject], completion: @escaping (Bool) -> Void)
+    fileprivate func applyNotificationForScheduleEventsInCourse(schedules: [ScheduleStoreModel], completion: @escaping (Bool) -> Void)
             -> Void {
                 
         let events = schedules

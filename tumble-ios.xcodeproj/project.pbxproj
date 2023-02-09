@@ -111,6 +111,13 @@
 		D48CE45A29849D8A00D312EC /* SupportOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48CE45929849D8A00D312EC /* SupportOption.swift */; };
 		D48F0D8829367A7F0039CD0F /* CourseColorService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48F0D8729367A7F0039CD0F /* CourseColorService.swift */; };
 		D48F0D8A29367CAF0039CD0F /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48F0D8929367CAF0039CD0F /* Colors.swift */; };
+		D4A550CA2994507B00028BCF /* BookmarksSidebarSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A550C92994507B00028BCF /* BookmarksSidebarSheet.swift */; };
+		D4A550CC2994509A00028BCF /* SidebarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A550CB2994509A00028BCF /* SidebarViewModel.swift */; };
+		D4A550CF299454F700028BCF /* ScheduleStoreModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A550CE299454F700028BCF /* ScheduleStoreModel.swift */; };
+		D4A550D129946B8200028BCF /* Bookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A550D029946B8200028BCF /* Bookmark.swift */; };
+		D4A550D329946D8400028BCF /* BookmarkRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A550D229946D8400028BCF /* BookmarkRow.swift */; };
+		D4A550D52994755900028BCF /* BookmarkButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A550D42994755900028BCF /* BookmarkButton.swift */; };
+		D4A550D729947FA500028BCF /* SidebarSheetViewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A550D629947FA500028BCF /* SidebarSheetViewBuilder.swift */; };
 		D4ABD26B298C19AB002FD8F5 /* SideBarSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4ABD26A298C19AB002FD8F5 /* SideBarSheet.swift */; };
 		D4ABD270298C2E15002FD8F5 /* DayUiModelExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4ABD26F298C2E15002FD8F5 /* DayUiModelExtension.swift */; };
 		D4ABD272298C2E32002FD8F5 /* DayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4ABD271298C2E32002FD8F5 /* DayExtension.swift */; };
@@ -241,6 +248,13 @@
 		D48CE45929849D8A00D312EC /* SupportOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportOption.swift; sourceTree = "<group>"; };
 		D48F0D8729367A7F0039CD0F /* CourseColorService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseColorService.swift; sourceTree = "<group>"; };
 		D48F0D8929367CAF0039CD0F /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		D4A550C92994507B00028BCF /* BookmarksSidebarSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksSidebarSheet.swift; sourceTree = "<group>"; };
+		D4A550CB2994509A00028BCF /* SidebarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarViewModel.swift; sourceTree = "<group>"; };
+		D4A550CE299454F700028BCF /* ScheduleStoreModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleStoreModel.swift; sourceTree = "<group>"; };
+		D4A550D029946B8200028BCF /* Bookmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bookmark.swift; sourceTree = "<group>"; };
+		D4A550D229946D8400028BCF /* BookmarkRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkRow.swift; sourceTree = "<group>"; };
+		D4A550D42994755900028BCF /* BookmarkButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkButton.swift; sourceTree = "<group>"; };
+		D4A550D629947FA500028BCF /* SidebarSheetViewBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarSheetViewBuilder.swift; sourceTree = "<group>"; };
 		D4ABD26A298C19AB002FD8F5 /* SideBarSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideBarSheet.swift; sourceTree = "<group>"; };
 		D4ABD26F298C2E15002FD8F5 /* DayUiModelExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayUiModelExtension.swift; sourceTree = "<group>"; };
 		D4ABD271298C2E32002FD8F5 /* DayExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayExtension.swift; sourceTree = "<group>"; };
@@ -343,6 +357,7 @@
 				D40E843C2981C8B200C2CF2E /* AccountPageViewModel.swift */,
 				D43419C32985684C001089A0 /* OnBoardingViewModel.swift */,
 				D441B10C298A8CEC00D22142 /* EventDetailsSheetViewModel.swift */,
+				D4A550CB2994509A00028BCF /* SidebarViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -390,6 +405,7 @@
 		D41172C02985EB2C0082BB4F /* SideBar */ = {
 			isa = PBXGroup;
 			children = (
+				D4A550C82994504A00028BCF /* Bookmarks */,
 				D40D80C62925BA62008CA68D /* SidebarMenuButton.swift */,
 				D46BB113298B0F5800887A24 /* FadedPageUnderlay.swift */,
 				D46BB10D298B025100887A24 /* SidebarMenu.swift */,
@@ -444,6 +460,7 @@
 		D41ED545298433A3009DCF8B /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				D4A550CD299454E900028BCF /* UserDefaults */,
 				D4644A27298DD78800B0BB28 /* Notifications */,
 				D46ABF1029843D2700B059F6 /* Preferences */,
 				D41ED554298436CE009DCF8B /* Presentation */,
@@ -481,6 +498,7 @@
 				D45338FC29297C8B00198411 /* DayUIModel.swift */,
 				D421EAEF2993FB660045D438 /* EventSheetModel.swift */,
 				D421EAF12993FBB00045D438 /* SideBarSheetModel.swift */,
+				D4A550D029946B8200028BCF /* Bookmark.swift */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -768,6 +786,7 @@
 				D476BD2B293A326C0027CFE8 /* SchedulePreviewCard.swift */,
 				D4861DEA29834E1900C4CA6F /* PreviewCardBanner.swift */,
 				D4861DEC29834EB900C4CA6F /* PreviewCardInformation.swift */,
+				D4A550D42994755900028BCF /* BookmarkButton.swift */,
 			);
 			path = Preview;
 			sourceTree = "<group>";
@@ -801,10 +820,28 @@
 			path = Support;
 			sourceTree = "<group>";
 		};
+		D4A550C82994504A00028BCF /* Bookmarks */ = {
+			isa = PBXGroup;
+			children = (
+				D4A550C92994507B00028BCF /* BookmarksSidebarSheet.swift */,
+				D4A550D229946D8400028BCF /* BookmarkRow.swift */,
+			);
+			path = Bookmarks;
+			sourceTree = "<group>";
+		};
+		D4A550CD299454E900028BCF /* UserDefaults */ = {
+			isa = PBXGroup;
+			children = (
+				D4A550CE299454F700028BCF /* ScheduleStoreModel.swift */,
+			);
+			path = UserDefaults;
+			sourceTree = "<group>";
+		};
 		D4ABD269298C197E002FD8F5 /* SideBarSheetView */ = {
 			isa = PBXGroup;
 			children = (
 				D4ABD26A298C19AB002FD8F5 /* SideBarSheet.swift */,
+				D4A550D629947FA500028BCF /* SidebarSheetViewBuilder.swift */,
 			);
 			path = SideBarSheetView;
 			sourceTree = "<group>";
@@ -1017,8 +1054,10 @@
 				D4462C3029858A280067DA65 /* TextExtensions.swift in Sources */,
 				D4BAE5F82924636500143717 /* School.swift in Sources */,
 				D4BAE61C29246AF800143717 /* SchoolRow.swift in Sources */,
+				D4A550D729947FA500028BCF /* SidebarSheetViewBuilder.swift in Sources */,
 				D40D808929247123008CA68D /* Root.swift in Sources */,
 				D46BB10E298B025100887A24 /* SidebarMenu.swift in Sources */,
+				D4A550CA2994507B00028BCF /* BookmarksSidebarSheet.swift in Sources */,
 				D43419A9298546B0001089A0 /* FeatureCard.swift in Sources */,
 				D48F0D8829367A7F0039CD0F /* CourseColorService.swift in Sources */,
 				D43419B029854FCA001089A0 /* AppFeaturesList.swift in Sources */,
@@ -1042,6 +1081,7 @@
 				D43419B5298550BE001089A0 /* UsageCard.swift in Sources */,
 				D45338F629280E8400198411 /* ScheduleExtensions.swift in Sources */,
 				D42BAC1E298D3D6A0025EAA9 /* AppLogger.swift in Sources */,
+				D4A550D329946D8400028BCF /* BookmarkRow.swift in Sources */,
 				D45338FB2929730200198411 /* CustomProgressIndicator.swift in Sources */,
 				D4644A23298DA93A00B0BB28 /* NotificationManager.swift in Sources */,
 				D4ABD272298C2E32002FD8F5 /* DayExtension.swift in Sources */,
@@ -1050,6 +1090,7 @@
 				D4563E802985FBFB003261FA /* NetworkExtensions.swift in Sources */,
 				D46BB114298B0F5800887A24 /* FadedPageUnderlay.swift in Sources */,
 				D43752E6298F33110037A431 /* HomePageOption.swift in Sources */,
+				D4A550D52994755900028BCF /* BookmarkButton.swift in Sources */,
 				D43419C02985639D001089A0 /* ColorInstructions.swift in Sources */,
 				D460763B292AAD5400DE9590 /* PopupToastView.swift in Sources */,
 				D4D4DD032927C7DA0083BB7F /* ProgrammeCard.swift in Sources */,
@@ -1058,6 +1099,7 @@
 				D4E39E402989DDDC004C30DF /* EventDetailsBody.swift in Sources */,
 				D4E39E3A2989CE84004C30DF /* EventDetailsSheet.swift in Sources */,
 				D4FF4726299156FC0080C898 /* ScheduleStoreObjectExtension.swift in Sources */,
+				D4A550D129946B8200028BCF /* Bookmark.swift in Sources */,
 				D42BAC17298D282B0025EAA9 /* ExternalLinkPill.swift in Sources */,
 				D43419AE29854E6B001089A0 /* OnBoardingViewBuilder.swift in Sources */,
 				D43419C42985684C001089A0 /* OnBoardingViewModel.swift in Sources */,
@@ -1080,6 +1122,7 @@
 				D46ABF0F29843CF300B059F6 /* PreferenceServiceProtocol.swift in Sources */,
 				D4ABD275298C2EC2002FD8F5 /* PreferenceServiceExtension.swift in Sources */,
 				D48F0D8A29367CAF0039CD0F /* Colors.swift in Sources */,
+				D4A550CF299454F700028BCF /* ScheduleStoreModel.swift in Sources */,
 				D4607632292AA39400DE9590 /* Types.swift in Sources */,
 				D48CE45A29849D8A00D312EC /* SupportOption.swift in Sources */,
 				D4607653292AF5DA00DE9590 /* DayHeader.swift in Sources */,
@@ -1096,6 +1139,7 @@
 				D43419B829855A9C001089A0 /* SkipButton.swift in Sources */,
 				D43419BA29855CF6001089A0 /* BookingInstructions.swift in Sources */,
 				D40D80A929252688008CA68D /* ParentViewModel.swift in Sources */,
+				D4A550CC2994509A00028BCF /* SidebarViewModel.swift in Sources */,
 				D4722161292455710063BDB7 /* NetworkManager.swift in Sources */,
 				D4BAE614292466F700143717 /* SchoolModelData.swift in Sources */,
 				D42BAC25298D5EBC0025EAA9 /* Dependencies.swift in Sources */,
