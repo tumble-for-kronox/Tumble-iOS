@@ -10,6 +10,13 @@ import SwiftUI
 
 extension Text {
     
+    func sheetTitle() -> some View {
+        self.font(.system(size: 26, weight: .semibold, design: .rounded))
+            .foregroundColor(.onBackground)
+            .padding([.bottom, .top], 20)
+            .padding([.leading, .trailing], 15)
+    }
+    
     func appHeader() -> some View {
         self
             .font(.system(size: 24, design: .rounded))

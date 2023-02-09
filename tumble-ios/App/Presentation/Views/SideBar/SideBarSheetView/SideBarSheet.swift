@@ -9,21 +9,26 @@ import SwiftUI
 
 struct SideBarSheet: View {
     
+    @ObservedObject var parentViewModel: SidebarMenu.SidebarViewModel
     @Environment(\.presentationMode) var presentationMode
     
+    let updateBookmarks: () -> Void
     let sideBarTabType: SidebarTabType
     let onChangeSchool: (School) -> Void
     
     var body: some View {
         switch sideBarTabType {
         case .school:
-            SchoolSelection(onSelectSchool: { school in
-                onChangeSchool(school)
-                presentationMode.wrappedValue.dismiss()
-            })
-            
+            SidebarSheetViewBuilder(header: "Change schools") {
+                SchoolSelection(onSelectSchool: { school in
+                    onChangeSchool(school)
+                    presentationMode.wrappedValue.dismiss()
+                })
+            }
         case .bookmarks:
-            Text("Stub")
+            SidebarSheetViewBuilder(header: "Your bookmarks") {
+                BookmarksSidebarSheet(bookmarks: parentViewModel.bookmarks ?? [], toggleBookmark: toggleBookmark)
+            }
         case .support:
             Support()
         case .none:
@@ -36,4 +41,10 @@ struct SideBarSheet: View {
             EmptyView()
         }
     }
+    
+    fileprivate func toggleBookmark(id: String, value: Bool) -> Void {
+        parentViewModel.toggleBookmarkVisibility(for: id, to: value)
+        updateBookmarks()
+    }
+    
 }

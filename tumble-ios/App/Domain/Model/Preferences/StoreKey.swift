@@ -8,17 +8,17 @@
 import Foundation
 
 enum StoreKey: String {
-    case school = "SCHOOL"
-    case bookmark = "BOOKMARK"
-    case theme = "THEME"
-    case language = "LANG"
-    case notificationAllowed = "NOTIFICATION_ALLOW"
-    case notificationOffset = "NOTIFICATION_OFFSET"
-    case locale = "LOCALE"
-    case autoSign = "AUTO_SIGN"
-    case viewType = "VIEW_TYPE"
-    case userOnboarded = "USER_ONBOARDED"
-    case overrideSystem = "OVERRIDE_THEME"
-    case networkSettings = "networkSettings"
+    
+    case school = "school"
+    case bookmarks = "bookmarks"
+    case theme = "theme"
+    case language = "lang"
+    case notificationOffset = "notification_offset"
+    case autoSignup = "auto_signup"
+    case viewType = "view_type"
+    case userOnboarded = "user_onboarded"
+    case overrideSystemTheme = "override_theme"
     case lastBookmarksUpdate = "last_bookmark_update"
+    
+    case networkSettings = "networkSettings"
 }

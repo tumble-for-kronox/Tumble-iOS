@@ -36,4 +36,6 @@ class ViewModelFactory {
     @MainActor func makeViewModelEventDetailsSheet(event: Response.Event, color: Color) -> EventDetailsSheet.EventDetailsSheetViewModel {
         .init(event: event, color: color)
     }
+    
+    @MainActor func makeViewModelSidebar() -> SidebarMenu.SidebarViewModel { .init() }
 }

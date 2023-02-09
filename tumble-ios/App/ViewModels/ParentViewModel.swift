@@ -25,16 +25,17 @@ enum ThemeMode: String {
     @Inject var preferenceService: PreferenceService
     @Inject var notificationManager: NotificationManager
     
-    @Published var universityImage: Image?
-    @Published var universityName: String?
     @Published var kronoxUrl: String?
     @Published var canvasUrl: String?
     @Published var domain: String?
-
+    @Published var universityImage: Image?
+    @Published var universityName: String?
+    
     let homeViewModel: HomePage.HomePageViewModel
     let bookmarksViewModel: BookmarkPage.BookmarkPageViewModel
     let accountPageViewModel: AccountPage.AccountPageViewModel
     let searchViewModel: SearchPage.SearchPageViewModel
+    let sidebarViewModel: SidebarMenu.SidebarViewModel
     
     
     init() {
@@ -44,29 +45,32 @@ enum ThemeMode: String {
         self.bookmarksViewModel = viewModelFactory.makeViewModelBookmarks()
         self.accountPageViewModel = viewModelFactory.makeViewModelAccountPage()
         self.searchViewModel = viewModelFactory.makeViewModelSearch()
+        self.sidebarViewModel = viewModelFactory.makeViewModelSidebar()
         
-        self.universityName = preferenceService.getUniversityName()
-        self.universityImage = preferenceService.getUniversityImage()
         self.canvasUrl = preferenceService.getCanvasUrl()
         self.kronoxUrl = preferenceService.getUniversityKronoxUrl()
         self.domain = preferenceService.getUniversityDomain()
+        self.universityImage = self.preferenceService.getUniversityImage()
+        self.universityName = self.preferenceService.getUniversityName()
     }
     
     
     func updateLocalsAndChildViews() -> Void {
         AppLogger.shared.info("Updating child views and local university specifics")
-        self.universityImage = preferenceService.getUniversityImage()
-        self.universityName = preferenceService.getUniversityName()
         self.kronoxUrl = preferenceService.getUniversityKronoxUrl()
         self.canvasUrl = preferenceService.getCanvasUrl()
         self.domain = preferenceService.getUniversityDomain()
+        self.universityImage = preferenceService.getUniversityImage()
+        self.universityName = preferenceService.getUniversityName()
         self.searchViewModel.update()
         self.bookmarksViewModel.update()
+        self.sidebarViewModel.update()
         self.bookmarksViewModel.loadBookmarkedSchedules()
     }
     
     
     func updateSchedulesChildView() -> Void {
+        sidebarViewModel.updateBookmarks()
         bookmarksViewModel.loadBookmarkedSchedules()
     }
     

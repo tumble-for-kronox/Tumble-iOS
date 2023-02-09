@@ -9,20 +9,21 @@ import SwiftUI
 
 struct SidebarMenu: View {
     
+    @ObservedObject var viewModel: SidebarViewModel
+    
     @Binding var selectedSideBarTab: SidebarTabType
     @Binding var selectedBottomTab: TabbarTabType
     @Binding var sideBarSheet: SideBarSheetModel?
     @Namespace var animation
     
+    let updateBookmarks: () -> Void
     let onChangeSchool: (School) -> Void
-    let universityImage: Image
-    let universityName: String
     
     var body: some View {
         
         VStack(alignment: .leading, spacing: 15) {
             VStack (alignment: .leading) {
-                universityImage
+                viewModel.universityImage?
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 75, height: 75)
@@ -31,7 +32,7 @@ struct SidebarMenu: View {
                     // Log out action
                 }, label: {
                     // Should be replaced based on if user is signed in or not
-                        Text(universityName)
+                    Text(viewModel.universityName ?? "")
                             .font(.system(size: 20, design: .rounded))
                             .fontWeight(.semibold)
                             .multilineTextAlignment(.leading)
@@ -72,7 +73,7 @@ struct SidebarMenu: View {
         .padding(8)
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         .sheet(item: $sideBarSheet) { (sideBarSheet: SideBarSheetModel) in
-            SideBarSheet(sideBarTabType: sideBarSheet.sideBarType, onChangeSchool: onChangeSchool)
+            SideBarSheet(parentViewModel: viewModel, updateBookmarks: updateBookmarks, sideBarTabType: sideBarSheet.sideBarType, onChangeSchool: onChangeSchool)
         }
     }
 }

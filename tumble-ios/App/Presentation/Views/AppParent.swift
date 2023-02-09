@@ -35,7 +35,7 @@ struct AppParent: View {
             Color.primary
                 .ignoresSafeArea()
             
-            SidebarMenu(selectedSideBarTab: $selectedSideBarTab, selectedBottomTab: $selectedBottomTab, sideBarSheet: $sideBarSheet, onChangeSchool: onChangeSchool, universityImage: viewModel.universityImage ?? Image(systemName: "building.columns"), universityName: viewModel.universityName ?? "")
+            SidebarMenu(viewModel: viewModel.sidebarViewModel, selectedSideBarTab: $selectedSideBarTab, selectedBottomTab: $selectedBottomTab, sideBarSheet: $sideBarSheet, updateBookmarks: updateBookmarks, onChangeSchool: onChangeSchool)
             
             ZStack {
                 FadedPageUnderlay(backgroundOpacity: 0.6, offset: -25, verticalPadding: 30, showSideBar: $showSideBar)
@@ -61,7 +61,7 @@ struct AppParent: View {
                             NavigationbarSidebar(showSideBar: $showSideBar, selectedSideBarTab: $selectedSideBarTab, handleClose: handleSideBarAction)
                         })
                         ToolbarItem(placement: .navigationBarTrailing, content: {
-                            NavigationbarSearch(viewModel: viewModel.searchViewModel, backButtonTitle: selectedBottomTab.displayName, checkForNewSchedules: checkForNewSchedules, universityImage: $viewModel.universityImage)
+                            NavigationbarSearch(viewModel: viewModel.searchViewModel, backButtonTitle: selectedBottomTab.displayName, checkForNewSchedules: updateBookmarks, universityImage: $viewModel.universityImage)
                         })
                     }.background(Color.background)
                 }
@@ -127,7 +127,7 @@ struct AppParent: View {
         toast = Toast(type: type, title: title, message: message)
     }
     
-    func checkForNewSchedules() -> Void {
+    func updateBookmarks() -> Void {
         viewModel.updateSchedulesChildView()
     }
     

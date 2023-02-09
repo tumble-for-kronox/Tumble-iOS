@@ -15,7 +15,7 @@ struct Root: View {
     @ObservedObject var viewModel: RootViewModel
     
     @Environment(\.colorScheme) var colorScheme: ColorScheme
-    @AppStorage(StoreKey.overrideSystem.rawValue) private var overrideSystem = false
+    @AppStorage(StoreKey.overrideSystemTheme.rawValue) private var overrideSystem = false
     @AppStorage(StoreKey.theme.rawValue) private var isDarkMode = false
     
     var body: some View {
