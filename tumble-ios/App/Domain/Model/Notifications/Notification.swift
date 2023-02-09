@@ -8,9 +8,16 @@
 import Foundation
 
 struct Notification: Identifiable {
+    
     var id: String
-    let title: String
-    let subtitle: String
+    let color: String
     let dateComponents: DateComponents
     let categoryIdentifier: String?
+    let content: [String : Any]?
+
+}
+
+enum NotificationContentKey: String {
+    case event = "EVENT"
+    case color = "COLOR"
 }

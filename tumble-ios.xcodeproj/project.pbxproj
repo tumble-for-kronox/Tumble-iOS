@@ -30,7 +30,7 @@
 		D41ED54E298434C1009DCF8B /* Nullable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41ED54D298434C1009DCF8B /* Nullable.swift */; };
 		D41ED5502984350A009DCF8B /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41ED54F2984350A009DCF8B /* Endpoint.swift */; };
 		D41ED5522984351F009DCF8B /* Method.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41ED5512984351F009DCF8B /* Method.swift */; };
-		D421EAF02993FB660045D438 /* EventSheetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D421EAEF2993FB660045D438 /* EventSheetModel.swift */; };
+		D421EAF02993FB660045D438 /* EventDetailsSheetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D421EAEF2993FB660045D438 /* EventDetailsSheetModel.swift */; };
 		D421EAF22993FBB00045D438 /* SideBarSheetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D421EAF12993FBB00045D438 /* SideBarSheetModel.swift */; };
 		D42BAC15298D21E40025EAA9 /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42BAC14298D21E40025EAA9 /* TabBar.swift */; };
 		D42BAC17298D282B0025EAA9 /* ExternalLinkPill.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42BAC16298D282B0025EAA9 /* ExternalLinkPill.swift */; };
@@ -39,7 +39,6 @@
 		D42BAC1E298D3D6A0025EAA9 /* AppLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42BAC1D298D3D6A0025EAA9 /* AppLogger.swift */; };
 		D42BAC23298D5BFA0025EAA9 /* DependencyInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42BAC22298D5BFA0025EAA9 /* DependencyInjector.swift */; };
 		D42BAC25298D5EBC0025EAA9 /* Dependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42BAC24298D5EBC0025EAA9 /* Dependencies.swift */; };
-		D42FBA44298757A800772239 /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D42FBA432987578300772239 /* Montserrat-Regular.ttf */; };
 		D43419A429853F34001089A0 /* OnBoarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43419A329853F34001089A0 /* OnBoarding.swift */; };
 		D43419A9298546B0001089A0 /* FeatureCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43419A8298546B0001089A0 /* FeatureCard.swift */; };
 		D43419AE29854E6B001089A0 /* OnBoardingViewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43419AD29854E6B001089A0 /* OnBoardingViewBuilder.swift */; };
@@ -54,7 +53,6 @@
 		D43419C2298566DB001089A0 /* SchoolSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43419C1298566DB001089A0 /* SchoolSelection.swift */; };
 		D43419C42985684C001089A0 /* OnBoardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43419C32985684C001089A0 /* OnBoardingViewModel.swift */; };
 		D43752E6298F33110037A431 /* HomePageOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43752E5298F33110037A431 /* HomePageOption.swift */; };
-		D43E680229820C9700124F72 /* ElegantCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = D43E680129820C9700124F72 /* ElegantCalendar */; };
 		D441B10D298A8CEC00D22142 /* EventDetailsSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D441B10C298A8CEC00D22142 /* EventDetailsSheetViewModel.swift */; };
 		D4462C3029858A280067DA65 /* TextExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4462C2F29858A280067DA65 /* TextExtensions.swift */; };
 		D4462C3229858A7D0067DA65 /* ImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4462C3129858A7D0067DA65 /* ImageExtensions.swift */; };
@@ -111,6 +109,10 @@
 		D48CE45A29849D8A00D312EC /* SupportOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48CE45929849D8A00D312EC /* SupportOption.swift */; };
 		D48F0D8829367A7F0039CD0F /* CourseColorService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48F0D8729367A7F0039CD0F /* CourseColorService.swift */; };
 		D48F0D8A29367CAF0039CD0F /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48F0D8929367CAF0039CD0F /* Colors.swift */; };
+		D4A433B829951F2B00BFEB7A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A433B729951F2B00BFEB7A /* AppDelegate.swift */; };
+		D4A433BA29952A8A00BFEB7A /* EventExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A433B929952A8A00BFEB7A /* EventExtension.swift */; };
+		D4A433BC29952BE600BFEB7A /* DictionaryExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A433BB29952BE600BFEB7A /* DictionaryExtension.swift */; };
+		D4A433BE29953AD300BFEB7A /* AppDelegateViewStateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A433BD29953AD300BFEB7A /* AppDelegateViewStateManager.swift */; };
 		D4A550CA2994507B00028BCF /* BookmarksSidebarSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A550C92994507B00028BCF /* BookmarksSidebarSheet.swift */; };
 		D4A550CC2994509A00028BCF /* SidebarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A550CB2994509A00028BCF /* SidebarViewModel.swift */; };
 		D4A550CF299454F700028BCF /* ScheduleStoreModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A550CE299454F700028BCF /* ScheduleStoreModel.swift */; };
@@ -162,16 +164,14 @@
 		D40D80CD29265D49008CA68D /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		D40E843A2981C85400C2CF2E /* AccountPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountPage.swift; sourceTree = "<group>"; };
 		D40E843C2981C8B200C2CF2E /* AccountPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountPageViewModel.swift; sourceTree = "<group>"; };
-		D41172B22985D3120082BB4F /* VarelaRound-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "VarelaRound-Regular.ttf"; path = "../../../../../../Downloads/Varela_Round/VarelaRound-Regular.ttf"; sourceTree = "<group>"; };
 		D41172B42985DA740082BB4F /* TextFieldExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldExtensions.swift; sourceTree = "<group>"; };
-		D41172B82985E4CE0082BB4F /* Satoshi-Variable.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Satoshi-Variable.ttf"; path = "../../../../../../Downloads/Satoshi_Complete/Fonts/Variable/Satoshi-Variable.ttf"; sourceTree = "<group>"; };
 		D41ED53A2983F393009DCF8B /* DateExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
 		D41ED54929843460009DCF8B /* Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
 		D41ED54B29843469009DCF8B /* Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
 		D41ED54D298434C1009DCF8B /* Nullable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Nullable.swift; sourceTree = "<group>"; };
 		D41ED54F2984350A009DCF8B /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		D41ED5512984351F009DCF8B /* Method.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Method.swift; sourceTree = "<group>"; };
-		D421EAEF2993FB660045D438 /* EventSheetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventSheetModel.swift; sourceTree = "<group>"; };
+		D421EAEF2993FB660045D438 /* EventDetailsSheetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailsSheetModel.swift; sourceTree = "<group>"; };
 		D421EAF12993FBB00045D438 /* SideBarSheetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideBarSheetModel.swift; sourceTree = "<group>"; };
 		D42BAC14298D21E40025EAA9 /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
 		D42BAC16298D282B0025EAA9 /* ExternalLinkPill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalLinkPill.swift; sourceTree = "<group>"; };
@@ -179,7 +179,6 @@
 		D42BAC1D298D3D6A0025EAA9 /* AppLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLogger.swift; sourceTree = "<group>"; };
 		D42BAC22298D5BFA0025EAA9 /* DependencyInjector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyInjector.swift; sourceTree = "<group>"; };
 		D42BAC24298D5EBC0025EAA9 /* Dependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dependencies.swift; sourceTree = "<group>"; };
-		D42FBA432987578300772239 /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-Regular.ttf"; path = "../../../../../../Documents/Montserrat/static/Montserrat-Regular.ttf"; sourceTree = "<group>"; };
 		D43419A329853F34001089A0 /* OnBoarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoarding.swift; sourceTree = "<group>"; };
 		D43419A8298546B0001089A0 /* FeatureCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureCard.swift; sourceTree = "<group>"; };
 		D43419AD29854E6B001089A0 /* OnBoardingViewBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingViewBuilder.swift; sourceTree = "<group>"; };
@@ -248,6 +247,10 @@
 		D48CE45929849D8A00D312EC /* SupportOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportOption.swift; sourceTree = "<group>"; };
 		D48F0D8729367A7F0039CD0F /* CourseColorService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseColorService.swift; sourceTree = "<group>"; };
 		D48F0D8929367CAF0039CD0F /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		D4A433B729951F2B00BFEB7A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		D4A433B929952A8A00BFEB7A /* EventExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventExtension.swift; sourceTree = "<group>"; };
+		D4A433BB29952BE600BFEB7A /* DictionaryExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryExtension.swift; sourceTree = "<group>"; };
+		D4A433BD29953AD300BFEB7A /* AppDelegateViewStateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegateViewStateManager.swift; sourceTree = "<group>"; };
 		D4A550C92994507B00028BCF /* BookmarksSidebarSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksSidebarSheet.swift; sourceTree = "<group>"; };
 		D4A550CB2994509A00028BCF /* SidebarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarViewModel.swift; sourceTree = "<group>"; };
 		D4A550CE299454F700028BCF /* ScheduleStoreModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleStoreModel.swift; sourceTree = "<group>"; };
@@ -289,7 +292,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D4607637292AA8DE00DE9590 /* PopupView in Frameworks */,
-				D43E680229820C9700124F72 /* ElegantCalendar in Frameworks */,
 				D4533909292A921B00198411 /* PermissionsSwiftUINotification in Frameworks */,
 				D4533907292A921B00198411 /* PermissionsSwiftUICamera in Frameworks */,
 				D42BAC1C298D3D590025EAA9 /* Logging in Frameworks */,
@@ -496,7 +498,7 @@
 				D4BAE5F72924636500143717 /* School.swift */,
 				D40D809C29251FF6008CA68D /* Toast.swift */,
 				D45338FC29297C8B00198411 /* DayUIModel.swift */,
-				D421EAEF2993FB660045D438 /* EventSheetModel.swift */,
+				D421EAEF2993FB660045D438 /* EventDetailsSheetModel.swift */,
 				D421EAF12993FBB00045D438 /* SideBarSheetModel.swift */,
 				D4A550D029946B8200028BCF /* Bookmark.swift */,
 			);
@@ -738,13 +740,14 @@
 		D47221582924548A0063BDB7 /* App */ = {
 			isa = PBXGroup;
 			children = (
+				D4722148292454560063BDB7 /* tumble_iosApp.swift */,
+				D4A433B729951F2B00BFEB7A /* AppDelegate.swift */,
 				D40D80A72925267F008CA68D /* ViewModels */,
 				D48CE4542984912100D312EC /* Core */,
 				D41ED54429843371009DCF8B /* Presentation */,
 				D41ED5432984336B009DCF8B /* Data */,
 				D41ED54229843366009DCF8B /* Domain */,
 				D472215B292454F60063BDB7 /* Resources */,
-				D4722148292454560063BDB7 /* tumble_iosApp.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -798,6 +801,7 @@
 				D4E39E352989CE1D004C30DF /* Utilities */,
 				D4563E7C2985F960003261FA /* NetworkSettings */,
 				D48CE4552984912B00D312EC /* DependencyInjection */,
+				D4A433BD29953AD300BFEB7A /* AppDelegateViewStateManager.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -849,6 +853,7 @@
 		D4ABD26C298C2DF0002FD8F5 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				D4A433BB29952BE600BFEB7A /* DictionaryExtension.swift */,
 				D40D80A529252165008CA68D /* ViewExtensions.swift */,
 				D45338FE2929805100198411 /* StringExtensions.swift */,
 				D41ED53A2983F393009DCF8B /* DateExtensions.swift */,
@@ -877,6 +882,7 @@
 				D4ABD26F298C2E15002FD8F5 /* DayUiModelExtension.swift */,
 				D4ABD271298C2E32002FD8F5 /* DayExtension.swift */,
 				D4FF4725299156FC0080C898 /* ScheduleStoreObjectExtension.swift */,
+				D4A433B929952A8A00BFEB7A /* EventExtension.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -901,9 +907,6 @@
 		D4D4DD062927CA660083BB7F /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
-				D41172B22985D3120082BB4F /* VarelaRound-Regular.ttf */,
-				D42FBA432987578300772239 /* Montserrat-Regular.ttf */,
-				D41172B82985E4CE0082BB4F /* Satoshi-Variable.ttf */,
 			);
 			path = Fonts;
 			sourceTree = "<group>";
@@ -980,7 +983,6 @@
 				D4533906292A921B00198411 /* PermissionsSwiftUICamera */,
 				D4533908292A921B00198411 /* PermissionsSwiftUINotification */,
 				D4607636292AA8DE00DE9590 /* PopupView */,
-				D43E680129820C9700124F72 /* ElegantCalendar */,
 				D42BAC1B298D3D590025EAA9 /* Logging */,
 			);
 			productName = "tumble-ios";
@@ -1014,7 +1016,6 @@
 			packageReferences = (
 				D4533905292A921B00198411 /* XCRemoteSwiftPackageReference "PermissionsSwiftUI" */,
 				D4607635292AA8DE00DE9590 /* XCRemoteSwiftPackageReference "PopupView" */,
-				D43E680029820C9700124F72 /* XCRemoteSwiftPackageReference "ElegantCalendar" */,
 				D42BAC1A298D3D590025EAA9 /* XCRemoteSwiftPackageReference "swift-log" */,
 			);
 			productRefGroup = D4722146292454560063BDB7 /* Products */;
@@ -1032,7 +1033,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D4CE2DAD2982D60000B81052 /* ElegantCalendar.xcassets in Resources */,
-				D42FBA44298757A800772239 /* Montserrat-Regular.ttf in Resources */,
 				D4BAE61929246AA200143717 /* schools.json in Resources */,
 				D4722150292454570063BDB7 /* Preview Assets.xcassets in Resources */,
 				D472214D292454570063BDB7 /* Assets.xcassets in Resources */,
@@ -1068,7 +1068,7 @@
 				D46081552930053E00FFFB44 /* ScheduleService.swift in Sources */,
 				D40D80CE29265D49008CA68D /* SearchBar.swift in Sources */,
 				D4CF9B282935633800DDB5F0 /* SchedulePreviewError.swift in Sources */,
-				D421EAF02993FB660045D438 /* EventSheetModel.swift in Sources */,
+				D421EAF02993FB660045D438 /* EventDetailsSheetModel.swift in Sources */,
 				D46ABF1229843D3000B059F6 /* StoreKey.swift in Sources */,
 				D40D80B429252A5A008CA68D /* PreferenceService.swift in Sources */,
 				D41ED53B2983F393009DCF8B /* DateExtensions.swift in Sources */,
@@ -1084,6 +1084,7 @@
 				D4A550D329946D8400028BCF /* BookmarkRow.swift in Sources */,
 				D45338FB2929730200198411 /* CustomProgressIndicator.swift in Sources */,
 				D4644A23298DA93A00B0BB28 /* NotificationManager.swift in Sources */,
+				D4A433BE29953AD300BFEB7A /* AppDelegateViewStateManager.swift in Sources */,
 				D4ABD272298C2E32002FD8F5 /* DayExtension.swift in Sources */,
 				D46BB112298B0E2800887A24 /* NavigationbarSidebar.swift in Sources */,
 				D4607634292AA83F00DE9590 /* AppParent.swift in Sources */,
@@ -1092,10 +1093,12 @@
 				D43752E6298F33110037A431 /* HomePageOption.swift in Sources */,
 				D4A550D52994755900028BCF /* BookmarkButton.swift in Sources */,
 				D43419C02985639D001089A0 /* ColorInstructions.swift in Sources */,
+				D4A433BA29952A8A00BFEB7A /* EventExtension.swift in Sources */,
 				D460763B292AAD5400DE9590 /* PopupToastView.swift in Sources */,
 				D4D4DD032927C7DA0083BB7F /* ProgrammeCard.swift in Sources */,
 				D46BB10A298AC31E00887A24 /* EventDetailsBodyBuilder.swift in Sources */,
 				D42BAC19298D31A70025EAA9 /* URLSessionExtension.swift in Sources */,
+				D4A433BC29952BE600BFEB7A /* DictionaryExtension.swift in Sources */,
 				D4E39E402989DDDC004C30DF /* EventDetailsBody.swift in Sources */,
 				D4E39E3A2989CE84004C30DF /* EventDetailsSheet.swift in Sources */,
 				D4FF4726299156FC0080C898 /* ScheduleStoreObjectExtension.swift in Sources */,
@@ -1113,6 +1116,7 @@
 				D41172B52985DA740082BB4F /* TextFieldExtensions.swift in Sources */,
 				D46BB116298B10AA00887A24 /* TabBarButton.swift in Sources */,
 				D41ED5522984351F009DCF8B /* Method.swift in Sources */,
+				D4A433B829951F2B00BFEB7A /* AppDelegate.swift in Sources */,
 				D4CE2DBD2982E55200B81052 /* NavigationbarSearch.swift in Sources */,
 				D4607645292AC41D00DE9590 /* SearchResults.swift in Sources */,
 				D4644A2B298DD7B000B0BB28 /* NotificatonError.swift in Sources */,
@@ -1250,7 +1254,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "tumble-ios/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = Tumble;
+				INFOPLIST_KEY_CFBundleDisplayName = "Tumble for Kronox";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Camera is used for scanning QR codes for room booking functionality in Universities";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -1267,9 +1271,12 @@
 				NETWORK_SETTINGS = testing;
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.tumble;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = "Debug copy";
 		};
@@ -1399,7 +1406,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "tumble-ios/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = Tumble;
+				INFOPLIST_KEY_CFBundleDisplayName = "Tumble for Kronox";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Camera is used for scanning QR codes for room booking functionality in Universities";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -1416,9 +1423,12 @@
 				NETWORK_SETTINGS = testing;
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.tumble;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -1434,7 +1444,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "tumble-ios/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = Tumble;
+				INFOPLIST_KEY_CFBundleDisplayName = "Tumble for Kronox";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Camera is used for scanning QR codes for room booking functionality in Universities";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -1451,9 +1461,12 @@
 				NETWORK_SETTINGS = production;
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.tumble;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -1491,14 +1504,6 @@
 				minimumVersion = 1.0.0;
 			};
 		};
-		D43E680029820C9700124F72 /* XCRemoteSwiftPackageReference "ElegantCalendar" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/ThasianX/ElegantCalendar.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 4.0.0;
-			};
-		};
 		D4533905292A921B00198411 /* XCRemoteSwiftPackageReference "PermissionsSwiftUI" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/jevonmao/PermissionsSwiftUI";
@@ -1522,11 +1527,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D42BAC1A298D3D590025EAA9 /* XCRemoteSwiftPackageReference "swift-log" */;
 			productName = Logging;
-		};
-		D43E680129820C9700124F72 /* ElegantCalendar */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D43E680029820C9700124F72 /* XCRemoteSwiftPackageReference "ElegantCalendar" */;
-			productName = ElegantCalendar;
 		};
 		D4533906292A921B00198411 /* PermissionsSwiftUICamera */ = {
 			isa = XCSwiftPackageProductDependency;

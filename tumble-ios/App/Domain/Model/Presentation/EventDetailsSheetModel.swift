@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-struct EventSheetModel: Identifiable {
+struct EventDetailsSheetModel: Identifiable {
     var id: UUID = UUID()
     let event: Response.Event
     let color: Color

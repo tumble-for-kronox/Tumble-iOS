@@ -17,6 +17,15 @@ class NotificationManager: NotificationManagerProtocol {
         notificationsAreAllowed { result in
             switch result {
             case .success:
+                //#if DEBUG
+                //let calendar = Calendar(identifier: .gregorian)
+                //let date = calendar.date(byAdding: .second, value: 10, to: Date.now)
+                //let dateComponents: DateComponents = calendar.dateComponents([.year, .month, .weekday, .hour, .minute, .second], from: date!)
+                //let testNotification = Notification(id: notification.id, color: notification.color, dateComponents: dateComponents, categoryIdentifier: notification.categoryIdentifier, content: notification.content)
+                //self.notificationCenter.add(self.request(for: testNotification, userOffset: 0))
+                //AppLogger.shared.info("Successfully set DEBUG notification for event with id -> \(notification.id) at time \(dateComponents)")
+                //completion(.success(1))
+                //#endif
                 self.notificationCenter.add(self.request(for: notification, userOffset: userOffset))
                 AppLogger.shared.info("Successfully set notification for event with id -> \(notification.id)")
                 completion(.success(1))
@@ -67,17 +76,24 @@ class NotificationManager: NotificationManagerProtocol {
 extension NotificationManager {
     
     fileprivate func request(for notification: Notification, userOffset: Int) -> UNNotificationRequest {
+        AppLogger.shared.info("Making notification request for -> \(notification.id)")
         let content = UNMutableNotificationContent()
-        content.title = notification.title
-        content.subtitle = notification.subtitle
+        content.title = (notification.content?.toEvent()?.course.englishName)!
+        content.subtitle = (notification.content?.toEvent()?.title)!
         // Optional course id
         content.categoryIdentifier = notification.categoryIdentifier ?? ""
         content.sound = .default
         content.badge = 1
+        content.userInfo[NotificationContentKey.event.rawValue] = notification.content
+        content.userInfo[NotificationContentKey.color.rawValue] = notification.color
         
         let components = dateComponentsAfterSubtractingUserOffset(dateComponents: notification.dateComponents, userOffset: userOffset)
         let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
-
+        
+        //#if DEBUG
+        //trigger = UNCalendarNotificationTrigger(dateMatching: notification.dateComponents, repeats: false)
+        //#endif
+        
         return UNNotificationRequest(
             identifier: notification.id,
             content: content,
