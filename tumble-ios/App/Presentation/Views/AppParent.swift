@@ -35,7 +35,7 @@ struct AppParent: View {
             Color.primary
                 .ignoresSafeArea()
             
-            SidebarMenu(viewModel: viewModel.sidebarViewModel, selectedSideBarTab: $selectedSideBarTab, selectedBottomTab: $selectedBottomTab, sideBarSheet: $sideBarSheet, updateBookmarks: updateBookmarks, onChangeSchool: onChangeSchool)
+            SidebarMenu(viewModel: viewModel.sidebarViewModel, selectedSideBarTab: $selectedSideBarTab, selectedBottomTab: $selectedBottomTab, sideBarSheet: $sideBarSheet, removeBookmark: removeBookmark, updateBookmarks: updateBookmarks, onChangeSchool: onChangeSchool)
             
             ZStack {
                 FadedPageUnderlay(backgroundOpacity: 0.6, offset: -25, verticalPadding: 30, showSideBar: $showSideBar)
@@ -95,7 +95,9 @@ struct AppParent: View {
         .transition(.asymmetric(insertion: .move(edge: .trailing), removal: .move(edge: .leading)))
     }
     
-    func handleSwipe(value: DragGesture.Value) -> Void {
+    
+    
+    fileprivate func handleSwipe(value: DragGesture.Value) -> Void {
         switch(value.translation.width, value.translation.height) {
             case (...0, -30...30):  withAnimation {
                 handleSideBarAction(shouldShowSideBar: false, newSideBarTab: .none)
@@ -107,18 +109,18 @@ struct AppParent: View {
         }
     }
     
-    func handleSideBarAction(shouldShowSideBar: Bool, newSideBarTab: SidebarTabType) -> Void {
+    fileprivate func handleSideBarAction(shouldShowSideBar: Bool, newSideBarTab: SidebarTabType) -> Void {
         showSideBar = shouldShowSideBar
         selectedSideBarTab = newSideBarTab
     }
     
-    func onChangeSchool(school: School) -> Void {
+    fileprivate func onChangeSchool(school: School) -> Void {
         viewModel.changeSchool(school: school, closure: { success in
             if success {
                 toast = Toast(type: .success, title: "New school", message: "Set \(school.name) to default")
                 viewModel.updateLocalsAndChildViews()
             } else {
-                toast = Toast(type: .info, title: "School already selected", message: "You already have \(school.name) as your default school")
+                toast = Toast(type: .info, title: "School already selected", message: "You already have '\(school.name)' as your default school")
             }
         })
     }
@@ -127,12 +129,23 @@ struct AppParent: View {
         toast = Toast(type: type, title: title, message: message)
     }
     
-    func updateBookmarks() -> Void {
+    fileprivate func updateBookmarks() -> Void {
         viewModel.updateSchedulesChildView()
     }
     
-    func onOpenEventDetailsSheet(event: Response.Event, color: Color) -> Void {
+    fileprivate func onOpenEventDetailsSheet(event: Response.Event, color: Color) -> Void {
         self.eventSheet = EventSheetModel(event: event, color: color)
+    }
+    
+    fileprivate func removeBookmark(id: String) -> Void {
+        viewModel.removeSchedule(id: id) { success in
+            if success {
+                viewModel.updateSchedulesChildView()
+                toast = Toast(type: .success, title: "Removed schedule", message: "Successfully removed the schedule '\(id)' from your bookmarks")
+            } else {
+                toast = Toast(type: .error, title: "Could not remove schedule", message: "The schedule '\(id)' could not be removed from your bookmarks")
+            }
+        }
     }
 }
 

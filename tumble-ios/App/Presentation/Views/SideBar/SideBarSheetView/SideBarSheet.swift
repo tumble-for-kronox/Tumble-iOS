@@ -13,8 +13,10 @@ struct SideBarSheet: View {
     @Environment(\.presentationMode) var presentationMode
     
     let updateBookmarks: () -> Void
+    let removeBookmark: (String) -> Void
     let sideBarTabType: SidebarTabType
     let onChangeSchool: (School) -> Void
+    @Binding var bookmarks: [Bookmark]?
     
     var body: some View {
         switch sideBarTabType {
@@ -27,7 +29,7 @@ struct SideBarSheet: View {
             }
         case .bookmarks:
             SidebarSheetViewBuilder(header: "Your bookmarks") {
-                BookmarksSidebarSheet(bookmarks: parentViewModel.bookmarks ?? [], toggleBookmark: toggleBookmark)
+                BookmarksSidebarSheet(bookmarks: $bookmarks, toggleBookmark: toggleBookmark, deleteBookmark: deleteBookmark)
             }
         case .support:
             Support()
@@ -47,4 +49,8 @@ struct SideBarSheet: View {
         updateBookmarks()
     }
     
+    fileprivate func deleteBookmark(id: String) -> Void {
+        parentViewModel.deleteBookmark(id: id)
+        removeBookmark(id)
+    }
 }

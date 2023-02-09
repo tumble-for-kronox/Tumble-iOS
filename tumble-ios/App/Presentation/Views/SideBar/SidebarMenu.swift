@@ -16,6 +16,7 @@ struct SidebarMenu: View {
     @Binding var sideBarSheet: SideBarSheetModel?
     @Namespace var animation
     
+    let removeBookmark: (String) -> Void
     let updateBookmarks: () -> Void
     let onChangeSchool: (School) -> Void
     
@@ -73,7 +74,7 @@ struct SidebarMenu: View {
         .padding(8)
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         .sheet(item: $sideBarSheet) { (sideBarSheet: SideBarSheetModel) in
-            SideBarSheet(parentViewModel: viewModel, updateBookmarks: updateBookmarks, sideBarTabType: sideBarSheet.sideBarType, onChangeSchool: onChangeSchool)
+            SideBarSheet(parentViewModel: viewModel, updateBookmarks: updateBookmarks, removeBookmark: removeBookmark, sideBarTabType: sideBarSheet.sideBarType, onChangeSchool: onChangeSchool, bookmarks: $viewModel.bookmarks)
         }
     }
 }
