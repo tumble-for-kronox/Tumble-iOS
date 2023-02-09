@@ -63,8 +63,8 @@ enum ThemeMode: String {
         self.universityImage = preferenceService.getUniversityImage()
         self.universityName = preferenceService.getUniversityName()
         self.searchViewModel.update()
-        self.bookmarksViewModel.update()
-        self.sidebarViewModel.update()
+        self.bookmarksViewModel.updateViewLocals()
+        self.sidebarViewModel.updateViewLocals()
         self.bookmarksViewModel.loadBookmarkedSchedules()
     }
     
@@ -83,6 +83,7 @@ enum ThemeMode: String {
                 guard let self = self else { return }
                 self.removeAllSchedules() {
                     self.removeAllCourseColors() {
+                        self.preferenceService.setBookmarks(bookmarks: [])
                         self.cancelAllNotifications() {
                             closure(true)
                         }
