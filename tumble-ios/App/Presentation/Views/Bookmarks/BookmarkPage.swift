@@ -59,6 +59,8 @@ struct BookmarkPage: View {
                     Info(title: "No bookmarks yet", image: "bookmark.slash")
                 case .error:
                     Info(title: "There was an error retrieving your schedules", image: "exclamationmark.circle")
+                case .hiddenAll:
+                    Info(title: "All your bookmarks are hidden", image: "bookmark.slash")
                 }
             }
         }
