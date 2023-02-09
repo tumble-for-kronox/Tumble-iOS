@@ -49,7 +49,7 @@ struct SearchBar: View {
         }
     }
     
-    private func animateCloseButtonIntoView() -> Void {
+    fileprivate func animateCloseButtonIntoView() -> Void {
         if self.closeButtonOffset == 300.0 {
             withAnimation(.spring().delay(0.5)) {
                 self.closeButtonOffset -= 300
@@ -57,13 +57,13 @@ struct SearchBar: View {
         }
     }
     
-    private func animateCloseButtonOutOfView() -> Void {
+    fileprivate func animateCloseButtonOutOfView() -> Void {
         withAnimation(.spring().delay(0.5)) {
             self.closeButtonOffset += 300
         }
     }
     
-    private func searchBoxNotEmpty() -> Bool {
+    fileprivate func searchBoxNotEmpty() -> Bool {
         return !searchBarText.trimmingCharacters(in: .whitespaces).isEmpty
     }
     

@@ -10,9 +10,9 @@ import SwiftUI
 struct BookmarkPage: View {
     
     @ObservedObject var viewModel: BookmarkPageViewModel
+    @Binding var eventSheet: EventDetailsSheetModel?
     let onTapCard: OnTapCard
     let createToast: (ToastStyle, String, String) -> Void
-    @Binding var eventSheet: EventSheetModel?
     
     
     var body: some View {
@@ -48,9 +48,7 @@ struct BookmarkPage: View {
                     switch viewModel.defaultViewType {
                     case .list:
                         BookmarkListView(days: viewModel.scheduleListOfDays, courseColors: viewModel.courseColors, onTapCard: onTapCard)
-                            .refreshable {
-                                
-                            }
+                        
                     case .calendar:
                         Text("stub")
                             .padding(.top, 10)
@@ -64,7 +62,10 @@ struct BookmarkPage: View {
                 }
             }
         }
-        .sheet(item: $eventSheet) { (eventSheet: EventSheetModel) in
+        .onAppear {
+            UIApplication.shared.applicationIconBadgeNumber = 0
+        }
+        .popover(item: $eventSheet) { (eventSheet: EventDetailsSheetModel) in
             EventDetailsSheet(viewModel: viewModel.generateViewModelEventSheet(event: eventSheet.event, color: eventSheet.color), createToast: createToast)
         }
     }

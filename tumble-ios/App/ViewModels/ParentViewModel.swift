@@ -52,6 +52,7 @@ enum ThemeMode: String {
         self.domain = preferenceService.getUniversityDomain()
         self.universityImage = self.preferenceService.getUniversityImage()
         self.universityName = self.preferenceService.getUniversityName()
+        
     }
     
     

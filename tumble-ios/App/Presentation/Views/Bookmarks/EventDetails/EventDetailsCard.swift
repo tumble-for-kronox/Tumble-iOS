@@ -9,7 +9,7 @@ import SwiftUI
 
 struct EventDetailsCard: View {
     
-    @Environment(\.presentationMode) var presentationMode
+    @Environment(\.dismiss) var dismiss
     @EnvironmentObject var parentViewModel: EventDetailsSheet.EventDetailsSheetViewModel
     
     let createToast: (ToastStyle, String, String) -> Void
@@ -37,6 +37,7 @@ struct EventDetailsCard: View {
                     HStack (spacing: 7.5) {
                         if !parentViewModel.isNotificationSetForEvent {
                             EventDetailsPill(title: "Event", image: "bell.badge", onTap: onSetNotificationEvent)
+                            
                         } else {
                             EventDetailsPill(title: "Remove", image: "bell.badge", onTap: onRemoveNotificationForEvent)
                         }
@@ -63,36 +64,38 @@ struct EventDetailsCard: View {
     func onSetNotificationEvent() -> Void {
         parentViewModel.scheduleNotificationForEvent() { success in
             if success {
-                presentationMode.wrappedValue.dismiss()
                 createToast(.success, "Notification set!", "Notification was created for \(event.title)")
             } else {
-                presentationMode.wrappedValue.dismiss()
                 createToast(.error, "Notification not set!", "Looks like you need to allow notifications in your phone settings")
             }
+        }
+        DispatchQueue.main.async {
+            dismiss()
         }
     }
     
     func onSetNotificationForCourse() -> Void {
         parentViewModel.scheduleNotificationsForCourse() { success in
             if success {
-                presentationMode.wrappedValue.dismiss()
                 createToast(.success, "Notifications set!", "Notifications were created for available events in \(event.course.englishName)")
             } else {
-                presentationMode.wrappedValue.dismiss()
                 createToast(.error, "Notifications not set!", "Looks like you need to allow notifications in your phone settings")
             }
+        }
+        DispatchQueue.main.async {
+            dismiss()
         }
     }
     
     func onRemoveNotificationForEvent() -> Void {
         parentViewModel.cancelNotificationForEvent()
-        presentationMode.wrappedValue.dismiss()
+        dismiss()
         createToast(.success, "Notification removed!", "Notification for \(event.title) was removed")
     }
     
     func onRemoveNotification() -> Void {
         parentViewModel.cancelNotificationsForCourse()
-        presentationMode.wrappedValue.dismiss()
+        dismiss()
         createToast(.success, "Notifications removed!", "Notifications for \(event.course.englishName) were removed")
     }
 

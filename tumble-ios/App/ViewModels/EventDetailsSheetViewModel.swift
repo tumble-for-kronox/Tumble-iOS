@@ -48,18 +48,18 @@ extension EventDetailsSheet {
         
         
         func scheduleNotificationForEvent(completion: @escaping (Bool) -> Void) -> Void {
-            let userOffset: Int = preferenceService.getNotificationOffset()
+            let userOffset: Int = self.preferenceService.getNotificationOffset()
             
             // Create notification for event without categoryIdentifier,
             // since it does not need to be set for the entire course
             let notification = Notification(
-                id: event.id,
-                title: event.title,
-                subtitle: event.course.englishName,
-                dateComponents: event.dateComponents!,
-                categoryIdentifier: nil)
+                id: self.event.id,
+                color: self.color!.toHex(),
+                dateComponents: self.event.dateComponents!,
+                categoryIdentifier: nil,
+                content: self.event.toDictionary())
             
-            notificationManager.scheduleNotification(for: notification, userOffset: userOffset, completion: { result in
+            self.notificationManager.scheduleNotification(for: notification, userOffset: userOffset, completion: { result in
                 switch result {
                 case .success(_):
                     completion(true)
@@ -69,6 +69,7 @@ extension EventDetailsSheet {
                 }
             })
         }
+
         
         
         func scheduleNotificationsForCourse(completion: @escaping (Bool) -> Void) -> Void {
@@ -110,10 +111,9 @@ extension EventDetailsSheet.EventDetailsSheetViewModel {
                 events.forEach { event in
                     let notification = Notification(
                         id: event.id,
-                        title: event.course.englishName,
-                        subtitle: event.title,
+                        color: color?.toHex() ?? "#FFFFFF",
                         dateComponents: event.dateComponents!,
-                        categoryIdentifier: event.course.id)
+                        categoryIdentifier: event.course.id, content: event.toDictionary())
                     // Sets notifications for course. If events already have notifications set for them without a categoryIdentifier,
                     // they will be reset in order to be able to remove course notifications on a categoryIdentifier basis
                     self.notificationManager.scheduleNotification(for: notification, userOffset: self.notificationOffset) { result in

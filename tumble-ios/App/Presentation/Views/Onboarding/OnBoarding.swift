@@ -57,19 +57,7 @@ struct OnBoarding: View {
                 }
                 .tabViewStyle(.page)
                 .indexViewStyle(.page(backgroundDisplayMode: .interactive))
-                .onChange(of: viewedTab, perform: { newValue in
-                    if newValue == 6 {
-                        withAnimation (.spring()) {
-                            self.buttonOffset += self.constResetButtonHeight
-                        }
-                    } else if newValue < 6 && self.buttonOffset == self.constResetButtonHeight {
-                        withAnimation (.spring()) {
-                            self.buttonOffset -= self.constResetButtonHeight
-                        }
-                    }
-
-                })
-                
+                .onChange(of: viewedTab, perform: handleAnimation)
             }
             SkipButton(onClickSkip: onClickSkip)
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomTrailing)
@@ -85,6 +73,18 @@ struct OnBoarding: View {
         .transition(.asymmetric(insertion: .move(edge: .trailing), removal: .move(edge: .leading)))
     }
     
+    func handleAnimation(newValue: Int) {
+        if newValue == 6 {
+            withAnimation (.spring()) {
+                self.buttonOffset += self.constResetButtonHeight
+            }
+        } else if newValue < 6 && self.buttonOffset == self.constResetButtonHeight {
+            withAnimation (.spring()) {
+                self.buttonOffset -= self.constResetButtonHeight
+            }
+        }
+    }
+    
     func onClickSkip() -> Void {
         withAnimation(.spring()) {
             self.viewedTab = 6
@@ -92,8 +92,6 @@ struct OnBoarding: View {
     }
     
     func onSelectSchool(school: School) -> Void {
-        self.viewModel.onSelectSchool(school: school) {
-            self.updateUserOnBoarded()
-        }
+        viewModel.onSelectSchool(school: school, updateUserOnBoarded: updateUserOnBoarded)
     }
 }
