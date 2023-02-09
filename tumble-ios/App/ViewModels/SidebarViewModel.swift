@@ -59,6 +59,13 @@ extension SidebarMenu {
         func toggleBookmarkVisibility(for bookmark: String, to value: Bool) -> Void {
             preferenceService.toggleBookmark(bookmark: bookmark, value: value)
         }
+        
+        func deleteBookmark(id: String) -> Void {
+            var bookmarks = self.preferenceService.getBookmarks() ?? []
+            bookmarks.removeAll(where: { $0.id == id })
+            preferenceService.setBookmarks(bookmarks: bookmarks)
+            self.bookmarks = bookmarks
+        }
     }
 }
 

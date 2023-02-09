@@ -74,6 +74,18 @@ enum ThemeMode: String {
         bookmarksViewModel.loadBookmarkedSchedules()
     }
     
+    func removeSchedule(id: String, completion: @escaping (Bool) -> Void) -> Void {
+        scheduleService.remove(scheduleId: id) { result in
+            switch result {
+            case .success(_):
+                AppLogger.shared.info("Schedule '\(id)' successfully removed")
+                completion(true)
+            case .failure(_):
+                AppLogger.shared.info("Schedule '\(id)' could not be removed")
+                completion(false)
+            }
+        }
+    }
     
     func changeSchool(school: School, closure: @escaping (Bool) -> Void) -> Void {
         if school == self.preferenceService.getDefaultSchool() {

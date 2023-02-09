@@ -9,18 +9,21 @@ import SwiftUI
 
 struct BookmarksSidebarSheet: View {
     
-    let bookmarks: [Bookmark]
+    @Binding var bookmarks: [Bookmark]?
     let toggleBookmark: (String, Bool) -> Void
+    let deleteBookmark: (String) -> Void
     
     var body: some View {
         VStack (alignment: .leading) {
             VStack {
-                if !bookmarks.isEmpty {
-                    ForEach(bookmarks, id: \.id) { bookmark in
-                        BookmarkRow(bookmark: bookmark, toggleBookmark: toggleBookmark)
+                if bookmarks != nil {
+                    if !bookmarks!.isEmpty {
+                        ForEach(bookmarks!, id: \.id) { bookmark in
+                            BookmarkRow(bookmark: bookmark, toggleBookmark: toggleBookmark, deleteBookmark: deleteBookmark)
+                        }
+                    } else {
+                        Info(title: "No bookmarks yet", image: "bookmark.slash")
                     }
-                } else {
-                    Info(title: "No bookmarks yet", image: "bookmark.slash")
                 }
             }
         }
