@@ -25,7 +25,7 @@ extension SidebarMenu {
             self.bookmarks = preferenceService.getBookmarks() ?? []
         }
         
-        func update() -> Void {
+        func updateViewLocals() -> Void {
             self.universityImage = self.preferenceService.getUniversityImage()
             self.universityName = self.preferenceService.getUniversityName()
             self.updateBookmarks()

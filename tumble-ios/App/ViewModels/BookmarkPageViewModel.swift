@@ -48,7 +48,7 @@ extension BookmarkPage {
         }
         
         
-        func update() -> Void {
+        func updateViewLocals() -> Void {
             self.school = preferenceService.getDefaultSchool()
         }
         
