@@ -31,7 +31,7 @@ struct BookmarkRow: View {
             }
             Divider()
         }
-        .padding()
+        .padding([.leading, .trailing])
     }
 }
 

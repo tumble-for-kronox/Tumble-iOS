@@ -13,6 +13,7 @@ enum BookmarksViewStatus {
     case loading
     case loaded
     case uninitialized
+    case hiddenAll
     case error
 }
 
@@ -54,18 +55,25 @@ extension BookmarkPage {
         
         func loadBookmarkedSchedules() -> Void {
             // Load schedules from local storage
-            self.loadSchedules { bookmarks in
+            self.loadSchedules { [weak self] schedules in
+                guard let self = self else { return }
+                let hiddenBookmarks = self.getHiddenBookmarks()
+                let visibleSchedules = self.filterBookmarks(schedules: schedules, hiddenBookmarks: hiddenBookmarks)
                 AppLogger.shared.info("Loaded schedules from local storage")
                 self.loadCourseColors { [weak self] courseColors in
                     AppLogger.shared.info("Loaded course colors from local storage")
                     // Only proceed if the colours are available (don't show view unless colours exist)
                     guard let self = self else { return }
                     self.courseColors = courseColors
-                    if !bookmarks.isEmpty {
-                        self.checkUpdatesRequired(for: bookmarks) {
+                    if !schedules.isEmpty {
+                        self.checkUpdatesRequired(for: visibleSchedules) {
                             self.loadCourseColors { courseColors in
                                 self.courseColors = courseColors
-                                self.status = .loaded
+                                if !(visibleSchedules.isEmpty) {
+                                    self.status = .loaded
+                                } else {
+                                    self.status = .hiddenAll
+                                }
                             }
                         }
                     }
@@ -105,7 +113,7 @@ extension BookmarkPage.BookmarkPageViewModel {
                 
                 group.enter()
                 
-                self.updateBookmark(for: schedule.id) { fetchedSchedule in
+                self.updateBookmarkedSchedule(for: schedule.id) { fetchedSchedule in
                     updatedBookmarks.append(fetchedSchedule)
                     AppLogger.shared.info("Updated schedule with id -> \(fetchedSchedule.id)")
                     group.leave()
@@ -127,7 +135,7 @@ extension BookmarkPage.BookmarkPageViewModel {
     
     
     // Updates a specific bookmarked schedule based on its lastUpdated attribute
-    fileprivate func updateBookmark(for scheduleId: String, completion: @escaping (Response.Schedule) -> Void) -> Void {
+    fileprivate func updateBookmarkedSchedule(for scheduleId: String, completion: @escaping (Response.Schedule) -> Void) -> Void {
         // Get schedule from backend
         self.fetchSchedule(for: scheduleId) { [weak self] (schedule: Response.Schedule) in
             AppLogger.shared.info("Fetched fresh version of schedule from backend")
@@ -221,6 +229,16 @@ extension BookmarkPage.BookmarkPageViewModel {
             case .success(let schedule):
                 closure(schedule)
             }
+        }
+    }
+    
+    fileprivate func getHiddenBookmarks() -> [String] {
+        return self.preferenceService.getBookmarks()?.filter { $0.toggled == false }.map { $0.id } ?? []
+    }
+    
+    fileprivate func filterBookmarks(schedules: [ScheduleStoreModel], hiddenBookmarks: [String]) -> [ScheduleStoreModel] {
+        return schedules.filter { schedule in
+            !hiddenBookmarks.contains { $0 == schedule.id }
         }
     }
 }
