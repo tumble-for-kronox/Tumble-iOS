@@ -15,8 +15,8 @@ struct Root: View {
     @ObservedObject var viewModel: RootViewModel
     
     @Environment(\.colorScheme) var colorScheme: ColorScheme
-    @AppStorage(StoreKey.overrideSystemTheme.rawValue) private var overrideSystem = true
-    @AppStorage(StoreKey.theme.rawValue) private var isDarkMode = true
+    @AppStorage(StoreKey.overrideSystemTheme.rawValue) private var overrideSystem = false
+    @AppStorage(StoreKey.theme.rawValue) private var isDarkMode = false
     
     var body: some View {
         ZStack {
@@ -28,10 +28,7 @@ struct Root: View {
                 AppParent(viewModel: viewModel.parentViewModel)
             }
         }
-        //.environment(\.colorScheme, .dark)
-        //.preferredColorScheme(.dark)
-        .environment(\.colorScheme, isDarkMode && overrideSystem ? .dark : .light)
-        .preferredColorScheme(isDarkMode ? .dark : .light)
+        .environment(\.colorScheme, colorScheme)
         .ignoresSafeArea(.keyboard)
         .edgesIgnoringSafeArea(.all)
         .JMModal(showModal: $viewModel.showNotificationsPermission, for: [.notification])

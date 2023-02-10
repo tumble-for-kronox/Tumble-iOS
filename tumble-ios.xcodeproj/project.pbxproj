@@ -144,7 +144,6 @@
 		D4E39E3E2989D79B004C30DF /* EventDetailsPill.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E39E3D2989D79B004C30DF /* EventDetailsPill.swift */; };
 		D4E39E402989DDDC004C30DF /* EventDetailsBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E39E3F2989DDDC004C30DF /* EventDetailsBody.swift */; };
 		D4EAD3B9298D633B00678DF8 /* NetworkManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EAD3B8298D633B00678DF8 /* NetworkManagerProtocol.swift */; };
-		D4FCD1462995A9B9009D2987 /* CourseColorPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FCD1452995A9B9009D2987 /* CourseColorPicker.swift */; };
 		D4FCD14B2995AD64009D2987 /* UIColorWellExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FCD14A2995AD64009D2987 /* UIColorWellExtension.swift */; };
 		D4FCD14E2995ADFE009D2987 /* UIColorWellHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FCD14D2995ADFE009D2987 /* UIColorWellHelper.swift */; };
 		D4FF4726299156FC0080C898 /* ScheduleStoreObjectExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FF4725299156FC0080C898 /* ScheduleStoreObjectExtension.swift */; };
@@ -286,7 +285,6 @@
 		D4E39E3D2989D79B004C30DF /* EventDetailsPill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailsPill.swift; sourceTree = "<group>"; };
 		D4E39E3F2989DDDC004C30DF /* EventDetailsBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailsBody.swift; sourceTree = "<group>"; };
 		D4EAD3B8298D633B00678DF8 /* NetworkManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManagerProtocol.swift; sourceTree = "<group>"; };
-		D4FCD1452995A9B9009D2987 /* CourseColorPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseColorPicker.swift; sourceTree = "<group>"; };
 		D4FCD14A2995AD64009D2987 /* UIColorWellExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorWellExtension.swift; sourceTree = "<group>"; };
 		D4FCD14D2995ADFE009D2987 /* UIColorWellHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorWellHelper.swift; sourceTree = "<group>"; };
 		D4FF4725299156FC0080C898 /* ScheduleStoreObjectExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleStoreObjectExtension.swift; sourceTree = "<group>"; };
@@ -928,7 +926,6 @@
 				D4E39E3D2989D79B004C30DF /* EventDetailsPill.swift */,
 				D4E39E3F2989DDDC004C30DF /* EventDetailsBody.swift */,
 				D46BB109298AC31E00887A24 /* EventDetailsBodyBuilder.swift */,
-				D4FCD1452995A9B9009D2987 /* CourseColorPicker.swift */,
 			);
 			path = EventDetails;
 			sourceTree = "<group>";
@@ -1098,7 +1095,6 @@
 				D4A550D729947FA500028BCF /* SidebarSheetViewBuilder.swift in Sources */,
 				D40D808929247123008CA68D /* Root.swift in Sources */,
 				D46BB10E298B025100887A24 /* SidebarMenu.swift in Sources */,
-				D4FCD1462995A9B9009D2987 /* CourseColorPicker.swift in Sources */,
 				D4A550CA2994507B00028BCF /* BookmarksSidebarSheet.swift in Sources */,
 				D43419A9298546B0001089A0 /* FeatureCard.swift in Sources */,
 				D48F0D8829367A7F0039CD0F /* CourseColorService.swift in Sources */,
