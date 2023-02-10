@@ -125,7 +125,7 @@
 		D4ABD272298C2E32002FD8F5 /* DayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4ABD271298C2E32002FD8F5 /* DayExtension.swift */; };
 		D4ABD275298C2EC2002FD8F5 /* PreferenceServiceExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4ABD274298C2EC2002FD8F5 /* PreferenceServiceExtension.swift */; };
 		D4BAE5F82924636500143717 /* School.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BAE5F72924636500143717 /* School.swift */; };
-		D4BAE614292466F700143717 /* SchoolModelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BAE613292466F700143717 /* SchoolModelData.swift */; };
+		D4BAE614292466F700143717 /* SchoolLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BAE613292466F700143717 /* SchoolLoader.swift */; };
 		D4BAE61929246AA200143717 /* schools.json in Resources */ = {isa = PBXBuildFile; fileRef = D4BAE61829246AA200143717 /* schools.json */; };
 		D4BAE61C29246AF800143717 /* SchoolRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BAE61B29246AF800143717 /* SchoolRow.swift */; };
 		D4CE2DAD2982D60000B81052 /* ElegantCalendar.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D4CE2DAC2982D60000B81052 /* ElegantCalendar.xcassets */; };
@@ -144,6 +144,9 @@
 		D4E39E3E2989D79B004C30DF /* EventDetailsPill.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E39E3D2989D79B004C30DF /* EventDetailsPill.swift */; };
 		D4E39E402989DDDC004C30DF /* EventDetailsBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E39E3F2989DDDC004C30DF /* EventDetailsBody.swift */; };
 		D4EAD3B9298D633B00678DF8 /* NetworkManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EAD3B8298D633B00678DF8 /* NetworkManagerProtocol.swift */; };
+		D4FCD1462995A9B9009D2987 /* CourseColorPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FCD1452995A9B9009D2987 /* CourseColorPicker.swift */; };
+		D4FCD14B2995AD64009D2987 /* UIColorWellExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FCD14A2995AD64009D2987 /* UIColorWellExtension.swift */; };
+		D4FCD14E2995ADFE009D2987 /* UIColorWellHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FCD14D2995ADFE009D2987 /* UIColorWellHelper.swift */; };
 		D4FF4726299156FC0080C898 /* ScheduleStoreObjectExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FF4725299156FC0080C898 /* ScheduleStoreObjectExtension.swift */; };
 /* End PBXBuildFile section */
 
@@ -263,7 +266,7 @@
 		D4ABD271298C2E32002FD8F5 /* DayExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayExtension.swift; sourceTree = "<group>"; };
 		D4ABD274298C2EC2002FD8F5 /* PreferenceServiceExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceServiceExtension.swift; sourceTree = "<group>"; };
 		D4BAE5F72924636500143717 /* School.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = School.swift; sourceTree = "<group>"; };
-		D4BAE613292466F700143717 /* SchoolModelData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolModelData.swift; sourceTree = "<group>"; };
+		D4BAE613292466F700143717 /* SchoolLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolLoader.swift; sourceTree = "<group>"; };
 		D4BAE61829246AA200143717 /* schools.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = schools.json; sourceTree = "<group>"; };
 		D4BAE61B29246AF800143717 /* SchoolRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolRow.swift; sourceTree = "<group>"; };
 		D4CE2DAC2982D60000B81052 /* ElegantCalendar.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = ElegantCalendar.xcassets; path = "../../Library/Developer/Xcode/DerivedData/tumble-ios-bmdzgpsrrlqprxfymxolonszzycj/SourcePackages/checkouts/ElegantCalendar/ElegantCalendar.xcassets"; sourceTree = "<group>"; };
@@ -283,6 +286,9 @@
 		D4E39E3D2989D79B004C30DF /* EventDetailsPill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailsPill.swift; sourceTree = "<group>"; };
 		D4E39E3F2989DDDC004C30DF /* EventDetailsBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailsBody.swift; sourceTree = "<group>"; };
 		D4EAD3B8298D633B00678DF8 /* NetworkManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManagerProtocol.swift; sourceTree = "<group>"; };
+		D4FCD1452995A9B9009D2987 /* CourseColorPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseColorPicker.swift; sourceTree = "<group>"; };
+		D4FCD14A2995AD64009D2987 /* UIColorWellExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorWellExtension.swift; sourceTree = "<group>"; };
+		D4FCD14D2995ADFE009D2987 /* UIColorWellHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorWellHelper.swift; sourceTree = "<group>"; };
 		D4FF4725299156FC0080C898 /* ScheduleStoreObjectExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleStoreObjectExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -428,6 +434,7 @@
 		D41ED54229843366009DCF8B /* Domain */ = {
 			isa = PBXGroup;
 			children = (
+				D4BAE613292466F700143717 /* SchoolLoader.swift */,
 				D4644A21298DA92500B0BB28 /* Notifications */,
 				D4EAD3B6298D632500678DF8 /* DataSource */,
 				D46ABF032984385700B059F6 /* Repository */,
@@ -462,6 +469,7 @@
 		D41ED545298433A3009DCF8B /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				D4FCD14C2995ADE9009D2987 /* UIKit */,
 				D4A550CD299454E900028BCF /* UserDefaults */,
 				D4644A27298DD78800B0BB28 /* Notifications */,
 				D46ABF1029843D2700B059F6 /* Preferences */,
@@ -494,7 +502,6 @@
 		D41ED554298436CE009DCF8B /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
-				D4BAE613292466F700143717 /* SchoolModelData.swift */,
 				D4BAE5F72924636500143717 /* School.swift */,
 				D40D809C29251FF6008CA68D /* Toast.swift */,
 				D45338FC29297C8B00198411 /* DayUIModel.swift */,
@@ -853,16 +860,9 @@
 		D4ABD26C298C2DF0002FD8F5 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
-				D4A433BB29952BE600BFEB7A /* DictionaryExtension.swift */,
-				D40D80A529252165008CA68D /* ViewExtensions.swift */,
-				D45338FE2929805100198411 /* StringExtensions.swift */,
-				D41ED53A2983F393009DCF8B /* DateExtensions.swift */,
-				D4462C2F29858A280067DA65 /* TextExtensions.swift */,
-				D4462C3129858A7D0067DA65 /* ImageExtensions.swift */,
-				D41172B42985DA740082BB4F /* TextFieldExtensions.swift */,
-				D4563E7F2985FBFB003261FA /* NetworkExtensions.swift */,
-				D4E39E312989BBD9004C30DF /* ColorExtensions.swift */,
-				D4644A2C298DE35F00B0BB28 /* DateComponentsExtension.swift */,
+				D4FCD1492995AD54009D2987 /* Overrides */,
+				D4FCD1482995AD45009D2987 /* Types */,
+				D4FCD1472995AD30009D2987 /* View */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -928,6 +928,7 @@
 				D4E39E3D2989D79B004C30DF /* EventDetailsPill.swift */,
 				D4E39E3F2989DDDC004C30DF /* EventDetailsBody.swift */,
 				D46BB109298AC31E00887A24 /* EventDetailsBodyBuilder.swift */,
+				D4FCD1452995A9B9009D2987 /* CourseColorPicker.swift */,
 			);
 			path = EventDetails;
 			sourceTree = "<group>";
@@ -961,6 +962,46 @@
 			children = (
 			);
 			path = Calendar;
+			sourceTree = "<group>";
+		};
+		D4FCD1472995AD30009D2987 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D41172B42985DA740082BB4F /* TextFieldExtensions.swift */,
+				D4462C3129858A7D0067DA65 /* ImageExtensions.swift */,
+				D4462C2F29858A280067DA65 /* TextExtensions.swift */,
+				D40D80A529252165008CA68D /* ViewExtensions.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		D4FCD1482995AD45009D2987 /* Types */ = {
+			isa = PBXGroup;
+			children = (
+				D4A433BB29952BE600BFEB7A /* DictionaryExtension.swift */,
+				D45338FE2929805100198411 /* StringExtensions.swift */,
+				D41ED53A2983F393009DCF8B /* DateExtensions.swift */,
+				D4563E7F2985FBFB003261FA /* NetworkExtensions.swift */,
+				D4644A2C298DE35F00B0BB28 /* DateComponentsExtension.swift */,
+				D4E39E312989BBD9004C30DF /* ColorExtensions.swift */,
+			);
+			path = Types;
+			sourceTree = "<group>";
+		};
+		D4FCD1492995AD54009D2987 /* Overrides */ = {
+			isa = PBXGroup;
+			children = (
+				D4FCD14A2995AD64009D2987 /* UIColorWellExtension.swift */,
+			);
+			path = Overrides;
+			sourceTree = "<group>";
+		};
+		D4FCD14C2995ADE9009D2987 /* UIKit */ = {
+			isa = PBXGroup;
+			children = (
+				D4FCD14D2995ADFE009D2987 /* UIColorWellHelper.swift */,
+			);
+			path = UIKit;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1057,6 +1098,7 @@
 				D4A550D729947FA500028BCF /* SidebarSheetViewBuilder.swift in Sources */,
 				D40D808929247123008CA68D /* Root.swift in Sources */,
 				D46BB10E298B025100887A24 /* SidebarMenu.swift in Sources */,
+				D4FCD1462995A9B9009D2987 /* CourseColorPicker.swift in Sources */,
 				D4A550CA2994507B00028BCF /* BookmarksSidebarSheet.swift in Sources */,
 				D43419A9298546B0001089A0 /* FeatureCard.swift in Sources */,
 				D48F0D8829367A7F0039CD0F /* CourseColorService.swift in Sources */,
@@ -1073,6 +1115,7 @@
 				D40D80B429252A5A008CA68D /* PreferenceService.swift in Sources */,
 				D41ED53B2983F393009DCF8B /* DateExtensions.swift in Sources */,
 				D4861DEB29834E1900C4CA6F /* PreviewCardBanner.swift in Sources */,
+				D4FCD14E2995ADFE009D2987 /* UIColorWellHelper.swift in Sources */,
 				D4722149292454560063BDB7 /* tumble_iosApp.swift in Sources */,
 				D441B10D298A8CEC00D22142 /* EventDetailsSheetViewModel.swift in Sources */,
 				D4644A29298DD79D00B0BB28 /* Notification.swift in Sources */,
@@ -1120,6 +1163,7 @@
 				D4CE2DBD2982E55200B81052 /* NavigationbarSearch.swift in Sources */,
 				D4607645292AC41D00DE9590 /* SearchResults.swift in Sources */,
 				D4644A2B298DD7B000B0BB28 /* NotificatonError.swift in Sources */,
+				D4FCD14B2995AD64009D2987 /* UIColorWellExtension.swift in Sources */,
 				D4E39E322989BBD9004C30DF /* ColorExtensions.swift in Sources */,
 				D45338F9292825B200198411 /* ScheduleCard.swift in Sources */,
 				D476BD2A293A31FD0027CFE8 /* SchedulePreviewList.swift in Sources */,
@@ -1145,7 +1189,7 @@
 				D40D80A929252688008CA68D /* ParentViewModel.swift in Sources */,
 				D4A550CC2994509A00028BCF /* SidebarViewModel.swift in Sources */,
 				D4722161292455710063BDB7 /* NetworkManager.swift in Sources */,
-				D4BAE614292466F700143717 /* SchoolModelData.swift in Sources */,
+				D4BAE614292466F700143717 /* SchoolLoader.swift in Sources */,
 				D42BAC25298D5EBC0025EAA9 /* Dependencies.swift in Sources */,
 				D42BAC23298D5BFA0025EAA9 /* DependencyInjector.swift in Sources */,
 				D42BAC15298D21E40025EAA9 /* TabBar.swift in Sources */,

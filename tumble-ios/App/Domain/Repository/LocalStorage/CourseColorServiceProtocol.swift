@@ -14,6 +14,8 @@ protocol CourseColorServiceProtocol {
     
     func save(coursesAndColors: [String : String], completion: @escaping (Result<Int, Error>)->Void)
     
+    func replace(for event: Response.Event, with color: Color, completion: @escaping (Result<Int, Error>)->Void) -> Void
+    
     func removeAll(completion: @escaping (Result<Int, Error>) -> Void)
     
     func remove(removeCourses: [String], completion: @escaping (Result<Int, Error>)->Void)

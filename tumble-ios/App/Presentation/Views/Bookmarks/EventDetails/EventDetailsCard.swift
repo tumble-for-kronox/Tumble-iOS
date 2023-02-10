@@ -11,8 +11,10 @@ struct EventDetailsCard: View {
     
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var parentViewModel: EventDetailsSheet.EventDetailsSheetViewModel
+    @State private var bgColor = Color.red
     
     let createToast: (ToastStyle, String, String) -> Void
+    let openColorPicker: () -> Void
     let event: Response.Event
     let color: Color
     
@@ -47,7 +49,7 @@ struct EventDetailsCard: View {
                             EventDetailsPill(title: "Remove", image: "bell.badge.fill", onTap: onRemoveNotification)
                         }
                         
-                        EventDetailsPill(title: "Color", image: "paintbrush", onTap: {})
+                        EventDetailsPill(title: "Color", image: "paintbrush", onTap: openColorPicker)
                         Spacer()
                     }
                 }

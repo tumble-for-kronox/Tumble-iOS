@@ -14,9 +14,14 @@ extension EventDetailsSheet {
         @Inject var notificationManager: NotificationManager
         @Inject var preferenceService: PreferenceService
         @Inject var scheduleService: ScheduleService
+        @Inject var courseColorService: CourseColorService
         
         @Published var event: Response.Event
-        @Published var color: Color?
+        @Published var color: Color {
+            didSet {
+                replaceColor()
+            }
+        }
         @Published var isNotificationSetForEvent: Bool = false
         @Published var isNotificationSetForCourse: Bool = false
         @Published var notificationOffset: Int = 60
@@ -30,6 +35,17 @@ extension EventDetailsSheet {
             self.notificationOffset = preferenceService.getNotificationOffset()
         }
         
+        func replaceColor() -> Void {
+            courseColorService.replace(for: event, with: color) { [weak self] result in
+                guard let self = self else { return }
+                switch result {
+                case .success(_):
+                    AppLogger.shared.info("Changed course color for -> \(self.event.course.id) to color -> \(self.color.toHex() ?? "#FFFFFF")")
+                case .failure(let failure):
+                    AppLogger.shared.info("Couldn't change course color -> \(failure)")
+                }
+            }
+        }
         
         func setEventSheetView(event: Response.Event, color: Color) -> Void {
             self.event = event
@@ -54,7 +70,7 @@ extension EventDetailsSheet {
             // since it does not need to be set for the entire course
             let notification = Notification(
                 id: self.event.id,
-                color: self.color!.toHex(),
+                color: self.color.toHex() ?? "#FFFFFF",
                 dateComponents: self.event.dateComponents!,
                 categoryIdentifier: nil,
                 content: self.event.toDictionary())
@@ -111,7 +127,7 @@ extension EventDetailsSheet.EventDetailsSheetViewModel {
                 events.forEach { event in
                     let notification = Notification(
                         id: event.id,
-                        color: color?.toHex() ?? "#FFFFFF",
+                        color: color.toHex() ?? "#FFFFFF",
                         dateComponents: event.dateComponents!,
                         categoryIdentifier: event.course.id, content: event.toDictionary())
                     // Sets notifications for course. If events already have notifications set for them without a categoryIdentifier,

@@ -66,8 +66,13 @@ struct BookmarkPage: View {
             UIApplication.shared.applicationIconBadgeNumber = 0
         }
         .popover(item: $eventSheet) { (eventSheet: EventDetailsSheetModel) in
-            EventDetailsSheet(viewModel: viewModel.generateViewModelEventSheet(event: eventSheet.event, color: eventSheet.color), createToast: createToast)
+            EventDetailsSheet(viewModel: viewModel.generateViewModelEventSheet(event: eventSheet.event, color: eventSheet.color), createToast: createToast, updateCourseColors: updateCourseColors)
         }
     }
+    
+    func updateCourseColors() -> Void {
+        self.viewModel.updateCourseColors()
+    }
+    
 }
 

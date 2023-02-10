@@ -19,6 +19,40 @@ class CourseColorService: ObservableObject, CourseColorServiceProtocol {
                 .appendingPathComponent("colors.data")
         }
 
+    func replace(for event: Response.Event, with color: Color, completion: @escaping (Result<Int, Error>)->Void) -> Void {
+        DispatchQueue.global(qos: .background).async {
+            do {
+                let fileURL = try self.fileURL()
+                self.load { result in
+                    switch result {
+                    case .failure(let error):
+                        DispatchQueue.main.async {
+                            completion(.failure(error))
+                        }
+                    case .success(let courses):
+                        do {
+                            var newCourses = courses
+                            newCourses[event.course.id] = color.toHex()
+                            let data = try JSONEncoder().encode(newCourses)
+                            try data.write(to: fileURL)
+                            DispatchQueue.main.async {
+                                completion(.success(1))
+                            }
+                        } catch {
+                            DispatchQueue.main.async {
+                                completion(.failure(error as! Error))
+                            }
+                        }
+                    }
+                }
+            } catch {
+                DispatchQueue.main.async {
+                    completion(.failure(error as! Error))
+                }
+            }
+        }
+    }
+    
     func load(completion: @escaping (Result<CourseAndColorDict, Error>)->Void) {
         DispatchQueue.global(qos: .background).async {
             do {

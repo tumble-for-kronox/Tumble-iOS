@@ -31,24 +31,26 @@ extension Color {
 
     }
     
-    func toHex() -> String {
-        let components = self.components()
-        let r = Int(components.r * 255)
-        let g = Int(components.g * 255)
-        let b = Int(components.b * 255)
-        return String(format: "#%02X%02X%02X", r, g, b)
-    }
-    
-    private func components() -> (r: Double, g: Double, b: Double) {
-        let scanner = Scanner(string: self.description.trimmingCharacters(in: CharacterSet.alphanumerics.inverted))
-        var hexNumber: UInt64 = 0
-        var r: Double = 0.0, g: Double = 0.0, b: Double = 0.0
-        scanner.scanHexInt64(&hexNumber)
-        
-        r = Double((hexNumber & 0xff000000) >> 24) / 255
-        g = Double((hexNumber & 0x00ff0000) >> 16) / 255
-        b = Double((hexNumber & 0x0000ff00) >> 8) / 255
-        
-        return (r, g, b)
+    // Source
+    // https://blog.eidinger.info/from-hex-to-color-and-back-in-swiftui
+    func toHex() -> String? {
+        let uic = UIColor(self)
+        guard let components = uic.cgColor.components, components.count >= 3 else {
+            return nil
+        }
+        let r = Float(components[0])
+        let g = Float(components[1])
+        let b = Float(components[2])
+        var a = Float(1.0)
+
+        if components.count >= 4 {
+            a = Float(components[3])
+        }
+
+        if a != Float(1.0) {
+            return String(format: "%02lX%02lX%02lX%02lX", lroundf(r * 255), lroundf(g * 255), lroundf(b * 255), lroundf(a * 255))
+        } else {
+            return String(format: "%02lX%02lX%02lX", lroundf(r * 255), lroundf(g * 255), lroundf(b * 255))
+        }
     }
 }
