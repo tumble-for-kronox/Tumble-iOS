@@ -52,6 +52,11 @@ extension BookmarkPage {
             self.school = preferenceService.getDefaultSchool()
         }
         
+        func updateCourseColors() -> Void {
+            self.loadCourseColors() { courseColors in
+                self.courseColors = courseColors
+            }
+        }
         
         func loadBookmarkedSchedules() -> Void {
             // Load schedules from local storage

@@ -9,15 +9,20 @@ import SwiftUI
 
 typealias OnTapCard = (Response.Event, Color) -> Void
 
+struct BookmarksListModel {
+    var scrollViewOffset: CGFloat = .zero
+    var startOffset: CGFloat = .zero
+    var buttonOffsetX: CGFloat = 200
+}
+
 
 struct BookmarkListView: View {
     
+    let topId: String = "TOP"
     let days: [DayUiModel]
     let courseColors: CourseAndColorDict
     let onTapCard: OnTapCard
-    @State private var scrollViewOffset: CGFloat = .zero
-    @State private var startOffset: CGFloat = .zero
-    @State private var buttonOffsetX: CGFloat = 200
+    @State private var bookmarksListModel: BookmarksListModel = BookmarksListModel()
     
     
     var body: some View {
@@ -29,34 +34,20 @@ struct BookmarkListView: View {
                         if !(day.events.isEmpty) {
                             Section(header: DayHeader(day: day), content: {
                                 ForEach(day.events, id: \.id) { event in
-                                    ScheduleCard(onTapCard: onTapCard, event: event, isLast: event == day.events.last, color: courseColors[event.course.id] != nil ? courseColors[event.course.id]!.toColor() : "FFFFFF".toColor())
+                                    ScheduleCard(onTapCard: onTapCard, event: event, isLast: event == day.events.last, color: courseColors[event.course.id] != nil ? courseColors[event.course.id]!.toColor() : .white)
                                 }
                             })
                             .padding(.top, 35)
                         }
                     }
-                    
                 }
-                .id("TOP")
+                .id(topId)
                 .padding(7.5)
                 .overlay(
                     GeometryReader { proxy -> Color in
                         DispatchQueue.main.async {
-                            if startOffset == 0 {
-                                self.startOffset = proxy.frame(in: .global).minY
-                            }
-                            let offset = proxy.frame(in: .global).minY
-                            
-                            self.scrollViewOffset = offset - startOffset
-                            if -self.scrollViewOffset > 450 {
-                                withAnimation(.spring()) {
-                                    buttonOffsetX = .zero
-                                }
-                            } else if -scrollViewOffset < 450 {
-                                withAnimation(.spring()) {
-                                    buttonOffsetX = 200
-                                }
-                            }
+                            handleScrollOffset(value: proxy.frame(in: .global).minY)
+                            handleButtonAnimation()
                         }
                         return Color.clear
                     }
@@ -66,7 +57,7 @@ struct BookmarkListView: View {
             .overlay(
                 Button(action: {
                     withAnimation(.spring()) {
-                        value.scrollTo("TOP", anchor: .top)
+                        value.scrollTo(topId, anchor: .top)
                     }
                 }, label: {
                     Image(systemName: "arrow.up")
@@ -77,10 +68,31 @@ struct BookmarkListView: View {
                         .clipShape(Circle())
                 })
                 .padding()
-                .offset(x: buttonOffsetX)
+                .offset(x: bookmarksListModel.buttonOffsetX)
                 .shadow(radius: 5, x: 5, y: 5)
                 ,alignment: .bottomTrailing
             )
         }
+    }
+    
+    fileprivate func handleButtonAnimation() -> Void {
+        if -self.bookmarksListModel.scrollViewOffset > 450 {
+            withAnimation(.spring()) {
+                bookmarksListModel.buttonOffsetX = .zero
+            }
+        } else if -bookmarksListModel.scrollViewOffset < 450 {
+            withAnimation(.spring()) {
+                bookmarksListModel.buttonOffsetX = 200
+            }
+        }
+    }
+    
+    fileprivate func handleScrollOffset(value: CGFloat) -> Void {
+        if bookmarksListModel.startOffset == 0 {
+            self.bookmarksListModel.startOffset = value
+        }
+        let offset = value
+        
+        self.bookmarksListModel.scrollViewOffset = offset - bookmarksListModel.startOffset
     }
 }
