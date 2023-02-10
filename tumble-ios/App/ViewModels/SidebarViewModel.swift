@@ -13,6 +13,7 @@ extension SidebarMenu {
         
         @Inject var preferenceService: PreferenceService
         @Inject var scheduleService: ScheduleService
+        @Inject var notificationManager: NotificationManager
         
         @Published var universityImage: Image?
         @Published var universityName: String?
@@ -64,13 +65,34 @@ extension SidebarMenu {
             var bookmarks = self.preferenceService.getBookmarks() ?? []
             bookmarks.removeAll(where: { $0.id == id })
             preferenceService.setBookmarks(bookmarks: bookmarks)
+            self.loadSchedules { schedules in
+                let schedulesToRemove = schedules.filter { $0.id == id }
+                let events = schedulesToRemove
+                    .flatMap { schedule in schedule.days }
+                    .flatMap { day in day.events }
+                events.forEach { event in self.notificationManager.cancelNotification(for: event.id) }
+            }
             self.bookmarks = bookmarks
         }
+        
     }
 }
 
 
 extension SidebarMenu.SidebarViewModel {
+    
+    fileprivate func loadSchedules(completion: @escaping ([ScheduleStoreModel]) -> Void) -> Void {
+        DispatchQueue.main.async {
+            self.scheduleService.load { result in
+                switch result {
+                case .failure(_):
+                    return
+                case .success(let bookmarks):
+                    completion(bookmarks)
+                }
+            }
+        }
+    }
     
     fileprivate func missingIDs(scheduleModels: [ScheduleStoreModel], bookmarks: [Bookmark]) -> [String] {
         let scheduleIDs = Set(scheduleModels.map { $0.id })
