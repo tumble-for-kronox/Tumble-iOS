@@ -62,7 +62,7 @@ class PreferenceService: PreferenceServiceProtocol {
         UserDefaults.standard.synchronize()
     }
     
-    func setAutoSign(autoSignup: Bool) {
+    func setAutoSignup(autoSignup: Bool) {
         UserDefaults.standard.set(autoSignup, forKey: StoreKey.autoSignup.rawValue)
         UserDefaults.standard.synchronize()
     }

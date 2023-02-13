@@ -8,9 +8,9 @@
 import Foundation
 import SwiftUI
 
-enum ThemeMode: String {
-    case light = "light"
-    case dark = "dark"
+enum AuthStatus {
+    case authorized
+    case unAuthorized
 }
 
 
@@ -24,12 +24,14 @@ enum ThemeMode: String {
     @Inject var courseColorService: CourseColorService
     @Inject var preferenceService: PreferenceService
     @Inject var notificationManager: NotificationManager
+    @Inject var authManager: AuthManager
     
     @Published var kronoxUrl: String?
     @Published var canvasUrl: String?
     @Published var domain: String?
     @Published var universityImage: Image?
     @Published var universityName: String?
+    @Published var authStatus: AuthStatus = .unAuthorized
     
     let homeViewModel: HomePage.HomePageViewModel
     let bookmarksViewModel: BookmarkPage.BookmarkPageViewModel
@@ -37,6 +39,11 @@ enum ThemeMode: String {
     let searchViewModel: SearchPage.SearchPageViewModel
     let sidebarViewModel: SidebarMenu.SidebarViewModel
     
+    var user: TumbleUser? {
+        get {
+            return authManager.user
+        }
+    }
     
     init() {
         
@@ -50,9 +57,26 @@ enum ThemeMode: String {
         self.canvasUrl = preferenceService.getCanvasUrl()
         self.kronoxUrl = preferenceService.getUniversityKronoxUrl()
         self.domain = preferenceService.getUniversityDomain()
-        self.universityImage = self.preferenceService.getUniversityImage()
-        self.universityName = self.preferenceService.getUniversityName()
+        self.universityImage = preferenceService.getUniversityImage()
+        self.universityName = preferenceService.getUniversityName()
         
+        //self.autoLogin()
+    }
+    
+    private func autoLogin() -> Void {
+        authManager.autoLoginUser(completionHandler: { [weak self] (result: Result<Response.KronoxUser, Error>) in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                switch result {
+                case .success(_):
+                    AppLogger.shared.info("Successfully signed in user")
+                    self.authStatus = .authorized
+                case .failure(let error):
+                    AppLogger.shared.info("Failed to sign in user -> \(error.localizedDescription)")
+                    self.authStatus = .unAuthorized
+                }
+            }
+        })
     }
     
     

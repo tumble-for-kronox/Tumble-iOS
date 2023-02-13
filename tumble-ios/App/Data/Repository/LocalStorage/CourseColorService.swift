@@ -11,6 +11,7 @@ import SwiftUI
 typealias CourseAndColorDict = [String : String]
 
 class CourseColorService: ObservableObject, CourseColorServiceProtocol {
+    
     private func fileURL() throws -> URL {
             try FileManager.default.url(for: .documentDirectory,
                in: .userDomainMask,
@@ -75,13 +76,7 @@ class CourseColorService: ObservableObject, CourseColorServiceProtocol {
             }
     }
     
-    // [String : [String : Color]] is a dictionary of
-    // course names with its respective dictionary of hexColor: String, and color: Color
-    // {
-    //      "course_one" : {
-    //                      "#45F327" : Color.blue
-    //                     }
-    // }
+
     func save(coursesAndColors: [String : String], completion: @escaping (Result<Int, Error>)->Void) {
         DispatchQueue.global(qos: .background).async {
             do {

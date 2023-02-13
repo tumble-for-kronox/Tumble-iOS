@@ -227,7 +227,7 @@ extension BookmarkPage.BookmarkPageViewModel {
     
     
     fileprivate func fetchSchedule(for scheduleId: String, closure: @escaping (Response.Schedule) -> Void) {
-        networkManager.get(.schedule(scheduleId: scheduleId, schoolId: String(preferenceService.getDefaultSchool()!.id))) { (result: Result<Response.Schedule, Error>) in
+        networkManager.get(.schedule(scheduleId: scheduleId, schoolId: String(preferenceService.getDefaultSchool()!.id)), authToken: nil) { (result: Result<Response.Schedule, Error>) in
             switch result {
             case .failure(let error):
                 AppLogger.shared.info("Encountered error when attempting to update schedule -> \(scheduleId): \(error)")
