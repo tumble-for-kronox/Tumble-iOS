@@ -7,23 +7,12 @@
 
 import Foundation
 
-public struct TumbleUser: Decodable, Encodable {
-    var username: String
-    var name: String
-    var password: String
-}
 
-open class AuthManager {
+class AuthManager {
     
-    
-    public enum TokenState: Int {
+    enum TokenState: Int {
         case plainToken = 0
         case noToken = 1
-    }
-    
-    public enum UserState: Int {
-        case unAuthorized = 0
-        case authorized = 1
     }
     
     private let urlSession: URLSession
@@ -31,7 +20,6 @@ open class AuthManager {
     private let encoder = JSONEncoder()
     private let decoder = JSONDecoder()
     private var tokenState: TokenState?
-    public var userState: UserState?
     
     init() {
         serialQueue.maxConcurrentOperationCount = 1
@@ -65,13 +53,24 @@ open class AuthManager {
         }
         set {
             if let school = self.getDefaultSchool() {
-                self.saveKeyChain((newValue?.data(using: .utf8))!, for: "session-token", account: school.name) { result in
-                    switch result {
-                    case .success(_):
-                        AppLogger.shared.info("Successfully stored session-token")
-                    case .failure(_):
-                        AppLogger.shared.info("Failed to store auth-token")
+                if let value = newValue {
+                    self.saveKeyChain((value.data(using: .utf8))!, for: "session-token", account: school.name) { result in
+                        switch result {
+                        case .success(_):
+                            AppLogger.shared.info("Successfully stored session-token")
+                        case .failure(_):
+                            AppLogger.shared.info("Failed to store session-token")
+                        }
                     }
+                } else {
+                    self.deleteKeyChain(for: "session-token", account: school.name, completion: { result in
+                        switch result {
+                        case .success(_):
+                            AppLogger.shared.info("Successfully deleted session-token")
+                        case .failure(_):
+                            AppLogger.shared.info("Failed to delete session-token")
+                        }
+                    })
                 }
             }
         }
@@ -88,13 +87,24 @@ open class AuthManager {
         }
         set {
             if let school = self.getDefaultSchool() {
-                self.saveKeyChain((newValue?.data(using: .utf8))!, for: "refresh-token", account: school.name) { result in
-                    switch result {
-                    case .success(_):
-                        AppLogger.shared.info("Successfully stored refresh-token")
-                    case .failure(_):
-                        AppLogger.shared.info("Failed to store refresh-token")
+                if let value = newValue {
+                    self.saveKeyChain((value.data(using: .utf8))!, for: "refresh-token", account: school.name) { result in
+                        switch result {
+                        case .success(_):
+                            AppLogger.shared.info("Successfully stored refresh-token")
+                        case .failure(_):
+                            AppLogger.shared.info("Failed to store refresh-token")
+                        }
                     }
+                } else {
+                    self.deleteKeyChain(for: "refresh-token", account: school.name, completion: { result in
+                        switch result {
+                        case .success(_):
+                            AppLogger.shared.info("Successfully deleted refresh-token")
+                        case .failure(_):
+                            AppLogger.shared.info("Failed to delete refresh-token")
+                        }
+                    })
                 }
             }
         }
@@ -106,12 +116,12 @@ open class AuthManager {
                 if let school = self.getDefaultSchool() {
                     if let data = self.readKeyChain(for: "tumble-user", account: school.name) {
                         let user = try decoder.decode(TumbleUser.self, from: data)
-                        return TumbleUser(username: user.username, name: user.name, password: user.password)
+                        return TumbleUser(username: user.username, name: user.name)
                     }
                 }
                 return nil
             } catch {
-                AppLogger.shared.info("Decoding error")
+                AppLogger.shared.info("No available user to decode")
                 return nil
             }
         }
@@ -228,7 +238,7 @@ open class AuthManager {
                 urlRequest.httpBody = try encoder.encode(user)
                 
                 urlSession.dataTask(with: urlRequest, completionHandler: { data, response, error in
-                    self.handleAuthResponse(userLogin: user, data: data, response: response, error: error as? Error, completionHandler: completionHandler)
+                    self.handleAuthResponse(data: data, response: response, error: error as? Error, completionHandler: completionHandler)
                 }).resume()
             } catch {
                 AppLogger.shared.info("Failed to encode JSON body of type \(user.self)")
@@ -255,16 +265,12 @@ open class AuthManager {
         }
     }
     
-    private func handleAuthResponse(userLogin: Request.KronoxUserLogin? = nil, data: Data?, response: URLResponse?, error: Error?, completionHandler: @escaping (Result<Response.KronoxUser, Error>) -> Void) {
+    private func handleAuthResponse(data: Data?, response: URLResponse?, error: Error?, completionHandler: @escaping (Result<Response.KronoxUser, Error>) -> Void) {
         if let data = data, let result = try? self.decoder.decode(Response.KronoxUser.self, from: data) {
             self.refreshToken = result.refreshToken
             self.sessionToken = result.sessionToken
-            self.userState = .authorized
             
-            if let userLogin = userLogin {
-                self.user = TumbleUser(username: result.username, name: result.name, password: userLogin.password)
-                AppLogger.shared.info("\(self.user.debugDescription)")
-            } else if let school = self.getDefaultSchool() {
+            if let school = self.getDefaultSchool() {
                 if let data = self.readKeyChain(for: "tumble-user", account: school.name) {
                     if let user = try? decoder.decode(TumbleUser.self, from: data) {
                         AppLogger.shared.info("\(self.user.debugDescription)")
@@ -277,13 +283,11 @@ open class AuthManager {
         } else if let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode > 299 {
             // In case we got an error while using refresh token, we want to clear token storage - there's no way
             // to recover from this
-            self.userState = .unAuthorized
             clearTokensAndKeyChain()
             completionHandler(.failure(.generic(reason: "Could not retrieve any tokens")))
 
         } else {
             // Any other error from NSURLErrorDomain (e.g internet offline) - we won't clear token storage
-            self.userState = .unAuthorized
             state = .noToken
             completionHandler(.failure(.generic(reason: error?.localizedDescription ?? "Service unavailable")))
         }

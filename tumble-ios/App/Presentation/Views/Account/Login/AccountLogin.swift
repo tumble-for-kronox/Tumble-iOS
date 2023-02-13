@@ -14,10 +14,13 @@ enum focusedField {
 struct AccountLogin: View {
     
     @ObservedObject var viewModel: AccountPage.AccountPageViewModel
+    @EnvironmentObject var userModel: UserModel
     
     @State private var username: String = ""
     @State private var password: String = ""
     @State private var visiblePassword: Bool = false
+    
+    let createToast: (ToastStyle, String, String) -> Void
     
     var body: some View {
         VStack (spacing: 30) {
@@ -28,17 +31,16 @@ struct AccountLogin: View {
             }
             .padding(.horizontal, 35)
             LoginButton(login: {
-                viewModel.login(username: username, password: password)
+                userModel.logIn(username: username, password: password, completion: { success in
+                    if success {
+                        createToast(.success, "Logged in", "Successfully logged in as \(userModel.user?.username ?? username)")
+                    } else {
+                        createToast(.error, "Error", "Something went wrong when logging in ...")
+                    }
+                })
             })
             LoginSubHeader(schoolName: viewModel.school?.name ?? "")
         }
         .padding(.top, 50)
-    }
-}
-
-
-struct AccountLogin_Previews: PreviewProvider {
-    static var previews: some View {
-        AccountLogin(viewModel: ViewModelFactory().makeViewModelAccountPage())
     }
 }

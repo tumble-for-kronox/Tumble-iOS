@@ -8,11 +8,6 @@
 import Foundation
 import SwiftUI
 
-enum AuthStatus {
-    case authorized
-    case unAuthorized
-}
-
 
 // Parent/Container for other viewmodels and common methods
 // to update the AppView and its child views through their viewmodels
@@ -31,19 +26,14 @@ enum AuthStatus {
     @Published var domain: String?
     @Published var universityImage: Image?
     @Published var universityName: String?
-    @Published var authStatus: AuthStatus = .unAuthorized
+    @Published var userModel: UserModel = UserModel()
     
     let homeViewModel: HomePage.HomePageViewModel
     let bookmarksViewModel: BookmarkPage.BookmarkPageViewModel
     let accountPageViewModel: AccountPage.AccountPageViewModel
     let searchViewModel: SearchPage.SearchPageViewModel
     let sidebarViewModel: SidebarMenu.SidebarViewModel
-    
-    var user: TumbleUser? {
-        get {
-            return authManager.user
-        }
-    }
+
     
     init() {
         
@@ -60,23 +50,8 @@ enum AuthStatus {
         self.universityImage = preferenceService.getUniversityImage()
         self.universityName = preferenceService.getUniversityName()
         
-        //self.autoLogin()
-    }
-    
-    private func autoLogin() -> Void {
-        authManager.autoLoginUser(completionHandler: { [weak self] (result: Result<Response.KronoxUser, Error>) in
-            guard let self = self else { return }
-            DispatchQueue.main.async {
-                switch result {
-                case .success(_):
-                    AppLogger.shared.info("Successfully signed in user")
-                    self.authStatus = .authorized
-                case .failure(let error):
-                    AppLogger.shared.info("Failed to sign in user -> \(error.localizedDescription)")
-                    self.authStatus = .unAuthorized
-                }
-            }
-        })
+        self.userModel.autoLogin()
+        
     }
     
     
@@ -91,6 +66,7 @@ enum AuthStatus {
         self.bookmarksViewModel.updateViewLocals()
         self.sidebarViewModel.updateViewLocals()
         self.bookmarksViewModel.loadBookmarkedSchedules()
+        self.accountPageViewModel.updateViewLocals()
     }
     
     

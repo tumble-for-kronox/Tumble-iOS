@@ -10,6 +10,8 @@ import SwiftUI
 struct User: View {
     
     let user: TumbleUser
+    let toggleAutoSignup: (Bool) -> Void
+    let userBookings: [Response.KronoxResourceData]
     @Binding var autoSignup: Bool
     
     var body: some View {
@@ -32,7 +34,7 @@ struct User: View {
                         Spacer()
                     }
                     .padding(10)
-                    .padding(.top, 35)
+                    .padding(.top, 20)
                 }
                 .padding()
                 .padding(.top, 80)
@@ -43,11 +45,24 @@ struct User: View {
             
                 Spacer()
                 VStack {
-                    UserOptions {
-                        Toggle(isOn: $autoSignup, label: {
+                    UserActions (title: "User options", image: "gearshape") {
+                        Toggle(isOn: $autoSignup) {
                             Text("Automatic exam signup")
-                                .font(.system(size: 18, design: .rounded))
+                                .font(.system(size: 17, design: .rounded))
+                                .foregroundColor(.onBackground)
+                        }
+                        .toggleStyle(SwitchToggleStyle(tint: .primary))
+                        .onChange(of: autoSignup, perform: { (value: Bool) in
+                            toggleAutoSignup(value)
                         })
+                    }
+                    UserActions (title: "Your bookings", image: "tray.full") {
+                        if userBookings.isEmpty {
+                            Text("No bookings yet")
+                                .font(.system(size: 17, weight: .regular, design: .rounded))
+                                .foregroundColor(.onBackground)
+                                .padding(.top, 5)
+                        }
                     }
                     Spacer()
                 }
