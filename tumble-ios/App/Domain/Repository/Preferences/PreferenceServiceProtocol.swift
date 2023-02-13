@@ -25,7 +25,7 @@ protocol PreferenceServiceProtocol {
     
     func setLang(lang: String) -> Void
     
-    func setAutoSign(autoSignup: Bool) -> Void
+    func setAutoSignup(autoSignup: Bool) -> Void
     
     func setViewType(viewType: Int) -> Void
     

@@ -14,10 +14,10 @@ struct AccountPage: View {
             switch viewModel.status {
             case .loading:
                 InfoLoading(title: "Attempting to sign in")
-            case .signedIn:
-                Text("User is signed in!")
-            case .notSignedIn:
-                Text("User is not signed in!")
+            case .authorized:
+                User(user: viewModel.authManager.user!, autoSignup: $viewModel.autoSignup)
+            case .unAuthorized:
+                AccountLogin(viewModel: viewModel)
             case .error:
                 Text("Error occurred when signing in")
             }

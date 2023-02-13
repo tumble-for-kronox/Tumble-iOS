@@ -8,45 +8,45 @@
 import Foundation
 
 enum Request {
-    struct Empty: Codable {
+    struct Empty: Encodable {
     
     }
     
-    struct RegisterUserEvent: Codable {
+    struct RegisterUserEvent: Encodable {
         let eventId: String
         let schoolId: Int
         let sessionToken: String
     }
     
-    struct UnregisterUserEvent: Codable {
+    struct UnregisterUserEvent: Encodable {
         let eventId: String
         let schoolId: Int
         let sessionToken: String
     }
     
-    struct RegiserAllUserEvents: Codable {
+    struct RegiserAllUserEvents: Encodable {
         let schoolId: Int
         let sessionToken: String
     }
     
-    struct SubmitIssue: Codable {
+    struct SubmitIssue: Encodable {
         let title: String
         let description: String
     }
     
-    struct BookKronoxResource: Codable {
+    struct BookKronoxResource: Encodable {
         let resourceId: String
         let date: String
         let availabilitySlot: String
     }
     
-    struct UnbookKronoxResource: Codable {
+    struct UnbookKronoxResource: Encodable {
         let bookingId: String
         let schoolId: Int
         let sessionToken: String
     }
     
-    struct KronoxUserLogin: Codable {
+    struct KronoxUserLogin: Encodable {
         let username: String
         let password: String
     }

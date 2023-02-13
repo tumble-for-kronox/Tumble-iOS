@@ -23,6 +23,15 @@ extension String {
     }
 
     
+    func abbreviate() -> String {
+        let formatter = PersonNameComponentsFormatter()
+        if let components = formatter.personNameComponents(from: self) {
+             formatter.style = .abbreviated
+             return formatter.string(from: components)
+        }
+        return ""
+    }
+    
     func toColor () -> Color {
         var cString:String = self.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
 
