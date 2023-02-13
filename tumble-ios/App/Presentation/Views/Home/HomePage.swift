@@ -10,6 +10,7 @@ import SwiftUI
 struct HomePage: View {
     
     @ObservedObject var viewModel: HomePage.HomePageViewModel
+    @EnvironmentObject var userModel: UserModel
     
     @Binding var domain: String?
     @Binding var canvasUrl: String?
@@ -21,7 +22,7 @@ struct HomePage: View {
     var body: some View {
         VStack (alignment: .leading, spacing: 0) {
             VStack (alignment: .leading, spacing: 0) {
-                Text(viewModel.user != nil ? "Good \(viewModel.getTimeOfDay()), \(viewModel.user!.name.components(separatedBy: " ").first!)!" : "Good \(viewModel.getTimeOfDay())!")
+                Text(userModel.user != nil ? "Good \(viewModel.getTimeOfDay()), \(userModel.user!.name.components(separatedBy: " ").first!)!" : "Good \(viewModel.getTimeOfDay())!")
                     .font(.system(size: 30, design: .rounded))
                     .fontWeight(.semibold)
                     .padding(.bottom, 10)

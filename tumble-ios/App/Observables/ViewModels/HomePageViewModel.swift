@@ -12,13 +12,8 @@ extension HomePage {
     @MainActor final class HomePageViewModel: ObservableObject {
         
         @Inject var preferenceService: PreferenceService
-        @Inject var authManager: AuthManager
         
         let ladokUrl: String = "https://www.student.ladok.se/student/app/studentwebb/"
-        
-        var user: TumbleUser? {
-            get { return authManager.user }
-        }
         
         func getTimeOfDay() -> String {
             let date = Date()

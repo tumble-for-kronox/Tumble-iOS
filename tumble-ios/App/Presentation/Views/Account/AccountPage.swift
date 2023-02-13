@@ -8,20 +8,29 @@
 import SwiftUI
 
 struct AccountPage: View {
+    
     @ObservedObject var viewModel: AccountPageViewModel
+    @EnvironmentObject private var userModel: UserModel
+    
+    let createToast: (ToastStyle, String, String) -> Void
+    
     var body: some View {
         VStack (alignment: .center) {
-            switch viewModel.status {
-            case .loading:
-                InfoLoading(title: "Attempting to sign in")
-            case .authorized:
-                User(user: viewModel.authManager.user!, autoSignup: $viewModel.autoSignup)
-            case .unAuthorized:
-                AccountLogin(viewModel: viewModel)
-            case .error:
-                Text("Error occurred when signing in")
+            if userModel.authStatus == .authorized {
+                User(user: userModel.user!, toggleAutoSignup: toggleAutoSignup, userBookings: viewModel.userBookings, autoSignup: $viewModel.autoSignup)
+            } else {
+                if viewModel.status == .loading {
+                    InfoLoading(title: "Attempting to log in user")
+                } else if viewModel.status == .initial {
+                    AccountLogin(viewModel: viewModel, createToast: createToast)
+                }
             }
         }
     }
+    
+    fileprivate func toggleAutoSignup(value: Bool) -> Void {
+        viewModel.toggleAutoSignup(value: value)
+    }
+    
 }
 

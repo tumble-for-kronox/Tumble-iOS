@@ -7,36 +7,32 @@
 
 import SwiftUI
 
-struct UserOptions<Content : View>: View {
+struct UserActions<Content : View>: View {
     
     let content: Content
+    let title: String
+    let image: String
     
-    init(@ViewBuilder content: () -> Content) {
+    init(title: String, image: String, @ViewBuilder content: () -> Content) {
+        self.title = title
+        self.image = image
         self.content = content()
     }
     
     var body: some View {
         VStack (alignment: .leading) {
             HStack {
-                Image(systemName: "gearshape")
-                Text("User options")
+                Image(systemName: image)
+                Text(title)
                     .font(.system(size: 16, design: .rounded))
                 VStack {
                     Divider()
                         .overlay(Color.onBackground)
-                        .padding()
+                        .padding(.leading)
                 }
             }
             content
         }
-        .padding()
-    }
-}
-
-struct UserOptions_Previews: PreviewProvider {
-    static var previews: some View {
-        UserOptions(content: {
-            Text("Hello world")
-        })
+        .padding(25)
     }
 }

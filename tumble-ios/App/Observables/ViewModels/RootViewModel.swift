@@ -15,6 +15,8 @@ enum RootViewStatus {
 extension Root {
     @MainActor final class RootViewModel: ObservableObject {
         
+        @Inject var authManager: AuthManager
+        
         let viewModelFactory: ViewModelFactory = ViewModelFactory.shared
         
         @Published var currentView: RootViewStatus
