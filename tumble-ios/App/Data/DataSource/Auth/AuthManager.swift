@@ -62,7 +62,7 @@ class AuthManager {
         }
     }
     
-    private var refreshToken: String? {
+    var refreshToken: String? {
         get {
             if let school = self.getDefaultSchool() {
                 if let data = self.readKeyChain(for: "refresh-token", account: school.name) {

@@ -36,6 +36,9 @@ class User: ObservableObject {
         set { saveProfilePicture(image: newValue) }
     }
 
+    var refreshToken: String? {
+        get { authManager.refreshToken }
+    }
     
     init() {
         if self.user != nil {
