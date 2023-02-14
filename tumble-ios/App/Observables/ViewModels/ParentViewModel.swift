@@ -65,6 +65,8 @@ import SwiftUI
         self.sidebarViewModel.updateViewLocals()
         self.bookmarksViewModel.loadBookmarkedSchedules()
         self.accountPageViewModel.updateViewLocals()
+        
+        self.userModel.autoLogin()
     }
     
     

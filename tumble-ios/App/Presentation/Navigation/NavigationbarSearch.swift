@@ -16,12 +16,12 @@ struct NavigationbarSearch: View {
     
     var body: some View {
         NavigationLink(destination:
-                        SearchPage(viewModel: viewModel, universityImage: $universityImage, checkForNewSchedules: checkForNewSchedules)
-            .navigationBarBackButtonHidden(true)
-            .navigationBarItems(leading: BackButton(previousPage: backButtonTitle, resetSearchResults: resetSearchResults)), label: {
-                Image(systemName: "magnifyingglass")
-                    .font(.system(size: 17))
-                    .foregroundColor(.onBackground)
+            SearchPage(viewModel: viewModel, universityImage: $universityImage, checkForNewSchedules: checkForNewSchedules)
+            .customNavigationBackButton(previousPage: backButtonTitle, callback: checkForNewSchedules)
+           , label: {
+            Image(systemName: "magnifyingglass")
+                .font(.system(size: 17))
+                .foregroundColor(.onBackground)
         })
     }
     

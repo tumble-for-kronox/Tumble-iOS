@@ -62,8 +62,6 @@
 		D45338FB2929730200198411 /* CustomProgressIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45338FA2929730200198411 /* CustomProgressIndicator.swift */; };
 		D45338FD29297C8B00198411 /* DayUIModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45338FC29297C8B00198411 /* DayUIModel.swift */; };
 		D45338FF2929805100198411 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45338FE2929805100198411 /* StringExtensions.swift */; };
-		D4533907292A921B00198411 /* PermissionsSwiftUICamera in Frameworks */ = {isa = PBXBuildFile; productRef = D4533906292A921B00198411 /* PermissionsSwiftUICamera */; };
-		D4533909292A921B00198411 /* PermissionsSwiftUINotification in Frameworks */ = {isa = PBXBuildFile; productRef = D4533908292A921B00198411 /* PermissionsSwiftUINotification */; };
 		D4563E7E2985F96C003261FA /* NetworkSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4563E7D2985F96C003261FA /* NetworkSettings.swift */; };
 		D4563E802985FBFB003261FA /* NetworkExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4563E7F2985FBFB003261FA /* NetworkExtensions.swift */; };
 		D4607632292AA39400DE9590 /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4607631292AA39400DE9590 /* Types.swift */; };
@@ -138,6 +136,11 @@
 		D4CF9B2A2935634800DDB5F0 /* SearchError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CF9B292935634800DDB5F0 /* SearchError.swift */; };
 		D4CF9B2C293572BE00DDB5F0 /* Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CF9B2B293572BE00DDB5F0 /* Info.swift */; };
 		D4D29960299B067C003B8C65 /* UIImageViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D2995F299B067C003B8C65 /* UIImageViewExtension.swift */; };
+		D4D29963299B0D42003B8C65 /* PermissionsSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = D4D29962299B0D42003B8C65 /* PermissionsSwiftUI */; };
+		D4D29965299B0D42003B8C65 /* PermissionsSwiftUICamera in Frameworks */ = {isa = PBXBuildFile; productRef = D4D29964299B0D42003B8C65 /* PermissionsSwiftUICamera */; };
+		D4D29967299B0D42003B8C65 /* PermissionsSwiftUINotification in Frameworks */ = {isa = PBXBuildFile; productRef = D4D29966299B0D42003B8C65 /* PermissionsSwiftUINotification */; };
+		D4D29969299B0D42003B8C65 /* PermissionsSwiftUIPhoto in Frameworks */ = {isa = PBXBuildFile; productRef = D4D29968299B0D42003B8C65 /* PermissionsSwiftUIPhoto */; };
+		D4D2996C299B15A0003B8C65 /* NavigationButtonModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D2996B299B15A0003B8C65 /* NavigationButtonModifier.swift */; };
 		D4D4DD032927C7DA0083BB7F /* ProgrammeCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D4DD022927C7DA0083BB7F /* ProgrammeCard.swift */; };
 		D4D4DD052927C88E0083BB7F /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D4DD042927C88E0083BB7F /* BackButton.swift */; };
 		D4E39E322989BBD9004C30DF /* ColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E39E312989BBD9004C30DF /* ColorExtensions.swift */; };
@@ -290,6 +293,7 @@
 		D4CF9B292935634800DDB5F0 /* SearchError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchError.swift; sourceTree = "<group>"; };
 		D4CF9B2B293572BE00DDB5F0 /* Info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Info.swift; sourceTree = "<group>"; };
 		D4D2995F299B067C003B8C65 /* UIImageViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageViewExtension.swift; sourceTree = "<group>"; };
+		D4D2996B299B15A0003B8C65 /* NavigationButtonModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationButtonModifier.swift; sourceTree = "<group>"; };
 		D4D4DD022927C7DA0083BB7F /* ProgrammeCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgrammeCard.swift; sourceTree = "<group>"; };
 		D4D4DD042927C88E0083BB7F /* BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
 		D4D4DD212927CFFA0083BB7F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -319,9 +323,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4D29967299B0D42003B8C65 /* PermissionsSwiftUINotification in Frameworks */,
+				D4D29965299B0D42003B8C65 /* PermissionsSwiftUICamera in Frameworks */,
+				D4D29969299B0D42003B8C65 /* PermissionsSwiftUIPhoto in Frameworks */,
 				D4607637292AA8DE00DE9590 /* PopupView in Frameworks */,
-				D4533909292A921B00198411 /* PermissionsSwiftUINotification in Frameworks */,
-				D4533907292A921B00198411 /* PermissionsSwiftUICamera in Frameworks */,
+				D4D29963299B0D42003B8C65 /* PermissionsSwiftUI in Frameworks */,
 				D42BAC1C298D3D590025EAA9 /* Logging in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -350,6 +356,7 @@
 		D40D809929251FC5008CA68D /* Toast */ = {
 			isa = PBXGroup;
 			children = (
+				D40D809F292520C5008CA68D /* ToastModifier.swift */,
 				D4607639292AAD3B00DE9590 /* PopupViewToast */,
 				D4607638292AAD3100DE9590 /* CustomToast */,
 			);
@@ -359,8 +366,8 @@
 		D40D809E292520AA008CA68D /* ViewModifiers */ = {
 			isa = PBXGroup;
 			children = (
+				D4D2996A299B1592003B8C65 /* Navigation */,
 				D40D809929251FC5008CA68D /* Toast */,
-				D40D809F292520C5008CA68D /* ToastModifier.swift */,
 			);
 			path = ViewModifiers;
 			sourceTree = "<group>";
@@ -443,7 +450,6 @@
 		D418B46A298F244C00834BC1 /* Buttons */ = {
 			isa = PBXGroup;
 			children = (
-				D4D4DD042927C88E0083BB7F /* BackButton.swift */,
 			);
 			path = Buttons;
 			sourceTree = "<group>";
@@ -947,6 +953,15 @@
 			path = SchoolSelection;
 			sourceTree = "<group>";
 		};
+		D4D2996A299B1592003B8C65 /* Navigation */ = {
+			isa = PBXGroup;
+			children = (
+				D4D4DD042927C88E0083BB7F /* BackButton.swift */,
+				D4D2996B299B15A0003B8C65 /* NavigationButtonModifier.swift */,
+			);
+			path = Navigation;
+			sourceTree = "<group>";
+		};
 		D4D4DD062927CA660083BB7F /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -1110,10 +1125,12 @@
 			);
 			name = "tumble-ios";
 			packageProductDependencies = (
-				D4533906292A921B00198411 /* PermissionsSwiftUICamera */,
-				D4533908292A921B00198411 /* PermissionsSwiftUINotification */,
 				D4607636292AA8DE00DE9590 /* PopupView */,
 				D42BAC1B298D3D590025EAA9 /* Logging */,
+				D4D29962299B0D42003B8C65 /* PermissionsSwiftUI */,
+				D4D29964299B0D42003B8C65 /* PermissionsSwiftUICamera */,
+				D4D29966299B0D42003B8C65 /* PermissionsSwiftUINotification */,
+				D4D29968299B0D42003B8C65 /* PermissionsSwiftUIPhoto */,
 			);
 			productName = "tumble-ios";
 			productReference = D4722145292454560063BDB7 /* tumble-ios.app */;
@@ -1144,9 +1161,9 @@
 			);
 			mainGroup = D472213C292454560063BDB7;
 			packageReferences = (
-				D4533905292A921B00198411 /* XCRemoteSwiftPackageReference "PermissionsSwiftUI" */,
 				D4607635292AA8DE00DE9590 /* XCRemoteSwiftPackageReference "PopupView" */,
 				D42BAC1A298D3D590025EAA9 /* XCRemoteSwiftPackageReference "swift-log" */,
+				D4D29961299B0D42003B8C65 /* XCRemoteSwiftPackageReference "PermissionsSwiftUI" */,
 			);
 			productRefGroup = D4722146292454560063BDB7 /* Products */;
 			projectDirPath = "";
@@ -1256,6 +1273,7 @@
 				D4A433B829951F2B00BFEB7A /* AppDelegate.swift in Sources */,
 				D4CE2DBD2982E55200B81052 /* NavigationbarSearch.swift in Sources */,
 				D4607645292AC41D00DE9590 /* SearchResults.swift in Sources */,
+				D4D2996C299B15A0003B8C65 /* NavigationButtonModifier.swift in Sources */,
 				D4644A2B298DD7B000B0BB28 /* NotificatonError.swift in Sources */,
 				D4FCD14B2995AD64009D2987 /* UIColorWellExtension.swift in Sources */,
 				D4E39E322989BBD9004C30DF /* ColorExtensions.swift in Sources */,
@@ -1648,17 +1666,17 @@
 				minimumVersion = 1.0.0;
 			};
 		};
-		D4533905292A921B00198411 /* XCRemoteSwiftPackageReference "PermissionsSwiftUI" */ = {
+		D4607635292AA8DE00DE9590 /* XCRemoteSwiftPackageReference "PopupView" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/jevonmao/PermissionsSwiftUI";
+			repositoryURL = "https://github.com/exyte/PopupView.git";
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 1.0.0;
 			};
 		};
-		D4607635292AA8DE00DE9590 /* XCRemoteSwiftPackageReference "PopupView" */ = {
+		D4D29961299B0D42003B8C65 /* XCRemoteSwiftPackageReference "PermissionsSwiftUI" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/exyte/PopupView.git";
+			repositoryURL = "https://github.com/jevonmao/PermissionsSwiftUI.git";
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 1.0.0;
@@ -1672,20 +1690,30 @@
 			package = D42BAC1A298D3D590025EAA9 /* XCRemoteSwiftPackageReference "swift-log" */;
 			productName = Logging;
 		};
-		D4533906292A921B00198411 /* PermissionsSwiftUICamera */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D4533905292A921B00198411 /* XCRemoteSwiftPackageReference "PermissionsSwiftUI" */;
-			productName = PermissionsSwiftUICamera;
-		};
-		D4533908292A921B00198411 /* PermissionsSwiftUINotification */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D4533905292A921B00198411 /* XCRemoteSwiftPackageReference "PermissionsSwiftUI" */;
-			productName = PermissionsSwiftUINotification;
-		};
 		D4607636292AA8DE00DE9590 /* PopupView */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D4607635292AA8DE00DE9590 /* XCRemoteSwiftPackageReference "PopupView" */;
 			productName = PopupView;
+		};
+		D4D29962299B0D42003B8C65 /* PermissionsSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D4D29961299B0D42003B8C65 /* XCRemoteSwiftPackageReference "PermissionsSwiftUI" */;
+			productName = PermissionsSwiftUI;
+		};
+		D4D29964299B0D42003B8C65 /* PermissionsSwiftUICamera */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D4D29961299B0D42003B8C65 /* XCRemoteSwiftPackageReference "PermissionsSwiftUI" */;
+			productName = PermissionsSwiftUICamera;
+		};
+		D4D29966299B0D42003B8C65 /* PermissionsSwiftUINotification */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D4D29961299B0D42003B8C65 /* XCRemoteSwiftPackageReference "PermissionsSwiftUI" */;
+			productName = PermissionsSwiftUINotification;
+		};
+		D4D29968299B0D42003B8C65 /* PermissionsSwiftUIPhoto */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D4D29961299B0D42003B8C65 /* XCRemoteSwiftPackageReference "PermissionsSwiftUI" */;
+			productName = PermissionsSwiftUIPhoto;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

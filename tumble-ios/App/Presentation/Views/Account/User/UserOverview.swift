@@ -69,7 +69,9 @@ struct UserOverview: View {
                             toggleAutoSignup(value)
                         })
                     }
-                    UserActions (title: "Your bookings", image: "tray.full") {
+                    UserActions (title: "Your bookings", image: "tray.full",
+                                 destination: AnyView(Text("Book rooms")
+                                    .customNavigationBackButton(previousPage: "Account"))) {
                         if userBookings.isEmpty {
                             Text("No bookings yet")
                                 .font(.system(size: 17, weight: .regular, design: .rounded))
@@ -77,7 +79,9 @@ struct UserOverview: View {
                                 .padding(.top, 5)
                         }
                     }
-                    UserActions (title: "Your exams", image: "newspaper") {
+                    UserActions (title: "Your exams", image: "newspaper",
+                                 destination: AnyView(Text("Book exams")
+                                    .customNavigationBackButton(previousPage: "Account"))) {
                         if userBookings.isEmpty {
                             Text("No registered exams yet")
                                 .font(.system(size: 17, weight: .regular, design: .rounded))

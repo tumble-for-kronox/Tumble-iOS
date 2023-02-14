@@ -8,14 +8,22 @@
 import SwiftUI
 
 struct BackButton: View {
+    
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     let previousPage: String
-    let resetSearchResults: () -> Void
+    let callback: (() -> Void)?
+    
+    init(previousPage: String, callback: (() -> Void)? = nil) {
+        self.previousPage = previousPage
+        self.callback = callback
+    }
     
     var body: some View {
         Button(action: {
             self.presentationMode.wrappedValue.dismiss()
-            resetSearchResults()
+            if let resetSearchResults = callback {
+                resetSearchResults()
+            }
         }) {
             HStack {
                 Spacer()

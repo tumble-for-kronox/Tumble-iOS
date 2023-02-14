@@ -103,6 +103,7 @@ extension User {
                     completion?(true)
                 case .failure(let failure):
                     AppLogger.shared.info("Failed to log in user -> \(failure.localizedDescription)")
+                    self.authStatus = .unAuthorized
                     completion?(false)
                 }
             }
@@ -120,6 +121,7 @@ extension User {
                     self.authStatus = .authorized
                 case .failure(let failure):
                     AppLogger.shared.info("Failed to log in user -> \(failure.localizedDescription)")
+                    self.authStatus = .unAuthorized
                 }
             }
         })

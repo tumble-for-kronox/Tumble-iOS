@@ -12,10 +12,14 @@ struct UserActions<Content : View>: View {
     let content: Content
     let title: String
     let image: String
+    let onBook: (() -> Void)?
+    let destination: AnyView?
     
-    init(title: String, image: String, @ViewBuilder content: () -> Content) {
+    init(title: String, image: String, destination: AnyView? = nil, onBook: (() -> Void)? = nil, @ViewBuilder content: () -> Content) {
         self.title = title
         self.image = image
+        self.onBook = onBook
+        self.destination = destination
         self.content = content()
     }
     
@@ -25,10 +29,24 @@ struct UserActions<Content : View>: View {
                 Image(systemName: image)
                 Text(title)
                     .font(.system(size: 16, design: .rounded))
+                    .foregroundColor(.onBackground)
                 VStack {
                     Divider()
                         .overlay(Color.onBackground)
-                        .padding(.leading)
+                        .padding([.leading, .trailing])
+                }
+                if let destination = destination {
+                    NavigationLink(destination: destination, label: {
+                        HStack {
+                            Text("Book")
+                                .font(.system(size: 15, weight: .semibold, design: .rounded))
+                                .foregroundColor(.primary)
+                            Image(systemName: "chevron.right")
+                                .font(.system(size: 14, weight: .semibold, design: .rounded))
+                                .foregroundColor(.primary)
+                        }
+                    })
+                    
                 }
             }
             content
