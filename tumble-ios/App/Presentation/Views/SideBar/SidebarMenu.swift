@@ -63,7 +63,7 @@ struct SidebarMenu: View {
             VStack (alignment: .leading, spacing: 0) {
                 Button(action: onPress, label: {
                     HStack {
-                        Text(userModel.authStatus == .authorized ? "Log out" : "Log in")
+                        Text(userModel.authStatus == .authorized || userModel.refreshToken != nil ? "Log out" : "Log in")
                             .fontWeight(.semibold)
                             .font(.system(size: 20, design: .rounded))
                             .foregroundColor(.onPrimary)
@@ -96,7 +96,7 @@ struct SidebarMenu: View {
     }
 
     func onPress() -> Void {
-        if userModel.authStatus == .authorized {
+        if userModel.authStatus == .authorized || userModel.refreshToken != nil {
             userModel.logOut(completion: { success in
                 if success {
                     createToast(.success, "Logged out", "You've logged out from your account")

@@ -23,7 +23,7 @@ struct HomePage: View {
     var body: some View {
         VStack (alignment: .leading, spacing: 0) {
             VStack (alignment: .leading, spacing: 0) {
-                Text(userModel.authStatus == .authorized ? "Good \(viewModel.getTimeOfDay()), \(userModel.user!.name.components(separatedBy: " ").first!)!" : "Good \(viewModel.getTimeOfDay())!")
+                Text(userModel.authStatus == .authorized || userModel.refreshToken != nil ? "Good \(viewModel.getTimeOfDay()), \(userModel.user!.name.components(separatedBy: " ").first!)!" : "Good \(viewModel.getTimeOfDay())!")
                     .font(.system(size: 30, design: .rounded))
                     .fontWeight(.semibold)
                     .padding(.bottom, 10)
