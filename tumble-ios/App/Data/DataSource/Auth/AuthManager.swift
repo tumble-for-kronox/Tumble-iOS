@@ -213,6 +213,8 @@ class AuthManager {
     
     private func processLogin(user: Request.KronoxUserLogin, completionHandler: @escaping (Result<Response.KronoxUser, Error>) -> Void) {
         
+        AppLogger.shared.info("\(self.getDefaultSchool())")
+        
         if let school = self.getDefaultSchool() {
             do {
                 var urlRequest = URLRequest(url: Endpoint.login(schoolId: String(school.id)).url)
@@ -235,6 +237,7 @@ class AuthManager {
     }
     
     private func processAutoLogin(completionHandler: @escaping (Result<Response.KronoxUser, Error>) -> Void) -> Void {
+        
         if let school = self.getDefaultSchool(), let token = self.refreshToken {
             var urlRequest = URLRequest(url: Endpoint.users(schoolId: String(school.id)).url)
             urlRequest.httpMethod = Method.get.rawValue
@@ -246,7 +249,7 @@ class AuthManager {
                 self.handleAuthResponse(data: data, response: response, error: error as? Error, completionHandler: completionHandler)
             }).resume()
         } else {
-            completionHandler(.failure(.generic(reason: "No school selected")))
+            completionHandler(.failure(.generic(reason: "No school selected or no refresh token available")))
         }
     }
     
