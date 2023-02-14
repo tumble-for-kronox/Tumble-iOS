@@ -19,14 +19,13 @@ import SwiftUI
     @Inject var courseColorService: CourseColorService
     @Inject var preferenceService: PreferenceService
     @Inject var notificationManager: NotificationManager
-    @Inject var authManager: AuthManager
     
     @Published var kronoxUrl: String?
     @Published var canvasUrl: String?
     @Published var domain: String?
     @Published var universityImage: Image?
     @Published var universityName: String?
-    @Published var userModel: UserModel = UserModel()
+    @Published var userModel: User = User()
     
     let homeViewModel: HomePage.HomePageViewModel
     let bookmarksViewModel: BookmarkPage.BookmarkPageViewModel
@@ -51,7 +50,6 @@ import SwiftUI
         self.universityName = preferenceService.getUniversityName()
         
         self.userModel.autoLogin()
-        
     }
     
     

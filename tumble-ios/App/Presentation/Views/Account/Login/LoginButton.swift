@@ -17,7 +17,7 @@ struct LoginButton: View {
                 Text("Log in")
                     .font(.system(size: 20, weight: .semibold, design: .rounded))
                     .foregroundColor(.onPrimary)
-                .padding(15)
+                    .padding(15)
             }
             .frame(maxWidth: .infinity)
             
@@ -25,7 +25,6 @@ struct LoginButton: View {
         .background(Color("PrimaryColor"))
         .cornerRadius(10)
         .frame(maxWidth: .infinity, alignment: .center)
-        .padding(.horizontal, 35)
         .padding(.top, 25)
     }
 }

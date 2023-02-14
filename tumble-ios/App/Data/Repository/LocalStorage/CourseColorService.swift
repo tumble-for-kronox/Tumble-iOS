@@ -13,12 +13,12 @@ typealias CourseAndColorDict = [String : String]
 class CourseColorService: ObservableObject, CourseColorServiceProtocol {
     
     private func fileURL() throws -> URL {
-            try FileManager.default.url(for: .documentDirectory,
-               in: .userDomainMask,
-               appropriateFor: nil,
-               create: false)
-                .appendingPathComponent("colors.data")
-        }
+        try FileManager.default.url(for: .documentDirectory,
+           in: .userDomainMask,
+           appropriateFor: nil,
+           create: false)
+            .appendingPathComponent("colors.data")
+    }
 
     func replace(for event: Response.Event, with color: Color, completion: @escaping (Result<Int, Error>)->Void) -> Void {
         DispatchQueue.global(qos: .background).async {
