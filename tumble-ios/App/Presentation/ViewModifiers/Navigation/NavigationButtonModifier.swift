@@ -21,11 +21,7 @@ struct NavigationButtonModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
             .navigationBarBackButtonHidden(true)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading, content: {
-                    BackButton(previousPage: previousPage, callback: callback)
-                })
-            }
+            .navigationBarItems(leading: BackButton(previousPage: previousPage, callback: callback))
     }
 }
 

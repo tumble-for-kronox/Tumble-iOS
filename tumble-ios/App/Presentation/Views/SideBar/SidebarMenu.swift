@@ -66,9 +66,9 @@ struct SidebarMenu: View {
                         Text(userModel.authStatus == .authorized || userModel.refreshToken != nil ? "Log out" : "Log in")
                             .fontWeight(.semibold)
                             .font(.system(size: 20, design: .rounded))
-                            .foregroundColor(.onPrimary)
+                            .foregroundColor(.background)
                         Image(systemName: userModel.user != nil ? "arrow.left.square" : "arrow.right.square")
-                            .foregroundColor(.onPrimary)
+                            .foregroundColor(.background)
                             .font(.system(size: 20))
                             .frame(width: 32)
                             

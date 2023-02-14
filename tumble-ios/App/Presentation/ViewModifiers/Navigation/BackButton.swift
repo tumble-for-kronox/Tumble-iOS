@@ -29,6 +29,7 @@ struct BackButton: View {
                 Spacer()
                 Image(systemName: "chevron.backward")
                     .font(.system(size: 16, weight: .semibold))
+                    .foregroundColor(.onBackground)
                 Text(previousPage)
                     .backButton()
             }
