@@ -18,7 +18,6 @@ struct LoginHeader: View {
                 .foregroundColor(.onBackground.opacity(0.75))
         }
         .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(.horizontal, 35)
         .padding(.bottom, 25)
     }
 }

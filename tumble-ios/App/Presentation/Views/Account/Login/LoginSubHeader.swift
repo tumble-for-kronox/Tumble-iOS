@@ -25,7 +25,6 @@ struct LoginSubHeader: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
         }
-        .padding(.horizontal, 35)
         .padding(.top, 35)
     }
 }

@@ -10,11 +10,12 @@ import SwiftUI
 struct HomePage: View {
     
     @ObservedObject var viewModel: HomePage.HomePageViewModel
-    @EnvironmentObject var userModel: UserModel
+    @EnvironmentObject var userModel: User
     
     @Binding var domain: String?
     @Binding var canvasUrl: String?
     @Binding var kronoxUrl: String?
+    @Binding var selectedTabBar: TabbarTabType
     
     let backgroundColor: Color = .primary.opacity(0.75)
     let iconColor: Color = .primary.opacity(0.95)
@@ -40,9 +41,17 @@ struct HomePage: View {
             
             // Schedules, booked rooms, registered exams
             VStack (alignment: .leading, spacing: 0) {
-                HomePageOption(titleText: "Schedules", bodyText: "Got a class coming up?", image: "list.bullet.clipboard")
-                HomePageOption(titleText: "Booked rooms", bodyText: "Need to study?", image: "books.vertical")
-                HomePageOption(titleText: "Registered exams", bodyText: "You've got this!", image: "newspaper")
+                HomePageOption(titleText: "Schedules", bodyText: "Got a class coming up?", image: "list.bullet.clipboard", onTap: {
+                    withAnimation(.spring()) {
+                        selectedTabBar = .bookmarks
+                    }
+                })
+                HomePageOption(titleText: "Booked rooms", bodyText: "Need to study?", image: "books.vertical", onTap: {
+                    
+                })
+                HomePageOption(titleText: "Registered exams", bodyText: "You've got this!", image: "newspaper", onTap: {
+                    
+                })
             }
             .padding(.top, 40)
         }

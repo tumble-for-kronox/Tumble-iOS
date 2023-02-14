@@ -10,7 +10,7 @@ import SwiftUI
 struct SidebarMenu: View {
     
     @ObservedObject var viewModel: SidebarViewModel
-    @EnvironmentObject var userModel: UserModel
+    @EnvironmentObject var userModel: User
     
     @Binding var showSideBar: Bool
     @Binding var selectedSideBarTab: SidebarTabType
@@ -71,11 +71,12 @@ struct SidebarMenu: View {
                             .foregroundColor(.onPrimary)
                             .font(.system(size: 20))
                             .frame(width: 32)
+                            
                     }
                     .padding(.horizontal, 25)
                     .padding(.bottom, 15)
                 })
-                    .padding(.leading, -16)
+                .padding(.leading, -16)
                 Text("App Version 3.0.0")
                     .font(.system(size: 14, design: .rounded))
                     .foregroundColor(.surface)

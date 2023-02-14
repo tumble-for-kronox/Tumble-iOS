@@ -9,17 +9,12 @@ import Foundation
 
 
 class AuthManager {
-    
-    enum TokenState: Int {
-        case plainToken = 0
-        case noToken = 1
-    }
+
     
     private let urlSession: URLSession
     private let serialQueue = OperationQueue()
     private let encoder = JSONEncoder()
     private let decoder = JSONDecoder()
-    private var tokenState: TokenState?
     
     init() {
         serialQueue.maxConcurrentOperationCount = 1
@@ -32,15 +27,6 @@ class AuthManager {
         self.urlSession = URLSession(configuration: config)
     }
     
-    
-    open private(set) var state: TokenState {
-        get {
-            return self.tokenState ?? .noToken
-        }
-        set {
-            self.tokenState = newValue
-        }
-    }
     
     private var sessionToken: String? {
         get {
@@ -147,7 +133,6 @@ class AuthManager {
     private func clearTokensAndKeyChain(completionHandler: ((Result<Int, Error>) -> Void)? = nil) {
         sessionToken = nil
         refreshToken = nil
-        state = .noToken
         clearKeyChain(completionHandler: completionHandler)
     }
     
@@ -288,7 +273,6 @@ class AuthManager {
 
         } else {
             // Any other error from NSURLErrorDomain (e.g internet offline) - we won't clear token storage
-            state = .noToken
             completionHandler(.failure(.generic(reason: error?.localizedDescription ?? "Service unavailable")))
         }
     }
@@ -302,7 +286,7 @@ class AuthManager {
         return schools.first(where: {$0.id == id})!
     }
     
-    internal func updateKeyChain(_ data: Data, for service: String, account: String, completion: @escaping (Result<Bool, Error>) -> Void) {
+    private func updateKeyChain(_ data: Data, for service: String, account: String, completion: @escaping (Result<Bool, Error>) -> Void) {
         let query = [
                 kSecClass: kSecClassGenericPassword,
                 kSecAttrService: service,
@@ -322,7 +306,7 @@ class AuthManager {
     }
     
     
-    func deleteKeyChain(for service: String, account: String, completion: @escaping (Result<Bool, Error>) -> Void) {
+    private func deleteKeyChain(for service: String, account: String, completion: @escaping (Result<Bool, Error>) -> Void) {
         
         let query = [
             kSecAttrService: service,
@@ -336,7 +320,7 @@ class AuthManager {
         completion(.success(true))
     }
     
-    func readKeyChain(for service: String, account: String) -> Data? {
+    private func readKeyChain(for service: String, account: String) -> Data? {
         
         let query = [
             kSecAttrService: service,
@@ -356,7 +340,7 @@ class AuthManager {
         return data
     }
     
-    func saveKeyChain(_ data: Data, for service: String, account: String, completion: @escaping (Result<Bool, Error>) -> Void) {
+    private func saveKeyChain(_ data: Data, for service: String, account: String, completion: @escaping (Result<Bool, Error>) -> Void) {
         
         let query = [
             kSecValueData: data,

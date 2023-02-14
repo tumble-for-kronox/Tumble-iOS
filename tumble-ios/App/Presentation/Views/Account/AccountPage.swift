@@ -10,14 +10,15 @@ import SwiftUI
 struct AccountPage: View {
     
     @ObservedObject var viewModel: AccountPageViewModel
-    @EnvironmentObject private var userModel: UserModel
+    @EnvironmentObject private var userModel: User
     
     let createToast: (ToastStyle, String, String) -> Void
     
     var body: some View {
         VStack (alignment: .center) {
             if userModel.authStatus == .authorized {
-                User(user: userModel.user!, toggleAutoSignup: toggleAutoSignup, userBookings: viewModel.userBookings, autoSignup: $viewModel.autoSignup)
+                UserOverview(userImage: $userModel.profilePicture, name: userModel.user!.name, username: userModel.user!.username, schoolName: viewModel.school?.name ?? "", createToast: createToast, toggleAutoSignup: toggleAutoSignup, userBookings: viewModel.userBookings, updateUserImage: updateUserImage, autoSignup: $viewModel.autoSignup)
+                    .environmentObject(userModel)
             } else {
                 if viewModel.status == .loading {
                     InfoLoading(title: "Attempting to log in user")
@@ -30,6 +31,10 @@ struct AccountPage: View {
     
     fileprivate func toggleAutoSignup(value: Bool) -> Void {
         viewModel.toggleAutoSignup(value: value)
+    }
+    
+    fileprivate func updateUserImage(image: UIImage) -> Void {
+        userModel.profilePicture = image
     }
     
 }

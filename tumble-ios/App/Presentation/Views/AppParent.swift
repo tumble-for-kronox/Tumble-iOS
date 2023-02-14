@@ -49,7 +49,7 @@ struct AppParent: View {
                         // Main home page view switcher
                         switch appDelegateViewStateManager.selectedTab {
                         case .home:
-                            HomePage(viewModel: viewModel.homeViewModel, domain: $viewModel.domain, canvasUrl: $viewModel.canvasUrl, kronoxUrl: $viewModel.kronoxUrl)
+                            HomePage(viewModel: viewModel.homeViewModel, domain: $viewModel.domain, canvasUrl: $viewModel.canvasUrl, kronoxUrl: $viewModel.kronoxUrl, selectedTabBar: $appDelegateViewStateManager.selectedTab)
                                 .environmentObject(viewModel.userModel)
                         case .bookmarks:
                             BookmarkPage(viewModel: viewModel.bookmarksViewModel, eventSheet: $appDelegateViewStateManager.eventSheet, onTapCard: onOpenEventDetailsSheet,  createToast: createToast)
@@ -125,6 +125,7 @@ struct AppParent: View {
             if success {
                 appParentModel.toast = Toast(type: .success, title: "New school", message: "Set \(school.name) to default")
                 viewModel.updateLocalsAndChildViews()
+                viewModel.userModel.logOut()
             } else {
                 appParentModel.toast = Toast(type: .info, title: "School already selected", message: "You already have '\(school.name)' as your default school")
             }

@@ -12,9 +12,10 @@ struct HomePageOption: View {
     let titleText: String
     let bodyText: String
     let image: String
+    let onTap: () -> Void
     
     var body: some View {
-        Button(action: {}, label: {
+        Button(action: onTap, label: {
             HStack {
                 HStack {
                     Image(systemName: image)
