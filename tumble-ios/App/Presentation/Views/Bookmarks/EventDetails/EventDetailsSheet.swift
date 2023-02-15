@@ -25,9 +25,9 @@ struct EventDetailsSheet: View {
             }
         }
         .background(
-            // hide standard picker in background
             ColorPicker("Select course color", selection: $viewModel.color, supportsOpacity: false)
                 .labelsHidden().opacity(0)
+                
         )
         .onDisappear(perform: updateCourseColors)
     }

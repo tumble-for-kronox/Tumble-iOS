@@ -23,6 +23,7 @@ enum AuthStatus {
 class User: ObservableObject {
     
     @Inject private var authManager: AuthManager
+    @Inject private var networkManager: NetworkManager
     @Inject private var preferenceService: PreferenceService
     
     @Published var authStatus: AuthStatus = .unAuthorized
@@ -38,6 +39,10 @@ class User: ObservableObject {
 
     var refreshToken: String? {
         get { authManager.refreshToken }
+    }
+    
+    var sessionToken: String? {
+        get { authManager.sessionToken }
     }
     
     init() {
@@ -128,5 +133,24 @@ extension User {
                 }
             }
         })
+    }
+    
+    
+    
+    func userEvents(completion: @escaping (Response.KronoxCompleteUserEvent?) -> Void) {
+        if let school = preferenceService.getDefaultSchool(), let sessionToken = self.sessionToken {
+            AppLogger.shared.info("\(sessionToken)")
+            self.networkManager.get(.userEvents(sessionToken: sessionToken, schoolId: String(school.id))) { (result: Result<Response.KronoxCompleteUserEvent, Error>) in
+                switch result {
+                case .success(let success):
+                    AppLogger.shared.info("\(success)")
+                    completion(success)
+                case .failure(let failure):
+                    AppLogger.shared.info("\(failure.localizedDescription)")
+                    completion(nil)
+                }
+            }
+        }
+        
     }
 }

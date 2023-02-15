@@ -46,10 +46,10 @@ struct HomePage: View {
                         selectedTabBar = .bookmarks
                     }
                 })
-                HomePageOption(titleText: "Booked rooms", bodyText: "Need to study?", image: "books.vertical", onTap: {
+                HomePageOption(titleText: "Book a room", bodyText: "Need to study?", image: "books.vertical", onTap: {
                     
                 })
-                HomePageOption(titleText: "Registered exams", bodyText: "You've got this!", image: "newspaper", onTap: {
+                HomePageOption(titleText: "Register for exams", bodyText: "You've got this!", image: "newspaper", onTap: {
                     
                 })
             }

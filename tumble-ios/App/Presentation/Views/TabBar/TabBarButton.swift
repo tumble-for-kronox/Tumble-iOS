@@ -16,8 +16,7 @@ struct TabBarButton: View {
     var body: some View {
         VStack(spacing: 8) {
             Image(systemName: bottomTab.rawValue)
-                .font(.system(size: 22))
-                .foregroundColor(isSelected() ? .primary : .onBackground.opacity(0.5))
+                .tabBarIcon(isSelected: isSelected())
             if isSelected() {
                 RoundedRectangle(cornerSize: CGSize(width: 16, height: 8))
                     .fill(Color.primary)

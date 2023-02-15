@@ -32,8 +32,13 @@
 		D41ED54E298434C1009DCF8B /* Nullable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41ED54D298434C1009DCF8B /* Nullable.swift */; };
 		D41ED5502984350A009DCF8B /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41ED54F2984350A009DCF8B /* Endpoint.swift */; };
 		D41ED5522984351F009DCF8B /* Method.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41ED5512984351F009DCF8B /* Method.swift */; };
+		D41F152B299C699500E13264 /* RegisteredEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41F152A299C699500E13264 /* RegisteredEvents.swift */; };
+		D41F152D299C699D00E13264 /* UnregisteredEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41F152C299C699D00E13264 /* UnregisteredEvents.swift */; };
+		D41F152F299C69AB00E13264 /* UpcomingEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41F152E299C69AB00E13264 /* UpcomingEvents.swift */; };
 		D421EAF02993FB660045D438 /* EventDetailsSheetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D421EAEF2993FB660045D438 /* EventDetailsSheetModel.swift */; };
 		D421EAF22993FBB00045D438 /* SideBarSheetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D421EAF12993FBB00045D438 /* SideBarSheetModel.swift */; };
+		D426E3A4299C39DE00A8D7AE /* ResourceBookings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D426E3A3299C39DE00A8D7AE /* ResourceBookings.swift */; };
+		D426E3A6299C39EA00A8D7AE /* EventBookings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D426E3A5299C39EA00A8D7AE /* EventBookings.swift */; };
 		D42BAC15298D21E40025EAA9 /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42BAC14298D21E40025EAA9 /* TabBar.swift */; };
 		D42BAC17298D282B0025EAA9 /* ExternalLinkPill.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42BAC16298D282B0025EAA9 /* ExternalLinkPill.swift */; };
 		D42BAC1C298D3D590025EAA9 /* Logging in Frameworks */ = {isa = PBXBuildFile; productRef = D42BAC1B298D3D590025EAA9 /* Logging */; };
@@ -190,8 +195,13 @@
 		D41ED54D298434C1009DCF8B /* Nullable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Nullable.swift; sourceTree = "<group>"; };
 		D41ED54F2984350A009DCF8B /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		D41ED5512984351F009DCF8B /* Method.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Method.swift; sourceTree = "<group>"; };
+		D41F152A299C699500E13264 /* RegisteredEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisteredEvents.swift; sourceTree = "<group>"; };
+		D41F152C299C699D00E13264 /* UnregisteredEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnregisteredEvents.swift; sourceTree = "<group>"; };
+		D41F152E299C69AB00E13264 /* UpcomingEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingEvents.swift; sourceTree = "<group>"; };
 		D421EAEF2993FB660045D438 /* EventDetailsSheetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailsSheetModel.swift; sourceTree = "<group>"; };
 		D421EAF12993FBB00045D438 /* SideBarSheetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideBarSheetModel.swift; sourceTree = "<group>"; };
+		D426E3A3299C39DE00A8D7AE /* ResourceBookings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceBookings.swift; sourceTree = "<group>"; };
+		D426E3A5299C39EA00A8D7AE /* EventBookings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventBookings.swift; sourceTree = "<group>"; };
 		D42BAC14298D21E40025EAA9 /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
 		D42BAC16298D282B0025EAA9 /* ExternalLinkPill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalLinkPill.swift; sourceTree = "<group>"; };
 		D42BAC1D298D3D6A0025EAA9 /* AppLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLogger.swift; sourceTree = "<group>"; };
@@ -401,13 +411,13 @@
 			path = LocalStorage;
 			sourceTree = "<group>";
 		};
-		D40D80BC29258CA0008CA68D /* BottomBar */ = {
+		D40D80BC29258CA0008CA68D /* TabBar */ = {
 			isa = PBXGroup;
 			children = (
 				D46BB115298B10AA00887A24 /* TabBarButton.swift */,
 				D42BAC14298D21E40025EAA9 /* TabBar.swift */,
 			);
-			path = BottomBar;
+			path = TabBar;
 			sourceTree = "<group>";
 		};
 		D40D80C829265B85008CA68D /* Search */ = {
@@ -427,6 +437,7 @@
 		D40E84392981C84700C2CF2E /* Account */ = {
 			isa = PBXGroup;
 			children = (
+				D426E3A2299C39D000A8D7AE /* Booking */,
 				D4E83ECC2999B01C002E5F88 /* User */,
 				D4E83EBF299960EB002E5F88 /* Login */,
 				D40E843A2981C85400C2CF2E /* AccountPage.swift */,
@@ -481,7 +492,6 @@
 		D41ED54429843371009DCF8B /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
-				D421EAEE2993F7F50045D438 /* Navigation */,
 				D40D809E292520AA008CA68D /* ViewModifiers */,
 				D4607648292AE77200DE9590 /* Shapes */,
 				D460763E292AB16300DE9590 /* Types */,
@@ -544,6 +554,25 @@
 			path = Preferences;
 			sourceTree = "<group>";
 		};
+		D41F1528299C697D00E13264 /* Events */ = {
+			isa = PBXGroup;
+			children = (
+				D426E3A5299C39EA00A8D7AE /* EventBookings.swift */,
+				D41F152A299C699500E13264 /* RegisteredEvents.swift */,
+				D41F152C299C699D00E13264 /* UnregisteredEvents.swift */,
+				D41F152E299C69AB00E13264 /* UpcomingEvents.swift */,
+			);
+			path = Events;
+			sourceTree = "<group>";
+		};
+		D41F1529299C698200E13264 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				D426E3A3299C39DE00A8D7AE /* ResourceBookings.swift */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		D421EAEE2993F7F50045D438 /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
@@ -551,6 +580,15 @@
 				D46BB111298B0E2800887A24 /* NavigationbarSidebar.swift */,
 			);
 			path = Navigation;
+			sourceTree = "<group>";
+		};
+		D426E3A2299C39D000A8D7AE /* Booking */ = {
+			isa = PBXGroup;
+			children = (
+				D41F1529299C698200E13264 /* Resources */,
+				D41F1528299C697D00E13264 /* Events */,
+			);
+			path = Booking;
 			sourceTree = "<group>";
 		};
 		D43419A229853EAF001089A0 /* Onboarding */ = {
@@ -787,9 +825,10 @@
 		D47221592924549B0063BDB7 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				D421EAEE2993F7F50045D438 /* Navigation */,
 				D43419A229853EAF001089A0 /* Onboarding */,
 				D4BAE61A29246AE800143717 /* SchoolSelection */,
-				D40D80BC29258CA0008CA68D /* BottomBar */,
+				D40D80BC29258CA0008CA68D /* TabBar */,
 				D41172C02985EB2C0082BB4F /* SideBar */,
 				D40E84392981C84700C2CF2E /* Account */,
 				D453390029299F9800198411 /* Home */,
@@ -1243,6 +1282,7 @@
 				D4E83ECE2999B041002E5F88 /* UserOverview.swift in Sources */,
 				D4E83EB8299959AF002E5F88 /* LoginButton.swift in Sources */,
 				D43752E6298F33110037A431 /* HomePageOption.swift in Sources */,
+				D41F152F299C69AB00E13264 /* UpcomingEvents.swift in Sources */,
 				D4A550D52994755900028BCF /* BookmarkButton.swift in Sources */,
 				D43419C02985639D001089A0 /* ColorInstructions.swift in Sources */,
 				D4A433BA29952A8A00BFEB7A /* EventExtension.swift in Sources */,
@@ -1259,6 +1299,7 @@
 				D43419AE29854E6B001089A0 /* OnBoardingViewBuilder.swift in Sources */,
 				D43419C42985684C001089A0 /* OnBoardingViewModel.swift in Sources */,
 				D4CF9B2A2935634800DDB5F0 /* SearchError.swift in Sources */,
+				D41F152D299C699D00E13264 /* UnregisteredEvents.swift in Sources */,
 				D40E843B2981C85400C2CF2E /* AccountPage.swift in Sources */,
 				D4E83EBE299960E0002E5F88 /* LoginHeader.swift in Sources */,
 				D48CE45729849BF900D312EC /* Support.swift in Sources */,
@@ -1276,6 +1317,7 @@
 				D4D2996C299B15A0003B8C65 /* NavigationButtonModifier.swift in Sources */,
 				D4644A2B298DD7B000B0BB28 /* NotificatonError.swift in Sources */,
 				D4FCD14B2995AD64009D2987 /* UIColorWellExtension.swift in Sources */,
+				D426E3A6299C39EA00A8D7AE /* EventBookings.swift in Sources */,
 				D4E39E322989BBD9004C30DF /* ColorExtensions.swift in Sources */,
 				D45338F9292825B200198411 /* ScheduleCard.swift in Sources */,
 				D476BD2A293A31FD0027CFE8 /* SchedulePreviewList.swift in Sources */,
@@ -1304,6 +1346,7 @@
 				D43419BA29855CF6001089A0 /* BookingInstructions.swift in Sources */,
 				D40D80A929252688008CA68D /* ParentViewModel.swift in Sources */,
 				D4A550CC2994509A00028BCF /* SidebarViewModel.swift in Sources */,
+				D41F152B299C699500E13264 /* RegisteredEvents.swift in Sources */,
 				D49D2500299A9495001D2751 /* User.swift in Sources */,
 				D4722161292455710063BDB7 /* NetworkManager.swift in Sources */,
 				D4E83EBA29996026002E5F88 /* PasswordField.swift in Sources */,
@@ -1318,6 +1361,7 @@
 				D41ED54C29843469009DCF8B /* Response.swift in Sources */,
 				D4E39E3C2989D1B5004C30DF /* EventDetailsCard.swift in Sources */,
 				D476BD2C293A326C0027CFE8 /* SchedulePreviewCard.swift in Sources */,
+				D426E3A4299C39DE00A8D7AE /* ResourceBookings.swift in Sources */,
 				D421EAF22993FBB00045D438 /* SideBarSheetModel.swift in Sources */,
 				D40E843D2981C8B200C2CF2E /* AccountPageViewModel.swift in Sources */,
 				D4ABD26B298C19AB002FD8F5 /* SideBarSheet.swift in Sources */,
@@ -1394,7 +1438,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1429,7 +1473,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 3.0.0;
 				NETWORK_SETTINGS = testing;
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.tumble;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1492,7 +1536,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1546,7 +1590,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -1581,7 +1625,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 3.0.0;
 				NETWORK_SETTINGS = testing;
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.tumble;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1619,7 +1663,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 3.0.0;
 				NETWORK_SETTINGS = production;
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.tumble;
 				PRODUCT_NAME = "$(TARGET_NAME)";

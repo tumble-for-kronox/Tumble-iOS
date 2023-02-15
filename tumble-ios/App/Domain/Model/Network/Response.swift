@@ -110,19 +110,26 @@ public enum Response {
     // --------------------------
     // MARK: - KronoxCompleteUserEvent
     struct KronoxCompleteUserEvent: Encodable, Decodable {
-        let upcomingEvents: [UpcomingKronoxUserEvent]
-        let registeredEvents, availableEvents: [AvailableKronoxUserEvent]
+        let upcomingEvents: [UpcomingKronoxUserEvent]?
+        let registeredEvents, availableEvents, unregisteredEvents: [AvailableKronoxUserEvent]?
     }
 
     // MARK: - AvailableKronoxUserEvent
-    struct AvailableKronoxUserEvent: Encodable, Decodable {
-        let id, title, type: String
+    struct AvailableKronoxUserEvent: Identifiable, Encodable, Decodable {
+        
+        var id: UUID {
+            return UUID()
+        }
+        
+        let eventId, title, type: String
         let eventStart, eventEnd, lastSignupDate: String
-        let participatorID, supportID, anonymousCode: String
+        let participatorID, supportID: String?
+        let anonymousCode: String
         let isRegistered, supportAvailable, requiresChoosingLocation: Bool
 
         enum CodingKeys: String, CodingKey {
-            case id, title, type, eventStart, eventEnd, lastSignupDate
+            case eventId = "id"
+            case title, type, eventStart, eventEnd, lastSignupDate
             case participatorID = "participatorId"
             case supportID = "supportId"
             case anonymousCode, isRegistered, supportAvailable, requiresChoosingLocation
@@ -130,9 +137,13 @@ public enum Response {
     }
 
     // MARK: - UpcomingKronoxUserEvent
-    struct UpcomingKronoxUserEvent: Encodable, Decodable {
+    struct UpcomingKronoxUserEvent: Identifiable, Encodable, Decodable {
         let title, type: String
         let eventStart, eventEnd, firstSignupDate: String
+        
+        var id: UUID {
+            return UUID()
+        }
     }
     
     

@@ -70,6 +70,23 @@ extension String {
         return String("\(hour):\(minutes)")
     }
     
+    func convertToHourMinute() -> String? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        guard let date = dateFormatter.date(from: self) else {
+            return nil
+        }
+        
+        let calendar = Calendar.current
+        let components = calendar.dateComponents([.hour, .minute], from: date)
+        
+        guard let hour = components.hour, let minute = components.minute else {
+            return nil
+        }
+        
+        return String(format: "%d:%02d", hour, minute)
+    }
+    
     // Checks if the given day name is todays day,
     // if so it returns the string 'Today' instead of
     // the given date day name

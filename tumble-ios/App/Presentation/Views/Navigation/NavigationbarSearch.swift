@@ -20,8 +20,7 @@ struct NavigationbarSearch: View {
             .customNavigationBackButton(previousPage: backButtonTitle, callback: checkForNewSchedules)
            , label: {
             Image(systemName: "magnifyingglass")
-                .font(.system(size: 17))
-                .foregroundColor(.onBackground)
+                .navBarIcon()
         })
     }
     
