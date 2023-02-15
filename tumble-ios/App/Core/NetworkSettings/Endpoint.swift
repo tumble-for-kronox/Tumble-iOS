@@ -20,8 +20,8 @@ enum Endpoint {
     case login(schoolId: String)
     case users(schoolId: String)
     case registerAllEvents(schoolId: String)
-    case registerEvent(eventId: String, schoolId: String)
-    case unregisterEvent(eventId: String, schoolId: String)
+    case registerEvent(eventId: String, schoolId: String, sessionToken: String)
+    case unregisterEvent(eventId: String, schoolId: String, sessionToken: String)
     
     var url: URL {
         
@@ -80,15 +80,17 @@ enum Endpoint {
             components.queryItems = [
                 URLQueryItem(name: "schoolId", value: schoolId)
             ]
-        case .registerEvent(eventId: let eventId, schoolId: let schoolId):
+        case .registerEvent(eventId: let eventId, schoolId: let schoolId, sessionToken: let sessionToken):
             components.path = "/api/users/events/register/\(eventId)"
             components.queryItems = [
-                URLQueryItem(name: "schoolId", value: schoolId)
+                URLQueryItem(name: "schoolId", value: schoolId),
+                URLQueryItem(name: "sessionToken", value: sessionToken)
             ]
-        case .unregisterEvent(eventId: let eventId, schoolId: let schoolId):
+        case .unregisterEvent(eventId: let eventId, schoolId: let schoolId, sessionToken: let sessionToken):
             components.path = "/api/users/events/unregister/\(eventId)"
             components.queryItems = [
-                URLQueryItem(name: "schoolId", value: schoolId)
+                URLQueryItem(name: "schoolId", value: schoolId),
+                URLQueryItem(name: "sessionToken", value: sessionToken)
             ]
         }
         return components.url!

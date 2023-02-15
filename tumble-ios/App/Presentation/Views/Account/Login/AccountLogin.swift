@@ -43,6 +43,6 @@ struct AccountLogin: View {
             LoginSubHeader(schoolName: viewModel.school?.name ?? "")
         }
         .padding(.horizontal, 15)
-        .padding(.top, 35)
+        .padding(.top, 20)
     }
 }

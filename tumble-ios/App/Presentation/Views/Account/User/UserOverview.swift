@@ -23,15 +23,14 @@ struct UserOverview: View {
     let createToast: (ToastStyle, String, String) -> Void
     let toggleAutoSignup: (Bool) -> Void
     let userBookings: [Response.KronoxResourceData]
+    let registeredExams: [Response.AvailableKronoxUserEvent]
     let updateUserImage: (UIImage) -> Void
     
     @Binding var autoSignup: Bool
     
     var body: some View {
         ZStack {
-                    
             Color.surface
-            
             VStack {
                 HStack {
                     Button(action: {
@@ -59,12 +58,11 @@ struct UserOverview: View {
                 .cornerRadius(15, corners: [.bottomLeft, .bottomRight])
             
                 Spacer()
-                VStack {
+                ScrollView (.vertical) {
                     UserActions (title: "User options", image: "gearshape") {
                         Toggle(isOn: $autoSignup) {
                             Text("Automatic exam signup")
-                                .font(.system(size: 17, design: .rounded))
-                                .foregroundColor(.onBackground)
+                                .sectionDividerEmpty()
                         }
                         .toggleStyle(SwitchToggleStyle(tint: .primary))
                         .onChange(of: autoSignup, perform: { (value: Bool) in
@@ -78,9 +76,7 @@ struct UserOverview: View {
                                         .customNavigationBackButton(previousPage: "Account"))) {
                         if userBookings.isEmpty {
                             Text("No bookings yet")
-                                .font(.system(size: 17, weight: .regular, design: .rounded))
-                                .foregroundColor(.onBackground)
-                                .padding(.top, 5)
+                                .sectionDividerEmpty()
                         }
                     }
                     UserActions (title: "Your exams", image: "newspaper",
@@ -88,11 +84,15 @@ struct UserOverview: View {
                                     EventBookings(viewModel: viewModel)
                                         .environmentObject(user)
                                         .customNavigationBackButton(previousPage: "Account"))) {
-                        if userBookings.isEmpty {
-                            Text("No registered exams yet")
-                                .font(.system(size: 17, weight: .regular, design: .rounded))
-                                .foregroundColor(.onBackground)
-                                .padding(.top, 5)
+                        if let events = viewModel.completeUserEvent?.registeredEvents {
+                            if !events.isEmpty {
+                                ForEach(events) { event in
+                                    /*@START_MENU_TOKEN@*/Text(event.eventId)/*@END_MENU_TOKEN@*/
+                                }
+                            } else {
+                                Text("No registered exams yet")
+                                    .sectionDividerEmpty()
+                            }
                         }
                     }
                     Spacer()
@@ -108,6 +108,21 @@ struct UserOverview: View {
             ImagePicker(image: self.$inputImage)
         })
         .edgesIgnoringSafeArea([.top, .bottom])
+        .onAppear {
+            user.userEvents(completion: loadUserEvents)
+        }
+    }
+    
+    func loadUserEvents(result: Result<Response.KronoxCompleteUserEvent, Error>) -> Void {
+        DispatchQueue.main.async {
+            switch result {
+            case .success(let events):
+                viewModel.loadUserEvents(events: events, completion: {
+                })
+            case .failure(let failure):
+                AppLogger.shared.info("\(failure.localizedDescription)")
+            }
+        }
     }
     
     func loadImage() -> Void {

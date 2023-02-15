@@ -13,7 +13,6 @@ struct CardBanner: View {
     let timeSpan: String
     let isSpecial: Bool
     let courseName: String
-    let isDisclosed: Bool
     
     var body: some View {
         HStack {

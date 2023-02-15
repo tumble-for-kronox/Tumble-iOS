@@ -27,6 +27,8 @@ struct UserActions<Content : View>: View {
         VStack (alignment: .leading) {
             HStack {
                 Image(systemName: image)
+                    .font(.system(size: 22))
+                    .foregroundColor(.onBackground)
                 Text(title)
                     .font(.system(size: 17, design: .rounded))
                     .foregroundColor(.onBackground)
@@ -51,6 +53,6 @@ struct UserActions<Content : View>: View {
             }
             content
         }
-        .padding(25)
+        .padding(22.5)
     }
 }

@@ -32,9 +32,7 @@
 		D41ED54E298434C1009DCF8B /* Nullable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41ED54D298434C1009DCF8B /* Nullable.swift */; };
 		D41ED5502984350A009DCF8B /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41ED54F2984350A009DCF8B /* Endpoint.swift */; };
 		D41ED5522984351F009DCF8B /* Method.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41ED5512984351F009DCF8B /* Method.swift */; };
-		D41F152B299C699500E13264 /* RegisteredEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41F152A299C699500E13264 /* RegisteredEvents.swift */; };
-		D41F152D299C699D00E13264 /* UnregisteredEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41F152C299C699D00E13264 /* UnregisteredEvents.swift */; };
-		D41F152F299C69AB00E13264 /* UpcomingEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41F152E299C69AB00E13264 /* UpcomingEvents.swift */; };
+		D41F152B299C699500E13264 /* Events.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41F152A299C699500E13264 /* Events.swift */; };
 		D421EAF02993FB660045D438 /* EventDetailsSheetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D421EAEF2993FB660045D438 /* EventDetailsSheetModel.swift */; };
 		D421EAF22993FBB00045D438 /* SideBarSheetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D421EAF12993FBB00045D438 /* SideBarSheetModel.swift */; };
 		D426E3A4299C39DE00A8D7AE /* ResourceBookings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D426E3A3299C39DE00A8D7AE /* ResourceBookings.swift */; };
@@ -146,6 +144,12 @@
 		D4D29967299B0D42003B8C65 /* PermissionsSwiftUINotification in Frameworks */ = {isa = PBXBuildFile; productRef = D4D29966299B0D42003B8C65 /* PermissionsSwiftUINotification */; };
 		D4D29969299B0D42003B8C65 /* PermissionsSwiftUIPhoto in Frameworks */ = {isa = PBXBuildFile; productRef = D4D29968299B0D42003B8C65 /* PermissionsSwiftUIPhoto */; };
 		D4D2996C299B15A0003B8C65 /* NavigationButtonModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D2996B299B15A0003B8C65 /* NavigationButtonModifier.swift */; };
+		D4D4CD13299CE4EF00D48180 /* EventBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D4CD12299CE4EF00D48180 /* EventBanner.swift */; };
+		D4D4CD15299CE53B00D48180 /* EventInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D4CD14299CE53B00D48180 /* EventInformation.swift */; };
+		D4D4CD17299CE57C00D48180 /* EventCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D4CD16299CE57C00D48180 /* EventCard.swift */; };
+		D4D4CD1A299CE5FF00D48180 /* SectionDivider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D4CD19299CE5FF00D48180 /* SectionDivider.swift */; };
+		D4D4CD1C299CE86400D48180 /* UpcomingEventCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D4CD1B299CE86400D48180 /* UpcomingEventCard.swift */; };
+		D4D4CD21299D273A00D48180 /* HTTPURLResponseExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D4CD20299D273A00D48180 /* HTTPURLResponseExtension.swift */; };
 		D4D4DD032927C7DA0083BB7F /* ProgrammeCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D4DD022927C7DA0083BB7F /* ProgrammeCard.swift */; };
 		D4D4DD052927C88E0083BB7F /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D4DD042927C88E0083BB7F /* BackButton.swift */; };
 		D4E39E322989BBD9004C30DF /* ColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E39E312989BBD9004C30DF /* ColorExtensions.swift */; };
@@ -195,9 +199,7 @@
 		D41ED54D298434C1009DCF8B /* Nullable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Nullable.swift; sourceTree = "<group>"; };
 		D41ED54F2984350A009DCF8B /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		D41ED5512984351F009DCF8B /* Method.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Method.swift; sourceTree = "<group>"; };
-		D41F152A299C699500E13264 /* RegisteredEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisteredEvents.swift; sourceTree = "<group>"; };
-		D41F152C299C699D00E13264 /* UnregisteredEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnregisteredEvents.swift; sourceTree = "<group>"; };
-		D41F152E299C69AB00E13264 /* UpcomingEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingEvents.swift; sourceTree = "<group>"; };
+		D41F152A299C699500E13264 /* Events.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Events.swift; sourceTree = "<group>"; };
 		D421EAEF2993FB660045D438 /* EventDetailsSheetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailsSheetModel.swift; sourceTree = "<group>"; };
 		D421EAF12993FBB00045D438 /* SideBarSheetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideBarSheetModel.swift; sourceTree = "<group>"; };
 		D426E3A3299C39DE00A8D7AE /* ResourceBookings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceBookings.swift; sourceTree = "<group>"; };
@@ -304,6 +306,12 @@
 		D4CF9B2B293572BE00DDB5F0 /* Info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Info.swift; sourceTree = "<group>"; };
 		D4D2995F299B067C003B8C65 /* UIImageViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageViewExtension.swift; sourceTree = "<group>"; };
 		D4D2996B299B15A0003B8C65 /* NavigationButtonModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationButtonModifier.swift; sourceTree = "<group>"; };
+		D4D4CD12299CE4EF00D48180 /* EventBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventBanner.swift; sourceTree = "<group>"; };
+		D4D4CD14299CE53B00D48180 /* EventInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventInformation.swift; sourceTree = "<group>"; };
+		D4D4CD16299CE57C00D48180 /* EventCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCard.swift; sourceTree = "<group>"; };
+		D4D4CD19299CE5FF00D48180 /* SectionDivider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionDivider.swift; sourceTree = "<group>"; };
+		D4D4CD1B299CE86400D48180 /* UpcomingEventCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingEventCard.swift; sourceTree = "<group>"; };
+		D4D4CD20299D273A00D48180 /* HTTPURLResponseExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPURLResponseExtension.swift; sourceTree = "<group>"; };
 		D4D4DD022927C7DA0083BB7F /* ProgrammeCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgrammeCard.swift; sourceTree = "<group>"; };
 		D4D4DD042927C88E0083BB7F /* BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
 		D4D4DD212927CFFA0083BB7F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -385,6 +393,7 @@
 		D40D80A429252156008CA68D /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				D4D4CD1F299D273200D48180 /* Types */,
 				D4E83EC9299971E8002E5F88 /* Network */,
 				D4ABD273298C2EAF002FD8F5 /* Repository */,
 				D4ABD26E298C2E02002FD8F5 /* Model */,
@@ -558,9 +567,11 @@
 			isa = PBXGroup;
 			children = (
 				D426E3A5299C39EA00A8D7AE /* EventBookings.swift */,
-				D41F152A299C699500E13264 /* RegisteredEvents.swift */,
-				D41F152C299C699D00E13264 /* UnregisteredEvents.swift */,
-				D41F152E299C69AB00E13264 /* UpcomingEvents.swift */,
+				D41F152A299C699500E13264 /* Events.swift */,
+				D4D4CD12299CE4EF00D48180 /* EventBanner.swift */,
+				D4D4CD14299CE53B00D48180 /* EventInformation.swift */,
+				D4D4CD16299CE57C00D48180 /* EventCard.swift */,
+				D4D4CD1B299CE86400D48180 /* UpcomingEventCard.swift */,
 			);
 			path = Events;
 			sourceTree = "<group>";
@@ -587,6 +598,7 @@
 			children = (
 				D41F1529299C698200E13264 /* Resources */,
 				D41F1528299C697D00E13264 /* Events */,
+				D4D4CD19299CE5FF00D48180 /* SectionDivider.swift */,
 			);
 			path = Booking;
 			sourceTree = "<group>";
@@ -1001,6 +1013,14 @@
 			path = Navigation;
 			sourceTree = "<group>";
 		};
+		D4D4CD1F299D273200D48180 /* Types */ = {
+			isa = PBXGroup;
+			children = (
+				D4D4CD20299D273A00D48180 /* HTTPURLResponseExtension.swift */,
+			);
+			path = Types;
+			sourceTree = "<group>";
+		};
 		D4D4DD062927CA660083BB7F /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -1253,6 +1273,7 @@
 				D40CC161292AFB9F00664776 /* BookmarkPage.swift in Sources */,
 				D46081552930053E00FFFB44 /* ScheduleService.swift in Sources */,
 				D40D80CE29265D49008CA68D /* SearchBar.swift in Sources */,
+				D4D4CD1C299CE86400D48180 /* UpcomingEventCard.swift in Sources */,
 				D4CF9B282935633800DDB5F0 /* SchedulePreviewError.swift in Sources */,
 				D421EAF02993FB660045D438 /* EventDetailsSheetModel.swift in Sources */,
 				D46ABF1229843D3000B059F6 /* StoreKey.swift in Sources */,
@@ -1282,13 +1303,13 @@
 				D4E83ECE2999B041002E5F88 /* UserOverview.swift in Sources */,
 				D4E83EB8299959AF002E5F88 /* LoginButton.swift in Sources */,
 				D43752E6298F33110037A431 /* HomePageOption.swift in Sources */,
-				D41F152F299C69AB00E13264 /* UpcomingEvents.swift in Sources */,
 				D4A550D52994755900028BCF /* BookmarkButton.swift in Sources */,
 				D43419C02985639D001089A0 /* ColorInstructions.swift in Sources */,
 				D4A433BA29952A8A00BFEB7A /* EventExtension.swift in Sources */,
 				D419EDF4299A662400479DCE /* UserAvatar.swift in Sources */,
 				D460763B292AAD5400DE9590 /* PopupToastView.swift in Sources */,
 				D4D4DD032927C7DA0083BB7F /* ProgrammeCard.swift in Sources */,
+				D4D4CD17299CE57C00D48180 /* EventCard.swift in Sources */,
 				D46BB10A298AC31E00887A24 /* EventDetailsBodyBuilder.swift in Sources */,
 				D4A433BC29952BE600BFEB7A /* DictionaryExtension.swift in Sources */,
 				D4E39E402989DDDC004C30DF /* EventDetailsBody.swift in Sources */,
@@ -1299,7 +1320,6 @@
 				D43419AE29854E6B001089A0 /* OnBoardingViewBuilder.swift in Sources */,
 				D43419C42985684C001089A0 /* OnBoardingViewModel.swift in Sources */,
 				D4CF9B2A2935634800DDB5F0 /* SearchError.swift in Sources */,
-				D41F152D299C699D00E13264 /* UnregisteredEvents.swift in Sources */,
 				D40E843B2981C85400C2CF2E /* AccountPage.swift in Sources */,
 				D4E83EBE299960E0002E5F88 /* LoginHeader.swift in Sources */,
 				D48CE45729849BF900D312EC /* Support.swift in Sources */,
@@ -1311,6 +1331,7 @@
 				D46BB116298B10AA00887A24 /* TabBarButton.swift in Sources */,
 				D4E83EB629994D5F002E5F88 /* AccountLogin.swift in Sources */,
 				D41ED5522984351F009DCF8B /* Method.swift in Sources */,
+				D4D4CD15299CE53B00D48180 /* EventInformation.swift in Sources */,
 				D4A433B829951F2B00BFEB7A /* AppDelegate.swift in Sources */,
 				D4CE2DBD2982E55200B81052 /* NavigationbarSearch.swift in Sources */,
 				D4607645292AC41D00DE9590 /* SearchResults.swift in Sources */,
@@ -1319,6 +1340,7 @@
 				D4FCD14B2995AD64009D2987 /* UIColorWellExtension.swift in Sources */,
 				D426E3A6299C39EA00A8D7AE /* EventBookings.swift in Sources */,
 				D4E39E322989BBD9004C30DF /* ColorExtensions.swift in Sources */,
+				D4D4CD1A299CE5FF00D48180 /* SectionDivider.swift in Sources */,
 				D45338F9292825B200198411 /* ScheduleCard.swift in Sources */,
 				D476BD2A293A31FD0027CFE8 /* SchedulePreviewList.swift in Sources */,
 				D46ABF0F29843CF300B059F6 /* PreferenceServiceProtocol.swift in Sources */,
@@ -1329,8 +1351,10 @@
 				D4607632292AA39400DE9590 /* Types.swift in Sources */,
 				D48CE45A29849D8A00D312EC /* SupportOption.swift in Sources */,
 				D4607653292AF5DA00DE9590 /* DayHeader.swift in Sources */,
+				D4D4CD21299D273A00D48180 /* HTTPURLResponseExtension.swift in Sources */,
 				D49D2502299AC240001D2751 /* ImagePicker.swift in Sources */,
 				D419EDF6299A78C400479DCE /* UserActions.swift in Sources */,
+				D4D4CD13299CE4EF00D48180 /* EventBanner.swift in Sources */,
 				D40D80A629252165008CA68D /* ViewExtensions.swift in Sources */,
 				D4EAD3B9298D633B00678DF8 /* NetworkManagerProtocol.swift in Sources */,
 				D476BD2E293A32BF0027CFE8 /* RoundedCornerShape.swift in Sources */,
@@ -1346,7 +1370,7 @@
 				D43419BA29855CF6001089A0 /* BookingInstructions.swift in Sources */,
 				D40D80A929252688008CA68D /* ParentViewModel.swift in Sources */,
 				D4A550CC2994509A00028BCF /* SidebarViewModel.swift in Sources */,
-				D41F152B299C699500E13264 /* RegisteredEvents.swift in Sources */,
+				D41F152B299C699500E13264 /* Events.swift in Sources */,
 				D49D2500299A9495001D2751 /* User.swift in Sources */,
 				D4722161292455710063BDB7 /* NetworkManager.swift in Sources */,
 				D4E83EBA29996026002E5F88 /* PasswordField.swift in Sources */,
