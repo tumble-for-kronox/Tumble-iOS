@@ -28,10 +28,10 @@ class AuthManager {
     }
     
     
-    private var sessionToken: String? {
+    var sessionToken: String? {
         get {
             if let school = self.getDefaultSchool() {
-                if let data = self.readKeyChain(for: "tumble-user", account: school.name) {
+                if let data = self.readKeyChain(for: "session-token", account: school.name) {
                     return String(data: data, encoding: .utf8)
                 }
             }
@@ -213,8 +213,6 @@ class AuthManager {
     
     private func processLogin(user: Request.KronoxUserLogin, completionHandler: @escaping (Result<Response.KronoxUser, Error>) -> Void) {
         
-        AppLogger.shared.info("\(self.getDefaultSchool())")
-        
         if let school = self.getDefaultSchool() {
             do {
                 var urlRequest = URLRequest(url: Endpoint.login(schoolId: String(school.id)).url)
@@ -255,6 +253,7 @@ class AuthManager {
     
     private func handleAuthResponse(data: Data?, response: URLResponse?, error: Error?, completionHandler: @escaping (Result<Response.KronoxUser, Error>) -> Void) {
         if let data = data, let result = try? self.decoder.decode(Response.KronoxUser.self, from: data) {
+            AppLogger.shared.info("\(result.sessionToken)")
             self.refreshToken = result.refreshToken
             self.sessionToken = result.sessionToken
             

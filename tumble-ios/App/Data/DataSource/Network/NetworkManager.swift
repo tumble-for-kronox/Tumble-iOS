@@ -67,7 +67,7 @@ class NetworkManager: NetworkManagerProtocol {
     // [HTTP GET]
     func get<Response: Decodable>(
         _ endpoint: Endpoint,
-        authToken: String?,
+        authToken: String? = nil,
         then completion: ((Result<Response, Error>) -> Void)? = nil
     ) {
         let body: Request.Empty? = nil
@@ -79,7 +79,7 @@ class NetworkManager: NetworkManagerProtocol {
     // [HTTP PUT]
     func put<Response: Decodable, Request: Encodable>(
         _ endpoint: Endpoint,
-        authToken: String?,
+        authToken: String? = nil,
         body: Request,
         then completion: ((Result<Response, Error>) -> Void)? = nil
     ) {

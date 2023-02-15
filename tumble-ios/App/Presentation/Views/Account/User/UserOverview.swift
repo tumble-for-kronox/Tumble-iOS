@@ -9,6 +9,9 @@ import SwiftUI
 
 struct UserOverview: View {
     
+    @EnvironmentObject var user: User
+    @ObservedObject var viewModel: AccountPage.AccountPageViewModel
+    
     @Binding var userImage: UIImage?
     let name: String
     let username: String
@@ -27,7 +30,7 @@ struct UserOverview: View {
     var body: some View {
         ZStack {
                     
-            Color("PrimaryColor")
+            Color.surface
             
             VStack {
                 HStack {
@@ -54,7 +57,6 @@ struct UserOverview: View {
                 .frame(maxWidth: .infinity, maxHeight: UIScreen.main.bounds.height / 3.5, alignment: .leading)
                 .background(Color.background)
                 .cornerRadius(15, corners: [.bottomLeft, .bottomRight])
-                .shadow(radius: 5)
             
                 Spacer()
                 VStack {
@@ -69,9 +71,11 @@ struct UserOverview: View {
                             toggleAutoSignup(value)
                         })
                     }
-                    UserActions (title: "Your bookings", image: "tray.full",
-                                 destination: AnyView(Text("Book rooms")
-                                    .customNavigationBackButton(previousPage: "Account"))) {
+                    UserActions (title: "Your bookings", image: "books.vertical",
+                                 destination: AnyView(
+                                    ResourceBookings()
+                                        .environmentObject(user)
+                                        .customNavigationBackButton(previousPage: "Account"))) {
                         if userBookings.isEmpty {
                             Text("No bookings yet")
                                 .font(.system(size: 17, weight: .regular, design: .rounded))
@@ -80,8 +84,10 @@ struct UserOverview: View {
                         }
                     }
                     UserActions (title: "Your exams", image: "newspaper",
-                                 destination: AnyView(Text("Book exams")
-                                    .customNavigationBackButton(previousPage: "Account"))) {
+                                 destination: AnyView(
+                                    EventBookings(viewModel: viewModel)
+                                        .environmentObject(user)
+                                        .customNavigationBackButton(previousPage: "Account"))) {
                         if userBookings.isEmpty {
                             Text("No registered exams yet")
                                 .font(.system(size: 17, weight: .regular, design: .rounded))
@@ -94,6 +100,7 @@ struct UserOverview: View {
                 .frame(maxWidth: .infinity, maxHeight: UIScreen.main.bounds.height / 1.85).cornerRadius(15)
                 .background(Color.background)
                 .cornerRadius(15, corners: [.topLeft, .topRight])
+                
             }
             
         }

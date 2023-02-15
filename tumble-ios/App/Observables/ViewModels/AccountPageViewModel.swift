@@ -23,6 +23,7 @@ extension AccountPage {
         @Published var status: AccountPageViewStatus = .initial
         @Published var autoSignup: Bool = false
         @Published var userBookings: [Response.KronoxResourceData] = []
+        @Published var completeUserEvent: Response.KronoxCompleteUserEvent? = nil
         
         init() {
             self.autoSignup = false
@@ -38,6 +39,13 @@ extension AccountPage {
         func toggleAutoSignup(value: Bool) {
             self.autoSignup = value
             self.preferenceService.setAutoSignup(autoSignup: value)
+        }
+        
+        func loadUserEvents(events: Response.KronoxCompleteUserEvent?, completion: @escaping () -> Void) -> Void {
+            DispatchQueue.main.async {
+                self.completeUserEvent = events
+                completion()
+            }
         }
     
     }

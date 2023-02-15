@@ -9,6 +9,19 @@ import Foundation
 import SwiftUI
 
 extension Image {
+    
+    func tabBarIcon(isSelected: Bool) -> some View {
+        self
+            .font(.system(size: 22))
+            .foregroundColor(isSelected ? .primary : .onBackground.opacity(0.8))
+    }
+    
+    func navBarIcon() -> some View {
+        self
+            .font(.system(size: 17))
+            .foregroundColor(.onBackground.opacity(0.8))
+    }
+    
     func featureIcon() -> some View {
         self.font(.system(size: 20))
             .foregroundColor(Color("PrimaryColor"))

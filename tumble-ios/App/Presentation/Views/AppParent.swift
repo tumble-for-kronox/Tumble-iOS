@@ -30,6 +30,7 @@ struct AppParent: View {
     
     init(viewModel: ParentViewModel) {
         UINavigationBar.appearance().titleTextAttributes = [.font: navigationBarFont()]
+        UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: UIColor(named: "OnSurface")!]
         self.viewModel = viewModel
     }
     
@@ -98,7 +99,6 @@ struct AppParent: View {
             .onEnded(handleSwipe)
         )
         .zIndex(1)
-        .transition(.asymmetric(insertion: .move(edge: .trailing), removal: .move(edge: .leading)))
         
     }
 

@@ -28,18 +28,18 @@ struct UserActions<Content : View>: View {
             HStack {
                 Image(systemName: image)
                 Text(title)
-                    .font(.system(size: 16, design: .rounded))
+                    .font(.system(size: 17, design: .rounded))
                     .foregroundColor(.onBackground)
-                VStack {
+                VStack (spacing: 0) {
                     Divider()
                         .overlay(Color.onBackground)
-                        .padding([.leading, .trailing])
+                        .padding([.leading, .trailing], 5)
                 }
                 if let destination = destination {
                     NavigationLink(destination: destination, label: {
                         HStack {
                             Text("Book")
-                                .font(.system(size: 15, weight: .semibold, design: .rounded))
+                                .font(.system(size: 17, weight: .semibold, design: .rounded))
                                 .foregroundColor(.primary)
                             Image(systemName: "chevron.right")
                                 .font(.system(size: 14, weight: .semibold, design: .rounded))
