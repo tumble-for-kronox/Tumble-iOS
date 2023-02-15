@@ -9,6 +9,32 @@ import Foundation
 
 public enum Response {
     
+    // MARK: - HTTPResponse
+    struct HTTPResponse: Codable {
+        let url: String?
+        let statusCode: Int
+        let headers: Headers?
+        
+        enum CodingKeys: String, CodingKey {
+            case url = "URL"
+            case statusCode = "Status Code"
+            case headers = "Headers"
+        }
+        
+    }
+
+    // MARK: - Headers
+    struct Headers: Codable {
+        let contentLength: Int
+        let date, server: String
+
+        enum CodingKeys: String, CodingKey {
+            case contentLength = "Content-Length"
+            case date = "Date"
+            case server = "Server"
+        }
+    }
+    
     // ------ SCHEDULE ------
     // ----------------------
     

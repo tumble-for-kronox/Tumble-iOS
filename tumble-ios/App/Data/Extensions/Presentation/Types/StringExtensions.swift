@@ -87,6 +87,25 @@ extension String {
         return String(format: "%d:%02d", hour, minute)
     }
     
+    func isValidSignupDate() -> Bool {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+            guard let date = dateFormatter.date(from: self) else {
+                return false
+            }
+            return date >= Date()
+        }
+    
+    func toDate() -> String? {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+            if let date = dateFormatter.date(from: self) {
+                dateFormatter.dateFormat = "yyyy-MM-dd"
+                return dateFormatter.string(from: date)
+            }
+            return nil
+        }
+    
     // Checks if the given day name is todays day,
     // if so it returns the string 'Today' instead of
     // the given date day name

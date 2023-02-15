@@ -118,7 +118,7 @@ extension User {
         })
     }
     
-    func autoLogin() {
+    func autoLogin(completion: (() -> Void)? = nil) {
         self.authManager.autoLoginUser(completionHandler: { [weak self] result in
             guard let self = self else { return }
             DispatchQueue.main.async {
@@ -127,9 +127,11 @@ extension User {
                     AppLogger.shared.info("Successfully logged in user \(user.username)")
                     self.user = TumbleUser(username: user.username, name: user.name)
                     self.authStatus = .authorized
+                    completion?()
                 case .failure(let failure):
                     AppLogger.shared.info("Failed to log in user -> \(failure.localizedDescription)")
                     self.authStatus = .unAuthorized
+                    completion?()
                 }
             }
         })
@@ -137,20 +139,23 @@ extension User {
     
     
     
-    func userEvents(completion: @escaping (Response.KronoxCompleteUserEvent?) -> Void) {
+    func userEvents(completion: @escaping (Result<Response.KronoxCompleteUserEvent, Error>) -> Void) {
         if let school = preferenceService.getDefaultSchool(), let sessionToken = self.sessionToken {
-            AppLogger.shared.info("\(sessionToken)")
-            self.networkManager.get(.userEvents(sessionToken: sessionToken, schoolId: String(school.id))) { (result: Result<Response.KronoxCompleteUserEvent, Error>) in
-                switch result {
-                case .success(let success):
-                    AppLogger.shared.info("\(success)")
-                    completion(success)
-                case .failure(let failure):
-                    AppLogger.shared.info("\(failure.localizedDescription)")
-                    completion(nil)
-                }
-            }
+            self.networkManager.get(.userEvents(sessionToken: sessionToken, schoolId: String(school.id)), then: completion)
         }
-        
+    }
+    
+    func registerForEvent(with id: String, completion: @escaping (Result<Response.HTTPResponse, Error>) -> Void) {
+        if let school = preferenceService.getDefaultSchool(), let sessionToken = self.sessionToken {
+            AppLogger.shared.info("Registering for event -> \(id)")
+            self.networkManager.put(.registerEvent(eventId: id, schoolId: String(school.id), sessionToken: sessionToken), then: completion)
+        }
+    }
+    
+    func unregisterForEvent(with id: String, completion: @escaping (Result<Response.HTTPResponse, Error>) -> Void) -> Void {
+        if let school = preferenceService.getDefaultSchool(), let sessionToken = self.sessionToken {
+            AppLogger.shared.info("Unregistering for event -> \(id)")
+            self.networkManager.put(.unregisterEvent(eventId: id, schoolId: String(school.id), sessionToken: sessionToken), then: completion)
+        }
     }
 }

@@ -58,4 +58,11 @@ extension View {
     func getRect() -> CGRect {
         return UIScreen.main.bounds
     }
+    
+    func sectionDividerEmpty() -> some View {
+        self
+            .font(.system(size: 18, weight: .semibold, design: .rounded))
+            .foregroundColor(.onBackground)
+            .padding(.top, 5)
+    }
 }

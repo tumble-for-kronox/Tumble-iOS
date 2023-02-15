@@ -22,9 +22,8 @@ struct SearchPage: View {
                     case .initial:
                         SearchInfo()
                     case .loading:
-                        Spacer()
                         CustomProgressIndicator()
-                        Spacer()
+                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
                     case .loaded:
                     SearchResults(searchText: searchBarText, numberOfSearchResults: viewModel.programmeSearchResults.count, searchResults: viewModel.programmeSearchResults, onOpenProgramme: onOpenProgramme, universityImage: $universityImage)
                     case .error:
@@ -34,7 +33,7 @@ struct SearchPage: View {
                     }
                 SearchBar(searchBarText: $searchBarText, onSearch: onSearch, onClearSearch: onClearSearch)
             }
-            
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
         }
         .sheet(isPresented: $viewModel.presentPreview) {
             SchedulePreview(courseColors: $viewModel.courseColors, checkForNewSchedules: checkForNewSchedules)

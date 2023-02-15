@@ -23,6 +23,7 @@ extension AccountPage {
         @Published var status: AccountPageViewStatus = .initial
         @Published var autoSignup: Bool = false
         @Published var userBookings: [Response.KronoxResourceData] = []
+        @Published var registeredExams: [Response.AvailableKronoxUserEvent] = []
         @Published var completeUserEvent: Response.KronoxCompleteUserEvent? = nil
         
         init() {
@@ -44,6 +45,9 @@ extension AccountPage {
         func loadUserEvents(events: Response.KronoxCompleteUserEvent?, completion: @escaping () -> Void) -> Void {
             DispatchQueue.main.async {
                 self.completeUserEvent = events
+                if let registeredEvents = events?.registeredEvents {
+                    self.registeredExams = registeredEvents
+                }
                 completion()
             }
         }
