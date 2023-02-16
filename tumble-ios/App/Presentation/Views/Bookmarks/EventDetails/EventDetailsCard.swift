@@ -37,18 +37,19 @@ struct EventDetailsCard: View {
                         Spacer()
                     }
                     HStack (spacing: 7.5) {
-                        if !parentViewModel.isNotificationSetForEvent {
-                            EventDetailsPill(title: "Event", image: "bell.badge", onTap: onSetNotificationEvent)
-                            
-                        } else {
-                            EventDetailsPill(title: "Remove", image: "bell.badge", onTap: onRemoveNotificationForEvent)
+                        if event.from.isOutsideThreeHourRange() {
+                            if !parentViewModel.isNotificationSetForEvent {
+                                EventDetailsPill(title: "Event", image: "bell.badge", onTap: onSetNotificationEvent)
+                                
+                            } else {
+                                EventDetailsPill(title: "Remove", image: "bell.badge", onTap: onRemoveNotificationForEvent)
+                            }
                         }
                         if !parentViewModel.isNotificationSetForCourse {
                             EventDetailsPill(title: "Course", image: "bell.badge.fill", onTap: onSetNotificationForCourse)
                         } else {
                             EventDetailsPill(title: "Remove", image: "bell.badge.fill", onTap: onRemoveNotification)
                         }
-                        
                         EventDetailsPill(title: "Color", image: "paintbrush", onTap: openColorPicker)
                         Spacer()
                     }

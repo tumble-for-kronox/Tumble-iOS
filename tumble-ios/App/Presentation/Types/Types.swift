@@ -47,6 +47,7 @@ enum SidebarTabType: String {
     case school = "Schools" // Opens sheet
     case support = "Support" // Opens sheet
     case logOut = "Log out" // Performs api call
+    case logIn = "Log in"
 }
 
 enum BookmarksViewType: String {

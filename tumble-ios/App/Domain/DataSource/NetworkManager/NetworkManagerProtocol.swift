@@ -9,13 +9,9 @@ import Foundation
 
 protocol NetworkManagerProtocol {
     
-    func fetch<Request, Response>(_ endpoint: Endpoint, method: Method, body: Request?,
-        then callback: ((Result<Response, Error>) -> Void)?) where Request: Codable, Response: Codable
+    func get<Response: Decodable>(_ endpoint: Endpoint, authToken: String?, then completion: ((Result<Response, Error>) -> Void)?)
     
-    func get<Response>(_ endpoint: Endpoint, then callback: ((Result<Response, Error>) -> Void)?) where Response: Codable
+    func put<Response: Decodable>(_ endpoint: Endpoint, authToken: String?, then completion: ((Result<Response, Error>) -> Void)?)
     
-    func put<Request>(_ endpoint: Endpoint, body: Request, then callback: ((Result<Request, Error>) -> Void)?) where Request: Codable
-    
-    func post<Request>(_ endpoint: Endpoint, body: Request, then callback:
-                       ((Result<Request, Error>) -> Void)?) where Request: Codable
+    func post<Response: Decodable, Request: Encodable>(_ endpoint: Endpoint, authToken: String?, body: Request, then completion: ((Result<Response, Error>) -> Void)?)
 }

@@ -10,10 +10,12 @@ import SwiftUI
 struct HomePage: View {
     
     @ObservedObject var viewModel: HomePage.HomePageViewModel
+    @EnvironmentObject var userModel: User
     
     @Binding var domain: String?
     @Binding var canvasUrl: String?
     @Binding var kronoxUrl: String?
+    @Binding var selectedTabBar: TabbarTabType
     
     let backgroundColor: Color = .primary.opacity(0.75)
     let iconColor: Color = .primary.opacity(0.95)
@@ -21,10 +23,18 @@ struct HomePage: View {
     var body: some View {
         VStack (alignment: .leading, spacing: 0) {
             VStack (alignment: .leading, spacing: 0) {
-                Text("Good \(viewModel.getTimeOfDay())!")
-                    .font(.system(size: 30, design: .rounded))
-                    .fontWeight(.semibold)
-                    .padding(.bottom, 10)
+                if let userName = userModel.user?.name {
+                    Text("Good \(viewModel.getTimeOfDay()), \(userName.components(separatedBy: " ").first!)!")
+                        .font(.system(size: 30, design: .rounded))
+                        .fontWeight(.semibold)
+                        .padding(.bottom, 10)
+                } else {
+                    Text("Good \(viewModel.getTimeOfDay())!")
+                        .font(.system(size: 30, design: .rounded))
+                        .fontWeight(.semibold)
+                        .padding(.bottom, 10)
+                }
+                
                 Text("Where do you want to get started?")
                     .font(.system(size: 25, design: .rounded))
                     .padding(.trailing, 30)
@@ -39,9 +49,17 @@ struct HomePage: View {
             
             // Schedules, booked rooms, registered exams
             VStack (alignment: .leading, spacing: 0) {
-                HomePageOption(titleText: "Schedules", bodyText: "Got a class coming up?", image: "list.bullet.clipboard")
-                HomePageOption(titleText: "Booked rooms", bodyText: "Need to study?", image: "books.vertical")
-                HomePageOption(titleText: "Registered exams", bodyText: "You've got this!", image: "newspaper")
+                HomePageOption(titleText: "Schedules", bodyText: "Got a class coming up?", image: "list.bullet.clipboard", onTap: {
+                    withAnimation(.spring()) {
+                        selectedTabBar = .bookmarks
+                    }
+                })
+                HomePageOption(titleText: "Book a room", bodyText: "Need to study?", image: "books.vertical", onTap: {
+                    
+                })
+                HomePageOption(titleText: "Register for exams", bodyText: "You've got this!", image: "newspaper", onTap: {
+                    
+                })
             }
             .padding(.top, 40)
         }

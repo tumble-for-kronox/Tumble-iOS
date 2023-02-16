@@ -21,9 +21,9 @@ struct SchedulePreviewCard: View {
                 .offset(x: 7.5)
                 .cornerRadius(5, corners: [.topRight, .bottomRight])
             VStack (alignment: .leading, spacing: 0) {
-                PreviewCardBanner(color: event.isSpecial ? .red : previewColor, timeSpan: "\(event.from.ISOtoHoursAndMinutes()) - \(event.to.ISOtoHoursAndMinutes())", isSpecial: event.isSpecial)
+                PreviewCardBanner(color: event.isSpecial ? .red : previewColor, timeSpan: "\(event.from.convertISOToHoursAndMinutes() ?? "") - \(event.to.convertISOToHoursAndMinutes() ?? "")", isSpecial: event.isSpecial)
                     
-                CardInformation(title: event.title, courseName: event.course.englishName.trimmingCharacters(in: .whitespaces), location: event.locations.first?.id ?? "Unknown")
+                BookmarkCardInformation(title: event.title, courseName: event.course.englishName.trimmingCharacters(in: .whitespaces), location: event.locations.first?.id ?? "Unknown")
                 Spacer()
             }
             

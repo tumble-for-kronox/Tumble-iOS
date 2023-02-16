@@ -24,6 +24,15 @@ class PreferenceService: PreferenceServiceProtocol {
         closure()
     }
     
+    func setProfileImage(image: UIImage?, forKey key: String = StoreKey.profileImage.rawValue) {
+        if let data = image?.jpegData(compressionQuality: 10.0) {
+            UserDefaults.standard.set(data, forKey: key)
+        } else {
+            UserDefaults.standard.set(nil, forKey: key)
+        }
+        UserDefaults.standard.synchronize()
+    }
+    
     func setBookmarks(bookmarks: [Bookmark]) {
         UserDefaults.standard.set(Dictionary(uniqueKeysWithValues: bookmarks.map { ($0.id, $0.toggled) }), forKey: StoreKey.bookmarks.rawValue)
         UserDefaults.standard.synchronize()
@@ -62,7 +71,7 @@ class PreferenceService: PreferenceServiceProtocol {
         UserDefaults.standard.synchronize()
     }
     
-    func setAutoSign(autoSignup: Bool) {
+    func setAutoSignup(autoSignup: Bool) {
         UserDefaults.standard.set(autoSignup, forKey: StoreKey.autoSignup.rawValue)
         UserDefaults.standard.synchronize()
     }
@@ -81,6 +90,13 @@ class PreferenceService: PreferenceServiceProtocol {
     // ----------- GET -----------
     func getDefault(key: String) -> Any? {
         return UserDefaults.standard.object(forKey: key)
+    }
+    
+    func loadImage(key: String = StoreKey.profileImage.rawValue) -> UIImage? {
+        if let data = UserDefaults.standard.data(forKey: key) {
+            return UIImage(data: data)
+        }
+        return nil
     }
     
     func getBookmarks() -> [Bookmark]? {

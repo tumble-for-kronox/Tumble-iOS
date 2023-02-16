@@ -23,6 +23,15 @@ extension String {
     }
 
     
+    func abbreviate() -> String {
+        let formatter = PersonNameComponentsFormatter()
+        if let components = formatter.personNameComponents(from: self) {
+             formatter.style = .abbreviated
+             return formatter.string(from: components)
+        }
+        return ""
+    }
+    
     func toColor () -> Color {
         var cString:String = self.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
 
@@ -45,20 +54,68 @@ extension String {
     }
     
     // Should not be used with strings that are not ISO formatted
-    func ISOtoHoursAndMinutes() -> String {
+    func convertISOToHoursAndMinutes() -> String? {
+        let dateFormatter = ISO8601DateFormatter()
+        guard let date = dateFormatter.date(from: self) else {
+            return nil
+        }
         
-        let date: Date? = ISO8601DateFormatter().date(from: self)
         let calendar = Calendar.current
-        var hour: String = String(calendar.component(.hour, from: date!))
-        var minutes = String(calendar.component(.minute, from: date!))
+        let components = calendar.dateComponents([.hour, .minute], from: date)
         
-        if (hour.last == "0" && hour.count < 2) {
-            hour = hour + "0"
+        guard let hour = components.hour, let minute = components.minute else {
+            return nil
         }
-        if (minutes.last == "0" && minutes.count < 2) {
-            minutes = minutes + "0"
+        
+        return String(format: "%02d:%02d", hour, minute)
+    }
+    
+    func convertToHourMinute() -> String? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        guard let date = dateFormatter.date(from: self) else {
+            return nil
         }
-        return String("\(hour):\(minutes)")
+        
+        let calendar = Calendar.current
+        let components = calendar.dateComponents([.hour, .minute], from: date)
+        
+        guard let hour = components.hour, let minute = components.minute else {
+            return nil
+        }
+        
+        return String(format: "%02d:%02d", hour, minute)
+    }
+    
+    func isValidSignupDate() -> Bool {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+            guard let date = dateFormatter.date(from: self) else {
+                return false
+            }
+            return date < Date()
+        }
+    
+    func toDate() -> String? {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+            if let date = dateFormatter.date(from: self) {
+                dateFormatter.dateFormat = "yyyy-MM-dd"
+                return dateFormatter.string(from: date)
+            }
+            return nil
+        }
+    
+    func isOutsideThreeHourRange() -> Bool {
+        let dateFormatter = ISO8601DateFormatter()
+        guard let eventDate = dateFormatter.date(from: self) else {
+            return false
+        }
+        
+        let now = Date()
+        let threeHoursFromNow = Calendar.current.date(byAdding: .hour, value: 3, to: now)!
+        
+        return eventDate <= now || eventDate >= threeHoursFromNow
     }
     
     // Checks if the given day name is todays day,

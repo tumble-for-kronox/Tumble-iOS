@@ -6,12 +6,15 @@
 //
 
 import Foundation
+import UIKit
 
 protocol PreferenceServiceProtocol {
     // ----------- SET -----------
     func setSchool(id: Int, closure: @escaping () -> Void) -> Void
     
     func setUserOnboarded() -> Void
+    
+    func setProfileImage(image: UIImage?, forKey key: String) -> Void
     
     func setOffset(offset: Int) -> Void
     
@@ -25,7 +28,7 @@ protocol PreferenceServiceProtocol {
     
     func setLang(lang: String) -> Void
     
-    func setAutoSign(autoSignup: Bool) -> Void
+    func setAutoSignup(autoSignup: Bool) -> Void
     
     func setViewType(viewType: Int) -> Void
     
