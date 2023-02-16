@@ -7,9 +7,22 @@
 
 import Foundation
 
+struct Token: Codable {
+    let value: String
+    let createdDate: Date
+    
+    func isExpired() -> Bool {
+        let currentDate = Date()
+        return createdDate.addingTimeInterval(300) <= currentDate
+    }
+}
+
+enum TokenType: String {
+    case refreshToken = "refresh-token"
+    case sessionToken = "session-token"
+}
 
 class AuthManager {
-
     
     private let urlSession: URLSession
     private let serialQueue = OperationQueue()
@@ -28,158 +41,30 @@ class AuthManager {
     }
     
     
-    var sessionToken: String? {
+    var sessionToken: Token? {
         get {
-            if let school = self.getDefaultSchool() {
-                if let data = self.readKeyChain(for: "session-token", account: school.name) {
-                    return String(data: data, encoding: .utf8)
-                }
-            }
-            return nil
+            getToken(tokenType: .sessionToken)
         }
         set {
-            if let school = self.getDefaultSchool() {
-                if let value = newValue {
-                    self.saveKeyChain((value.data(using: .utf8))!, for: "session-token", account: school.name) { result in
-                        switch result {
-                        case .success(_):
-                            AppLogger.shared.info("Successfully stored session-token")
-                        case .failure(_):
-                            AppLogger.shared.info("Failed to store session-token")
-                        }
-                    }
-                } else {
-                    self.deleteKeyChain(for: "session-token", account: school.name, completion: { result in
-                        switch result {
-                        case .success(_):
-                            AppLogger.shared.info("Successfully deleted session-token")
-                        case .failure(_):
-                            AppLogger.shared.info("Failed to delete session-token")
-                        }
-                    })
-                }
-            }
+            setToken(newValue: newValue, tokenType: .sessionToken)
         }
     }
     
-    var refreshToken: String? {
+    var refreshToken: Token? {
         get {
-            if let school = self.getDefaultSchool() {
-                if let data = self.readKeyChain(for: "refresh-token", account: school.name) {
-                    return String(data: data, encoding: .utf8)
-                }
-            }
-            return nil
+            getToken(tokenType: .refreshToken)
         }
         set {
-            if let school = self.getDefaultSchool() {
-                if let value = newValue {
-                    self.saveKeyChain((value.data(using: .utf8))!, for: "refresh-token", account: school.name) { result in
-                        switch result {
-                        case .success(_):
-                            AppLogger.shared.info("Successfully stored refresh-token")
-                        case .failure(_):
-                            AppLogger.shared.info("Failed to store refresh-token")
-                        }
-                    }
-                } else {
-                    self.deleteKeyChain(for: "refresh-token", account: school.name, completion: { result in
-                        switch result {
-                        case .success(_):
-                            AppLogger.shared.info("Successfully deleted refresh-token")
-                        case .failure(_):
-                            AppLogger.shared.info("Failed to delete refresh-token")
-                        }
-                    })
-                }
-            }
+            setToken(newValue: newValue, tokenType: .refreshToken)
         }
     }
     
-    public var user: TumbleUser? {
+    var user: TumbleUser? {
         get {
-            do {
-                if let school = self.getDefaultSchool() {
-                    if let data = self.readKeyChain(for: "tumble-user", account: school.name) {
-                        let user = try decoder.decode(TumbleUser.self, from: data)
-                        return TumbleUser(username: user.username, name: user.name)
-                    }
-                }
-                return nil
-            } catch {
-                AppLogger.shared.info("No available user to decode")
-                return nil
-            }
+            getUser()
         }
         set {
-            do {
-                let data = try encoder.encode(newValue)
-                if let school = self.getDefaultSchool() {
-                    self.saveKeyChain(data, for: "tumble-user", account: school.name, completion: { result in
-                        switch result {
-                        case .success(_):
-                            AppLogger.shared.info("Updated user in keychain")
-                        case .failure(_):
-                            AppLogger.shared.info("Failed to update user in keychain")
-                        }
-                    })
-                }
-            } catch {
-                AppLogger.shared.info("Encoding error")
-            }
-        }
-    }
-    
-    private func clearTokensAndKeyChain(completionHandler: ((Result<Int, Error>) -> Void)? = nil) {
-        sessionToken = nil
-        refreshToken = nil
-        clearKeyChain(completionHandler: completionHandler)
-    }
-    
-    /**
-        This method will clear all tokens both from memory and persistent storage.
-        Most common use case for this method is user logout.
-    */
-    func logOutUser(completionHandler: ((Result<Int, Error>) -> Void)? = nil) {
-        if OperationQueue.current == serialQueue {
-            self.clearTokensAndKeyChain(completionHandler: completionHandler)
-        } else {
-            serialQueue.addOperation {
-                self.clearTokensAndKeyChain(completionHandler: completionHandler)
-            }
-        }
-    }
-    
-    private func clearKeyChain(completionHandler: ((Result<Int, Error>) -> Void)?) {
-        if let school = self.getDefaultSchool() {
-            self.deleteKeyChain(for: "refresh-token", account: school.name, completion: { result in
-                switch result {
-                case .success(_):
-                    AppLogger.shared.info("Successfully cleared keychain for refresh-token")
-                    self.deleteKeyChain(for: "session-token", account: school.name, completion: { result in
-                        switch result {
-                        case .success(_):
-                            AppLogger.shared.info("Successfully cleared keychain of session-token")
-                            self.deleteKeyChain(for: "tumble-user", account: school.name, completion: { result in
-                                switch result {
-                                case .success(_):
-                                    AppLogger.shared.info("Successfully cleared keychain of user")
-                                    completionHandler?(.success(3))
-                                case .failure(let failure):
-                                    AppLogger.shared.info("Failed to clear keychain -> \(failure.localizedDescription)")
-                                    completionHandler?(.failure(.internal(reason: "Failed to modify keychain for value 'session-token'")))
-                                }
-                            })
-                        case .failure(let failure):
-                            AppLogger.shared.info("Failed to clear keychain -> \(failure.localizedDescription)")
-                            completionHandler?(.failure(.internal(reason: "Failed to modify keychain for value 'session-token'")))
-                        }
-                    })
-                case .failure(let failure):
-                    AppLogger.shared.info("Failed to clear keychain -> \(failure.localizedDescription)")
-                    completionHandler?(.failure(.internal(reason: "Failed to modify keychain for value 'refresh-token'")))
-                }
-            })
+            setUser(newValue: newValue)
         }
     }
     
@@ -207,6 +92,67 @@ class AuthManager {
                 semaphore.signal()
             })
             _ = semaphore.wait(timeout: DispatchTime.distantFuture)
+        }
+    }
+    
+    /**
+        This method will clear all tokens both from memory and persistent storage.
+        Most common use case for this method is user logout.
+    */
+    func logOutUser(completionHandler: ((Result<Int, Error>) -> Void)? = nil) {
+        if OperationQueue.current == serialQueue {
+            self.clearTokensAndKeyChain(completionHandler: completionHandler)
+        } else {
+            serialQueue.addOperation {
+                self.clearTokensAndKeyChain(completionHandler: completionHandler)
+            }
+        }
+    }
+}
+
+
+
+
+// Private methods with specific functions in file
+extension AuthManager {
+    
+    private func clearTokensAndKeyChain(completionHandler: ((Result<Int, Error>) -> Void)? = nil) {
+        sessionToken = nil
+        refreshToken = nil
+        clearKeyChain(completionHandler: completionHandler)
+    }
+    
+    
+    private func clearKeyChain(completionHandler: ((Result<Int, Error>) -> Void)?) {
+        if let school = self.getDefaultSchool() {
+            self.deleteKeyChain(for: TokenType.refreshToken.rawValue, account: school.name, completion: { result in
+                switch result {
+                case .success(_):
+                    AppLogger.shared.info("Successfully cleared keychain for refresh-token")
+                    self.deleteKeyChain(for: TokenType.sessionToken.rawValue, account: school.name, completion: { result in
+                        switch result {
+                        case .success(_):
+                            AppLogger.shared.info("Successfully cleared keychain of session-token")
+                            self.deleteKeyChain(for: "tumble-user", account: school.name, completion: { result in
+                                switch result {
+                                case .success(_):
+                                    AppLogger.shared.info("Successfully cleared keychain of user")
+                                    completionHandler?(.success(3))
+                                case .failure(let failure):
+                                    AppLogger.shared.info("Failed to clear keychain -> \(failure.localizedDescription)")
+                                    completionHandler?(.failure(.internal(reason: "Failed to modify keychain for value 'session-token'")))
+                                }
+                            })
+                        case .failure(let failure):
+                            AppLogger.shared.info("Failed to clear keychain -> \(failure.localizedDescription)")
+                            completionHandler?(.failure(.internal(reason: "Failed to modify keychain for value 'session-token'")))
+                        }
+                    })
+                case .failure(let failure):
+                    AppLogger.shared.info("Failed to clear keychain -> \(failure.localizedDescription)")
+                    completionHandler?(.failure(.internal(reason: "Failed to modify keychain for value 'refresh-token'")))
+                }
+            })
         }
     }
     
@@ -241,7 +187,7 @@ class AuthManager {
             urlRequest.httpMethod = Method.get.rawValue
             urlRequest.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
             urlRequest.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")
-            urlRequest.setValue(token, forHTTPHeaderField: "X-auth-token")
+            urlRequest.setValue(token.value, forHTTPHeaderField: "X-auth-token")
                             
             urlSession.dataTask(with: urlRequest, completionHandler: { data, response, error in
                 self.handleAuthResponse(data: data, response: response, error: error as? Error, completionHandler: completionHandler)
@@ -254,8 +200,8 @@ class AuthManager {
     private func handleAuthResponse(data: Data?, response: URLResponse?, error: Error?, completionHandler: @escaping (Result<Response.KronoxUser, Error>) -> Void) {
         if let data = data, let result = try? self.decoder.decode(Response.KronoxUser.self, from: data) {
             AppLogger.shared.info("\(result.sessionToken)")
-            self.refreshToken = result.refreshToken
-            self.sessionToken = result.sessionToken
+            self.refreshToken = Token(value: result.refreshToken, createdDate: Date.now)
+            self.sessionToken = Token(value: result.sessionToken, createdDate: Date.now)
             
             if let school = self.getDefaultSchool() {
                 if let data = self.readKeyChain(for: "tumble-user", account: school.name) {
@@ -265,7 +211,6 @@ class AuthManager {
                     }
                 }
             }
-            
             completionHandler(.success(result))
         } else if let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode > 299 {
             // In case we got an error while using refresh token, we want to clear token storage - there's no way
@@ -286,6 +231,82 @@ class AuthManager {
             return nil
         }
         return schools.first(where: {$0.id == id})!
+    }
+    
+    private func getToken(tokenType: TokenType) -> Token? {
+        if let school = self.getDefaultSchool() {
+            if let data = self.readKeyChain(for: tokenType.rawValue, account: school.name) {
+                do {
+                    return try decoder.decode(Token.self, from: data)
+                } catch {
+                    return nil
+                }
+            }
+        }
+        return nil
+    }
+    
+    private func getUser() -> TumbleUser? {
+        do {
+            if let school = self.getDefaultSchool() {
+                if let data = self.readKeyChain(for: "tumble-user", account: school.name) {
+                    let user = try decoder.decode(TumbleUser.self, from: data)
+                    return TumbleUser(username: user.username, name: user.name)
+                }
+            }
+            return nil
+        } catch {
+            AppLogger.shared.info("No available user to decode")
+            return nil
+        }
+    }
+    
+    private func setUser(newValue: TumbleUser?) -> Void {
+        do {
+            let data = try encoder.encode(newValue)
+            if let school = self.getDefaultSchool() {
+                self.saveKeyChain(data, for: "tumble-user", account: school.name, completion: { result in
+                    switch result {
+                    case .success(_):
+                        AppLogger.shared.info("Updated user in keychain")
+                    case .failure(_):
+                        AppLogger.shared.info("Failed to update user in keychain")
+                    }
+                })
+            }
+        } catch {
+            AppLogger.shared.info("Encoding error")
+        }
+    }
+    
+    private func setToken(newValue: Token?, tokenType: TokenType) -> Void {
+        if let school = self.getDefaultSchool() {
+            if newValue != nil {
+                do {
+                    let storedData = try encoder.encode(newValue)
+                    self.saveKeyChain(storedData, for: tokenType.rawValue, account: school.name) { result in
+                        switch result {
+                        case .success(_):
+                            AppLogger.shared.info("Successfully stored \(tokenType.rawValue)")
+                        case .failure(_):
+                            AppLogger.shared.info("Failed to store \(tokenType.rawValue)")
+                        }
+                    }
+                } catch {
+                    AppLogger.shared.info("Failed to store \(tokenType.rawValue) object")
+                }
+                
+            } else {
+                self.deleteKeyChain(for: tokenType.rawValue, account: school.name, completion: { result in
+                    switch result {
+                    case .success(_):
+                        AppLogger.shared.info("Successfully deleted \(tokenType.rawValue)")
+                    case .failure(_):
+                        AppLogger.shared.info("Failed to delete \(tokenType.rawValue)")
+                    }
+                })
+            }
+        }
     }
     
     private func updateKeyChain(_ data: Data, for service: String, account: String, completion: @escaping (Result<Bool, Error>) -> Void) {
@@ -368,5 +389,4 @@ class AuthManager {
         AppLogger.shared.info("Added item to keychain")
         completion(.success(true))
     }
-    
 }

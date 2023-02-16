@@ -29,11 +29,11 @@ class NetworkManager: NetworkManagerProtocol {
     // [HTTP GET]
     func get<Response: Decodable>(
         _ endpoint: Endpoint,
-        authToken: String? = nil,
+        sessionToken: String? = nil,
         then completion: ((Result<Response, Error>) -> Void)? = nil
     ) {
         let body: Request.Empty? = nil
-        self.createRequest(authToken: authToken, endpoint: endpoint, method: .get, body: body) { result in
+        self.createRequest(sessionToken: sessionToken, endpoint: endpoint, method: .get, body: body) { result in
             completion?(result)
         }
     }
@@ -41,11 +41,11 @@ class NetworkManager: NetworkManagerProtocol {
     // [HTTP PUT]
     func put<Response: Decodable>(
         _ endpoint: Endpoint,
-        authToken: String? = nil,
+        sessionToken: String? = nil,
         then completion: ((Result<Response, Error>) -> Void)? = nil
     ) {
         let body: Request.Empty? = nil
-        self.createRequest(authToken: authToken, endpoint: endpoint, method: .put, body: body) { result in
+        self.createRequest(sessionToken: sessionToken, endpoint: endpoint, method: .put, body: body) { result in
             completion?(result)
         }
     }
@@ -53,11 +53,11 @@ class NetworkManager: NetworkManagerProtocol {
     // [HTTP POST]
     func post<Response: Decodable, Request: Encodable>(
         _ endpoint: Endpoint,
-        authToken: String?,
+        sessionToken: String? = nil,
         body: Request,
         then completion: ((Result<Response, Error>) -> Void)? = nil
     ) {
-        self.createRequest(authToken: authToken, endpoint: endpoint, method: .post, body: body) { result in
+        self.createRequest(sessionToken: sessionToken, endpoint: endpoint, method: .post, body: body) { result in
             completion?(result)
         }
     }
@@ -65,10 +65,15 @@ class NetworkManager: NetworkManagerProtocol {
     
     
     // Adds network request to serial queue
-    fileprivate func createRequest<Request: Encodable, Response: Decodable>(authToken: String?, endpoint: Endpoint, method: Method, body: Request? = nil, completion: @escaping (Result<Response, Error>) -> Void) {
+    fileprivate func createRequest<Request: Encodable, Response: Decodable>(
+        sessionToken: String?,
+        endpoint: Endpoint,
+        method: Method,
+        body: Request? = nil,
+        completion: @escaping (Result<Response, Error>) -> Void) {
             serialQueue.addOperation {
                 let semaphore = DispatchSemaphore(value: 0)
-                self.processNetworkRequest(authToken: authToken, endpoint: endpoint, method: method, body: body, completion: { (result: Result<Response, Error>) in
+                self.processNetworkRequest(sessionToken: sessionToken, endpoint: endpoint, method: method, body: body, completion: { (result: Result<Response, Error>) in
                     completion(result)
                     semaphore.signal()
                 })
@@ -79,13 +84,13 @@ class NetworkManager: NetworkManagerProtocol {
     
     // Processes the queued network request, creating a URLSessionDataTask
     fileprivate func processNetworkRequest<Request: Encodable, Response: Decodable>(
-        authToken: String?,
+        sessionToken: String?,
         endpoint: Endpoint,
         method: Method,
         body: Request? = nil,
         completion: @escaping (Result<Response, Error>) -> Void) {
         
-            guard let urlRequest = createUrlRequest(method: method, endpoint: endpoint, authToken: authToken, body: body) else {
+            guard let urlRequest = createUrlRequest(method: method, endpoint: endpoint, sessionToken: sessionToken, body: body) else {
                 completion(.failure(.internal(reason: "Could not encode request body")))
                 return
             }
@@ -140,13 +145,13 @@ class NetworkManager: NetworkManagerProtocol {
     fileprivate func createUrlRequest<Request: Encodable>(
         method: Method,
         endpoint: Endpoint,
-        authToken: String?,
+        sessionToken: String?,
         body: Request? = nil) -> URLRequest? {
         
             var urlRequest = URLRequest(url: endpoint.url)
             urlRequest.httpMethod = method.rawValue
             
-            urlRequest.setValue(authToken, forHTTPHeaderField: "X-auth-token")
+            urlRequest.setValue(sessionToken, forHTTPHeaderField: "X-auth-token")
             urlRequest.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
             urlRequest.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")
             

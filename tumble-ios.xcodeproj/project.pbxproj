@@ -113,7 +113,7 @@
 		D48F0D8A29367CAF0039CD0F /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48F0D8929367CAF0039CD0F /* Colors.swift */; };
 		D498290B299D8E3F0017D636 /* Resources.swift in Sources */ = {isa = PBXBuildFile; fileRef = D498290A299D8E3F0017D636 /* Resources.swift */; };
 		D498290D299D910F0017D636 /* RegisteredEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = D498290C299D910F0017D636 /* RegisteredEvents.swift */; };
-		D498290F299D9E7F0017D636 /* Bookings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D498290E299D9E7F0017D636 /* Bookings.swift */; };
+		D498290F299D9E7F0017D636 /* RegisteredBookings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D498290E299D9E7F0017D636 /* RegisteredBookings.swift */; };
 		D4982913299DA07F0017D636 /* ResourceCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4982912299DA07F0017D636 /* ResourceCard.swift */; };
 		D4982915299DA2710017D636 /* ResourceCardBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4982914299DA2710017D636 /* ResourceCardBanner.swift */; };
 		D49D2500299A9495001D2751 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49D24FF299A9495001D2751 /* User.swift */; };
@@ -284,7 +284,7 @@
 		D48F0D8929367CAF0039CD0F /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		D498290A299D8E3F0017D636 /* Resources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resources.swift; sourceTree = "<group>"; };
 		D498290C299D910F0017D636 /* RegisteredEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisteredEvents.swift; sourceTree = "<group>"; };
-		D498290E299D9E7F0017D636 /* Bookings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bookings.swift; sourceTree = "<group>"; };
+		D498290E299D9E7F0017D636 /* RegisteredBookings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisteredBookings.swift; sourceTree = "<group>"; };
 		D4982912299DA07F0017D636 /* ResourceCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceCard.swift; sourceTree = "<group>"; };
 		D4982914299DA2710017D636 /* ResourceCardBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceCardBanner.swift; sourceTree = "<group>"; };
 		D49D24FF299A9495001D2751 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -404,7 +404,6 @@
 			isa = PBXGroup;
 			children = (
 				D4D4CD1F299D273200D48180 /* Types */,
-				D4E83EC9299971E8002E5F88 /* Network */,
 				D4ABD273298C2EAF002FD8F5 /* Repository */,
 				D4ABD26E298C2E02002FD8F5 /* Model */,
 				D4ABD26C298C2DF0002FD8F5 /* Presentation */,
@@ -923,7 +922,7 @@
 				D419EDF5299A78C400479DCE /* ResourceSectionDivider.swift */,
 				D498290A299D8E3F0017D636 /* Resources.swift */,
 				D498290C299D910F0017D636 /* RegisteredEvents.swift */,
-				D498290E299D9E7F0017D636 /* Bookings.swift */,
+				D498290E299D9E7F0017D636 /* RegisteredBookings.swift */,
 				D4982912299DA07F0017D636 /* ResourceCard.swift */,
 				D4982914299DA2710017D636 /* ResourceCardBanner.swift */,
 			);
@@ -1100,13 +1099,6 @@
 				D4E83EC52999686F002E5F88 /* KeyChainManagerProtocol.swift */,
 			);
 			path = KeyChain;
-			sourceTree = "<group>";
-		};
-		D4E83EC9299971E8002E5F88 /* Network */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Network;
 			sourceTree = "<group>";
 		};
 		D4E83ECC2999B01C002E5F88 /* User */ = {
@@ -1343,7 +1335,7 @@
 				D460763B292AAD5400DE9590 /* PopupToastView.swift in Sources */,
 				D4D4DD032927C7DA0083BB7F /* ProgrammeCard.swift in Sources */,
 				D4D4CD17299CE57C00D48180 /* EventCard.swift in Sources */,
-				D498290F299D9E7F0017D636 /* Bookings.swift in Sources */,
+				D498290F299D9E7F0017D636 /* RegisteredBookings.swift in Sources */,
 				D46BB10A298AC31E00887A24 /* EventDetailsBodyBuilder.swift in Sources */,
 				D4A433BC29952BE600BFEB7A /* DictionaryExtension.swift in Sources */,
 				D4E39E402989DDDC004C30DF /* EventDetailsBody.swift in Sources */,

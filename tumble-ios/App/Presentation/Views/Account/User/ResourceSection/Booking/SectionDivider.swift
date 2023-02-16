@@ -26,7 +26,7 @@ struct SectionDivider<Content : View>: View {
                     .font(.system(size: 22))
                     .foregroundColor(.onBackground)
                 Text(title)
-                    .font(.system(size: 17, design: .rounded))
+                    .font(.system(size: 18, design: .rounded))
                     .foregroundColor(.onBackground)
                 VStack (spacing: 0) {
                     Divider()

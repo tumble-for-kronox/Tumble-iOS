@@ -25,7 +25,7 @@ struct EventBanner: View {
         }
         .padding(.top, 20)
         .padding([.leading, .trailing], 25)
-        .padding(.bottom, 10)
+        .padding(.bottom, 15)
     }
 }
 

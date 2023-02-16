@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct Bookings: View {
+struct RegisteredBookings: View {
     
     @Binding var state: PageState
     let bookings: Response.KronoxUserBooking?

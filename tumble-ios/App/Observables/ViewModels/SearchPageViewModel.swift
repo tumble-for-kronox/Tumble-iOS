@@ -94,7 +94,7 @@ extension SearchPage {
         
         func onSearchProgrammes(searchQuery: String) -> Void {
             self.status = .loading
-            networkManager.get(.searchProgramme(searchQuery: searchQuery, schoolId: String(school!.id)), authToken: nil) { [weak self] (result: Result<Response.Search, Error>) in
+            networkManager.get(.searchProgramme(searchQuery: searchQuery, schoolId: String(school!.id)), sessionToken: nil) { [weak self] (result: Result<Response.Search, Error>) in
                 DispatchQueue.main.async {
                     guard let self = self else { return }
                     switch result {
@@ -196,7 +196,7 @@ extension SearchPage.SearchPageViewModel {
     
     // API Call to fetch a schedule from backend
     fileprivate func fetchSchedule(programmeId: String, closure: @escaping () -> Void) -> Void {
-        networkManager.get(.schedule(scheduleId: programmeId, schoolId: String(school!.id)), authToken: nil) { [weak self] (result: Result<Response.Schedule, Error>) in
+        networkManager.get(.schedule(scheduleId: programmeId, schoolId: String(school!.id))) { [weak self] (result: Result<Response.Schedule, Error>) in
             DispatchQueue.main.async {
                 guard let self = self else { return }
                 switch result {

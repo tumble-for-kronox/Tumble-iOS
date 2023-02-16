@@ -88,13 +88,13 @@ extension String {
     }
     
     func isValidSignupDate() -> Bool {
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
-            guard let date = dateFormatter.date(from: self) else {
-                return false
-            }
-            return date < Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        guard let date = dateFormatter.date(from: self) else {
+            return false
         }
+        return date > Date()
+    }
     
     func toDate() -> String? {
             let dateFormatter = DateFormatter()

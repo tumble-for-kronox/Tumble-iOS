@@ -35,7 +35,7 @@ struct Resources: View {
                             ResourceBookings()
                                 .environmentObject(user)
                                 .customNavigationBackButton(previousPage: "Account"))) {
-                                    Bookings(state: $bookingsState, bookings: user.userBookings)
+                                    RegisteredBookings(state: $bookingsState, bookings: user.userBookings)
             }
             ResourceSectionDivider (title: "Your exams", image: "newspaper",
                          destination: AnyView(
@@ -46,7 +46,7 @@ struct Resources: View {
             }
             Spacer()
         }
-        .frame(maxWidth: .infinity, maxHeight: UIScreen.main.bounds.height / 1.85).cornerRadius(15)
+        .frame(maxWidth: .infinity, maxHeight: UIScreen.main.bounds.height / 1.65).cornerRadius(15)
         .background(Color.background)
         .cornerRadius(15, corners: [.topLeft, .topRight])
         .onAppear {
