@@ -99,7 +99,6 @@ struct AppParent: View {
             .onEnded(handleSwipe)
         )
         .zIndex(1)
-        
     }
 
     

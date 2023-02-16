@@ -106,7 +106,6 @@ import SwiftUI
         }
     }
     
-    
     func getSearchViewModel() -> SearchPage.SearchPageViewModel {
         return viewModelFactory.makeViewModelSearch()
     }

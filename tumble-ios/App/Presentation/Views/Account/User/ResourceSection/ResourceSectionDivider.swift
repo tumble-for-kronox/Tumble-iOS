@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct UserActions<Content : View>: View {
+struct ResourceSectionDivider<Content : View>: View {
     
     let content: Content
     let title: String
@@ -51,6 +51,7 @@ struct UserActions<Content : View>: View {
                     
                 }
             }
+            .padding(.bottom, 15)
             content
         }
         .padding(22.5)

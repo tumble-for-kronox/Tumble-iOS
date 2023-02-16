@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct CardInformation: View {
+struct BookmarkCardInformation: View {
     let title: String
     let courseName: String
     let location: String

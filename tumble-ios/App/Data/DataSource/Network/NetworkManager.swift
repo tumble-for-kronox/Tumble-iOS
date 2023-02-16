@@ -26,94 +26,6 @@ class NetworkManager: NetworkManagerProtocol {
         self.session = URLSession(configuration: config)
     }
     
-    
-    func createRequest<Request: Encodable, Response: Decodable>(authToken: String?, endpoint: Endpoint, method: Method, body: Request? = nil, completion: @escaping (Result<Response, Error>) -> Void) {
-        serialQueue.addOperation {
-            let semaphore = DispatchSemaphore(value: 0)
-            self.processNetworkRequest(authToken: authToken, endpoint: endpoint, method: method, body: body, completion: { (result: Result<Response, Error>) in
-                completion(result)
-                semaphore.signal()
-            })
-            _ = semaphore.wait(timeout: DispatchTime.distantFuture)
-        }
-    }
-    
-    
-    fileprivate func processNetworkRequest<Request: Encodable, Response: Decodable>(
-        authToken: String?,
-        endpoint: Endpoint,
-        method: Method,
-        body: Request? = nil,
-        completion: @escaping (Result<Response, Error>) -> Void) {
-        
-        guard let urlRequest = createUrlRequest(method: method, endpoint: endpoint, authToken: authToken, body: body) else {
-            completion(.failure(.internal(reason: "Could not encode request body")))
-            return
-        }
-        
-        let networkTask: URLSessionDataTask = createNetworkTask(urlRequest: urlRequest, completion: completion)
-        
-        networkTask.resume()
-    }
-    
-    fileprivate func createNetworkTask<Response: Decodable>(urlRequest: URLRequest, completion: @escaping (Result<Response, Error>) -> Void) -> URLSessionDataTask {
-        return self.session
-            .dataTask(with: urlRequest) { data, response, error in
-                if let error = error {
-                    completion(.failure(.generic(reason: "Could not fetch data: \(error.localizedDescription)")))
-                    return
-                }
-                
-                guard let httpUrlResponse = response as? HTTPURLResponse else {
-                    completion(.failure(.generic(reason: "Invalid response")))
-                    return
-                }
-                
-                guard let data = data else {
-                    completion(.failure(.internal(reason: "Data is nil")))
-                    return
-                }
-                
-                do {
-                    guard !data.isEmpty else {
-                        if let result = httpUrlResponse.toHttpResponseObject() as? Response {
-                            completion(.success(result))
-                            return
-                        }
-                        completion(.failure(.internal(reason: "Could not convert response to HTTPResponse")))
-                        return
-                    }
-                    let result = try self.decoder.decode(Response.self, from: data)
-                    completion(.success(result))
-                } catch {
-                    completion(.failure(.generic(reason: "Could not decode data: \(error.localizedDescription)")))
-                }
-            }
-    }
-    
-    fileprivate func createUrlRequest<Request: Encodable>(
-        method: Method,
-        endpoint: Endpoint,
-        authToken: String?,
-        body: Request? = nil) -> URLRequest? {
-        var urlRequest = URLRequest(url: endpoint.url)
-        urlRequest.httpMethod = method.rawValue
-        
-        urlRequest.setValue(authToken, forHTTPHeaderField: "X-auth-token")
-        urlRequest.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
-        urlRequest.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")
-        
-        // If a body is attached to the fetch call, attempt to encode the request body
-        if let body = body {
-            do {
-                urlRequest.httpBody = try encoder.encode(body)
-            } catch {
-                return nil
-            }
-        }
-        return urlRequest
-    }
-    
     // [HTTP GET]
     func get<Response: Decodable>(
         _ endpoint: Endpoint,
@@ -149,5 +61,104 @@ class NetworkManager: NetworkManagerProtocol {
             completion?(result)
         }
     }
-
+    
+    
+    
+    // Adds network request to serial queue
+    fileprivate func createRequest<Request: Encodable, Response: Decodable>(authToken: String?, endpoint: Endpoint, method: Method, body: Request? = nil, completion: @escaping (Result<Response, Error>) -> Void) {
+            serialQueue.addOperation {
+                let semaphore = DispatchSemaphore(value: 0)
+                self.processNetworkRequest(authToken: authToken, endpoint: endpoint, method: method, body: body, completion: { (result: Result<Response, Error>) in
+                    completion(result)
+                    semaphore.signal()
+                })
+                _ = semaphore.wait(timeout: DispatchTime.distantFuture)
+            }
+        }
+    
+    
+    // Processes the queued network request, creating a URLSessionDataTask
+    fileprivate func processNetworkRequest<Request: Encodable, Response: Decodable>(
+        authToken: String?,
+        endpoint: Endpoint,
+        method: Method,
+        body: Request? = nil,
+        completion: @escaping (Result<Response, Error>) -> Void) {
+        
+            guard let urlRequest = createUrlRequest(method: method, endpoint: endpoint, authToken: authToken, body: body) else {
+                completion(.failure(.internal(reason: "Could not encode request body")))
+                return
+            }
+            
+            let networkTask: URLSessionDataTask = createUrlSessionDataTask(urlRequest: urlRequest, completion: completion)
+            
+            networkTask.resume()
+        }
+    
+    
+    // Creates a URLSessionDataTask that handles all possible response cases
+    fileprivate func createUrlSessionDataTask<Response: Decodable>(
+        urlRequest: URLRequest,
+        completion: @escaping (Result<Response, Error>) -> Void) -> URLSessionDataTask {
+            return self.session
+                .dataTask(with: urlRequest) { data, response, error in
+                    if let error = error {
+                        completion(.failure(.generic(reason: "Could not fetch data: \(error)")))
+                        return
+                    }
+                    
+                    guard let httpUrlResponse = response as? HTTPURLResponse else {
+                        completion(.failure(.generic(reason: "Invalid response")))
+                        return
+                    }
+                    
+                    guard let data = data else {
+                        completion(.failure(.internal(reason: "Data is nil")))
+                        return
+                    }
+                    
+                    do {
+                        guard !data.isEmpty else {
+                            if let result = httpUrlResponse.toHttpResponseObject() as? Response {
+                                completion(.success(result))
+                                return
+                            }
+                            completion(.failure(.internal(reason: "Could not convert response to HTTPResponse")))
+                            return
+                        }
+                        let result = try self.decoder.decode(Response.self, from: data)
+                        completion(.success(result))
+                    } catch {
+                        completion(.failure(.generic(reason: "Could not decode data: \(error)")))
+                    }
+                }
+        }
+    
+    
+    // Creates a URLRequest with necessary headers and body
+    // based on method type
+    fileprivate func createUrlRequest<Request: Encodable>(
+        method: Method,
+        endpoint: Endpoint,
+        authToken: String?,
+        body: Request? = nil) -> URLRequest? {
+        
+            var urlRequest = URLRequest(url: endpoint.url)
+            urlRequest.httpMethod = method.rawValue
+            
+            urlRequest.setValue(authToken, forHTTPHeaderField: "X-auth-token")
+            urlRequest.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
+            urlRequest.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")
+            
+            // If a body is attached to the fetch call,
+            // attempt to encode the request body
+            if let body = body {
+                do {
+                    urlRequest.httpBody = try encoder.encode(body)
+                } catch {
+                    return nil
+                }
+            }
+            return urlRequest
+        }
 }

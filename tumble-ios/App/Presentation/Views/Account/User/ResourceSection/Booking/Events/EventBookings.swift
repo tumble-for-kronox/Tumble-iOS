@@ -29,17 +29,17 @@ struct EventBookings: View {
                         .frame(minHeight: geo.size.height)
                 case .loaded:
                     SectionDivider(title: "Registered", image: "person.crop.circle.badge.checkmark", content: {
-                        Events(registeredEvents: viewModel.completeUserEvent?.registeredEvents, onTapEventAction: { eventId, eventType in
+                        Events(registeredEvents: user.completeUserEvent?.registeredEvents, onTapEventAction: { eventId, eventType in
                             onTapEventAction(eventId: eventId, eventType: eventType, completion: getUserEvents)
                         })
                     })
                     SectionDivider(title: "Unregistered", image: "person.crop.circle.badge.xmark", content: {
-                        Events(unregisteredEvents: viewModel.completeUserEvent?.unregisteredEvents, onTapEventAction: { eventId, eventType in
+                        Events(unregisteredEvents: user.completeUserEvent?.unregisteredEvents, onTapEventAction: { eventId, eventType in
                             onTapEventAction(eventId: eventId, eventType: eventType, completion: getUserEvents)
                         })
                     })
                     SectionDivider(title: "Upcoming", image: "person.crop.circle.badge.clock", content: {
-                        Events(upcomingEvents: viewModel.completeUserEvent?.upcomingEvents)
+                        Events(upcomingEvents: user.completeUserEvent?.upcomingEvents)
                     })
                 case .error:
                     Info(title: "Could not contact the server", image: "wifi.exclamationmark")
@@ -56,19 +56,15 @@ struct EventBookings: View {
  
     func getUserEvents() -> Void {
         user.autoLogin(completion: {
-            user.userEvents(completion: loadUserEvents)
+            user.getUserEvents(completion: loadUserEvents)
         })
     }
     
-    func loadUserEvents(result: Result<Response.KronoxCompleteUserEvent, Error>) -> Void {
+    func loadUserEvents(success: Bool) -> Void {
         DispatchQueue.main.async {
-            switch result {
-            case .success(let events):
-                viewModel.loadUserEvents(events: events, completion: {
-                    self.state = .loaded
-                })
-            case .failure(let failure):
-                AppLogger.shared.info("\(failure.localizedDescription)")
+            if success {
+                self.state = .loaded
+            } else {
                 self.state = .error
             }
         }

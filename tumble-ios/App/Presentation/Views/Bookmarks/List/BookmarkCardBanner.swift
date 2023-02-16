@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct CardBanner: View {
+struct BookmarkCardBanner: View {
     
     let color: Color
     let timeSpan: String

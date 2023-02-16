@@ -16,7 +16,7 @@ enum Endpoint {
     // USERS, EVENTS, RESOURCES
     case userEvents(sessionToken: String, schoolId: String)
     case resourceAvailabilities(sessionToken: String, schoolId: String, resourceId: String, date: String)
-    case userBookings(sessionToken: String, schoolId: String)
+    case userBookings(schoolId: String, sessionToken: String)
     case login(schoolId: String)
     case users(schoolId: String)
     case registerAllEvents(schoolId: String)
@@ -59,11 +59,11 @@ enum Endpoint {
                 URLQueryItem(name: "resourceId", value: resourceId),
                 URLQueryItem(name: "date", value: date)
             ]
-        case .userBookings(sessionToken: let sessionToken, schoolId: let schoolId):
+        case .userBookings(schoolId: let schoolId, sessionToken: let sessionToken):
             components.path = "/api/resources/userbookings"
             components.queryItems = [
-                URLQueryItem(name: "sessionToken", value: sessionToken),
-                URLQueryItem(name: "schoolId", value: schoolId)
+                URLQueryItem(name: "schoolId", value: schoolId),
+                URLQueryItem(name: "sessionToken", value: sessionToken)
             ]
         case .login(schoolId: let schoolId):
             components.path = "/api/users/login"

@@ -235,10 +235,29 @@ public enum Response {
             case bookedBy
         }
     }
+    
+    typealias KronoxUserBooking = [KronoxUserBookingElement]
+    // MARK: - KronoxUserBookingElement
+    struct KronoxUserBookingElement: Identifiable, Decodable {
+        let id, resourceID: String
+        let timeSlot: TimeSlot
+        let locationID: String
+        let showConfirmButton, showUnbookButton: Bool
+        let confirmationOpen, confirmationClosed: String
 
+        enum CodingKeys: String, CodingKey {
+            case id
+            case resourceID = "resourceId"
+            case timeSlot
+            case locationID = "locationId"
+            case showConfirmButton, showUnbookButton, confirmationOpen, confirmationClosed
+        }
+    }
+
+    
     // MARK: - TimeSlot
     struct TimeSlot: Encodable, Decodable {
-        let id: Int
+        let id: Int?
         let from, to: String
         let duration: String
     }
