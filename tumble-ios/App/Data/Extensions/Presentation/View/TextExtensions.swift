@@ -135,10 +135,10 @@ extension Text {
     }
     
     func timeSpanCard() -> some View {
-        self.font(.system(size: 16, design: .rounded))
-            .bold()
+        self.font(.system(size: 16, weight: .semibold, design: .rounded))
             .foregroundColor(.onSurface)
     }
+
     
     func titleCard() -> some View {
         self.font(.system(size: 24, design: .rounded))

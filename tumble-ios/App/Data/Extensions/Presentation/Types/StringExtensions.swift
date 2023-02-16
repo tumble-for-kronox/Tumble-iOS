@@ -54,20 +54,20 @@ extension String {
     }
     
     // Should not be used with strings that are not ISO formatted
-    func ISOtoHoursAndMinutes() -> String {
+    func convertISOToHoursAndMinutes() -> String? {
+        let dateFormatter = ISO8601DateFormatter()
+        guard let date = dateFormatter.date(from: self) else {
+            return nil
+        }
         
-        let date: Date? = ISO8601DateFormatter().date(from: self)
         let calendar = Calendar.current
-        var hour: String = String(calendar.component(.hour, from: date!))
-        var minutes = String(calendar.component(.minute, from: date!))
+        let components = calendar.dateComponents([.hour, .minute], from: date)
         
-        if (hour.last == "0" && hour.count < 2) {
-            hour = hour + "0"
+        guard let hour = components.hour, let minute = components.minute else {
+            return nil
         }
-        if (minutes.last == "0" && minutes.count < 2) {
-            minutes = minutes + "0"
-        }
-        return String("\(hour):\(minutes)")
+        
+        return String(format: "%02d:%02d", hour, minute)
     }
     
     func convertToHourMinute() -> String? {
@@ -84,7 +84,7 @@ extension String {
             return nil
         }
         
-        return String(format: "%d:%02d", hour, minute)
+        return String(format: "%02d:%02d", hour, minute)
     }
     
     func isValidSignupDate() -> Bool {
@@ -93,7 +93,7 @@ extension String {
             guard let date = dateFormatter.date(from: self) else {
                 return false
             }
-            return date >= Date()
+            return date < Date()
         }
     
     func toDate() -> String? {
@@ -105,6 +105,18 @@ extension String {
             }
             return nil
         }
+    
+    func isOutsideThreeHourRange() -> Bool {
+        let dateFormatter = ISO8601DateFormatter()
+        guard let eventDate = dateFormatter.date(from: self) else {
+            return false
+        }
+        
+        let now = Date()
+        let threeHoursFromNow = Calendar.current.date(byAdding: .hour, value: 3, to: now)!
+        
+        return eventDate <= now || eventDate >= threeHoursFromNow
+    }
     
     // Checks if the given day name is todays day,
     // if so it returns the string 'Today' instead of

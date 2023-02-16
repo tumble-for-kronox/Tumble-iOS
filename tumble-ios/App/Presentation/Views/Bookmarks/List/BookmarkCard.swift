@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ScheduleCard: View {
+struct BookmarkCard: View {
     @State private var isDisclosed: Bool = false
     
     let onTapCard: OnTapCard
@@ -25,9 +25,9 @@ struct ScheduleCard: View {
                 .offset(x: 7.5)
                 .cornerRadius(5, corners: [.topRight, .bottomRight])
             VStack (alignment: .leading, spacing: 0) {
-                CardBanner(color: event.isSpecial ? .red : color, timeSpan: "\(event.from.ISOtoHoursAndMinutes()) - \(event.to.ISOtoHoursAndMinutes())", isSpecial: event.isSpecial, courseName: event.course.englishName)
+                BookmarkCardBanner(color: event.isSpecial ? .red : color, timeSpan: "\(event.from.convertISOToHoursAndMinutes() ?? "") - \(event.to.convertISOToHoursAndMinutes() ?? "")", isSpecial: event.isSpecial, courseName: event.course.englishName)
                     
-                CardInformation(title: event.title, courseName: event.course.englishName.trimmingCharacters(in: .whitespaces), location: event.locations.first?.id ?? "Unknown")
+                BookmarkCardInformation(title: event.title, courseName: event.course.englishName.trimmingCharacters(in: .whitespaces), location: event.locations.first?.id ?? "Unknown")
                 Spacer()
             }
             

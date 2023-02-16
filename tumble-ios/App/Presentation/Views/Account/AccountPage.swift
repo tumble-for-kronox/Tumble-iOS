@@ -17,7 +17,7 @@ struct AccountPage: View {
     var body: some View {
         VStack (alignment: .center) {
             if userModel.authStatus == .authorized || userModel.refreshToken != nil {
-                UserOverview(viewModel: viewModel, userImage: $userModel.profilePicture, name: userModel.user!.name, username: userModel.user!.username, schoolName: viewModel.school?.name ?? "", createToast: createToast, toggleAutoSignup: toggleAutoSignup, userBookings: viewModel.userBookings, registeredExams: viewModel.registeredExams, updateUserImage: updateUserImage, autoSignup: $viewModel.autoSignup)
+                UserOverview(viewModel: viewModel, userImage: $userModel.profilePicture, name: userModel.user!.name, username: userModel.user!.username, schoolName: viewModel.school?.name ?? "", createToast: createToast, toggleAutoSignup: toggleAutoSignup, updateUserImage: updateUserImage, autoSignup: $viewModel.autoSignup)
                     .environmentObject(userModel)
             } else {
                 if viewModel.status == .loading {

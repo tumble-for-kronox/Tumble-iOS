@@ -9,8 +9,6 @@ import Foundation
 
 protocol NetworkManagerProtocol {
     
-    func createRequest<Request: Encodable, Response: Decodable>(authToken: String?, endpoint: Endpoint, method: Method, body: Request?, completion: @escaping (Result<Response, Error>) -> Void)
-    
     func get<Response: Decodable>(_ endpoint: Endpoint, authToken: String?, then completion: ((Result<Response, Error>) -> Void)?)
     
     func put<Response: Decodable>(_ endpoint: Endpoint, authToken: String?, then completion: ((Result<Response, Error>) -> Void)?)

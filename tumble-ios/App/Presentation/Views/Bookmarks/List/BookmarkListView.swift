@@ -34,7 +34,7 @@ struct BookmarkListView: View {
                         if !(day.events.isEmpty) {
                             Section(header: DayHeader(day: day), content: {
                                 ForEach(day.events, id: \.id) { event in
-                                    ScheduleCard(onTapCard: onTapCard, event: event, isLast: event == day.events.last, color: courseColors[event.course.id] != nil ? courseColors[event.course.id]!.toColor() : .white)
+                                    BookmarkCard(onTapCard: onTapCard, event: event, isLast: event == day.events.last, color: courseColors[event.course.id] != nil ? courseColors[event.course.id]!.toColor() : .white)
                                 }
                             })
                             .padding(.top, 35)
