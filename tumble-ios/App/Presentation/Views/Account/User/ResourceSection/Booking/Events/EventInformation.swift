@@ -32,13 +32,11 @@ struct EventInformation: View {
                         .font(.system(size: 18, weight: .semibold, design: .rounded))
                             .foregroundColor(.onSurface)
                             .padding(.leading, 25)
-                            .padding(.bottom, 10)
                 } else {
                     Text("Registration has passed")
                         .font(.system(size: 18, weight: .semibold, design: .rounded))
                             .foregroundColor(.onSurface)
                             .padding(.leading, 25)
-                            .padding(.bottom, 10)
                 }
                 Spacer()
             }

@@ -30,6 +30,8 @@ class User: ObservableObject {
     @Published var completeUserEvent: Response.KronoxCompleteUserEvent? = nil
     @Published var userBookings: Response.KronoxUserBooking? = nil
     
+    private var MAX_CONSECUTIVE_ATTEMPTS: Int = 4
+    
     var user: TumbleUser? {
         get { return authManager.user }
         set { authManager.user = newValue }
@@ -40,11 +42,11 @@ class User: ObservableObject {
         set { saveProfilePicture(image: newValue) }
     }
 
-    var refreshToken: String? {
+    var refreshToken: Token? {
         get { authManager.refreshToken }
     }
     
-    var sessionToken: String? {
+    var sessionToken: Token? {
         get { authManager.sessionToken }
     }
     
@@ -120,64 +122,101 @@ extension User {
         })
     }
     
-    func registerForEvent(with id: String, completion: @escaping (Result<Response.HTTPResponse, Error>) -> Void) {
-        if let school = preferenceService.getDefaultSchool(), let sessionToken = self.sessionToken {
-            AppLogger.shared.info("Registering for event -> \(id)")
-            self.networkManager.put(.registerEvent(eventId: id, schoolId: String(school.id), sessionToken: sessionToken), then: completion)
+    func registerForEvent(tries: Int = 0, with id: String, completion: @escaping (Result<Response.HTTPResponse, Error>) -> Void) {
+        guard let school = preferenceService.getDefaultSchool(),
+                let sessionToken = self.sessionToken,
+              !sessionToken.isExpired() else {
+            if tries < MAX_CONSECUTIVE_ATTEMPTS {
+                autoLogin(completion: {
+                    self.registerForEvent(tries: tries + 1, with: id, completion: completion)
+                })
+            }
+            completion(.failure(.generic(reason: "Could not reach server in time")))
+            return
         }
+        AppLogger.shared.info("Registering for event -> \(id)")
+        let request = Endpoint.registerEvent(eventId: id, schoolId: String(school.id), sessionToken: sessionToken.value)
+        self.networkManager.put(request, then: completion)
     }
     
-    func unregisterForEvent(with id: String, completion: @escaping (Result<Response.HTTPResponse, Error>) -> Void) -> Void {
-        if let school = preferenceService.getDefaultSchool(), let sessionToken = self.sessionToken {
-            AppLogger.shared.info("Unregistering for event -> \(id)")
-            self.networkManager.put(.unregisterEvent(eventId: id, schoolId: String(school.id), sessionToken: sessionToken), then: completion)
+    func unregisterForEvent(tries: Int = 0, with id: String, completion: @escaping (Result<Response.HTTPResponse, Error>) -> Void) -> Void {
+        guard let school = preferenceService.getDefaultSchool(),
+                let sessionToken = self.sessionToken,
+              !sessionToken.isExpired() else {
+            if tries < MAX_CONSECUTIVE_ATTEMPTS {
+                autoLogin(completion: {
+                    self.unregisterForEvent(tries: tries + 1, with: id, completion: completion)
+                })
+            }
+            completion(.failure(.generic(reason: "Could not reach server in time")))
+            return
         }
+        AppLogger.shared.info("Unregistering for event -> \(id)")
+        let request = Endpoint.unregisterEvent(eventId: id, schoolId: String(school.id), sessionToken: sessionToken.value)
+        self.networkManager.put(request, then: completion)
     }
     
-    func getUserEvents(completion: @escaping (Bool) -> Void) {
-        if let school = preferenceService.getDefaultSchool(), let sessionToken = self.sessionToken {
-            self.networkManager.get(.userEvents(
-                sessionToken: sessionToken, schoolId:
-                String(school.id)),
-                then: { [weak self] (result: Result<Response.KronoxCompleteUserEvent, Error>) in
-                guard let self = self else { return }
-                DispatchQueue.main.async {
-                    switch result {
-                    case .success(let completeUserEvent):
-                        AppLogger.shared.info("Successfully loaded user events")
-                        self.completeUserEvent = completeUserEvent
-                        completion(true)
-                    case .failure(let failure):
-                        AppLogger.shared.info("Failed to retrieve user events -> \(failure)")
-                        completion(false)
-                    }
+    
+    func getUserEvents(tries: Int = 0, completion: @escaping (Bool) -> Void) {
+        guard let school = preferenceService.getDefaultSchool(),
+              let sessionToken = self.sessionToken,
+              !sessionToken.isExpired() else {
+            if tries < MAX_CONSECUTIVE_ATTEMPTS {
+                autoLogin(completion: {
+                    self.getUserEvents(tries: tries + 1, completion: completion)
+                })
+            }
+            completion(false)
+            return
+        }
+        
+        let request = Endpoint.userEvents(sessionToken: sessionToken.value, schoolId: String(school.id))
+        self.networkManager.get(request) { [weak self] (result: Result<Response.KronoxCompleteUserEvent, Error>) in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let completeUserEvent):
+                    AppLogger.shared.info("Successfully loaded user events")
+                    self.completeUserEvent = completeUserEvent
+                    completion(true)
+                case .failure(let failure):
+                    AppLogger.shared.info("Failed to retrieve user events -> \(failure)")
+                    completion(false)
                 }
-            })
+            }
         }
     }
+
     
-    func getUserBookings(completion: @escaping (Bool) -> Void) -> Void {
-        if let school = preferenceService.getDefaultSchool(), let sessionToken = self.sessionToken {
-            self.networkManager.get(.userBookings(
-                schoolId: String(school.id),
-                sessionToken: sessionToken),
-                then: { [weak self] (result: Result<Response.KronoxUserBooking, Error>) in
-                guard let self = self else { return }
-                DispatchQueue.main.async {
-                    switch result {
-                    case .success(let bookings):
-                        AppLogger.shared.info("Successfully loaded user bookings")
-                        self.userBookings = bookings
-                        completion(true)
-                    case .failure(let failure):
-                        AppLogger.shared.info("Failed to retrieve user bookings -> \(failure)")
-                        completion(false)
-                    }
+    func getUserBookings(tries: Int = 0, completion: @escaping (Bool) -> Void) -> Void {
+        guard let school = preferenceService.getDefaultSchool(),
+              let sessionToken = self.sessionToken,
+              !sessionToken.isExpired() else {
+            if tries < MAX_CONSECUTIVE_ATTEMPTS {
+                autoLogin(completion: {
+                    self.getUserEvents(tries: tries + 1, completion: completion)
+                })
+            }
+            completion(false)
+            return
+        }
+        let request = Endpoint.userBookings(schoolId: String(school.id), sessionToken: sessionToken.value)
+        self.networkManager.get(request) { [weak self] (result: Result<Response.KronoxUserBooking, Error>) in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let userBookings):
+                    AppLogger.shared.info("Successfully loaded user bookings")
+                    self.userBookings = userBookings
+                    completion(true)
+                case .failure(let failure):
+                    AppLogger.shared.info("Failed to retrieve user bookings -> \(failure)")
+                    completion(false)
                 }
-            })
+            }
         }
     }
-    
+        
     fileprivate func loadProfilePicture() -> UIImage? {
         if let fileName = UserDefaults.standard.value(forKey: StoreKey.profileImage.rawValue) as? String,
            let fileURL = try? FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathComponent(fileName),

@@ -30,7 +30,7 @@ struct ResourceSectionDivider<Content : View>: View {
                     .font(.system(size: 22))
                     .foregroundColor(.onBackground)
                 Text(title)
-                    .font(.system(size: 17, design: .rounded))
+                    .font(.system(size: 18, design: .rounded))
                     .foregroundColor(.onBackground)
                 VStack (spacing: 0) {
                     Divider()
@@ -54,6 +54,7 @@ struct ResourceSectionDivider<Content : View>: View {
             .padding(.bottom, 15)
             content
         }
-        .padding(22.5)
+        .padding(.vertical, 25)
+        .padding(.horizontal, 17)
     }
 }

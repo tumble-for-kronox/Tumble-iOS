@@ -55,9 +55,7 @@ struct EventBookings: View {
     }
  
     func getUserEvents() -> Void {
-        user.autoLogin(completion: {
-            user.getUserEvents(completion: loadUserEvents)
-        })
+        user.getUserEvents(completion: loadUserEvents)
     }
     
     func loadUserEvents(success: Bool) -> Void {
