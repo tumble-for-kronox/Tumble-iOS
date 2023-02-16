@@ -30,6 +30,7 @@ struct AppParent: View {
     
     init(viewModel: ParentViewModel) {
         UINavigationBar.appearance().titleTextAttributes = [.font: navigationBarFont()]
+        UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: UIColor(named: "OnSurface")!]
         self.viewModel = viewModel
     }
     
@@ -38,7 +39,8 @@ struct AppParent: View {
             Color.primary
                 .ignoresSafeArea()
             
-            SidebarMenu(viewModel: viewModel.sidebarViewModel, selectedSideBarTab: $appParentModel.selectedSideBarTab, selectedBottomTab: $appDelegateViewStateManager.selectedTab, sideBarSheet: $appParentModel.sideBarSheet, removeBookmark: removeBookmark, updateBookmarks: updateBookmarks, onChangeSchool: onChangeSchool)
+            SidebarMenu(viewModel: viewModel.sidebarViewModel, showSideBar: $appParentModel.showSideBar, selectedSideBarTab: $appParentModel.selectedSideBarTab, selectedBottomTab: $appDelegateViewStateManager.selectedTab, sideBarSheet: $appParentModel.sideBarSheet, createToast: createToast, removeBookmark: removeBookmark, updateBookmarks: updateBookmarks, onChangeSchool: onChangeSchool)
+                .environmentObject(viewModel.userModel)
             
             ZStack {
                 FadedPageUnderlay(backgroundOpacity: 0.6, offset: -25, verticalPadding: 30, showSideBar: $appParentModel.showSideBar)
@@ -48,11 +50,13 @@ struct AppParent: View {
                         // Main home page view switcher
                         switch appDelegateViewStateManager.selectedTab {
                         case .home:
-                            HomePage(viewModel: viewModel.homeViewModel, domain: $viewModel.domain, canvasUrl: $viewModel.canvasUrl, kronoxUrl: $viewModel.kronoxUrl)
+                            HomePage(viewModel: viewModel.homeViewModel, domain: $viewModel.domain, canvasUrl: $viewModel.canvasUrl, kronoxUrl: $viewModel.kronoxUrl, selectedTabBar: $appDelegateViewStateManager.selectedTab)
+                                .environmentObject(viewModel.userModel)
                         case .bookmarks:
                             BookmarkPage(viewModel: viewModel.bookmarksViewModel, eventSheet: $appDelegateViewStateManager.eventSheet, onTapCard: onOpenEventDetailsSheet,  createToast: createToast)
                         case .account:
-                            AccountPage(viewModel: viewModel.accountPageViewModel)
+                            AccountPage(viewModel: viewModel.accountPageViewModel, createToast: createToast)
+                                .environmentObject(viewModel.userModel)
                         }
                         Spacer()
                         TabBar(selectedBottomTab: $appDelegateViewStateManager.selectedTab)
@@ -95,10 +99,8 @@ struct AppParent: View {
             .onEnded(handleSwipe)
         )
         .zIndex(1)
-        .transition(.asymmetric(insertion: .move(edge: .trailing), removal: .move(edge: .leading)))
     }
-    
-    
+
     
     fileprivate func handleSwipe(value: DragGesture.Value) -> Void {
         switch(value.translation.width, value.translation.height) {
@@ -122,6 +124,7 @@ struct AppParent: View {
             if success {
                 appParentModel.toast = Toast(type: .success, title: "New school", message: "Set \(school.name) to default")
                 viewModel.updateLocalsAndChildViews()
+                viewModel.userModel.logOut()
             } else {
                 appParentModel.toast = Toast(type: .info, title: "School already selected", message: "You already have '\(school.name)' as your default school")
             }

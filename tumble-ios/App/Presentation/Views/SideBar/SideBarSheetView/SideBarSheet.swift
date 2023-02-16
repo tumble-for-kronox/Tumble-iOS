@@ -41,6 +41,8 @@ struct SideBarSheet: View {
             EmptyView()
         case .logOut:
             EmptyView()
+        case .logIn:
+            EmptyView()
         }
     }
     

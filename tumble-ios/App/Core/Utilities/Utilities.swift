@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 func navigationBarFont() -> UIFont {
-    var titleFont = UIFont.preferredFont(forTextStyle: .headline) /// the default large title font
+    var titleFont = UIFont.preferredFont(forTextStyle: .headline) 
             titleFont = UIFont(
                 descriptor:
                     titleFont.fontDescriptor

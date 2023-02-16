@@ -7,13 +7,39 @@
 
 import Foundation
 
-enum Response {
+public enum Response {
+    
+    // MARK: - HTTPResponse
+    struct HTTPResponse: Codable {
+        let url: String?
+        let statusCode: Int
+        let headers: Headers?
+        
+        enum CodingKeys: String, CodingKey {
+            case url = "URL"
+            case statusCode = "Status Code"
+            case headers = "Headers"
+        }
+        
+    }
+
+    // MARK: - Headers
+    struct Headers: Codable {
+        let contentLength: Int
+        let date, server: String
+
+        enum CodingKeys: String, CodingKey {
+            case contentLength = "Content-Length"
+            case date = "Date"
+            case server = "Server"
+        }
+    }
     
     // ------ SCHEDULE ------
     // ----------------------
     
     // MARK: - Schedule
-    struct Schedule: Codable, Hashable {
+    struct Schedule: Encodable, Decodable, Hashable {
         static func == (lhs: Response.Schedule, rhs: Response.Schedule) -> Bool {
             return lhs.id == rhs.id
         }
@@ -23,7 +49,7 @@ enum Response {
     }
 
     // MARK: - Day
-    struct Day: Codable, Hashable {
+    struct Day: Encodable, Decodable, Hashable {
         static func == (lhs: Response.Day, rhs: Response.Day) -> Bool {
             return lhs.name == rhs.name && lhs.isoString == rhs.isoString && lhs.weekNumber == rhs.weekNumber
         }
@@ -35,7 +61,7 @@ enum Response {
     }
 
     // MARK: - Event
-    struct Event: Codable, Equatable, Hashable {
+    struct Event: Encodable, Decodable, Equatable, Hashable {
         
         static func == (lhs: Response.Event, rhs:  Response.Event) -> Bool {
             return lhs.id == rhs.id
@@ -63,13 +89,13 @@ enum Response {
     }
 
     // MARK: - Course
-    struct Course: Codable, Hashable {
+    struct Course: Encodable, Decodable, Hashable {
         let id: String
         let swedishName, englishName: String
     }
 
     // MARK: - Location
-    struct Location: Codable, Hashable {
+    struct Location: Encodable, Decodable, Hashable {
         let id: String
         let name: String
         let building, floor: String
@@ -77,7 +103,7 @@ enum Response {
     }
 
     // MARK: - Teacher
-    struct Teacher: Codable, Hashable {
+    struct Teacher: Encodable, Decodable, Hashable {
         let id: String
         let firstName: String
         let lastName: String
@@ -87,13 +113,13 @@ enum Response {
     // ------ SEARCH ------
     // --------------------
     // MARK: - SearchResponse
-    struct Search: Codable {
+    struct Search: Encodable, Decodable {
         let count: Int
         let items: [Programme]
     }
 
     // MARK: - Item
-    struct Programme: Codable {
+    struct Programme: Encodable, Decodable {
         let id, title, subtitle: String
     }
     
@@ -101,28 +127,35 @@ enum Response {
     // ------ USER ------
     // ------------------
     // MARK: - UserSession
-    struct KronoxUser: Codable {
-        let name, username, sessionToken: String
+    struct KronoxUser: Encodable, Decodable {
+        let name, username, refreshToken, sessionToken: String
     }
     
     
     // ------ KronoX events ------
     // --------------------------
     // MARK: - KronoxCompleteUserEvent
-    struct KronoxCompleteUserEvent: Codable {
-        let upcomingEvents: [UpcomingKronoxUserEvent]
-        let registeredEvents, availableEvents: [AvailableKronoxUserEvent]
+    struct KronoxCompleteUserEvent: Encodable, Decodable {
+        let upcomingEvents: [UpcomingKronoxUserEvent]?
+        let registeredEvents, availableEvents, unregisteredEvents: [AvailableKronoxUserEvent]?
     }
 
     // MARK: - AvailableKronoxUserEvent
-    struct AvailableKronoxUserEvent: Codable {
-        let id, title, type: String
+    struct AvailableKronoxUserEvent: Identifiable, Encodable, Decodable {
+        
+        var id: UUID {
+            return UUID()
+        }
+        
+        let eventId, title, type: String
         let eventStart, eventEnd, lastSignupDate: String
-        let participatorID, supportID, anonymousCode: String
+        let participatorID, supportID: String?
+        let anonymousCode: String
         let isRegistered, supportAvailable, requiresChoosingLocation: Bool
 
         enum CodingKeys: String, CodingKey {
-            case id, title, type, eventStart, eventEnd, lastSignupDate
+            case eventId = "id"
+            case title, type, eventStart, eventEnd, lastSignupDate
             case participatorID = "participatorId"
             case supportID = "supportId"
             case anonymousCode, isRegistered, supportAvailable, requiresChoosingLocation
@@ -130,15 +163,19 @@ enum Response {
     }
 
     // MARK: - UpcomingKronoxUserEvent
-    struct UpcomingKronoxUserEvent: Codable {
+    struct UpcomingKronoxUserEvent: Identifiable, Encodable, Decodable {
         let title, type: String
         let eventStart, eventEnd, firstSignupDate: String
+        
+        var id: UUID {
+            return UUID()
+        }
     }
     
     
     // ------ KronoX resources
     // MARK: - KronoxCompleteSchoolResourceElement
-    struct KronoxCompleteUserResource: Codable {
+    struct KronoxCompleteUserResource: Encodable, Decodable {
         let id, name: String
         let timeSlots, locationIDS, date, availabilities: Nullable.JSONNull?
 
@@ -153,7 +190,7 @@ enum Response {
     // ------ KronoX resource data ------
     // ----------------------------------
     // MARK: - KronoxResourceData
-    struct KronoxResourceData: Codable {
+    struct KronoxResourceData: Encodable, Decodable {
         let id, name: String
         let timeSlots: [TimeSlot]
         let locationIDS: [String]
@@ -168,7 +205,7 @@ enum Response {
     }
 
     // MARK: - Availabilities
-    struct Availabilities: Codable {
+    struct Availabilities: Encodable, Decodable {
         let locationID: LocationID
 
         enum CodingKeys: String, CodingKey {
@@ -177,7 +214,7 @@ enum Response {
     }
 
     // MARK: - LocationID
-    struct LocationID: Codable {
+    struct LocationID: Encodable, Decodable {
         let timeSlotID: TimeSlotID
 
         enum CodingKeys: String, CodingKey {
@@ -186,7 +223,7 @@ enum Response {
     }
 
     // MARK: - TimeSlotID
-    struct TimeSlotID: Codable {
+    struct TimeSlotID: Encodable, Decodable {
         let availability: Int
         let locationID, resourceType, timeSlotID, bookedBy: String
 
@@ -198,10 +235,29 @@ enum Response {
             case bookedBy
         }
     }
+    
+    typealias KronoxUserBooking = [KronoxUserBookingElement]
+    // MARK: - KronoxUserBookingElement
+    struct KronoxUserBookingElement: Identifiable, Decodable {
+        let id, resourceID: String
+        let timeSlot: TimeSlot
+        let locationID: String
+        let showConfirmButton, showUnbookButton: Bool
+        let confirmationOpen, confirmationClosed: String
 
+        enum CodingKeys: String, CodingKey {
+            case id
+            case resourceID = "resourceId"
+            case timeSlot
+            case locationID = "locationId"
+            case showConfirmButton, showUnbookButton, confirmationOpen, confirmationClosed
+        }
+    }
+
+    
     // MARK: - TimeSlot
-    struct TimeSlot: Codable {
-        let id: Int
+    struct TimeSlot: Encodable, Decodable {
+        let id: Int?
         let from, to: String
         let duration: String
     }

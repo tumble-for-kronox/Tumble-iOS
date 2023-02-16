@@ -129,14 +129,16 @@ extension Text {
     }
     
     func backButton() -> some View {
-        self.font(.system(size: 18, weight: .semibold, design: .rounded))
+        self
+            .font(.system(size: 18, weight: .semibold, design: .rounded))
+            .foregroundColor(.onBackground)
     }
     
     func timeSpanCard() -> some View {
-        self.font(.system(size: 16, design: .rounded))
-            .bold()
+        self.font(.system(size: 16, weight: .semibold, design: .rounded))
             .foregroundColor(.onSurface)
     }
+
     
     func titleCard() -> some View {
         self.font(.system(size: 24, design: .rounded))
