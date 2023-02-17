@@ -118,7 +118,7 @@ extension NotificationManager {
                         completion?(.success(true))
                     case .failure(let error):
                         completion?(.failure(error))
-                        AppLogger.shared.info("\(error.localizedDescription)")
+                        AppLogger.shared.info("\(error)")
                     }
                 }
             }

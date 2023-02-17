@@ -17,83 +17,81 @@ enum BookmarksViewStatus {
     case error
 }
 
-extension BookmarkPage {
-    @MainActor final class BookmarkPageViewModel: ObservableObject {
-        
-        let viewModelFactory: ViewModelFactory = ViewModelFactory()
-        
-        @Inject var scheduleService: ScheduleService
-        @Inject var preferenceService: PreferenceService
-        @Inject var courseColorService: CourseColorService
-        @Inject var networkManager: NetworkManager
-        
-        @Published var scheduleViewTypes: [BookmarksViewType] = BookmarksViewType.allValues
-        @Published var status: BookmarksViewStatus = .loading
-        @Published var scheduleListOfDays: [DayUiModel] = []
-        @Published var courseColors: [String : String] = [:]
-        @Published var defaultViewType: BookmarksViewType
-        @Published var school: School?
-        
-        
-        init () {
-            self.defaultViewType = .list
-            self.loadBookmarkedSchedules()
-            self.defaultViewType = preferenceService.getDefaultViewType()
-            self.school = preferenceService.getDefaultSchool()
+@MainActor final class BookmarkPageViewModel: ObservableObject {
+    
+    let viewModelFactory: ViewModelFactory = ViewModelFactory()
+    
+    @Inject var scheduleService: ScheduleService
+    @Inject var preferenceService: PreferenceService
+    @Inject var courseColorService: CourseColorService
+    @Inject var networkManager: NetworkManager
+    
+    @Published var scheduleViewTypes: [BookmarksViewType] = BookmarksViewType.allValues
+    @Published var status: BookmarksViewStatus = .loading
+    @Published var scheduleListOfDays: [DayUiModel] = []
+    @Published var courseColors: [String : String] = [:]
+    @Published var defaultViewType: BookmarksViewType
+    @Published var school: School?
+    
+    
+    init () {
+        self.defaultViewType = .list
+        self.loadBookmarkedSchedules()
+        self.defaultViewType = preferenceService.getDefaultViewType()
+        self.school = preferenceService.getDefaultSchool()
+    }
+    
+    
+    func generateViewModelEventSheet(event: Response.Event, color: Color) -> EventDetailsSheetViewModel {
+        return viewModelFactory.makeViewModelEventDetailsSheet(event: event, color: color)
+    }
+    
+    
+    func updateViewLocals() -> Void {
+        self.school = preferenceService.getDefaultSchool()
+    }
+    
+    func updateCourseColors() -> Void {
+        self.loadCourseColors() { courseColors in
+            self.courseColors = courseColors
         }
-        
-        
-        func generateViewModelEventSheet(event: Response.Event, color: Color) -> EventDetailsSheet.EventDetailsSheetViewModel {
-            return viewModelFactory.makeViewModelEventDetailsSheet(event: event, color: color)
-        }
-        
-        
-        func updateViewLocals() -> Void {
-            self.school = preferenceService.getDefaultSchool()
-        }
-        
-        func updateCourseColors() -> Void {
-            self.loadCourseColors() { courseColors in
-                self.courseColors = courseColors
-            }
-        }
-        
-        func loadBookmarkedSchedules() -> Void {
-            // Load schedules from local storage
-            self.loadSchedules { [weak self] schedules in
+    }
+    
+    func loadBookmarkedSchedules() -> Void {
+        // Load schedules from local storage
+        self.loadSchedules { [weak self] schedules in
+            guard let self = self else { return }
+            let hiddenBookmarks = self.getHiddenBookmarks()
+            let visibleSchedules = self.filterBookmarks(schedules: schedules, hiddenBookmarks: hiddenBookmarks)
+            AppLogger.shared.info("Loaded schedules from local storage")
+            self.loadCourseColors { [weak self] courseColors in
+                AppLogger.shared.info("Loaded course colors from local storage")
+                // Only proceed if the colours are available (don't show view unless colours exist)
                 guard let self = self else { return }
-                let hiddenBookmarks = self.getHiddenBookmarks()
-                let visibleSchedules = self.filterBookmarks(schedules: schedules, hiddenBookmarks: hiddenBookmarks)
-                AppLogger.shared.info("Loaded schedules from local storage")
-                self.loadCourseColors { [weak self] courseColors in
-                    AppLogger.shared.info("Loaded course colors from local storage")
-                    // Only proceed if the colours are available (don't show view unless colours exist)
-                    guard let self = self else { return }
-                    self.courseColors = courseColors
-                    if !schedules.isEmpty {
-                        self.checkUpdatesRequired(for: visibleSchedules) {
-                            self.loadCourseColors { courseColors in
-                                self.courseColors = courseColors
-                                if !(visibleSchedules.isEmpty) {
-                                    self.status = .loaded
-                                } else {
-                                    self.status = .hiddenAll
-                                }
+                self.courseColors = courseColors
+                if !schedules.isEmpty {
+                    self.checkUpdatesRequired(for: visibleSchedules) {
+                        self.loadCourseColors { courseColors in
+                            self.courseColors = courseColors
+                            if !(visibleSchedules.isEmpty) {
+                                self.status = .loaded
+                            } else {
+                                self.status = .hiddenAll
                             }
                         }
                     }
-                    else {
-                        self.status = .uninitialized
-                    }
+                }
+                else {
+                    self.status = .uninitialized
                 }
             }
         }
-        
-        
-        func onChangeViewType(viewType: BookmarksViewType) -> Void {
-            let viewTypeIndex: Int = scheduleViewTypes.firstIndex(of: viewType)!
-            preferenceService.setViewType(viewType: viewTypeIndex)
-        }
+    }
+    
+    
+    func onChangeViewType(viewType: BookmarksViewType) -> Void {
+        let viewTypeIndex: Int = scheduleViewTypes.firstIndex(of: viewType)!
+        preferenceService.setViewType(viewType: viewTypeIndex)
     }
 }
 
@@ -101,7 +99,7 @@ extension BookmarkPage {
 
 
 // Fileprivate methods
-extension BookmarkPage.BookmarkPageViewModel {
+extension BookmarkPageViewModel {
     
     fileprivate func checkUpdatesRequired(for bookmarks: [ScheduleStoreModel], completion: @escaping () -> Void) -> Void {
         var updatedBookmarks: [Response.Schedule] = []

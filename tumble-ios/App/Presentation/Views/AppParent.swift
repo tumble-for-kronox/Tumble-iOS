@@ -10,20 +10,13 @@
 
 import SwiftUI
 
-struct AppParentModel {
-    var toast: Toast? = nil
-    var selectedSideBarTab: SidebarTabType = .none
-    var sideBarSheet: SideBarSheetModel? = nil
-    var showSideBar: Bool = false
-}
-
 // All navigation occurs from this view
 struct AppParent: View {
     
-    @ObservedObject var appDelegateViewStateManager: AppDelegateViewStateManager = AppDelegateViewStateManager.shared
-    @ObservedObject var viewModel: ParentViewModel
+    @EnvironmentObject var appController: AppController
+    @EnvironmentObject var userController: UserController
     
-    @State private var appParentModel: AppParentModel = AppParentModel()
+    @ObservedObject var viewModel: ParentViewModel
     @Namespace var animation
     
     private let sideBarWidth: CGFloat = 110
@@ -39,46 +32,46 @@ struct AppParent: View {
             Color.primary
                 .ignoresSafeArea()
             
-            SidebarMenu(viewModel: viewModel.sidebarViewModel, showSideBar: $appParentModel.showSideBar, selectedSideBarTab: $appParentModel.selectedSideBarTab, selectedBottomTab: $appDelegateViewStateManager.selectedTab, sideBarSheet: $appParentModel.sideBarSheet, createToast: createToast, removeBookmark: removeBookmark, updateBookmarks: updateBookmarks, onChangeSchool: onChangeSchool)
-                .environmentObject(viewModel.userModel)
+            SidebarMenu(viewModel: viewModel.sidebarViewModel, showSideBar: $appController.showSideBar, selectedSideBarTab: $appController.selectedSideBarTab, selectedBottomTab: $appController.selectedTab, sideBarSheet: $appController.sideBarSheet, createToast: createToast, removeBookmark: removeBookmark, updateBookmarks: updateBookmarks, onChangeSchool: onChangeSchool)
+                .environmentObject(userController)
             
             ZStack {
-                FadedPageUnderlay(backgroundOpacity: 0.6, offset: -25, verticalPadding: 30, showSideBar: $appParentModel.showSideBar)
-                FadedPageUnderlay(backgroundOpacity: 0.4, offset: -50, verticalPadding: 60, showSideBar: $appParentModel.showSideBar)
+                FadedPageUnderlay(backgroundOpacity: 0.6, offset: -25, verticalPadding: 30, showSideBar: $appController.showSideBar)
+                FadedPageUnderlay(backgroundOpacity: 0.4, offset: -50, verticalPadding: 60, showSideBar: $appController.showSideBar)
                 NavigationView {
                     VStack (alignment: .leading) {
                         // Main home page view switcher
-                        switch appDelegateViewStateManager.selectedTab {
+                        switch appController.selectedTab {
                         case .home:
-                            HomePage(viewModel: viewModel.homeViewModel, domain: $viewModel.domain, canvasUrl: $viewModel.canvasUrl, kronoxUrl: $viewModel.kronoxUrl, selectedTabBar: $appDelegateViewStateManager.selectedTab)
-                                .environmentObject(viewModel.userModel)
+                            HomePage(viewModel: viewModel.homeViewModel, domain: $viewModel.domain, canvasUrl: $viewModel.canvasUrl, kronoxUrl: $viewModel.kronoxUrl, selectedTabBar: $appController.selectedTab)
+                                .environmentObject(userController)
                         case .bookmarks:
-                            BookmarkPage(viewModel: viewModel.bookmarksViewModel, eventSheet: $appDelegateViewStateManager.eventSheet, onTapCard: onOpenEventDetailsSheet,  createToast: createToast)
+                            BookmarkPage(viewModel: viewModel.bookmarksViewModel, eventSheet: $appController.eventSheet, onTapCard: onOpenEventDetailsSheet,  createToast: createToast)
                         case .account:
                             AccountPage(viewModel: viewModel.accountPageViewModel, createToast: createToast)
-                                .environmentObject(viewModel.userModel)
+                                .environmentObject(userController)
                         }
                         Spacer()
-                        TabBar(selectedBottomTab: $appDelegateViewStateManager.selectedTab)
+                        TabBar(selectedBottomTab: $appController.selectedTab)
                     }
-                    .navigationTitle(appDelegateViewStateManager.selectedTab.displayName)
+                    .navigationTitle(appController.selectedTab.displayName)
                     .navigationBarTitleDisplayMode(.inline)
                     .toolbar {
                         ToolbarItem(placement: .navigationBarLeading, content: {
-                            NavigationbarSidebar(showSideBar: $appParentModel.showSideBar, selectedSideBarTab: $appParentModel.selectedSideBarTab, handleClose: handleSideBarAction)
+                            NavigationbarSidebar(showSideBar: $appController.showSideBar, selectedSideBarTab: $appController.selectedSideBarTab, handleClose: handleSideBarAction)
                         })
                         ToolbarItem(placement: .navigationBarTrailing, content: {
-                            NavigationbarSearch(viewModel: viewModel.searchViewModel, backButtonTitle: appDelegateViewStateManager.selectedTab.displayName, checkForNewSchedules: updateBookmarks, universityImage: $viewModel.universityImage)
+                            NavigationbarSearch(viewModel: viewModel.searchViewModel, backButtonTitle: appController.selectedTab.displayName, checkForNewSchedules: updateBookmarks, universityImage: $viewModel.universityImage)
                         })
                     }.background(Color.background)
                 }
-                .blur(radius: appParentModel.showSideBar ? 50 : 0)
+                .blur(radius: appController.showSideBar ? 50 : 0)
                 .overlay(
                     // If the sidebar is shown, blur the navigation view
                     // and make the whole navigation page clickable so the sidebar
                     // closes if it is tapped
                     Group {
-                        if appParentModel.showSideBar {
+                        if appController.showSideBar {
                             Color.white.opacity(0.1)
                                 .onTapGesture {
                                     withAnimation {
@@ -88,11 +81,11 @@ struct AppParent: View {
                         }
                     }
                 )
-                .cornerRadius(appParentModel.showSideBar ? 15 : 0)
+                .cornerRadius(appController.showSideBar ? 15 : 0)
             }
-            .scaleEffect(appParentModel.showSideBar ? 0.84 : 1)
-            .offset(x: appParentModel.showSideBar ? getRect().width - 120 : 0)
-            .toastView(toast: $appParentModel.toast)
+            .scaleEffect(appController.showSideBar ? 0.84 : 1)
+            .offset(x: appController.showSideBar ? getRect().width - 120 : 0)
+            .toastView(toast: $appController.toast)
             .ignoresSafeArea()
         }
         .gesture(DragGesture(minimumDistance: 3.0, coordinateSpace: .local)
@@ -108,31 +101,31 @@ struct AppParent: View {
                 handleSideBarAction(shouldShowSideBar: false, newSideBarTab: .none)
             }
             case (0..., -30...30):  withAnimation {
-                appParentModel.showSideBar = true
+                appController.showSideBar = true
             }
             default: break
         }
     }
     
     fileprivate func handleSideBarAction(shouldShowSideBar: Bool, newSideBarTab: SidebarTabType) -> Void {
-        appParentModel.showSideBar = shouldShowSideBar
-        appParentModel.selectedSideBarTab = newSideBarTab
+        appController.showSideBar = shouldShowSideBar
+        appController.selectedSideBarTab = newSideBarTab
     }
     
     fileprivate func onChangeSchool(school: School) -> Void {
         viewModel.changeSchool(school: school, closure: { success in
             if success {
-                appParentModel.toast = Toast(type: .success, title: "New school", message: "Set \(school.name) to default")
+                appController.toast = Toast(type: .success, title: "New school", message: "Set \(school.name) to default")
                 viewModel.updateLocalsAndChildViews()
-                viewModel.userModel.logOut()
+                userController.logOut()
             } else {
-                appParentModel.toast = Toast(type: .info, title: "School already selected", message: "You already have '\(school.name)' as your default school")
+                appController.toast = Toast(type: .info, title: "School already selected", message: "You already have '\(school.name)' as your default school")
             }
         })
     }
     
     fileprivate func createToast(type: ToastStyle, title: String, message: String) -> Void {
-        appParentModel.toast = Toast(type: type, title: title, message: message)
+        appController.toast = Toast(type: type, title: title, message: message)
     }
     
     fileprivate func updateBookmarks() -> Void {
@@ -140,16 +133,16 @@ struct AppParent: View {
     }
     
     fileprivate func onOpenEventDetailsSheet(event: Response.Event, color: Color) -> Void {
-        appDelegateViewStateManager.eventSheet = EventDetailsSheetModel(event: event, color: color)
+        appController.eventSheet = EventDetailsSheetModel(event: event, color: color)
     }
     
     fileprivate func removeBookmark(id: String) -> Void {
         viewModel.removeSchedule(id: id) { success in
             if success {
                 viewModel.updateSchedulesChildView()
-                appParentModel.toast = Toast(type: .success, title: "Removed schedule", message: "Successfully removed the schedule '\(id)' from your bookmarks")
+                appController.toast = Toast(type: .success, title: "Removed schedule", message: "Successfully removed the schedule '\(id)' from your bookmarks")
             } else {
-                appParentModel.toast = Toast(type: .error, title: "Could not remove schedule", message: "The schedule '\(id)' could not be removed from your bookmarks")
+                appController.toast = Toast(type: .error, title: "Could not remove schedule", message: "The schedule '\(id)' could not be removed from your bookmarks")
             }
         }
     }

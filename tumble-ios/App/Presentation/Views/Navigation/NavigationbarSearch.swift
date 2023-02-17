@@ -9,7 +9,7 @@ import SwiftUI
 
 struct NavigationbarSearch: View {
     
-    @StateObject var viewModel: SearchPage.SearchPageViewModel
+    @StateObject var viewModel: SearchViewModel
     let backButtonTitle: String
     let checkForNewSchedules: () -> Void
     @Binding var universityImage: Image?

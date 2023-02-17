@@ -10,7 +10,7 @@ import SwiftUI
 struct SidebarMenu: View {
     
     @ObservedObject var viewModel: SidebarViewModel
-    @EnvironmentObject var userModel: User
+    @EnvironmentObject var userModel: UserController
     
     @Binding var showSideBar: Bool
     @Binding var selectedSideBarTab: SidebarTabType

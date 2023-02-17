@@ -7,22 +7,7 @@
 
 import Foundation
 
-struct Token: Codable {
-    let value: String
-    let createdDate: Date
-    
-    func isExpired() -> Bool {
-        let currentDate = Date()
-        return createdDate.addingTimeInterval(300) <= currentDate
-    }
-}
-
-enum TokenType: String {
-    case refreshToken = "refresh-token"
-    case sessionToken = "session-token"
-}
-
-class AuthManager {
+class AuthManager: AuthManagerProtocol {
     
     private let urlSession: URLSession
     private let serialQueue = OperationQueue()
@@ -68,11 +53,11 @@ class AuthManager {
         }
     }
     
-    func autoLoginUser(completionHandler: @escaping (Result<Response.KronoxUser, Error>) -> Void) -> Void {
+    func autoLoginUser(completionHandler: @escaping (Result<TumbleUser, Error>) -> Void) -> Void {
         serialQueue.addOperation {
             let semaphore = DispatchSemaphore(value: 0)
             
-            self.processAutoLogin(completionHandler: { (result: Result<Response.KronoxUser, Error>) in
+            self.processAutoLogin(completionHandler: { (result: Result<TumbleUser, Error>) in
                 completionHandler(result)
                 semaphore.signal()
             })
@@ -81,13 +66,13 @@ class AuthManager {
     }
     
     
-    func loginUser(user: Request.KronoxUserLogin, completionHandler: @escaping (Result<Response.KronoxUser, Error>) -> Void) {
+    func loginUser(user: Request.KronoxUserLogin, completionHandler: @escaping (Result<TumbleUser, Error>) -> Void) {
         // Process all token requests using private serial queue to avoid issues with race conditions
         // when multiple credentials / login requests can lead auth manager in an unpredictable state
         serialQueue.addOperation {
             let semaphore = DispatchSemaphore(value: 0)
             
-            self.processLogin(user: user, completionHandler: { (result: Result<Response.KronoxUser, Error>) in
+            self.processLogin(user: user, completionHandler: { (result: Result<TumbleUser, Error>) in
                 completionHandler(result)
                 semaphore.signal()
             })
@@ -156,32 +141,61 @@ extension AuthManager {
         }
     }
     
+    private func processAutoLoginWithKeyChainCredentials(completionHandler: @escaping (Result<TumbleUser, Error>) -> Void) -> Void {
+        if let school = self.getDefaultSchool(), let user = self.readKeyChain(for: "tumble-user", account: school.name) {
+            var urlRequest = URLRequest(url: Endpoint.login(schoolId: String(school.id)).url)
+            urlRequest.httpMethod = Method.get.rawValue
+            urlRequest.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
+            urlRequest.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")
+            
+            do {
+                urlRequest.httpBody = try encoder.encode(user)
+            } catch let err {
+                AppLogger.shared.info("Failed to encode JSON body of type \(user.self)")
+                completionHandler(.failure(.internal(reason: "\(err)")))
+            }
+            
+            urlSession.dataTask(with: urlRequest, completionHandler: { data, response, error in
+                self.handleAuthResponse(
+                    data: data,
+                    response: response,
+                    error: error as? Error,
+                    completionHandler: completionHandler)
+            }).resume()
+        } else {
+            completionHandler(.failure(.generic(reason: "No school selected or no refresh token available")))
+        }
+    }
     
-    private func processLogin(user: Request.KronoxUserLogin, completionHandler: @escaping (Result<Response.KronoxUser, Error>) -> Void) {
+    private func processLogin(user: Request.KronoxUserLogin, completionHandler: @escaping (Result<TumbleUser, Error>) -> Void) {
         
         if let school = self.getDefaultSchool() {
+            var urlRequest = URLRequest(url: Endpoint.login(schoolId: String(school.id)).url)
+            urlRequest.httpMethod = Method.post.rawValue
+            urlRequest.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
+            urlRequest.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")
             do {
-                var urlRequest = URLRequest(url: Endpoint.login(schoolId: String(school.id)).url)
-                urlRequest.httpMethod = Method.post.rawValue
-                urlRequest.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
-                urlRequest.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")
-                
                 urlRequest.httpBody = try encoder.encode(user)
-                
-                urlSession.dataTask(with: urlRequest, completionHandler: { data, response, error in
-                    self.handleAuthResponse(data: data, response: response, error: error as? Error, completionHandler: completionHandler)
-                }).resume()
-            } catch {
+            } catch let err {
                 AppLogger.shared.info("Failed to encode JSON body of type \(user.self)")
-                completionHandler(.failure(.generic(reason: "Failed to encode JSON body of type \(user.self)")))
+                completionHandler(.failure(.internal(reason: "\(err)")))
             }
+            urlSession.dataTask(with: urlRequest, completionHandler: { data, response, error in
+                self.handleAuthResponse(
+                    password: user.password,
+                    data: data,
+                    response: response,
+                    error: error as? Error,
+                    completionHandler: completionHandler)
+            }).resume()
         } else {
             completionHandler(.failure(.generic(reason: "No school selected")))
         }
     }
     
-    private func processAutoLogin(completionHandler: @escaping (Result<Response.KronoxUser, Error>) -> Void) -> Void {
+    private func processAutoLogin(completionHandler: @escaping (Result<TumbleUser, Error>) -> Void) -> Void {
         
+        // If there is a school selected and an available refresh token
         if let school = self.getDefaultSchool(), let token = self.refreshToken {
             var urlRequest = URLRequest(url: Endpoint.users(schoolId: String(school.id)).url)
             urlRequest.httpMethod = Method.get.rawValue
@@ -190,38 +204,58 @@ extension AuthManager {
             urlRequest.setValue(token.value, forHTTPHeaderField: "X-auth-token")
                             
             urlSession.dataTask(with: urlRequest, completionHandler: { data, response, error in
-                self.handleAuthResponse(data: data, response: response, error: error as? Error, completionHandler: completionHandler)
+                self.handleAuthResponse(
+                    data: data,
+                    response: response,
+                    error: error as? Error,
+                    completionHandler: { (result: Result<TumbleUser, Error>) in
+                    switch result {
+                    case .success(let user):
+                        completionHandler(.success(user))
+                    case .failure(let failure):
+                        AppLogger.shared.info("Missing refresh token or is expired -> \(failure)")
+                        self.processAutoLoginWithKeyChainCredentials(completionHandler: completionHandler)
+                    }
+                })
             }).resume()
         } else {
-            completionHandler(.failure(.generic(reason: "No school selected or no refresh token available")))
+            completionHandler(.failure(.generic(reason: "No school selected or no refresh token available. Attempting credential login")))
+            self.processAutoLoginWithKeyChainCredentials(completionHandler: completionHandler)
         }
     }
     
-    private func handleAuthResponse(data: Data?, response: URLResponse?, error: Error?, completionHandler: @escaping (Result<Response.KronoxUser, Error>) -> Void) {
-        if let data = data, let result = try? self.decoder.decode(Response.KronoxUser.self, from: data) {
-            AppLogger.shared.info("\(result.sessionToken)")
-            self.refreshToken = Token(value: result.refreshToken, createdDate: Date.now)
-            self.sessionToken = Token(value: result.sessionToken, createdDate: Date.now)
-            
-            if let school = self.getDefaultSchool() {
-                if let data = self.readKeyChain(for: "tumble-user", account: school.name) {
-                    if let user = try? decoder.decode(TumbleUser.self, from: data) {
-                        AppLogger.shared.info("\(self.user.debugDescription)")
-                        self.user = user
-                    }
+    private func handleAuthResponse(
+        password: String? = nil,
+        data: Data?, response: URLResponse?,
+        error: Error?,
+        completionHandler: @escaping (Result<TumbleUser, Error>) -> Void) {
+            if let data = data, let result = try? self.decoder.decode(Response.KronoxUser.self, from: data) {
+                self.refreshToken = Token(value: result.refreshToken, createdDate: Date.now)
+                self.sessionToken = Token(value: result.sessionToken, createdDate: Date.now)
+                
+                // Replace old user with new user
+                // if the call instance contains a given password.
+                // In any other case, we will have a stored user in
+                // the keychain already.
+                if let password = password {
+                    let newUser = TumbleUser(username: result.username, password: password, name: result.name)
+                    AppLogger.shared.info("Registering new user \(result.username)")
+                    self.user = newUser
+                    completionHandler(.success(newUser))
+                } else if let user = self.user {
+                    completionHandler(.success(user))
                 }
-            }
-            completionHandler(.success(result))
-        } else if let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode > 299 {
-            // In case we got an error while using refresh token, we want to clear token storage - there's no way
-            // to recover from this
-            clearTokensAndKeyChain()
-            completionHandler(.failure(.generic(reason: "Could not retrieve any tokens")))
+                
+            } else if let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode > 299 {
+                // In case we got an error while using refresh token, we want to clear token storage - there's no way
+                // to recover from this
+                clearTokensAndKeyChain()
+                completionHandler(.failure(.generic(reason: "Could not retrieve any tokens")))
 
-        } else {
-            // Any other error from NSURLErrorDomain (e.g internet offline) - we won't clear token storage
-            completionHandler(.failure(.generic(reason: error?.localizedDescription ?? "Service unavailable")))
-        }
+            } else {
+                // Any other error from NSURLErrorDomain (e.g internet offline) - we won't clear token storage
+                completionHandler(.failure(.generic(reason: error?.localizedDescription ?? "Service unavailable")))
+            }
     }
     
     private func getDefaultSchool() -> School? {
@@ -251,7 +285,7 @@ extension AuthManager {
             if let school = self.getDefaultSchool() {
                 if let data = self.readKeyChain(for: "tumble-user", account: school.name) {
                     let user = try decoder.decode(TumbleUser.self, from: data)
-                    return TumbleUser(username: user.username, name: user.name)
+                    return TumbleUser(username: user.username, password: user.password, name: user.name)
                 }
             }
             return nil
@@ -344,7 +378,6 @@ extension AuthManager {
     }
     
     private func readKeyChain(for service: String, account: String) -> Data? {
-        
         let query = [
             kSecAttrService: service,
             kSecAttrAccount: account,
@@ -358,8 +391,6 @@ extension AuthManager {
         guard let data = result as? Data else {
             return nil
         }
-        
-        //return String(data: data, encoding: .utf8)!
         return data
     }
     

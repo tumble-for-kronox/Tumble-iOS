@@ -25,13 +25,12 @@ import SwiftUI
     @Published var domain: String?
     @Published var universityImage: Image?
     @Published var universityName: String?
-    @Published var userModel: User = User()
     
-    let homeViewModel: HomePage.HomePageViewModel
-    let bookmarksViewModel: BookmarkPage.BookmarkPageViewModel
-    let accountPageViewModel: AccountPage.AccountPageViewModel
-    let searchViewModel: SearchPage.SearchPageViewModel
-    let sidebarViewModel: SidebarMenu.SidebarViewModel
+    let homeViewModel: HomePageViewModel
+    let bookmarksViewModel: BookmarkPageViewModel
+    let accountPageViewModel: AccountPageViewModel
+    let searchViewModel: SearchViewModel
+    let sidebarViewModel: SidebarViewModel
 
     
     init() {
@@ -49,7 +48,6 @@ import SwiftUI
         self.universityImage = preferenceService.getUniversityImage()
         self.universityName = preferenceService.getUniversityName()
         
-        self.userModel.autoLogin()
     }
     
     
@@ -66,7 +64,6 @@ import SwiftUI
         self.bookmarksViewModel.loadBookmarkedSchedules()
         self.accountPageViewModel.updateViewLocals()
         
-        self.userModel.autoLogin()
     }
     
     
@@ -106,7 +103,7 @@ import SwiftUI
         }
     }
     
-    func getSearchViewModel() -> SearchPage.SearchPageViewModel {
+    func getSearchViewModel() -> SearchViewModel {
         return viewModelFactory.makeViewModelSearch()
     }
 }

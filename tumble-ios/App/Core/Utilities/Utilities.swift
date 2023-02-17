@@ -21,3 +21,19 @@ func navigationBarFont() -> UIFont {
             )
     return titleFont
 }
+
+
+func getTimeOfDay() -> String {
+    let date = Date()
+    let calendar = Calendar.current
+    let hour = calendar.component(.hour, from: date)
+
+    switch hour {
+    case 0...11:
+        return "morning"
+    case 12...18:
+        return "afternoon"
+    default:
+        return "evening"
+    }
+}

@@ -7,20 +7,18 @@
 
 import Foundation
 
-extension OnBoarding {
-    @MainActor final class OnBoardingViewModel: ObservableObject {
-        
-        @Inject var preferenceService: PreferenceService
-        
-        var showModal: Bool = true
-        
-        
-        func onSelectSchool(school: School, updateUserOnBoarded: @escaping UpdateUserOnBoarded) -> Void {
-            preferenceService.setSchool(id: school.id) {
-                self.preferenceService.setUserOnboarded()
-                updateUserOnBoarded()
-            }
+@MainActor final class OnBoardingViewModel: ObservableObject {
+    
+    @Inject var preferenceService: PreferenceService
+    
+    var showModal: Bool = true
+    
+    
+    func onSelectSchool(school: School, updateUserOnBoarded: @escaping UpdateUserOnBoarded) -> Void {
+        preferenceService.setSchool(id: school.id) {
+            self.preferenceService.setUserOnboarded()
+            updateUserOnBoarded()
         }
-        
     }
+    
 }

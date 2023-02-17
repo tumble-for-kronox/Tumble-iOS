@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SideBarSheet: View {
     
-    @ObservedObject var parentViewModel: SidebarMenu.SidebarViewModel
+    @ObservedObject var parentViewModel: SidebarViewModel
     @Environment(\.presentationMode) var presentationMode
     
     let updateBookmarks: () -> Void

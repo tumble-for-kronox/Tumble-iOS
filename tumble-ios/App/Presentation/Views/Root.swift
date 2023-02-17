@@ -26,6 +26,8 @@ struct Root: View {
                 OnBoarding(viewModel: viewModel.onBoardingViewModel, updateUserOnBoarded: setUserOnBoarded)
             case .app:
                 AppParent(viewModel: viewModel.parentViewModel)
+                    .environmentObject(UserController.shared)
+                    .environmentObject(AppController.shared)
             }
         }
         .environment(\.colorScheme, colorScheme)

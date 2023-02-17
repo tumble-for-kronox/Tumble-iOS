@@ -8,6 +8,7 @@
 import Foundation
 
 var schools: [School] = load("schools.json")
+let ladokUrl: String = "https://www.student.ladok.se/student/app/studentwebb/"
 
 func load<T: Decodable>(_ filename: String) -> T {
 

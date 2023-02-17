@@ -29,8 +29,8 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
             let event: Response.Event = (userInfo[NotificationContentKey.event.rawValue] as! [String : Any]).toEvent()!
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                AppDelegateViewStateManager.shared.selectedTab = .bookmarks
-                AppDelegateViewStateManager.shared.eventSheet = EventDetailsSheetModel(event: event, color: (userInfo[NotificationContentKey.color.rawValue] as! String).toColor())
+                AppController.shared.selectedTab = .bookmarks
+                AppController.shared.eventSheet = EventDetailsSheetModel(event: event, color: (userInfo[NotificationContentKey.color.rawValue] as! String).toColor())
             }
             
             completionHandler()

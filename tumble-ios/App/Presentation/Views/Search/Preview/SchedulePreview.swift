@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SchedulePreview: View {
     
-    @EnvironmentObject var parentViewModel: SearchPage.SearchPageViewModel
+    @EnvironmentObject var parentViewModel: SearchViewModel
     @Binding var courseColors: [String : String]?
     let checkForNewSchedules: () -> Void
     @State var buttonState: ButtonState = .loading

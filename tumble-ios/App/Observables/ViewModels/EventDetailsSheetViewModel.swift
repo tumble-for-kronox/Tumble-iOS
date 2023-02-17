@@ -8,103 +8,101 @@
 import Foundation
 import SwiftUI
 
-extension EventDetailsSheet {
-    @MainActor final class EventDetailsSheetViewModel: ObservableObject {
-        
-        @Inject var notificationManager: NotificationManager
-        @Inject var preferenceService: PreferenceService
-        @Inject var scheduleService: ScheduleService
-        @Inject var courseColorService: CourseColorService
-        
-        @Published var event: Response.Event
-        @Published var color: Color {
-            didSet {
-                replaceColor()
+@MainActor final class EventDetailsSheetViewModel: ObservableObject {
+    
+    @Inject var notificationManager: NotificationManager
+    @Inject var preferenceService: PreferenceService
+    @Inject var scheduleService: ScheduleService
+    @Inject var courseColorService: CourseColorService
+    
+    @Published var event: Response.Event
+    @Published var color: Color {
+        didSet {
+            replaceColor()
+        }
+    }
+    @Published var isNotificationSetForEvent: Bool = false
+    @Published var isNotificationSetForCourse: Bool = false
+    @Published var notificationOffset: Int = 60
+    
+    
+    init(event: Response.Event, color: Color) {
+        self.event = event
+        self.color = color
+        self.checkNotificationIsSetForEvent()
+        self.checkNotificationIsSetForCourse()
+        self.notificationOffset = preferenceService.getNotificationOffset()
+    }
+    
+    func replaceColor() -> Void {
+        courseColorService.replace(for: event, with: color) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(_):
+                AppLogger.shared.info("Changed course color for -> \(self.event.course.id) to color -> \(self.color.toHex() ?? "#FFFFFF")")
+            case .failure(let failure):
+                AppLogger.shared.info("Couldn't change course color -> \(failure)")
             }
         }
-        @Published var isNotificationSetForEvent: Bool = false
-        @Published var isNotificationSetForCourse: Bool = false
-        @Published var notificationOffset: Int = 60
+    }
+    
+    func setEventSheetView(event: Response.Event, color: Color) -> Void {
+        self.event = event
+        self.color = color
+    }
+    
+    
+    func cancelNotificationForEvent() -> Void {
+        notificationManager.cancelNotification(for: event.id)
+    }
+    
+    
+    func cancelNotificationsForCourse() -> Void {
+        notificationManager.cancelNotifications(with: event.course.id)
+    }
+    
+    
+    func scheduleNotificationForEvent(completion: @escaping (Bool) -> Void) -> Void {
+        let userOffset: Int = self.preferenceService.getNotificationOffset()
         
+        // Create notification for event without categoryIdentifier,
+        // since it does not need to be set for the entire course
+        let notification = Notification(
+            id: self.event.id,
+            color: self.color.toHex() ?? "#FFFFFF",
+            dateComponents: self.event.dateComponents!,
+            categoryIdentifier: nil,
+            content: self.event.toDictionary())
         
-        init(event: Response.Event, color: Color) {
-            self.event = event
-            self.color = color
-            self.checkNotificationIsSetForEvent()
-            self.checkNotificationIsSetForCourse()
-            self.notificationOffset = preferenceService.getNotificationOffset()
-        }
-        
-        func replaceColor() -> Void {
-            courseColorService.replace(for: event, with: color) { [weak self] result in
-                guard let self = self else { return }
-                switch result {
-                case .success(_):
-                    AppLogger.shared.info("Changed course color for -> \(self.event.course.id) to color -> \(self.color.toHex() ?? "#FFFFFF")")
-                case .failure(let failure):
-                    AppLogger.shared.info("Couldn't change course color -> \(failure)")
-                }
+        self.notificationManager.scheduleNotification(for: notification, userOffset: userOffset, completion: { result in
+            switch result {
+            case .success(_):
+                completion(true)
+            case .failure(let failure):
+                AppLogger.shared.info("Failed to schedule notifications -> \(failure)")
+                completion(false)
             }
-        }
-        
-        func setEventSheetView(event: Response.Event, color: Color) -> Void {
-            self.event = event
-            self.color = color
-        }
-        
-        
-        func cancelNotificationForEvent() -> Void {
-            notificationManager.cancelNotification(for: event.id)
-        }
-        
-        
-        func cancelNotificationsForCourse() -> Void {
-            notificationManager.cancelNotifications(with: event.course.id)
-        }
-        
-        
-        func scheduleNotificationForEvent(completion: @escaping (Bool) -> Void) -> Void {
-            let userOffset: Int = self.preferenceService.getNotificationOffset()
-            
-            // Create notification for event without categoryIdentifier,
-            // since it does not need to be set for the entire course
-            let notification = Notification(
-                id: self.event.id,
-                color: self.color.toHex() ?? "#FFFFFF",
-                dateComponents: self.event.dateComponents!,
-                categoryIdentifier: nil,
-                content: self.event.toDictionary())
-            
-            self.notificationManager.scheduleNotification(for: notification, userOffset: userOffset, completion: { result in
-                switch result {
-                case .success(_):
-                    completion(true)
-                case .failure(let failure):
-                    AppLogger.shared.info("Failed to schedule notifications -> \(failure)")
-                    completion(false)
-                }
-            })
-        }
+        })
+    }
 
-        
-        
-        func scheduleNotificationsForCourse(completion: @escaping (Bool) -> Void) -> Void {
-            scheduleService.load { [weak self] result in
-                guard let self = self else { return }
-                switch result {
-                case .success(let success):
-                    let schedules = success
-                    self.applyNotificationForScheduleEventsInCourse(schedules: schedules) { success in
-                        if success {
-                            completion(true)
-                        } else {
-                            completion(false)
-                        }
+    
+    
+    func scheduleNotificationsForCourse(completion: @escaping (Bool) -> Void) -> Void {
+        scheduleService.load { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let success):
+                let schedules = success
+                self.applyNotificationForScheduleEventsInCourse(schedules: schedules) { success in
+                    if success {
+                        completion(true)
+                    } else {
+                        completion(false)
                     }
-                case .failure(let failure):
-                    AppLogger.shared.info("\(failure.localizedDescription)")
-                    // TODO: Handle error in view
                 }
+            case .failure(let failure):
+                AppLogger.shared.info("\(failure)")
+                // TODO: Handle error in view
             }
         }
     }
@@ -112,7 +110,7 @@ extension EventDetailsSheet {
 
 
 
-extension EventDetailsSheet.EventDetailsSheetViewModel {
+extension EventDetailsSheetViewModel {
     
     // Apply scheduleNotifaction for each event under specific course id
     fileprivate func applyNotificationForScheduleEventsInCourse(schedules: [ScheduleStoreModel], completion: @escaping (Bool) -> Void)

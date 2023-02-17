@@ -13,8 +13,8 @@ enum focusedField {
 
 struct AccountLogin: View {
     
-    @ObservedObject var viewModel: AccountPage.AccountPageViewModel
-    @EnvironmentObject var userModel: User
+    @ObservedObject var viewModel: AccountPageViewModel
+    @EnvironmentObject var userModel: UserController
     
     @State private var username: String = ""
     @State private var password: String = ""
