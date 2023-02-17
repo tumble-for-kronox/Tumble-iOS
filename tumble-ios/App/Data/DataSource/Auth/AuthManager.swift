@@ -142,14 +142,15 @@ extension AuthManager {
     }
     
     private func processAutoLoginWithKeyChainCredentials(completionHandler: @escaping (Result<TumbleUser, Error>) -> Void) -> Void {
-        if let school = self.getDefaultSchool(), let user = self.readKeyChain(for: "tumble-user", account: school.name) {
+        if let school = self.getDefaultSchool(), let user = self.user {
             var urlRequest = URLRequest(url: Endpoint.login(schoolId: String(school.id)).url)
             urlRequest.httpMethod = Method.get.rawValue
             urlRequest.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
             urlRequest.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")
             
             do {
-                urlRequest.httpBody = try encoder.encode(user)
+                let userRequest = Request.KronoxUserLogin(username: user.username, password: user.password)
+                urlRequest.httpBody = try encoder.encode(userRequest)
             } catch let err {
                 AppLogger.shared.info("Failed to encode JSON body of type \(user.self)")
                 completionHandler(.failure(.internal(reason: "\(err)")))
@@ -168,7 +169,6 @@ extension AuthManager {
     }
     
     private func processLogin(user: Request.KronoxUserLogin, completionHandler: @escaping (Result<TumbleUser, Error>) -> Void) {
-        
         if let school = self.getDefaultSchool() {
             var urlRequest = URLRequest(url: Endpoint.login(schoolId: String(school.id)).url)
             urlRequest.httpMethod = Method.post.rawValue
