@@ -8,37 +8,18 @@
 import Foundation
 import SwiftUI
 
-extension HomePage {
-    @MainActor final class HomePageViewModel: ObservableObject {
-        
-        @Inject var preferenceService: PreferenceService
-        
-        let ladokUrl: String = "https://www.student.ladok.se/student/app/studentwebb/"
-        
-        func getTimeOfDay() -> String {
-            let date = Date()
-            let calendar = Calendar.current
-            let hour = calendar.component(.hour, from: date)
-
-            switch hour {
-            case 0...11:
-                return "morning"
-            case 12...18:
-                return "afternoon"
-            default:
-                return "evening"
-            }
-        }
-        
-        
-        func makeCanvasUrl() -> URL? {
-            return URL(string: preferenceService.getCanvasUrl() ?? "")
-        }
-        
-        
-        func makeUniversityUrl() -> URL? {
-            return URL(string: preferenceService.getUniversityUrl() ?? "")
-        }
-
+@MainActor final class HomePageViewModel: ObservableObject {
+    
+    @Inject var preferenceService: PreferenceService
+    
+    
+    func makeCanvasUrl() -> URL? {
+        return URL(string: preferenceService.getCanvasUrl() ?? "")
     }
+    
+    
+    func makeUniversityUrl() -> URL? {
+        return URL(string: preferenceService.getUniversityUrl() ?? "")
+    }
+
 }

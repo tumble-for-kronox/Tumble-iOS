@@ -20,7 +20,7 @@ enum AuthStatus {
 
 // Observable User model, changes to this object will
 // trigger UI changes wherever there are listeners
-class User: ObservableObject {
+class UserController: ObservableObject {
     
     @Inject private var authManager: AuthManager
     @Inject private var networkManager: NetworkManager
@@ -29,8 +29,6 @@ class User: ObservableObject {
     @Published var authStatus: AuthStatus = .unAuthorized
     @Published var completeUserEvent: Response.KronoxCompleteUserEvent? = nil
     @Published var userBookings: Response.KronoxUserBooking? = nil
-    
-    private var MAX_CONSECUTIVE_ATTEMPTS: Int = 4
     
     var user: TumbleUser? {
         get { return authManager.user }
@@ -61,7 +59,7 @@ class User: ObservableObject {
 
 
 
-extension User {
+extension UserController {
     
     func logOut(completion: ((Bool) -> Void)? = nil) {
         self.authManager.logOutUser(completionHandler: { [weak self] result in
@@ -126,7 +124,7 @@ extension User {
         guard let school = preferenceService.getDefaultSchool(),
                 let sessionToken = self.sessionToken,
               !sessionToken.isExpired() else {
-            if tries < MAX_CONSECUTIVE_ATTEMPTS {
+            if tries < NetworkConstants.MAX_CONSECUTIVE_ATTEMPTS {
                 autoLogin(completion: {
                     self.registerForEvent(tries: tries + 1, with: id, completion: completion)
                 })
@@ -143,7 +141,7 @@ extension User {
         guard let school = preferenceService.getDefaultSchool(),
                 let sessionToken = self.sessionToken,
               !sessionToken.isExpired() else {
-            if tries < MAX_CONSECUTIVE_ATTEMPTS {
+            if tries < NetworkConstants.MAX_CONSECUTIVE_ATTEMPTS {
                 autoLogin(completion: {
                     self.unregisterForEvent(tries: tries + 1, with: id, completion: completion)
                 })
@@ -161,7 +159,7 @@ extension User {
         guard let school = preferenceService.getDefaultSchool(),
               let sessionToken = self.sessionToken,
               !sessionToken.isExpired() else {
-            if tries < MAX_CONSECUTIVE_ATTEMPTS {
+            if tries < NetworkConstants.MAX_CONSECUTIVE_ATTEMPTS {
                 autoLogin(completion: {
                     self.getUserEvents(tries: tries + 1, completion: completion)
                 })
@@ -192,7 +190,7 @@ extension User {
         guard let school = preferenceService.getDefaultSchool(),
               let sessionToken = self.sessionToken,
               !sessionToken.isExpired() else {
-            if tries < MAX_CONSECUTIVE_ATTEMPTS {
+            if tries < NetworkConstants.MAX_CONSECUTIVE_ATTEMPTS {
                 autoLogin(completion: {
                     self.getUserEvents(tries: tries + 1, completion: completion)
                 })

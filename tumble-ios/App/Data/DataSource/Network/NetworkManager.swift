@@ -14,6 +14,7 @@ class NetworkManager: NetworkManagerProtocol {
     private let encoder = JSONEncoder()
     private let decoder = JSONDecoder()
     private let session: URLSession
+    private var MAX_CONSECUTIVE_ATTEMPTS: Int = 4
     
     init() {
         

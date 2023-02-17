@@ -10,7 +10,7 @@ import SwiftUI
 struct EventDetailsCard: View {
     
     @Environment(\.dismiss) var dismiss
-    @EnvironmentObject var parentViewModel: EventDetailsSheet.EventDetailsSheetViewModel
+    @EnvironmentObject var parentViewModel: EventDetailsSheetViewModel
     @State private var bgColor = Color.red
     
     let createToast: (ToastStyle, String, String) -> Void

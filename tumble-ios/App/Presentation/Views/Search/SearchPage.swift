@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SearchPage: View {
     
-    @ObservedObject var viewModel: SearchPageViewModel
+    @ObservedObject var viewModel: SearchViewModel
     @State var searchBarText: String = ""
     
     @Binding var universityImage: Image?

@@ -9,8 +9,8 @@ import SwiftUI
 
 struct Resources: View {
     
-    @ObservedObject var viewModel: AccountPage.AccountPageViewModel
-    @EnvironmentObject var user: User
+    @ObservedObject var viewModel: AccountPageViewModel
+    @EnvironmentObject var user: UserController
     @Binding var autoSignup: Bool
     
     @State private var bookingsState: PageState = .loading

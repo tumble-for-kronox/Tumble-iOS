@@ -23,125 +23,123 @@ enum SchedulePreviewStatus {
     case empty
 }
 
-extension SearchPage {
-    @MainActor final class SearchPageViewModel: ObservableObject {
-        
-        @Inject var courseColorService: CourseColorService
-        @Inject var scheduleService: ScheduleService
-        @Inject var preferenceService: PreferenceService
-        @Inject var networkManager: NetworkManager
-        
-        @Published var status: SearchStatus = .initial
-        @Published var programmeSearchResults: [Response.Programme] = []
-        @Published var scheduleForPreview: Response.Schedule? = nil
-        @Published var scheduleListOfDays: [DayUiModel]? = nil
-        @Published var presentPreview: Bool = false
-        @Published var schedulePreviewStatus: SchedulePreviewStatus = .loading
-        @Published var schedulePreviewIsSaved: Bool = false
-        @Published var courseColors: [String : String]? = nil
-        @Published var school: School?
-        
-        
-        init() {
-            self.school = preferenceService.getDefaultSchool()
-        }
-        
-        
-        func update() -> Void {
-            self.presentPreview = false
-            self.status = .initial
-            self.scheduleForPreview = nil
-            self.programmeSearchResults.removeAll()
-            self.courseColors = nil
-            self.school = preferenceService.getDefaultSchool()
-        }
-        
-        
-        // When user presses a programme card
-        func onOpenProgrammeSchedule(programmeId: String) -> Void {
+@MainActor final class SearchViewModel: ObservableObject {
+    
+    @Inject var courseColorService: CourseColorService
+    @Inject var scheduleService: ScheduleService
+    @Inject var preferenceService: PreferenceService
+    @Inject var networkManager: NetworkManager
+    
+    @Published var status: SearchStatus = .initial
+    @Published var programmeSearchResults: [Response.Programme] = []
+    @Published var scheduleForPreview: Response.Schedule? = nil
+    @Published var scheduleListOfDays: [DayUiModel]? = nil
+    @Published var presentPreview: Bool = false
+    @Published var schedulePreviewStatus: SchedulePreviewStatus = .loading
+    @Published var schedulePreviewIsSaved: Bool = false
+    @Published var courseColors: [String : String]? = nil
+    @Published var school: School?
+    
+    
+    init() {
+        self.school = preferenceService.getDefaultSchool()
+    }
+    
+    
+    func update() -> Void {
+        self.presentPreview = false
+        self.status = .initial
+        self.scheduleForPreview = nil
+        self.programmeSearchResults.removeAll()
+        self.courseColors = nil
+        self.school = preferenceService.getDefaultSchool()
+    }
+    
+    
+    // When user presses a programme card
+    func onOpenProgrammeSchedule(programmeId: String) -> Void {
 
-            // Set sheet view as loading and reset possible old
-            // value for the save button
-            self.schedulePreviewIsSaved = false
-            self.schedulePreviewStatus = .loading
-            self.presentPreview = true
+        // Set sheet view as loading and reset possible old
+        // value for the save button
+        self.schedulePreviewIsSaved = false
+        self.schedulePreviewStatus = .loading
+        self.presentPreview = true
+        
+        // Check if schedule is already saved, to set flag
+        self.checkSavedSchedule(programmeId: programmeId) {
             
-            // Check if schedule is already saved, to set flag
-            self.checkSavedSchedule(programmeId: programmeId) {
-                
-                // Always get latest schedule
-                self.fetchSchedule(programmeId: programmeId) {
-                    // If the schedule is saved just make sure all colors are available
-                    // and loaded into view
-                    if self.schedulePreviewIsSaved {
-                        self.loadProgrammeCourseColors() { courseColors in
-                            self.courseColors = courseColors
-                            self.schedulePreviewStatus = .loaded
-                        }
+            // Always get latest schedule
+            self.fetchSchedule(programmeId: programmeId) {
+                // If the schedule is saved just make sure all colors are available
+                // and loaded into view
+                if self.schedulePreviewIsSaved {
+                    self.loadProgrammeCourseColors() { courseColors in
+                        self.courseColors = courseColors
+                        self.schedulePreviewStatus = .loaded
                     }
-                    // Otherwise load random course colors
-                    else {
-                        self.assignRandomCourseColors() { courseColors in
-                            // Assign possibly updated course colors
-                            self.courseColors = courseColors
-                            self.schedulePreviewStatus = .loaded
-                        }
+                }
+                // Otherwise load random course colors
+                else {
+                    self.assignRandomCourseColors() { courseColors in
+                        // Assign possibly updated course colors
+                        self.courseColors = courseColors
+                        self.schedulePreviewStatus = .loaded
                     }
                 }
             }
         }
-        
-        
-        func onSearchProgrammes(searchQuery: String) -> Void {
-            self.status = .loading
-            networkManager.get(.searchProgramme(searchQuery: searchQuery, schoolId: String(school!.id)), sessionToken: nil) { [weak self] (result: Result<Response.Search, Error>) in
-                DispatchQueue.main.async {
-                    guard let self = self else { return }
-                    switch result {
-                    case .success(let result):
-                        self.parseSearchResults(result)
-                    case .failure(let error):
-                        self.status = SearchStatus.error
-                        AppLogger.shared.info("Encountered error when trying to search for programme \(searchQuery): \(error)")
-                    }
+    }
+    
+    
+    func onSearchProgrammes(searchQuery: String) -> Void {
+        self.status = .loading
+        networkManager.get(.searchProgramme(searchQuery: searchQuery, schoolId: String(school!.id)), sessionToken: nil) { [weak self] (result: Result<Response.Search, Error>) in
+            DispatchQueue.main.async {
+                guard let self = self else { return }
+                switch result {
+                case .success(let result):
+                    self.parseSearchResults(result)
+                case .failure(let error):
+                    self.status = SearchStatus.error
+                    AppLogger.shared.info("Encountered error when trying to search for programme \(searchQuery): \(error)")
                 }
             }
         }
-        
-        
-        func onClearSearch(endEditing: Bool) -> Void {
-            if (endEditing) {
-                self.programmeSearchResults = []
-                self.status = .initial
-            }
-        }
-        
-        
-        func onBookmark(checkForNewSchedules: @escaping () -> Void) -> ButtonState {
-            // If the schedule isn't already saved in the local database
-            if !self.schedulePreviewIsSaved {
-                self.saveSchedule(checkForNewSchedules: checkForNewSchedules)
-                self.preferenceService.setBookmarks(bookmark: scheduleForPreview!.id)
-                return .saved
-            }
-            // Otherwise we remove (untoggle) the schedule
-            else {
-                self.removeSchedule(checkForNewSchedules: checkForNewSchedules)
-                return .notSaved
-            }
-        }
-
-        
-        func resetSearchResults() -> Void {
+    }
+    
+    
+    func onClearSearch(endEditing: Bool) -> Void {
+        if (endEditing) {
             self.programmeSearchResults = []
             self.status = .initial
         }
+    }
+    
+    
+    func onBookmark(checkForNewSchedules: @escaping () -> Void) -> ButtonState {
+        // If the schedule isn't already saved in the local database
+        if !self.schedulePreviewIsSaved {
+            self.saveSchedule(checkForNewSchedules: checkForNewSchedules)
+            self.preferenceService.setBookmarks(bookmark: scheduleForPreview!.id)
+            return .saved
+        }
+        // Otherwise we remove (untoggle) the schedule
+        else {
+            self.removeSchedule(checkForNewSchedules: checkForNewSchedules)
+            return .notSaved
+        }
+    }
+
+    
+    func resetSearchResults() -> Void {
+        self.programmeSearchResults = []
+        self.status = .initial
     }
 }
 
 
 
-extension SearchPage.SearchPageViewModel {
+extension SearchViewModel {
     
     // Checks if a schedule based on its programme Id is already in the
     // local storage -> schedulePreviewIsSaved = true
@@ -192,7 +190,7 @@ extension SearchPage.SearchPageViewModel {
         self.saveCourseColors(courseColors: courseColors)
         closure(courseColors)
     }
-
+    
     
     // API Call to fetch a schedule from backend
     fileprivate func fetchSchedule(programmeId: String, closure: @escaping () -> Void) -> Void {

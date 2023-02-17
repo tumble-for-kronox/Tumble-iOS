@@ -15,8 +15,8 @@ enum PageState {
 
 struct EventBookings: View {
     
-    @EnvironmentObject var user: User
-    @ObservedObject var viewModel: AccountPage.AccountPageViewModel
+    @EnvironmentObject var user: UserController
+    @ObservedObject var viewModel: AccountPageViewModel
     @State private var state: PageState = .loading
     
     var body: some View {

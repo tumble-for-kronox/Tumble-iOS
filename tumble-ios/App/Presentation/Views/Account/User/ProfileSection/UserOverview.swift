@@ -9,8 +9,8 @@ import SwiftUI
 
 struct UserOverview: View {
     
-    @EnvironmentObject var user: User
-    @ObservedObject var viewModel: AccountPage.AccountPageViewModel
+    @EnvironmentObject var user: UserController
+    @ObservedObject var viewModel: AccountPageViewModel
     
     @Binding var userImage: UIImage?
     let name: String

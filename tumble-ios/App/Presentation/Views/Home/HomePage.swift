@@ -9,8 +9,8 @@ import SwiftUI
 
 struct HomePage: View {
     
-    @ObservedObject var viewModel: HomePage.HomePageViewModel
-    @EnvironmentObject var userModel: User
+    @ObservedObject var viewModel: HomePageViewModel
+    @EnvironmentObject var userModel: UserController
     
     @Binding var domain: String?
     @Binding var canvasUrl: String?
@@ -24,12 +24,12 @@ struct HomePage: View {
         VStack (alignment: .leading, spacing: 0) {
             VStack (alignment: .leading, spacing: 0) {
                 if let userName = userModel.user?.name {
-                    Text("Good \(viewModel.getTimeOfDay()), \(userName.components(separatedBy: " ").first!)!")
+                    Text("Good \(getTimeOfDay()), \(userName.components(separatedBy: " ").first!)!")
                         .font(.system(size: 30, design: .rounded))
                         .fontWeight(.semibold)
                         .padding(.bottom, 10)
                 } else {
-                    Text("Good \(viewModel.getTimeOfDay())!")
+                    Text("Good \(getTimeOfDay())!")
                         .font(.system(size: 30, design: .rounded))
                         .fontWeight(.semibold)
                         .padding(.bottom, 10)
@@ -38,10 +38,11 @@ struct HomePage: View {
                 Text("Where do you want to get started?")
                     .font(.system(size: 25, design: .rounded))
                     .padding(.trailing, 30)
+                
                 HStack (spacing: 10) {
                     ExternalLinkPill(title: domain?.uppercased() ?? "", image: "link", url: viewModel.makeUniversityUrl())
                     ExternalLinkPill(title: "Canvas", image: "link", url: viewModel.makeCanvasUrl())
-                    ExternalLinkPill(title: "Ladok", image: "link", url: URL(string: viewModel.ladokUrl))
+                    ExternalLinkPill(title: "Ladok", image: "link", url: URL(string: ladokUrl))
                 }
                 .padding(.top, 25)
 

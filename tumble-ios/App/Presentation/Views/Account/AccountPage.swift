@@ -10,7 +10,7 @@ import SwiftUI
 struct AccountPage: View {
     
     @ObservedObject var viewModel: AccountPageViewModel
-    @EnvironmentObject private var userModel: User
+    @EnvironmentObject private var userModel: UserController
     
     let createToast: (ToastStyle, String, String) -> Void
     
