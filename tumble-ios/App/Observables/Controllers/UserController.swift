@@ -110,6 +110,7 @@ extension UserController {
         })
     }
     
+    
     func autoLogin(completion: (() -> Void)? = nil) {
         self.authManager.autoLoginUser(completionHandler: { [weak self] result in
             guard let self = self else { return }
@@ -130,7 +131,6 @@ extension UserController {
     }
     
     
-    
     func registerForEvent(tries: Int = 0, with id: String, completion: @escaping (Result<Response.HTTPResponse, Error>) -> Void) {
         guard let school = preferenceService.getDefaultSchool(),
                 let sessionToken = self.sessionToken,
@@ -147,6 +147,7 @@ extension UserController {
         let request = Endpoint.registerEvent(eventId: id, schoolId: String(school.id), sessionToken: sessionToken.value)
         self.networkManager.put(request, then: completion)
     }
+    
     
     func unregisterForEvent(tries: Int = 0, with id: String, completion: @escaping (Result<Response.HTTPResponse, Error>) -> Void) -> Void {
         guard let school = preferenceService.getDefaultSchool(),
@@ -202,7 +203,7 @@ extension UserController {
               let sessionToken = self.sessionToken,
               !sessionToken.isExpired() else {
             if tries < NetworkConstants.MAX_CONSECUTIVE_ATTEMPTS {
-                autoLogin(completion: {
+                self.autoLogin(completion: {
                     self.getUserEvents(tries: tries + 1, completion: completion)
                 })
             }
@@ -226,6 +227,7 @@ extension UserController {
         }
     }
         
+    
     fileprivate func loadProfilePicture() -> UIImage? {
         if let fileName = UserDefaults.standard.value(forKey: StoreKey.profileImage.rawValue) as? String,
            let fileURL = try? FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathComponent(fileName),
@@ -235,6 +237,7 @@ extension UserController {
         }
         return nil
     }
+    
     
     fileprivate func saveProfilePicture(image: UIImage?) -> Void {
         let fileName = "profile_picture.png"
