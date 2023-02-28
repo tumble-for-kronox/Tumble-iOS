@@ -32,7 +32,7 @@ class ScheduleService: ObservableObject, ScheduleServiceProtocol {
                 }
             } catch {
                 DispatchQueue.main.async {
-                    completion(.failure(error as! Error))
+                    completion(.failure(.internal(reason: "Could not decode schedules stored locally")))
                     }
                 }
             }
@@ -63,14 +63,14 @@ class ScheduleService: ObservableObject, ScheduleServiceProtocol {
                         } catch {
                             DispatchQueue.main.async {
                                 AppLogger.shared.info("Failed to save \(schedule.id)")
-                                completion(.failure(error as! Error))
+                                completion(.failure(.internal(reason: error.localizedDescription)))
                             }
                         }
                     }
                 }
             } catch {
                 DispatchQueue.main.async {
-                    completion(.failure(error as! Error))
+                    completion(.failure(.internal(reason: error.localizedDescription)))
                 }
             }
         }
@@ -97,7 +97,7 @@ class ScheduleService: ObservableObject, ScheduleServiceProtocol {
                 }
             } catch {
                 DispatchQueue.main.async {
-                    completion(.failure(error as! Error))
+                    completion(.failure(.internal(reason: error.localizedDescription)))
                     }
             }
         }
@@ -126,7 +126,7 @@ class ScheduleService: ObservableObject, ScheduleServiceProtocol {
                 }
             } catch {
                 DispatchQueue.main.async {
-                    completion(.failure(error as! Error))
+                    completion(.failure(.internal(reason: error.localizedDescription)))
                     }
                 }
         }

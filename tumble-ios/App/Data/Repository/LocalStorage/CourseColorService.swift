@@ -41,14 +41,14 @@ class CourseColorService: ObservableObject, CourseColorServiceProtocol {
                             }
                         } catch {
                             DispatchQueue.main.async {
-                                completion(.failure(error as! Error))
+                                completion(.failure(.internal(reason: error.localizedDescription)))
                             }
                         }
                     }
                 }
             } catch {
                 DispatchQueue.main.async {
-                    completion(.failure(error as! Error))
+                    completion(.failure(.internal(reason: error.localizedDescription)))
                 }
             }
         }
@@ -70,7 +70,7 @@ class CourseColorService: ObservableObject, CourseColorServiceProtocol {
                 }
             } catch {
                 DispatchQueue.main.async {
-                    completion(.failure(error as! Error))
+                    completion(.failure(.internal(reason: error.localizedDescription)))
                     }
                 }
             }
@@ -98,14 +98,14 @@ class CourseColorService: ObservableObject, CourseColorServiceProtocol {
                             }
                         } catch {
                             DispatchQueue.main.async {
-                                completion(.failure(error as! Error))
+                                completion(.failure(.internal(reason: error.localizedDescription)))
                             }
                         }
                     }
                 }
             } catch {
                 DispatchQueue.main.async {
-                    completion(.failure(error as! Error))
+                    completion(.failure(.internal(reason: error.localizedDescription)))
                 }
             }
         }
@@ -133,7 +133,7 @@ class CourseColorService: ObservableObject, CourseColorServiceProtocol {
                 }
             } catch {
                 DispatchQueue.main.async {
-                    completion(.failure(error as! Error))
+                    completion(.failure(.internal(reason: error.localizedDescription)))
                     }
                 }
         }
@@ -163,7 +163,7 @@ class CourseColorService: ObservableObject, CourseColorServiceProtocol {
                 }
             } catch {
                 DispatchQueue.main.async {
-                    completion(.failure(error as! Error))
+                    completion(.failure(.internal(reason: error.localizedDescription)))
                     }
                 }
         }
