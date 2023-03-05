@@ -35,7 +35,7 @@ struct AccountLogin: View {
                     if success {
                         createToast(.success, "Logged in", "Successfully logged in as \(userModel.user?.username ?? username)")
                     } else {
-                        createToast(.error, "Error", "Something went wrong when logging in ...")
+                        createToast(.error, "Error", "Something went wrong when logging in to your account")
                     }
                     viewModel.status = .initial
                 })

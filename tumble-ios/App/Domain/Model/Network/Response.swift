@@ -261,4 +261,25 @@ public enum Response {
         let from, to: String
         let duration: String
     }
+    
+    // MARK: - KronoxEventRegistration
+    struct KronoxEventRegistration: Codable {
+        let successfulRegistrations, failedRegistrations: [Registration]?
+    }
+
+    // MARK: - Registration
+    struct Registration: Codable {
+        let id, title, type: String?
+        let eventStart, eventEnd, lastSignupDate: String?
+        let participatorID, supportID, anonymousCode: String?
+        let isRegistered, supportAvailable, requiresChoosingLocation: Bool?
+
+        enum CodingKeys: String, CodingKey {
+            case id, title, type, eventStart, eventEnd, lastSignupDate
+            case participatorID = "participatorId"
+            case supportID = "supportId"
+            case anonymousCode, isRegistered, supportAvailable, requiresChoosingLocation
+        }
+    }
+
 }

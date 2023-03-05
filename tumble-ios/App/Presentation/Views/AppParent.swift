@@ -14,7 +14,6 @@ import SwiftUI
 struct AppParent: View {
     
     @EnvironmentObject var appController: AppController
-    @EnvironmentObject var userController: UserController
     
     @ObservedObject var viewModel: ParentViewModel
     @Namespace var animation
@@ -33,7 +32,6 @@ struct AppParent: View {
                 .ignoresSafeArea()
             
             SidebarMenu(viewModel: viewModel.sidebarViewModel, showSideBar: $appController.showSideBar, selectedSideBarTab: $appController.selectedSideBarTab, selectedBottomTab: $appController.selectedTab, sideBarSheet: $appController.sideBarSheet, createToast: createToast, removeBookmark: removeBookmark, updateBookmarks: updateBookmarks, onChangeSchool: onChangeSchool)
-                .environmentObject(userController)
             
             ZStack {
                 FadedPageUnderlay(backgroundOpacity: 0.6, offset: -25, verticalPadding: 30, showSideBar: $appController.showSideBar)
@@ -44,12 +42,10 @@ struct AppParent: View {
                         switch appController.selectedTab {
                         case .home:
                             HomePage(viewModel: viewModel.homeViewModel, domain: $viewModel.domain, canvasUrl: $viewModel.canvasUrl, kronoxUrl: $viewModel.kronoxUrl, selectedTabBar: $appController.selectedTab)
-                                .environmentObject(userController)
                         case .bookmarks:
                             BookmarkPage(viewModel: viewModel.bookmarksViewModel, eventSheet: $appController.eventSheet, onTapCard: onOpenEventDetailsSheet,  createToast: createToast)
                         case .account:
                             AccountPage(viewModel: viewModel.accountPageViewModel, createToast: createToast)
-                                .environmentObject(userController)
                         }
                         Spacer()
                         TabBar(selectedBottomTab: $appController.selectedTab)
@@ -117,7 +113,7 @@ struct AppParent: View {
             if success {
                 appController.toast = Toast(type: .success, title: "New school", message: "Set \(school.name) to default")
                 viewModel.updateLocalsAndChildViews()
-                userController.logOut()
+                viewModel.userController.logOut()
             } else {
                 appController.toast = Toast(type: .info, title: "School already selected", message: "You already have '\(school.name)' as your default school")
             }

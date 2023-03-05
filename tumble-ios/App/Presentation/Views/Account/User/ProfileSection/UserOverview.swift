@@ -9,23 +9,15 @@ import SwiftUI
 
 struct UserOverview: View {
     
-    @EnvironmentObject var user: UserController
     @ObservedObject var viewModel: AccountPageViewModel
-    
-    @Binding var userImage: UIImage?
-    let name: String
-    let username: String
-    let schoolName: String
-    
+        
     @State private var inputImage: UIImage?
     @State private var showImagePicker: Bool = false
     
+    let schoolName: String
     let createToast: (ToastStyle, String, String) -> Void
-    let toggleAutoSignup: (Bool) -> Void
     let updateUserImage: (UIImage) -> Void
-    
-    @Binding var autoSignup: Bool
-    
+        
     var body: some View {
         ZStack {
             Color.surface
@@ -34,12 +26,12 @@ struct UserOverview: View {
                     Button(action: {
                         showImagePicker = true
                     }, label: {
-                        UserAvatar(image: $userImage, name: name)
+                        UserAvatar(image: $viewModel.userController.profilePicture, name: viewModel.userController.user!.name)
                     })
                     VStack (alignment: .leading, spacing: 0) {
-                        Text(name)
+                        Text(viewModel.userController.user!.name)
                             .font(.system(size: 22, weight: .semibold, design: .rounded))
-                        Text(username)
+                        Text(viewModel.userController.user!.username)
                             .font(.system(size: 16, weight: .regular, design: .rounded))
                         Text(schoolName)
                             .font(.system(size: 16, weight: .regular, design: .rounded))
@@ -55,7 +47,7 @@ struct UserOverview: View {
                 .background(Color.background)
                 .cornerRadius(15, corners: [.bottomLeft, .bottomRight])
                 Spacer()
-                Resources(viewModel: viewModel, autoSignup: $autoSignup, toggleAutoSignup: toggleAutoSignup)
+                Resources(viewModel: viewModel)
             }
             
         }

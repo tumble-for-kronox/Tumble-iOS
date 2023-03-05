@@ -11,7 +11,7 @@ import SwiftUI
 @MainActor final class HomePageViewModel: ObservableObject {
     
     @Inject var preferenceService: PreferenceService
-    
+    @Inject var userController: UserController
     
     func makeCanvasUrl() -> URL? {
         return URL(string: preferenceService.getCanvasUrl() ?? "")

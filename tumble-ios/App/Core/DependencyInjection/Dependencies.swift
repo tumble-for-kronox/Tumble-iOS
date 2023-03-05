@@ -16,6 +16,7 @@ actor Dependencies {
         @Provider var preferenceService = PreferenceService()
         @Provider var courseColorService = CourseColorService()
         @Provider var authManager = AuthManager()
+        @Provider var userController = UserController()
     }
 }
 

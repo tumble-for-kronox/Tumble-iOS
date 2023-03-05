@@ -28,6 +28,9 @@ struct RegisteredEvents: View {
                         Text("No registered exams yet")
                             .sectionDividerEmpty()
                     }
+                } else {
+                    Text("No registered exams yet")
+                        .sectionDividerEmpty()
                 }
             }
         case .error:

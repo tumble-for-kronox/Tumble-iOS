@@ -10,7 +10,6 @@ import SwiftUI
 struct SidebarMenu: View {
     
     @ObservedObject var viewModel: SidebarViewModel
-    @EnvironmentObject var userModel: UserController
     
     @Binding var showSideBar: Bool
     @Binding var selectedSideBarTab: SidebarTabType
@@ -63,11 +62,11 @@ struct SidebarMenu: View {
             VStack (alignment: .leading, spacing: 0) {
                 Button(action: onPress, label: {
                     HStack {
-                        Text(userModel.authStatus == .authorized || userModel.refreshToken != nil ? "Log out" : "Log in")
+                        Text(viewModel.userController.authStatus == .authorized || viewModel.userController.refreshToken != nil ? "Log out" : "Log in")
                             .fontWeight(.semibold)
                             .font(.system(size: 20, design: .rounded))
                             .foregroundColor(.background)
-                        Image(systemName: userModel.user != nil ? "arrow.left.square" : "arrow.right.square")
+                        Image(systemName: viewModel.userController.user != nil ? "arrow.left.square" : "arrow.right.square")
                             .foregroundColor(.background)
                             .font(.system(size: 20))
                             .frame(width: 32)
@@ -96,8 +95,8 @@ struct SidebarMenu: View {
     }
 
     func onPress() -> Void {
-        if userModel.authStatus == .authorized || userModel.refreshToken != nil {
-            userModel.logOut(completion: { success in
+        if viewModel.userController.authStatus == .authorized || viewModel.userController.refreshToken != nil {
+            viewModel.userController.logOut(completion: { success in
                 if success {
                     createToast(.success, "Logged out", "You've logged out from your account")
                 } else {
