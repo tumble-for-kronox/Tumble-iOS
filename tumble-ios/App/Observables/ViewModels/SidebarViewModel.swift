@@ -13,6 +13,7 @@ import SwiftUI
     @Inject var preferenceService: PreferenceService
     @Inject var scheduleService: ScheduleService
     @Inject var notificationManager: NotificationManager
+    @Inject var userController: UserController
     
     @Published var universityImage: Image?
     @Published var universityName: String?

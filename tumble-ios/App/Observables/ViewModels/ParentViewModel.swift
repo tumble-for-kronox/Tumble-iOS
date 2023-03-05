@@ -19,6 +19,7 @@ import SwiftUI
     @Inject var courseColorService: CourseColorService
     @Inject var preferenceService: PreferenceService
     @Inject var notificationManager: NotificationManager
+    @Inject var userController: UserController
     
     @Published var kronoxUrl: String?
     @Published var canvasUrl: String?

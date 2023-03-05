@@ -28,6 +28,9 @@ struct RegisteredBookings: View {
                         Text("No booked resources yet")
                             .sectionDividerEmpty()
                     }
+                } else {
+                    Text("No booked resources yet")
+                        .sectionDividerEmpty()
                 }
             }
         case .error:

@@ -90,14 +90,12 @@ class NetworkManager: NetworkManagerProtocol {
         method: Method,
         body: Request? = nil,
         completion: @escaping (Result<Response, Error>) -> Void) {
-        
             guard let urlRequest = createUrlRequest(method: method, endpoint: endpoint, sessionToken: sessionToken, body: body) else {
                 completion(.failure(.internal(reason: "Could not encode request body")))
                 return
             }
             
             let networkTask: URLSessionDataTask = createUrlSessionDataTask(urlRequest: urlRequest, completion: completion)
-            
             networkTask.resume()
         }
     
@@ -126,6 +124,11 @@ class NetworkManager: NetworkManagerProtocol {
                     do {
                         guard !data.isEmpty else {
                             if let result = httpUrlResponse.toHttpResponseObject() as? Response {
+                                if httpUrlResponse.statusCode > 200 {
+                                    completion(.failure(.generic(reason: "ERROR STATUS: RESPONSE -> \(httpUrlResponse.statusCode)")))
+                                    return
+                                }
+                                AppLogger.shared.info("SUCCESS STATUS: RESPONSE -> \(httpUrlResponse.statusCode)")
                                 completion(.success(result))
                                 return
                             }

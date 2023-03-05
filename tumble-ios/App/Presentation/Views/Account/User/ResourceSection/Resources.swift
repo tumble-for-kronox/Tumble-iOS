@@ -10,39 +10,31 @@ import SwiftUI
 struct Resources: View {
     
     @ObservedObject var viewModel: AccountPageViewModel
-    @EnvironmentObject var user: UserController
-    @Binding var autoSignup: Bool
-    
-    @State private var bookingsState: PageState = .loading
-    @State private var registeredEventsState: PageState = .loading
-    
-    let toggleAutoSignup: (Bool) -> Void
     
     var body: some View {
         ScrollView (.vertical) {
             ResourceSectionDivider (title: "User options", image: "gearshape") {
-                Toggle(isOn: $autoSignup) {
+                Toggle(isOn: $viewModel.userController.autoSignup) {
                     Text("Automatic exam signup")
                         .sectionDividerEmpty()
                 }
                 .toggleStyle(SwitchToggleStyle(tint: .primary))
-                .onChange(of: autoSignup, perform: { (value: Bool) in
-                    toggleAutoSignup(value)
+                .onChange(of: viewModel.userController.autoSignup, perform: { (value: Bool) in
+                    viewModel.toggleAutoSignup(value: value)
+                    AppLogger.shared.info("Toggled to \(value)")
                 })
             }
             ResourceSectionDivider (title: "Your bookings", image: "books.vertical",
                          destination: AnyView(
                             ResourceBookings()
-                                .environmentObject(user)
                                 .customNavigationBackButton(previousPage: "Account"))) {
-                                    RegisteredBookings(state: $bookingsState, bookings: user.userBookings)
+                                    RegisteredBookings(state: $viewModel.bookingSectionState, bookings: viewModel.userBookings)
             }
-            ResourceSectionDivider (title: "Your exams", image: "newspaper",
+            ResourceSectionDivider (title: "Your events", image: "newspaper",
                          destination: AnyView(
                             EventBookings(viewModel: viewModel)
-                                .environmentObject(user)
                                 .customNavigationBackButton(previousPage: "Account"))) {
-                                    RegisteredEvents(state: $registeredEventsState, registeredEvents: user.completeUserEvent?.registeredEvents)
+                                    RegisteredEvents(state: $viewModel.registeredEventSectionState, registeredEvents: viewModel.completeUserEvent?.registeredEvents)
             }
             Spacer()
         }
@@ -50,33 +42,9 @@ struct Resources: View {
         .background(Color.background)
         .cornerRadius(15, corners: [.topLeft, .topRight])
         .onAppear {
-            loadUserValues()
+            viewModel.getUserEventsForSection()
+            viewModel.getUserBookingsForSection()
         }
     }
-
-    fileprivate func loadUserValues() -> Void {
-        user.getUserEvents(completion: { success in
-            DispatchQueue.main.async {
-                if success {
-                    user.getUserBookings(completion: setState)
-                    self.registeredEventsState = .loaded
-                } else {
-                    self.registeredEventsState = .error
-                    self.bookingsState = .error
-                }
-            }
-        })
-    }
-    
-    fileprivate func setState(success: Bool) -> Void {
-        DispatchQueue.main.async {
-            if success {
-                self.bookingsState = .loaded
-            } else {
-                self.bookingsState = .error
-            }
-        }
-    }
-    
 }
 
