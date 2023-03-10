@@ -14,8 +14,6 @@ enum focusedField {
 struct AccountLogin: View {
     
     @ObservedObject var viewModel: AccountPageViewModel
-    @EnvironmentObject var userModel: UserController
-    
     @State private var username: String = ""
     @State private var password: String = ""
     @State private var visiblePassword: Bool = false
@@ -31,18 +29,20 @@ struct AccountLogin: View {
             }
             LoginButton(login: {
                 viewModel.status = .loading
-                userModel.logIn(username: username, password: password, completion: { success in
-                    if success {
-                        createToast(.success, "Logged in", "Successfully logged in as \(userModel.user?.username ?? username)")
-                    } else {
-                        createToast(.error, "Error", "Something went wrong when logging in to your account")
-                    }
-                    viewModel.status = .initial
-                })
+                viewModel.userController.logIn(username: username, password: password, completion: handleLogin)
             })
             LoginSubHeader(schoolName: viewModel.school?.name ?? "")
         }
         .padding(.horizontal, 15)
         .padding(.top, 20)
+    }
+    
+    fileprivate func handleLogin(success: Bool) -> Void {
+        if success {
+            createToast(.success, "Logged in", "Successfully logged in as \(viewModel.userController.user?.username ?? username)")
+        } else {
+            createToast(.error, "Error", "Something went wrong when logging in to your account")
+        }
+        viewModel.status = .initial
     }
 }
