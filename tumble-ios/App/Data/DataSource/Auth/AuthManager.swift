@@ -109,88 +109,83 @@ extension AuthManager {
     
     
     private func clearKeyChain(completionHandler: ((Result<Int, Error>) -> Void)?) {
-        if let school = self.getDefaultSchool() {
-            self.deleteKeyChain(for: TokenType.refreshToken.rawValue, account: school.name, completion: { result in
+        guard let school = self.getDefaultSchool() else {
+            completionHandler?(.failure(.internal(reason: "Failed to get default school")))
+            return
+        }
+
+        let tokensToDelete = [TokenType.refreshToken.rawValue, TokenType.sessionToken.rawValue, "tumble-user"]
+
+        for token in tokensToDelete {
+            self.deleteKeyChain(for: token, account: school.name) { result in
                 switch result {
-                case .success(_):
-                    AppLogger.shared.info("Successfully cleared keychain for refresh-token")
-                    self.deleteKeyChain(for: TokenType.sessionToken.rawValue, account: school.name, completion: { result in
-                        switch result {
-                        case .success(_):
-                            AppLogger.shared.info("Successfully cleared keychain of session-token")
-                            self.deleteKeyChain(for: "tumble-user", account: school.name, completion: { result in
-                                switch result {
-                                case .success(_):
-                                    AppLogger.shared.info("Successfully cleared keychain of user")
-                                    completionHandler?(.success(3))
-                                case .failure(let failure):
-                                    AppLogger.shared.info("Failed to clear keychain -> \(failure.localizedDescription)")
-                                    completionHandler?(.failure(.internal(reason: "Failed to modify keychain for value 'session-token'")))
-                                }
-                            })
-                        case .failure(let failure):
-                            AppLogger.shared.info("Failed to clear keychain -> \(failure.localizedDescription)")
-                            completionHandler?(.failure(.internal(reason: "Failed to modify keychain for value 'session-token'")))
-                        }
-                    })
+                case .success:
+                    AppLogger.shared.info("Successfully cleared keychain of \(token)")
                 case .failure(let failure):
-                    AppLogger.shared.info("Failed to clear keychain -> \(failure.localizedDescription)")
-                    completionHandler?(.failure(.internal(reason: "Failed to modify keychain for value 'refresh-token'")))
+                    AppLogger.shared.info("Failed to clear keychain of \(token) -> \(failure.localizedDescription)")
+                    completionHandler?(.failure(.internal(reason: "Failed to modify keychain for value '\(token)'")))
+                    return
                 }
-            })
+            }
         }
+
+        completionHandler?(.success(tokensToDelete.count))
+    }
+
+    
+    private func processAutoLoginWithKeyChainCredentials(
+        completionHandler: @escaping (Result<TumbleUser, Error>) -> Void) -> Void {
+            if let school = self.getDefaultSchool(), let user = self.user {
+                var urlRequest = URLRequest(url: Endpoint.login(schoolId: String(school.id)).url)
+                urlRequest.httpMethod = Method.get.rawValue
+                urlRequest.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
+                urlRequest.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")
+                
+                do {
+                    let userRequest = Request.KronoxUserLogin(username: user.username, password: user.password)
+                    urlRequest.httpBody = try encoder.encode(userRequest)
+                } catch let err {
+                    AppLogger.shared.info("Failed to encode JSON body of type \(user.self)")
+                    completionHandler(.failure(.internal(reason: "\(err)")))
+                }
+                
+                urlSession.dataTask(with: urlRequest, completionHandler: { data, response, error in
+                    self.handleAuthResponse(
+                        data: data,
+                        response: response,
+                        error: error as? Error,
+                        completionHandler: completionHandler)
+                }).resume()
+            } else {
+                completionHandler(.failure(.generic(reason: "No school selected or no refresh token available")))
+            }
     }
     
-    private func processAutoLoginWithKeyChainCredentials(completionHandler: @escaping (Result<TumbleUser, Error>) -> Void) -> Void {
-        if let school = self.getDefaultSchool(), let user = self.user {
-            var urlRequest = URLRequest(url: Endpoint.login(schoolId: String(school.id)).url)
-            urlRequest.httpMethod = Method.get.rawValue
-            urlRequest.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
-            urlRequest.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")
-            
-            do {
-                let userRequest = Request.KronoxUserLogin(username: user.username, password: user.password)
-                urlRequest.httpBody = try encoder.encode(userRequest)
-            } catch let err {
-                AppLogger.shared.info("Failed to encode JSON body of type \(user.self)")
-                completionHandler(.failure(.internal(reason: "\(err)")))
+    private func processLogin(
+        user: Request.KronoxUserLogin,
+        completionHandler: @escaping (Result<TumbleUser, Error>) -> Void) {
+            if let school = self.getDefaultSchool() {
+                var urlRequest = URLRequest(url: Endpoint.login(schoolId: String(school.id)).url)
+                urlRequest.httpMethod = Method.post.rawValue
+                urlRequest.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
+                urlRequest.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")
+                do {
+                    urlRequest.httpBody = try encoder.encode(user)
+                } catch let err {
+                    AppLogger.shared.info("Failed to encode JSON body of type \(user.self)")
+                    completionHandler(.failure(.internal(reason: "\(err)")))
+                }
+                urlSession.dataTask(with: urlRequest, completionHandler: { data, response, error in
+                    self.handleAuthResponse(
+                        password: user.password,
+                        data: data,
+                        response: response,
+                        error: error as? Error,
+                        completionHandler: completionHandler)
+                }).resume()
+            } else {
+                completionHandler(.failure(.generic(reason: "No school selected")))
             }
-            
-            urlSession.dataTask(with: urlRequest, completionHandler: { data, response, error in
-                self.handleAuthResponse(
-                    data: data,
-                    response: response,
-                    error: error as? Error,
-                    completionHandler: completionHandler)
-            }).resume()
-        } else {
-            completionHandler(.failure(.generic(reason: "No school selected or no refresh token available")))
-        }
-    }
-    
-    private func processLogin(user: Request.KronoxUserLogin, completionHandler: @escaping (Result<TumbleUser, Error>) -> Void) {
-        if let school = self.getDefaultSchool() {
-            var urlRequest = URLRequest(url: Endpoint.login(schoolId: String(school.id)).url)
-            urlRequest.httpMethod = Method.post.rawValue
-            urlRequest.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
-            urlRequest.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")
-            do {
-                urlRequest.httpBody = try encoder.encode(user)
-            } catch let err {
-                AppLogger.shared.info("Failed to encode JSON body of type \(user.self)")
-                completionHandler(.failure(.internal(reason: "\(err)")))
-            }
-            urlSession.dataTask(with: urlRequest, completionHandler: { data, response, error in
-                self.handleAuthResponse(
-                    password: user.password,
-                    data: data,
-                    response: response,
-                    error: error as? Error,
-                    completionHandler: completionHandler)
-            }).resume()
-        } else {
-            completionHandler(.failure(.generic(reason: "No school selected")))
-        }
     }
     
     private func processAutoLogin(completionHandler: @escaping (Result<TumbleUser, Error>) -> Void) -> Void {
@@ -235,8 +230,6 @@ extension AuthManager {
                 
                 // Replace old user with new user
                 // if the call instance contains a given password.
-                // In any other case, we will have a stored user in
-                // the keychain already.
                 if let password = password {
                     let newUser = TumbleUser(username: result.username, password: password, name: result.name)
                     AppLogger.shared.info("Registering new user \(result.username)")
@@ -343,38 +336,44 @@ extension AuthManager {
         }
     }
     
-    private func updateKeyChain(_ data: Data, for service: String, account: String, completion: @escaping (Result<Bool, Error>) -> Void) {
-        let query = [
-                kSecClass: kSecClassGenericPassword,
-                kSecAttrService: service,
-                kSecAttrAccount: account
-            ] as CFDictionary
+    private func updateKeyChain(
+        _ data: Data,
+        for service: String,
+        account: String,
+        completion: @escaping (Result<Bool, Error>) -> Void) {
+            let query = [
+                    kSecClass: kSecClassGenericPassword,
+                    kSecAttrService: service,
+                    kSecAttrAccount: account
+                ] as CFDictionary
 
-            let attributes = [
-                kSecValueData: data
-            ] as CFDictionary
+                let attributes = [
+                    kSecValueData: data
+                ] as CFDictionary
 
-        let status = SecItemUpdate(query, attributes)
-        guard status == errSecSuccess else {
-            completion(.failure(.internal(reason: status.description)))
-            return
-        }
-        completion(.success(true))
+            let status = SecItemUpdate(query, attributes)
+            guard status == errSecSuccess else {
+                completion(.failure(.internal(reason: status.description)))
+                return
+            }
+            completion(.success(true))
     }
     
     
-    private func deleteKeyChain(for service: String, account: String, completion: @escaping (Result<Bool, Error>) -> Void) {
-        
-        let query = [
-            kSecAttrService: service,
-            kSecAttrAccount: account,
-            kSecClass: kSecClassGenericPassword,
-            ] as CFDictionary
-        
-        // Delete item from keychain
-        SecItemDelete(query)
-        AppLogger.shared.info("Deleted item from keychain")
-        completion(.success(true))
+    private func deleteKeyChain(
+        for service: String,
+        account: String,
+        completion: @escaping (Result<Bool, Error>) -> Void) {
+            let query = [
+                kSecAttrService: service,
+                kSecAttrAccount: account,
+                kSecClass: kSecClassGenericPassword,
+                ] as CFDictionary
+            
+            // Delete item from keychain
+            SecItemDelete(query)
+            AppLogger.shared.info("Deleted item from keychain")
+            completion(.success(true))
     }
     
     private func readKeyChain(for service: String, account: String) -> Data? {
@@ -394,30 +393,33 @@ extension AuthManager {
         return data
     }
     
-    private func saveKeyChain(_ data: Data, for service: String, account: String, completion: @escaping (Result<Bool, Error>) -> Void) {
-        
-        let query = [
-            kSecValueData: data,
-            kSecClass: kSecClassGenericPassword,
-            kSecAttrService: service,
-            kSecAttrAccount: account,
-        ] as CFDictionary
-        
-        // Add data in query to keychain
-        let status = SecItemAdd(query, nil)
-        
-        if status == errSecDuplicateItem {
-            updateKeyChain(data, for: service, account: account, completion: completion)
-            return
-        }
-        
-        if status != errSecSuccess {
-            AppLogger.shared.info("Could not save item to keychain -> \(status)")
-            completion(.failure(.internal(reason: status.description)))
-            return
-        }
-        
-        AppLogger.shared.info("Added item to keychain")
-        completion(.success(true))
+    private func saveKeyChain(
+        _ data: Data,
+        for service: String,
+        account: String,
+        completion: @escaping (Result<Bool, Error>) -> Void) {
+            let query = [
+                kSecValueData: data,
+                kSecClass: kSecClassGenericPassword,
+                kSecAttrService: service,
+                kSecAttrAccount: account,
+            ] as CFDictionary
+            
+            // Add data in query to keychain
+            let status = SecItemAdd(query, nil)
+            
+            if status == errSecDuplicateItem {
+                updateKeyChain(data, for: service, account: account, completion: completion)
+                return
+            }
+            
+            if status != errSecSuccess {
+                AppLogger.shared.info("Could not save item to keychain -> \(status)")
+                completion(.failure(.internal(reason: status.description)))
+                return
+            }
+            
+            AppLogger.shared.info("Added item to keychain")
+            completion(.success(true))
     }
 }
