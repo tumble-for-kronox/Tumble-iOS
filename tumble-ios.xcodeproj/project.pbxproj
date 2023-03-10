@@ -132,8 +132,6 @@
 		D4A550D329946D8400028BCF /* BookmarkRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A550D229946D8400028BCF /* BookmarkRow.swift */; };
 		D4A550D52994755900028BCF /* BookmarkButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A550D42994755900028BCF /* BookmarkButton.swift */; };
 		D4A550D729947FA500028BCF /* SidebarSheetViewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A550D629947FA500028BCF /* SidebarSheetViewBuilder.swift */; };
-		D4AB264A29B4C9BB00D6765E /* UserError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4AB264929B4C9BB00D6765E /* UserError.swift */; };
-		D4AB264C29B4C9F300D6765E /* UserResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4AB264B29B4C9F300D6765E /* UserResult.swift */; };
 		D4ABD26B298C19AB002FD8F5 /* SideBarSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4ABD26A298C19AB002FD8F5 /* SideBarSheet.swift */; };
 		D4ABD270298C2E15002FD8F5 /* DayUiModelExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4ABD26F298C2E15002FD8F5 /* DayUiModelExtension.swift */; };
 		D4ABD272298C2E32002FD8F5 /* DayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4ABD271298C2E32002FD8F5 /* DayExtension.swift */; };
@@ -308,8 +306,6 @@
 		D4A550D229946D8400028BCF /* BookmarkRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkRow.swift; sourceTree = "<group>"; };
 		D4A550D42994755900028BCF /* BookmarkButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkButton.swift; sourceTree = "<group>"; };
 		D4A550D629947FA500028BCF /* SidebarSheetViewBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarSheetViewBuilder.swift; sourceTree = "<group>"; };
-		D4AB264929B4C9BB00D6765E /* UserError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserError.swift; sourceTree = "<group>"; };
-		D4AB264B29B4C9F300D6765E /* UserResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserResult.swift; sourceTree = "<group>"; };
 		D4ABD26A298C19AB002FD8F5 /* SideBarSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideBarSheet.swift; sourceTree = "<group>"; };
 		D4ABD26F298C2E15002FD8F5 /* DayUiModelExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayUiModelExtension.swift; sourceTree = "<group>"; };
 		D4ABD271298C2E32002FD8F5 /* DayExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayExtension.swift; sourceTree = "<group>"; };
@@ -547,7 +543,6 @@
 		D41ED545298433A3009DCF8B /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				D4AB264829B4C9B000D6765E /* User */,
 				D4FCD14C2995ADE9009D2987 /* UIKit */,
 				D4A550CD299454E900028BCF /* UserDefaults */,
 				D4644A27298DD78800B0BB28 /* Notifications */,
@@ -1016,15 +1011,6 @@
 			path = UserDefaults;
 			sourceTree = "<group>";
 		};
-		D4AB264829B4C9B000D6765E /* User */ = {
-			isa = PBXGroup;
-			children = (
-				D4AB264929B4C9BB00D6765E /* UserError.swift */,
-				D4AB264B29B4C9F300D6765E /* UserResult.swift */,
-			);
-			path = User;
-			sourceTree = "<group>";
-		};
 		D4ABD269298C197E002FD8F5 /* SideBarSheetView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1416,7 +1402,6 @@
 				D48F0D8A29367CAF0039CD0F /* Colors.swift in Sources */,
 				D4E83ED12999B1B1002E5F88 /* AuthManager.swift in Sources */,
 				D4A550CF299454F700028BCF /* ScheduleStoreModel.swift in Sources */,
-				D4AB264A29B4C9BB00D6765E /* UserError.swift in Sources */,
 				D4607632292AA39400DE9590 /* Types.swift in Sources */,
 				D48CE45A29849D8A00D312EC /* SupportOption.swift in Sources */,
 				D4607653292AF5DA00DE9590 /* DayHeader.swift in Sources */,
@@ -1456,7 +1441,6 @@
 				D4E39E3C2989D1B5004C30DF /* EventDetailsCard.swift in Sources */,
 				D476BD2C293A326C0027CFE8 /* SchedulePreviewCard.swift in Sources */,
 				D498290D299D910F0017D636 /* RegisteredEvents.swift in Sources */,
-				D4AB264C29B4C9F300D6765E /* UserResult.swift in Sources */,
 				D426E3A4299C39DE00A8D7AE /* ResourceBookings.swift in Sources */,
 				D421EAF22993FBB00045D438 /* SideBarSheetModel.swift in Sources */,
 				D40E843D2981C8B200C2CF2E /* AccountPageViewModel.swift in Sources */,
