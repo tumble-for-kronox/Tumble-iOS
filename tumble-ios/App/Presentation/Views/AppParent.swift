@@ -34,8 +34,8 @@ struct AppParent: View {
             SidebarMenu(viewModel: viewModel.sidebarViewModel, showSideBar: $appController.showSideBar, selectedSideBarTab: $appController.selectedSideBarTab, selectedBottomTab: $appController.selectedTab, sideBarSheet: $appController.sideBarSheet, createToast: createToast, removeBookmark: removeBookmark, updateBookmarks: updateBookmarks, onChangeSchool: onChangeSchool)
             
             ZStack {
-                FadedPageUnderlay(backgroundOpacity: 0.6, offset: -25, verticalPadding: 30, showSideBar: $appController.showSideBar)
-                FadedPageUnderlay(backgroundOpacity: 0.4, offset: -50, verticalPadding: 60, showSideBar: $appController.showSideBar)
+                //FadedPageUnderlay(backgroundOpacity: 0.6, offset: -25, verticalPadding: 30, showSideBar: $appController.showSideBar)
+                //FadedPageUnderlay(backgroundOpacity: 0.4, offset: -50, verticalPadding: 60, showSideBar: $appController.showSideBar)
                 NavigationView {
                     VStack (alignment: .leading) {
                         // Main home page view switcher
@@ -61,7 +61,6 @@ struct AppParent: View {
                         })
                     }.background(Color.background)
                 }
-                .blur(radius: appController.showSideBar ? 50 : 0)
                 .overlay(
                     // If the sidebar is shown, blur the navigation view
                     // and make the whole navigation page clickable so the sidebar
@@ -79,14 +78,10 @@ struct AppParent: View {
                 )
                 .cornerRadius(appController.showSideBar ? 15 : 0)
             }
-            .scaleEffect(appController.showSideBar ? 0.84 : 1)
             .offset(x: appController.showSideBar ? getRect().width - 120 : 0)
             .toastView(toast: $appController.toast)
             .ignoresSafeArea()
         }
-        .gesture(DragGesture(minimumDistance: 3.0, coordinateSpace: .local)
-            .onEnded(handleSwipe)
-        )
         .zIndex(1)
     }
 
