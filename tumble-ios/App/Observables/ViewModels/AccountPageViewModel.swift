@@ -245,9 +245,6 @@ enum NetworkResponse {
             DispatchQueue.main.async {
                 switch result {
                 case .success(let eventRegistrations):
-                    AppLogger.shared.info("\(eventRegistrations)")
-                    AppLogger.shared.info("Successful registrations: \(eventRegistrations.successfulRegistrations)")
-                    AppLogger.shared.info("Failed registrations: \(eventRegistrations.failedRegistrations)")
                 case .failure(let failure):
                     AppLogger.shared.info("\(failure)")
                 }
