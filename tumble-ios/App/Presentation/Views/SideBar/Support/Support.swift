@@ -12,9 +12,6 @@ struct Support: View {
         ZStack {
             List {
                 Section {
-                    SupportOption(title: "Have a burning question?", image: "flame")
-                }
-                Section {
                     SupportOption(title: "Report a bug", image: "ant")
                 }
                 Section {
