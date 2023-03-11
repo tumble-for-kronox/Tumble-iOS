@@ -47,6 +47,8 @@ struct SidebarMenu: View {
             .padding(.top, 40)
             .padding(.trailing, 120)
             
+            /// List of sidebar menu options. Each onClick should
+            /// direct the user to a separate sheet view.
             VStack (alignment: .leading, spacing: 0) {
                 SidebarMenuButton(sideBarTabType: .bookmarks, title: SidebarTabType.bookmarks.rawValue, image: "bookmark", selectedSideBarTab: $selectedSideBarTab, sideBarSheet: $sideBarSheet, animation: animation)
                 SidebarMenuButton(sideBarTabType: .notifications, title: SidebarTabType.notifications.rawValue, image: "bell.badge", selectedSideBarTab: $selectedSideBarTab, sideBarSheet: $sideBarSheet, animation: animation)

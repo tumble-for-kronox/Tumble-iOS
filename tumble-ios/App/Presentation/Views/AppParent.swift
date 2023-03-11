@@ -34,8 +34,6 @@ struct AppParent: View {
             SidebarMenu(viewModel: viewModel.sidebarViewModel, showSideBar: $appController.showSideBar, selectedSideBarTab: $appController.selectedSideBarTab, selectedBottomTab: $appController.selectedTab, sideBarSheet: $appController.sideBarSheet, createToast: createToast, removeBookmark: removeBookmark, updateBookmarks: updateBookmarks, onChangeSchool: onChangeSchool)
             
             ZStack {
-                //FadedPageUnderlay(backgroundOpacity: 0.6, offset: -25, verticalPadding: 30, showSideBar: $appController.showSideBar)
-                //FadedPageUnderlay(backgroundOpacity: 0.4, offset: -50, verticalPadding: 60, showSideBar: $appController.showSideBar)
                 NavigationView {
                     VStack (alignment: .leading) {
                         // Main home page view switcher
@@ -70,7 +68,10 @@ struct AppParent: View {
                             Color.white.opacity(0.1)
                                 .onTapGesture {
                                     withAnimation {
-                                        handleSideBarAction(shouldShowSideBar: false, newSideBarTab: .none)
+                                        handleSideBarAction(
+                                            shouldShowSideBar: false,
+                                            newSideBarTab: .none
+                                        )
                                     }
                                 }
                         }

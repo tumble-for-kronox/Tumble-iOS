@@ -47,6 +47,7 @@ enum NetworkResponse {
     
     /// Retrieve user events for resource section
     func getUserEventsForSection(tries: Int = 1) {
+        self.registeredEventSectionState = .loading
         guard let school = school,
               let sessionToken = userController.sessionToken,
               !sessionToken.isExpired() else {
@@ -107,16 +108,17 @@ enum NetworkResponse {
     }
     
     func getUserBookingsForSection(tries: Int = 1) {
+        self.bookingSectionState = .loading
         guard let school = school,
               let sessionToken = userController.sessionToken,
               !sessionToken.isExpired() else {
             if tries < NetworkConstants.MAX_CONSECUTIVE_ATTEMPTS {
                 AppLogger.shared.info("Attempting auto login ...")
                 userController.autoLogin(completion: {
-                    self.getUserBookingsForPage(tries: tries + 1)
+                    self.getUserBookingsForSection(tries: tries + 1)
                 })
             }
-            self.eventBookingPageState = .error
+            self.bookingSectionState = .error
             return
         }
         let request = Endpoint.userBookings(schoolId: String(school.id), sessionToken: sessionToken.value)
@@ -245,6 +247,9 @@ enum NetworkResponse {
             DispatchQueue.main.async {
                 switch result {
                 case .success(let eventRegistrations):
+                    AppLogger.shared.info("\(eventRegistrations)")
+                    AppLogger.shared.info("Successful registrations: \(eventRegistrations.successfulRegistrations?.count)")
+                    AppLogger.shared.info("Failed registrations: \(eventRegistrations.failedRegistrations?.count)")
                 case .failure(let failure):
                     AppLogger.shared.info("\(failure)")
                 }

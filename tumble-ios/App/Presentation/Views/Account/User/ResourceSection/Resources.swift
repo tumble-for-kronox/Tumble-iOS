@@ -42,8 +42,12 @@ struct Resources: View {
         .background(Color.background)
         .cornerRadius(15, corners: [.topLeft, .topRight])
         .onAppear {
-            viewModel.getUserEventsForSection()
             viewModel.getUserBookingsForSection()
+            viewModel.getUserEventsForSection()
+        }
+        .refreshable {
+            viewModel.getUserBookingsForSection()
+            viewModel.getUserEventsForSection()
         }
     }
 }

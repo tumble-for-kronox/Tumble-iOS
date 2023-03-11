@@ -32,16 +32,20 @@ struct SideBarSheet: View {
                 BookmarksSidebarSheet(bookmarks: $bookmarks, toggleBookmark: toggleBookmark, deleteBookmark: deleteBookmark)
             }
         case .support:
-            Support()
+            SidebarSheetViewBuilder(header: "Support") {
+                Support()
+            }
+        case .notifications:
+            SidebarSheetViewBuilder(header: "Notifications") {
+                NotificationsSidebarSheet()
+            }
         case .none:
             EmptyView()
-        case .notifications:
-            EmptyView()
         case .more:
-            EmptyView()
-        case .logOut:
-            EmptyView()
-        case .logIn:
+            SidebarSheetViewBuilder(header: "More") {
+                MoreSidebarSheet()
+            }
+        default:
             EmptyView()
         }
     }

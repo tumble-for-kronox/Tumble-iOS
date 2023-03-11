@@ -18,18 +18,24 @@ struct NavigationbarSidebar: View {
             }
         }, label: {
             VStack (spacing: 5) {
-                 Capsule()
-                    .fill(Color.onBackground.opacity(0.8))
-                    .frame(width: 25, height: 2)
-                    .cornerRadius(10)
-                Capsule()
-                   .fill(Color.onBackground.opacity(0.8))
-                   .frame(width: 25, height: 2)
-                   .cornerRadius(10)
-                Capsule()
-                   .fill(Color.onBackground.opacity(0.8))
-                   .frame(width: 25, height: 2)
-                   .cornerRadius(10)
+                if showSideBar {
+                    Image(systemName: "xmark")
+                        .font(.system(size: 20))
+                        .foregroundColor(.onBackground)
+                } else {
+                    Capsule()
+                       .fill(Color.onBackground.opacity(0.8))
+                       .frame(width: 25, height: 2)
+                       .cornerRadius(10)
+                   Capsule()
+                      .fill(Color.onBackground.opacity(0.8))
+                      .frame(width: 25, height: 2)
+                      .cornerRadius(10)
+                   Capsule()
+                      .fill(Color.onBackground.opacity(0.8))
+                      .frame(width: 25, height: 2)
+                      .cornerRadius(10)
+                }
             }
         })
     }

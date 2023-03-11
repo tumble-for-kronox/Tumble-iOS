@@ -15,15 +15,12 @@ struct BookmarksListModel {
     var buttonOffsetX: CGFloat = 200
 }
 
-
 struct BookmarkListView: View {
     
-    let topId: String = "TOP"
     let days: [DayUiModel]
     let courseColors: CourseAndColorDict
     let onTapCard: OnTapCard
     @State private var bookmarksListModel: BookmarksListModel = BookmarksListModel()
-    
     
     var body: some View {
         ScrollViewReader { value in
@@ -34,14 +31,17 @@ struct BookmarkListView: View {
                         if !(day.events.isEmpty) {
                             Section(header: DayHeader(day: day), content: {
                                 ForEach(day.events, id: \.id) { event in
-                                    BookmarkCard(onTapCard: onTapCard, event: event, isLast: event == day.events.last, color: courseColors[event.course.id] != nil ? courseColors[event.course.id]!.toColor() : .white)
+                                    BookmarkCard(
+                                        onTapCard: onTapCard,
+                                        event: event,
+                                        isLast: event == day.events.last,
+                                        color: courseColors[event.course.id] != nil ? courseColors[event.course.id]!.toColor() : .white)
                                 }
                             })
                             .padding(.top, 35)
                         }
                     }
                 }
-                .id(topId)
                 .padding(7.5)
                 .overlay(
                     GeometryReader { proxy -> Color in
@@ -52,12 +52,12 @@ struct BookmarkListView: View {
                         return Color.clear
                     }
                 )
-                
+                .id("bookmarkScrollView")
             }
             .overlay(
                 Button(action: {
                     withAnimation(.spring()) {
-                        value.scrollTo(topId, anchor: .top)
+                        value.scrollTo("bookmarkScrollView", anchor: .top)
                     }
                 }, label: {
                     Image(systemName: "arrow.up")
@@ -76,7 +76,7 @@ struct BookmarkListView: View {
     }
     
     fileprivate func handleButtonAnimation() -> Void {
-        if -self.bookmarksListModel.scrollViewOffset > 450 {
+        if -bookmarksListModel.scrollViewOffset > 450 {
             withAnimation(.spring()) {
                 bookmarksListModel.buttonOffsetX = .zero
             }
@@ -89,10 +89,10 @@ struct BookmarkListView: View {
     
     fileprivate func handleScrollOffset(value: CGFloat) -> Void {
         if bookmarksListModel.startOffset == 0 {
-            self.bookmarksListModel.startOffset = value
+            bookmarksListModel.startOffset = value
         }
         let offset = value
         
-        self.bookmarksListModel.scrollViewOffset = offset - bookmarksListModel.startOffset
+        bookmarksListModel.scrollViewOffset = offset - bookmarksListModel.startOffset
     }
 }
