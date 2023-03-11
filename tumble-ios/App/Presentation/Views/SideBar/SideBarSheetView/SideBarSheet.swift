@@ -21,33 +21,37 @@ struct SideBarSheet: View {
     var body: some View {
         switch sideBarTabType {
         case .school:
-            SidebarSheetViewBuilder(header: "Change schools") {
+            SidebarSheetViewBuilder(header: "Change schools", dismiss: dismiss) {
                 SchoolSelection(onSelectSchool: { school in
                     onChangeSchool(school)
                     presentationMode.wrappedValue.dismiss()
                 })
             }
         case .bookmarks:
-            SidebarSheetViewBuilder(header: "Your bookmarks") {
+            SidebarSheetViewBuilder(header: "Your bookmarks", dismiss: dismiss) {
                 BookmarksSidebarSheet(bookmarks: $bookmarks, toggleBookmark: toggleBookmark, deleteBookmark: deleteBookmark)
             }
         case .support:
-            SidebarSheetViewBuilder(header: "Support") {
+            SidebarSheetViewBuilder(header: "Support", dismiss: dismiss) {
                 Support()
             }
         case .notifications:
-            SidebarSheetViewBuilder(header: "Notifications") {
+            SidebarSheetViewBuilder(header: "Notifications", dismiss: dismiss) {
                 NotificationsSidebarSheet()
             }
         case .none:
             EmptyView()
         case .more:
-            SidebarSheetViewBuilder(header: "More") {
+            SidebarSheetViewBuilder(header: "More", dismiss: dismiss) {
                 MoreSidebarSheet()
             }
         default:
             EmptyView()
         }
+    }
+    
+    fileprivate func dismiss() -> Void {
+        presentationMode.wrappedValue.dismiss()
     }
     
     fileprivate func toggleBookmark(id: String, value: Bool) -> Void {
