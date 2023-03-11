@@ -1,0 +1,140 @@
+<div id="top"></div>
+
+<!-- PROJECT SHIELDS -->
+<div align="center"><a href=https://github.com/adisve/tumble-ios/graphs/contributors>Contributors</a>&emsp;&emsp;<a href=https://github.com/adisve/tumble-for-kronox/network/members>Forks</a>&emsp;&emsp;<a href=https://github.com/adisve/tumble-for-kronox/stargazers>Stargazers</a>&emsp;&emsp;<a href=https://github.com/adisve/tumble-for-kronox/issues>Issues</a>&emsp;&emsp;</div>
+
+<!-- PROJECT LOGO -->
+<br />
+<div align="center">
+  <a href="https://github.com/adisve/tumble-ios">
+    <img src="/tumble-ios/Assets.xcassets/AppIcon.imageset/AppIcon.png" alt="Logo" width="120" height="120">
+  </a>
+
+  <h3 align="center">Tumble for Kronox</h3>
+
+  <p align="center">
+    <br />
+    <a href="https://github.com/adisve/tumble-ios/issues">Report Bug</a>
+    ·
+    <a href="https://github.com/adisve/tumble-ios/issues">Request Feature</a>
+  </p>
+</div>
+
+<!-- TABLE OF CONTENTS -->
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#about-the-project">About The Project</a>
+      <ul>
+        <li><a href="#built-with">Built With</a></li>
+      </ul>
+    </li>
+    <li><a href="#usage">Usage</a></li>
+    <li><a href="#contributing">Contributing</a></li>
+    <li><a href="#license">License</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#acknowledgments">Acknowledgments</a></li>
+    <li><a href="#links"></a>Links</li>
+  </ol>
+</details>
+
+<br>
+
+<!-- ABOUT THE PROJECT -->
+## About The Project
+
+The app is an official attempt to improve on the flaws of the official Kronox app, of which there are a lot.
+
+The primary aim is to make viewing your schedule as painless and simple as possible, so you can focus on your studies, rather than struggling with accessing an overview of your upcoming classes.
+<br>
+
+## Some of the key features are:
+
+* Find any Kronox schedule available on the Kronox website, but in a user friendly way.
+
+* Set notifications for specific classes or entire courses.
+
+* Sign in to your KronoX account through your University.
+
+* Book rooms in buildings at your school.
+
+* Sign up for exams.
+
+* Choose between multiple languages.
+
+* Change colors for different courses in the schedule view
+
+* List, week and calendar view available for viewing schedules.
+
+* Merge multiple schedules into one, and choose which to display through the settings menu.
+
+
+<br>
+
+## Currently the app supports the following colleges in Sweden:
+
+* Kristianstad University
+
+* Malmö University
+
+* Örebro University
+
+* Luleå University of Technology
+
+* University of Gävle
+
+* University of Södertörn
+
+* University West (Högskolan Väst)
+
+* University of Borås
+
+* Mälardalens University
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+
+
+### Built With
+
+* [SwiftUI](https://developer.apple.com/xcode/swiftui/)
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+
+<!-- CONTRIBUTING -->
+## Contributing
+
+Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+
+If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
+Don't forget to give the project a star! Thanks again!
+
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+<!-- CONTACT -->
+## Contact
+
+Contact email - tumbleapps.studios@gmail.com
+
+Project Link: [https://github.com/adisve/tumble-ios](https://github.com/adisve/tumble-ios)
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+
+
+<!-- MARKDOWN LINKS & IMAGES -->
+
+
+
+<!-- LINKS -->
+## Links
+
+* [App Store](https://apps.apple.com/app/tumble-for-kronox/id1617642864)
