@@ -7,7 +7,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/adisve/tumble-ios">
-    <img src="tumble-ios/tumble-ios/Assets.xcassets/AppIcon.imageset/AppIcon.png" alt="Logo" width="120" height="120">
+    <img src="/tumble-ios/Assets.xcassets/AppIcon.imageset/AppIcon.png" alt="Logo" width="120" height="120">
   </a>
 
   <h3 align="center">Tumble for Kronox</h3>
