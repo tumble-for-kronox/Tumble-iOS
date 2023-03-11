@@ -65,7 +65,7 @@ struct AppParent: View {
                     // closes if it is tapped
                     Group {
                         if appController.showSideBar {
-                            Color.white.opacity(0.1)
+                            Color.white.opacity(0.001)
                                 .onTapGesture {
                                     withAnimation {
                                         handleSideBarAction(
@@ -77,7 +77,6 @@ struct AppParent: View {
                         }
                     }
                 )
-                .cornerRadius(appController.showSideBar ? 15 : 0)
             }
             .offset(x: appController.showSideBar ? getRect().width - 120 : 0)
             .toastView(toast: $appController.toast)

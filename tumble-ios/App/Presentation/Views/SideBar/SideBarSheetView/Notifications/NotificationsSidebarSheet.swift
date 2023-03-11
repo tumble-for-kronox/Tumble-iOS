@@ -11,14 +11,9 @@ struct NotificationsSidebarSheet: View {
     var body: some View {
         // List of options for notifications
         VStack {
-            NotificationSidebarOption()
-            NotificationSidebarOption()
+            SidebarSheetButton(image: "bell.slash", title: "Clear all notifications", onClick: {})
+            SidebarSheetButton(image: "bell.badge", title: "Set notifications for all schedules", onClick: {})
         }
-        // Notification offset
-        
-        // Remove all notifications
-        
-        // Set notifications for all courses in programme
     }
 }
 

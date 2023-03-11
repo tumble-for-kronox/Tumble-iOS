@@ -9,7 +9,10 @@ import SwiftUI
 
 struct MoreSidebarSheet: View {
     var body: some View {
-        Text("More")
+        VStack {
+            SidebarSheetButton(image: "paintbrush", title: "Theme", onClick: {})
+            SidebarSheetButton(image: "globe.europe.africa", title: "Language", onClick: {})
+        }
     }
 }
 

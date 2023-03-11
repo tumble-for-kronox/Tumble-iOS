@@ -11,10 +11,12 @@ struct SidebarSheetViewBuilder<Content : View>: View {
     
     let header: String
     let content: Content
+    let dismiss: () -> Void
     
-    init(header: String, @ViewBuilder content: () -> Content) {
+    init(header: String, dismiss: @escaping () -> Void, @ViewBuilder content: () -> Content) {
         self.content = content()
         self.header = header
+        self.dismiss = dismiss
     }
     
     var body: some View {
@@ -23,7 +25,16 @@ struct SidebarSheetViewBuilder<Content : View>: View {
                 Text(header)
                     .sheetTitle()
                 Spacer()
+                Button(action: dismiss, label: {
+                    Text("Done")
+                        .font(.system(size: 22, weight: .semibold, design: .rounded))
+                        .foregroundColor(.primary)
+                        .padding([.bottom, .top], 20)
+                        .padding([.leading, .trailing], 20)
+                })
             }
+            Divider()
+                .padding(.bottom, 15)
             content
             Spacer()
         }
