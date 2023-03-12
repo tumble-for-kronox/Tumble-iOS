@@ -9,7 +9,8 @@ import Foundation
 
 // Observable state from views to open sheets from
 // pressing external notifications in order to navigate
-// to certain views with attributes
+// to certain views with attributes. These values are global
+// and meant to be controllable from anywhere in the app.
 class AppController: ObservableObject {
     
     static let shared: AppController = AppController()

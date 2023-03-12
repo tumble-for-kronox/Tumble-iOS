@@ -32,6 +32,7 @@ enum BookmarksViewStatus {
     @Published var courseColors: [String : String] = [:]
     @Published var defaultViewType: BookmarksViewType = .list
     @Published var school: School?
+    @Published var eventSheet: EventDetailsSheetModel? = nil
     
     
     init () {

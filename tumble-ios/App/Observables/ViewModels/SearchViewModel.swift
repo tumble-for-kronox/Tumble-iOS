@@ -77,16 +77,20 @@ enum SchedulePreviewStatus {
                 // and loaded into view
                 if self.schedulePreviewIsSaved {
                     self.loadProgrammeCourseColors() { courseColors in
-                        self.courseColors = courseColors
-                        self.schedulePreviewStatus = .loaded
+                        DispatchQueue.main.async {
+                            self.courseColors = courseColors
+                            self.schedulePreviewStatus = .loaded
+                        }
                     }
                 }
                 // Otherwise load random course colors
                 else {
                     self.assignRandomCourseColors() { courseColors in
-                        // Assign possibly updated course colors
-                        self.courseColors = courseColors
-                        self.schedulePreviewStatus = .loaded
+                        DispatchQueue.main.async {
+                            // Assign possibly updated course colors
+                            self.courseColors = courseColors
+                            self.schedulePreviewStatus = .loaded
+                        }
                     }
                 }
             }
@@ -96,17 +100,20 @@ enum SchedulePreviewStatus {
     
     func onSearchProgrammes(searchQuery: String) -> Void {
         self.status = .loading
-        networkManager.get(.searchProgramme(searchQuery: searchQuery, schoolId: String(school!.id)), sessionToken: nil) { [weak self] (result: Result<Response.Search, Response.ErrorMessage>) in
-            DispatchQueue.main.async {
+        networkManager.get(.searchProgramme(
+            searchQuery: searchQuery,
+            schoolId: String(school!.id)),
+            sessionToken: nil) { [weak self] (result: Result<Response.Search, Response.ErrorMessage>) in
                 guard let self = self else { return }
                 switch result {
                 case .success(let result):
                     self.parseSearchResults(result)
                 case .failure(let error):
-                    self.status = SearchStatus.error
+                    DispatchQueue.main.async {
+                        self.status = SearchStatus.error
+                    }
                     AppLogger.shared.info("Encountered error when trying to search for programme \(searchQuery): \(error)")
                 }
-            }
         }
     }
     
@@ -127,22 +134,40 @@ enum SchedulePreviewStatus {
             }
             // If the schedule isn't already saved in the local database
             if !self.schedulePreviewIsSaved {
-                self.saveSchedule(completion: {
-                    DispatchQueue.main.async {
-                        self.preferenceService.setBookmarks(bookmark: self.scheduleForPreview!.id)
-                        self.previewButtonState = .saved
-                        updateButtonState()
-                        checkForNewSchedules()
+                self.saveSchedule(completion: { [weak self] result in
+                    guard let self = self else { return }
+                    switch result {
+                    case .success:
+                        DispatchQueue.main.async {
+                            self.preferenceService.setBookmarks(bookmark: self.scheduleForPreview!.id)
+                            self.previewButtonState = .saved
+                            updateButtonState()
+                            checkForNewSchedules()
+                        }
+                        return
+                    case .failure:
+                        DispatchQueue.main.async {
+                            self.schedulePreviewStatus = .error
+                        }
                     }
                 })
             }
             // Otherwise we remove (untoggle) the schedule
             else {
-                self.removeSchedule(completion: {
-                    DispatchQueue.main.async {
-                        self.previewButtonState = .notSaved
-                        updateButtonState()
+                self.removeSchedule(completion: { [weak self] result in
+                    guard let self = self else { return }
+                    switch result {
+                    case .success:
+                        DispatchQueue.main.async {
+                            self.previewButtonState = .notSaved
+                            updateButtonState()
+                        }
                         checkForNewSchedules()
+                        return
+                    case .failure:
+                        DispatchQueue.main.async {
+                            self.schedulePreviewStatus = .error
+                        }
                     }
                 })
             }
@@ -200,35 +225,44 @@ extension SearchViewModel {
     // Assigns course colors to a schedule if it was found in the local storage.
     // This function should ONLY be called when a schedule is found in the local storage.
     // The purpose is to check for new schedules and add them accordingly
-    fileprivate func assignCourseColorsToSavedSchedule(courses: [String : String], closure: @escaping ([String : String]) -> Void) -> Void {
-        var availableColors = Set(colors)
-        var courseColors = courses
-        let visitedCourses = self.scheduleListOfDays!.flatMap { $0.events.map { $0.course.id } }.filter { !courseColors.keys.contains($0) }
-        for course in visitedCourses {
-            courseColors[course] = availableColors.popFirst()
-        }
-        self.saveCourseColors(courseColors: courseColors)
-        closure(courseColors)
+    fileprivate func assignCourseColorsToSavedSchedule(
+        courses: [String : String],
+        closure: @escaping ([String : String]) -> Void) -> Void {
+            var availableColors = Set(colors)
+            var courseColors = courses
+            let visitedCourses = self.scheduleListOfDays!.flatMap {
+                $0.events.map {
+                    $0.course.id } }.filter {
+                        !courseColors.keys.contains($0)
+                    }
+            for course in visitedCourses {
+                courseColors[course] = availableColors.popFirst()
+            }
+            self.saveCourseColors(courseColors: courseColors)
+            closure(courseColors)
     }
     
     
     // API Call to fetch a schedule from backend
     fileprivate func fetchSchedule(programmeId: String, closure: @escaping () -> Void) -> Void {
-        networkManager.get(.schedule(scheduleId: programmeId, schoolId: String(school!.id))) { [weak self] (result: Result<Response.Schedule, Response.ErrorMessage>) in
-            DispatchQueue.main.async {
-                guard let self = self else { return }
-                switch result {
-                case .success(let result):
-                    AppLogger.shared.info("Fetched schedule")
-                    self.handleFetchedSchedule(schedule: result) {
-                        closure()
+        networkManager.get(
+            .schedule(
+                scheduleId: programmeId,
+                schoolId: String(school!.id))) { [weak self] (result: Result<Response.Schedule, Response.ErrorMessage>) in
+                DispatchQueue.main.async {
+                    guard let self = self else { return }
+                    switch result {
+                    case .success(let result):
+                        AppLogger.shared.info("Fetched schedule")
+                        self.handleFetchedSchedule(schedule: result) {
+                            closure()
+                        }
+                    case .failure(let error):
+                        self.schedulePreviewStatus = .error
+                        self.errorMessage = error.message
+                        AppLogger.shared.info("Encountered error when attempting to load schedule for programme \(programmeId): \(error)")
                     }
-                case .failure(let error):
-                    self.schedulePreviewStatus = .error
-                    self.errorMessage = error.message
-                    AppLogger.shared.info("Encountered error when attempting to load schedule for programme \(programmeId): \(error)")
                 }
-            }
         }
     }
     
@@ -239,45 +273,63 @@ extension SearchViewModel {
     }
     
     
-    fileprivate func saveSchedule(completion: @escaping () -> Void) -> Void {
-        scheduleService.save(schedule: self.scheduleForPreview!) { [weak self] scheduleResult in
-            DispatchQueue.main.async {
-                guard let self = self else { return }
-                if case .failure(let error) = scheduleResult {
-                    AppLogger.shared.info("Fatal error \(error)")
-                    return
-                } else {
-                    self.saveCourseColors(courseColors: (self.courseColors!))
-                    self.schedulePreviewIsSaved = true
-                    completion()
-                }
-            }
+    fileprivate func saveSchedule(completion: @escaping (Result<Void, Error>) -> Void) {
+        guard let schedule = self.scheduleForPreview,
+              let courseColors = self.courseColors
+        else {
+            completion(.failure(.generic(reason: "scheduleForPreview or courseColors is nil")))
+            return
         }
-    }
-    
-    
-    fileprivate func removeSchedule(completion: @escaping () -> Void) -> Void {
-        scheduleService.remove(scheduleId: self.scheduleForPreview!.id) { [weak self] result in
-            DispatchQueue.main.async {
-                guard let self = self else { return }
-                if case .failure(let error) = result {
-                    fatalError(error.localizedDescription)
-                } else {
-                    self.schedulePreviewIsSaved = false
-                    self.removeCourseColors(completion: completion)
-                }
+
+        scheduleService.save(schedule: schedule) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success:
+                self.saveCourseColors(courseColors: courseColors)
+                self.schedulePreviewIsSaved = true
+                completion(.success(()))
+            case .failure(let error):
+                AppLogger.shared.info("Fatal error \(error)")
+                completion(.failure(error))
             }
         }
     }
 
-    fileprivate func removeCourseColors(completion: @escaping () -> Void) -> Void {
+
+    
+    
+    fileprivate func removeSchedule(completion: @escaping (Result<Void, Error>) -> Void) -> Void {
+        
+        guard self.scheduleForPreview != nil else {
+            completion(.failure(.generic(reason: "scheduleForPreview")))
+            return
+        }
+        
+        scheduleService.remove(scheduleId: self.scheduleForPreview!.id) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success:
+                DispatchQueue.main.async {
+                    self.schedulePreviewIsSaved = false
+                }
+                self.removeCourseColors(completion: completion)
+                return
+            case .failure(let error):
+                AppLogger.shared.info("Fatal error \(error)")
+                completion(.failure(error))
+            }
+        }
+    }
+
+    fileprivate func removeCourseColors(completion: @escaping (Result<Void, Error>) -> Void) -> Void {
         courseColorService.remove(removeCourses: (self.scheduleForPreview!.courses())) { result in
             if case .failure(let error) = result {
                 AppLogger.shared.info("Fatal error \(error)")
+                completion(.failure(.generic(reason: error.localizedDescription)))
                 return
             } else {
                 AppLogger.shared.info("Removed course colors")
-                completion()
+                completion(.success(()))
             }
         }
     }
@@ -318,8 +370,10 @@ extension SearchViewModel {
         for result in results.items {
             localResults.append(result)
         }
-        self.programmeSearchResults = localResults
-        self.status = .loaded
+        DispatchQueue.main.async {
+            self.programmeSearchResults = localResults
+            self.status = .loaded
+        }
     }
     
 }

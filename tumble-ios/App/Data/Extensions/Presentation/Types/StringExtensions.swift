@@ -53,6 +53,21 @@ extension String {
         )
     }
     
+    func formatDate() -> String? {
+        let formatter = ISO8601DateFormatter()
+        formatter.formatOptions = [.withFullDate, .withDashSeparatorInDate]
+        
+        if let date = formatter.date(from: self) {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
+            return dateFormatter.string(from: date)
+        }
+        
+        return nil
+    }
+
+    
     // Should not be used with strings that are not ISO formatted
     func convertISOToHoursAndMinutes() -> String? {
         let dateFormatter = ISO8601DateFormatter()

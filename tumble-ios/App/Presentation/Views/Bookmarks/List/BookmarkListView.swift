@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-typealias OnTapCard = (Response.Event, Color) -> Void
 
 struct BookmarksListModel {
     var scrollViewOffset: CGFloat = .zero
@@ -19,7 +18,7 @@ struct BookmarkListView: View {
     
     let days: [DayUiModel]
     let courseColors: CourseAndColorDict
-    let onTapCard: OnTapCard
+    @ObservedObject var parentViewModel: BookmarkPageViewModel
     @State private var bookmarksListModel: BookmarksListModel = BookmarksListModel()
     
     var body: some View {
@@ -73,6 +72,10 @@ struct BookmarkListView: View {
                 ,alignment: .bottomTrailing
             )
         }
+    }
+    
+    fileprivate func onTapCard(event: Response.Event, color: Color) -> Void {
+        parentViewModel.eventSheet = EventDetailsSheetModel(event: event, color: color)
     }
     
     fileprivate func handleButtonAnimation() -> Void {

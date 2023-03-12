@@ -12,14 +12,16 @@ struct EventDetailsSheet: View {
     @ObservedObject var viewModel: EventDetailsSheetViewModel
     @State var presentColorPicker: Bool = false
     
-    let createToast: (ToastStyle, String, String) -> Void
     let updateCourseColors: () -> Void
     
     var body: some View {
         ScrollView {
             VStack (spacing: 0) {
-                EventDetailsCard(createToast: createToast, openColorPicker: openColorPicker, event: viewModel.event, color: viewModel.color)
-                    .environmentObject(viewModel)
+                EventDetailsCard(
+                    parentViewModel: viewModel,
+                    openColorPicker: openColorPicker,
+                    event: viewModel.event,
+                    color: viewModel.color)
                 EventDetailsBody(event: viewModel.event)
                 Spacer()
             }

@@ -16,7 +16,7 @@ struct AccountPage: View {
     var body: some View {
         VStack (alignment: .center) {
             if viewModel.userController.authStatus == .authorized || viewModel.userController.refreshToken != nil {
-                UserOverview(viewModel: viewModel, schoolName: viewModel.school?.name ?? "", createToast: createToast, updateUserImage: updateUserImage)
+                UserOverview(viewModel: viewModel, schoolName: viewModel.school?.name ?? "", createToast: createToast)
             } else {
                 if viewModel.status == .loading {
                     InfoLoading(title: "Attempting to log in user")
@@ -25,10 +25,6 @@ struct AccountPage: View {
                 }
             }
         }
-    }
-    
-    fileprivate func updateUserImage(image: UIImage) -> Void {
-        viewModel.userController.profilePicture = image
     }
     
 }

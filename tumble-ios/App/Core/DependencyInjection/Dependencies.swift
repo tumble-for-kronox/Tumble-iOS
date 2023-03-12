@@ -17,6 +17,7 @@ actor Dependencies {
         @Provider var courseColorService = CourseColorService()
         @Provider var authManager = AuthManager()
         @Provider var userController = UserController()
+        @Provider var toastController = ToastController()
     }
 }
 

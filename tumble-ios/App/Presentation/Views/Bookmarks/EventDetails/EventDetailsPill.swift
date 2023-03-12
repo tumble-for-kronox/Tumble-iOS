@@ -12,9 +12,13 @@ struct EventDetailsPill: View {
     let title: String
     let image: String
     let onTap: () -> Void
+    @Namespace private var pillNamespace
     
     var body: some View {
-        Button(action: onTap, label: {
+        Button(action: {
+            HapticsController.triggerHapticMedium()
+            onTap()
+        }, label: {
             HStack {
                 Image(systemName: image)
                     .font(.system(size: 14))
@@ -23,10 +27,10 @@ struct EventDetailsPill: View {
                     .font(.system(size: 15, weight: .semibold, design: .rounded))
                     .multilineTextAlignment(.leading)
                     .foregroundColor(.onSurface)
+                    .matchedGeometryEffect(id: title, in: pillNamespace)
             }
             .padding(.all, 10)
-            .background(Color.surface)
-            .cornerRadius(20)
         })
+        .buttonStyle(EventDetailsPillStyle())
     }
 }

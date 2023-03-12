@@ -71,6 +71,9 @@
 		D45338FB2929730200198411 /* CustomProgressIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45338FA2929730200198411 /* CustomProgressIndicator.swift */; };
 		D45338FD29297C8B00198411 /* DayUIModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45338FC29297C8B00198411 /* DayUIModel.swift */; };
 		D45338FF2929805100198411 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45338FE2929805100198411 /* StringExtensions.swift */; };
+		D454203C29BE857500EF0FC9 /* ToastController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D454203B29BE857500EF0FC9 /* ToastController.swift */; };
+		D454203E29BE914800EF0FC9 /* EventDetailsPillStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D454203D29BE914800EF0FC9 /* EventDetailsPillStyle.swift */; };
+		D454204129BE982000EF0FC9 /* HapticsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D454204029BE982000EF0FC9 /* HapticsController.swift */; };
 		D4563E7E2985F96C003261FA /* NetworkSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4563E7D2985F96C003261FA /* NetworkSettings.swift */; };
 		D4563E802985FBFB003261FA /* NetworkExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4563E7F2985FBFB003261FA /* NetworkExtensions.swift */; };
 		D4607632292AA39400DE9590 /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4607631292AA39400DE9590 /* Types.swift */; };
@@ -247,6 +250,9 @@
 		D45338FA2929730200198411 /* CustomProgressIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomProgressIndicator.swift; sourceTree = "<group>"; };
 		D45338FC29297C8B00198411 /* DayUIModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayUIModel.swift; sourceTree = "<group>"; };
 		D45338FE2929805100198411 /* StringExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
+		D454203B29BE857500EF0FC9 /* ToastController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastController.swift; sourceTree = "<group>"; };
+		D454203D29BE914800EF0FC9 /* EventDetailsPillStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailsPillStyle.swift; sourceTree = "<group>"; };
+		D454204029BE982000EF0FC9 /* HapticsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticsController.swift; sourceTree = "<group>"; };
 		D4563E7D2985F96C003261FA /* NetworkSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkSettings.swift; sourceTree = "<group>"; };
 		D4563E7F2985FBFB003261FA /* NetworkExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkExtensions.swift; sourceTree = "<group>"; };
 		D4607631292AA39400DE9590 /* Types.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Types.swift; sourceTree = "<group>"; };
@@ -520,6 +526,7 @@
 		D41ED5432984336B009DCF8B /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				D454203F29BE981600EF0FC9 /* Haptics */,
 				D4644A24298DAA3F00B0BB28 /* Notifications */,
 				D46ABF0729843A4600B059F6 /* DataSource */,
 				D41ADFE5299F8D230074E2C7 /* Constants */,
@@ -642,6 +649,7 @@
 			children = (
 				D42DFD5B29BD5920002942D7 /* SidebarSheetButtonStyle.swift */,
 				D42DFD5D29BD5BC9002942D7 /* ExternalLinkPillStyle.swift */,
+				D454203D29BE914800EF0FC9 /* EventDetailsPillStyle.swift */,
 			);
 			path = Styles;
 			sourceTree = "<group>";
@@ -691,6 +699,14 @@
 				D43752E5298F33110037A431 /* HomePageOption.swift */,
 			);
 			path = Home;
+			sourceTree = "<group>";
+		};
+		D454203F29BE981600EF0FC9 /* Haptics */ = {
+			isa = PBXGroup;
+			children = (
+				D454204029BE982000EF0FC9 /* HapticsController.swift */,
+			);
+			path = Haptics;
 			sourceTree = "<group>";
 		};
 		D4563E7C2985F960003261FA /* NetworkSettings */ = {
@@ -1007,6 +1023,7 @@
 			children = (
 				D4A433BD29953AD300BFEB7A /* AppController.swift */,
 				D49D24FF299A9495001D2751 /* UserController.swift */,
+				D454203B29BE857500EF0FC9 /* ToastController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1354,6 +1371,7 @@
 				D46081552930053E00FFFB44 /* ScheduleService.swift in Sources */,
 				D40D80CE29265D49008CA68D /* SearchBar.swift in Sources */,
 				D4D4CD1C299CE86400D48180 /* UpcomingEventCard.swift in Sources */,
+				D454203C29BE857500EF0FC9 /* ToastController.swift in Sources */,
 				D421EAF02993FB660045D438 /* EventDetailsSheetModel.swift in Sources */,
 				D46ABF1229843D3000B059F6 /* StoreKey.swift in Sources */,
 				D40D80B429252A5A008CA68D /* PreferenceService.swift in Sources */,
@@ -1434,6 +1452,7 @@
 				D4E83ED12999B1B1002E5F88 /* AuthManager.swift in Sources */,
 				D4A550CF299454F700028BCF /* ScheduleStoreModel.swift in Sources */,
 				D4607632292AA39400DE9590 /* Types.swift in Sources */,
+				D454203E29BE914800EF0FC9 /* EventDetailsPillStyle.swift in Sources */,
 				D4607653292AF5DA00DE9590 /* DayHeader.swift in Sources */,
 				D4D4CD21299D273A00D48180 /* HTTPURLResponseExtension.swift in Sources */,
 				D49D2502299AC240001D2751 /* ImagePicker.swift in Sources */,
@@ -1441,6 +1460,7 @@
 				D4D4CD13299CE4EF00D48180 /* EventBanner.swift in Sources */,
 				D40D80A629252165008CA68D /* ViewExtensions.swift in Sources */,
 				D4EAD3B9298D633B00678DF8 /* NetworkManagerProtocol.swift in Sources */,
+				D454204129BE982000EF0FC9 /* HapticsController.swift in Sources */,
 				D42DFD5E29BD5BC9002942D7 /* ExternalLinkPillStyle.swift in Sources */,
 				D476BD2E293A32BF0027CFE8 /* RoundedCornerShape.swift in Sources */,
 				D45338FD29297C8B00198411 /* DayUIModel.swift in Sources */,
