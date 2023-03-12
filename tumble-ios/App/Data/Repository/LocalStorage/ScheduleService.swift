@@ -27,6 +27,7 @@ class ScheduleService: ObservableObject, ScheduleServiceProtocol {
                         return
                     }
                 let schedules = try JSONDecoder().decode([ScheduleStoreModel].self, from: file.availableData)
+                AppLogger.shared.info("Found schedules ")
                 DispatchQueue.main.async {
                     completion(.success(schedules))
                 }
@@ -37,6 +38,35 @@ class ScheduleService: ObservableObject, ScheduleServiceProtocol {
                 }
             }
     }
+    
+    func load(with id: String, completion: @escaping (Result<ScheduleStoreModel, Error>) -> Void) -> Void {
+        DispatchQueue.global(qos: .background).async {
+            do {
+                let fileURL = try self.fileURL()
+                guard let file = try? FileHandle(forReadingFrom: fileURL) else {
+                    DispatchQueue.main.async {
+                        completion(.failure(.internal(reason: "Could not load file handle")))
+                    }
+                    return
+                }
+                let schedules = try JSONDecoder().decode([ScheduleStoreModel].self, from: file.availableData)
+                if let schedule = schedules.first(where: { $0.id == id }) {
+                    DispatchQueue.main.async {
+                        completion(.success(schedule))
+                    }
+                } else {
+                    DispatchQueue.main.async {
+                        completion(.failure(.internal(reason: "No schedule with specified id found")))
+                    }
+                }
+            } catch {
+                DispatchQueue.main.async {
+                    completion(.failure(.internal(reason: "Could not decode schedules stored locally")))
+                }
+            }
+        }
+    }
+
 
     func save(schedule: Response.Schedule, completion: @escaping (Result<Int, Error>)->Void) {
         DispatchQueue.global(qos: .background).async {

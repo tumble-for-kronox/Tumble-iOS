@@ -31,17 +31,12 @@ struct SidebarMenu: View {
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 75, height: 75)
                     .cornerRadius(10)
-                Button(action: {
-                    // Log out action
-                }, label: {
-                    // Should be replaced based on if user is signed in or not
-                    Text(viewModel.universityName ?? "")
-                            .font(.system(size: 20, design: .rounded))
-                            .fontWeight(.semibold)
-                            .multilineTextAlignment(.leading)
-                            .foregroundColor(.surface)
-                            .padding(.top, 10)
-                })
+                Text(viewModel.universityName ?? "")
+                    .font(.system(size: 20, design: .rounded))
+                    .fontWeight(.semibold)
+                    .multilineTextAlignment(.leading)
+                    .foregroundColor(.surface)
+                    .padding(.top, 10)
             }
             .padding(.leading, 10)
             .padding(.top, 40)

@@ -39,6 +39,9 @@ enum SchedulePreviewStatus {
     @Published var schedulePreviewIsSaved: Bool = false
     @Published var courseColors: [String : String]? = nil
     @Published var school: School?
+    @Published var errorMessage: String? = nil
+    @Published var previewButtonState: ButtonState = .loading
+    
     
     
     init() {
@@ -93,7 +96,7 @@ enum SchedulePreviewStatus {
     
     func onSearchProgrammes(searchQuery: String) -> Void {
         self.status = .loading
-        networkManager.get(.searchProgramme(searchQuery: searchQuery, schoolId: String(school!.id)), sessionToken: nil) { [weak self] (result: Result<Response.Search, Error>) in
+        networkManager.get(.searchProgramme(searchQuery: searchQuery, schoolId: String(school!.id)), sessionToken: nil) { [weak self] (result: Result<Response.Search, Response.ErrorMessage>) in
             DispatchQueue.main.async {
                 guard let self = self else { return }
                 switch result {
@@ -116,18 +119,33 @@ enum SchedulePreviewStatus {
     }
     
     
-    func onBookmark(checkForNewSchedules: @escaping () -> Void) -> ButtonState {
-        // If the schedule isn't already saved in the local database
-        if !self.schedulePreviewIsSaved {
-            self.saveSchedule(checkForNewSchedules: checkForNewSchedules)
-            self.preferenceService.setBookmarks(bookmark: scheduleForPreview!.id)
-            return .saved
-        }
-        // Otherwise we remove (untoggle) the schedule
-        else {
-            self.removeSchedule(checkForNewSchedules: checkForNewSchedules)
-            return .notSaved
-        }
+    func onBookmark(
+        updateButtonState: @escaping () -> Void,
+        checkForNewSchedules: @escaping () -> Void) -> Void {
+            DispatchQueue.main.async {
+                self.previewButtonState = .loading
+            }
+            // If the schedule isn't already saved in the local database
+            if !self.schedulePreviewIsSaved {
+                self.saveSchedule(completion: {
+                    DispatchQueue.main.async {
+                        self.preferenceService.setBookmarks(bookmark: self.scheduleForPreview!.id)
+                        self.previewButtonState = .saved
+                        updateButtonState()
+                        checkForNewSchedules()
+                    }
+                })
+            }
+            // Otherwise we remove (untoggle) the schedule
+            else {
+                self.removeSchedule(completion: {
+                    DispatchQueue.main.async {
+                        self.previewButtonState = .notSaved
+                        updateButtonState()
+                        checkForNewSchedules()
+                    }
+                })
+            }
     }
 
     
@@ -135,6 +153,7 @@ enum SchedulePreviewStatus {
         self.programmeSearchResults = []
         self.status = .initial
     }
+    
 }
 
 
@@ -142,22 +161,23 @@ enum SchedulePreviewStatus {
 extension SearchViewModel {
     
     // Checks if a schedule based on its programme Id is already in the
-    // local storage -> schedulePreviewIsSaved = true
+    // local storage. if it is, we set the preview button for favoriting
+    // to be either save or remove.
     fileprivate func checkSavedSchedule(programmeId: String, closure: @escaping () -> Void) -> Void {
-        scheduleService.load { [weak self] result in
+        AppLogger.shared.info("Checking if schedule is already saved...")
+        scheduleService.load(with: programmeId) { [weak self] result in
             DispatchQueue.main.async {
                 guard let self = self else { return }
                 switch result {
                 case .failure(_):
                     AppLogger.shared.info("Schedule was not previously saved")
+                    self.schedulePreviewIsSaved = false
+                    self.previewButtonState = .notSaved
                     break
-                case .success(let schedule):
-                    if !schedule.isEmpty {
-                        if (schedule.contains(where: { $0.id == programmeId })) {
-                            self.schedulePreviewIsSaved = true
-                            AppLogger.shared.info("Schedule is already saved")
-                        }
-                    }
+                case .success(_):
+                    self.schedulePreviewIsSaved = true
+                    self.previewButtonState = .saved
+                    AppLogger.shared.info("Schedule is already saved")
                 }
                 closure()
             }
@@ -194,7 +214,7 @@ extension SearchViewModel {
     
     // API Call to fetch a schedule from backend
     fileprivate func fetchSchedule(programmeId: String, closure: @escaping () -> Void) -> Void {
-        networkManager.get(.schedule(scheduleId: programmeId, schoolId: String(school!.id))) { [weak self] (result: Result<Response.Schedule, Error>) in
+        networkManager.get(.schedule(scheduleId: programmeId, schoolId: String(school!.id))) { [weak self] (result: Result<Response.Schedule, Response.ErrorMessage>) in
             DispatchQueue.main.async {
                 guard let self = self else { return }
                 switch result {
@@ -205,6 +225,7 @@ extension SearchViewModel {
                     }
                 case .failure(let error):
                     self.schedulePreviewStatus = .error
+                    self.errorMessage = error.message
                     AppLogger.shared.info("Encountered error when attempting to load schedule for programme \(programmeId): \(error)")
                 }
             }
@@ -218,23 +239,24 @@ extension SearchViewModel {
     }
     
     
-    fileprivate func saveSchedule(checkForNewSchedules: @escaping () -> Void) -> Void {
+    fileprivate func saveSchedule(completion: @escaping () -> Void) -> Void {
         scheduleService.save(schedule: self.scheduleForPreview!) { [weak self] scheduleResult in
             DispatchQueue.main.async {
                 guard let self = self else { return }
                 if case .failure(let error) = scheduleResult {
-                    fatalError(error.localizedDescription)
+                    AppLogger.shared.info("Fatal error \(error)")
+                    return
                 } else {
                     self.saveCourseColors(courseColors: (self.courseColors!))
                     self.schedulePreviewIsSaved = true
-                    checkForNewSchedules()
+                    completion()
                 }
             }
         }
     }
     
     
-    fileprivate func removeSchedule(checkForNewSchedules: @escaping () -> Void) -> Void {
+    fileprivate func removeSchedule(completion: @escaping () -> Void) -> Void {
         scheduleService.remove(scheduleId: self.scheduleForPreview!.id) { [weak self] result in
             DispatchQueue.main.async {
                 guard let self = self else { return }
@@ -242,18 +264,24 @@ extension SearchViewModel {
                     fatalError(error.localizedDescription)
                 } else {
                     self.schedulePreviewIsSaved = false
-                    self.courseColorService.remove(removeCourses: (self.scheduleForPreview!.courses())) { result in
-                        if case .failure(let error) = result {
-                            fatalError(error.localizedDescription)
-                        } else {
-                            AppLogger.shared.info("Removed course colors")
-                            checkForNewSchedules()
-                        }
-                    }
+                    self.removeCourseColors(completion: completion)
                 }
             }
         }
     }
+
+    fileprivate func removeCourseColors(completion: @escaping () -> Void) -> Void {
+        courseColorService.remove(removeCourses: (self.scheduleForPreview!.courses())) { result in
+            if case .failure(let error) = result {
+                AppLogger.shared.info("Fatal error \(error)")
+                return
+            } else {
+                AppLogger.shared.info("Removed course colors")
+                completion()
+            }
+        }
+    }
+
     
     
     fileprivate func loadProgrammeCourseColors(closure: @escaping ([String : String]) -> Void) -> Void {

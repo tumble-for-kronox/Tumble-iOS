@@ -28,10 +28,10 @@ class NetworkManager: NetworkManagerProtocol {
     }
     
     // [HTTP GET]
-    func get<Response: Decodable>(
+    func get<NetworkResponse: Decodable>(
         _ endpoint: Endpoint,
         sessionToken: String? = nil,
-        then completion: ((Result<Response, Error>) -> Void)? = nil
+        then completion: ((Result<NetworkResponse, Response.ErrorMessage>) -> Void)? = nil
     ) {
         let body: Request.Empty? = nil
         self.createRequest(sessionToken: sessionToken, endpoint: endpoint, method: .get, body: body) { result in
@@ -40,10 +40,10 @@ class NetworkManager: NetworkManagerProtocol {
     }
     
     // [HTTP PUT]
-    func put<Response: Decodable>(
+    func put<NetworkResponse: Decodable>(
         _ endpoint: Endpoint,
         sessionToken: String? = nil,
-        then completion: ((Result<Response, Error>) -> Void)? = nil
+        then completion: ((Result<NetworkResponse, Response.ErrorMessage>) -> Void)? = nil
     ) {
         let body: Request.Empty? = nil
         self.createRequest(sessionToken: sessionToken, endpoint: endpoint, method: .put, body: body) { result in
@@ -52,11 +52,11 @@ class NetworkManager: NetworkManagerProtocol {
     }
     
     // [HTTP POST]
-    func post<Response: Decodable, Request: Encodable>(
+    func post<NetworkResponse: Decodable, Request: Encodable>(
         _ endpoint: Endpoint,
         sessionToken: String? = nil,
         body: Request,
-        then completion: ((Result<Response, Error>) -> Void)? = nil
+        then completion: ((Result<NetworkResponse, Response.ErrorMessage>) -> Void)? = nil
     ) {
         self.createRequest(sessionToken: sessionToken, endpoint: endpoint, method: .post, body: body) { result in
             completion?(result)
@@ -66,15 +66,15 @@ class NetworkManager: NetworkManagerProtocol {
     
     
     // Adds network request to serial queue
-    fileprivate func createRequest<Request: Encodable, Response: Decodable>(
+    fileprivate func createRequest<Request: Encodable, NetworkResponse: Decodable>(
         sessionToken: String?,
         endpoint: Endpoint,
         method: Method,
         body: Request? = nil,
-        completion: @escaping (Result<Response, Error>) -> Void) {
+        completion: @escaping (Result<NetworkResponse, Response.ErrorMessage>) -> Void) {
             serialQueue.addOperation {
                 let semaphore = DispatchSemaphore(value: 0)
-                self.processNetworkRequest(sessionToken: sessionToken, endpoint: endpoint, method: method, body: body, completion: { (result: Result<Response, Error>) in
+                self.processNetworkRequest(sessionToken: sessionToken, endpoint: endpoint, method: method, body: body, completion: { (result: Result<NetworkResponse, Response.ErrorMessage>) in
                     completion(result)
                     semaphore.signal()
                 })
@@ -84,14 +84,14 @@ class NetworkManager: NetworkManagerProtocol {
     
     
     // Processes the queued network request, creating a URLSessionDataTask
-    fileprivate func processNetworkRequest<Request: Encodable, Response: Decodable>(
+    fileprivate func processNetworkRequest<Request: Encodable, NetworkResponse: Decodable>(
         sessionToken: String?,
         endpoint: Endpoint,
         method: Method,
         body: Request? = nil,
-        completion: @escaping (Result<Response, Error>) -> Void) {
+        completion: @escaping (Result<NetworkResponse, Response.ErrorMessage>) -> Void) {
             guard let urlRequest = createUrlRequest(method: method, endpoint: endpoint, sessionToken: sessionToken, body: body) else {
-                completion(.failure(.internal(reason: "Could not encode request body")))
+                completion(.failure(Response.ErrorMessage(message: "Something went wrong on our end")))
                 return
             }
             
@@ -101,44 +101,48 @@ class NetworkManager: NetworkManagerProtocol {
     
     
     // Creates a URLSessionDataTask that handles all possible response cases
-    fileprivate func createUrlSessionDataTask<Response: Decodable>(
+    fileprivate func createUrlSessionDataTask<NetworkResponse: Decodable>(
         urlRequest: URLRequest,
-        completion: @escaping (Result<Response, Error>) -> Void) -> URLSessionDataTask {
+        completion: @escaping (Result<NetworkResponse, Response.ErrorMessage>) -> Void) -> URLSessionDataTask {
             return self.session
                 .dataTask(with: urlRequest) { data, response, error in
-                    if let error = error {
-                        completion(.failure(.generic(reason: "Could not fetch data: \(error)")))
+                    if let _ = error {
+                        completion(.failure(Response.ErrorMessage(message: "Could not contact the server")))
                         return
                     }
                     
-                    guard let httpUrlResponse = response as? HTTPURLResponse else {
-                        completion(.failure(.generic(reason: "Invalid response")))
+                    guard let httpUrlNetworkResponse = response as? HTTPURLResponse else {
+                        completion(.failure(Response.ErrorMessage(message: "Could not contact the server")))
                         return
                     }
                     
                     guard let data = data else {
-                        completion(.failure(.internal(reason: "Data is nil")))
+                        completion(.failure(Response.ErrorMessage(message: "Something went wrong on our end")))
                         return
                     }
                     
                     do {
                         guard !data.isEmpty else {
-                            if let result = httpUrlResponse.toHttpResponseObject() as? Response {
-                                if httpUrlResponse.statusCode > 200 {
-                                    completion(.failure(.generic(reason: "ERROR STATUS: RESPONSE -> \(httpUrlResponse.statusCode)")))
+                            if let result = httpUrlNetworkResponse.toHttpResponseObject() as? NetworkResponse {
+                                if httpUrlNetworkResponse.statusCode > 200 {
+                                    completion(.failure(Response.ErrorMessage(message: "Something went wrong on our end")))
                                     return
                                 }
-                                AppLogger.shared.info("SUCCESS STATUS: RESPONSE -> \(httpUrlResponse.statusCode)")
                                 completion(.success(result))
                                 return
                             }
-                            completion(.failure(.internal(reason: "Could not convert response to HTTPResponse")))
+                            completion(.failure(Response.ErrorMessage(message: "Could not contact the server")))
                             return
                         }
-                        let result = try self.decoder.decode(Response.self, from: data)
+                        let result = try self.decoder.decode(NetworkResponse.self, from: data)
                         completion(.success(result))
                     } catch {
-                        completion(.failure(.generic(reason: "Could not decode data: \(error)")))
+                        do {
+                            let result = try self.decoder.decode(Response.ErrorMessage.self, from: data)
+                            completion(.failure(result))
+                        } catch {
+                            completion(.failure(Response.ErrorMessage(message: "Something went wrong on our end")))
+                        }
                     }
                 }
         }
@@ -168,6 +172,7 @@ class NetworkManager: NetworkManagerProtocol {
                     return nil
                 }
             }
+            AppLogger.shared.info("\(urlRequest)")
             return urlRequest
         }
 }

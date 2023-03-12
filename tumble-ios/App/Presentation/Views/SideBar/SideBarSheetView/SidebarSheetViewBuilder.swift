@@ -25,13 +25,13 @@ struct SidebarSheetViewBuilder<Content : View>: View {
                 Text(header)
                     .sheetTitle()
                 Spacer()
-                Button(action: dismiss, label: {
-                    Text("Done")
-                        .font(.system(size: 22, weight: .semibold, design: .rounded))
-                        .foregroundColor(.primary)
-                        .padding([.bottom, .top], 20)
-                        .padding([.leading, .trailing], 20)
-                })
+                //Button(action: dismiss, label: {
+                //    Text("Done")
+                //        .font(.system(size: 20, weight: .semibold, design: .rounded))
+                //        .foregroundColor(.primary)
+                //        .padding([.bottom, .top], 20)
+                //        .padding([.leading, .trailing], 20)
+                //})
             }
             Divider()
                 .padding(.bottom, 15)

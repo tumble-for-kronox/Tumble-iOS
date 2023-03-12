@@ -267,7 +267,7 @@ extension BookmarkPageViewModel {
             .schedule(
                 scheduleId: scheduleId,
                 schoolId: String(preferenceService.getDefaultSchool()!.id)),
-            sessionToken: nil) { (result: Result<Response.Schedule, Error>) in
+            sessionToken: nil) { (result: Result<Response.Schedule, Response.ErrorMessage>) in
             switch result {
             case .failure(let error):
                 AppLogger.shared.info("Encountered error when attempting to update schedule -> \(scheduleId): \(error)")

@@ -25,9 +25,7 @@ struct ExternalLinkPill: View {
                     .font(.system(size: 15, weight: .semibold, design: .rounded))
                     .foregroundColor(.onSurface)
             }
-            .padding(.all, 10)
-            .background(Color.surface)
-            .cornerRadius(20)
         })
+        .buttonStyle(ExternalLinkPillStyle())
     }
 }

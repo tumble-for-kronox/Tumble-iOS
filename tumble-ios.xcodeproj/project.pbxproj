@@ -47,6 +47,8 @@
 		D42BAC23298D5BFA0025EAA9 /* DependencyInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42BAC22298D5BFA0025EAA9 /* DependencyInjector.swift */; };
 		D42BAC25298D5EBC0025EAA9 /* Dependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42BAC24298D5EBC0025EAA9 /* Dependencies.swift */; };
 		D42DFD5929BD3273002942D7 /* SidebarSheetButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42DFD5829BD3273002942D7 /* SidebarSheetButton.swift */; };
+		D42DFD5C29BD5920002942D7 /* SidebarSheetButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42DFD5B29BD5920002942D7 /* SidebarSheetButtonStyle.swift */; };
+		D42DFD5E29BD5BC9002942D7 /* ExternalLinkPillStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42DFD5D29BD5BC9002942D7 /* ExternalLinkPillStyle.swift */; };
 		D43419A429853F34001089A0 /* OnBoarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43419A329853F34001089A0 /* OnBoarding.swift */; };
 		D43419A9298546B0001089A0 /* FeatureCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43419A8298546B0001089A0 /* FeatureCard.swift */; };
 		D43419AE29854E6B001089A0 /* OnBoardingViewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43419AD29854E6B001089A0 /* OnBoardingViewBuilder.swift */; };
@@ -144,7 +146,6 @@
 		D4CE2DB22982DD3500B81052 /* BookmarkCardBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CE2DB12982DD3500B81052 /* BookmarkCardBanner.swift */; };
 		D4CE2DB42982DDFE00B81052 /* BookmarkCardInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CE2DB32982DDFE00B81052 /* BookmarkCardInformation.swift */; };
 		D4CE2DBD2982E55200B81052 /* NavigationbarSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CE2DBC2982E55200B81052 /* NavigationbarSearch.swift */; };
-		D4CF9B282935633800DDB5F0 /* SchedulePreviewError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CF9B272935633800DDB5F0 /* SchedulePreviewError.swift */; };
 		D4CF9B2A2935634800DDB5F0 /* SearchError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CF9B292935634800DDB5F0 /* SearchError.swift */; };
 		D4CF9B2C293572BE00DDB5F0 /* Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CF9B2B293572BE00DDB5F0 /* Info.swift */; };
 		D4D29960299B067C003B8C65 /* UIImageViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D2995F299B067C003B8C65 /* UIImageViewExtension.swift */; };
@@ -222,6 +223,8 @@
 		D42BAC22298D5BFA0025EAA9 /* DependencyInjector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyInjector.swift; sourceTree = "<group>"; };
 		D42BAC24298D5EBC0025EAA9 /* Dependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dependencies.swift; sourceTree = "<group>"; };
 		D42DFD5829BD3273002942D7 /* SidebarSheetButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarSheetButton.swift; sourceTree = "<group>"; };
+		D42DFD5B29BD5920002942D7 /* SidebarSheetButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarSheetButtonStyle.swift; sourceTree = "<group>"; };
+		D42DFD5D29BD5BC9002942D7 /* ExternalLinkPillStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalLinkPillStyle.swift; sourceTree = "<group>"; };
 		D43419A329853F34001089A0 /* OnBoarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoarding.swift; sourceTree = "<group>"; };
 		D43419A8298546B0001089A0 /* FeatureCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureCard.swift; sourceTree = "<group>"; };
 		D43419AD29854E6B001089A0 /* OnBoardingViewBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingViewBuilder.swift; sourceTree = "<group>"; };
@@ -319,7 +322,6 @@
 		D4CE2DB12982DD3500B81052 /* BookmarkCardBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkCardBanner.swift; sourceTree = "<group>"; };
 		D4CE2DB32982DDFE00B81052 /* BookmarkCardInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkCardInformation.swift; sourceTree = "<group>"; };
 		D4CE2DBC2982E55200B81052 /* NavigationbarSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationbarSearch.swift; sourceTree = "<group>"; };
-		D4CF9B272935633800DDB5F0 /* SchedulePreviewError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulePreviewError.swift; sourceTree = "<group>"; };
 		D4CF9B292935634800DDB5F0 /* SearchError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchError.swift; sourceTree = "<group>"; };
 		D4CF9B2B293572BE00DDB5F0 /* Info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Info.swift; sourceTree = "<group>"; };
 		D4D2995F299B067C003B8C65 /* UIImageViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageViewExtension.swift; sourceTree = "<group>"; };
@@ -531,6 +533,7 @@
 		D41ED54429843371009DCF8B /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				D42DFD5A29BD5911002942D7 /* Styles */,
 				D40D809E292520AA008CA68D /* ViewModifiers */,
 				D4607648292AE77200DE9590 /* Shapes */,
 				D460763E292AB16300DE9590 /* Types */,
@@ -632,6 +635,15 @@
 				D4D4CD19299CE5FF00D48180 /* SectionDivider.swift */,
 			);
 			path = Booking;
+			sourceTree = "<group>";
+		};
+		D42DFD5A29BD5911002942D7 /* Styles */ = {
+			isa = PBXGroup;
+			children = (
+				D42DFD5B29BD5920002942D7 /* SidebarSheetButtonStyle.swift */,
+				D42DFD5D29BD5BC9002942D7 /* ExternalLinkPillStyle.swift */,
+			);
+			path = Styles;
 			sourceTree = "<group>";
 		};
 		D43419A229853EAF001089A0 /* Onboarding */ = {
@@ -898,7 +910,6 @@
 			isa = PBXGroup;
 			children = (
 				D460764D292AF21900DE9590 /* SchedulePreview.swift */,
-				D4CF9B272935633800DDB5F0 /* SchedulePreviewError.swift */,
 				D476BD29293A31FD0027CFE8 /* SchedulePreviewList.swift */,
 				D476BD2B293A326C0027CFE8 /* SchedulePreviewCard.swift */,
 				D4861DEA29834E1900C4CA6F /* PreviewCardBanner.swift */,
@@ -1343,7 +1354,6 @@
 				D46081552930053E00FFFB44 /* ScheduleService.swift in Sources */,
 				D40D80CE29265D49008CA68D /* SearchBar.swift in Sources */,
 				D4D4CD1C299CE86400D48180 /* UpcomingEventCard.swift in Sources */,
-				D4CF9B282935633800DDB5F0 /* SchedulePreviewError.swift in Sources */,
 				D421EAF02993FB660045D438 /* EventDetailsSheetModel.swift in Sources */,
 				D46ABF1229843D3000B059F6 /* StoreKey.swift in Sources */,
 				D40D80B429252A5A008CA68D /* PreferenceService.swift in Sources */,
@@ -1384,6 +1394,7 @@
 				D46BB10A298AC31E00887A24 /* EventDetailsBodyBuilder.swift in Sources */,
 				D4A433BC29952BE600BFEB7A /* DictionaryExtension.swift in Sources */,
 				D4E39E402989DDDC004C30DF /* EventDetailsBody.swift in Sources */,
+				D42DFD5C29BD5920002942D7 /* SidebarSheetButtonStyle.swift in Sources */,
 				D4E39E3A2989CE84004C30DF /* EventDetailsSheet.swift in Sources */,
 				D4FF4726299156FC0080C898 /* ScheduleStoreObjectExtension.swift in Sources */,
 				D4A550D129946B8200028BCF /* Bookmark.swift in Sources */,
@@ -1430,6 +1441,7 @@
 				D4D4CD13299CE4EF00D48180 /* EventBanner.swift in Sources */,
 				D40D80A629252165008CA68D /* ViewExtensions.swift in Sources */,
 				D4EAD3B9298D633B00678DF8 /* NetworkManagerProtocol.swift in Sources */,
+				D42DFD5E29BD5BC9002942D7 /* ExternalLinkPillStyle.swift in Sources */,
 				D476BD2E293A32BF0027CFE8 /* RoundedCornerShape.swift in Sources */,
 				D45338FD29297C8B00198411 /* DayUIModel.swift in Sources */,
 				D46BB10C298ADDF600887A24 /* CustomCorners.swift in Sources */,

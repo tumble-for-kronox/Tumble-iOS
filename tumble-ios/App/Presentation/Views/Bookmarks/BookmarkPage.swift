@@ -44,7 +44,6 @@ struct BookmarkPage: View {
                     }
                     Spacer()
                 case .loaded:
-                    
                     switch viewModel.defaultViewType {
                     case .list:
                         BookmarkListView(days: viewModel.scheduleListOfDays, courseColors: viewModel.courseColors, onTapCard: onTapCard)

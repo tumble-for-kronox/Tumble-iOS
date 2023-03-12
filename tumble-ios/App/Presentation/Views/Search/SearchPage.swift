@@ -25,7 +25,7 @@ struct SearchPage: View {
                         CustomProgressIndicator()
                             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
                     case .loaded:
-                    SearchResults(searchText: searchBarText, numberOfSearchResults: viewModel.programmeSearchResults.count, searchResults: viewModel.programmeSearchResults, onOpenProgramme: onOpenProgramme, universityImage: $universityImage)
+                        SearchResults(searchText: searchBarText, numberOfSearchResults: viewModel.programmeSearchResults.count, searchResults: viewModel.programmeSearchResults, onOpenProgramme: onOpenProgramme, universityImage: $universityImage)
                     case .error:
                         SearchError()
                     case .empty:
@@ -36,8 +36,11 @@ struct SearchPage: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
         }
         .sheet(isPresented: $viewModel.presentPreview) {
-            SchedulePreview(courseColors: $viewModel.courseColors, checkForNewSchedules: checkForNewSchedules)
-                .environmentObject(viewModel)
+            SchedulePreview(
+                parentViewModel: viewModel,
+                courseColors: $viewModel.courseColors,
+                checkForNewSchedules: checkForNewSchedules
+            )
         }
     }
     

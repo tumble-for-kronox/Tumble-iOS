@@ -282,4 +282,8 @@ public enum Response {
         }
     }
 
+    struct ErrorMessage: Codable, LocalizedError {
+        let message: String
+    }
+    
 }
