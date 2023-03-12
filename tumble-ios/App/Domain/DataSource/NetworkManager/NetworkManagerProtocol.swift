@@ -9,9 +9,19 @@ import Foundation
 
 protocol NetworkManagerProtocol {
     
-    func get<Response: Decodable>(_ endpoint: Endpoint, sessionToken: String?, then completion: ((Result<Response, Error>) -> Void)?)
+    func get<NetworkResponse: Decodable>(
+        _ endpoint: Endpoint,
+        sessionToken: String?,
+        then completion: ((Result<NetworkResponse, Response.ErrorMessage>) -> Void)?)
     
-    func put<Response: Decodable>(_ endpoint: Endpoint, sessionToken: String?, then completion: ((Result<Response, Error>) -> Void)?)
+    func put<NetworkResponse: Decodable>(
+        _ endpoint: Endpoint,
+        sessionToken: String?,
+        then completion: ((Result<NetworkResponse, Response.ErrorMessage>) -> Void)?)
     
-    func post<Response: Decodable, Request: Encodable>(_ endpoint: Endpoint, sessionToken: String?, body: Request, then completion: ((Result<Response, Error>) -> Void)?)
+    func post<NetworkResponse: Decodable, Request: Encodable>(
+        _ endpoint: Endpoint,
+        sessionToken: String?,
+        body: Request,
+        then completion: ((Result<NetworkResponse, Response.ErrorMessage>) -> Void)?)
 }

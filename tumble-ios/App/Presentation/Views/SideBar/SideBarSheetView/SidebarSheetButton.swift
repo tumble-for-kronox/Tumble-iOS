@@ -15,20 +15,21 @@ struct SidebarSheetButton: View {
 
     var body: some View {
         Button(action: onClick) {
-            Image(systemName: image)
-                .font(.system(size: 20))
-                .frame(width: 30)
-                .padding(.trailing, 15)
-                .foregroundColor(.primary)
-            Text(title)
-                .multilineTextAlignment(.leading)
-                .font(.system(size: 20, weight: .semibold, design: .rounded))
-                .foregroundColor(.onSurface)
-            Spacer()
+            HStack {
+                Image(systemName: image)
+                    .font(.system(size: 20))
+                    .frame(width: 30)
+                    .padding(.trailing, 15)
+                    .foregroundColor(.primary)
+                Text(title)
+                    .multilineTextAlignment(.leading)
+                    .font(.system(size: 20, weight: .semibold, design: .rounded))
+                    .foregroundColor(.onSurface)
+                Spacer()
+            }
+            .padding(15)
         }
-        .padding(15)
-        .background(Color("SurfaceColor"))
-        .cornerRadius(10)
+        .buttonStyle(SidebarSheetButtonStyle())
         .padding([.leading, .trailing], 20)
         .padding([.bottom, .top], 10)
     }

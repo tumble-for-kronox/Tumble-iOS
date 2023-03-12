@@ -39,10 +39,25 @@ enum NetworkResponse {
         } else {
             AppLogger.shared.info("User has not enabled auto signup for events")
         }
+        self.getUserBookingsForSection()
+        self.getUserEventsForSection()
     }
     
     func updateViewLocals() -> Void {
         self.school = preferenceService.getDefaultSchool()
+    }
+    
+    func login(username: String, password: String, createToast: @escaping (Bool) -> Void ) -> Void {
+        self.status = .loading
+        self.userController.logIn(username: username, password: password, completion: { [weak self] success in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                self.status = .initial
+            }
+            self.getUserEventsForSection()
+            self.getUserBookingsForSection()
+            createToast(success)
+        })
     }
     
     /// Retrieve user events for resource section
@@ -61,13 +76,13 @@ enum NetworkResponse {
             return
         } 
         let request = Endpoint.userEvents(sessionToken: sessionToken.value, schoolId: String(school.id))
-        networkManager.get(request, then: { [weak self] (result: Result<Response.KronoxCompleteUserEvent, Error>) in
+        networkManager.get(request, then: { [weak self] (result: Result<Response.KronoxCompleteUserEvent, Response.ErrorMessage>) in
             guard let self = self else { return }
             DispatchQueue.main.async {
                 switch result {
                 case .success(let events):
-                    self.registeredEventSectionState = .loaded
                     self.completeUserEvent = events
+                    self.registeredEventSectionState = .loaded
                 case .failure(let failure):
                     AppLogger.shared.info("\(failure)")
                     self.registeredEventSectionState = .error
@@ -91,7 +106,7 @@ enum NetworkResponse {
             return
         }
         let request = Endpoint.userEvents(sessionToken: sessionToken.value, schoolId: String(school.id))
-        networkManager.get(request, then: { [weak self] (result: Result<Response.KronoxCompleteUserEvent, Error>) in
+        networkManager.get(request, then: { [weak self] (result: Result<Response.KronoxCompleteUserEvent, Response.ErrorMessage>) in
             guard let self = self else { return }
             DispatchQueue.main.async {
                 switch result {
@@ -119,10 +134,11 @@ enum NetworkResponse {
                 })
             }
             self.bookingSectionState = .error
+            self.registeredEventSectionState = .error
             return
         }
         let request = Endpoint.userBookings(schoolId: String(school.id), sessionToken: sessionToken.value)
-        networkManager.get(request, then: { [weak self] (result: Result<Response.KronoxUserBooking, Error>) in
+        networkManager.get(request, then: { [weak self] (result: Result<Response.KronoxUserBooking, Response.ErrorMessage>) in
             guard let self = self else { return }
             DispatchQueue.main.async {
                 switch result {
@@ -151,7 +167,7 @@ enum NetworkResponse {
             return
         }
         let request = Endpoint.userBookings(schoolId: String(school.id), sessionToken: sessionToken.value)
-        networkManager.get(request, then: { [weak self] (result: Result<Response.KronoxUserBooking, Error>) in
+        networkManager.get(request, then: { [weak self] (result: Result<Response.KronoxUserBooking, Response.ErrorMessage>) in
             guard let self = self else { return }
             DispatchQueue.main.async {
                 switch result {
@@ -180,7 +196,7 @@ enum NetworkResponse {
             return
         }
         let request = Endpoint.registerEvent(eventId: eventId, schoolId: String(school.id), sessionToken: sessionToken.value)
-        networkManager.put(request, then: { [weak self] (result: Result<Response.HTTPResponse, Error>) in
+        networkManager.put(request, then: { [weak self] (result: Result<Response.HTTPResponse, Response.ErrorMessage>) in
             guard let self = self else { return }
             DispatchQueue.main.async {
                 switch result {
@@ -208,7 +224,7 @@ enum NetworkResponse {
             return
         }
         let request = Endpoint.unregisterEvent(eventId: eventId, schoolId: String(school.id), sessionToken: sessionToken.value)
-        networkManager.put(request, then: { [weak self] (result: Result<Response.HTTPResponse, Error>) in
+        networkManager.put(request, then: { [weak self] (result: Result<Response.HTTPResponse, Response.ErrorMessage>) in
             guard let self = self else { return }
             DispatchQueue.main.async {
                 switch result {
@@ -243,13 +259,13 @@ enum NetworkResponse {
             return
         }
         let request = Endpoint.registerAllEvents(schoolId: String(school.id), sessionToken: sessionToken.value)
-        networkManager.put(request, then: { (result: Result<Response.KronoxEventRegistration, Error>) in
+        networkManager.put(request, then: { (result: Result<Response.KronoxEventRegistration, Response.ErrorMessage>) in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let eventRegistrations):
                     AppLogger.shared.info("\(eventRegistrations)")
-                    AppLogger.shared.info("Successful registrations: \(eventRegistrations.successfulRegistrations?.count)")
-                    AppLogger.shared.info("Failed registrations: \(eventRegistrations.failedRegistrations?.count)")
+                    AppLogger.shared.info("Successful registrations: \(String(describing: eventRegistrations.successfulRegistrations?.count))")
+                    AppLogger.shared.info("Failed registrations: \(String(describing: eventRegistrations.failedRegistrations?.count))")
                 case .failure(let failure):
                     AppLogger.shared.info("\(failure)")
                 }

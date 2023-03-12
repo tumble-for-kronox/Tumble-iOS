@@ -28,8 +28,7 @@ struct AccountLogin: View {
                 PasswordField(password: $password, visiblePassword: $visiblePassword)
             }
             LoginButton(login: {
-                viewModel.status = .loading
-                viewModel.userController.logIn(username: username, password: password, completion: handleLogin)
+                viewModel.login(username: username, password: password, createToast: createToast)
             })
             LoginSubHeader(schoolName: viewModel.school?.name ?? "")
         }
@@ -37,12 +36,11 @@ struct AccountLogin: View {
         .padding(.top, 20)
     }
     
-    fileprivate func handleLogin(success: Bool) -> Void {
+    fileprivate func createToast(success: Bool) -> Void {
         if success {
             createToast(.success, "Logged in", "Successfully logged in as \(viewModel.userController.user?.username ?? username)")
         } else {
             createToast(.error, "Error", "Something went wrong when logging in to your account")
         }
-        viewModel.status = .initial
     }
 }

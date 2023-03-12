@@ -46,6 +46,9 @@ struct EventBookings: View {
         .onAppear {
             viewModel.getUserEventsForPage()
         }
+        .onDisappear {
+            viewModel.getUserEventsForSection()
+        }
     }
     
     

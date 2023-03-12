@@ -41,10 +41,6 @@ struct Resources: View {
         .frame(maxWidth: .infinity, maxHeight: UIScreen.main.bounds.height / 1.65).cornerRadius(15)
         .background(Color.background)
         .cornerRadius(15, corners: [.topLeft, .topRight])
-        .onAppear {
-            viewModel.getUserBookingsForSection()
-            viewModel.getUserEventsForSection()
-        }
         .refreshable {
             viewModel.getUserBookingsForSection()
             viewModel.getUserEventsForSection()

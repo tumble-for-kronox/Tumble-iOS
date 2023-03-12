@@ -47,7 +47,7 @@ extension Text {
     }
     
     func titleSchool() -> some View {
-        self.font(.system(size: 20, design: .rounded))
+        self.font(.system(size: 20, weight: .semibold, design: .rounded))
     }
     
     func featureText() -> some View {
