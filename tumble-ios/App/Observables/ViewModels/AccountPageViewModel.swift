@@ -22,11 +22,12 @@ enum NetworkResponse {
     @Inject var userController: UserController
     @Inject var networkManager: NetworkManager
     @Inject var preferenceService: PreferenceService
+    @Inject var toastController: ToastController
     
     @Published var school: School?
     @Published var status: AccountPageViewStatus = .initial
-    @Published var completeUserEvent: Response.KronoxCompleteUserEvent?
-    @Published var userBookings: Response.KronoxUserBooking?
+    @Published var completeUserEvent: Response.KronoxCompleteUserEvent? = nil
+    @Published var userBookings: Response.KronoxUserBooking? = nil
     @Published var registeredEventSectionState: PageState = .loading
     @Published var bookingSectionState: PageState = .loading
     @Published var resourceBookingPageState: PageState = .loading
@@ -45,6 +46,10 @@ enum NetworkResponse {
     
     func updateViewLocals() -> Void {
         self.school = preferenceService.getDefaultSchool()
+    }
+    
+    func createToast(type: ToastStyle, title: String, message: String) -> Void {
+        self.toastController.toast = Toast(type: type, title: title, message: message)
     }
     
     func login(username: String, password: String, createToast: @escaping (Bool) -> Void ) -> Void {
@@ -159,6 +164,7 @@ enum NetworkResponse {
                 case .failure(let failure):
                     AppLogger.shared.info("\(failure)")
                     self.bookingSectionState = .error
+                    self.createToast(type: .error, title: "Couldn't get user bookings", message: "\(failure.message)")
                 }
             }
         })
