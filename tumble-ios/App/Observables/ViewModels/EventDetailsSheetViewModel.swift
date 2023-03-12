@@ -54,15 +54,18 @@ import SwiftUI
     
     func cancelNotificationForEvent() -> Void {
         notificationManager.cancelNotification(for: event.id)
+        self.isNotificationSetForEvent = false
     }
     
     
     func cancelNotificationsForCourse() -> Void {
         notificationManager.cancelNotifications(with: event.course.id)
+        self.isNotificationSetForCourse = false
+        self.isNotificationSetForEvent = false
     }
     
     
-    func scheduleNotificationForEvent(completion: @escaping (Bool) -> Void) -> Void {
+    func scheduleNotificationForEvent() -> Void {
         let userOffset: Int = self.preferenceService.getNotificationOffset()
         
         // Create notification for event without categoryIdentifier,
@@ -74,20 +77,26 @@ import SwiftUI
             categoryIdentifier: nil,
             content: self.event.toDictionary())
         
-        self.notificationManager.scheduleNotification(for: notification, userOffset: userOffset, completion: { result in
-            switch result {
-            case .success(_):
-                completion(true)
-            case .failure(let failure):
-                AppLogger.shared.info("Failed to schedule notifications -> \(failure)")
-                completion(false)
-            }
+        self.notificationManager.scheduleNotification(
+            for: notification,
+            userOffset: userOffset,
+            completion: { [weak self] result in
+                guard let self = self else { return }
+                switch result {
+                case .success(_):
+                    DispatchQueue.main.async {
+                        self.isNotificationSetForEvent = true
+                    }
+                case .failure(let failure):
+                    AppLogger.shared.info("Failed to schedule notifications -> \(failure)")
+                    // TODO: Handle error in view
+                }
         })
     }
 
     
     
-    func scheduleNotificationsForCourse(completion: @escaping (Bool) -> Void) -> Void {
+    func scheduleNotificationsForCourse() -> Void {
         scheduleService.load { [weak self] result in
             guard let self = self else { return }
             switch result {
@@ -95,9 +104,12 @@ import SwiftUI
                 let schedules = success
                 self.applyNotificationForScheduleEventsInCourse(schedules: schedules) { success in
                     if success {
-                        completion(true)
+                        DispatchQueue.main.async {
+                            self.isNotificationSetForCourse = true
+                            self.isNotificationSetForEvent = true
+                        }
                     } else {
-                        completion(false)
+                        // TODO: Handle error in view
                     }
                 }
             case .failure(let failure):

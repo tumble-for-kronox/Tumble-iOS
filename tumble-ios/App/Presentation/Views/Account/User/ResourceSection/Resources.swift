@@ -45,6 +45,9 @@ struct Resources: View {
             viewModel.getUserBookingsForSection()
             viewModel.getUserEventsForSection()
         }
+        .onAppear {
+            UIRefreshControl.appearance().tintColor = UIColor(named: "PrimaryColor")
+        }
     }
 }
 

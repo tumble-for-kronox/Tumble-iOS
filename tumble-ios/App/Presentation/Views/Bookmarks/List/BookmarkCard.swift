@@ -10,7 +10,7 @@ import SwiftUI
 struct BookmarkCard: View {
     @State private var isDisclosed: Bool = false
     
-    let onTapCard: OnTapCard
+    let onTapCard: (Response.Event, Color) -> Void
     let event: Response.Event
     let isLast: Bool
     let color: Color
@@ -33,6 +33,7 @@ struct BookmarkCard: View {
             
         }
         .onTapGesture {
+            HapticsController.triggerHapticMedium()
             onTapCard(event, color)
         }
         .frame(height: 140)

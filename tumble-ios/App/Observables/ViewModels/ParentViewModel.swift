@@ -20,6 +20,7 @@ import SwiftUI
     @Inject var preferenceService: PreferenceService
     @Inject var notificationManager: NotificationManager
     @Inject var userController: UserController
+    @Inject var toastController: ToastController
     
     @Published var kronoxUrl: String?
     @Published var canvasUrl: String?

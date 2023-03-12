@@ -46,11 +46,6 @@ class UserController: ObservableObject {
         get { return authManager.user }
         set { authManager.user = newValue }
     }
-    
-    var profilePicture: UIImage? {
-        get { loadProfilePicture() }
-        set { saveProfilePicture(image: newValue) }
-    }
 
     var refreshToken: Token? {
         get { authManager.refreshToken }
@@ -115,43 +110,19 @@ extension UserController {
     func autoLogin(completion: (() -> Void)? = nil) {
         self.authManager.autoLoginUser(completionHandler: { [weak self] result in
             guard let self = self else { return }
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let user):
-                    AppLogger.shared.info("Successfully logged in user \(user.username)")
-                    self.user = TumbleUser(username: user.username, password: user.password, name: user.name)
-                    self.authStatus = .authorized
-                    completion?()
-                case .failure(let failure):
-                    AppLogger.shared.info("Failed to log in user -> \(failure.localizedDescription)")
-                    self.authStatus = .unAuthorized
-                    completion?()
-                }
+            switch result {
+            case .success(let user):
+                AppLogger.shared.info("Successfully logged in user \(user.username)")
+                self.user = TumbleUser(username: user.username, password: user.password, name: user.name)
+                self.authStatus = .authorized
+                completion?()
+            case .failure(let failure):
+                AppLogger.shared.info("Failed to log in user -> \(failure.localizedDescription)")
+                self.authStatus = .unAuthorized
+                completion?()
             }
         })
     }
 
 }
 
-extension UserController {
-    
-    fileprivate func loadProfilePicture() -> UIImage? {
-        if let fileName = UserDefaults.standard.value(forKey: StoreKey.profileImage.rawValue) as? String,
-           let fileURL = try? FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathComponent(fileName),
-           let data = try? Data(contentsOf: fileURL),
-           let image = UIImage(data: data) {
-            return image
-        }
-        return nil
-    }
-    
-    fileprivate func saveProfilePicture(image: UIImage?) -> Void {
-        let fileName = "profile_picture.png"
-        let fileURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathComponent(fileName)
-
-        if let data = image?.pngData() {
-            try? data.write(to: fileURL)
-            UserDefaults.standard.set(fileName, forKey: StoreKey.profileImage.rawValue)
-        }
-    }
-}

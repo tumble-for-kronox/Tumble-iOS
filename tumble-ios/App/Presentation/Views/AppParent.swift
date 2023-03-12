@@ -31,7 +31,16 @@ struct AppParent: View {
             Color.primary
                 .ignoresSafeArea()
             
-            SidebarMenu(viewModel: viewModel.sidebarViewModel, showSideBar: $appController.showSideBar, selectedSideBarTab: $appController.selectedSideBarTab, selectedBottomTab: $appController.selectedTab, sideBarSheet: $appController.sideBarSheet, createToast: createToast, removeBookmark: removeBookmark, updateBookmarks: updateBookmarks, onChangeSchool: onChangeSchool)
+            SidebarMenu(
+                viewModel: viewModel.sidebarViewModel,
+                showSideBar: $appController.showSideBar,
+                selectedSideBarTab: $appController.selectedSideBarTab,
+                selectedBottomTab: $appController.selectedTab,
+                sideBarSheet: $appController.sideBarSheet,
+                createToast: createToast,
+                removeBookmark: removeBookmark,
+                updateBookmarks: updateBookmarks,
+                onChangeSchool: onChangeSchool)
             
             ZStack {
                 NavigationView {
@@ -39,9 +48,17 @@ struct AppParent: View {
                         // Main home page view switcher
                         switch appController.selectedTab {
                         case .home:
-                            HomePage(viewModel: viewModel.homeViewModel, domain: $viewModel.domain, canvasUrl: $viewModel.canvasUrl, kronoxUrl: $viewModel.kronoxUrl, selectedTabBar: $appController.selectedTab)
+                            HomePage(
+                                viewModel: viewModel.homeViewModel,
+                                domain: $viewModel.domain,
+                                canvasUrl: $viewModel.canvasUrl,
+                                kronoxUrl: $viewModel.kronoxUrl,
+                                selectedTabBar: $appController.selectedTab)
                         case .bookmarks:
-                            BookmarkPage(viewModel: viewModel.bookmarksViewModel, eventSheet: $appController.eventSheet, onTapCard: onOpenEventDetailsSheet,  createToast: createToast)
+                            BookmarkPage(
+                                viewModel: viewModel.bookmarksViewModel,
+                                appController: appController
+                            )
                         case .account:
                             AccountPage(viewModel: viewModel.accountPageViewModel, createToast: createToast)
                         }
@@ -52,10 +69,17 @@ struct AppParent: View {
                     .navigationBarTitleDisplayMode(.inline)
                     .toolbar {
                         ToolbarItem(placement: .navigationBarLeading, content: {
-                            NavigationbarSidebar(showSideBar: $appController.showSideBar, selectedSideBarTab: $appController.selectedSideBarTab, handleClose: handleSideBarAction)
+                            NavigationbarSidebar(
+                                showSideBar: $appController.showSideBar,
+                                selectedSideBarTab: $appController.selectedSideBarTab,
+                                handleClose: handleSideBarAction)
                         })
                         ToolbarItem(placement: .navigationBarTrailing, content: {
-                            NavigationbarSearch(viewModel: viewModel.searchViewModel, backButtonTitle: appController.selectedTab.displayName, checkForNewSchedules: updateBookmarks, universityImage: $viewModel.universityImage)
+                            NavigationbarSearch(
+                                viewModel: viewModel.searchViewModel,
+                                backButtonTitle: appController.selectedTab.displayName,
+                                checkForNewSchedules: updateBookmarks,
+                                universityImage: $viewModel.universityImage)
                         })
                     }.background(Color.background)
                 }
@@ -121,10 +145,6 @@ struct AppParent: View {
     
     fileprivate func updateBookmarks() -> Void {
         viewModel.updateSchedulesChildView()
-    }
-    
-    fileprivate func onOpenEventDetailsSheet(event: Response.Event, color: Color) -> Void {
-        appController.eventSheet = EventDetailsSheetModel(event: event, color: color)
     }
     
     fileprivate func removeBookmark(id: String) -> Void {

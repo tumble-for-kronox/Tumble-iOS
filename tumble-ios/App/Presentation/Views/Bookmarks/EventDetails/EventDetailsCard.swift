@@ -9,11 +9,9 @@ import SwiftUI
 
 struct EventDetailsCard: View {
     
-    @Environment(\.dismiss) var dismiss
-    @EnvironmentObject var parentViewModel: EventDetailsSheetViewModel
+    @ObservedObject var parentViewModel: EventDetailsSheetViewModel
     @State private var bgColor = Color.red
     
-    let createToast: (ToastStyle, String, String) -> Void
     let openColorPicker: () -> Void
     let event: Response.Event
     let color: Color
@@ -38,18 +36,15 @@ struct EventDetailsCard: View {
                     }
                     HStack (spacing: 7.5) {
                         if event.from.isOutsideThreeHourRange() {
-                            if !parentViewModel.isNotificationSetForEvent {
-                                EventDetailsPill(title: "Event", image: "bell.badge", onTap: onSetNotificationEvent)
-                                
-                            } else {
-                                EventDetailsPill(title: "Remove", image: "bell.badge", onTap: onRemoveNotificationForEvent)
-                            }
+                            EventDetailsPill(
+                                title: !parentViewModel.isNotificationSetForEvent ? "Event" : "Remove",
+                                image: "bell.badge",
+                                onTap: !parentViewModel.isNotificationSetForEvent ? onSetNotificationEvent : onRemoveNotificationForEvent)
                         }
-                        if !parentViewModel.isNotificationSetForCourse {
-                            EventDetailsPill(title: "Course", image: "bell.badge.fill", onTap: onSetNotificationForCourse)
-                        } else {
-                            EventDetailsPill(title: "Remove", image: "bell.badge.fill", onTap: onRemoveNotification)
-                        }
+                        EventDetailsPill(
+                            title: !parentViewModel.isNotificationSetForCourse ? "Course" : "Remove",
+                            image: "bell.badge.fill",
+                            onTap: !parentViewModel.isNotificationSetForCourse ? onSetNotificationForCourse : onRemoveNotificationForCourse)
                         EventDetailsPill(title: "Color", image: "paintbrush", onTap: openColorPicker)
                         Spacer()
                     }
@@ -65,41 +60,19 @@ struct EventDetailsCard: View {
     }
     
     func onSetNotificationEvent() -> Void {
-        parentViewModel.scheduleNotificationForEvent() { success in
-            if success {
-                createToast(.success, "Notification set!", "Notification was created for \(event.title)")
-            } else {
-                createToast(.error, "Notification not set!", "Looks like you need to allow notifications in your phone settings")
-            }
-        }
-        DispatchQueue.main.async {
-            dismiss()
-        }
+        parentViewModel.scheduleNotificationForEvent()
     }
     
     func onSetNotificationForCourse() -> Void {
-        parentViewModel.scheduleNotificationsForCourse() { success in
-            if success {
-                createToast(.success, "Notifications set!", "Notifications were created for available events in \(event.course.englishName)")
-            } else {
-                createToast(.error, "Notifications not set!", "Looks like you need to allow notifications in your phone settings")
-            }
-        }
-        DispatchQueue.main.async {
-            dismiss()
-        }
+        parentViewModel.scheduleNotificationsForCourse()
     }
     
     func onRemoveNotificationForEvent() -> Void {
         parentViewModel.cancelNotificationForEvent()
-        dismiss()
-        createToast(.success, "Notification removed!", "Notification for \(event.title) was removed")
     }
     
-    func onRemoveNotification() -> Void {
+    func onRemoveNotificationForCourse() -> Void {
         parentViewModel.cancelNotificationsForCourse()
-        dismiss()
-        createToast(.success, "Notifications removed!", "Notifications for \(event.course.englishName) were removed")
     }
 
 }

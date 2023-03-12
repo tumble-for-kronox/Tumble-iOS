@@ -27,7 +27,6 @@ class ScheduleService: ObservableObject, ScheduleServiceProtocol {
                         return
                     }
                 let schedules = try JSONDecoder().decode([ScheduleStoreModel].self, from: file.availableData)
-                AppLogger.shared.info("Found schedules ")
                 DispatchQueue.main.async {
                     completion(.success(schedules))
                 }

@@ -62,7 +62,9 @@ enum NetworkResponse {
     
     /// Retrieve user events for resource section
     func getUserEventsForSection(tries: Int = 1) {
-        self.registeredEventSectionState = .loading
+        DispatchQueue.main.async {
+            self.registeredEventSectionState = .loading
+        }
         guard let school = school,
               let sessionToken = userController.sessionToken,
               !sessionToken.isExpired() else {
@@ -72,7 +74,9 @@ enum NetworkResponse {
                     self.getUserEventsForSection(tries: tries + 1)
                 })
             }
-            self.registeredEventSectionState = .error
+            DispatchQueue.main.async {
+                self.registeredEventSectionState = .error
+            }
             return
         } 
         let request = Endpoint.userEvents(sessionToken: sessionToken.value, schoolId: String(school.id))
@@ -92,7 +96,9 @@ enum NetworkResponse {
     }
     
     func getUserEventsForPage(tries: Int = 0, completion: (() -> Void)? = nil) {
-        self.eventBookingPageState = .loading
+        DispatchQueue.main.async {
+            self.eventBookingPageState = .loading
+        }
         guard let school = school,
               let sessionToken = userController.sessionToken,
               !sessionToken.isExpired() else {
@@ -102,7 +108,9 @@ enum NetworkResponse {
                     self.getUserEventsForPage(tries: tries + 1)
                 })
             }
-            self.eventBookingPageState = .error
+            DispatchQueue.main.async {
+                self.eventBookingPageState = .error
+            }
             return
         }
         let request = Endpoint.userEvents(sessionToken: sessionToken.value, schoolId: String(school.id))
@@ -123,7 +131,9 @@ enum NetworkResponse {
     }
     
     func getUserBookingsForSection(tries: Int = 1) {
-        self.bookingSectionState = .loading
+        DispatchQueue.main.async {
+            self.bookingSectionState = .loading
+        }
         guard let school = school,
               let sessionToken = userController.sessionToken,
               !sessionToken.isExpired() else {
@@ -133,8 +143,9 @@ enum NetworkResponse {
                     self.getUserBookingsForSection(tries: tries + 1)
                 })
             }
-            self.bookingSectionState = .error
-            self.registeredEventSectionState = .error
+            DispatchQueue.main.async {
+                self.bookingSectionState = .error
+            }
             return
         }
         let request = Endpoint.userBookings(schoolId: String(school.id), sessionToken: sessionToken.value)
@@ -154,6 +165,9 @@ enum NetworkResponse {
     }
     
     func getUserBookingsForPage(tries: Int = 1) {
+        DispatchQueue.main.async {
+            self.resourceBookingPageState = .loading
+        }
         guard let school = school,
               let sessionToken = userController.sessionToken,
               !sessionToken.isExpired() else {
@@ -163,7 +177,9 @@ enum NetworkResponse {
                     self.getUserBookingsForPage(tries: tries + 1)
                 })
             }
-            self.resourceBookingPageState = .error
+            DispatchQueue.main.async {
+                self.resourceBookingPageState = .error
+            }
             return
         }
         let request = Endpoint.userBookings(schoolId: String(school.id), sessionToken: sessionToken.value)
