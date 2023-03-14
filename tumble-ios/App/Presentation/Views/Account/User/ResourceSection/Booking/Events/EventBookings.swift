@@ -23,17 +23,35 @@ struct EventBookings: View {
                         .frame(minHeight: geo.size.height)
                 case .loaded:
                     SectionDivider(title: "Registered", image: "person.crop.circle.badge.checkmark", content: {
-                        Events(registeredEvents: viewModel.completeUserEvent?.registeredEvents, onTapEventAction: { eventId, eventType in
-                            onTapEventAction(eventId: eventId, eventType: eventType)
-                        })
+                        if (viewModel.completeUserEvent?.registeredEvents) != nil {
+                            Events(registeredEvents: viewModel.completeUserEvent?.registeredEvents, onTapEventAction: { eventId, eventType in
+                                onTapEventAction(eventId: eventId, eventType: eventType)
+                            })
+                        } else {
+                            Text("No registered events available")
+                                .sectionDividerEmpty()
+                                .padding(.top, 5)
+                        }
                     })
                     SectionDivider(title: "Unregistered", image: "person.crop.circle.badge.xmark", content: {
-                        Events(unregisteredEvents: viewModel.completeUserEvent?.unregisteredEvents, onTapEventAction: { eventId, eventType in
-                            onTapEventAction(eventId: eventId, eventType: eventType)
-                        })
+                        if (viewModel.completeUserEvent?.unregisteredEvents != nil) {
+                            Events(unregisteredEvents: viewModel.completeUserEvent?.unregisteredEvents, onTapEventAction: { eventId, eventType in
+                                onTapEventAction(eventId: eventId, eventType: eventType)
+                            })
+                        } else {
+                            Text("No unregistered events available")
+                                .sectionDividerEmpty()
+                                .padding(.top, 5)
+                        }
                     })
                     SectionDivider(title: "Upcoming", image: "person.crop.circle.badge.clock", content: {
-                        Events(upcomingEvents: viewModel.completeUserEvent?.upcomingEvents)
+                        if (viewModel.completeUserEvent?.upcomingEvents != nil) {
+                            Events(upcomingEvents: viewModel.completeUserEvent?.upcomingEvents)
+                        } else {
+                            Text("No upcoming events available")
+                                .sectionDividerEmpty()
+                                .padding(.top, 5)
+                        }
                     })
                 case .error:
                     Info(title: "Could not contact the server", image: "wifi.exclamationmark")
