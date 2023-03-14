@@ -33,7 +33,7 @@ struct BookmarkCard: View {
             
         }
         .onTapGesture {
-            HapticsController.triggerHapticMedium()
+            HapticsController.triggerHapticLight()
             onTapCard(event, color)
         }
         .frame(height: 140)

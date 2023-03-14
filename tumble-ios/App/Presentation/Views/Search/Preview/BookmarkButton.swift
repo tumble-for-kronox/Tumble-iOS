@@ -9,20 +9,48 @@ import SwiftUI
 
 struct BookmarkButton: View {
     
-    var animation: Namespace.ID
+    let bookmark: () -> Void
     
-    let title: String
-    let image: String
+    @Binding var disableButton: Bool
+    @Binding var previewButtonState: ButtonState
     
     var body: some View {
-        HStack (spacing: 10) {
-            Image(systemName: image)
-                .font(.system(size: 20))
-                .foregroundColor(.onPrimary)
-            Text(title)
-                .font(.system(size: 20, weight: .semibold, design: .rounded))
-                .foregroundColor(.onPrimary)
+        Button(action: {
+            HapticsController.triggerHapticLight()
+            bookmark()
+        }) {
+            HStack {
+                switch previewButtonState {
+                case .loading:
+                    CustomProgressIndicator(tint: .onPrimary)
+                case .saved:
+                    HStack (spacing: 10) {
+                        Image(systemName: "bookmark.fill")
+                            .font(.system(size: 20))
+                            .foregroundColor(.onPrimary)
+                        Text("Remove")
+                            .font(.system(size: 20, weight: .semibold, design: .rounded))
+                            .foregroundColor(.onPrimary)
+                    }
+                case .notSaved:
+                    HStack (spacing: 10) {
+                        Image(systemName: "bookmark")
+                            .font(.system(size: 20))
+                            .foregroundColor(.onPrimary)
+                        Text("Bookmark")
+                            .font(.system(size: 20, weight: .semibold, design: .rounded))
+                            .foregroundColor(.onPrimary)
+                    }
+                }
+            }
         }
-        .matchedGeometryEffect(id: "BOOKMARKBTN", in: animation)
+        .frame(minWidth: 80)
+        .padding()
+        .id(previewButtonState)
+        .background(Color.primary)
+        .cornerRadius(10)
+        .padding(15)
+        .padding(.leading, 5)
+        .disabled(disableButton)
     }
 }

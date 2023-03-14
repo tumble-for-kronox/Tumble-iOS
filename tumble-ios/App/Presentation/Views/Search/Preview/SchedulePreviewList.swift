@@ -15,9 +15,7 @@ enum ButtonState {
 }
 
 struct SchedulePreviewList: View {
-    
-    @Namespace var animation
-        
+            
     @ObservedObject var parentViewModel: SearchViewModel
     let courseColors: [String : String]
     let checkForNewSchedules: () -> Void
@@ -59,26 +57,11 @@ struct SchedulePreviewList: View {
             VStack (alignment: .leading) {
                 Spacer()
                 HStack {
-                    Button(action: bookmark) {
-                        HStack {
-                            switch self.parentViewModel.previewButtonState {
-                            case .loading:
-                                CustomProgressIndicator(tint: .onPrimary)
-                            case .saved:
-                                BookmarkButton(animation: animation, title: "Remove", image: "bookmark.fill")
-                            case .notSaved:
-                                BookmarkButton(animation: animation, title: "Bookmark", image: "bookmark")
-                            }
-                        }
-                        .frame(minWidth: 80)
-                        .padding()
-                    }
-                    .id(self.parentViewModel.previewButtonState)
-                    .background(Color.primary)
-                    .cornerRadius(10)
-                    .padding(15)
-                    .padding(.leading, 5)
-                    .disabled(disableButton)
+                    BookmarkButton(
+                        bookmark: bookmark,
+                        disableButton: $disableButton,
+                        previewButtonState: $parentViewModel.previewButtonState
+                    )
                     Spacer()
                 }
             }
@@ -95,5 +78,4 @@ struct SchedulePreviewList: View {
             }, checkForNewSchedules: self.checkForNewSchedules)
         }
     }
-
 }
