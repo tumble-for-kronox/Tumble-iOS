@@ -16,7 +16,7 @@ struct EventDetailsPill: View {
     
     var body: some View {
         Button(action: {
-            HapticsController.triggerHapticMedium()
+            HapticsController.triggerHapticLight()
             onTap()
         }, label: {
             HStack {

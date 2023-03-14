@@ -35,7 +35,6 @@ struct EventDetailsBodyBuilder<Content : View>: View {
                 VStack {
                     content
                 }
-                
             }
             Spacer()
         }

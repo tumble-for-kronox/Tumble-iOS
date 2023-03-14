@@ -66,6 +66,7 @@
 		D441B10D298A8CEC00D22142 /* EventDetailsSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D441B10C298A8CEC00D22142 /* EventDetailsSheetViewModel.swift */; };
 		D4462C3029858A280067DA65 /* TextExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4462C2F29858A280067DA65 /* TextExtensions.swift */; };
 		D4462C3229858A7D0067DA65 /* ImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4462C3129858A7D0067DA65 /* ImageExtensions.swift */; };
+		D44ABF0729BFE89D00344792 /* SchoolRowStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44ABF0629BFE89D00344792 /* SchoolRowStyle.swift */; };
 		D45338F629280E8400198411 /* ScheduleExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45338F529280E8400198411 /* ScheduleExtensions.swift */; };
 		D45338F9292825B200198411 /* BookmarkCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45338F8292825B200198411 /* BookmarkCard.swift */; };
 		D45338FB2929730200198411 /* CustomProgressIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45338FA2929730200198411 /* CustomProgressIndicator.swift */; };
@@ -245,6 +246,7 @@
 		D441B10C298A8CEC00D22142 /* EventDetailsSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailsSheetViewModel.swift; sourceTree = "<group>"; };
 		D4462C2F29858A280067DA65 /* TextExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextExtensions.swift; sourceTree = "<group>"; };
 		D4462C3129858A7D0067DA65 /* ImageExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageExtensions.swift; sourceTree = "<group>"; };
+		D44ABF0629BFE89D00344792 /* SchoolRowStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolRowStyle.swift; sourceTree = "<group>"; };
 		D45338F529280E8400198411 /* ScheduleExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleExtensions.swift; sourceTree = "<group>"; };
 		D45338F8292825B200198411 /* BookmarkCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkCard.swift; sourceTree = "<group>"; };
 		D45338FA2929730200198411 /* CustomProgressIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomProgressIndicator.swift; sourceTree = "<group>"; };
@@ -650,6 +652,7 @@
 				D42DFD5B29BD5920002942D7 /* SidebarSheetButtonStyle.swift */,
 				D42DFD5D29BD5BC9002942D7 /* ExternalLinkPillStyle.swift */,
 				D454203D29BE914800EF0FC9 /* EventDetailsPillStyle.swift */,
+				D44ABF0629BFE89D00344792 /* SchoolRowStyle.swift */,
 			);
 			path = Styles;
 			sourceTree = "<group>";
@@ -1463,6 +1466,7 @@
 				D454204129BE982000EF0FC9 /* HapticsController.swift in Sources */,
 				D42DFD5E29BD5BC9002942D7 /* ExternalLinkPillStyle.swift in Sources */,
 				D476BD2E293A32BF0027CFE8 /* RoundedCornerShape.swift in Sources */,
+				D44ABF0729BFE89D00344792 /* SchoolRowStyle.swift in Sources */,
 				D45338FD29297C8B00198411 /* DayUIModel.swift in Sources */,
 				D46BB10C298ADDF600887A24 /* CustomCorners.swift in Sources */,
 				D4462C3229858A7D0067DA65 /* ImageExtensions.swift in Sources */,

@@ -16,11 +16,8 @@ struct SchoolSelection: View {
     var body: some View {
         ScrollView {
             ForEach(schools, id: \.id) { school in
-                SchoolRow(school: school)
-                    .onTapGesture(perform: {
-                        onSelectSchool(school)
-                    })
-                }
+                SchoolRow(school: school, onSelectSchool: onSelectSchool)
+            }
         }
         .padding([.top], 5)
     }
