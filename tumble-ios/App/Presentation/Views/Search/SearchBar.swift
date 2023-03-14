@@ -19,7 +19,7 @@ struct SearchBar: View {
         HStack {
             Image(systemName: "magnifyingglass")
                 .foregroundColor(.gray)
-                .font(.headline)
+                .font(.system(size: 20))
                 .padding(.leading, 5)
             TextField("Search schedules", text: $searchBarText)
                 .searchBoxText()
@@ -37,7 +37,7 @@ struct SearchBar: View {
             }) {
                 Image(systemName: "xmark.circle")
                     .foregroundColor(Color("PrimaryColor"))
-                    .font(.headline)
+                    .font(.system(size: 20))
             }
             .offset(x: closeButtonOffset)
         }

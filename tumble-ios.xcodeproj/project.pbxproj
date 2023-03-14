@@ -114,6 +114,7 @@
 		D476BD2A293A31FD0027CFE8 /* SchedulePreviewList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D476BD29293A31FD0027CFE8 /* SchedulePreviewList.swift */; };
 		D476BD2C293A326C0027CFE8 /* SchedulePreviewCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D476BD2B293A326C0027CFE8 /* SchedulePreviewCard.swift */; };
 		D476BD2E293A32BF0027CFE8 /* RoundedCornerShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = D476BD2D293A32BF0027CFE8 /* RoundedCornerShape.swift */; };
+		D47A1AF729C00C0E004F03DB /* HomePageOptionStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47A1AF629C00C0E004F03DB /* HomePageOptionStyle.swift */; };
 		D4861DEB29834E1900C4CA6F /* PreviewCardBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4861DEA29834E1900C4CA6F /* PreviewCardBanner.swift */; };
 		D4861DED29834EB900C4CA6F /* PreviewCardInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4861DEC29834EB900C4CA6F /* PreviewCardInformation.swift */; };
 		D48CE45729849BF900D312EC /* Support.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48CE45629849BF900D312EC /* Support.swift */; };
@@ -294,6 +295,7 @@
 		D476BD29293A31FD0027CFE8 /* SchedulePreviewList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulePreviewList.swift; sourceTree = "<group>"; };
 		D476BD2B293A326C0027CFE8 /* SchedulePreviewCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulePreviewCard.swift; sourceTree = "<group>"; };
 		D476BD2D293A32BF0027CFE8 /* RoundedCornerShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedCornerShape.swift; sourceTree = "<group>"; };
+		D47A1AF629C00C0E004F03DB /* HomePageOptionStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageOptionStyle.swift; sourceTree = "<group>"; };
 		D4861DEA29834E1900C4CA6F /* PreviewCardBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewCardBanner.swift; sourceTree = "<group>"; };
 		D4861DEC29834EB900C4CA6F /* PreviewCardInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewCardInformation.swift; sourceTree = "<group>"; };
 		D48CE45629849BF900D312EC /* Support.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Support.swift; sourceTree = "<group>"; };
@@ -653,6 +655,7 @@
 				D42DFD5D29BD5BC9002942D7 /* ExternalLinkPillStyle.swift */,
 				D454203D29BE914800EF0FC9 /* EventDetailsPillStyle.swift */,
 				D44ABF0629BFE89D00344792 /* SchoolRowStyle.swift */,
+				D47A1AF629C00C0E004F03DB /* HomePageOptionStyle.swift */,
 			);
 			path = Styles;
 			sourceTree = "<group>";
@@ -1427,6 +1430,7 @@
 				D40E843B2981C85400C2CF2E /* AccountPage.swift in Sources */,
 				D4E83EBE299960E0002E5F88 /* LoginHeader.swift in Sources */,
 				D48CE45729849BF900D312EC /* Support.swift in Sources */,
+				D47A1AF729C00C0E004F03DB /* HomePageOptionStyle.swift in Sources */,
 				D40D809B29251FD7008CA68D /* ToastStyle.swift in Sources */,
 				D40D80CA29265B98008CA68D /* SearchPage.swift in Sources */,
 				D4CE2DB42982DDFE00B81052 /* BookmarkCardInformation.swift in Sources */,

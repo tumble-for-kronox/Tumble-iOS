@@ -42,84 +42,72 @@ struct AppParent: View {
                 updateBookmarks: updateBookmarks,
                 onChangeSchool: onChangeSchool)
             
-            ZStack {
-                NavigationView {
-                    VStack (alignment: .leading) {
-                        // Main home page view switcher
-                        switch appController.selectedTab {
-                        case .home:
-                            HomePage(
-                                viewModel: viewModel.homeViewModel,
-                                domain: $viewModel.domain,
-                                canvasUrl: $viewModel.canvasUrl,
-                                kronoxUrl: $viewModel.kronoxUrl,
-                                selectedTabBar: $appController.selectedTab)
-                        case .bookmarks:
-                            BookmarkPage(
-                                viewModel: viewModel.bookmarksViewModel,
-                                appController: appController
-                            )
-                        case .account:
-                            AccountPage(viewModel: viewModel.accountPageViewModel, createToast: createToast)
-                        }
-                        Spacer()
-                        TabBar(selectedBottomTab: $appController.selectedTab)
+            NavigationView {
+                VStack {
+                    // Main home page view switcher
+                    switch appController.selectedTab {
+                    case .home:
+                        HomePage(
+                            viewModel: viewModel.homeViewModel,
+                            domain: $viewModel.domain,
+                            canvasUrl: $viewModel.canvasUrl,
+                            kronoxUrl: $viewModel.kronoxUrl,
+                            selectedTabBar: $appController.selectedTab
+                        )
+                    case .bookmarks:
+                        BookmarkPage(
+                            viewModel: viewModel.bookmarksViewModel,
+                            appController: appController
+                        )
+                    case .account:
+                        AccountPage(
+                            viewModel: viewModel.accountPageViewModel,
+                            createToast: createToast
+                        )
                     }
-                    .navigationTitle(appController.selectedTab.displayName)
-                    .navigationBarTitleDisplayMode(.inline)
-                    .toolbar {
-                        ToolbarItem(placement: .navigationBarLeading, content: {
-                            NavigationbarSidebar(
-                                showSideBar: $appController.showSideBar,
-                                selectedSideBarTab: $appController.selectedSideBarTab,
-                                handleClose: handleSideBarAction)
-                        })
-                        ToolbarItem(placement: .navigationBarTrailing, content: {
-                            NavigationbarSearch(
-                                viewModel: viewModel.searchViewModel,
-                                backButtonTitle: appController.selectedTab.displayName,
-                                checkForNewSchedules: updateBookmarks,
-                                universityImage: $viewModel.universityImage)
-                        })
-                    }.background(Color.background)
+                    Spacer()
+                    TabBar(selectedBottomTab: $appController.selectedTab)
                 }
-                .overlay(
-                    // If the sidebar is shown, blur the navigation view
-                    // and make the whole navigation page clickable so the sidebar
-                    // closes if it is tapped
-                    Group {
-                        if appController.showSideBar {
-                            Color.white.opacity(0.001)
-                                .onTapGesture {
-                                    withAnimation {
-                                        handleSideBarAction(
-                                            shouldShowSideBar: false,
-                                            newSideBarTab: .none
-                                        )
-                                    }
-                                }
-                        }
-                    }
-                )
+                .ignoresSafeArea(.keyboard)
+                .navigationTitle(appController.selectedTab.displayName)
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarLeading, content: {
+                        NavigationbarSidebar(
+                            showSideBar: $appController.showSideBar,
+                            selectedSideBarTab: $appController.selectedSideBarTab,
+                            handleClose: handleSideBarAction)
+                    })
+                    ToolbarItem(placement: .navigationBarTrailing, content: {
+                        NavigationbarSearch(
+                            viewModel: viewModel.searchViewModel,
+                            backButtonTitle: appController.selectedTab.displayName,
+                            checkForNewSchedules: updateBookmarks,
+                            universityImage: $viewModel.universityImage)
+                    })
+                }
+                .background(Color.background)
             }
+            .overlay(
+                Group {
+                    if appController.showSideBar {
+                        Color.white.opacity(0.001)
+                            .onTapGesture {
+                                withAnimation {
+                                    handleSideBarAction(
+                                        shouldShowSideBar: false,
+                                        newSideBarTab: .none
+                                    )
+                                }
+                            }
+                    }
+                }
+            )
             .offset(x: appController.showSideBar ? getRect().width - 120 : 0)
             .toastView(toast: $appController.toast)
             .ignoresSafeArea()
         }
         .zIndex(1)
-    }
-
-    
-    fileprivate func handleSwipe(value: DragGesture.Value) -> Void {
-        switch(value.translation.width, value.translation.height) {
-            case (...0, -30...30):  withAnimation {
-                handleSideBarAction(shouldShowSideBar: false, newSideBarTab: .none)
-            }
-            case (0..., -30...30):  withAnimation {
-                appController.showSideBar = true
-            }
-            default: break
-        }
     }
     
     fileprivate func handleSideBarAction(shouldShowSideBar: Bool, newSideBarTab: SidebarTabType) -> Void {
@@ -151,9 +139,15 @@ struct AppParent: View {
         viewModel.removeSchedule(id: id) { success in
             if success {
                 viewModel.updateSchedulesChildView()
-                appController.toast = Toast(type: .success, title: "Removed schedule", message: "Successfully removed the schedule '\(id)' from your bookmarks")
+                appController.toast = Toast(
+                    type: .success,
+                    title: "Removed schedule",
+                    message: "Successfully removed the schedule '\(id)' from your bookmarks")
             } else {
-                appController.toast = Toast(type: .error, title: "Could not remove schedule", message: "The schedule '\(id)' could not be removed from your bookmarks")
+                appController.toast = Toast(
+                    type: .error,
+                    title: "Could not remove schedule",
+                    message: "The schedule '\(id)' could not be removed from your bookmarks")
             }
         }
     }

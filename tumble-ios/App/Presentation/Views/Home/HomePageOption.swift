@@ -42,12 +42,8 @@ struct HomePageOption: View {
                         .foregroundColor(.onSurface.opacity(0.8))
                         .padding(.trailing, 15)
                 }
-                .frame(minWidth: 0, maxWidth: .infinity, minHeight: 60, alignment: .center)
-                .background(Color.surface)
-                .cornerRadius(10)
-                .padding([.bottom, .top], 10)
-                
             }
         })
+        .buttonStyle(HomePageOptionStyle())
     }
 }
