@@ -41,7 +41,7 @@ struct Events: View {
                     }
                 }
                 if events.isEmpty {
-                    Text("No events available")
+                    Text("No registered events available")
                         .sectionDividerEmpty()
                         .padding(.top, 5)
                 }
@@ -58,7 +58,7 @@ struct Events: View {
                     }
                 }
                 if events.isEmpty {
-                    Text("No events available")
+                    Text("No unregistered events available")
                         .sectionDividerEmpty()
                         .padding(.top, 5)
                 }

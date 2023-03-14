@@ -30,7 +30,6 @@ struct Root: View {
             }
         }
         .environment(\.colorScheme, colorScheme)
-        .ignoresSafeArea(.keyboard)
         .edgesIgnoringSafeArea(.all)
         .JMModal(showModal: $viewModel.showNotificationsPermission, for: [.notification])
     }
