@@ -21,7 +21,12 @@ struct UsernameField: View {
                 .disableAutocorrection(true)
         }
         .padding(10)
-        .overlay(RoundedRectangle(cornerRadius: 10).stroke(lineWidth: 0.5).foregroundColor(.onBackground.opacity(0.5)))
+        .overlay(RoundedRectangle(
+            cornerRadius: 10)
+            .stroke(lineWidth: 0.5)
+            .foregroundColor(.onBackground.opacity(0.5)
+            )
+        )
         .padding(.bottom, 10)
     }
 }

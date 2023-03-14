@@ -38,9 +38,17 @@ struct AccountLogin: View {
     
     fileprivate func createToast(success: Bool) -> Void {
         if success {
-            createToast(.success, "Logged in", "Successfully logged in as \(viewModel.userController.user?.username ?? username)")
+            createToast(
+                .success,
+                "Logged in",
+                "Successfully logged in as \(viewModel.userController.user?.username ?? username)"
+            )
         } else {
-            createToast(.error, "Error", "Something went wrong when logging in to your account")
+            createToast(
+                .error,
+                "Error",
+                "Something went wrong when logging in to your account"
+            )
         }
     }
 }

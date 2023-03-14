@@ -49,9 +49,8 @@ extension View {
         self.padding(10)
         .background(.gray.opacity(0.25))
         .cornerRadius(10)
-        .padding(.leading, 20)
-        .padding(.trailing, 20)
-        .padding(.bottom, 35)
+        .padding(.horizontal, 10)
+        .padding(.bottom, 15)
         .padding(.top, 25)
     }
     

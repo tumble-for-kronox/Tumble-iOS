@@ -23,7 +23,7 @@ struct BookmarkListView: View {
     
     var body: some View {
         ScrollViewReader { value in
-            ScrollView(.vertical) {
+            ScrollView(.vertical, showsIndicators: false) {
                 LazyVStack {
                     Rectangle().foregroundColor(.clear).frame(height: 1.0)
                     ForEach(days, id: \.id) { day in
@@ -34,7 +34,8 @@ struct BookmarkListView: View {
                                         onTapCard: onTapCard,
                                         event: event,
                                         isLast: event == day.events.last,
-                                        color: courseColors[event.course.id] != nil ? courseColors[event.course.id]!.toColor() : .white)
+                                        color: courseColors[event.course.id] != nil ?
+                                        courseColors[event.course.id]!.toColor() : .white)
                                 }
                             })
                             .padding(.top, 35)
