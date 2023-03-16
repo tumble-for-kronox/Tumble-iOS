@@ -144,6 +144,7 @@
 		D4ABD270298C2E15002FD8F5 /* DayUiModelExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4ABD26F298C2E15002FD8F5 /* DayUiModelExtension.swift */; };
 		D4ABD272298C2E32002FD8F5 /* DayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4ABD271298C2E32002FD8F5 /* DayExtension.swift */; };
 		D4ABD275298C2EC2002FD8F5 /* PreferenceServiceExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4ABD274298C2EC2002FD8F5 /* PreferenceServiceExtension.swift */; };
+		D4B4B62D29C37C130098D175 /* ProgrammeCardStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B4B62C29C37C130098D175 /* ProgrammeCardStyle.swift */; };
 		D4BAE5F82924636500143717 /* School.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BAE5F72924636500143717 /* School.swift */; };
 		D4BAE614292466F700143717 /* SchoolLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BAE613292466F700143717 /* SchoolLoader.swift */; };
 		D4BAE61929246AA200143717 /* schools.json in Resources */ = {isa = PBXBuildFile; fileRef = D4BAE61829246AA200143717 /* schools.json */; };
@@ -325,6 +326,7 @@
 		D4ABD26F298C2E15002FD8F5 /* DayUiModelExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayUiModelExtension.swift; sourceTree = "<group>"; };
 		D4ABD271298C2E32002FD8F5 /* DayExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayExtension.swift; sourceTree = "<group>"; };
 		D4ABD274298C2EC2002FD8F5 /* PreferenceServiceExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceServiceExtension.swift; sourceTree = "<group>"; };
+		D4B4B62C29C37C130098D175 /* ProgrammeCardStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgrammeCardStyle.swift; sourceTree = "<group>"; };
 		D4BAE5F72924636500143717 /* School.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = School.swift; sourceTree = "<group>"; };
 		D4BAE613292466F700143717 /* SchoolLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolLoader.swift; sourceTree = "<group>"; };
 		D4BAE61829246AA200143717 /* schools.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = schools.json; sourceTree = "<group>"; };
@@ -557,7 +559,7 @@
 			isa = PBXGroup;
 			children = (
 				D4FCD14C2995ADE9009D2987 /* UIKit */,
-				D4A550CD299454E900028BCF /* UserDefaults */,
+				D4A550CD299454E900028BCF /* LocalStorage */,
 				D4644A27298DD78800B0BB28 /* Notifications */,
 				D46ABF1029843D2700B059F6 /* Preferences */,
 				D41ED554298436CE009DCF8B /* Presentation */,
@@ -656,6 +658,7 @@
 				D454203D29BE914800EF0FC9 /* EventDetailsPillStyle.swift */,
 				D44ABF0629BFE89D00344792 /* SchoolRowStyle.swift */,
 				D47A1AF629C00C0E004F03DB /* HomePageOptionStyle.swift */,
+				D4B4B62C29C37C130098D175 /* ProgrammeCardStyle.swift */,
 			);
 			path = Styles;
 			sourceTree = "<group>";
@@ -1051,12 +1054,12 @@
 			path = Bookmarks;
 			sourceTree = "<group>";
 		};
-		D4A550CD299454E900028BCF /* UserDefaults */ = {
+		D4A550CD299454E900028BCF /* LocalStorage */ = {
 			isa = PBXGroup;
 			children = (
 				D4A550CE299454F700028BCF /* ScheduleStoreModel.swift */,
 			);
-			path = UserDefaults;
+			path = LocalStorage;
 			sourceTree = "<group>";
 		};
 		D4ABD269298C197E002FD8F5 /* SideBarSheetView */ = {
@@ -1455,6 +1458,7 @@
 				D476BD2A293A31FD0027CFE8 /* SchedulePreviewList.swift in Sources */,
 				D46ABF0F29843CF300B059F6 /* PreferenceServiceProtocol.swift in Sources */,
 				D4ABD275298C2EC2002FD8F5 /* PreferenceServiceExtension.swift in Sources */,
+				D4B4B62D29C37C130098D175 /* ProgrammeCardStyle.swift in Sources */,
 				D48F0D8A29367CAF0039CD0F /* Colors.swift in Sources */,
 				D4E83ED12999B1B1002E5F88 /* AuthManager.swift in Sources */,
 				D4A550CF299454F700028BCF /* ScheduleStoreModel.swift in Sources */,

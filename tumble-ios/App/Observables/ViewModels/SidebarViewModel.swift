@@ -12,6 +12,7 @@ import SwiftUI
     
     @Inject var preferenceService: PreferenceService
     @Inject var scheduleService: ScheduleService
+    @Inject var courseColorService: CourseColorService
     @Inject var notificationManager: NotificationManager
     @Inject var userController: UserController
     
@@ -75,6 +76,46 @@ import SwiftUI
         }
         self.bookmarks = bookmarks
     }
+    
+    func clearAllNotifications() -> Void {
+        self.notificationManager.cancelNotifications()
+    }
+    
+    func scheduleNotificationsForAllCourses() -> Void {
+        self.scheduleService.load { [weak self] (result: Result<[ScheduleStoreModel], Error>) in
+            guard let self = self else { return }
+            switch result {
+            case .success(let schedules):
+                self.courseColorService.load { (result: Result<CourseAndColorDict, Error>) in
+                    switch result {
+                    case .success(let courseColorsDict):
+                        let allEvents = schedules.flatMap { $0.days.flatMap { $0.events } }
+                        for event in allEvents {
+                            self.notificationManager.scheduleNotification(
+                                for: self.notificationManager.createNotificationFromEvent(
+                                    event: event,
+                                    color: courseColorsDict[event.course.id] ?? "#FEFEFE"
+                                ),
+                                userOffset: self.preferenceService.getNotificationOffset(),
+                                completion: { (result: Result<Int, NotificationError>) in
+                                    switch result {
+                                    case .success(let success):
+                                        AppLogger.shared.info("\(success) notification set")
+                                    case .failure(let failure):
+                                        AppLogger.shared.info("\(failure)")
+                                    }
+                                })
+                        }
+                    case .failure(let failure):
+                        AppLogger.shared.info("Colors could not be loaded from local storage: \(failure)")
+                    }
+                }
+            case .failure:
+                AppLogger.shared.info("Schedules could not be loaded from local storage")
+            }
+        }
+    }
+
     
 }
 

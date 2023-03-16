@@ -45,7 +45,7 @@ struct ToastModifier: ViewModifier {
     private func showToast() {
         guard let toast = toast else { return }
         
-        UIImpactFeedbackGenerator(style: .light).impactOccurred()
+        HapticsController.triggerHapticLight()
         
         if toast.duration > 0 {
             workItem?.cancel()

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct SideBarSheetModel: Identifiable {
+struct SideBarSheetModel: Identifiable, Equatable {
     var id: UUID = UUID()
     let sideBarType: SidebarTabType
 }

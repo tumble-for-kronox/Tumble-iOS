@@ -24,10 +24,11 @@ struct SearchResults: View {
                 Spacer()
             }
             List(searchResults, id: \.id) { programme in
-                ProgrammeCard(programme: programme, universityImage: universityImage)
-                    .onTapGesture {
-                        onOpenProgramme(programme.id)
-                    }
+                ProgrammeCard(
+                    programme: programme,
+                    universityImage: universityImage,
+                    onOpenProgramme: onOpenProgramme
+                )
             }
             .listStyle(PlainListStyle())
         }
