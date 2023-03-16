@@ -121,17 +121,20 @@ extension String {
             return nil
         }
     
-    func isOutsideThreeHourRange() -> Bool {
+    func isAvailableNotificationDate() -> Bool {
         let dateFormatter = ISO8601DateFormatter()
         guard let eventDate = dateFormatter.date(from: self) else {
             return false
         }
-        
+
         let now = Date()
         let threeHoursFromNow = Calendar.current.date(byAdding: .hour, value: 3, to: now)!
-        
-        return eventDate <= now || eventDate >= threeHoursFromNow
+
+        return eventDate > now && eventDate > threeHoursFromNow
     }
+
+
+
     
     // Checks if the given day name is todays day,
     // if so it returns the string 'Today' instead of

@@ -13,7 +13,10 @@ class NotificationManager: NotificationManagerProtocol {
     private let notificationCenter = UNUserNotificationCenter.current()
     private let authorizationOptions: UNAuthorizationOptions = [.alert, .sound, .badge]
 
-    func scheduleNotification(for notification: Notification, userOffset: Int, completion: @escaping (Result<Int, NotificationError>) -> Void) {
+    func scheduleNotification(
+        for notification: Notification,
+        userOffset: Int,
+        completion: @escaping (Result<Int, NotificationError>) -> Void) {
         notificationsAreAllowed { result in
             switch result {
             case .success:
@@ -60,6 +63,15 @@ class NotificationManager: NotificationManagerProtocol {
     func cancelNotifications() -> Void {
         notificationCenter.removeAllPendingNotificationRequests()
         AppLogger.shared.info("Cancelled all notifications for this school")
+    }
+    
+    func createNotificationFromEvent(event: Response.Event, color: String) -> Notification {
+        let notification = Notification(
+            id: event.id,
+            color: color,
+            dateComponents: event.dateComponents!,
+            categoryIdentifier: event.course.id, content: event.toDictionary())
+        return notification
     }
 }
 

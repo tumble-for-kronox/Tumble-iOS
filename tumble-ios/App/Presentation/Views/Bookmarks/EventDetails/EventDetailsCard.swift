@@ -35,7 +35,7 @@ struct EventDetailsCard: View {
                         Spacer()
                     }
                     HStack (spacing: 7.5) {
-                        if event.from.isOutsideThreeHourRange() {
+                        if event.from.isAvailableNotificationDate() {
                             EventDetailsPill(
                                 title: !parentViewModel.isNotificationSetForEvent ? "Event" : "Remove",
                                 image: "bell.badge",

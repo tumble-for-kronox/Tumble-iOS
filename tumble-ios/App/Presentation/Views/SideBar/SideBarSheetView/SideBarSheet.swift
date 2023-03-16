@@ -37,7 +37,10 @@ struct SideBarSheet: View {
             }
         case .notifications:
             SidebarSheetViewBuilder(header: "Notifications", dismiss: dismiss) {
-                NotificationsSidebarSheet()
+                NotificationsSidebarSheet(
+                    clearAllNotifications: clearAllNotifications,
+                    scheduleNotificationsForAllCourses: scheduleNotificationsForAllCourses
+                )
             }
         case .none:
             EmptyView()
@@ -52,6 +55,14 @@ struct SideBarSheet: View {
     
     fileprivate func dismiss() -> Void {
         presentationMode.wrappedValue.dismiss()
+    }
+    
+    fileprivate func clearAllNotifications() -> Void {
+        parentViewModel.clearAllNotifications()
+    }
+    
+    fileprivate func scheduleNotificationsForAllCourses() -> Void {
+        parentViewModel.scheduleNotificationsForAllCourses()
     }
     
     fileprivate func toggleBookmark(id: String, value: Bool) -> Void {

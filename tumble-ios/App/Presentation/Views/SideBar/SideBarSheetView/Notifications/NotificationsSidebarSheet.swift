@@ -8,17 +8,15 @@
 import SwiftUI
 
 struct NotificationsSidebarSheet: View {
+    
+    let clearAllNotifications: () -> Void
+    let scheduleNotificationsForAllCourses: () -> Void
+    
     var body: some View {
         // List of options for notifications
         VStack {
-            SidebarSheetButton(image: "bell.slash", title: "Clear all notifications", onClick: {})
-            SidebarSheetButton(image: "bell.badge", title: "Set notifications for all schedules", onClick: {})
+            SidebarSheetButton(image: "bell.slash", title: "Clear all notifications", onClick: clearAllNotifications)
+            SidebarSheetButton(image: "bell.badge", title: "Set notifications for all schedules", onClick: scheduleNotificationsForAllCourses)
         }
-    }
-}
-
-struct NotificationsSidebarSheet_Previews: PreviewProvider {
-    static var previews: some View {
-        NotificationsSidebarSheet()
     }
 }

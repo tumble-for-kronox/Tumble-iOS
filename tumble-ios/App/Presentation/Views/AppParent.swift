@@ -18,6 +18,8 @@ struct AppParent: View {
     @ObservedObject var viewModel: ParentViewModel
     @Namespace var animation
     
+    @State private var showModal: Bool = true
+    
     private let sideBarWidth: CGFloat = 110
     
     init(viewModel: ParentViewModel) {
@@ -35,8 +37,7 @@ struct AppParent: View {
                 viewModel: viewModel.sidebarViewModel,
                 showSideBar: $appController.showSideBar,
                 selectedSideBarTab: $appController.selectedSideBarTab,
-                selectedBottomTab: $appController.selectedTab,
-                sideBarSheet: $appController.sideBarSheet,
+                selectedBottomTab: $appController.selectedTab, sideBarSheet: $appController.sideBarSheet,
                 createToast: createToast,
                 removeBookmark: removeBookmark,
                 updateBookmarks: updateBookmarks,
