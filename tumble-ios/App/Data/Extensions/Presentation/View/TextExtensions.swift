@@ -155,6 +155,13 @@ extension Text {
             .padding(.bottom, 10)
     }
     
+    func courseNameCalendarDetail() -> some View {
+        self.font(.system(size: 20, weight: .semibold, design: .rounded))
+            .foregroundColor(.onSurface)
+            .padding(.leading, 25)
+            .padding(.bottom, 10)
+    }
+    
     func locationCard() -> some View {
         self.font(.system(size: 18, design: .rounded))
             .bold()
