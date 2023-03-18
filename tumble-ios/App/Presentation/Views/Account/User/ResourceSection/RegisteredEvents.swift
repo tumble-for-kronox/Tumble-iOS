@@ -25,11 +25,11 @@ struct RegisteredEvents: View {
                             ResourceCard(timeSpan: "\(event.eventStart.convertToHourMinute() ?? "") - \(event.eventEnd.convertToHourMinute() ?? "")", title: event.title)
                         }
                     } else {
-                        Text("No registered exams yet")
+                        Text("No registered events yet")
                             .sectionDividerEmpty()
                     }
                 } else {
-                    Text("No registered exams yet")
+                    Text("No registered events yet")
                         .sectionDividerEmpty()
                 }
             }

@@ -85,11 +85,6 @@ public enum Response {
             let components = calendar.dateComponents([.year, .month, .day, .hour, .minute, .second], from: fromDate)
             return components
         }
-        
-        var uuid: UUID {
-            return UUID()
-        }
-        
     }
 
     // MARK: - Course
@@ -151,7 +146,7 @@ public enum Response {
             return UUID()
         }
         
-        let eventId, title, type: String
+        let eventId, title, type: String?
         let eventStart, eventEnd, lastSignupDate: String
         let participatorID, supportID: String?
         let anonymousCode: String

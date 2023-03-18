@@ -29,7 +29,7 @@ struct EventCard: View {
                     .cornerRadius(5, corners: [.topRight, .bottomRight])
                 VStack (alignment: .leading, spacing: 0) {
                     EventBanner(eventStart: event.eventStart, eventEnd: event.eventEnd)
-                    EventInformation(title: event.title, signUp: event.lastSignupDate, type: .available)
+                    EventInformation(title: event.title ?? "Untitled", signUp: event.lastSignupDate, type: .available)
                 }
             }
             .frame(height: 140)
@@ -46,7 +46,9 @@ struct EventCard: View {
             })
             if event.lastSignupDate.isValidSignupDate() {
                 Button(action: {
-                    onTap(event.eventId, eventType)
+                    if let eventId = event.eventId {
+                        onTap(eventId, eventType)
+                    }
                 }, label: {
                     HStack {
                         Image(systemName: eventType.rawValue)
