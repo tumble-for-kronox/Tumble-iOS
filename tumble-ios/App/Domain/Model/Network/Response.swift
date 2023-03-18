@@ -86,6 +86,10 @@ public enum Response {
             return components
         }
         
+        var uuid: UUID {
+            return UUID()
+        }
+        
     }
 
     // MARK: - Course
