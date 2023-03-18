@@ -61,15 +61,15 @@ struct BookmarkListView: View {
                     }
                 }, label: {
                     Image(systemName: "arrow.up")
-                        .font(.system(size: 20, weight: .semibold))
+                        .font(.system(size: 24, weight: .semibold))
                         .foregroundColor(.background)
-                        .padding()
+                        .padding(10)
                         .background(Color.primary)
-                        .clipShape(Circle())
+                        .clipShape(Rectangle())
+                        .cornerRadius(10)
                 })
                 .padding()
                 .offset(x: bookmarksListModel.buttonOffsetX)
-                .shadow(radius: 5, x: 5, y: 5)
                 ,alignment: .bottomTrailing
             )
         }

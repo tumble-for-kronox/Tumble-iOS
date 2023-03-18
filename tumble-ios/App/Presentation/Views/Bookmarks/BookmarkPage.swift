@@ -50,8 +50,11 @@ struct BookmarkPage: View {
                         )
                         
                     case .calendar:
-                        Text("stub")
-                            .padding(.top, 10)
+                        BookmarkCalendarView(
+                            days: viewModel.scheduleListOfDays,
+                            courseColors: viewModel.courseColors,
+                            parentViewModel: viewModel
+                        )
                     }
                 case .uninitialized:
                     Info(title: "No bookmarks yet", image: "bookmark.slash")

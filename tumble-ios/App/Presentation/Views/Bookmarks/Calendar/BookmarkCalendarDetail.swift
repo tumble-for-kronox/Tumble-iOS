@@ -1,45 +1,42 @@
 //
-//  ScheduleCardview.swift
+//  BookmarkCalendarDetail.swift
 //  tumble-ios
 //
-//  Created by Adis Veletanlic on 11/18/22.
+//  Created by Adis Veletanlic on 2023-03-18.
 //
 
 import SwiftUI
 
-struct BookmarkCard: View {
-    @State private var isDisclosed: Bool = false
+struct BookmarkCalendarDetail: View {
     
-    let onTapCard: (Response.Event, Color) -> Void
+    let onTapDetail: (Response.Event, Color) -> Void
     let event: Response.Event
-    let isLast: Bool
     let color: Color
     
     var body: some View {
         Button(action: {
             HapticsController.triggerHapticLight()
-            onTapCard(event, color)
+            onTapDetail(event, color)
         }, label: {
             ZStack {
                 RoundedRectangle(cornerRadius: 7.5)
                     .fill(event.isSpecial ? .red : color)
-                    
                 Rectangle()
                     .fill(Color.surface)
                     .offset(x: 7.5)
                     .cornerRadius(5, corners: [.topRight, .bottomRight])
                 VStack (alignment: .leading, spacing: 0) {
                     BookmarkCardBanner(color: event.isSpecial ? .red : color, timeSpan: "\(event.from.convertISOToHoursAndMinutes() ?? "") - \(event.to.convertISOToHoursAndMinutes() ?? "")", isSpecial: event.isSpecial, courseName: event.course.englishName)
-                        
-                    BookmarkCardInformation(title: event.title, courseName: event.course.englishName.trimmingCharacters(in: .whitespaces), location: event.locations.first?.id ?? "Unknown")
+                    VStack {
+                        Text(event.title)
+                            .courseNameCalendarDetail()
+                        Spacer()
+                    }
                     Spacer()
                 }
                 
             }
         })
-        .buttonStyle(BookmarkCardStyle())
-        .padding(.bottom, isLast ? 40 : 10)
-        
+        .buttonStyle(BookmarkCalendarDetailStyle())
     }
 }
-
