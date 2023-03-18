@@ -49,6 +49,12 @@
 		D42DFD5929BD3273002942D7 /* SidebarSheetButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42DFD5829BD3273002942D7 /* SidebarSheetButton.swift */; };
 		D42DFD5C29BD5920002942D7 /* SidebarSheetButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42DFD5B29BD5920002942D7 /* SidebarSheetButtonStyle.swift */; };
 		D42DFD5E29BD5BC9002942D7 /* ExternalLinkPillStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42DFD5D29BD5BC9002942D7 /* ExternalLinkPillStyle.swift */; };
+		D430F73E29C60DC500E30E48 /* BookmarkCardStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D430F73D29C60DC500E30E48 /* BookmarkCardStyle.swift */; };
+		D430F74029C613DB00E30E48 /* BookmarkCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D430F73F29C613DB00E30E48 /* BookmarkCalendarView.swift */; };
+		D430F74329C615DC00E30E48 /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = D430F74229C615DC00E30E48 /* FSCalendar */; };
+		D430F74529C61C5600E30E48 /* BookmarkCalendarDayEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = D430F74429C61C5600E30E48 /* BookmarkCalendarDayEvents.swift */; };
+		D430F74729C654A200E30E48 /* BookmarkCalendarDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = D430F74629C654A200E30E48 /* BookmarkCalendarDetail.swift */; };
+		D430F74929C6558700E30E48 /* BookmarkCalendarDetailStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D430F74829C6558700E30E48 /* BookmarkCalendarDetailStyle.swift */; };
 		D43419A429853F34001089A0 /* OnBoarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43419A329853F34001089A0 /* OnBoarding.swift */; };
 		D43419A9298546B0001089A0 /* FeatureCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43419A8298546B0001089A0 /* FeatureCard.swift */; };
 		D43419AE29854E6B001089A0 /* OnBoardingViewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43419AD29854E6B001089A0 /* OnBoardingViewBuilder.swift */; };
@@ -231,6 +237,11 @@
 		D42DFD5829BD3273002942D7 /* SidebarSheetButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarSheetButton.swift; sourceTree = "<group>"; };
 		D42DFD5B29BD5920002942D7 /* SidebarSheetButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarSheetButtonStyle.swift; sourceTree = "<group>"; };
 		D42DFD5D29BD5BC9002942D7 /* ExternalLinkPillStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalLinkPillStyle.swift; sourceTree = "<group>"; };
+		D430F73D29C60DC500E30E48 /* BookmarkCardStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkCardStyle.swift; sourceTree = "<group>"; };
+		D430F73F29C613DB00E30E48 /* BookmarkCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkCalendarView.swift; sourceTree = "<group>"; };
+		D430F74429C61C5600E30E48 /* BookmarkCalendarDayEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkCalendarDayEvents.swift; sourceTree = "<group>"; };
+		D430F74629C654A200E30E48 /* BookmarkCalendarDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkCalendarDetail.swift; sourceTree = "<group>"; };
+		D430F74829C6558700E30E48 /* BookmarkCalendarDetailStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkCalendarDetailStyle.swift; sourceTree = "<group>"; };
 		D43419A329853F34001089A0 /* OnBoarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoarding.swift; sourceTree = "<group>"; };
 		D43419A8298546B0001089A0 /* FeatureCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureCard.swift; sourceTree = "<group>"; };
 		D43419AD29854E6B001089A0 /* OnBoardingViewBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingViewBuilder.swift; sourceTree = "<group>"; };
@@ -378,6 +389,7 @@
 				D4D29969299B0D42003B8C65 /* PermissionsSwiftUIPhoto in Frameworks */,
 				D4607637292AA8DE00DE9590 /* PopupView in Frameworks */,
 				D4D29963299B0D42003B8C65 /* PermissionsSwiftUI in Frameworks */,
+				D430F74329C615DC00E30E48 /* FSCalendar in Frameworks */,
 				D42BAC1C298D3D590025EAA9 /* Logging in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -659,6 +671,8 @@
 				D44ABF0629BFE89D00344792 /* SchoolRowStyle.swift */,
 				D47A1AF629C00C0E004F03DB /* HomePageOptionStyle.swift */,
 				D4B4B62C29C37C130098D175 /* ProgrammeCardStyle.swift */,
+				D430F73D29C60DC500E30E48 /* BookmarkCardStyle.swift */,
+				D430F74829C6558700E30E48 /* BookmarkCalendarDetailStyle.swift */,
 			);
 			path = Styles;
 			sourceTree = "<group>";
@@ -1226,6 +1240,9 @@
 		D4F145E62982144C00C3A351 /* Calendar */ = {
 			isa = PBXGroup;
 			children = (
+				D430F73F29C613DB00E30E48 /* BookmarkCalendarView.swift */,
+				D430F74429C61C5600E30E48 /* BookmarkCalendarDayEvents.swift */,
+				D430F74629C654A200E30E48 /* BookmarkCalendarDetail.swift */,
 			);
 			path = Calendar;
 			sourceTree = "<group>";
@@ -1294,6 +1311,7 @@
 				D4D29964299B0D42003B8C65 /* PermissionsSwiftUICamera */,
 				D4D29966299B0D42003B8C65 /* PermissionsSwiftUINotification */,
 				D4D29968299B0D42003B8C65 /* PermissionsSwiftUIPhoto */,
+				D430F74229C615DC00E30E48 /* FSCalendar */,
 			);
 			productName = "tumble-ios";
 			productReference = D4722145292454560063BDB7 /* tumble-ios.app */;
@@ -1327,6 +1345,7 @@
 				D4607635292AA8DE00DE9590 /* XCRemoteSwiftPackageReference "PopupView" */,
 				D42BAC1A298D3D590025EAA9 /* XCRemoteSwiftPackageReference "swift-log" */,
 				D4D29961299B0D42003B8C65 /* XCRemoteSwiftPackageReference "PermissionsSwiftUI" */,
+				D430F74129C615DC00E30E48 /* XCRemoteSwiftPackageReference "FSCalendar" */,
 			);
 			productRefGroup = D4722146292454560063BDB7 /* Products */;
 			projectDirPath = "";
@@ -1358,11 +1377,13 @@
 				D4607643292AB1C000DE9590 /* HomePageViewModel.swift in Sources */,
 				D460763D292AAE7800DE9590 /* RootViewModel.swift in Sources */,
 				D40D809829251EEF008CA68D /* ToastView.swift in Sources */,
+				D430F74029C613DB00E30E48 /* BookmarkCalendarView.swift in Sources */,
 				D4E39E372989CE27004C30DF /* Utilities.swift in Sources */,
 				D43419B229855022001089A0 /* BookmarkInstructions.swift in Sources */,
 				D4462C3029858A280067DA65 /* TextExtensions.swift in Sources */,
 				D42DFD5929BD3273002942D7 /* SidebarSheetButton.swift in Sources */,
 				D4BAE5F82924636500143717 /* School.swift in Sources */,
+				D430F74729C654A200E30E48 /* BookmarkCalendarDetail.swift in Sources */,
 				D4BAE61C29246AF800143717 /* SchoolRow.swift in Sources */,
 				D4A550D729947FA500028BCF /* SidebarSheetViewBuilder.swift in Sources */,
 				D40D808929247123008CA68D /* Root.swift in Sources */,
@@ -1466,6 +1487,7 @@
 				D454203E29BE914800EF0FC9 /* EventDetailsPillStyle.swift in Sources */,
 				D4607653292AF5DA00DE9590 /* DayHeader.swift in Sources */,
 				D4D4CD21299D273A00D48180 /* HTTPURLResponseExtension.swift in Sources */,
+				D430F73E29C60DC500E30E48 /* BookmarkCardStyle.swift in Sources */,
 				D49D2502299AC240001D2751 /* ImagePicker.swift in Sources */,
 				D419EDF6299A78C400479DCE /* ResourceSectionDivider.swift in Sources */,
 				D4D4CD13299CE4EF00D48180 /* EventBanner.swift in Sources */,
@@ -1486,6 +1508,7 @@
 				D43419B829855A9C001089A0 /* SkipButton.swift in Sources */,
 				D43419BA29855CF6001089A0 /* BookingInstructions.swift in Sources */,
 				D40D80A929252688008CA68D /* ParentViewModel.swift in Sources */,
+				D430F74529C61C5600E30E48 /* BookmarkCalendarDayEvents.swift in Sources */,
 				D4A550CC2994509A00028BCF /* SidebarViewModel.swift in Sources */,
 				D41F152B299C699500E13264 /* Events.swift in Sources */,
 				D49D2500299A9495001D2751 /* UserController.swift in Sources */,
@@ -1495,6 +1518,7 @@
 				D4BAE614292466F700143717 /* SchoolLoader.swift in Sources */,
 				D42BAC25298D5EBC0025EAA9 /* Dependencies.swift in Sources */,
 				D42BAC23298D5BFA0025EAA9 /* DependencyInjector.swift in Sources */,
+				D430F74929C6558700E30E48 /* BookmarkCalendarDetailStyle.swift in Sources */,
 				D4996C0B29BBE9FB00E609DC /* MoreSidebarSheet.swift in Sources */,
 				D42BAC15298D21E40025EAA9 /* TabBar.swift in Sources */,
 				D45338FF2929805100198411 /* StringExtensions.swift in Sources */,
@@ -1854,6 +1878,14 @@
 				minimumVersion = 1.0.0;
 			};
 		};
+		D430F74129C615DC00E30E48 /* XCRemoteSwiftPackageReference "FSCalendar" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/WenchaoD/FSCalendar";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
 		D4607635292AA8DE00DE9590 /* XCRemoteSwiftPackageReference "PopupView" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/exyte/PopupView.git";
@@ -1877,6 +1909,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D42BAC1A298D3D590025EAA9 /* XCRemoteSwiftPackageReference "swift-log" */;
 			productName = Logging;
+		};
+		D430F74229C615DC00E30E48 /* FSCalendar */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D430F74129C615DC00E30E48 /* XCRemoteSwiftPackageReference "FSCalendar" */;
+			productName = FSCalendar;
 		};
 		D4607636292AA8DE00DE9590 /* PopupView */ = {
 			isa = XCSwiftPackageProductDependency;
