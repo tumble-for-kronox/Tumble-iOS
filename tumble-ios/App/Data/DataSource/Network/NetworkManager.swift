@@ -135,9 +135,12 @@ class NetworkManager: NetworkManagerProtocol {
                             return
                         }
                         let result = try self.decoder.decode(NetworkResponse.self, from: data)
+                        
                         completion(.success(result))
-                    } catch {
+                    } catch (let error) {
                         do {
+                            AppLogger.shared.critical("Failed to decode response to object \(NetworkResponse.self). Error: \(error)", source: "NetworkManager")
+                            // Attempt to decode object into server response error message, if request fails
                             let result = try self.decoder.decode(Response.ErrorMessage.self, from: data)
                             completion(.failure(result))
                         } catch {
