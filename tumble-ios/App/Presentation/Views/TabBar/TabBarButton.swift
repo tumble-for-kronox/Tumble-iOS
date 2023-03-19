@@ -11,7 +11,8 @@ struct TabBarButton: View {
     var animation: Namespace.ID
     let bottomTab: TabbarTabType
     
-    @Binding var selectedBottomTab: TabbarTabType
+    @Binding var selectedLocalBottomTab: TabbarTabType
+    @Binding var selectedAppBottomTab: TabbarTabType
     
     var body: some View {
         VStack(spacing: 8) {
@@ -26,14 +27,15 @@ struct TabBarButton: View {
         }
         .frame(maxWidth: .infinity)
         .onTapGesture {
-            withAnimation(.spring()) {
-                self.selectedBottomTab = bottomTab
+            withAnimation(.easeInOut(duration: 0.25)) {
+                self.selectedLocalBottomTab = bottomTab
             }
+            self.selectedAppBottomTab = bottomTab
         }
     }
     
     private func isSelected() -> Bool {
-        return selectedBottomTab.rawValue == bottomTab.rawValue
+        return selectedLocalBottomTab.rawValue == bottomTab.rawValue
     }
     
 }

@@ -14,7 +14,8 @@ struct HomePage: View {
     @Binding var domain: String?
     @Binding var canvasUrl: String?
     @Binding var kronoxUrl: String?
-    @Binding var selectedTabBar: TabbarTabType
+    @Binding var selectedAppTab: TabbarTabType
+    @Binding var selectedLocalTab: TabbarTabType
     
     let backgroundColor: Color = .primary.opacity(0.75)
     let iconColor: Color = .primary.opacity(0.95)
@@ -50,15 +51,22 @@ struct HomePage: View {
             // Schedules, booked rooms, registered exams
             VStack (alignment: .leading, spacing: 0) {
                 HomePageOption(titleText: "Schedules", bodyText: "Got a class coming up?", image: "list.bullet.clipboard", onTap: {
+                    selectedAppTab = .bookmarks
                     withAnimation(.spring()) {
-                        selectedTabBar = .bookmarks
+                        selectedLocalTab = .bookmarks
                     }
                 })
                 HomePageOption(titleText: "Book a room", bodyText: "Need to study?", image: "books.vertical", onTap: {
-                    
+                    selectedAppTab = .account
+                    withAnimation(.spring()) {
+                        selectedLocalTab = .account
+                    }
                 })
                 HomePageOption(titleText: "Register for exams", bodyText: "You've got this!", image: "newspaper", onTap: {
-                    
+                    selectedAppTab = .account
+                    withAnimation(.spring()) {
+                        selectedLocalTab = .account
+                    }
                 })
             }
             .padding(.top, 40)

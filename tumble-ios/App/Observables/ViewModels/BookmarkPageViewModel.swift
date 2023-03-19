@@ -168,7 +168,7 @@ extension BookmarkPageViewModel {
                 AppLogger.shared.info("No schedules needed to or could be be updated")
                 self.scheduleListOfDays = bookmarks.removeDuplicateEvents().flatten()
             } else {
-                AppLogger.shared.info("Updated schedules: \(uniqueSchedules)")
+                AppLogger.shared.info("Amount of updated schedules: \(uniqueSchedules.count)")
                 self.scheduleListOfDays = uniqueSchedules
             }
             

@@ -37,7 +37,7 @@ struct AppParent: View {
                 viewModel: viewModel.sidebarViewModel,
                 showSideBar: $appController.showSideBar,
                 selectedSideBarTab: $appController.selectedSideBarTab,
-                selectedBottomTab: $appController.selectedTab, sideBarSheet: $appController.sideBarSheet,
+                selectedBottomTab: $appController.selectedAppTab, sideBarSheet: $appController.sideBarSheet,
                 createToast: createToast,
                 removeBookmark: removeBookmark,
                 updateBookmarks: updateBookmarks,
@@ -46,14 +46,15 @@ struct AppParent: View {
             NavigationView {
                 VStack {
                     // Main home page view switcher
-                    switch appController.selectedTab {
+                    switch appController.selectedAppTab {
                     case .home:
                         HomePage(
                             viewModel: viewModel.homeViewModel,
                             domain: $viewModel.domain,
                             canvasUrl: $viewModel.canvasUrl,
                             kronoxUrl: $viewModel.kronoxUrl,
-                            selectedTabBar: $appController.selectedTab
+                            selectedAppTab: $appController.selectedAppTab,
+                            selectedLocalTab: $appController.selectedLocalTab
                         )
                     case .bookmarks:
                         BookmarkPage(
@@ -67,10 +68,13 @@ struct AppParent: View {
                         )
                     }
                     Spacer()
-                    TabBar(selectedBottomTab: $appController.selectedTab)
+                    TabBar(
+                        selectedAppBottomTab: $appController.selectedAppTab,
+                        selectedLocalBottomTab: $appController.selectedLocalTab
+                    )
                 }
                 .ignoresSafeArea(.keyboard)
-                .navigationTitle(appController.selectedTab.displayName)
+                .navigationTitle(appController.selectedAppTab.displayName)
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading, content: {
@@ -82,7 +86,7 @@ struct AppParent: View {
                     ToolbarItem(placement: .navigationBarTrailing, content: {
                         NavigationbarSearch(
                             viewModel: viewModel.searchViewModel,
-                            backButtonTitle: appController.selectedTab.displayName,
+                            backButtonTitle: appController.selectedAppTab.displayName,
                             checkForNewSchedules: updateBookmarks,
                             universityImage: $viewModel.universityImage)
                     })
