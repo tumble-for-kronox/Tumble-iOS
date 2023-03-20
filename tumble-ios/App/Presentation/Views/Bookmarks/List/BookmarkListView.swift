@@ -18,7 +18,7 @@ struct BookmarkListView: View {
     
     let days: [DayUiModel]
     let courseColors: CourseAndColorDict
-    @ObservedObject var parentViewModel: BookmarkPageViewModel
+    @ObservedObject var appController: AppController
     @State private var bookmarksListModel: BookmarksListModel = BookmarksListModel()
     
     var body: some View {
@@ -38,7 +38,7 @@ struct BookmarkListView: View {
                                         courseColors[event.course.id]!.toColor() : .white)
                                 }
                             })
-                            .padding(.top, 35)
+                            .padding(.top)
                         }
                     }
                 }
@@ -76,7 +76,7 @@ struct BookmarkListView: View {
     }
     
     fileprivate func onTapCard(event: Response.Event, color: Color) -> Void {
-        parentViewModel.eventSheet = EventDetailsSheetModel(event: event, color: color)
+        appController.eventSheet = EventDetailsSheetModel(event: event, color: color)
     }
     
     fileprivate func handleButtonAnimation() -> Void {

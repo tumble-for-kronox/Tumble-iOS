@@ -12,39 +12,38 @@ struct HomePageNewsSection: View {
     @ObservedObject var parentViewModel: HomePageViewModel
     
     var body: some View {
-        switch parentViewModel.newsSectionStatus {
-        case .loading:
-            Spacer()
-            HStack {
-                Spacer()
-                CustomProgressIndicator()
-                Spacer()
-            }
-            Spacer()
-        case .loaded:
+        VStack {
             HomePageSectionDivider(onTapSeeAll: {
                 // Open sheet with all news items
-            }, title: "News", contentCount: parentViewModel.news.count)
-            if !parentViewModel.news.isEmpty {
-                ScrollView {
-                    LazyVStack {
-                        ForEach(parentViewModel.eventsForToday!, id: \.self) { event in
-                            HomePageEventButton(
-                                onTapEvent: {event in},
-                                event: event,
-                                color: parentViewModel.courseColors![event.course.id] != nil ?
-                                parentViewModel.courseColors![event.course.id]!.toColor() : .white
-                            )
+            }, title: "News", contentCount: parentViewModel.news?.count ?? 0)
+            switch parentViewModel.newsSectionStatus {
+            case .loading:
+                Spacer()
+                HStack {
+                    Spacer()
+                    CustomProgressIndicator()
+                    Spacer()
+                }
+                Spacer()
+            case .loaded:
+                if !parentViewModel.news!.isEmpty {
+                    ScrollView {
+                        LazyVStack {
+                            ForEach(parentViewModel.news!, id: \.self) { notificationNewsItem in
+                                HomePageNewsButton(notificationNewsItem: notificationNewsItem)
+                            }
                         }
                     }
+                } else {
+                    Text("No news for today")
+                        .font(.system(size: 18))
+                        .foregroundColor(.onBackground)
                 }
-            } else {
-                Text("No news for today")
+            case .error:
+                Text("Something went wrong")
                     .font(.system(size: 18))
                     .foregroundColor(.onBackground)
             }
-        case .error:
-            Text("Error")
         }
     }
 }

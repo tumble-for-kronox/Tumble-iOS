@@ -14,10 +14,11 @@ import SwiftUI
     @Inject var userController: UserController
     @Inject var scheduleService: ScheduleService
     @Inject var courseColorService: CourseColorService
+    @Inject var networkManager: NetworkManager
     
     @Published var bookmarkedEventsSectionStatus: PageState = .loading
     @Published var newsSectionStatus: PageState = .loading
-    @Published var news = []
+    @Published var news: Response.NewsItems? = nil
     @Published var eventsForWeek: [Response.Event]? = nil
     @Published var eventsForToday: [Response.Event]? = nil
     @Published var courseColors: CourseAndColorDict? = nil
@@ -44,7 +45,21 @@ import SwiftUI
     
     func getNews() -> Void {
         self.newsSectionStatus = .loading
-        self.newsSectionStatus = .loaded
+        networkManager.get(.news) { [weak self] (result: Result<Response.NewsItems, Response.ErrorMessage>) in
+            guard let self = self else { return }
+            switch result {
+            case .success(let news):
+                DispatchQueue.main.async {
+                    self.news = news.pick(length: 4) // Show 4 latest items
+                    self.newsSectionStatus = .loaded
+                }
+            case .failure(let failure):
+                AppLogger.shared.error("Failed to retrieve news items: \(failure)")
+                DispatchQueue.main.async {
+                    self.newsSectionStatus = .error
+                }
+            }
+        }
     }
     
     func getEventsForWeek() {

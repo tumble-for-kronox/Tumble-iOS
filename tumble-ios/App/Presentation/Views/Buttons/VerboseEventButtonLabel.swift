@@ -49,17 +49,17 @@ struct VerboseEventButtonLabel: View {
                     HStack {
                         Image(systemName: "mappin.and.ellipse")
                             .font(.system(size: 17))
-                            .foregroundColor(.onSurface.opacity(0.7))
+                            .foregroundColor(.onSurface)
                         Text(event.locations.first?.id.capitalized ?? "Unknown")
-                            .font(.system(size: 17))
-                            .foregroundColor(.onSurface.opacity(0.7))
+                            .font(.system(size: 17, weight: .semibold))
+                            .foregroundColor(.onSurface)
                     }
                     Spacer()
                     if let timeFrom = event.from.convertISOToHoursAndMinutes(),
                        let timeTo = event.to.convertISOToHoursAndMinutes() {
                         HStack {
                             Circle()
-                                .foregroundColor(color)
+                                .foregroundColor(event.isSpecial ? Color.red : color)
                                 .frame(height: 7)
                             Text("\(timeFrom) - \(timeTo)")
                                 .font(.system(size: 16, weight: .semibold))
@@ -71,7 +71,7 @@ struct VerboseEventButtonLabel: View {
             .padding()
             .frame(height: 170, alignment: .leading)
             .frame(maxWidth: .infinity)
-            .background(Color.surface)
+            .background(event.isSpecial ? Color.red.opacity(0.2) : Color.surface)
             .cornerRadius(20)
             .padding([.leading, .trailing], 8)
             Spacer()

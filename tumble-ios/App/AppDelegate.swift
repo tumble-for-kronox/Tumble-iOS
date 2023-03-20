@@ -57,10 +57,16 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 }
 
 extension AppDelegate: MessagingDelegate {
-    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
-
-      let deviceToken:[String: String] = ["token": fcmToken ?? ""]
-        AppLogger.shared.debug("Device token: \(deviceToken)") // Unique user device token for remote FCM
+    func messaging(
+        _ messaging: Messaging,
+        didReceiveRegistrationToken fcmToken: String?) {
+            let deviceToken: [String: String] = ["token": fcmToken ?? ""]
+            AppLogger.shared.debug("Device token: \(deviceToken)") // Unique user device token for remote FCM
+            if deviceToken["token"] != nil {
+                Messaging.messaging().subscribe(toTopic: "news") { error in
+                    AppLogger.shared.debug("Failed to subscribe to weather topic")
+                }
+            }
     }
 }
 

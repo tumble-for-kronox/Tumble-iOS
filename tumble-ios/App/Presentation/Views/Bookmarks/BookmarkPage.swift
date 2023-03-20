@@ -46,14 +46,14 @@ struct BookmarkPage: View {
                         BookmarkListView(
                             days: viewModel.scheduleListOfDays,
                             courseColors: viewModel.courseColors,
-                            parentViewModel: viewModel
+                            appController: appController
                         )
                         
                     case .calendar:
                         BookmarkCalendarView(
                             days: viewModel.scheduleListOfDays,
                             courseColors: viewModel.courseColors,
-                            parentViewModel: viewModel
+                            appController: appController
                         )
                     }
                 case .uninitialized:
@@ -69,17 +69,11 @@ struct BookmarkPage: View {
         .onAppear {
             UIApplication.shared.applicationIconBadgeNumber = 0
         }
-        /// Event sheet specifically for when a notification has been opened outside
-        /// the application by the user. The shared eventSheet value is changed from
-        /// AppDelegate and launched here.
+        /// Event sheet for both when a notification has been opened outside
+        /// the application by the user and when triggered on click of event card.
+        /// The shared eventSheet value is changed from AppDelegate and launched here,
+        /// as well as in this view.
         .sheet(item: $appController.eventSheet) { (eventSheet: EventDetailsSheetModel) in
-            EventDetailsSheet(
-                viewModel: viewModel.generateViewModelEventSheet(
-                    event: eventSheet.event,
-                    color: eventSheet.color),
-                updateCourseColors: updateCourseColors)
-        }
-        .sheet(item: $viewModel.eventSheet) { (eventSheet: EventDetailsSheetModel) in
             EventDetailsSheet(
                 viewModel: viewModel.generateViewModelEventSheet(
                     event: eventSheet.event,

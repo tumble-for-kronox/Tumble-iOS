@@ -14,6 +14,9 @@ struct HomePageUpcomingEventsSection: View {
     var body: some View {
         // List of events that are for the coming week
         VStack (alignment: .leading) {
+            HomePageSectionDivider(onTapSeeAll: {
+                AppController.shared.selectedAppTab = .bookmarks
+            }, title: "Today's classes", contentCount: parentViewModel.eventsForToday?.count ?? 0)
             switch parentViewModel.bookmarkedEventsSectionStatus {
             case .loading:
                 Spacer()
@@ -24,9 +27,6 @@ struct HomePageUpcomingEventsSection: View {
                 }
                 Spacer()
             case .loaded:
-                HomePageSectionDivider(onTapSeeAll: {
-                    AppController.shared.selectedAppTab = .bookmarks
-                }, title: "Today's classes", contentCount: parentViewModel.eventsForToday!.count)
                 if !parentViewModel.eventsForToday!.isEmpty {
                     ScrollView {
                         LazyVStack {
@@ -50,7 +50,7 @@ struct HomePageUpcomingEventsSection: View {
                 Text("Error")
             }
         }
-        .frame(maxHeight: UIScreen.main.bounds.height / 2.75)
+        .frame(minHeight: UIScreen.main.bounds.height / 5)
     }
 }
 

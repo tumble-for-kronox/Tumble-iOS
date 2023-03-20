@@ -14,7 +14,7 @@ struct BookmarkCalendarView: View {
     
     let days: [DayUiModel]
     let courseColors: CourseAndColorDict
-    @ObservedObject var parentViewModel: BookmarkPageViewModel
+    @ObservedObject var appController: AppController
     
     @State private var displayEvents: Bool = false
     @State private var displayedDayEvents: [Response.Event] = [Response.Event]()
@@ -63,7 +63,7 @@ struct BookmarkCalendarView: View {
     }
     
     fileprivate func onTapDetail(event: Response.Event, color: Color) -> Void {
-        parentViewModel.eventSheet = EventDetailsSheetModel(event: event, color: color)
+        appController.eventSheet = EventDetailsSheetModel(event: event, color: color)
     }
 }
 

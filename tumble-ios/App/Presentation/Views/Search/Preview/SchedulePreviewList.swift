@@ -37,7 +37,7 @@ struct SchedulePreviewList: View {
     
     var body: some View {
         ZStack {
-            ScrollView {
+            ScrollView (showsIndicators: false) {
                 LazyVStack (spacing: 0) {
                     ForEach(days, id: \.id) { day in
                         if !(day.events.isEmpty) {

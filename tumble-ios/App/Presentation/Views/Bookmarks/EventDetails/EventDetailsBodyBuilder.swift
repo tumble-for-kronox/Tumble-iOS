@@ -32,9 +32,10 @@ struct EventDetailsBodyBuilder<Content : View>: View {
                     
                 }
                 .padding(.bottom, 5)
-                VStack {
+                VStack (alignment: .leading) {
                     content
                 }
+                .padding(.top, 7.5)
             }
             Spacer()
         }

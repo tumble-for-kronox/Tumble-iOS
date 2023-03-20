@@ -46,7 +46,7 @@ struct ResourceCard: View {
                         .font(.system(size: 15))
                         .foregroundColor(.onSurface.opacity(0.7))
                 }
-                
+                Spacer()
             }
             .padding()
         })

@@ -22,13 +22,12 @@ struct EventDetailsCard: View {
                 VStack {
                     HStack {
                         VStack (alignment: .leading, spacing: 0) {
-                            Text(event.title)
-                                .font(.system(size: 28))
+                            Text(event.course.englishName)
+                                .font(.system(size: 28, weight: .semibold))
                                 .foregroundColor(.onSurface)
                                 .padding(.bottom, 7)
-                            Text(event.course.englishName)
+                            Text(event.title)
                                 .font(.system(size: 20))
-                                .italic()
                                 .foregroundColor(.onSurface)
                         }
                         .padding(.bottom, 30)

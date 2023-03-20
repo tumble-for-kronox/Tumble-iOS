@@ -13,7 +13,7 @@ struct RegisteredEvents: View {
     let registeredEvents: [Response.AvailableKronoxUserEvent]?
     
     var body: some View {
-        ScrollView (showsIndicators: false) {
+        VStack {
             switch state {
             case .loading:
                 CustomProgressIndicator()
@@ -39,6 +39,6 @@ struct RegisteredEvents: View {
                     .sectionDividerEmpty()
             }
         }
-        .frame(maxHeight: UIScreen.main.bounds.height / 4)
+        .padding(.bottom, 70)
     }
 }

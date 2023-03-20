@@ -15,7 +15,7 @@ struct EventDetailsSheet: View {
     let updateCourseColors: () -> Void
     
     var body: some View {
-        ScrollView {
+        ScrollView (showsIndicators: false) {
             VStack (spacing: 0) {
                 EventDetailsCard(
                     parentViewModel: viewModel,

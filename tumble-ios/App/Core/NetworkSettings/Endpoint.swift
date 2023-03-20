@@ -23,6 +23,9 @@ enum Endpoint {
     case registerEvent(eventId: String, schoolId: String, sessionToken: String)
     case unregisterEvent(eventId: String, schoolId: String, sessionToken: String)
     
+    // FCM TOPICS
+    case news
+    
     var url: URL {
         
         var components = URLComponents()
@@ -93,6 +96,8 @@ enum Endpoint {
                 URLQueryItem(name: "schoolId", value: schoolId),
                 URLQueryItem(name: "sessionToken", value: sessionToken)
             ]
+        case .news:
+            components.path = "/api/misc/news"
         }
         return components.url!
     }

@@ -62,7 +62,7 @@ struct EventDetailsBody: View {
                 EventDetailsBodyBuilder(title: "Locations", image: "mappin.and.ellipse") {
                     if event.locations.count > 0 {
                         ForEach(event.locations, id: \.self) { location in
-                            Text(location.id)
+                            Text(location.id.capitalized)
                                 .font(.system(size: 17))
                                 .foregroundColor(.onSurface)
                         }

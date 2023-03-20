@@ -42,6 +42,8 @@
 		D426E3A6299C39EA00A8D7AE /* EventBookings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D426E3A5299C39EA00A8D7AE /* EventBookings.swift */; };
 		D4294B2E29C8C01F00007747 /* HomePageNewsSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4294B2D29C8C01F00007747 /* HomePageNewsSection.swift */; };
 		D4294B3029C8C81200007747 /* ResourceEventButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4294B2F29C8C81200007747 /* ResourceEventButtonStyle.swift */; };
+		D4294B3229C9188C00007747 /* HomePageNewsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4294B3129C9188C00007747 /* HomePageNewsButton.swift */; };
+		D4294B3429C91CF700007747 /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4294B3329C91CF700007747 /* ArrayExtension.swift */; };
 		D42BAC17298D282B0025EAA9 /* ExternalLinkPill.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42BAC16298D282B0025EAA9 /* ExternalLinkPill.swift */; };
 		D42BAC1C298D3D590025EAA9 /* Logging in Frameworks */ = {isa = PBXBuildFile; productRef = D42BAC1B298D3D590025EAA9 /* Logging */; };
 		D42BAC1E298D3D6A0025EAA9 /* AppLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42BAC1D298D3D6A0025EAA9 /* AppLogger.swift */; };
@@ -234,6 +236,8 @@
 		D426E3A5299C39EA00A8D7AE /* EventBookings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventBookings.swift; sourceTree = "<group>"; };
 		D4294B2D29C8C01F00007747 /* HomePageNewsSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageNewsSection.swift; sourceTree = "<group>"; };
 		D4294B2F29C8C81200007747 /* ResourceEventButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceEventButtonStyle.swift; sourceTree = "<group>"; };
+		D4294B3129C9188C00007747 /* HomePageNewsButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageNewsButton.swift; sourceTree = "<group>"; };
+		D4294B3329C91CF700007747 /* ArrayExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
 		D42BAC16298D282B0025EAA9 /* ExternalLinkPill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalLinkPill.swift; sourceTree = "<group>"; };
 		D42BAC1D298D3D6A0025EAA9 /* AppLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLogger.swift; sourceTree = "<group>"; };
 		D42BAC22298D5BFA0025EAA9 /* DependencyInjector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyInjector.swift; sourceTree = "<group>"; };
@@ -725,6 +729,7 @@
 				D471A90E29C79449005541FA /* HomePageUpcomingEventsSection.swift */,
 				D48CC59529C7BB160028179A /* HomePageEventButton.swift */,
 				D4294B2D29C8C01F00007747 /* HomePageNewsSection.swift */,
+				D4294B3129C9188C00007747 /* HomePageNewsButton.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -1277,6 +1282,7 @@
 				D4563E7F2985FBFB003261FA /* NetworkExtensions.swift */,
 				D4644A2C298DE35F00B0BB28 /* DateComponentsExtension.swift */,
 				D4E39E312989BBD9004C30DF /* ColorExtensions.swift */,
+				D4294B3329C91CF700007747 /* ArrayExtension.swift */,
 			);
 			path = Types;
 			sourceTree = "<group>";
@@ -1414,6 +1420,7 @@
 				D40D80CE29265D49008CA68D /* SearchBar.swift in Sources */,
 				D4D4CD1C299CE86400D48180 /* UpcomingEventCard.swift in Sources */,
 				D454203C29BE857500EF0FC9 /* ToastController.swift in Sources */,
+				D4294B3229C9188C00007747 /* HomePageNewsButton.swift in Sources */,
 				D421EAF02993FB660045D438 /* EventDetailsSheetModel.swift in Sources */,
 				D46ABF1229843D3000B059F6 /* StoreKey.swift in Sources */,
 				D40D80B429252A5A008CA68D /* PreferenceService.swift in Sources */,
@@ -1451,6 +1458,7 @@
 				D4D4CD17299CE57C00D48180 /* EventCard.swift in Sources */,
 				D48CC59C29C7D1E70028179A /* CompactButtonStyle.swift in Sources */,
 				D498290F299D9E7F0017D636 /* RegisteredBookings.swift in Sources */,
+				D4294B3429C91CF700007747 /* ArrayExtension.swift in Sources */,
 				D4294B3029C8C81200007747 /* ResourceEventButtonStyle.swift in Sources */,
 				D46BB10A298AC31E00887A24 /* EventDetailsBodyBuilder.swift in Sources */,
 				D4A433BC29952BE600BFEB7A /* DictionaryExtension.swift in Sources */,

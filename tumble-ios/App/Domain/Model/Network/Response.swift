@@ -280,9 +280,25 @@ public enum Response {
             case anonymousCode, isRegistered, supportAvailable, requiresChoosingLocation
         }
     }
-
+    
+    // MARK: - ErrorMessage
     struct ErrorMessage: Codable, LocalizedError {
         let message: String
+    }
+    
+    typealias NewsItems = [NotificationContent]
+    // MARK: - NotificationContent
+    struct NotificationContent: Codable, Hashable {
+        
+        static func == (lhs: Response.NotificationContent, rhs:  Response.NotificationContent) -> Bool {
+            return lhs.hashValue == rhs.hashValue
+        }
+        
+        let topic: String
+        let title: String
+        let body: String
+        let longBody: String?
+        let timestamp: String // ISO date string
     }
     
 }

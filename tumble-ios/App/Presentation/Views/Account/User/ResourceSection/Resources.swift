@@ -12,7 +12,7 @@ struct Resources: View {
     @ObservedObject var viewModel: AccountPageViewModel
     
     var body: some View {
-        ScrollView {
+        ScrollView (showsIndicators: false) {
             ResourceSectionDivider (title: "User options", image: "gearshape") {
                 Toggle(isOn: $viewModel.userController.autoSignup) {
                     Text("Automatic exam signup")
@@ -43,8 +43,8 @@ struct Resources: View {
         }
         .frame(maxWidth: .infinity).cornerRadius(15)
         .background(Color.background)
-        .padding(.top, 10)
         .cornerRadius(20, corners: [.topLeft, .topRight])
+        .padding(.top, 10)
         .refreshable {
             viewModel.getUserBookingsForSection()
             viewModel.getUserEventsForSection()

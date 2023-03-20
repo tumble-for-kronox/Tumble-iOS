@@ -8,9 +8,13 @@
 import SwiftUI
 
 struct ExternalLinkPill: View {
+    
     let title: String
     let image: String
     let url: URL?
+    
+    @Binding var collapsedHeader: Bool
+    
     var body: some View {
         Button(action: {
             if url != nil {
@@ -21,9 +25,11 @@ struct ExternalLinkPill: View {
                 Image(systemName: image)
                     .font(.system(size: 14))
                     .foregroundColor(.onSurface)
-                Text(title)
-                    .font(.system(size: 15, weight: .semibold))
-                    .foregroundColor(.onSurface)
+                if !collapsedHeader {
+                    Text(title)
+                        .font(.system(size: 15, weight: .semibold))
+                        .foregroundColor(.onSurface)
+                }
             }
         })
         .buttonStyle(ExternalLinkPillStyle())

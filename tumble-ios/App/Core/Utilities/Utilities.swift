@@ -22,11 +22,14 @@ func navigationBarFont() -> UIFont {
 }
 
 
-func getCurrentDate() -> String {
+func getCurrentDate(truncate: Bool = false) -> String {
     let dateFormatter = DateFormatter()
     dateFormatter.locale = Locale(identifier: "en_US")
     let currentDate = Date()
     dateFormatter.dateStyle = .long
+    if truncate {
+        dateFormatter.dateStyle = .medium
+    }
     dateFormatter.timeStyle = .none
     let dateString = dateFormatter.string(from: currentDate)
     return dateString

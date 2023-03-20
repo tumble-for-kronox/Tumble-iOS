@@ -32,9 +32,13 @@ struct ResourceSectionDivider<Content : View>: View {
         VStack (alignment: .leading) {
             HStack {
                 Text(title)
-                    .font(.system(size: 18, weight: .semibold))
+                    .font(.system(size: 17, weight: .semibold))
                     .foregroundColor(.onBackground)
-                Spacer()
+                VStack (spacing: 0) {
+                    Divider()
+                        .overlay(Color.onBackground)
+                        .padding([.leading, .trailing], 5)
+                }
                 if let destination = destination {
                     NavigationLink(destination: destination, label: {
                         HStack {

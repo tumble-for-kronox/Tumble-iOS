@@ -28,11 +28,19 @@ struct CompactEventButtonLabel: View {
             Divider()
                 .foregroundColor(.onSurface)
             VStack (alignment: .leading, spacing: 10) {
-                Text(event.title)
-                    .font(.system(size: 17, weight: .medium))
-                    .foregroundColor(.onSurface)
-                    .lineLimit(1)
-                    .truncationMode(.tail)
+                HStack {
+                    Text(event.title)
+                        .font(.system(size: 17, weight: .medium))
+                        .foregroundColor(.onSurface)
+                        .lineLimit(1)
+                        .truncationMode(.tail)
+                    Spacer()
+                    if event.isSpecial {
+                        Image(systemName: "person.crop.circle.badge.exclamationmark")
+                            .font(.system(size: 15))
+                            .foregroundColor(.onSurface.opacity(0.7))
+                    }
+                }
                 HStack {
                     Image(systemName: "mappin.and.ellipse")
                         .font(.system(size: 15))
