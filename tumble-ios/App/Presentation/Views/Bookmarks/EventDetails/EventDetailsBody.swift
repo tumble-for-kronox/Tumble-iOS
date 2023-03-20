@@ -31,7 +31,6 @@ struct EventDetailsBody: View {
                     Text(event.course.englishName)
                 }
                 EventDetailsBodyBuilder(title: "Teachers", image: "person.3.sequence") {
-<<<<<<< HEAD
                     if !event.teachers.isEmpty {
                         if !event.teachers.first!.firstName.isEmpty && !event.teachers.first!.lastName.isEmpty {
                             ForEach(event.teachers, id: \.self) { teacher in
@@ -41,11 +40,6 @@ struct EventDetailsBody: View {
                             }
                         } else {
                             Text("No teachers listed at this time")
-=======
-                    if event.teachers.count > 0 {
-                        ForEach(event.teachers, id: \.self) { teacher in
-                            Text("\(teacher.firstName) \(teacher.lastName)")
->>>>>>> 4b1a201579474cc888fa7caa1cf05fb269f6e142
                                 .font(.system(size: 17))
                                 .foregroundColor(.onSurface)
                         }
