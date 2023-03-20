@@ -43,8 +43,10 @@ struct SchedulePreviewList: View {
                         if !(day.events.isEmpty) {
                             Section(header: DayHeader(day: day), content: {
                                 ForEach(day.events, id: \.id) { event in
-                                    SchedulePreviewCard(
-                                        previewColor: courseColors[event.course.id]!.toColor(), event: event, isLast: event == day.events.last)
+                                    VerboseEventButtonLabel(
+                                        event: event,
+                                        color: courseColors[event.course.id]!.toColor()
+                                    )
                                 }
                             })
                             .padding(.top, 35)

@@ -20,26 +20,9 @@ struct BookmarkCard: View {
             HapticsController.triggerHapticLight()
             onTapCard(event, color)
         }, label: {
-            ZStack {
-                RoundedRectangle(cornerRadius: 7.5)
-                    .fill(event.isSpecial ? .red : color)
-                    
-                Rectangle()
-                    .fill(Color.surface)
-                    .offset(x: 7.5)
-                    .cornerRadius(5, corners: [.topRight, .bottomRight])
-                VStack (alignment: .leading, spacing: 0) {
-                    BookmarkCardBanner(color: event.isSpecial ? .red : color, timeSpan: "\(event.from.convertISOToHoursAndMinutes() ?? "") - \(event.to.convertISOToHoursAndMinutes() ?? "")", isSpecial: event.isSpecial, courseName: event.course.englishName)
-                        
-                    BookmarkCardInformation(title: event.title, courseName: event.course.englishName.trimmingCharacters(in: .whitespaces), location: event.locations.first?.id ?? "Unknown")
-                    Spacer()
-                }
-                
-            }
+            VerboseEventButtonLabel(event: event, color: color)
         })
         .buttonStyle(BookmarkCardStyle())
-        .padding(.bottom, isLast ? 40 : 10)
-        
+        .padding(.bottom, isLast ? 20 : 5)
     }
 }
-

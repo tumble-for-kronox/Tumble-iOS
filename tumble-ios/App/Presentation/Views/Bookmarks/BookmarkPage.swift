@@ -73,10 +73,18 @@ struct BookmarkPage: View {
         /// the application by the user. The shared eventSheet value is changed from
         /// AppDelegate and launched here.
         .sheet(item: $appController.eventSheet) { (eventSheet: EventDetailsSheetModel) in
-            EventDetailsSheet(viewModel: viewModel.generateViewModelEventSheet(event: eventSheet.event, color: eventSheet.color), updateCourseColors: updateCourseColors)
+            EventDetailsSheet(
+                viewModel: viewModel.generateViewModelEventSheet(
+                    event: eventSheet.event,
+                    color: eventSheet.color),
+                updateCourseColors: updateCourseColors)
         }
         .sheet(item: $viewModel.eventSheet) { (eventSheet: EventDetailsSheetModel) in
-            EventDetailsSheet(viewModel: viewModel.generateViewModelEventSheet(event: eventSheet.event, color: eventSheet.color), updateCourseColors: updateCourseColors)
+            EventDetailsSheet(
+                viewModel: viewModel.generateViewModelEventSheet(
+                    event: eventSheet.event,
+                    color: eventSheet.color),
+                updateCourseColors: updateCourseColors)
         }
     }
     

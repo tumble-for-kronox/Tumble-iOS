@@ -97,7 +97,7 @@ import SwiftUI
     
     
     func scheduleNotificationsForCourse() -> Void {
-        scheduleService.load { [weak self] result in
+        scheduleService.load(completion: { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let success):
@@ -116,7 +116,7 @@ import SwiftUI
                 AppLogger.shared.info("\(failure)")
                 // TODO: Handle error in view
             }
-        }
+        })
     }
 }
 
