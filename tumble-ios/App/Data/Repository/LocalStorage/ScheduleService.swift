@@ -8,6 +8,14 @@
 import Foundation
 
 class ScheduleService: ObservableObject, ScheduleServiceProtocol {
+    
+    private let dateFormatter: ISO8601DateFormatter = {
+        let formatter = ISO8601DateFormatter()
+        formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+        return formatter
+    }()
+
+    
     private func fileURL() throws -> URL {
             try FileManager.default.url(for: .documentDirectory,
                in: .userDomainMask,
@@ -15,7 +23,8 @@ class ScheduleService: ObservableObject, ScheduleServiceProtocol {
                create: false)
                 .appendingPathComponent("schedules.data")
         }
-
+    
+    
     func load(completion: @escaping (Result<[ScheduleStoreModel], Error>) -> Void) {
         DispatchQueue.global(qos: .background).async {
             do {
@@ -36,6 +45,26 @@ class ScheduleService: ObservableObject, ScheduleServiceProtocol {
                     }
                 }
             }
+    }
+    
+    func load(forCurrentWeek completion: @escaping (Result<[Response.Event], Error>) -> Void) {
+        let calendar = Calendar.current
+        let now = Date()
+        guard let weekStartDate = calendar.date(from: calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: now)) else {
+            completion(.failure(.internal(reason: "Could not calculate week start date")))
+            return
+        }
+        let weekEndDate = calendar.date(byAdding: .day, value: 7, to: weekStartDate)!
+        let weekDateRange = weekStartDate...weekEndDate
+        AppLogger.shared.info("Date range: \(weekDateRange)", source: "ScheduleService")
+        load(forWeeksInRange: weekDateRange) { result in
+            switch result {
+            case .failure(let error):
+                completion(.failure(error))
+            case .success(let events):
+                completion(.success(events))
+            }
+        }
     }
     
     func load(with id: String, completion: @escaping (Result<ScheduleStoreModel, Error>) -> Void) -> Void {
@@ -71,7 +100,7 @@ class ScheduleService: ObservableObject, ScheduleServiceProtocol {
         DispatchQueue.global(qos: .background).async {
             do {
                 let fileURL = try self.fileURL()
-                self.load { result in
+                self.load(completion: { (result: Result<[ScheduleStoreModel], Error>) in
                     switch result {
                     case .failure(let error):
                         DispatchQueue.main.async {
@@ -96,7 +125,7 @@ class ScheduleService: ObservableObject, ScheduleServiceProtocol {
                             }
                         }
                     }
-                }
+                })
             } catch {
                 DispatchQueue.main.async {
                     completion(.failure(.internal(reason: error.localizedDescription)))
@@ -181,5 +210,36 @@ extension ScheduleService {
         }
         return newSchedules
     }
-    
+
+    // Helper function to retrieve events within a specific date range
+    fileprivate func load(forWeeksInRange range: ClosedRange<Date>, completion: @escaping (Result<[Response.Event], Error>) -> Void) {
+        DispatchQueue.global(qos: .background).async {
+            do {
+                let fileURL = try self.fileURL()
+                guard let file = try? FileHandle(forReadingFrom: fileURL) else {
+                    DispatchQueue.main.async {
+                        completion(.success([]))
+                    }
+                    return
+                }
+                let schedules = try JSONDecoder().decode([ScheduleStoreModel].self, from: file.availableData)
+                let events = schedules.flatMap { $0.days }
+                    .filter {
+                        if let eventDate = self.dateFormatter.date(from: $0.isoString) {
+                            return range.contains(eventDate)
+                        }
+                        return false
+                    }
+                    .flatMap { $0.events }
+                DispatchQueue.main.async {
+                    AppLogger.shared.info("Retrieved events for range \(range)", source: "ScheduleService")
+                    completion(.success(events))
+                }
+            } catch {
+                DispatchQueue.main.async {
+                    completion(.failure(.internal(reason: "Could not decode schedules stored locally")))
+                }
+            }
+        }
+    }
 }

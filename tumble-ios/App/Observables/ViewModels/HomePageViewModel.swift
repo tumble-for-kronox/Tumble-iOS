@@ -12,6 +12,23 @@ import SwiftUI
     
     @Inject var preferenceService: PreferenceService
     @Inject var userController: UserController
+    @Inject var scheduleService: ScheduleService
+    @Inject var courseColorService: CourseColorService
+    
+    @Published var bookmarkedEventsSectionStatus: PageState = .loading
+    @Published var eventsForWeek: [Response.Event]? = nil
+    @Published var eventsForToday: [Response.Event]? = nil
+    @Published var courseColors: CourseAndColorDict? = nil
+    
+    private let dateFormatter = ISO8601DateFormatter()
+    
+    init() {
+        self.getEventsForWeek()
+    }
+    
+    func updateViewLocals() -> Void {
+        self.getEventsForWeek()
+    }
     
     func makeCanvasUrl() -> URL? {
         return URL(string: preferenceService.getCanvasUrl() ?? "")
@@ -21,5 +38,62 @@ import SwiftUI
     func makeUniversityUrl() -> URL? {
         return URL(string: preferenceService.getUniversityUrl() ?? "")
     }
+    
+    func getEventsForWeek() {
+        self.bookmarkedEventsSectionStatus = .loading
+        AppLogger.shared.info("Fetching events for the week", source: "HomePageViewModel")
+        scheduleService.load(forCurrentWeek: { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .failure(let error):
+                AppLogger.shared.info("Failed to load schedules for the week: \(error.localizedDescription)", source: "HomePageViewModel")
+                self.bookmarkedEventsSectionStatus = .error
+            case .success(let events):
+                AppLogger.shared.info("Loaded \(events.count) events for the week", source: "HomePageViewModel")
+                self.eventsForToday = self.filterEventsMatchingToday(events: events)
+                self.eventsForWeek = events
+                self.loadCourseColors { [weak self] courseColors in
+                    guard let self = self else { return }
+                    DispatchQueue.main.async {
+                        self.courseColors = courseColors
+                        self.bookmarkedEventsSectionStatus = .loaded
+                    }
+                }
+            }
+        })
+    }
+}
 
+extension HomePageViewModel {
+    
+    fileprivate func filterEventsMatchingToday(events: [Response.Event]) -> [Response.Event] {
+        let now = Date()
+        let calendar = Calendar.current
+        let currentDayOfYear = calendar.ordinality(of: .day, in: .year, for: now) ?? 1
+        let filteredEvents = events.filter { [weak self] event in
+            guard let self = self else { return false }
+            guard let date = self.dateFormatter.date(from: event.from) else { return false }
+            let dayOfYear = calendar.ordinality(of: .day, in: .year, for: date) ?? 1
+            return dayOfYear == currentDayOfYear
+        }
+
+        return filteredEvents
+    }
+    
+    fileprivate func loadCourseColors(completion: @escaping ([String : String]) -> Void) -> Void {
+        self.courseColorService.load { [weak self] result in
+            guard let self = self else { return }
+
+            switch result {
+            case .success(let courseColors):
+                completion(courseColors)
+            case .failure(let failure):
+                DispatchQueue.main.async {
+                    self.bookmarkedEventsSectionStatus = .error
+                }
+                AppLogger.shared.info("Error occured loading colors -> \(failure.localizedDescription)")
+            }
+        }
+    }
+    
 }

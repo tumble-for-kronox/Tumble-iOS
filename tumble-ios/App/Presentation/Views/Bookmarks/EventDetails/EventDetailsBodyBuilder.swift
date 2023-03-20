@@ -26,7 +26,7 @@ struct EventDetailsBodyBuilder<Content : View>: View {
                         .font(.system(size: 20))
                         .foregroundColor(.onSurface)
                     Text(title)
-                        .font(.system(size: 18, design: .rounded))
+                        .font(.system(size: 18))
                         .bold()
                         .foregroundColor(.onBackground)
                     

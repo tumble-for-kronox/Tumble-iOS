@@ -34,7 +34,7 @@ import SwiftUI
     }
     
     func updateBookmarks() -> Void {
-        self.scheduleService.load() { [weak self] result in
+        self.scheduleService.load(completion: { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let schedules):
@@ -55,7 +55,8 @@ import SwiftUI
             case .failure(let failure):
                 AppLogger.shared.info("\(failure)")
             }
-        }
+            
+        })
     }
 
     
@@ -82,7 +83,7 @@ import SwiftUI
     }
     
     func scheduleNotificationsForAllCourses() -> Void {
-        self.scheduleService.load { [weak self] (result: Result<[ScheduleStoreModel], Error>) in
+        self.scheduleService.load(completion: { [weak self] (result: Result<[ScheduleStoreModel], Error>) in
             guard let self = self else { return }
             switch result {
             case .success(let schedules):
@@ -113,7 +114,7 @@ import SwiftUI
             case .failure:
                 AppLogger.shared.info("Schedules could not be loaded from local storage")
             }
-        }
+        })
     }
 
     
@@ -123,14 +124,14 @@ extension SidebarViewModel {
     
     fileprivate func loadSchedules(completion: @escaping ([ScheduleStoreModel]) -> Void) -> Void {
         DispatchQueue.main.async {
-            self.scheduleService.load { result in
+            self.scheduleService.load(completion: {result in
                 switch result {
                 case .failure(_):
                     return
                 case .success(let bookmarks):
                     completion(bookmarks)
                 }
-            }
+            })
         }
     }
     

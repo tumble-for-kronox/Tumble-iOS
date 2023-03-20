@@ -35,7 +35,7 @@ struct BookmarkCalendarView: View {
                     HStack {
                         Text("No events for this date")
                             .foregroundColor(.onBackground)
-                            .font(.system(size: 20, weight: .semibold, design: .rounded))
+                            .font(.system(size: 20, weight: .semibold))
                         Spacer()
                     }
                     .padding([.top, .leading], 15)
@@ -45,8 +45,12 @@ struct BookmarkCalendarView: View {
                             Button(action: {
                                 // Open sheet
                             }, label: {
-                                BookmarkCalendarDetail(onTapDetail: onTapDetail, event: event, color: courseColors[event.course.id] != nil ?
-                                                       courseColors[event.course.id]!.toColor() : .white)
+                                BookmarkCalendarDetail(
+                                    onTapDetail: onTapDetail,
+                                    event: event,
+                                    color: courseColors[event.course.id] != nil ?
+                                                       courseColors[event.course.id]!.toColor() : .white
+                                )
                             })
                         }
                     }
@@ -85,7 +89,7 @@ struct CalendarViewRepresentable: UIViewRepresentable {
         calendar.appearance.titleTodayColor = UIColor(named: "OnPrimary")
         calendar.appearance.todayColor = UIColor(named: "PrimaryColor")?.withAlphaComponent(0.5)
         calendar.appearance.titleFont = .boldSystemFont(ofSize: 20)
-        calendar.appearance.headerTitleFont = UIFont(descriptor: UIFontDescriptor.preferredFontDescriptor(withTextStyle: .largeTitle).withDesign(.rounded)!, size: 30)
+        calendar.appearance.headerTitleFont = UIFont(descriptor: UIFontDescriptor.preferredFontDescriptor(withTextStyle: .largeTitle), size: 30)
         calendar.appearance.headerMinimumDissolvedAlpha = 0.12
         calendar.appearance.headerTitleFont = .systemFont(ofSize: 30, weight: .black)
         calendar.appearance.headerTitleColor = UIColor(named: "OnBackground")
@@ -124,7 +128,6 @@ struct CalendarViewRepresentable: UIViewRepresentable {
         func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
             parent.selectedDate = date
             parent.displayedDayEvents = filterEventList(date: date)
-            DispatchQueue.main.async { calendar.reloadData() }
         }
         
         func calendar(_ calendar: FSCalendar, shouldSelect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {

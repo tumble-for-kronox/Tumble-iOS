@@ -121,7 +121,6 @@ enum NetworkResponse {
                 switch result {
                 case .success(let events):
                     self.completeUserEvent = events
-                    AppLogger.shared.info("\(events)")
                     AppLogger.shared.info("Successfully loaded events")
                     self.eventBookingPageState = .loaded
                 case .failure(let failure):
@@ -247,7 +246,6 @@ enum NetworkResponse {
             DispatchQueue.main.async {
                 switch result {
                 case .success(_):
-                    AppLogger.shared.info("\(result)")
                     self.getUserEventsForPage()
                 case .failure(_):
                     self.eventBookingPageState = .error

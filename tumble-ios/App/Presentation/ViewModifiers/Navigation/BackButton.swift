@@ -29,11 +29,11 @@ struct BackButton: View {
                 Spacer()
                 Image(systemName: "chevron.backward")
                     .font(.system(size: 16, weight: .semibold))
-                    .foregroundColor(.onBackground)
+                    .foregroundColor(.primary)
                 Text(previousPage)
                     .backButton()
             }
-            .foregroundColor(.onBackground)
+            .foregroundColor(.primary)
         }
     }
 }

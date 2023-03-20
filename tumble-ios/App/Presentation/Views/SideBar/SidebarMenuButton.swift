@@ -29,7 +29,7 @@ struct SidebarMenuButton: View {
                     .frame(width: 32)
                 Text(title)
                     .fontWeight(.semibold)
-                    .font(.system(size: 20, design: .rounded))
+                    .font(.system(size: 20))
             }
             .foregroundColor(selectedSideBarTab.rawValue == title ? .primary : .surface)
             .padding(.vertical, 12)

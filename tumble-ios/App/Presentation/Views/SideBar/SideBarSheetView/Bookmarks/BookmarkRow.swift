@@ -23,7 +23,7 @@ struct BookmarkRow: View {
                             .foregroundColor(.onBackground)
                     }
                     Text(bookmark.id)
-                        .font(.system(size: 18, design: .rounded))
+                        .font(.system(size: 18))
                         .padding(15)
                     Spacer()
                 }

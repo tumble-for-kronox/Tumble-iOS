@@ -88,9 +88,9 @@ enum BookmarksViewStatus {
 
     private func loadSchedules(completion: @escaping (Result<[ScheduleStoreModel], Error>) -> Void) {
         DispatchQueue.main.async {
-            self.scheduleService.load { result in
+            self.scheduleService.load(completion: {result in
                 completion(result)
-            }
+            })
         }
     }
 

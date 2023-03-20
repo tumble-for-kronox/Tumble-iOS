@@ -35,6 +35,7 @@ struct SearchPage: View {
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
         }
+        .ignoresSafeArea(.keyboard)
         .sheet(isPresented: $viewModel.presentPreview) {
             SchedulePreview(
                 parentViewModel: viewModel,
@@ -42,6 +43,7 @@ struct SearchPage: View {
                 checkForNewSchedules: checkForNewSchedules
             )
         }
+        .ignoresSafeArea(.keyboard)
     }
     
     func onSearch(query: String) -> Void {

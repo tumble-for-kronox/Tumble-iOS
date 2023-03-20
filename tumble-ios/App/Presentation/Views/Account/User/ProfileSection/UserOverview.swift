@@ -25,11 +25,11 @@ struct UserOverview: View {
                     UserAvatar(name: viewModel.userController.user!.name)
                     VStack (alignment: .leading, spacing: 0) {
                         Text(viewModel.userController.user!.name)
-                            .font(.system(size: 22, weight: .semibold, design: .rounded))
+                            .font(.system(size: 22, weight: .semibold))
                         Text(viewModel.userController.user!.username)
-                            .font(.system(size: 16, weight: .regular, design: .rounded))
+                            .font(.system(size: 16, weight: .regular))
                         Text(schoolName)
-                            .font(.system(size: 16, weight: .regular, design: .rounded))
+                            .font(.system(size: 16, weight: .regular))
                             .padding(.top, 10)
                         Spacer()
                     }
