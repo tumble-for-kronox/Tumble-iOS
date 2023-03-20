@@ -8,24 +8,12 @@
 import Foundation
 
 // Bottom tab bar
-enum TabbarTabType: String {
-    case home = "house"
-    case bookmarks = "bookmark"
-    case account = "person"
+enum TabbarTabType: Int {
+    case home = 0
+    case bookmarks = 1
+    case account = 2
     
     static let allValues = [home, bookmarks, account]
-    
-    var navigationView: TabbarTabType {
-            switch self {
-            case .home:
-                return .home
-            case .bookmarks:
-                return .bookmarks
-            case .account:
-                return .account
-
-            }
-        }
     
     var displayName: String {
         switch self {

@@ -15,7 +15,6 @@ struct HomePage: View {
     @Binding var canvasUrl: String?
     @Binding var kronoxUrl: String?
     @Binding var selectedAppTab: TabbarTabType
-    @Binding var selectedLocalTab: TabbarTabType
     
     let backgroundColor: Color = .primary.opacity(0.75)
     let iconColor: Color = .primary.opacity(0.95)
@@ -25,7 +24,7 @@ struct HomePage: View {
             HomePageHeader(parentViewModel: viewModel, domain: $domain)
             HomePageUpcomingEventsSection(parentViewModel: viewModel)
         }
-        .padding([.horizontal], 20)
-        .padding(.top, 20)
+        .padding(.horizontal, 16)
+        .background(Color.background)
     }
 }
