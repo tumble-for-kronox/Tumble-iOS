@@ -55,12 +55,13 @@ struct VerboseEventButtonLabel: View {
                             .foregroundColor(.onSurface.opacity(0.7))
                     }
                     Spacer()
-                    if let time = event.from.convertISOToHoursAndMinutes() {
+                    if let timeFrom = event.from.convertISOToHoursAndMinutes(),
+                       let timeTo = event.to.convertISOToHoursAndMinutes() {
                         HStack {
                             Circle()
                                 .foregroundColor(color)
                                 .frame(height: 7)
-                            Text(time)
+                            Text("\(timeFrom) - \(timeTo)")
                                 .font(.system(size: 16, weight: .semibold))
                                 .foregroundColor(.onSurface)
                         }
