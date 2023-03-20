@@ -5,8 +5,6 @@
 //  Created by Adis Veletanlic on 11/20/22.
 //
 
-// The sidebar menu used in this project:
-// https://kavsoft.dev/swiftui_2.0_animated_navigation_menu
 
 import SwiftUI
 
@@ -18,6 +16,7 @@ struct AppParent: View {
     @ObservedObject var viewModel: ParentViewModel
     @Namespace var animation
     
+    @State private var selection: Int = 0
     @State private var showModal: Bool = true
     
     private let sideBarWidth: CGFloat = 110
@@ -25,6 +24,7 @@ struct AppParent: View {
     init(viewModel: ParentViewModel) {
         UINavigationBar.appearance().titleTextAttributes = [.font: navigationBarFont()]
         UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: UIColor(named: "OnSurface")!]
+        UITabBar.appearance().backgroundColor = UIColor(named: "BackgroundColor")
         self.viewModel = viewModel
     }
     
@@ -45,35 +45,51 @@ struct AppParent: View {
                 onChangeSchool: onChangeSchool)
             
             NavigationView {
-                VStack {
-                    // Main home page view switcher
-                    switch appController.selectedAppTab {
-                    case .home:
-                        HomePage(
-                            viewModel: viewModel.homeViewModel,
-                            domain: $viewModel.domain,
-                            canvasUrl: $viewModel.canvasUrl,
-                            kronoxUrl: $viewModel.kronoxUrl,
-                            selectedAppTab: $appController.selectedAppTab,
-                            selectedLocalTab: $appController.selectedLocalTab
-                        )
-                    case .bookmarks:
-                        BookmarkPage(
-                            viewModel: viewModel.bookmarksViewModel,
-                            appController: appController
-                        )
-                    case .account:
-                        AccountPage(
-                            viewModel: viewModel.accountPageViewModel,
-                            createToast: createToast
-                        )
-                    }
-                    Spacer()
-                    TabBar(
-                        selectedAppBottomTab: $appController.selectedAppTab,
-                        selectedLocalBottomTab: $appController.selectedLocalTab
+                TabView (selection: $appController.selectedAppTab) {
+                    HomePage(
+                        viewModel: viewModel.homeViewModel,
+                        domain: $viewModel.domain,
+                        canvasUrl: $viewModel.canvasUrl,
+                        kronoxUrl: $viewModel.kronoxUrl,
+                        selectedAppTab: $appController.selectedAppTab
                     )
+                    .tabItem {
+                        VStack {
+                            Image(systemName: "house")
+                                .font(.system(size: 16))
+                            Text("Home")
+                        }
+                        .padding(.top, 15)
+                    }
+                    .tag(TabbarTabType.home)
+                    BookmarkPage(
+                        viewModel: viewModel.bookmarksViewModel,
+                        appController: appController
+                    )
+                    .tabItem {
+                        VStack {
+                            Image(systemName: "bookmark")
+                                .font(.system(size: 16))
+                            Text("Bookmarks")
+                        }
+                        .padding(.top, 15)
+                    }
+                    .tag(TabbarTabType.bookmarks)
+                    AccountPage(
+                        viewModel: viewModel.accountPageViewModel,
+                        createToast: createToast
+                    )
+                    .tabItem {
+                        VStack {
+                            Image(systemName: "person")
+                                .font(.system(size: 16))
+                            Text("Account")
+                        }
+                        .padding(.top, 15)
+                    }
+                    .tag(TabbarTabType.account)
                 }
+                .tint(.primary)
                 .ignoresSafeArea(.keyboard)
                 .navigationTitle(appController.selectedAppTab.displayName)
                 .navigationBarTitleDisplayMode(.inline)
@@ -92,7 +108,6 @@ struct AppParent: View {
                             universityImage: $viewModel.universityImage)
                     })
                 }
-                .background(Color.background)
             }
             .overlay(
                 Group {

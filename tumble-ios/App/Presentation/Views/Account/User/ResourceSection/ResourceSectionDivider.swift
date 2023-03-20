@@ -30,7 +30,11 @@ struct ResourceSectionDivider<Content : View>: View {
                     .font(.system(size: 20))
                     .foregroundColor(.onBackground)
                 Text(title)
+<<<<<<< HEAD
                     .font(.system(size: 17, weight: .semibold))
+=======
+                    .font(.system(size: 18))
+>>>>>>> 4b1a201579474cc888fa7caa1cf05fb269f6e142
                     .foregroundColor(.onBackground)
                 VStack (spacing: 0) {
                     Divider()
