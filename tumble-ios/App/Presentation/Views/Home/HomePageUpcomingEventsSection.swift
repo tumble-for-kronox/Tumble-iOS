@@ -13,7 +13,7 @@ struct HomePageUpcomingEventsSection: View {
     
     var body: some View {
         // List of events that are for the coming week
-        VStack {
+        VStack (alignment: .leading) {
             switch parentViewModel.bookmarkedEventsSectionStatus {
             case .loading:
                 Spacer()
@@ -44,6 +44,7 @@ struct HomePageUpcomingEventsSection: View {
                     Text("No classes for today")
                         .font(.system(size: 18))
                         .foregroundColor(.onBackground)
+                    Spacer()
                 }
             case .error:
                 Text("Error")

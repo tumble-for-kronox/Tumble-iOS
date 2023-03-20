@@ -41,7 +41,7 @@ struct BookmarkCalendarView: View {
                     .padding([.top, .leading], 15)
                 } else {
                     VStack {
-                        ForEach(displayedDayEvents, id: \.self) { event in
+                        ForEach(displayedDayEvents.sorted(), id: \.self) { event in
                             Button(action: {
                                 // Open sheet
                             }, label: {
@@ -149,8 +149,6 @@ struct CalendarViewRepresentable: UIViewRepresentable {
             parent.dateFormatter.dateFormat = "yyyy-MM-dd"
             let dateString = parent.dateFormatter.string(from: date)
             // Create a second DateFormatter with the correct format for the event.from string
-            let eventDateFormatter = DateFormatter()
-            eventDateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
             let filteredEvents = parent.days.flatMap { dayUiModel in
                 dayUiModel.events.filter { event in
                     // Convert the event.from string to a Date object using the second DateFormatter

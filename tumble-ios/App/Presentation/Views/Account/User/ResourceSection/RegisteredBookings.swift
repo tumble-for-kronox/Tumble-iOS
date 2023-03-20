@@ -13,16 +13,18 @@ struct RegisteredBookings: View {
     let bookings: Response.KronoxUserBooking?
     
     var body: some View {
-        switch state {
-        case .loading:
-            CustomProgressIndicator()
-                .frame(maxWidth: .infinity, alignment: .center)
-        case .loaded:
-            VStack {
+        ScrollView (showsIndicators: false) {
+            switch state {
+            case .loading:
+                CustomProgressIndicator()
+                    .frame(maxWidth: .infinity, alignment: .center)
+            case .loaded:
                 if let bookings = bookings {
                     if !bookings.isEmpty {
                         ForEach(bookings) { booking in
-                            ResourceCard(timeSpan: "\(booking.timeSlot.from.convertToHourMinute() ?? "") - \(booking.timeSlot.to.convertToHourMinute() ?? "")", location: booking.locationID)
+                            ResourceCard(
+                                timeSpan: "\(booking.timeSlot.from.convertToHourMinute() ?? "")",
+                                location: booking.locationID)
                         }
                     } else {
                         Text("No booked resources yet")
@@ -32,11 +34,12 @@ struct RegisteredBookings: View {
                     Text("No booked resources yet")
                         .sectionDividerEmpty()
                 }
+            case .error:
+                Text("Could not contact the server")
+                    .sectionDividerEmpty()
             }
-        case .error:
-            Text("Could not contact the server")
-                .sectionDividerEmpty()
         }
+        .frame(maxHeight: UIScreen.main.bounds.height / 4)
     }
 }
 

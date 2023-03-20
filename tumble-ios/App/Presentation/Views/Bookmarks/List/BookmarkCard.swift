@@ -22,7 +22,7 @@ struct BookmarkCard: View {
         }, label: {
             VerboseEventButtonLabel(event: event, color: color)
         })
-        .buttonStyle(BookmarkCardStyle())
+        .buttonStyle(VerboseButtonStyle())
         .padding(.bottom, isLast ? 20 : 5)
     }
 }

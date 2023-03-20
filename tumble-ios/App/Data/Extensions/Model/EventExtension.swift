@@ -49,3 +49,13 @@ extension Response.Event {
         return dictionary
     }
 }
+
+extension [Response.Event] {
+    
+    func sorted() -> [Response.Event] {
+        return self.sorted(by: {
+            // Ascending order
+            return eventDateFormatter.date(from: $0.from)! < eventDateFormatter.date(from: $1.from)!
+        })
+    }
+}

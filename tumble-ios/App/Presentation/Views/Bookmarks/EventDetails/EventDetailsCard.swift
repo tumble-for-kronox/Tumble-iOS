@@ -24,12 +24,12 @@ struct EventDetailsCard: View {
                         VStack (alignment: .leading, spacing: 0) {
                             Text(event.title)
                                 .font(.system(size: 28))
-                                .foregroundColor(color.isDarkBackground(color: color) ? .bright : .dark)
+                                .foregroundColor(.onSurface)
                                 .padding(.bottom, 7)
                             Text(event.course.englishName)
                                 .font(.system(size: 20))
                                 .italic()
-                                .foregroundColor(color.isDarkBackground(color: color) ? .bright : .dark)
+                                .foregroundColor(.onSurface)
                         }
                         .padding(.bottom, 30)
                         Spacer()
@@ -54,7 +54,7 @@ struct EventDetailsCard: View {
         }
         .frame(minWidth: UIScreen.main.bounds.width - 60)
         .padding(10)
-        .background(event.isSpecial ? LinearGradient(gradient: Gradient(colors: [.red, .red.opacity(0.7)]), startPoint: .leading, endPoint: .trailing) : LinearGradient(gradient: Gradient(colors: [color, color.opacity(0.7)]), startPoint: .leading, endPoint: .trailing))
+        .background(event.isSpecial ? Color.red.opacity(0.2) : color.opacity(0.2))
         .cornerRadius(20)
         .padding(.all, 15)
     }

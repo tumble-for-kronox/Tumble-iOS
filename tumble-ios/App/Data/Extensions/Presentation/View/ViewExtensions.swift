@@ -60,7 +60,7 @@ extension View {
     
     func sectionDividerEmpty() -> some View {
         self
-            .font(.system(size: 18, weight: .semibold))
+            .font(.system(size: 18))
             .foregroundColor(.onBackground)
             .padding(.top, 5)
     }

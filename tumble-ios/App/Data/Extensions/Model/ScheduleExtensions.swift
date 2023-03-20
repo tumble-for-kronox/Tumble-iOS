@@ -9,8 +9,17 @@ import Foundation
 import SwiftUI
 
 //To convert API result date (ISO8601) to `Date`, this property should not be inside any methods
-let inDateFormatter = ISO8601DateFormatter()
+let inDateFormatter: ISO8601DateFormatter = {
+    let formatter = ISO8601DateFormatter()
+    formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+    return formatter
+}()
 
+let eventDateFormatter: DateFormatter = {
+    let eventDateFormatter = DateFormatter()
+    eventDateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
+    return eventDateFormatter
+}()
 
 
 extension [Response.Schedule] {

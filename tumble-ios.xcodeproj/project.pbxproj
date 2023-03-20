@@ -41,6 +41,7 @@
 		D426E3A4299C39DE00A8D7AE /* ResourceBookings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D426E3A3299C39DE00A8D7AE /* ResourceBookings.swift */; };
 		D426E3A6299C39EA00A8D7AE /* EventBookings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D426E3A5299C39EA00A8D7AE /* EventBookings.swift */; };
 		D4294B2E29C8C01F00007747 /* HomePageNewsSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4294B2D29C8C01F00007747 /* HomePageNewsSection.swift */; };
+		D4294B3029C8C81200007747 /* ResourceEventButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4294B2F29C8C81200007747 /* ResourceEventButtonStyle.swift */; };
 		D42BAC17298D282B0025EAA9 /* ExternalLinkPill.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42BAC16298D282B0025EAA9 /* ExternalLinkPill.swift */; };
 		D42BAC1C298D3D590025EAA9 /* Logging in Frameworks */ = {isa = PBXBuildFile; productRef = D42BAC1B298D3D590025EAA9 /* Logging */; };
 		D42BAC1E298D3D6A0025EAA9 /* AppLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42BAC1D298D3D6A0025EAA9 /* AppLogger.swift */; };
@@ -49,7 +50,7 @@
 		D42DFD5929BD3273002942D7 /* SidebarSheetButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42DFD5829BD3273002942D7 /* SidebarSheetButton.swift */; };
 		D42DFD5C29BD5920002942D7 /* SidebarSheetButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42DFD5B29BD5920002942D7 /* SidebarSheetButtonStyle.swift */; };
 		D42DFD5E29BD5BC9002942D7 /* ExternalLinkPillStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42DFD5D29BD5BC9002942D7 /* ExternalLinkPillStyle.swift */; };
-		D430F73E29C60DC500E30E48 /* BookmarkCardStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D430F73D29C60DC500E30E48 /* BookmarkCardStyle.swift */; };
+		D430F73E29C60DC500E30E48 /* VerboseButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D430F73D29C60DC500E30E48 /* VerboseButtonStyle.swift */; };
 		D430F74029C613DB00E30E48 /* BookmarkCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D430F73F29C613DB00E30E48 /* BookmarkCalendarView.swift */; };
 		D430F74329C615DC00E30E48 /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = D430F74229C615DC00E30E48 /* FSCalendar */; };
 		D430F74729C654A200E30E48 /* BookmarkCalendarDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = D430F74629C654A200E30E48 /* BookmarkCalendarDetail.swift */; };
@@ -125,7 +126,7 @@
 		D47A1AF729C00C0E004F03DB /* HomePageOptionStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47A1AF629C00C0E004F03DB /* HomePageOptionStyle.swift */; };
 		D48CC59629C7BB160028179A /* HomePageEventButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48CC59529C7BB160028179A /* HomePageEventButton.swift */; };
 		D48CC59829C7C3C70028179A /* HomePageSeeAllStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48CC59729C7C3C70028179A /* HomePageSeeAllStyle.swift */; };
-		D48CC59C29C7D1E70028179A /* HomePageEventButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48CC59B29C7D1E70028179A /* HomePageEventButtonStyle.swift */; };
+		D48CC59C29C7D1E70028179A /* CompactButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48CC59B29C7D1E70028179A /* CompactButtonStyle.swift */; };
 		D48CC59F29C7DB6E0028179A /* CompactEventButtonLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48CC59E29C7DB6E0028179A /* CompactEventButtonLabel.swift */; };
 		D48CC5A129C7DBF90028179A /* VerboseEventButtonLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48CC5A029C7DBF90028179A /* VerboseEventButtonLabel.swift */; };
 		D48CE45729849BF900D312EC /* Support.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48CE45629849BF900D312EC /* Support.swift */; };
@@ -232,6 +233,7 @@
 		D426E3A3299C39DE00A8D7AE /* ResourceBookings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceBookings.swift; sourceTree = "<group>"; };
 		D426E3A5299C39EA00A8D7AE /* EventBookings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventBookings.swift; sourceTree = "<group>"; };
 		D4294B2D29C8C01F00007747 /* HomePageNewsSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageNewsSection.swift; sourceTree = "<group>"; };
+		D4294B2F29C8C81200007747 /* ResourceEventButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceEventButtonStyle.swift; sourceTree = "<group>"; };
 		D42BAC16298D282B0025EAA9 /* ExternalLinkPill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalLinkPill.swift; sourceTree = "<group>"; };
 		D42BAC1D298D3D6A0025EAA9 /* AppLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLogger.swift; sourceTree = "<group>"; };
 		D42BAC22298D5BFA0025EAA9 /* DependencyInjector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyInjector.swift; sourceTree = "<group>"; };
@@ -239,7 +241,7 @@
 		D42DFD5829BD3273002942D7 /* SidebarSheetButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarSheetButton.swift; sourceTree = "<group>"; };
 		D42DFD5B29BD5920002942D7 /* SidebarSheetButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarSheetButtonStyle.swift; sourceTree = "<group>"; };
 		D42DFD5D29BD5BC9002942D7 /* ExternalLinkPillStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalLinkPillStyle.swift; sourceTree = "<group>"; };
-		D430F73D29C60DC500E30E48 /* BookmarkCardStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkCardStyle.swift; sourceTree = "<group>"; };
+		D430F73D29C60DC500E30E48 /* VerboseButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerboseButtonStyle.swift; sourceTree = "<group>"; };
 		D430F73F29C613DB00E30E48 /* BookmarkCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkCalendarView.swift; sourceTree = "<group>"; };
 		D430F74629C654A200E30E48 /* BookmarkCalendarDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkCalendarDetail.swift; sourceTree = "<group>"; };
 		D430F74829C6558700E30E48 /* BookmarkCalendarDetailStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkCalendarDetailStyle.swift; sourceTree = "<group>"; };
@@ -313,7 +315,7 @@
 		D47A1AF629C00C0E004F03DB /* HomePageOptionStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageOptionStyle.swift; sourceTree = "<group>"; };
 		D48CC59529C7BB160028179A /* HomePageEventButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageEventButton.swift; sourceTree = "<group>"; };
 		D48CC59729C7C3C70028179A /* HomePageSeeAllStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageSeeAllStyle.swift; sourceTree = "<group>"; };
-		D48CC59B29C7D1E70028179A /* HomePageEventButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageEventButtonStyle.swift; sourceTree = "<group>"; };
+		D48CC59B29C7D1E70028179A /* CompactButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompactButtonStyle.swift; sourceTree = "<group>"; };
 		D48CC59E29C7DB6E0028179A /* CompactEventButtonLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompactEventButtonLabel.swift; sourceTree = "<group>"; };
 		D48CC5A029C7DBF90028179A /* VerboseEventButtonLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerboseEventButtonLabel.swift; sourceTree = "<group>"; };
 		D48CE45629849BF900D312EC /* Support.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Support.swift; sourceTree = "<group>"; };
@@ -667,10 +669,11 @@
 				D44ABF0629BFE89D00344792 /* SchoolRowStyle.swift */,
 				D47A1AF629C00C0E004F03DB /* HomePageOptionStyle.swift */,
 				D4B4B62C29C37C130098D175 /* ProgrammeCardStyle.swift */,
-				D430F73D29C60DC500E30E48 /* BookmarkCardStyle.swift */,
+				D430F73D29C60DC500E30E48 /* VerboseButtonStyle.swift */,
 				D430F74829C6558700E30E48 /* BookmarkCalendarDetailStyle.swift */,
 				D48CC59729C7C3C70028179A /* HomePageSeeAllStyle.swift */,
-				D48CC59B29C7D1E70028179A /* HomePageEventButtonStyle.swift */,
+				D48CC59B29C7D1E70028179A /* CompactButtonStyle.swift */,
+				D4294B2F29C8C81200007747 /* ResourceEventButtonStyle.swift */,
 			);
 			path = Styles;
 			sourceTree = "<group>";
@@ -1446,8 +1449,9 @@
 				D460763B292AAD5400DE9590 /* PopupToastView.swift in Sources */,
 				D4D4DD032927C7DA0083BB7F /* ProgrammeCard.swift in Sources */,
 				D4D4CD17299CE57C00D48180 /* EventCard.swift in Sources */,
-				D48CC59C29C7D1E70028179A /* HomePageEventButtonStyle.swift in Sources */,
+				D48CC59C29C7D1E70028179A /* CompactButtonStyle.swift in Sources */,
 				D498290F299D9E7F0017D636 /* RegisteredBookings.swift in Sources */,
+				D4294B3029C8C81200007747 /* ResourceEventButtonStyle.swift in Sources */,
 				D46BB10A298AC31E00887A24 /* EventDetailsBodyBuilder.swift in Sources */,
 				D4A433BC29952BE600BFEB7A /* DictionaryExtension.swift in Sources */,
 				D4E39E402989DDDC004C30DF /* EventDetailsBody.swift in Sources */,
@@ -1496,7 +1500,7 @@
 				D454203E29BE914800EF0FC9 /* EventDetailsPillStyle.swift in Sources */,
 				D4607653292AF5DA00DE9590 /* DayHeader.swift in Sources */,
 				D4D4CD21299D273A00D48180 /* HTTPURLResponseExtension.swift in Sources */,
-				D430F73E29C60DC500E30E48 /* BookmarkCardStyle.swift in Sources */,
+				D430F73E29C60DC500E30E48 /* VerboseButtonStyle.swift in Sources */,
 				D49D2502299AC240001D2751 /* ImagePicker.swift in Sources */,
 				D419EDF6299A78C400479DCE /* ResourceSectionDivider.swift in Sources */,
 				D4D4CD13299CE4EF00D48180 /* EventBanner.swift in Sources */,

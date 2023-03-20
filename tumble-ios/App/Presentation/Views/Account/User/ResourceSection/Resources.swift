@@ -12,7 +12,7 @@ struct Resources: View {
     @ObservedObject var viewModel: AccountPageViewModel
     
     var body: some View {
-        ScrollView (.vertical) {
+        ScrollView {
             ResourceSectionDivider (title: "User options", image: "gearshape") {
                 Toggle(isOn: $viewModel.userController.autoSignup) {
                     Text("Automatic exam signup")
@@ -28,15 +28,18 @@ struct Resources: View {
                          destination: AnyView(
                             ResourceBookings()
                                 .customNavigationBackButton(previousPage: "Account"))) {
-                                    RegisteredBookings(state: $viewModel.bookingSectionState, bookings: viewModel.userBookings)
+                                    RegisteredBookings(
+                                        state: $viewModel.bookingSectionState,
+                                        bookings: viewModel.userBookings)
             }
             ResourceSectionDivider (title: "Your events", image: "newspaper",
                          destination: AnyView(
                             EventBookings(viewModel: viewModel)
                                 .customNavigationBackButton(previousPage: "Account"))) {
-                                    RegisteredEvents(state: $viewModel.registeredEventSectionState, registeredEvents: viewModel.completeUserEvent?.registeredEvents)
+                                    RegisteredEvents(
+                                        state: $viewModel.registeredEventSectionState,
+                                        registeredEvents: viewModel.completeUserEvent?.registeredEvents)
             }
-            Spacer()
         }
         .frame(maxWidth: .infinity).cornerRadius(15)
         .background(Color.background)

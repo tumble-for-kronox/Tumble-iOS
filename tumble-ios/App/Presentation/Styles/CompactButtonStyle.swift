@@ -8,11 +8,18 @@
 import Foundation
 import SwiftUI
 
-struct HomePageEventButtonStyle: ButtonStyle {
+struct CompactButtonStyle: ButtonStyle {
+    
+    let backgroundColor: Color
+    
+    init(backgroundColor: Color = Color.surface) {
+        self.backgroundColor = backgroundColor
+    }
+    
     func makeBody(configuration: Self.Configuration) -> some View {
         configuration.label
             .frame(minWidth: 0, maxWidth: .infinity, minHeight: 100, maxHeight: 100, alignment: .center)
-            .background(Color.surface)
+            .background(backgroundColor)
             .cornerRadius(20)
             .padding(.bottom, 10)
             .scaleEffect(configuration.isPressed ? 0.9 : 1)

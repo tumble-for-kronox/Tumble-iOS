@@ -15,33 +15,31 @@ struct ResourceSectionDivider<Content : View>: View {
     let onBook: (() -> Void)?
     let destination: AnyView?
     
-    init(title: String, image: String, destination: AnyView? = nil, onBook: (() -> Void)? = nil, @ViewBuilder content: () -> Content) {
-        self.title = title
-        self.image = image
-        self.onBook = onBook
-        self.destination = destination
-        self.content = content()
+    init(
+        title: String,
+        image: String,
+        destination: AnyView? = nil,
+        onBook: (() -> Void)? = nil,
+        @ViewBuilder content: () -> Content) {
+            self.title = title
+            self.image = image
+            self.onBook = onBook
+            self.destination = destination
+            self.content = content()
     }
     
     var body: some View {
         VStack (alignment: .leading) {
             HStack {
-                Image(systemName: image)
-                    .font(.system(size: 20))
-                    .foregroundColor(.onBackground)
                 Text(title)
-                    .font(.system(size: 17, weight: .semibold))
+                    .font(.system(size: 18, weight: .semibold))
                     .foregroundColor(.onBackground)
-                VStack (spacing: 0) {
-                    Divider()
-                        .overlay(Color.onBackground)
-                        .padding([.leading, .trailing], 5)
-                }
+                Spacer()
                 if let destination = destination {
                     NavigationLink(destination: destination, label: {
                         HStack {
                             Text("Book")
-                                .font(.system(size: 17, weight: .semibold))
+                                .font(.system(size: 16, weight: .semibold))
                                 .foregroundColor(.primary)
                             Image(systemName: "chevron.right")
                                 .font(.system(size: 14, weight: .semibold))

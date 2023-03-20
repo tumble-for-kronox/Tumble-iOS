@@ -20,31 +20,40 @@ struct ResourceCard: View {
     }
     
     var body: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 7.5)
-                .fill(Color.primary)
-                
-            Rectangle()
-                .fill(Color.surface)
-                .offset(x: 7.5)
-                .cornerRadius(5, corners: [.topRight, .bottomRight])
+        Button(action: {}, label: {
             HStack {
-                ResourceCardBanner(timeSpan: timeSpan)
-                if let location = location {
-                    Text(location)
-                        .font(.system(size: 16, weight: .semibold))
-                        .frame(maxWidth: .infinity, alignment: .trailing)
-                } else if let title = title {
-                    Text(title)
-                        .font(.system(size: 16, weight: .semibold))
-                        .frame(maxWidth: .infinity, alignment: .trailing)
-                }
+                Circle()
+                    .foregroundColor(.primary)
+                    .frame(height: 7)
+                Text(timeSpan)
+                    .font(.system(size: 16, weight: .semibold))
+                    .foregroundColor(.onSurface)
             }
-            .padding(.trailing, 15)
-            .padding(.leading, 20)
-            .padding(.vertical, 10)
-        }
-        .frame(height: 45)
+            .padding(.horizontal)
+            Divider()
+                .foregroundColor(.onSurface)
+            VStack (alignment: .leading, spacing: 10) {
+                Text(title ?? "No title")
+                    .font(.system(size: 17, weight: .medium))
+                    .foregroundColor(.onSurface)
+                    .lineLimit(1)
+                    .truncationMode(.tail)
+                HStack {
+                    Image(systemName: "mappin.and.ellipse")
+                        .font(.system(size: 15))
+                        .foregroundColor(.onSurface.opacity(0.7))
+                    Text(location ?? "Unknown")
+                        .font(.system(size: 15))
+                        .foregroundColor(.onSurface.opacity(0.7))
+                }
+                
+            }
+            .padding()
+        })
+        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 100, maxHeight: 100, alignment: .center)
+        .background(Color.surface)
+        .cornerRadius(20)
+        .padding(.bottom, 10)
     }
 }
 

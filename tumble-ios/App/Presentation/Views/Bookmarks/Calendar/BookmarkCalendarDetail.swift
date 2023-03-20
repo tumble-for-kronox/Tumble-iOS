@@ -20,7 +20,7 @@ struct BookmarkCalendarDetail: View {
         }, label: {
             CompactEventButtonLabel(event: event, color: color)
         })
-        .buttonStyle(HomePageEventButtonStyle())
+        .buttonStyle(CompactButtonStyle(backgroundColor: color.opacity(0.15)))
         .padding(.horizontal, 15)
     }
 }
