@@ -16,12 +16,12 @@ struct HomePageHeader: View {
         HStack {
             VStack (alignment: .leading, spacing: 0) {
                 if let userName = parentViewModel.userController.user?.name {
-                    Text("Good \(getTimeOfDay()), \(userName.components(separatedBy: " ").first!)!")
+                    Text("Good \(getTimeOfDay()), \(userName.components(separatedBy: " ").first!)")
                         .font(.system(size: 30))
                         .fontWeight(.semibold)
                         .padding(.bottom, 10)
                 } else {
-                    Text("Good \(getTimeOfDay())!")
+                    Text("Good \(getTimeOfDay())")
                         .font(.system(size: 30))
                         .fontWeight(.semibold)
                         .padding(.bottom, 10)

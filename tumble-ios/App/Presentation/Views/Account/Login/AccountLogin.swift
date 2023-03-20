@@ -31,6 +31,7 @@ struct AccountLogin: View {
                 viewModel.login(username: username, password: password, createToast: createToast)
             })
             LoginSubHeader(schoolName: viewModel.school?.name ?? "")
+            Spacer()
         }
         .padding(.horizontal, 15)
         .padding(.top, 20)
