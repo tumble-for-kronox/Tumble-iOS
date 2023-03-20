@@ -11,10 +11,10 @@ struct LoginHeader: View {
     var body: some View {
         VStack (alignment: .leading, spacing: 5) {
             Text("Log in")
-                .font(.system(size: 30, weight: .semibold, design: .rounded))
+                .font(.system(size: 30, weight: .semibold))
                 .foregroundColor(.onBackground)
             Text("Please log in to continue")
-                .font(.system(size: 18, weight: .regular, design: .rounded))
+                .font(.system(size: 18, weight: .regular))
                 .foregroundColor(.onBackground.opacity(0.75))
         }
         .frame(maxWidth: .infinity, alignment: .leading)

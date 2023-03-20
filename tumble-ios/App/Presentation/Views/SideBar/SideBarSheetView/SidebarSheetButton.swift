@@ -23,7 +23,7 @@ struct SidebarSheetButton: View {
                     .foregroundColor(.primary)
                 Text(title)
                     .multilineTextAlignment(.leading)
-                    .font(.system(size: 20, weight: .semibold, design: .rounded))
+                    .font(.system(size: 20, weight: .semibold))
                     .foregroundColor(.onSurface)
                 Spacer()
             }

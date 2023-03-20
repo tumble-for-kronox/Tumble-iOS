@@ -55,7 +55,7 @@ struct EventCard: View {
                             .font(.system(size: 18))
                             .foregroundColor(.onPrimary)
                         Text(eventType == .unregister ? "Unregister" : "Register")
-                            .font(.system(size: 18, weight: .semibold, design: .rounded))
+                            .font(.system(size: 18, weight: .semibold))
                             .foregroundColor(.onPrimary)
                     }
                     .padding(10)

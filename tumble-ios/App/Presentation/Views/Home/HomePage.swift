@@ -15,7 +15,6 @@ struct HomePage: View {
     @Binding var canvasUrl: String?
     @Binding var kronoxUrl: String?
     @Binding var selectedAppTab: TabbarTabType
-    @Binding var selectedLocalTab: TabbarTabType
     
     let backgroundColor: Color = .primary.opacity(0.75)
     let iconColor: Color = .primary.opacity(0.95)
@@ -25,18 +24,18 @@ struct HomePage: View {
             VStack (alignment: .leading, spacing: 0) {
                 if let userName = viewModel.userController.user?.name {
                     Text("Good \(getTimeOfDay()), \(userName.components(separatedBy: " ").first!)!")
-                        .font(.system(size: 30, design: .rounded))
+                        .font(.system(size: 30))
                         .fontWeight(.semibold)
                         .padding(.bottom, 10)
                 } else {
                     Text("Good \(getTimeOfDay())!")
-                        .font(.system(size: 30, design: .rounded))
+                        .font(.system(size: 30))
                         .fontWeight(.semibold)
                         .padding(.bottom, 10)
                 }
                 
                 Text("Where do you want to get started?")
-                    .font(.system(size: 25, design: .rounded))
+                    .font(.system(size: 25))
                     .padding(.trailing, 30)
                 
                 HStack (spacing: 10) {
@@ -52,26 +51,19 @@ struct HomePage: View {
             VStack (alignment: .leading, spacing: 0) {
                 HomePageOption(titleText: "Schedules", bodyText: "Got a class coming up?", image: "list.bullet.clipboard", onTap: {
                     selectedAppTab = .bookmarks
-                    withAnimation(.spring()) {
-                        selectedLocalTab = .bookmarks
-                    }
                 })
                 HomePageOption(titleText: "Book a room", bodyText: "Need to study?", image: "books.vertical", onTap: {
                     selectedAppTab = .account
-                    withAnimation(.spring()) {
-                        selectedLocalTab = .account
-                    }
                 })
                 HomePageOption(titleText: "Register for exams", bodyText: "You've got this!", image: "newspaper", onTap: {
                     selectedAppTab = .account
-                    withAnimation(.spring()) {
-                        selectedLocalTab = .account
-                    }
                 })
             }
             .padding(.top, 40)
+            Spacer()
         }
         .padding(.top, 20)
         .padding(.horizontal, 16)
+        .background(Color.background)
     }
 }

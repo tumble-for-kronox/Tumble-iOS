@@ -40,7 +40,6 @@
 		D421EAF22993FBB00045D438 /* SideBarSheetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D421EAF12993FBB00045D438 /* SideBarSheetModel.swift */; };
 		D426E3A4299C39DE00A8D7AE /* ResourceBookings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D426E3A3299C39DE00A8D7AE /* ResourceBookings.swift */; };
 		D426E3A6299C39EA00A8D7AE /* EventBookings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D426E3A5299C39EA00A8D7AE /* EventBookings.swift */; };
-		D42BAC15298D21E40025EAA9 /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42BAC14298D21E40025EAA9 /* TabBar.swift */; };
 		D42BAC17298D282B0025EAA9 /* ExternalLinkPill.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42BAC16298D282B0025EAA9 /* ExternalLinkPill.swift */; };
 		D42BAC1C298D3D590025EAA9 /* Logging in Frameworks */ = {isa = PBXBuildFile; productRef = D42BAC1B298D3D590025EAA9 /* Logging */; };
 		D42BAC1E298D3D6A0025EAA9 /* AppLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42BAC1D298D3D6A0025EAA9 /* AppLogger.swift */; };
@@ -111,7 +110,6 @@
 		D46BB10C298ADDF600887A24 /* CustomCorners.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46BB10B298ADDF600887A24 /* CustomCorners.swift */; };
 		D46BB10E298B025100887A24 /* SidebarMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46BB10D298B025100887A24 /* SidebarMenu.swift */; };
 		D46BB112298B0E2800887A24 /* NavigationbarSidebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46BB111298B0E2800887A24 /* NavigationbarSidebar.swift */; };
-		D46BB116298B10AA00887A24 /* TabBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46BB115298B10AA00887A24 /* TabBarButton.swift */; };
 		D46BB118298B21DA00887A24 /* InfoLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46BB117298B21DA00887A24 /* InfoLoading.swift */; };
 		D4722149292454560063BDB7 /* tumble_iosApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4722148292454560063BDB7 /* tumble_iosApp.swift */; };
 		D472214D292454570063BDB7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D472214C292454570063BDB7 /* Assets.xcassets */; };
@@ -229,7 +227,6 @@
 		D421EAF12993FBB00045D438 /* SideBarSheetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideBarSheetModel.swift; sourceTree = "<group>"; };
 		D426E3A3299C39DE00A8D7AE /* ResourceBookings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceBookings.swift; sourceTree = "<group>"; };
 		D426E3A5299C39EA00A8D7AE /* EventBookings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventBookings.swift; sourceTree = "<group>"; };
-		D42BAC14298D21E40025EAA9 /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
 		D42BAC16298D282B0025EAA9 /* ExternalLinkPill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalLinkPill.swift; sourceTree = "<group>"; };
 		D42BAC1D298D3D6A0025EAA9 /* AppLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLogger.swift; sourceTree = "<group>"; };
 		D42BAC22298D5BFA0025EAA9 /* DependencyInjector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyInjector.swift; sourceTree = "<group>"; };
@@ -297,7 +294,6 @@
 		D46BB10B298ADDF600887A24 /* CustomCorners.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCorners.swift; sourceTree = "<group>"; };
 		D46BB10D298B025100887A24 /* SidebarMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarMenu.swift; sourceTree = "<group>"; };
 		D46BB111298B0E2800887A24 /* NavigationbarSidebar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationbarSidebar.swift; sourceTree = "<group>"; };
-		D46BB115298B10AA00887A24 /* TabBarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarButton.swift; sourceTree = "<group>"; };
 		D46BB117298B21DA00887A24 /* InfoLoading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoLoading.swift; sourceTree = "<group>"; };
 		D4722145292454560063BDB7 /* tumble-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "tumble-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4722148292454560063BDB7 /* tumble_iosApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tumble_iosApp.swift; sourceTree = "<group>"; };
@@ -461,15 +457,6 @@
 				D48F0D8729367A7F0039CD0F /* CourseColorService.swift */,
 			);
 			path = LocalStorage;
-			sourceTree = "<group>";
-		};
-		D40D80BC29258CA0008CA68D /* TabBar */ = {
-			isa = PBXGroup;
-			children = (
-				D46BB115298B10AA00887A24 /* TabBarButton.swift */,
-				D42BAC14298D21E40025EAA9 /* TabBar.swift */,
-			);
-			path = TabBar;
 			sourceTree = "<group>";
 		};
 		D40D80C829265B85008CA68D /* Search */ = {
@@ -922,7 +909,6 @@
 				D421EAEE2993F7F50045D438 /* Navigation */,
 				D43419A229853EAF001089A0 /* Onboarding */,
 				D4BAE61A29246AE800143717 /* SchoolSelection */,
-				D40D80BC29258CA0008CA68D /* TabBar */,
 				D41172C02985EB2C0082BB4F /* SideBar */,
 				D40E84392981C84700C2CF2E /* Account */,
 				D453390029299F9800198411 /* Home */,
@@ -1460,7 +1446,6 @@
 				D4CE2DB42982DDFE00B81052 /* BookmarkCardInformation.swift in Sources */,
 				D41ED5502984350A009DCF8B /* Endpoint.swift in Sources */,
 				D41172B52985DA740082BB4F /* TextFieldExtensions.swift in Sources */,
-				D46BB116298B10AA00887A24 /* TabBarButton.swift in Sources */,
 				D4E83EB629994D5F002E5F88 /* AccountLogin.swift in Sources */,
 				D41ED5522984351F009DCF8B /* Method.swift in Sources */,
 				D4D4CD15299CE53B00D48180 /* EventInformation.swift in Sources */,
@@ -1520,7 +1505,6 @@
 				D42BAC23298D5BFA0025EAA9 /* DependencyInjector.swift in Sources */,
 				D430F74929C6558700E30E48 /* BookmarkCalendarDetailStyle.swift in Sources */,
 				D4996C0B29BBE9FB00E609DC /* MoreSidebarSheet.swift in Sources */,
-				D42BAC15298D21E40025EAA9 /* TabBar.swift in Sources */,
 				D45338FF2929805100198411 /* StringExtensions.swift in Sources */,
 				D43419BC29856159001089A0 /* ExamInstructions.swift in Sources */,
 				D4CE2DB22982DD3500B81052 /* BookmarkCardBanner.swift in Sources */,

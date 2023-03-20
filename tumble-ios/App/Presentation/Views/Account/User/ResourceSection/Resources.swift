@@ -38,9 +38,10 @@ struct Resources: View {
             }
             Spacer()
         }
-        .frame(maxWidth: .infinity, maxHeight: UIScreen.main.bounds.height / 1.65).cornerRadius(15)
+        .frame(maxWidth: .infinity).cornerRadius(15)
         .background(Color.background)
-        .cornerRadius(15, corners: [.topLeft, .topRight])
+        .padding(.top, 10)
+        .cornerRadius(20, corners: [.topLeft, .topRight])
         .refreshable {
             viewModel.getUserBookingsForSection()
             viewModel.getUserEventsForSection()

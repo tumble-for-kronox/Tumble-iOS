@@ -35,7 +35,7 @@ struct BookmarkCalendarView: View {
                     HStack {
                         Text("No events for this date")
                             .foregroundColor(.onBackground)
-                            .font(.system(size: 20, weight: .semibold, design: .rounded))
+                            .font(.system(size: 20, weight: .semibold))
                         Spacer()
                     }
                     .padding([.top, .leading], 15)
