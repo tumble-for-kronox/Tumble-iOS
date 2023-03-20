@@ -1,14 +1,14 @@
 //
-//  BookmarkCardStyle.swift
+//  HomePageSeeAllStyle.swift
 //  tumble-ios
 //
-//  Created by Adis Veletanlic on 2023-03-18.
+//  Created by Adis Veletanlic on 2023-03-19.
 //
 
 import Foundation
 import SwiftUI
 
-struct BookmarkCardStyle: ButtonStyle {
+struct HomePageSeeAllStyle: ButtonStyle {
     func makeBody(configuration: Self.Configuration) -> some View {
         configuration.label
             .scaleEffect(configuration.isPressed ? 0.9 : 1)

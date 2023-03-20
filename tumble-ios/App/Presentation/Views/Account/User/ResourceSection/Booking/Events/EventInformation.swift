@@ -21,7 +21,7 @@ struct EventInformation: View {
     var body: some View {
         VStack (alignment: .leading) {
             Text(title)
-                .font(.system(size: 18, weight: .semibold, design: .rounded))
+                .font(.system(size: 18, weight: .semibold))
                 .foregroundColor(.onSurface)
                 .padding(.leading, 25)
                 .padding(.trailing, 25)
@@ -29,12 +29,12 @@ struct EventInformation: View {
             VStack {
                 if signUp.isValidSignupDate() {
                     Text(type == .available ? "Available until \(signUp.toDate() ?? "")" : "Available at \(signUp.toDate() ?? "")")
-                        .font(.system(size: 18, weight: .semibold, design: .rounded))
+                        .font(.system(size: 18, weight: .semibold))
                             .foregroundColor(.onSurface)
                             .padding(.leading, 25)
                 } else {
                     Text("Registration has passed")
-                        .font(.system(size: 18, weight: .semibold, design: .rounded))
+                        .font(.system(size: 18, weight: .semibold))
                             .foregroundColor(.onSurface)
                             .padding(.leading, 25)
                 }

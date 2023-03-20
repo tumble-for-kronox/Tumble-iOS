@@ -32,11 +32,11 @@ struct ResourceCard: View {
                 ResourceCardBanner(timeSpan: timeSpan)
                 if let location = location {
                     Text(location)
-                        .font(.system(size: 16, weight: .semibold, design: .rounded))
+                        .font(.system(size: 16, weight: .semibold))
                         .frame(maxWidth: .infinity, alignment: .trailing)
                 } else if let title = title {
                     Text(title)
-                        .font(.system(size: 16, weight: .semibold, design: .rounded))
+                        .font(.system(size: 16, weight: .semibold))
                         .frame(maxWidth: .infinity, alignment: .trailing)
                 }
             }

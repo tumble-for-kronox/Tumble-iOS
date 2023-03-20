@@ -175,7 +175,6 @@ class NetworkManager: NetworkManagerProtocol {
                     return nil
                 }
             }
-            AppLogger.shared.info("\(urlRequest)")
             return urlRequest
         }
 }

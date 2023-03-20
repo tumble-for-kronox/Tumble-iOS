@@ -13,7 +13,6 @@ func navigationBarFont() -> UIFont {
             titleFont = UIFont(
                 descriptor:
                     titleFont.fontDescriptor
-                    .withDesign(.rounded)?
                     .withSymbolicTraits(.traitBold)
                     ??
                     titleFont.fontDescriptor,

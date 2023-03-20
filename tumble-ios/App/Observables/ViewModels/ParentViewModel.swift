@@ -70,6 +70,7 @@ import SwiftUI
     
     func updateSchedulesChildView() -> Void {
         sidebarViewModel.updateBookmarks()
+        homeViewModel.updateViewLocals()
         bookmarksViewModel.loadBookmarkedSchedules()
     }
     

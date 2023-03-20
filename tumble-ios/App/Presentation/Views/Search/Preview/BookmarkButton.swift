@@ -29,7 +29,7 @@ struct BookmarkButton: View {
                             .font(.system(size: 20))
                             .foregroundColor(.onPrimary)
                         Text("Remove")
-                            .font(.system(size: 20, weight: .semibold, design: .rounded))
+                            .font(.system(size: 20, weight: .semibold))
                             .foregroundColor(.onPrimary)
                     }
                 case .notSaved:
@@ -38,7 +38,7 @@ struct BookmarkButton: View {
                             .font(.system(size: 20))
                             .foregroundColor(.onPrimary)
                         Text("Bookmark")
-                            .font(.system(size: 20, weight: .semibold, design: .rounded))
+                            .font(.system(size: 20, weight: .semibold))
                             .foregroundColor(.onPrimary)
                     }
                 }

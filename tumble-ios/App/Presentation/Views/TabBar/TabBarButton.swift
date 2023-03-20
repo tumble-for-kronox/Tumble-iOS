@@ -27,7 +27,7 @@ struct TabBarButton: View {
         }
         .frame(maxWidth: .infinity)
         .onTapGesture {
-            withAnimation(.easeInOut(duration: 0.25)) {
+            withAnimation(.spring()) {
                 self.selectedLocalBottomTab = bottomTab
             }
             self.selectedAppBottomTab = bottomTab

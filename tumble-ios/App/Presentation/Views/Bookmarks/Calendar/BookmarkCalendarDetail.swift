@@ -18,25 +18,9 @@ struct BookmarkCalendarDetail: View {
             HapticsController.triggerHapticLight()
             onTapDetail(event, color)
         }, label: {
-            ZStack {
-                RoundedRectangle(cornerRadius: 7.5)
-                    .fill(event.isSpecial ? .red : color)
-                Rectangle()
-                    .fill(Color.surface)
-                    .offset(x: 7.5)
-                    .cornerRadius(5, corners: [.topRight, .bottomRight])
-                VStack (alignment: .leading, spacing: 0) {
-                    BookmarkCardBanner(color: event.isSpecial ? .red : color, timeSpan: "\(event.from.convertISOToHoursAndMinutes() ?? "") - \(event.to.convertISOToHoursAndMinutes() ?? "")", isSpecial: event.isSpecial, courseName: event.course.englishName)
-                    VStack {
-                        Text(event.title)
-                            .courseNameCalendarDetail()
-                        Spacer()
-                    }
-                    Spacer()
-                }
-                
-            }
+            CompactEventButtonLabel(event: event, color: color)
         })
-        .buttonStyle(BookmarkCalendarDetailStyle())
+        .buttonStyle(HomePageEventButtonStyle())
+        .padding(.horizontal, 15)
     }
 }
