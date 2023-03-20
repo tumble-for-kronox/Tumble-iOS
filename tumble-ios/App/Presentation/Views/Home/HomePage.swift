@@ -23,6 +23,7 @@ struct HomePage: View {
         VStack (alignment: .leading, spacing: 0) {
             HomePageHeader(parentViewModel: viewModel, domain: $domain)
             HomePageUpcomingEventsSection(parentViewModel: viewModel)
+            HomePageNewsSection(parentViewModel: viewModel)
             Spacer()
         }
         .padding(.horizontal, 16)

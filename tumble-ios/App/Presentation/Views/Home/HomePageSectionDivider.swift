@@ -8,23 +8,21 @@
 import SwiftUI
 
 struct HomePageSectionDivider: View {
-    let eventCount: Int
+    
+    let onTapSeeAll: () -> Void
+    let title: String
+    let contentCount: Int
+    
     var body: some View {
         HStack {
-            Text("Today's classes")
+            Text(title)
                 .font(.system(size: 18, weight: .semibold))
                 .foregroundColor(.onBackground)
-            Text("(\(eventCount))")
+            Text("(\(contentCount))")
                 .font(.system(size: 16))
                 .foregroundColor(.onBackground.opacity(0.5))
             Spacer()
-            Button(action: {
-                // change tabbar
-                withAnimation(.spring()) {
-                    AppController.shared.selectedLocalTab = .bookmarks
-                }
-                AppController.shared.selectedAppTab = .bookmarks
-            }, label: {
+            Button(action: onTapSeeAll, label: {
                 Text("See all")
                     .font(.system(size: 16, weight: .semibold))
                     .foregroundColor(.primary)
@@ -33,11 +31,16 @@ struct HomePageSectionDivider: View {
             
         }
         .padding(.bottom, 20)
+        .padding(.top)
     }
 }
 
 struct HomePageSectionDivider_Previews: PreviewProvider {
     static var previews: some View {
-        HomePageSectionDivider(eventCount: 3)
+        HomePageSectionDivider(
+            onTapSeeAll: {},
+            title: "Today's classes",
+            contentCount: 3
+        )
     }
 }

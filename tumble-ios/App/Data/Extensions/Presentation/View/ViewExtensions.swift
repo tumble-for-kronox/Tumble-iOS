@@ -48,10 +48,10 @@ extension View {
     func searchBox() -> some View {
         self.padding(10)
         .background(.gray.opacity(0.25))
-        .cornerRadius(10)
+        .cornerRadius(20)
         .padding(.horizontal, 10)
         .padding(.bottom, 15)
-        .padding(.top, 25)
+        .padding(.top, 15)
     }
     
     func getRect() -> CGRect {

@@ -16,6 +16,8 @@ import SwiftUI
     @Inject var courseColorService: CourseColorService
     
     @Published var bookmarkedEventsSectionStatus: PageState = .loading
+    @Published var newsSectionStatus: PageState = .loading
+    @Published var news = []
     @Published var eventsForWeek: [Response.Event]? = nil
     @Published var eventsForToday: [Response.Event]? = nil
     @Published var courseColors: CourseAndColorDict? = nil
@@ -24,6 +26,7 @@ import SwiftUI
     
     init() {
         self.getEventsForWeek()
+        self.getNews()
     }
     
     func updateViewLocals() -> Void {
@@ -37,6 +40,11 @@ import SwiftUI
     
     func makeUniversityUrl() -> URL? {
         return URL(string: preferenceService.getUniversityUrl() ?? "")
+    }
+    
+    func getNews() -> Void {
+        self.newsSectionStatus = .loading
+        self.newsSectionStatus = .loaded
     }
     
     func getEventsForWeek() {

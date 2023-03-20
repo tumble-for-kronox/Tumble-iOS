@@ -32,10 +32,11 @@ struct SearchPage: View {
                         Info(title: "Schedule is empty", image: nil)
                     }
                 SearchBar(searchBarText: $searchBarText, onSearch: onSearch, onClearSearch: onClearSearch)
+                    .background(Color.surface)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
         }
-        .ignoresSafeArea(.keyboard)
+        .background(Color.background)
         .sheet(isPresented: $viewModel.presentPreview) {
             SchedulePreview(
                 parentViewModel: viewModel,
@@ -43,7 +44,6 @@ struct SearchPage: View {
                 checkForNewSchedules: checkForNewSchedules
             )
         }
-        .ignoresSafeArea(.keyboard)
     }
     
     func onSearch(query: String) -> Void {

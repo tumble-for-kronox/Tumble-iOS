@@ -13,37 +13,43 @@ struct HomePageUpcomingEventsSection: View {
     
     var body: some View {
         // List of events that are for the coming week
-        switch parentViewModel.bookmarkedEventsSectionStatus {
-        case .loading:
-            Spacer()
-            HStack {
+        VStack {
+            switch parentViewModel.bookmarkedEventsSectionStatus {
+            case .loading:
                 Spacer()
-                CustomProgressIndicator()
+                HStack {
+                    Spacer()
+                    CustomProgressIndicator()
+                    Spacer()
+                }
                 Spacer()
-            }
-            Spacer()
-        case .loaded:
-            HomePageSectionDivider(eventCount: parentViewModel.eventsForToday!.count)
-            if !parentViewModel.eventsForToday!.isEmpty {
-                ScrollView {
-                    LazyVStack {
-                        ForEach(parentViewModel.eventsForToday!, id: \.self) { event in
-                            HomePageEventButton(
-                                onTapEvent: {event in},
-                                event: event,
-                                color: parentViewModel.courseColors![event.course.id] != nil ?
-                                parentViewModel.courseColors![event.course.id]!.toColor() : .white
-                            )
+            case .loaded:
+                HomePageSectionDivider(onTapSeeAll: {
+                    AppController.shared.selectedAppTab = .bookmarks
+                }, title: "Today's classes", contentCount: parentViewModel.eventsForToday!.count)
+                if !parentViewModel.eventsForToday!.isEmpty {
+                    ScrollView {
+                        LazyVStack {
+                            ForEach(parentViewModel.eventsForToday!, id: \.self) { event in
+                                HomePageEventButton(
+                                    onTapEvent: {event in},
+                                    event: event,
+                                    color: parentViewModel.courseColors![event.course.id] != nil ?
+                                    parentViewModel.courseColors![event.course.id]!.toColor() : .white
+                                )
+                            }
                         }
                     }
-                }.frame(maxHeight: UIScreen.main.bounds.height / 3)
-            } else {
-                Info(title: "No events for today", image: "sparkles")
-                    .frame(maxHeight: UIScreen.main.bounds.height / 3)
+                } else {
+                    Text("No classes for today")
+                        .font(.system(size: 18))
+                        .foregroundColor(.onBackground)
+                }
+            case .error:
+                Text("Error")
             }
-        case .error:
-            Text("Error")
         }
+        .frame(maxHeight: UIScreen.main.bounds.height / 2.75)
     }
 }
 
