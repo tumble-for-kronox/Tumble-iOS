@@ -25,13 +25,13 @@ struct HomePageOption: View {
                         .padding(10)
                     VStack (alignment: .leading, spacing: 0) {
                         Text(titleText)
-                            .font(.system(size: 22, design: .rounded))
+                            .font(.system(size: 22))
                             .foregroundColor(.onSurface)
                             .bold()
                             .padding(.bottom, 5)
                         Text(bodyText)
                             .foregroundColor(.onSurface)
-                            .font(.system(size: 18, design: .rounded))
+                            .font(.system(size: 18))
                     }
                     .frame(minHeight: 60, alignment: .center)
                     .padding(.trailing, 10)

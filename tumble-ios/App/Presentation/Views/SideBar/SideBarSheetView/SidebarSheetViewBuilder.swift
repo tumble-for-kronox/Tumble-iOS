@@ -27,7 +27,7 @@ struct SidebarSheetViewBuilder<Content : View>: View {
                 Spacer()
                 //Button(action: dismiss, label: {
                 //    Text("Done")
-                //        .font(.system(size: 20, weight: .semibold, design: .rounded))
+                //        .font(.system(size: 20, weight: .semibold))
                 //        .foregroundColor(.primary)
                 //        .padding([.bottom, .top], 20)
                 //        .padding([.leading, .trailing], 20)

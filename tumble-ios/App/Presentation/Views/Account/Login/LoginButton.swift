@@ -15,7 +15,7 @@ struct LoginButton: View {
         Button(action: login, label: {
             HStack {
                 Text("Log in")
-                    .font(.system(size: 20, weight: .semibold, design: .rounded))
+                    .font(.system(size: 20, weight: .semibold))
                     .foregroundColor(.onPrimary)
                     .padding(15)
             }

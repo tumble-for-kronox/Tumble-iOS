@@ -13,7 +13,7 @@ struct UserAvatar: View {
     
     var body: some View {
         Text(name.abbreviate())
-            .font(.system(size: 40, weight: .semibold, design: .rounded))
+            .font(.system(size: 40, weight: .semibold))
             .foregroundColor(.onPrimary)
             .padding()
             .background(Circle().fill(Color("PrimaryColor")))
