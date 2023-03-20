@@ -54,7 +54,8 @@ struct AppParent: View {
                     )
                     .tabItem {
                         VStack {
-                            Image(systemName: "house.fill")
+                            Image(systemName: "house")
+                                .font(.system(size: 16))
                             Text("Home")
                         }
                         .padding(.top, 15)
@@ -67,6 +68,7 @@ struct AppParent: View {
                     .tabItem {
                         VStack {
                             Image(systemName: "bookmark")
+                                .font(.system(size: 16))
                             Text("Bookmarks")
                         }
                         .padding(.top, 15)
@@ -79,6 +81,7 @@ struct AppParent: View {
                     .tabItem {
                         VStack {
                             Image(systemName: "person")
+                                .font(.system(size: 16))
                             Text("Account")
                         }
                         .padding(.top, 15)
