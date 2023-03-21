@@ -20,8 +20,8 @@ struct AppParent: View {
     init(viewModel: ParentViewModel) {
         navigationBarAppearance.titleTextAttributes = [.font: navigationBarFont()]
         navigationBarAppearance.titleTextAttributes = [.foregroundColor: UIColor(named: "OnSurface")!]
-        navigationBarAppearance.backgroundColor = UIColor(named: "BackgroundColor")
         tabBarAppearance.backgroundColor = UIColor(named: "BackgroundColor")
+        tabBarAppearance.tintColor = UIColor(named: "PrimaryColor")
         self.viewModel = viewModel
     }
     
@@ -33,9 +33,7 @@ struct AppParent: View {
             SidebarMenu(
                 viewModel: viewModel.sidebarViewModel,
                 showSideBar: $appController.showSideBar,
-                selectedSideBarTab: $appController.selectedSideBarTab,
                 selectedBottomTab: $appController.selectedAppTab,
-                sideBarSheet: $appController.sideBarSheet,
                 createToast: createToast,
                 removeBookmark: removeBookmark,
                 updateBookmarks: updateBookmarks,
@@ -52,12 +50,9 @@ struct AppParent: View {
                         selectedAppTab: $appController.selectedAppTab
                     )
                     .tabItem {
-                        VStack {
-                            Image(systemName: "house")
-                                .font(.system(size: 16))
-                            Text("Home")
-                        }
-                        .padding(.top, 15)
+                        Image(systemName: "house")
+                            .font(.system(size: 16))
+                        Text("Home")
                     }
                     .tag(TabbarTabType.home)
                     BookmarkPage(
@@ -66,12 +61,9 @@ struct AppParent: View {
                         appController: appController
                     )
                     .tabItem {
-                        VStack {
-                            Image(systemName: "bookmark")
-                                .font(.system(size: 16))
-                            Text("Bookmarks")
-                        }
-                        .padding(.top, 15)
+                        Image(systemName: "bookmark")
+                            .font(.system(size: 16))
+                        Text("Bookmarks")
                     }
                     .tag(TabbarTabType.bookmarks)
                     AccountPage(
@@ -79,12 +71,9 @@ struct AppParent: View {
                         createToast: createToast
                     )
                     .tabItem {
-                        VStack {
-                            Image(systemName: "person")
-                                .font(.system(size: 16))
-                            Text("Account")
-                        }
-                        .padding(.top, 15)
+                        Image(systemName: "person")
+                            .font(.system(size: 16))
+                        Text("Account")
                     }
                     .tag(TabbarTabType.account)
                 }
@@ -96,7 +85,6 @@ struct AppParent: View {
                     ToolbarItem(placement: .navigationBarLeading, content: {
                         NavigationbarSidebar(
                             showSideBar: $appController.showSideBar,
-                            selectedSideBarTab: $appController.selectedSideBarTab,
                             handleClose: handleSideBarAction)
                     })
                     ToolbarItem(placement: .navigationBarTrailing, content: {
@@ -133,7 +121,6 @@ struct AppParent: View {
     
     fileprivate func handleSideBarAction(shouldShowSideBar: Bool, newSideBarTab: SidebarTabType) -> Void {
         appController.showSideBar = shouldShowSideBar
-        appController.selectedSideBarTab = newSideBarTab
     }
     
     fileprivate func onChangeSchool(school: School) -> Void {

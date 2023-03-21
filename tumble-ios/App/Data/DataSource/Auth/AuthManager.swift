@@ -120,9 +120,9 @@ extension AuthManager {
             self.deleteKeyChain(for: token, account: school.name) { result in
                 switch result {
                 case .success:
-                    AppLogger.shared.info("Successfully cleared keychain of \(token)")
+                    AppLogger.shared.debug("Successfully cleared keychain of \(token)")
                 case .failure(let failure):
-                    AppLogger.shared.info("Failed to clear keychain of \(token) -> \(failure.localizedDescription)")
+                    AppLogger.shared.debug("Failed to clear keychain of \(token) -> \(failure.localizedDescription)")
                     completionHandler?(.failure(.internal(reason: "Failed to modify keychain for value '\(token)'")))
                     return
                 }
@@ -145,7 +145,7 @@ extension AuthManager {
                     let userRequest = Request.KronoxUserLogin(username: user.username, password: user.password)
                     urlRequest.httpBody = try encoder.encode(userRequest)
                 } catch let err {
-                    AppLogger.shared.info("Failed to encode JSON body of type \(user.self)")
+                    AppLogger.shared.debug("Failed to encode JSON body of type \(user.self)")
                     completionHandler(.failure(.internal(reason: "\(err)")))
                 }
                 
@@ -172,7 +172,7 @@ extension AuthManager {
                 do {
                     urlRequest.httpBody = try encoder.encode(user)
                 } catch let err {
-                    AppLogger.shared.info("Failed to encode JSON body of type \(user.self)")
+                    AppLogger.shared.debug("Failed to encode JSON body of type \(user.self)")
                     completionHandler(.failure(.internal(reason: "\(err)")))
                 }
                 urlSession.dataTask(with: urlRequest, completionHandler: { data, response, error in
@@ -208,7 +208,7 @@ extension AuthManager {
                     case .success(let user):
                         completionHandler(.success(user))
                     case .failure(let failure):
-                        AppLogger.shared.info("Missing refresh token or is expired -> \(failure)")
+                        AppLogger.shared.debug("Missing refresh token or is expired -> \(failure)")
                         self.processAutoLoginWithKeyChainCredentials(completionHandler: completionHandler)
                     }
                 })
@@ -232,7 +232,7 @@ extension AuthManager {
                 // if the call instance contains a given password.
                 if let password = password {
                     let newUser = TumbleUser(username: result.username, password: password, name: result.name)
-                    AppLogger.shared.info("Registering new user \(result.username)")
+                    AppLogger.shared.debug("Registering new user \(result.username)")
                     self.user = newUser
                     completionHandler(.success(newUser))
                 } else if let user = self.user {
@@ -283,7 +283,7 @@ extension AuthManager {
             }
             return nil
         } catch {
-            AppLogger.shared.info("No available user to decode")
+            AppLogger.shared.debug("No available user to decode")
             return nil
         }
     }
@@ -295,14 +295,14 @@ extension AuthManager {
                 self.saveKeyChain(data, for: "tumble-user", account: school.name, completion: { result in
                     switch result {
                     case .success(_):
-                        AppLogger.shared.info("Updated user in keychain")
+                        AppLogger.shared.debug("Updated user in keychain")
                     case .failure(_):
-                        AppLogger.shared.info("Failed to update user in keychain")
+                        AppLogger.shared.debug("Failed to update user in keychain")
                     }
                 })
             }
         } catch {
-            AppLogger.shared.info("Encoding error")
+            AppLogger.shared.debug("Encoding error")
         }
     }
     
@@ -314,22 +314,22 @@ extension AuthManager {
                     self.saveKeyChain(storedData, for: tokenType.rawValue, account: school.name) { result in
                         switch result {
                         case .success(_):
-                            AppLogger.shared.info("Successfully stored \(tokenType.rawValue)")
+                            AppLogger.shared.debug("Successfully stored \(tokenType.rawValue)")
                         case .failure(_):
-                            AppLogger.shared.info("Failed to store \(tokenType.rawValue)")
+                            AppLogger.shared.debug("Failed to store \(tokenType.rawValue)")
                         }
                     }
                 } catch {
-                    AppLogger.shared.info("Failed to store \(tokenType.rawValue) object")
+                    AppLogger.shared.debug("Failed to store \(tokenType.rawValue) object")
                 }
                 
             } else {
                 self.deleteKeyChain(for: tokenType.rawValue, account: school.name, completion: { result in
                     switch result {
                     case .success(_):
-                        AppLogger.shared.info("Successfully deleted \(tokenType.rawValue)")
+                        AppLogger.shared.debug("Successfully deleted \(tokenType.rawValue)")
                     case .failure(_):
-                        AppLogger.shared.info("Failed to delete \(tokenType.rawValue)")
+                        AppLogger.shared.debug("Failed to delete \(tokenType.rawValue)")
                     }
                 })
             }
@@ -372,7 +372,7 @@ extension AuthManager {
             
             // Delete item from keychain
             SecItemDelete(query)
-            AppLogger.shared.info("Deleted item from keychain")
+            AppLogger.shared.debug("Deleted item from keychain")
             completion(.success(true))
     }
     
@@ -414,12 +414,12 @@ extension AuthManager {
             }
             
             if status != errSecSuccess {
-                AppLogger.shared.info("Could not save item to keychain -> \(status)")
+                AppLogger.shared.debug("Could not save item to keychain -> \(status)")
                 completion(.failure(.internal(reason: status.description)))
                 return
             }
             
-            AppLogger.shared.info("Added item to keychain")
+            AppLogger.shared.debug("Added item to keychain")
             completion(.success(true))
     }
 }

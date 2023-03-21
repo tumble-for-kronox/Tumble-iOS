@@ -37,7 +37,7 @@ enum NetworkResponse {
         if userController.autoSignup {
             self.registerAutoSignup()
         } else {
-            AppLogger.shared.info("User has not enabled auto signup for events")
+            AppLogger.shared.debug("User has not enabled auto signup for events")
         }
         self.getUserBookingsForSection()
         self.getUserEventsForSection()
@@ -70,7 +70,7 @@ enum NetworkResponse {
               let sessionToken = userController.sessionToken,
               !sessionToken.isExpired() else {
             if tries < NetworkConstants.MAX_CONSECUTIVE_ATTEMPTS {
-                AppLogger.shared.info("Attempting auto login ...")
+                AppLogger.shared.debug("Attempting auto login ...")
                 userController.autoLogin(completion: {
                     self.getUserEventsForSection(tries: tries + 1)
                 })
@@ -89,7 +89,7 @@ enum NetworkResponse {
                     self.completeUserEvent = events
                     self.registeredEventSectionState = .loaded
                 case .failure(let failure):
-                    AppLogger.shared.info("\(failure)")
+                    AppLogger.shared.debug("\(failure)")
                     self.registeredEventSectionState = .error
                 }
             }
@@ -104,7 +104,7 @@ enum NetworkResponse {
               let sessionToken = userController.sessionToken,
               !sessionToken.isExpired() else {
             if tries < NetworkConstants.MAX_CONSECUTIVE_ATTEMPTS {
-                AppLogger.shared.info("Attempting auto login ...")
+                AppLogger.shared.debug("Attempting auto login ...")
                 userController.autoLogin(completion: {
                     self.getUserEventsForPage(tries: tries + 1)
                 })
@@ -121,10 +121,10 @@ enum NetworkResponse {
                 switch result {
                 case .success(let events):
                     self.completeUserEvent = events
-                    AppLogger.shared.info("Successfully loaded events")
+                    AppLogger.shared.debug("Successfully loaded events")
                     self.eventBookingPageState = .loaded
                 case .failure(let failure):
-                    AppLogger.shared.info("\(failure)")
+                    AppLogger.shared.debug("\(failure)")
                     self.eventBookingPageState = .error
                 }
             }
@@ -139,7 +139,7 @@ enum NetworkResponse {
               let sessionToken = userController.sessionToken,
               !sessionToken.isExpired() else {
             if tries < NetworkConstants.MAX_CONSECUTIVE_ATTEMPTS {
-                AppLogger.shared.info("Attempting auto login ...")
+                AppLogger.shared.debug("Attempting auto login ...")
                 userController.autoLogin(completion: {
                     self.getUserBookingsForSection(tries: tries + 1)
                 })
@@ -158,7 +158,7 @@ enum NetworkResponse {
                     self.bookingSectionState = .loaded
                     self.userBookings = bookings
                 case .failure(let failure):
-                    AppLogger.shared.info("\(failure)")
+                    AppLogger.shared.debug("\(failure)")
                     self.bookingSectionState = .error
                 }
             }
@@ -173,7 +173,7 @@ enum NetworkResponse {
               let sessionToken = userController.sessionToken,
               !sessionToken.isExpired() else {
             if tries < NetworkConstants.MAX_CONSECUTIVE_ATTEMPTS {
-                AppLogger.shared.info("Attempting auto login ...")
+                AppLogger.shared.debug("Attempting auto login ...")
                 userController.autoLogin(completion: {
                     self.getUserBookingsForPage(tries: tries + 1)
                 })
@@ -191,7 +191,7 @@ enum NetworkResponse {
                 case .success(_):
                     self.getUserBookingsForPage()
                 case .failure(let failure):
-                    AppLogger.shared.info("\(failure)")
+                    AppLogger.shared.debug("\(failure)")
                     self.resourceBookingPageState = .error
                 }
             }
@@ -204,7 +204,7 @@ enum NetworkResponse {
               let sessionToken = userController.sessionToken,
               !sessionToken.isExpired() else {
             if tries < NetworkConstants.MAX_CONSECUTIVE_ATTEMPTS {
-                AppLogger.shared.info("Attempting auto login ...")
+                AppLogger.shared.debug("Attempting auto login ...")
                 userController.autoLogin(completion: {
                     self.registerForEvent(tries: tries + 1, eventId: eventId)
                 })
@@ -232,7 +232,7 @@ enum NetworkResponse {
               let sessionToken = userController.sessionToken,
               !sessionToken.isExpired() else {
             if tries < NetworkConstants.MAX_CONSECUTIVE_ATTEMPTS {
-                AppLogger.shared.info("Attempting auto login ...")
+                AppLogger.shared.debug("Attempting auto login ...")
                 userController.autoLogin(completion: {
                     self.unregisterForEvent(tries: tries + 1, eventId: eventId)
                 })
@@ -266,12 +266,12 @@ enum NetworkResponse {
               let sessionToken = userController.sessionToken,
               !sessionToken.isExpired() else {
             if tries < NetworkConstants.MAX_CONSECUTIVE_ATTEMPTS {
-                AppLogger.shared.info("Attempting auto log in ...")
+                AppLogger.shared.debug("Attempting auto log in ...")
                 userController.autoLogin(completion: {
                     self.registerAutoSignup(tries: tries + 1)
                 })
             }
-            AppLogger.shared.info("Could not log in in order to get new session token")
+            AppLogger.shared.debug("Could not log in in order to get new session token")
             return
         }
         let request = Endpoint.registerAllEvents(schoolId: String(school.id), sessionToken: sessionToken.value)
@@ -279,11 +279,11 @@ enum NetworkResponse {
             DispatchQueue.main.async {
                 switch result {
                 case .success(let eventRegistrations):
-                    AppLogger.shared.info("\(eventRegistrations)")
-                    AppLogger.shared.info("Successful registrations: \(String(describing: eventRegistrations.successfulRegistrations?.count))")
-                    AppLogger.shared.info("Failed registrations: \(String(describing: eventRegistrations.failedRegistrations?.count))")
+                    AppLogger.shared.debug("\(eventRegistrations)")
+                    AppLogger.shared.debug("Successful registrations: \(String(describing: eventRegistrations.successfulRegistrations?.count))")
+                    AppLogger.shared.debug("Failed registrations: \(String(describing: eventRegistrations.failedRegistrations?.count))")
                 case .failure(let failure):
-                    AppLogger.shared.info("\(failure)")
+                    AppLogger.shared.debug("\(failure)")
                 }
             }
         })

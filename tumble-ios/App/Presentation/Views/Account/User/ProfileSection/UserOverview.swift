@@ -22,18 +22,21 @@ struct UserOverview: View {
             Color.surface
             VStack {
                 HStack {
-                    UserAvatar(name: viewModel.userController.user!.name)
-                    VStack (alignment: .leading, spacing: 0) {
-                        Text(viewModel.userController.user!.name)
-                            .font(.system(size: 22, weight: .semibold))
-                        Text(viewModel.userController.user!.username)
-                            .font(.system(size: 16, weight: .regular))
-                        Text(schoolName)
-                            .font(.system(size: 16, weight: .regular))
-                            .padding(.top, 10)
+                    if let name = viewModel.userController.user?.name,
+                       let username = viewModel.userController.user?.username {
+                        UserAvatar(name: name)
+                        VStack (alignment: .leading, spacing: 0) {
+                            Text(name)
+                                .font(.system(size: 22, weight: .semibold))
+                            Text(username)
+                                .font(.system(size: 16, weight: .regular))
+                            Text(schoolName)
+                                .font(.system(size: 16, weight: .regular))
+                                .padding(.top, 10)
+                        }
+                        .padding(10)
+                        .padding(.top, 20)
                     }
-                    .padding(10)
-                    .padding(.top, 20)
                 }
                 .padding()
                 .padding(.top, 80)

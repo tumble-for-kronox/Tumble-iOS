@@ -39,9 +39,9 @@ import SwiftUI
             guard let self = self else { return }
             switch result {
             case .success(_):
-                AppLogger.shared.info("Changed course color for -> \(self.event.course.id) to color -> \(self.color.toHex() ?? "#FFFFFF")")
+                AppLogger.shared.debug("Changed course color for -> \(self.event.course.id) to color -> \(self.color.toHex() ?? "#FFFFFF")")
             case .failure(let failure):
-                AppLogger.shared.info("Couldn't change course color -> \(failure)")
+                AppLogger.shared.debug("Couldn't change course color -> \(failure)")
             }
         }
     }
@@ -88,7 +88,7 @@ import SwiftUI
                         self.isNotificationSetForEvent = true
                     }
                 case .failure(let failure):
-                    AppLogger.shared.info("Failed to schedule notifications -> \(failure)")
+                    AppLogger.shared.debug("Failed to schedule notifications -> \(failure)")
                     // TODO: Handle error in view
                 }
         })
@@ -113,7 +113,7 @@ import SwiftUI
                     }
                 }
             case .failure(let failure):
-                AppLogger.shared.info("\(failure)")
+                AppLogger.shared.debug("\(failure)")
                 // TODO: Handle error in view
             }
         })
@@ -145,13 +145,13 @@ extension EventDetailsSheetViewModel {
                     self.notificationManager.scheduleNotification(for: notification, userOffset: self.notificationOffset) { result in
                         switch result {
                         case .success(let success):
-                            AppLogger.shared.info("Scheduled \(success) notifications")
+                            AppLogger.shared.debug("Scheduled \(success) notifications")
                         case .failure(let failure):
-                            AppLogger.shared.info("Failed to schedule notifications -> \(failure)")
+                            AppLogger.shared.debug("Failed to schedule notifications -> \(failure)")
                             completion(false)
                         }
                     }
-                    AppLogger.shared.info("Set notification for \(event.title)")
+                    AppLogger.shared.debug("Set notification for \(event.title)")
                     completion(true)
                 }
     }

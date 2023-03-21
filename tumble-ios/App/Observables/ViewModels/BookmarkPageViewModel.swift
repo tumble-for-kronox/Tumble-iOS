@@ -63,7 +63,7 @@ enum BookmarksViewStatus {
             
             switch result {
             case .failure:
-                AppLogger.shared.info("Could not load schedules from local storage")
+                AppLogger.shared.debug("Could not load schedules from local storage")
                 DispatchQueue.main.async {
                     self.status = .error
                 }
@@ -137,7 +137,7 @@ extension BookmarkPageViewModel {
             [.day, .hour, .minute, .second],
             from: schedule.lastUpdated,
             to: currentDate)
-        AppLogger.shared.info("Time since last update for schedule with id \(schedule.id) -> \(difference)")
+        AppLogger.shared.debug("Time since last update for schedule with id \(schedule.id) -> \(difference)")
         return difference.hour ?? 0 > 6
     }
 
@@ -148,16 +148,16 @@ extension BookmarkPageViewModel {
         
         for schedule in bookmarks {
             if needsUpdate(schedule: schedule) {
-                AppLogger.shared.info("Schedule with id \(schedule.id) needs to be updated")
+                AppLogger.shared.debug("Schedule with id \(schedule.id) needs to be updated")
                 group.enter()
                 updateBookmarkedSchedule(for: schedule.id) { result in
                     defer { group.leave() }
                     switch result {
                     case .success(let fetchedSchedule):
                         updatedBookmarks.append(fetchedSchedule)
-                        AppLogger.shared.info("Updated schedule with id -> \(fetchedSchedule.id)")
+                        AppLogger.shared.debug("Updated schedule with id -> \(fetchedSchedule.id)")
                     case .failure(let error):
-                        AppLogger.shared.info("\(error)")
+                        AppLogger.shared.debug("\(error)")
                     }
                 }
             }
@@ -165,10 +165,10 @@ extension BookmarkPageViewModel {
         group.notify(queue: .main) {
             let uniqueSchedules = updatedBookmarks.removeDuplicateEvents().flatten()
             if uniqueSchedules.isEmpty {
-                AppLogger.shared.info("No schedules needed to or could be be updated")
+                AppLogger.shared.debug("No schedules needed to or could be be updated")
                 self.scheduleListOfDays = bookmarks.removeDuplicateEvents().flatten()
             } else {
-                AppLogger.shared.info("Amount of updated schedules: \(uniqueSchedules.count)")
+                AppLogger.shared.debug("Amount of updated schedules: \(uniqueSchedules.count)")
                 self.scheduleListOfDays = uniqueSchedules
             }
             
@@ -185,15 +185,15 @@ extension BookmarkPageViewModel {
             
             switch result {
             case .success(let schedule):
-                AppLogger.shared.info("Fetched fresh version of schedule from backend")
+                AppLogger.shared.debug("Fetched fresh version of schedule from backend")
                 self.saveSchedule(schedule: schedule) {
-                    AppLogger.shared.info("Saved new version of schedule in local storage")
+                    AppLogger.shared.debug("Saved new version of schedule in local storage")
                     self.updateCourseColors(for: schedule) {
                         completion(.success(schedule))
                     }
                 }
             case .failure(let error):
-                AppLogger.shared.info("\(error)")
+                AppLogger.shared.debug("\(error)")
                 completion(.failure(.generic(reason: "\(error)")))
             }
         }
@@ -214,7 +214,7 @@ extension BookmarkPageViewModel {
         }
         self.saveCourseColors(courseColors: courseColors)
         completion()
-        AppLogger.shared.info("Saved new course colors for schedule in local storage")
+        AppLogger.shared.debug("Saved new course colors for schedule in local storage")
     }
     
     
@@ -224,7 +224,7 @@ extension BookmarkPageViewModel {
                 self.status = .error
                 fatalError(error.localizedDescription)
             } else {
-                AppLogger.shared.info("Successfully saved course colors")
+                AppLogger.shared.debug("Successfully saved course colors")
             }
         }
     }
@@ -255,7 +255,7 @@ extension BookmarkPageViewModel {
                 DispatchQueue.main.async {
                     self.status = .error
                 }
-                AppLogger.shared.info("Error occured loading colors -> \(failure.localizedDescription)")
+                AppLogger.shared.debug("Error occured loading colors -> \(failure.localizedDescription)")
             }
         }
     }
@@ -271,7 +271,7 @@ extension BookmarkPageViewModel {
             sessionToken: nil) { (result: Result<Response.Schedule, Response.ErrorMessage>) in
             switch result {
             case .failure(let error):
-                AppLogger.shared.info("Encountered error when attempting to update schedule -> \(scheduleId): \(error)")
+                AppLogger.shared.debug("Encountered error when attempting to update schedule -> \(scheduleId): \(error)")
                 closure(.failure(.generic(reason: "Network request timed out")))
             case .success(let schedule):
                 closure(.success(schedule))

@@ -8,9 +8,10 @@
 import SwiftUI
 
 struct NavigationbarSidebar: View {
+    
     @Binding var showSideBar: Bool
-    @Binding var selectedSideBarTab: SidebarTabType
     let handleClose: (Bool, SidebarTabType) -> Void
+    
     var body: some View {
         Button(action: {
             withAnimation(.spring()) {

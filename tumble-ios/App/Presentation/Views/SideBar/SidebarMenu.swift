@@ -12,9 +12,8 @@ struct SidebarMenu: View {
     @ObservedObject var viewModel: SidebarViewModel
     
     @Binding var showSideBar: Bool
-    @Binding var selectedSideBarTab: SidebarTabType
+    @State var selectedSideBarTab: SidebarTabType = .none
     @Binding var selectedBottomTab: TabbarTabType
-    @Binding var sideBarSheet: SideBarSheetModel?
     @Namespace var animation
     
     let createToast: (ToastStyle, String, String) -> Void
@@ -45,11 +44,26 @@ struct SidebarMenu: View {
             /// List of sidebar menu options. Each onClick should
             /// direct the user to a separate sheet view.
             VStack (alignment: .leading, spacing: 0) {
-                SidebarMenuButton(sideBarTabType: .bookmarks, title: SidebarTabType.bookmarks.rawValue, image: "bookmark", selectedSideBarTab: $selectedSideBarTab, sideBarSheet: $sideBarSheet, animation: animation)
-                SidebarMenuButton(sideBarTabType: .notifications, title: SidebarTabType.notifications.rawValue, image: "bell.badge", selectedSideBarTab: $selectedSideBarTab, sideBarSheet: $sideBarSheet, animation: animation)
-                SidebarMenuButton(sideBarTabType: .school, title: SidebarTabType.school.rawValue, image: "arrow.left.arrow.right", selectedSideBarTab: $selectedSideBarTab, sideBarSheet: $sideBarSheet, animation: animation)
-                SidebarMenuButton(sideBarTabType: .support, title: SidebarTabType.support.rawValue, image: "questionmark.circle", selectedSideBarTab: $selectedSideBarTab, sideBarSheet: $sideBarSheet, animation: animation)
-                SidebarMenuButton(sideBarTabType: .more, title: SidebarTabType.more.rawValue, image: "ellipsis", selectedSideBarTab: $selectedSideBarTab, sideBarSheet: $sideBarSheet, animation: animation)
+                SidebarMenuButton(sideBarTabType: .bookmarks,
+                                  title: SidebarTabType.bookmarks.rawValue, image: "bookmark",
+                                  parentViewModel: viewModel, selectedSideBarTab: $selectedSideBarTab,
+                                  animation: animation)
+                SidebarMenuButton(sideBarTabType: .notifications,
+                                  title: SidebarTabType.notifications.rawValue, image: "bell.badge",
+                                  parentViewModel: viewModel, selectedSideBarTab: $selectedSideBarTab,
+                                  animation: animation)
+                SidebarMenuButton(sideBarTabType: .school,
+                                  title: SidebarTabType.school.rawValue, image: "arrow.left.arrow.right",
+                                  parentViewModel: viewModel, selectedSideBarTab: $selectedSideBarTab,
+                                  animation: animation)
+                SidebarMenuButton(sideBarTabType: .support,
+                                  title: SidebarTabType.support.rawValue, image: "questionmark.circle",
+                                  parentViewModel: viewModel, selectedSideBarTab: $selectedSideBarTab,
+                                  animation: animation)
+                SidebarMenuButton(sideBarTabType: .more,
+                                  title: SidebarTabType.more.rawValue, image: "ellipsis",
+                                  parentViewModel: viewModel, selectedSideBarTab: $selectedSideBarTab,
+                                  animation: animation)
             }
             .padding(.top, 40)
             .padding(.leading, -16)
@@ -86,9 +100,20 @@ struct SidebarMenu: View {
         .padding(.top, 20)
         .padding(8)
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-        .sheet(item: $sideBarSheet) { (sideBarSheet: SideBarSheetModel) in
-            SideBarSheet(parentViewModel: viewModel, updateBookmarks: updateBookmarks, removeBookmark: removeBookmark, sideBarTabType: sideBarSheet.sideBarType, onChangeSchool: onChangeSchool, bookmarks: $viewModel.bookmarks)
-        }
+        .sheet(isPresented: $viewModel.presentSidebarSheet, onDismiss: {
+            viewModel.presentSidebarSheet = false
+        }, content: {
+            if let sidebarSheetType = viewModel.sidebarSheetType {
+                SideBarSheet(
+                    parentViewModel: viewModel,
+                    updateBookmarks: updateBookmarks,
+                    removeBookmark: removeBookmark,
+                    sideBarTabType: sidebarSheetType,
+                    onChangeSchool: onChangeSchool,
+                    bookmarks: $viewModel.bookmarks
+                )
+            }
+        })
     }
 
     func onPress() -> Void {

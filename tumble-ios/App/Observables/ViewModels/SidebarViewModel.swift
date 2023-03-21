@@ -19,6 +19,8 @@ import SwiftUI
     @Published var universityImage: Image?
     @Published var universityName: String?
     @Published var bookmarks: [Bookmark]?
+    @Published var sidebarSheetType: SidebarTabType? = nil
+    @Published var presentSidebarSheet: Bool = false
     
     
     init() {
@@ -53,7 +55,7 @@ import SwiftUI
                 self.bookmarks = bookmarks
                 
             case .failure(let failure):
-                AppLogger.shared.info("\(failure)")
+                AppLogger.shared.debug("\(failure)")
             }
             
         })
@@ -101,18 +103,18 @@ import SwiftUI
                                 completion: { (result: Result<Int, NotificationError>) in
                                     switch result {
                                     case .success(let success):
-                                        AppLogger.shared.info("\(success) notification set")
+                                        AppLogger.shared.debug("\(success) notification set")
                                     case .failure(let failure):
-                                        AppLogger.shared.info("\(failure)")
+                                        AppLogger.shared.debug("\(failure)")
                                     }
                                 })
                         }
                     case .failure(let failure):
-                        AppLogger.shared.info("Colors could not be loaded from local storage: \(failure)")
+                        AppLogger.shared.debug("Colors could not be loaded from local storage: \(failure)")
                     }
                 }
             case .failure:
-                AppLogger.shared.info("Schedules could not be loaded from local storage")
+                AppLogger.shared.debug("Schedules could not be loaded from local storage")
             }
         })
     }
@@ -123,16 +125,16 @@ import SwiftUI
 extension SidebarViewModel {
     
     fileprivate func loadSchedules(completion: @escaping ([ScheduleStoreModel]) -> Void) -> Void {
-        DispatchQueue.main.async {
-            self.scheduleService.load(completion: {result in
-                switch result {
-                case .failure(_):
-                    return
-                case .success(let bookmarks):
+        self.scheduleService.load(completion: {result in
+            switch result {
+            case .failure(_):
+                return
+            case .success(let bookmarks):
+                DispatchQueue.main.async {
                     completion(bookmarks)
                 }
-            })
-        }
+            }
+        })
     }
     
     fileprivate func missingIDs(scheduleModels: [ScheduleStoreModel], bookmarks: [Bookmark]) -> [String] {

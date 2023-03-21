@@ -12,15 +12,16 @@ struct SidebarMenuButton: View {
     let title: String
     let image: String
     
+    @ObservedObject var parentViewModel: SidebarViewModel
     @Binding var selectedSideBarTab: SidebarTabType
-    @Binding var sideBarSheet: SideBarSheetModel?
     var animation: Namespace.ID
     
     var body: some View {
         Button(action: {
             withAnimation(.spring()) {
                 selectedSideBarTab = sideBarTabType
-                sideBarSheet = SideBarSheetModel(sideBarType: sideBarTabType)
+                parentViewModel.sidebarSheetType = sideBarTabType
+                parentViewModel.presentSidebarSheet = true
             }
         }, label: {
             HStack (spacing: 10) {

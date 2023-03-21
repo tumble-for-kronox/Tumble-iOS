@@ -35,7 +35,7 @@ struct HomePageNewsSection: View {
                         }
                     }
                 } else {
-                    Text("No news for today")
+                    Text("No recent news items")
                         .font(.system(size: 18))
                         .foregroundColor(.onBackground)
                 }

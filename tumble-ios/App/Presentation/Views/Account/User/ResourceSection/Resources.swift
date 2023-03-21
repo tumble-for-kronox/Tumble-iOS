@@ -21,7 +21,7 @@ struct Resources: View {
                 .toggleStyle(SwitchToggleStyle(tint: .primary))
                 .onChange(of: viewModel.userController.autoSignup, perform: { (value: Bool) in
                     viewModel.toggleAutoSignup(value: value)
-                    AppLogger.shared.info("Toggled to \(value)")
+                    AppLogger.shared.debug("Toggled to \(value)")
                 })
             }
             ResourceSectionDivider (title: "Your bookings", image: "books.vertical",
