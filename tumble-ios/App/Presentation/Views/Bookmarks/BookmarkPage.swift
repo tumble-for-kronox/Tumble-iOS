@@ -73,7 +73,7 @@ struct BookmarkPage: View {
         /// Event sheet for both when a notification has been opened outside
         /// the application by the user and when triggered on click of event card.
         /// The shared eventSheet value is changed from AppDelegate and launched here,
-        /// as well as in this view.
+        /// as well as in this view if an event is pressed.
         .sheet(item: $appController.eventSheet) { (eventSheet: EventDetailsSheetModel) in
             EventDetailsSheet(
                 viewModel: viewModel.generateViewModelEventSheet(
