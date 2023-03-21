@@ -12,19 +12,16 @@ import SwiftUI
 struct AppParent: View {
     
     @EnvironmentObject var appController: AppController
-    
     @ObservedObject var viewModel: ParentViewModel
-    @Namespace var animation
-    
-    @State private var selection: Int = 0
-    @State private var showModal: Bool = true
-    
-    private let sideBarWidth: CGFloat = 110
+        
+    private let navigationBarAppearance = UINavigationBar.appearance()
+    private let tabBarAppearance = UITabBar.appearance()
     
     init(viewModel: ParentViewModel) {
-        UINavigationBar.appearance().titleTextAttributes = [.font: navigationBarFont()]
-        UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: UIColor(named: "OnSurface")!]
-        UITabBar.appearance().backgroundColor = UIColor(named: "BackgroundColor")
+        navigationBarAppearance.titleTextAttributes = [.font: navigationBarFont()]
+        navigationBarAppearance.titleTextAttributes = [.foregroundColor: UIColor(named: "OnSurface")!]
+        navigationBarAppearance.backgroundColor = UIColor(named: "BackgroundColor")
+        tabBarAppearance.backgroundColor = UIColor(named: "BackgroundColor")
         self.viewModel = viewModel
     }
     
@@ -108,6 +105,7 @@ struct AppParent: View {
                             universityImage: $viewModel.universityImage)
                     })
                 }
+                
             }
             .overlay(
                 Group {

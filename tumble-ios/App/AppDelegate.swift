@@ -25,19 +25,13 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 
             if #available(iOS 10.0, *) {
               // For iOS 10 display notification (sent via APNS)
-              UNUserNotificationCenter.current().delegate = self
-
-              let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
-              UNUserNotificationCenter.current().requestAuthorization(
-                options: authOptions,
-                completionHandler: {_, _ in })
+                UNUserNotificationCenter.current().delegate = self
             } else {
               let settings: UIUserNotificationSettings =
               UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
               application.registerUserNotificationSettings(settings)
             }
 
-            application.registerForRemoteNotifications()
             return true
     }
 
@@ -81,8 +75,10 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
         completionHandler([[.banner, .badge, .list, .sound]])
   }
 
-    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        AppLogger.shared.critical("Failed to register for remote notifications for the current device token: \(deviceToken)")
+    func application(
+        _ application: UIApplication,
+        didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        AppLogger.shared.debug("Registered for remote notifications device token: \(deviceToken)")
     }
 
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {

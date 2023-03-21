@@ -38,32 +38,35 @@ struct HomePage: View {
                         HomePageNewsSection(parentViewModel: viewModel)
                     }
                     .background(GeometryReader { geo in
-                      let offset = -geo.frame(in: .named(scrollSpace)).minY
-                      Color.clear
-                        .preference(key: ScrollViewOffsetPreferenceKey.self,
-                                    value: offset)
-                  })
+                        let offset = -geo.frame(in: .named(scrollSpace)).minY
+                        Color.clear
+                            .preference(key: ScrollViewOffsetPreferenceKey.self,
+                                        value: offset)
+                    })
                 }
             }
             .coordinateSpace(name: scrollSpace)
-            .onPreferenceChange(ScrollViewOffsetPreferenceKey.self) { value in
-                scrollOffset = value
-                if scrollOffset >= 64 {
-                    withAnimation(.easeInOut) {
-                        collapsedHeader = true
-                    }
-                } else {
-                    withAnimation(.easeInOut) {
-                        collapsedHeader = false
-                    }
-                }
-            }
+            .onPreferenceChange(ScrollViewOffsetPreferenceKey.self, perform: handleScroll)
             Spacer()
         }
         .padding(.horizontal, 16)
         .padding(.top, 20)
         .background(Color.background)
     }
+    
+    func handleScroll(value: CGFloat) -> Void {
+        scrollOffset = value
+        if scrollOffset >= 64 {
+            withAnimation(.easeInOut) {
+                collapsedHeader = true
+            }
+        } else {
+            withAnimation(.easeInOut) {
+                collapsedHeader = false
+            }
+        }
+    }
+    
 }
 
 struct ScrollViewOffsetPreferenceKey: PreferenceKey {

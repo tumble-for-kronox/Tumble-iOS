@@ -45,6 +45,7 @@ struct HomePageNewsSection: View {
                     .foregroundColor(.onBackground)
             }
         }
+        .padding(.bottom, 30)
     }
 }
 
