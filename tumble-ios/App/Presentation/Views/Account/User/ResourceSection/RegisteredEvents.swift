@@ -24,7 +24,7 @@ struct RegisteredEvents: View {
                         ForEach(events) { event in
                             ResourceCard(
                                 timeSpan: "\(event.eventStart.convertToHourMinute() ?? "")",
-                                title: event.title)
+                                title: event.title, date: event.eventStart.formatDate() ?? "FAILED")
                         }
                     } else {
                         Text("No registered events yet")

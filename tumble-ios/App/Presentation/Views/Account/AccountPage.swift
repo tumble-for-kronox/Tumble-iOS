@@ -25,6 +25,8 @@ struct AccountPage: View {
                 }
             }
         }
+        .background(Color.background)
+        .padding(.bottom, -10)
     }
     
 }

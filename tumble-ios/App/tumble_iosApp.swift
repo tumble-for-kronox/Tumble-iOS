@@ -24,7 +24,8 @@ struct tumble_iosApp: App {
     
     var body: some Scene {
         WindowGroup {
-            Root(viewModel: ViewModelFactory().makeViewModelRoot()).onAppear()
+            Root(viewModel: ViewModelFactory().makeViewModelRoot())
+                .onAppear()
         }
     }
 }

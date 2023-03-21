@@ -27,7 +27,7 @@ struct AppParent: View {
     
     var body: some View {
         ZStack {
-            Color.primary
+            Color.surface
                 .ignoresSafeArea()
             
             SidebarMenu(
@@ -40,44 +40,32 @@ struct AppParent: View {
                 onChangeSchool: onChangeSchool)
             
             NavigationView {
-                TabView (selection: $appController.selectedAppTab) {
-                    HomePage(
-                        viewModel: viewModel.homeViewModel,
-                        parentViewModel: viewModel,
-                        domain: $viewModel.domain,
-                        canvasUrl: $viewModel.canvasUrl,
-                        kronoxUrl: $viewModel.kronoxUrl,
-                        selectedAppTab: $appController.selectedAppTab
-                    )
-                    .tabItem {
-                        Image(systemName: "house")
-                            .font(.system(size: 16))
-                        Text("Home")
+                VStack {
+                    // Main home page view switcher
+                    switch appController.selectedAppTab {
+                    case .home:
+                        HomePage(
+                            viewModel: viewModel.homeViewModel,
+                            parentViewModel: viewModel,
+                            domain: $viewModel.domain,
+                            canvasUrl: $viewModel.canvasUrl,
+                            kronoxUrl: $viewModel.kronoxUrl,
+                            selectedAppTab: $appController.selectedAppTab
+                        )
+                    case .bookmarks:
+                        BookmarkPage(
+                            viewModel: viewModel.bookmarksViewModel,
+                            parentViewModel: viewModel,
+                            appController: appController
+                        )
+                    case .account:
+                        AccountPage(
+                            viewModel: viewModel.accountPageViewModel,
+                            createToast: createToast
+                        )
                     }
-                    .tag(TabbarTabType.home)
-                    BookmarkPage(
-                        viewModel: viewModel.bookmarksViewModel,
-                        parentViewModel: viewModel,
-                        appController: appController
-                    )
-                    .tabItem {
-                        Image(systemName: "bookmark")
-                            .font(.system(size: 16))
-                        Text("Bookmarks")
-                    }
-                    .tag(TabbarTabType.bookmarks)
-                    AccountPage(
-                        viewModel: viewModel.accountPageViewModel,
-                        createToast: createToast
-                    )
-                    .tabItem {
-                        Image(systemName: "person")
-                            .font(.system(size: 16))
-                        Text("Account")
-                    }
-                    .tag(TabbarTabType.account)
+                    TabBar(selectedAppTab: $appController.selectedAppTab)
                 }
-                .tint(.primary)
                 .ignoresSafeArea(.keyboard)
                 .navigationTitle(appController.selectedAppTab.displayName)
                 .navigationBarTitleDisplayMode(.inline)

@@ -32,15 +32,14 @@ struct SidebarMenuButton: View {
                     .fontWeight(.semibold)
                     .font(.system(size: 20))
             }
-            .foregroundColor(selectedSideBarTab.rawValue == title ? .primary : .surface)
+            .foregroundColor(selectedSideBarTab.rawValue == title ? .onPrimary : .onSurface)
             .padding(.vertical, 12)
             .padding(.horizontal, 20)
             .frame(maxWidth: getRect().width - 170, alignment: .leading)
             .background(
-                // Hero animation
                 ZStack {
                     if selectedSideBarTab.rawValue == title {
-                        Color.surface.opacity(selectedSideBarTab.rawValue == title ? 1 : 0)
+                        Color.primary.opacity(selectedSideBarTab.rawValue == title ? 1 : 0)
                             .clipShape(CustomCorners(corners: [.topRight, .bottomRight], radius: 10))
                             .matchedGeometryEffect(id: "SIDEBARTAB", in: animation)
                     }

@@ -122,6 +122,7 @@ enum NetworkResponse {
                 case .success(let events):
                     self.completeUserEvent = events
                     AppLogger.shared.debug("Successfully loaded events")
+                    print("Successfully loaded events")
                     self.eventBookingPageState = .loaded
                 case .failure(let failure):
                     AppLogger.shared.debug("\(failure)")
@@ -146,6 +147,11 @@ enum NetworkResponse {
             }
             DispatchQueue.main.async {
                 self.bookingSectionState = .error
+                // If this fails then we want to set the
+                // user events section to error as well, as that request
+                // does not necessarily fail but will be empty
+                self.registeredEventSectionState = .error
+                self.completeUserEvent = nil
             }
             return
         }

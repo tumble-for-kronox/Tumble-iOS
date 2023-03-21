@@ -44,11 +44,12 @@ struct UserOverview: View {
                 .background(Color.background)
                 .cornerRadius(20, corners: [.bottomLeft, .bottomRight])
                 Spacer()
-                Resources(viewModel: viewModel)
+                Resources(parentViewModel: viewModel)
             }
             
         }
         .edgesIgnoringSafeArea([.top, .bottom])
+        .background(Color.background)
     }
     
 }

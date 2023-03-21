@@ -8,10 +8,10 @@
 import Foundation
 
 // Bottom tab bar
-enum TabbarTabType: Int {
-    case home = 0
-    case bookmarks = 1
-    case account = 2
+enum TabbarTabType: String {
+    case home = "house"
+    case bookmarks = "bookmark"
+    case account = "person"
     
     static let allValues = [home, bookmarks, account]
     

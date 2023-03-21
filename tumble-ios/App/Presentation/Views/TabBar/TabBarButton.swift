@@ -1,43 +1,30 @@
 //
-//  BottomBarButtonView.swift
+//  TabBarButton.swift
 //  tumble-ios
 //
-//  Created by Adis Veletanlic on 2023-02-01.
+//  Created by Adis Veletanlic on 2023-03-21.
 //
 
 import SwiftUI
 
 struct TabBarButton: View {
-    var animation: Namespace.ID
-    let bottomTab: TabbarTabType
-    
-    @Binding var selectedLocalBottomTab: TabbarTabType
-    @Binding var selectedAppBottomTab: TabbarTabType
-    
+    let appTab: TabbarTabType
+   
+    @Binding var selectedAppTab: TabbarTabType
+   
     var body: some View {
         VStack(spacing: 8) {
-            Image(systemName: bottomTab.rawValue)
+            Image(systemName: isSelected() ? appTab.rawValue + ".fill" : appTab.rawValue)
                 .tabBarIcon(isSelected: isSelected())
-            if isSelected() {
-                RoundedRectangle(cornerSize: CGSize(width: 16, height: 8))
-                    .fill(Color.primary)
-                    .matchedGeometryEffect(id: "BOTTOMTAB", in: animation)
-                    .frame(width: 20, height: 4)
-            }
         }
         .frame(maxWidth: .infinity)
         .onTapGesture {
-            withAnimation(.spring()) {
-                self.selectedLocalBottomTab = bottomTab
-            }
-            self.selectedAppBottomTab = bottomTab
+            self.selectedAppTab = appTab
         }
     }
-    
+   
     private func isSelected() -> Bool {
-        return selectedLocalBottomTab.rawValue == bottomTab.rawValue
+       return selectedAppTab.rawValue == appTab.rawValue
     }
-    
 }
-
 

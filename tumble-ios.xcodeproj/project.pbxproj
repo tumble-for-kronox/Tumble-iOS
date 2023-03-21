@@ -25,6 +25,8 @@
 		D40E843D2981C8B200C2CF2E /* AccountPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40E843C2981C8B200C2CF2E /* AccountPageViewModel.swift */; };
 		D41172B52985DA740082BB4F /* TextFieldExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41172B42985DA740082BB4F /* TextFieldExtensions.swift */; };
 		D416D33229C9FD85009A4FB8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D416D33129C9FD85009A4FB8 /* GoogleService-Info.plist */; };
+		D416D33529CA2A46009A4FB8 /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D416D33429CA2A46009A4FB8 /* TabBar.swift */; };
+		D416D33729CA2A4F009A4FB8 /* TabBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D416D33629CA2A4F009A4FB8 /* TabBarButton.swift */; };
 		D419EDF4299A662400479DCE /* UserAvatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D419EDF3299A662400479DCE /* UserAvatar.swift */; };
 		D419EDF6299A78C400479DCE /* ResourceSectionDivider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D419EDF5299A78C400479DCE /* ResourceSectionDivider.swift */; };
 		D41ADFE7299F8D2E0074E2C7 /* NetworkConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41ADFE6299F8D2E0074E2C7 /* NetworkConstants.swift */; };
@@ -219,6 +221,8 @@
 		D40E843C2981C8B200C2CF2E /* AccountPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountPageViewModel.swift; sourceTree = "<group>"; };
 		D41172B42985DA740082BB4F /* TextFieldExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldExtensions.swift; sourceTree = "<group>"; };
 		D416D33129C9FD85009A4FB8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		D416D33429CA2A46009A4FB8 /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
+		D416D33629CA2A4F009A4FB8 /* TabBarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarButton.swift; sourceTree = "<group>"; };
 		D419EDF3299A662400479DCE /* UserAvatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAvatar.swift; sourceTree = "<group>"; };
 		D419EDF5299A78C400479DCE /* ResourceSectionDivider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceSectionDivider.swift; sourceTree = "<group>"; };
 		D41ADFE6299F8D2E0074E2C7 /* NetworkConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConstants.swift; sourceTree = "<group>"; };
@@ -506,6 +510,15 @@
 				D4ABD269298C197E002FD8F5 /* SideBarSheetView */,
 			);
 			path = SideBar;
+			sourceTree = "<group>";
+		};
+		D416D33329CA29F9009A4FB8 /* TabBar */ = {
+			isa = PBXGroup;
+			children = (
+				D416D33429CA2A46009A4FB8 /* TabBar.swift */,
+				D416D33629CA2A4F009A4FB8 /* TabBarButton.swift */,
+			);
+			path = TabBar;
 			sourceTree = "<group>";
 		};
 		D418B46A298F244C00834BC1 /* Buttons */ = {
@@ -929,6 +942,7 @@
 		D47221592924549B0063BDB7 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				D416D33329CA29F9009A4FB8 /* TabBar */,
 				D48CC59D29C7DB5C0028179A /* Buttons */,
 				D421EAEE2993F7F50045D438 /* Navigation */,
 				D43419A229853EAF001089A0 /* Onboarding */,
@@ -1430,6 +1444,7 @@
 				D4722149292454560063BDB7 /* tumble_iosApp.swift in Sources */,
 				D441B10D298A8CEC00D22142 /* EventDetailsSheetViewModel.swift in Sources */,
 				D4644A29298DD79D00B0BB28 /* Notification.swift in Sources */,
+				D416D33529CA2A46009A4FB8 /* TabBar.swift in Sources */,
 				D43419BE2985628C001089A0 /* NotificationInstructions.swift in Sources */,
 				D471A90F29C79449005541FA /* HomePageUpcomingEventsSection.swift in Sources */,
 				D4E83EC62999686F002E5F88 /* KeyChainManagerProtocol.swift in Sources */,
@@ -1505,6 +1520,7 @@
 				D4E83ED12999B1B1002E5F88 /* AuthManager.swift in Sources */,
 				D4A550CF299454F700028BCF /* ScheduleStoreModel.swift in Sources */,
 				D4607632292AA39400DE9590 /* Types.swift in Sources */,
+				D416D33729CA2A4F009A4FB8 /* TabBarButton.swift in Sources */,
 				D454203E29BE914800EF0FC9 /* EventDetailsPillStyle.swift in Sources */,
 				D4607653292AF5DA00DE9590 /* DayHeader.swift in Sources */,
 				D4D4CD21299D273A00D48180 /* HTTPURLResponseExtension.swift in Sources */,

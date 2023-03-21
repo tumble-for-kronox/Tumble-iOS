@@ -23,7 +23,7 @@ struct LoginButton: View {
             
         })
         .background(Color("PrimaryColor"))
-        .cornerRadius(10)
+        .cornerRadius(20)
         .frame(maxWidth: .infinity, alignment: .center)
         .padding(.top, 25)
     }

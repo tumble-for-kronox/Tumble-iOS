@@ -23,5 +23,6 @@ struct InfoLoading: View {
               maxHeight: .infinity,
               alignment: .center
             )
+        .background(Color.background)
     }
 }

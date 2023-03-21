@@ -31,6 +31,9 @@ struct BookmarkCalendarView: View {
                 courseColors: courseColors
             )
             .frame(height: 350)
+            .onAppear {
+                updateDisplayedDayEvents(for: selectedDate)
+            }
             
             // Add other views below the calendar view inside a VStack
             VStack {
@@ -60,9 +63,17 @@ struct BookmarkCalendarView: View {
         }
     }
     
-    fileprivate func onTapDetail(event: Response.Event, color: Color) -> Void {
+    private func onTapDetail(event: Response.Event, color: Color) -> Void {
         appController.eventSheet = EventDetailsSheetModel(event: event, color: color)
     }
+    
+    private func updateDisplayedDayEvents(for date: Date) {
+        displayedDayEvents = days.filter { day in
+            let dayDate = inDateFormatter.date(from: day.isoString) ?? Date()
+            return Calendar.current.isDate(dayDate, inSameDayAs: date)
+        }.flatMap { $0.events }
+    }
+
 }
 
 struct CalendarViewRepresentable: UIViewRepresentable {
@@ -74,30 +85,33 @@ struct CalendarViewRepresentable: UIViewRepresentable {
     @Binding var displayedDayEvents: [Response.Event]
     let days: [DayUiModel]
     let courseColors: CourseAndColorDict
+    
     fileprivate lazy var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
         return formatter
     }()
-    fileprivate var eventsByDate: [String: [Response.Event]] {
-            var dict = [String: [Response.Event]]()
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "yyyy-MM-dd"
-            
-            for day in days {
-                for event in day.events {
-                    if let date = eventDateFormatter.date(from: event.from) {
-                        let dateString = dateFormatter.string(from: date)
-                        if dict[dateString] == nil {
-                            dict[dateString] = [event]
-                        } else {
-                            dict[dateString]?.append(event)
-                        }
+    
+    fileprivate lazy var eventsByDate: [Date: [Response.Event]] = {
+        var dict = [Date: [Response.Event]]()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        
+        for day in days {
+            for event in day.events {
+                if let date = eventDateFormatter.date(from: event.from) {
+                    let normalizedDate = Calendar.current.startOfDay(for: date)
+                    if dict[normalizedDate] == nil {
+                        dict[normalizedDate] = [event]
+                    } else {
+                        dict[normalizedDate]?.append(event)
                     }
                 }
             }
-            return dict
         }
+        return dict
+    }()
+
 
     
     func makeUIView(context: Context) -> FSCalendar {
@@ -117,6 +131,8 @@ struct CalendarViewRepresentable: UIViewRepresentable {
         calendar.appearance.headerTitleFont = .systemFont(ofSize: 30, weight: .black)
         calendar.appearance.headerTitleColor = UIColor(named: "OnBackground")
         calendar.appearance.headerDateFormat = "MMMM"
+        calendar.appearance.eventDefaultColor = UIColor(named: "PrimaryColor")
+        calendar.appearance.eventSelectionColor = UIColor(named: "PrimaryColor")
         calendar.scrollDirection = .vertical
         calendar.scope = .month
         calendar.clipsToBounds = false
@@ -125,46 +141,74 @@ struct CalendarViewRepresentable: UIViewRepresentable {
         return calendar
     }
     
-    func updateUIView(_ uiView: FSCalendar, context: Context) {}
+    func updateUIView(_ uiView: FSCalendar, context: Context) {
+            uiView.scope = .month
+            uiView.locale = Locale(identifier: "en")
+            uiView.firstWeekday = 2
+            uiView.appearance.weekdayTextColor = UIColor(named: "PrimaryColor")
+            uiView.appearance.titleDefaultColor = UIColor(named: "OnBackground")
+            uiView.appearance.selectionColor = UIColor(named: "PrimaryColor")
+            uiView.appearance.titleTodayColor = UIColor(named: "OnPrimary")
+            uiView.appearance.todayColor = UIColor(named: "PrimaryColor")?.withAlphaComponent(0.5)
+            uiView.appearance.titleFont = .boldSystemFont(ofSize: 20)
+            uiView.appearance.headerTitleFont = UIFont(
+                descriptor: UIFontDescriptor.preferredFontDescriptor(withTextStyle: .largeTitle), size: 30)
+            uiView.appearance.headerMinimumDissolvedAlpha = 0.12
+            uiView.appearance.headerTitleFont = .systemFont(ofSize: 30, weight: .black)
+            uiView.appearance.headerTitleColor = UIColor(named: "OnBackground")
+            uiView.appearance.headerDateFormat = "MMMM"
+        
+            uiView.appearance.eventDefaultColor = UIColor(named: "PrimaryColor")
+            uiView.appearance.eventSelectionColor = UIColor(named: "PrimaryColor")
+        }
 
     func makeCoordinator() -> Coordinator {
         Coordinator(self)
     }
     
     class Coordinator: NSObject, FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {
+        
         var parent: CalendarViewRepresentable
+        fileprivate var displayedDayEventsByDate: [Date: [Response.Event]] = [:]
         
         init(_ parent: CalendarViewRepresentable) {
             self.parent = parent
-            super.init()
         }
         
-        // Set cell indicators on individual calendar cells,
-        // to display amount of events for a single date before pressing it
+        /// Set cell indicators on individual calendar cells,
+        /// to display amount of events for a single date before pressing it
         func calendar(
-            _ calendar: FSCalendar,
-            willDisplay cell: FSCalendarCell,
-            for date: Date, at monthPosition: FSCalendarMonthPosition) {
-                let filteredEvents = parent.eventsByDate[parent.dateFormatter.string(from: date)] ?? []
-                cell.eventIndicator.isHidden = false
-                cell.eventIndicator.color = UIColor(named: "PrimaryColor")
-                cell.eventIndicator.numberOfEvents = filteredEvents.count
-        }
+                _ calendar: FSCalendar,
+                willDisplay cell: FSCalendarCell,
+                for date: Date, at monthPosition: FSCalendarMonthPosition) {
+                    let filteredEvents = displayedDayEventsByDate[date] ?? []
+                    cell.eventIndicator.isHidden = false
+                    cell.eventIndicator.numberOfEvents = filteredEvents.count
+            }
         
-        // Handle the click of a date cell
+        /// Handle the click of a date cell
         func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
             parent.selectedDate = date
-            parent.displayedDayEvents = parent.eventsByDate[parent.dateFormatter.string(from: date)] ?? []
+            parent.displayedDayEvents = displayedDayEventsByDate[date] ?? []
+            
             for cell in parent.calendar.visibleCells() {
                 if let cellDate = parent.calendar.date(for: cell) {
-                    let filteredEvents = parent.eventsByDate[parent.dateFormatter.string(from: cellDate)] ?? []
+                    let filteredEvents = displayedDayEventsByDate[cellDate] ?? []
                     cell.eventIndicator.isHidden = false
-                    cell.eventIndicator.color = UIColor(named: "PrimaryColor")
                     cell.eventIndicator.numberOfEvents = filteredEvents.count
                 }
             }
         }
+
+        /// Calculate number of events for a specific cell
+        func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
+            let filteredEvents = parent.eventsByDate[date] ?? []
+            displayedDayEventsByDate[date] = filteredEvents
+            return filteredEvents.count
+        }
+
         
+        /// All date cells are clickable
         func calendar(_ calendar: FSCalendar, shouldSelect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
             return true
         }
