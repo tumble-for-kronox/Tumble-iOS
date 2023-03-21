@@ -64,6 +64,7 @@ import SwiftUI
         self.sidebarViewModel.updateViewLocals()
         self.bookmarksViewModel.loadBookmarkedSchedules()
         self.accountPageViewModel.updateViewLocals()
+        self.homeViewModel.updateViewLocals()
         
     }
     
@@ -72,6 +73,11 @@ import SwiftUI
         sidebarViewModel.updateBookmarks()
         homeViewModel.updateViewLocals()
         bookmarksViewModel.loadBookmarkedSchedules()
+    }
+    
+    func delegateUpdateColorsBookmarks() -> Void {
+        bookmarksViewModel.updateCourseColors()
+        homeViewModel.updateCourseColors()
     }
     
     func removeSchedule(id: String, completion: @escaping (Bool) -> Void) -> Void {

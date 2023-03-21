@@ -9,12 +9,14 @@ import SwiftUI
 
 struct HomePageEventButton: View {
     
-    let onTapEvent: (Response.Event) -> Void
+    let onTapEvent: (Response.Event, Color) -> Void
     let event: Response.Event
     let color: Color
     
     var body: some View {
-        Button(action: {}, label: {
+        Button(action: {
+            onTapEvent(event, color)
+        }, label: {
             CompactEventButtonLabel(event: event, color: color)
         })
         .buttonStyle(CompactButtonStyle(backgroundColor: color.opacity(0.15)))

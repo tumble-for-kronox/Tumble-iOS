@@ -10,6 +10,7 @@ import SwiftUI
 struct BookmarkPage: View {
     
     @ObservedObject var viewModel: BookmarkPageViewModel
+    @ObservedObject var parentViewModel: ParentViewModel
     @ObservedObject var appController: AppController
     
     var body: some View {
@@ -83,7 +84,7 @@ struct BookmarkPage: View {
     }
     
     func updateCourseColors() -> Void {
-        self.viewModel.updateCourseColors()
+        self.parentViewModel.delegateUpdateColorsBookmarks()
     }
 
     

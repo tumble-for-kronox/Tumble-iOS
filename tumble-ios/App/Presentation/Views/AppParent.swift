@@ -45,6 +45,7 @@ struct AppParent: View {
                 TabView (selection: $appController.selectedAppTab) {
                     HomePage(
                         viewModel: viewModel.homeViewModel,
+                        parentViewModel: viewModel,
                         domain: $viewModel.domain,
                         canvasUrl: $viewModel.canvasUrl,
                         kronoxUrl: $viewModel.kronoxUrl,
@@ -61,6 +62,7 @@ struct AppParent: View {
                     .tag(TabbarTabType.home)
                     BookmarkPage(
                         viewModel: viewModel.bookmarksViewModel,
+                        parentViewModel: viewModel,
                         appController: appController
                     )
                     .tabItem {

@@ -16,6 +16,7 @@ import SwiftUI
     @Inject var courseColorService: CourseColorService
     @Inject var networkManager: NetworkManager
     
+    @Published var eventSheet: EventDetailsSheetModel? = nil
     @Published var bookmarkedEventsSectionStatus: PageState = .loading
     @Published var newsSectionStatus: PageState = .loading
     @Published var news: Response.NewsItems? = nil
@@ -23,6 +24,7 @@ import SwiftUI
     @Published var eventsForToday: [Response.Event]? = nil
     @Published var courseColors: CourseAndColorDict? = nil
     
+    private let viewModelFactory: ViewModelFactory = ViewModelFactory.shared
     private let dateFormatter = ISO8601DateFormatter()
     
     init() {
@@ -41,6 +43,16 @@ import SwiftUI
     
     func makeUniversityUrl() -> URL? {
         return URL(string: preferenceService.getUniversityUrl() ?? "")
+    }
+    
+    func generateViewModelEventSheet(event: Response.Event, color: Color) -> EventDetailsSheetViewModel {
+        return viewModelFactory.makeViewModelEventDetailsSheet(event: event, color: color)
+    }
+    
+    func updateCourseColors() -> Void {
+        self.loadCourseColors { courseColors in
+            self.courseColors = courseColors
+        }
     }
     
     func getNews() -> Void {

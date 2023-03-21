@@ -10,6 +10,7 @@ import SwiftUI
 struct HomePage: View {
     
     @ObservedObject var viewModel: HomePageViewModel
+    @ObservedObject var parentViewModel: ParentViewModel
     
     @Binding var domain: String?
     @Binding var canvasUrl: String?
@@ -49,9 +50,22 @@ struct HomePage: View {
             .onPreferenceChange(ScrollViewOffsetPreferenceKey.self, perform: handleScroll)
             Spacer()
         }
+        .sheet(item: $viewModel.eventSheet) { (eventSheet: EventDetailsSheetModel) in
+            EventDetailsSheet(
+                viewModel: viewModel.generateViewModelEventSheet(
+                    event: eventSheet.event,
+                    color: eventSheet.color),
+                updateCourseColors: updateCourseColors)
+        }
         .padding(.horizontal, 16)
         .padding(.top, 20)
         .background(Color.background)
+    }
+    
+    func updateCourseColors() -> Void {
+        // Update instances of course colors in HomePageViewModel
+        // and also callback to update in BookmarksPageViewModel
+        self.parentViewModel.delegateUpdateColorsBookmarks()
     }
     
     func handleScroll(value: CGFloat) -> Void {

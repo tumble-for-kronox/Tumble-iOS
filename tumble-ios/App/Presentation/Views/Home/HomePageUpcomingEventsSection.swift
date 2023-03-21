@@ -31,11 +31,11 @@ struct HomePageUpcomingEventsSection: View {
                     ScrollView {
                         LazyVStack {
                             ForEach(parentViewModel.eventsForToday!, id: \.self) { event in
+                                let color = parentViewModel.courseColors![event.course.id]?.toColor() ?? .white
                                 HomePageEventButton(
-                                    onTapEvent: {event in},
+                                    onTapEvent: onTapEvent,
                                     event: event,
-                                    color: parentViewModel.courseColors![event.course.id] != nil ?
-                                    parentViewModel.courseColors![event.course.id]!.toColor() : .white
+                                    color: color
                                 )
                             }
                         }
@@ -51,6 +51,10 @@ struct HomePageUpcomingEventsSection: View {
             }
         }
         .frame(minHeight: UIScreen.main.bounds.height / 5)
+    }
+    
+    func onTapEvent(event: Response.Event, color: Color) -> Void {
+        parentViewModel.eventSheet = EventDetailsSheetModel(event: event, color: color)
     }
 }
 

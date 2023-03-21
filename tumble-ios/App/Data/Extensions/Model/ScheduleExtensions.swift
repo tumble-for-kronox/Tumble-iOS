@@ -17,7 +17,7 @@ let inDateFormatter: ISO8601DateFormatter = {
 
 let eventDateFormatter: DateFormatter = {
     let eventDateFormatter = DateFormatter()
-    eventDateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
+    eventDateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
     return eventDateFormatter
 }()
 

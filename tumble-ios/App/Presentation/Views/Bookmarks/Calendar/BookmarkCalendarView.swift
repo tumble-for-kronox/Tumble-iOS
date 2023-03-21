@@ -26,7 +26,8 @@ struct BookmarkCalendarView: View {
                 selectedDate: $selectedDate,
                 displayEvents: $displayEvents,
                 displayedDayEvents: $displayedDayEvents,
-                days: days, courseColors: courseColors
+                days: days,
+                courseColors: courseColors
             )
             .ignoresSafeArea(.all, edges: .top)
             Divider()
@@ -42,16 +43,13 @@ struct BookmarkCalendarView: View {
                 } else {
                     VStack {
                         ForEach(displayedDayEvents.sorted(), id: \.self) { event in
-                            Button(action: {
-                                // Open sheet
-                            }, label: {
-                                BookmarkCalendarDetail(
-                                    onTapDetail: onTapDetail,
-                                    event: event,
-                                    color: courseColors[event.course.id] != nil ?
-                                                       courseColors[event.course.id]!.toColor() : .white
-                                )
-                            })
+                            let color = courseColors[event.course.id] != nil ?
+                            courseColors[event.course.id]!.toColor() : .white
+                            BookmarkCalendarDetail(
+                                onTapDetail: onTapDetail,
+                                event: event,
+                                color: color
+                            )
                         }
                     }
                     .padding(.top, 20)
@@ -89,7 +87,8 @@ struct CalendarViewRepresentable: UIViewRepresentable {
         calendar.appearance.titleTodayColor = UIColor(named: "OnPrimary")
         calendar.appearance.todayColor = UIColor(named: "PrimaryColor")?.withAlphaComponent(0.5)
         calendar.appearance.titleFont = .boldSystemFont(ofSize: 20)
-        calendar.appearance.headerTitleFont = UIFont(descriptor: UIFontDescriptor.preferredFontDescriptor(withTextStyle: .largeTitle), size: 30)
+        calendar.appearance.headerTitleFont = UIFont(
+            descriptor: UIFontDescriptor.preferredFontDescriptor(withTextStyle: .largeTitle), size: 30)
         calendar.appearance.headerMinimumDissolvedAlpha = 0.12
         calendar.appearance.headerTitleFont = .systemFont(ofSize: 30, weight: .black)
         calendar.appearance.headerTitleColor = UIColor(named: "OnBackground")
@@ -113,14 +112,19 @@ struct CalendarViewRepresentable: UIViewRepresentable {
         
         init(_ parent: CalendarViewRepresentable) {
             self.parent = parent
+            super.init()
         }
         
-        // Set cell indicators on individual calendar cells, to display amount of events for a single date before pressing it
-        func calendar(_ calendar: FSCalendar, willDisplay cell: FSCalendarCell, for date: Date, at monthPosition: FSCalendarMonthPosition) {
-            let filteredEvents = filterEventList(date: date)
-            cell.eventIndicator.isHidden = false
-            cell.eventIndicator.color = UIColor(named: "PrimaryColor")
-            cell.eventIndicator.numberOfEvents = filteredEvents.count
+        // Set cell indicators on individual calendar cells,
+        // to display amount of events for a single date before pressing it
+        func calendar(
+            _ calendar: FSCalendar,
+            willDisplay cell: FSCalendarCell,
+            for date: Date, at monthPosition: FSCalendarMonthPosition) {
+                let filteredEvents = filterEventList(date: date)
+                cell.eventIndicator.isHidden = false
+                cell.eventIndicator.color = UIColor(named: "PrimaryColor")
+                cell.eventIndicator.numberOfEvents = filteredEvents.count
         }
         
         
@@ -131,7 +135,6 @@ struct CalendarViewRepresentable: UIViewRepresentable {
         }
         
         func calendar(_ calendar: FSCalendar, shouldSelect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
-            
             return true
         }
         

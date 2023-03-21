@@ -9,5 +9,5 @@ import Foundation
 import Logging
 
 struct AppLogger {
-    static let shared = Logger(label: "com.example.tumble")
+    static let shared = Logger(label: "com.tumble.ios")
 }
