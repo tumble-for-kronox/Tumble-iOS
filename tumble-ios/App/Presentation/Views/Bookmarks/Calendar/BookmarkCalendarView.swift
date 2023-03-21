@@ -21,7 +21,8 @@ struct BookmarkCalendarView: View {
     @State private var selectedDate: Date = Date()
     
     var body: some View {
-        VStack {
+        ScrollView (showsIndicators: false) {
+            // Set up the calendar view with scrollEnabled set to false
             CalendarViewRepresentable(
                 selectedDate: $selectedDate,
                 displayEvents: $displayEvents,
@@ -29,9 +30,10 @@ struct BookmarkCalendarView: View {
                 days: days,
                 courseColors: courseColors
             )
-            .ignoresSafeArea(.all, edges: .top)
-            Divider()
-            ScrollView {
+            .frame(height: 350)
+            
+            // Add other views below the calendar view inside a VStack
+            VStack {
                 if displayedDayEvents.isEmpty {
                     HStack {
                         Text("No events for this date")
@@ -55,8 +57,6 @@ struct BookmarkCalendarView: View {
                     .padding(.top, 20)
                 }
             }
-            .background(Color.background)
-            .frame(maxWidth: .infinity, maxHeight: 150)
         }
     }
     
@@ -74,7 +74,31 @@ struct CalendarViewRepresentable: UIViewRepresentable {
     @Binding var displayedDayEvents: [Response.Event]
     let days: [DayUiModel]
     let courseColors: CourseAndColorDict
-    private let dateFormatter = DateFormatter()
+    fileprivate lazy var dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        return formatter
+    }()
+    fileprivate var eventsByDate: [String: [Response.Event]] {
+            var dict = [String: [Response.Event]]()
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            
+            for day in days {
+                for event in day.events {
+                    if let date = eventDateFormatter.date(from: event.from) {
+                        let dateString = dateFormatter.string(from: date)
+                        if dict[dateString] == nil {
+                            dict[dateString] = [event]
+                        } else {
+                            dict[dateString]?.append(event)
+                        }
+                    }
+                }
+            }
+            return dict
+        }
+
     
     func makeUIView(context: Context) -> FSCalendar {
         calendar.delegate = context.coordinator
@@ -121,17 +145,24 @@ struct CalendarViewRepresentable: UIViewRepresentable {
             _ calendar: FSCalendar,
             willDisplay cell: FSCalendarCell,
             for date: Date, at monthPosition: FSCalendarMonthPosition) {
-                let filteredEvents = filterEventList(date: date)
+                let filteredEvents = parent.eventsByDate[parent.dateFormatter.string(from: date)] ?? []
                 cell.eventIndicator.isHidden = false
                 cell.eventIndicator.color = UIColor(named: "PrimaryColor")
                 cell.eventIndicator.numberOfEvents = filteredEvents.count
         }
         
-        
         // Handle the click of a date cell
         func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
             parent.selectedDate = date
-            parent.displayedDayEvents = filterEventList(date: date)
+            parent.displayedDayEvents = parent.eventsByDate[parent.dateFormatter.string(from: date)] ?? []
+            for cell in parent.calendar.visibleCells() {
+                if let cellDate = parent.calendar.date(for: cell) {
+                    let filteredEvents = parent.eventsByDate[parent.dateFormatter.string(from: cellDate)] ?? []
+                    cell.eventIndicator.isHidden = false
+                    cell.eventIndicator.color = UIColor(named: "PrimaryColor")
+                    cell.eventIndicator.numberOfEvents = filteredEvents.count
+                }
+            }
         }
         
         func calendar(_ calendar: FSCalendar, shouldSelect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
@@ -146,25 +177,6 @@ struct CalendarViewRepresentable: UIViewRepresentable {
         
         func minimumDate(for calendar: FSCalendar) -> Date {
             Date.now
-        }
-        
-        func filterEventList(date: Date) -> [Response.Event] {
-            parent.dateFormatter.dateFormat = "yyyy-MM-dd"
-            let dateString = parent.dateFormatter.string(from: date)
-            // Create a second DateFormatter with the correct format for the event.from string
-            let filteredEvents = parent.days.flatMap { dayUiModel in
-                dayUiModel.events.filter { event in
-                    // Convert the event.from string to a Date object using the second DateFormatter
-                    guard let eventDate = eventDateFormatter.date(from: event.from) else {
-                        return false // Return false if the event.from string cannot be converted to a Date
-                    }
-                    
-                    // Compare the eventDate with the selected date
-                    let eventDateString = parent.dateFormatter.string(from: eventDate)
-                    return eventDateString == dateString
-                }
-            }
-            return filteredEvents
         }
     }
 }

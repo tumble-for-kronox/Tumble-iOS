@@ -18,9 +18,9 @@ struct BookmarkCalendarDetail: View {
             HapticsController.triggerHapticLight()
             onTapDetail(event, color)
         }, label: {
-            CompactEventButtonLabel(event: event, color: color)
+            CompactEventButtonLabel(event: event, color: event.isSpecial ? .red : color)
         })
-        .buttonStyle(CompactButtonStyle(backgroundColor: color.opacity(0.15)))
+        .buttonStyle(CompactButtonStyle(backgroundColor: event.isSpecial ? .red.opacity(0.15) : color.opacity(0.15)))
         .padding(.horizontal, 15)
     }
 }
