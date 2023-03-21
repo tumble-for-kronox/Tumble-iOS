@@ -95,7 +95,7 @@ enum BookmarksViewStatus {
     }
 
     fileprivate func filterHiddenBookmarks(schedules: [ScheduleStoreModel]) -> [ScheduleStoreModel] {
-        let hiddenBookmarks = getHiddenBookmarks()
+        let hiddenBookmarks = self.preferenceService.getHiddenBookmarks()
         return schedules.filter { schedule in
             !hiddenBookmarks.contains { $0 == schedule.id }
         }
@@ -277,10 +277,6 @@ extension BookmarkPageViewModel {
                 closure(.success(schedule))
             }
         }
-    }
-    
-    fileprivate func getHiddenBookmarks() -> [String] {
-        return self.preferenceService.getBookmarks()?.filter { $0.toggled == false }.map { $0.id } ?? []
     }
     
     fileprivate func filterBookmarks(

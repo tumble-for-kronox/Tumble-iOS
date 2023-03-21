@@ -12,7 +12,7 @@ struct HomePageNewsSection: View {
     @ObservedObject var parentViewModel: HomePageViewModel
     
     var body: some View {
-        VStack {
+        VStack (alignment: .leading) {
             HomePageSectionDivider(onTapSeeAll: {
                 // Open sheet with all news items
             }, title: "News", contentCount: parentViewModel.news?.count ?? 0)

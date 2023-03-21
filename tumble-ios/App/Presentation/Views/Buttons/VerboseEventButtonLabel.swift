@@ -60,7 +60,7 @@ struct VerboseEventButtonLabel: View {
                         HStack {
                             Circle()
                                 .foregroundColor(event.isSpecial ? Color.red : color)
-                                .frame(height: 7)
+                                .frame(width: 7, height: 7)
                             Text("\(timeFrom) - \(timeTo)")
                                 .font(.system(size: 16, weight: .semibold))
                                 .foregroundColor(.onSurface)

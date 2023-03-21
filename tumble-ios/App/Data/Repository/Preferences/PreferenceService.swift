@@ -104,6 +104,10 @@ class PreferenceService: PreferenceServiceProtocol {
         return dict.map{ Bookmark(toggled: $0.value, id: $0.key) }
     }
     
+    func getHiddenBookmarks() -> [String] {
+        return self.getBookmarks()?.filter { $0.toggled == false }.map { $0.id } ?? []
+    }
+    
     func getDefaultViewType() -> BookmarksViewType {
         let hasView: Bool = self.isKeyPresentInUserDefaults(key: StoreKey.viewType.rawValue)
         if !(hasView) {

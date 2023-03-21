@@ -76,7 +76,9 @@ import SwiftUI
     
     func getEventsForWeek() {
         self.bookmarkedEventsSectionStatus = .loading
+        let hiddenBookmarks: [String] = self.preferenceService.getHiddenBookmarks()
         AppLogger.shared.info("Fetching events for the week", source: "HomePageViewModel")
+        
         scheduleService.load(forCurrentWeek: { [weak self] result in
             guard let self = self else { return }
             switch result {
@@ -95,7 +97,7 @@ import SwiftUI
                     }
                 }
             }
-        })
+        }, hiddenBookmarks: hiddenBookmarks)
     }
 }
 

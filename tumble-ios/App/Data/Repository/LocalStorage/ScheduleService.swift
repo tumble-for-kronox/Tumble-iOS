@@ -47,7 +47,9 @@ class ScheduleService: ObservableObject, ScheduleServiceProtocol {
             }
     }
     
-    func load(forCurrentWeek completion: @escaping (Result<[Response.Event], Error>) -> Void) {
+    func load(
+        forCurrentWeek completion: @escaping ((Result<[Response.Event], Error>) -> Void),
+        hiddenBookmarks: [String]) {
         let calendar = Calendar.current
         let now = Date()
         guard let weekStartDate = calendar.date(from: calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: now)) else {
@@ -57,7 +59,7 @@ class ScheduleService: ObservableObject, ScheduleServiceProtocol {
         let weekEndDate = calendar.date(byAdding: .day, value: 7, to: weekStartDate)!
         let weekDateRange = weekStartDate...weekEndDate
         AppLogger.shared.info("Date range: \(weekDateRange)", source: "ScheduleService")
-        load(forWeeksInRange: weekDateRange) { result in
+        load(forWeeksInRange: weekDateRange, hiddenBookmarks: hiddenBookmarks) { result in
             switch result {
             case .failure(let error):
                 completion(.failure(error))
@@ -211,35 +213,41 @@ extension ScheduleService {
         return newSchedules
     }
 
-    // Helper function to retrieve events within a specific date range
-    fileprivate func load(forWeeksInRange range: ClosedRange<Date>, completion: @escaping (Result<[Response.Event], Error>) -> Void) {
-        DispatchQueue.global(qos: .background).async {
-            do {
-                let fileURL = try self.fileURL()
-                guard let file = try? FileHandle(forReadingFrom: fileURL) else {
-                    DispatchQueue.main.async {
-                        completion(.success([]))
-                    }
-                    return
-                }
-                let schedules = try JSONDecoder().decode([ScheduleStoreModel].self, from: file.availableData)
-                let events = schedules.flatMap { $0.days }
-                    .filter {
-                        if let eventDate = self.dateFormatter.date(from: $0.isoString) {
-                            return range.contains(eventDate)
+    /// Helper function to retrieve events within a specific date range,
+    /// takes into account the users currently hidden bookmarks
+    fileprivate func load(
+        forWeeksInRange range: ClosedRange<Date>,
+        hiddenBookmarks: [String],
+        completion: @escaping (Result<[Response.Event], Error>) -> Void) {
+            DispatchQueue.global(qos: .background).async {
+                do {
+                    let fileURL = try self.fileURL()
+                    guard let file = try? FileHandle(forReadingFrom: fileURL) else {
+                        DispatchQueue.main.async {
+                            completion(.success([]))
                         }
-                        return false
+                        return
                     }
-                    .flatMap { $0.events }
-                DispatchQueue.main.async {
-                    AppLogger.shared.info("Retrieved events for range \(range)", source: "ScheduleService")
-                    completion(.success(events))
-                }
-            } catch {
-                DispatchQueue.main.async {
-                    completion(.failure(.internal(reason: "Could not decode schedules stored locally")))
+                    let schedules = try JSONDecoder().decode([ScheduleStoreModel].self, from: file.availableData)
+                    let events = schedules
+                        .filter { !hiddenBookmarks.contains($0.id) }
+                        .flatMap { $0.days }
+                        .filter {
+                            if let eventDate = self.dateFormatter.date(from: $0.isoString) {
+                                return range.contains(eventDate)
+                            }
+                            return false
+                        }
+                        .flatMap { $0.events }
+                    DispatchQueue.main.async {
+                        AppLogger.shared.info("Retrieved events for range \(range)", source: "ScheduleService")
+                        completion(.success(events))
+                    }
+                } catch {
+                    DispatchQueue.main.async {
+                        completion(.failure(.internal(reason: "Could not decode schedules stored locally")))
+                    }
                 }
             }
-        }
     }
 }

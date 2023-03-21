@@ -18,11 +18,13 @@ struct CompactEventButtonLabel: View {
                 HStack {
                     Circle()
                         .foregroundColor(color)
-                        .frame(height: 7)
+                        .frame(width: 7, height: 7)
+                        .padding(.trailing, 0)
                     Text(time)
                         .font(.system(size: 16, weight: .semibold))
                         .foregroundColor(.onSurface)
                 }
+                
                 .padding(.horizontal)
             }
             Divider()
