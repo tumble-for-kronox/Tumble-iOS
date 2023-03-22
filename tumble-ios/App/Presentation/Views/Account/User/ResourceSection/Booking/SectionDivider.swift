@@ -23,10 +23,10 @@ struct SectionDivider<Content : View>: View {
         VStack (alignment: .leading) {
             HStack {
                 Image(systemName: image)
-                    .font(.system(size: 22))
+                    .font(.system(size: 21))
                     .foregroundColor(.onBackground)
                 Text(title)
-                    .font(.system(size: 18))
+                    .font(.system(size: 17, weight: .semibold))
                     .foregroundColor(.onBackground)
                 VStack (spacing: 0) {
                     Divider()

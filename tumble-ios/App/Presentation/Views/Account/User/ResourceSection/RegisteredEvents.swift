@@ -26,7 +26,7 @@ struct RegisteredEvents: View {
                                let eventEnd = event.eventEnd.convertToHourMinute() {
                                 ResourceCard(
                                     timeSpan: "\(event.eventStart.convertToHourMinute() ?? "")",
-                                    title: event.title,
+                                    type: event.type, title: event.title,
                                     date: event.eventStart.toDate() ?? "(no date)",
                                     hoursMinutes: "\(eventStart) - \(eventEnd)")
                             }

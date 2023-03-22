@@ -40,7 +40,7 @@ struct ResourceCard: View {
                     .truncationMode(.tail)
                 if let type = type {
                     HStack {
-                        Image(systemName: "info.bubble")
+                        Image(systemName: "info.circle")
                             .font(.system(size: 15))
                             .foregroundColor(.onSurface.opacity(0.7))
                         Text(type)

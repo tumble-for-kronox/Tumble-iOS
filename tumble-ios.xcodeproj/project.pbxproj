@@ -143,7 +143,6 @@
 		D498290D299D910F0017D636 /* RegisteredEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = D498290C299D910F0017D636 /* RegisteredEvents.swift */; };
 		D498290F299D9E7F0017D636 /* RegisteredBookings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D498290E299D9E7F0017D636 /* RegisteredBookings.swift */; };
 		D4982913299DA07F0017D636 /* ResourceCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4982912299DA07F0017D636 /* ResourceCard.swift */; };
-		D4982915299DA2710017D636 /* ResourceCardBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4982914299DA2710017D636 /* ResourceCardBanner.swift */; };
 		D4996C0B29BBE9FB00E609DC /* MoreSidebarSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4996C0A29BBE9FB00E609DC /* MoreSidebarSheet.swift */; };
 		D4996C0E29BBEB0A00E609DC /* NotificationsSidebarSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4996C0D29BBEB0A00E609DC /* NotificationsSidebarSheet.swift */; };
 		D49D2500299A9495001D2751 /* UserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49D24FF299A9495001D2751 /* UserController.swift */; };
@@ -336,7 +335,6 @@
 		D498290C299D910F0017D636 /* RegisteredEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisteredEvents.swift; sourceTree = "<group>"; };
 		D498290E299D9E7F0017D636 /* RegisteredBookings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisteredBookings.swift; sourceTree = "<group>"; };
 		D4982912299DA07F0017D636 /* ResourceCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceCard.swift; sourceTree = "<group>"; };
-		D4982914299DA2710017D636 /* ResourceCardBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceCardBanner.swift; sourceTree = "<group>"; };
 		D4996C0A29BBE9FB00E609DC /* MoreSidebarSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreSidebarSheet.swift; sourceTree = "<group>"; };
 		D4996C0D29BBEB0A00E609DC /* NotificationsSidebarSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsSidebarSheet.swift; sourceTree = "<group>"; };
 		D49D24FF299A9495001D2751 /* UserController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserController.swift; sourceTree = "<group>"; };
@@ -1016,7 +1014,6 @@
 				D498290C299D910F0017D636 /* RegisteredEvents.swift */,
 				D498290E299D9E7F0017D636 /* RegisteredBookings.swift */,
 				D4982912299DA07F0017D636 /* ResourceCard.swift */,
-				D4982914299DA2710017D636 /* ResourceCardBanner.swift */,
 			);
 			path = ResourceSection;
 			sourceTree = "<group>";
@@ -1448,7 +1445,6 @@
 				D4A550D329946D8400028BCF /* BookmarkRow.swift in Sources */,
 				D45338FB2929730200198411 /* CustomProgressIndicator.swift in Sources */,
 				D4996C0E29BBEB0A00E609DC /* NotificationsSidebarSheet.swift in Sources */,
-				D4982915299DA2710017D636 /* ResourceCardBanner.swift in Sources */,
 				D4644A23298DA93A00B0BB28 /* NotificationManager.swift in Sources */,
 				D4A433BE29953AD300BFEB7A /* AppController.swift in Sources */,
 				D4ABD272298C2E32002FD8F5 /* DayExtension.swift in Sources */,
