@@ -25,13 +25,6 @@ struct SidebarSheetViewBuilder<Content : View>: View {
                 Text(header)
                     .sheetTitle()
                 Spacer()
-                //Button(action: dismiss, label: {
-                //    Text("Done")
-                //        .font(.system(size: 20, weight: .semibold))
-                //        .foregroundColor(.primary)
-                //        .padding([.bottom, .top], 20)
-                //        .padding([.leading, .trailing], 20)
-                //})
             }
             Divider()
                 .padding(.bottom, 15)
@@ -39,5 +32,6 @@ struct SidebarSheetViewBuilder<Content : View>: View {
             Spacer()
         }
         .frame(maxWidth: .infinity, alignment: .leading)
+        .background(Color.background)
     }
 }

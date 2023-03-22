@@ -28,7 +28,7 @@ struct HomePageUpcomingEventsSection: View {
                 Spacer()
             case .loaded:
                 if !parentViewModel.eventsForToday!.isEmpty {
-                    ScrollView {
+                    ScrollView (showsIndicators: false) {
                         LazyVStack {
                             ForEach(parentViewModel.eventsForToday!, id: \.self) { event in
                                 let color = parentViewModel.courseColors![event.course.id]?.toColor() ?? .white

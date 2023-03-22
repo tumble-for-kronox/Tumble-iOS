@@ -27,6 +27,7 @@
 		D416D33229C9FD85009A4FB8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D416D33129C9FD85009A4FB8 /* GoogleService-Info.plist */; };
 		D416D33529CA2A46009A4FB8 /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D416D33429CA2A46009A4FB8 /* TabBar.swift */; };
 		D416D33729CA2A4F009A4FB8 /* TabBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D416D33629CA2A4F009A4FB8 /* TabBarButton.swift */; };
+		D416D33929CA7C5B009A4FB8 /* CalendarViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D416D33829CA7C5B009A4FB8 /* CalendarViewRepresentable.swift */; };
 		D419EDF4299A662400479DCE /* UserAvatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D419EDF3299A662400479DCE /* UserAvatar.swift */; };
 		D419EDF6299A78C400479DCE /* ResourceSectionDivider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D419EDF5299A78C400479DCE /* ResourceSectionDivider.swift */; };
 		D41ADFE7299F8D2E0074E2C7 /* NetworkConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41ADFE6299F8D2E0074E2C7 /* NetworkConstants.swift */; };
@@ -223,6 +224,7 @@
 		D416D33129C9FD85009A4FB8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D416D33429CA2A46009A4FB8 /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
 		D416D33629CA2A4F009A4FB8 /* TabBarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarButton.swift; sourceTree = "<group>"; };
+		D416D33829CA7C5B009A4FB8 /* CalendarViewRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewRepresentable.swift; sourceTree = "<group>"; };
 		D419EDF3299A662400479DCE /* UserAvatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAvatar.swift; sourceTree = "<group>"; };
 		D419EDF5299A78C400479DCE /* ResourceSectionDivider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceSectionDivider.swift; sourceTree = "<group>"; };
 		D41ADFE6299F8D2E0074E2C7 /* NetworkConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConstants.swift; sourceTree = "<group>"; };
@@ -422,7 +424,6 @@
 		D40D809629251EA5008CA68D /* General */ = {
 			isa = PBXGroup;
 			children = (
-				D418B46A298F244C00834BC1 /* Buttons */,
 				D45338FA2929730200198411 /* CustomProgressIndicator.swift */,
 				D4CF9B2B293572BE00DDB5F0 /* Info.swift */,
 				D46BB117298B21DA00887A24 /* InfoLoading.swift */,
@@ -519,13 +520,6 @@
 				D416D33629CA2A4F009A4FB8 /* TabBarButton.swift */,
 			);
 			path = TabBar;
-			sourceTree = "<group>";
-		};
-		D418B46A298F244C00834BC1 /* Buttons */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Buttons;
 			sourceTree = "<group>";
 		};
 		D41ADFE5299F8D230074E2C7 /* Constants */ = {
@@ -1272,6 +1266,7 @@
 			children = (
 				D430F73F29C613DB00E30E48 /* BookmarkCalendarView.swift */,
 				D430F74629C654A200E30E48 /* BookmarkCalendarDetail.swift */,
+				D416D33829CA7C5B009A4FB8 /* CalendarViewRepresentable.swift */,
 			);
 			path = Calendar;
 			sourceTree = "<group>";
@@ -1542,6 +1537,7 @@
 				D46ABF14298443AC00B059F6 /* ViewModelFactory.swift in Sources */,
 				D460764C292AEAEC00DE9590 /* BookmarkListView.swift in Sources */,
 				D4E83EC12999649E002E5F88 /* LoginSubHeader.swift in Sources */,
+				D416D33929CA7C5B009A4FB8 /* CalendarViewRepresentable.swift in Sources */,
 				D40D80C72925BA62008CA68D /* SidebarMenuButton.swift in Sources */,
 				D43419B829855A9C001089A0 /* SkipButton.swift in Sources */,
 				D43419BA29855CF6001089A0 /* BookingInstructions.swift in Sources */,

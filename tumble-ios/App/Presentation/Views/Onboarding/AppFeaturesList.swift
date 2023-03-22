@@ -9,7 +9,7 @@ import SwiftUI
 
 struct AppFeaturesList: View {
     var body: some View {
-        ScrollView {
+        ScrollView (showsIndicators: false) {
             FeatureCard(title: "Saving schedules", image: "list.bullet.clipboard.fill")
             
             FeatureCard(title: "Signing up for exams", image: "graduationcap.fill")

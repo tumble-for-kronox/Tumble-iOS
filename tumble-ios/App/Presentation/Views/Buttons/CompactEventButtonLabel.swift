@@ -24,7 +24,7 @@ struct CompactEventButtonLabel: View {
                         .font(.system(size: 16, weight: .semibold))
                         .foregroundColor(.onSurface)
                 }
-                
+                .frame(width: 65)
                 .padding(.horizontal)
             }
             Divider()

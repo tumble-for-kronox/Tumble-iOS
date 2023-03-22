@@ -52,7 +52,7 @@ struct BookmarkPage: View {
                         
                     case .calendar:
                         BookmarkCalendarView(
-                            days: viewModel.scheduleListOfDays,
+                            days: $viewModel.scheduleListOfDays,
                             courseColors: viewModel.courseColors,
                             appController: appController
                         )

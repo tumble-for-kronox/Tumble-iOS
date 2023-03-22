@@ -9,7 +9,7 @@ import SwiftUI
 
 struct NotificationInstructions: View {
     var body: some View {
-        ScrollView {
+        ScrollView (showsIndicators: false) {
             UsageCard(titleInstruction: "Schedule page", bodyInstruction: "Press the schedule page tab on the bottom", image: "list.bullet.clipboard")
  
             UsageCard(titleInstruction: "Hold", bodyInstruction: "Hold your finger on an event card in your schedule", image: "dot.circle.and.hand.point.up.left.fill")

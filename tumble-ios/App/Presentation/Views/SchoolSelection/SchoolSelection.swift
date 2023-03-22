@@ -14,7 +14,7 @@ struct SchoolSelection: View {
     let onSelectSchool: OnSelectSchool
     
     var body: some View {
-        ScrollView {
+        ScrollView (showsIndicators: false) {
             ForEach(schools, id: \.id) { school in
                 SchoolRow(school: school, onSelectSchool: onSelectSchool)
             }

@@ -27,7 +27,7 @@ struct HomePageNewsSection: View {
                 Spacer()
             case .loaded:
                 if !parentViewModel.news!.isEmpty {
-                    ScrollView {
+                    ScrollView (showsIndicators: false) {
                         LazyVStack {
                             ForEach(parentViewModel.news!, id: \.self) { notificationNewsItem in
                                 HomePageNewsButton(notificationNewsItem: notificationNewsItem)

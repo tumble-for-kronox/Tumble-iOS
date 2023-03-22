@@ -9,7 +9,7 @@ import SwiftUI
 
 struct BookingInstructions: View {
     var body: some View {
-        ScrollView {
+        ScrollView (showsIndicators: false) {
             UsageCard(titleInstruction: "Account page", bodyInstruction: "Press the account page tab on the bottom", image: "graduationcap")
             
             UsageCard(titleInstruction: "Sign in", bodyInstruction: "Sign in with your institutions credentials", image: "arrow.up.and.person.rectangle.portrait")

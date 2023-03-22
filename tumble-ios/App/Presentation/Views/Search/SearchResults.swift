@@ -23,7 +23,7 @@ struct SearchResults: View {
                     .searchResultsField()
                 Spacer()
             }
-            ScrollView {
+            ScrollView (showsIndicators: false) {
                 LazyVStack {
                     ForEach(searchResults, id: \.id) { programme in
                         ProgrammeCard(

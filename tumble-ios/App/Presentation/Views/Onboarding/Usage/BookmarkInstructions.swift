@@ -9,7 +9,7 @@ import SwiftUI
 
 struct BookmarkInstructions: View {
     var body: some View {
-        ScrollView {
+        ScrollView (showsIndicators: false) {
             UsageCard(titleInstruction: "Search", bodyInstruction: "Search for a schedule from the search page", image: "magnifyingglass")
             
             UsageCard(titleInstruction: "Open", bodyInstruction: "Open the schedule you want to view", image: "rectangle.and.hand.point.up.left.filled")
