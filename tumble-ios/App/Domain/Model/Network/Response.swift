@@ -185,46 +185,26 @@ public enum Response {
         }
     }
     
-    
-    // ------ KronoX resource data ------
-    // ----------------------------------
-    // MARK: - KronoxResourceData
-    struct KronoxResourceData: Encodable, Decodable {
-        let id, name: String
-        let timeSlots: [TimeSlot]
-        let locationIDS: [String]
-        let date: String
-        let availabilities: Availabilities
+    typealias KronoxResources = [KronoxResourceElement]
+    // MARK: - KronoxResourceElement
+    struct KronoxResourceElement: Codable {
+        let id, name: String?
+        let timeSlots: [TimeSlot]?
+        let date: String?
+        let locationIDS: [String]?
+        let availabilities: [String: [String: AvailabilityValue]]?
 
         enum CodingKeys: String, CodingKey {
-            case id, name, timeSlots
+            case id, name, timeSlots, date
             case locationIDS = "locationIds"
-            case date, availabilities
+            case availabilities
         }
     }
 
-    // MARK: - Availabilities
-    struct Availabilities: Encodable, Decodable {
-        let locationID: LocationID
-
-        enum CodingKeys: String, CodingKey {
-            case locationID = "locationId"
-        }
-    }
-
-    // MARK: - LocationID
-    struct LocationID: Encodable, Decodable {
-        let timeSlotID: TimeSlotID
-
-        enum CodingKeys: String, CodingKey {
-            case timeSlotID = "timeSlotId"
-        }
-    }
-
-    // MARK: - TimeSlotID
-    struct TimeSlotID: Encodable, Decodable {
-        let availability: Int
-        let locationID, resourceType, timeSlotID, bookedBy: String
+    // MARK: - AvailabilityValue
+    struct AvailabilityValue: Codable {
+        let availability: AvailabilityEnum?
+        let locationID, resourceType, timeSlotID, bookedBy: String?
 
         enum CodingKeys: String, CodingKey {
             case availability
@@ -234,8 +214,19 @@ public enum Response {
             case bookedBy
         }
     }
-    
+
+    enum AvailabilityEnum: String, Codable {
+        case unavailable = "UNAVAILABLE"
+    }
+
+    // MARK: - TimeSlot
+    struct TimeSlot: Codable {
+        let id: Int?
+        let from, to, duration: String?
+    }
+
     typealias KronoxUserBooking = [KronoxUserBookingElement]
+    
     // MARK: - KronoxUserBookingElement
     struct KronoxUserBookingElement: Identifiable, Decodable {
         let id, resourceID: String
@@ -251,14 +242,6 @@ public enum Response {
             case locationID = "locationId"
             case showConfirmButton, showUnbookButton, confirmationOpen, confirmationClosed
         }
-    }
-
-    
-    // MARK: - TimeSlot
-    struct TimeSlot: Encodable, Decodable {
-        let id: Int?
-        let from, to: String
-        let duration: String
     }
     
     // MARK: - KronoxEventRegistration

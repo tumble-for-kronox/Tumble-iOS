@@ -10,63 +10,66 @@ import SwiftUI
 struct ResourceCard: View {
     
     let date: String
+    let hoursMinutes: String
     let timeSpan: String
+    let type: String?
     let location: String?
     let title: String?
     
     init(timeSpan: String,
-         location: String? = nil,
+         type: String? = nil,
          title: String? = nil,
-         date: String) {
+         location: String? = nil,
+         date: String,
+         hoursMinutes: String) {
         self.timeSpan = timeSpan
-        self.location = location
+        self.type = type
         self.title = title
         self.date = date
+        self.hoursMinutes = hoursMinutes
+        self.location = location
     }
     
     var body: some View {
         Button(action: {}, label: {
-            HStack {
-                Circle()
-                    .foregroundColor(.primary)
-                    .frame(width: 7, height: 7)
-                    .padding(.trailing, 0)
-                Text(timeSpan)
-                    .font(.system(size: 16, weight: .semibold))
-                    .foregroundColor(.onSurface)
-            }
-            .padding(.horizontal)
-            Divider()
-                .foregroundColor(.onSurface)
             VStack (alignment: .leading, spacing: 10) {
                 Text(title ?? "No title")
                     .font(.system(size: 17, weight: .medium))
                     .foregroundColor(.onSurface)
                     .lineLimit(1)
                     .truncationMode(.tail)
-                HStack {
-                    Image(systemName: "mappin.and.ellipse")
-                        .font(.system(size: 15))
-                        .foregroundColor(.onSurface.opacity(0.7))
-                    Text(location ?? "Unknown")
-                        .font(.system(size: 15))
-                        .foregroundColor(.onSurface.opacity(0.7))
+                if let type = type {
+                    HStack {
+                        Image(systemName: "info.bubble")
+                            .font(.system(size: 15))
+                            .foregroundColor(.onSurface.opacity(0.7))
+                        Text(type)
+                            .font(.system(size: 15))
+                            .foregroundColor(.onSurface.opacity(0.7))
+                    }
+                }
+                if let location = location {
+                    HStack {
+                        Image(systemName: "mappin.and.ellipse")
+                            .font(.system(size: 15))
+                            .foregroundColor(.onSurface.opacity(0.7))
+                        Text(location)
+                            .font(.system(size: 15))
+                            .foregroundColor(.onSurface.opacity(0.7))
+                    }
                 }
                 HStack {
                     Image(systemName: "calendar.badge.clock")
                         .font(.system(size: 15))
                         .foregroundColor(.onSurface.opacity(0.7))
-                    Text(date)
+                    Text("\(date) from \(hoursMinutes)")
                         .font(.system(size: 15))
                         .foregroundColor(.onSurface.opacity(0.7))
                 }
             }
             .padding()
         })
-        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 110, maxHeight: 110, alignment: .center)
-        .background(Color.surface)
-        .cornerRadius(20)
-        .padding(.bottom, 10)
+        .buttonStyle(CompactButtonStyle())
     }
 }
 

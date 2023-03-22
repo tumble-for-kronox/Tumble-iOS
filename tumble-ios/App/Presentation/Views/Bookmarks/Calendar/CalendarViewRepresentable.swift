@@ -25,14 +25,14 @@ struct CalendarViewRepresentable: UIViewRepresentable {
         calendar.dataSource = context.coordinator
         
         calendar.locale = Locale(identifier: "en")
-        calendar.appearance.weekdayTextColor = UIColor(named: "PrimaryColor")
+        calendar.appearance.weekdayTextColor = UIColor(named: "OnBackground")?.withAlphaComponent(0.7)
         calendar.appearance.titleDefaultColor = UIColor(named: "OnBackground")
         calendar.appearance.selectionColor = UIColor(named: "PrimaryColor")
         calendar.appearance.titleTodayColor = UIColor(named: "OnPrimary")
         calendar.appearance.todayColor = UIColor(named: "PrimaryColor")?.withAlphaComponent(0.5)
         calendar.appearance.titleFont = .boldSystemFont(ofSize: 20)
         calendar.appearance.headerTitleFont = UIFont(
-            descriptor: UIFontDescriptor.preferredFontDescriptor(withTextStyle: .largeTitle), size: 30)
+            descriptor: UIFontDescriptor.preferredFontDescriptor(withTextStyle: .largeTitle), size: 25)
         calendar.appearance.headerMinimumDissolvedAlpha = 0.12
         calendar.appearance.headerTitleFont = .systemFont(ofSize: 30, weight: .black)
         calendar.appearance.headerTitleColor = UIColor(named: "OnBackground")
@@ -51,7 +51,7 @@ struct CalendarViewRepresentable: UIViewRepresentable {
             uiView.scope = .month
             uiView.locale = Locale(identifier: "en")
             uiView.firstWeekday = 2
-            uiView.appearance.weekdayTextColor = UIColor(named: "PrimaryColor")
+        uiView.appearance.weekdayTextColor = UIColor(named: "OnBackground")?.withAlphaComponent(0.7)
             uiView.appearance.titleDefaultColor = UIColor(named: "OnBackground")
             uiView.appearance.selectionColor = UIColor(named: "PrimaryColor")
             uiView.appearance.titleTodayColor = UIColor(named: "OnPrimary")

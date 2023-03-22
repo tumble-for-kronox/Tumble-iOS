@@ -37,7 +37,7 @@ struct Events: View {
             if let events = registeredEvents, let onTapEventAction = onTapEventAction {
                 VStack (alignment: .leading, spacing: 15) {
                     ForEach(events, id: \.id) { event in
-                        EventCard(event: event, eventType: .unregister, onTap: onTapEventAction)
+                        EventCardButton(event: event, eventType: .unregister, onTap: onTapEventAction)
                     }
                 }
                 if events.isEmpty {
@@ -54,7 +54,7 @@ struct Events: View {
             if let events = unregisteredEvents, let onTapEventAction = onTapEventAction {
                 VStack (alignment: .leading) {
                     ForEach(events, id: \.id) { event in
-                        EventCard(event: event, eventType: .register, onTap: onTapEventAction)
+                        EventCardButton(event: event, eventType: .register, onTap: onTapEventAction)
                     }
                 }
                 if events.isEmpty {
@@ -71,7 +71,7 @@ struct Events: View {
             if let upcomingEvents = upcomingEvents {
                 VStack (alignment: .leading) {
                     ForEach(upcomingEvents, id: \.id) { event in
-                        UpcomingEventCard(event: event)
+                        UpcomingEventCardButton(event: event)
                     }
                 }
                 if upcomingEvents.isEmpty {

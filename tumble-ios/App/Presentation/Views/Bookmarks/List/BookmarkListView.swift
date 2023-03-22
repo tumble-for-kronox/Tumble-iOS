@@ -68,6 +68,7 @@ struct BookmarkListView: View {
                         .clipShape(Rectangle())
                         .cornerRadius(20)
                 })
+                .buttonStyle(ToTopButtonStyle())
                 .padding()
                 .offset(x: bookmarksListModel.buttonOffsetX)
                 ,alignment: .bottomTrailing

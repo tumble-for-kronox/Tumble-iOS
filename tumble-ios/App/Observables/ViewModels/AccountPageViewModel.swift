@@ -26,6 +26,7 @@ enum NetworkResponse {
     @Published var school: School?
     @Published var status: AccountPageViewStatus = .initial
     @Published var completeUserEvent: Response.KronoxCompleteUserEvent? = nil
+    @Published var allResources: Response.KronoxResources? = nil
     @Published var userBookings: Response.KronoxUserBooking? = nil
     @Published var registeredEventSectionState: PageState = .loading
     @Published var bookingSectionState: PageState = .loading
@@ -60,6 +61,42 @@ enum NetworkResponse {
             createToast(success)
         })
     }
+    
+    func getAllResourceData(tries: Int = 1) -> Void {
+        DispatchQueue.main.async {
+            self.resourceBookingPageState = .loading
+        }
+        guard let school = school,
+              let sessionToken = userController.sessionToken,
+              !sessionToken.isExpired() else {
+            if tries < NetworkConstants.MAX_CONSECUTIVE_ATTEMPTS {
+                AppLogger.shared.debug("Attempting auto login ...")
+                userController.autoLogin(completion: {
+                    self.getAllResourceData(tries: tries + 1)
+                })
+            }
+            DispatchQueue.main.async {
+                self.resourceBookingPageState = .error
+            }
+            return
+        }
+        let request = Endpoint.allResources(sessionToken: sessionToken.value, schoolId: String(school.id))
+        print(request)
+        self.networkManager.get(request, then: { [weak self] (result: Result<Response.KronoxResources, Response.ErrorMessage>) in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let resources):
+                    self.allResources = resources
+                    self.resourceBookingPageState = .loaded
+                case .failure(let error):
+                    AppLogger.shared.debug("\(error)")
+                    self.resourceBookingPageState = .error
+                }
+            }
+        })
+    }
+    
     
     /// Retrieve user events for resource section
     func getUserEventsForSection(tries: Int = 1) {
@@ -122,7 +159,6 @@ enum NetworkResponse {
                 case .success(let events):
                     self.completeUserEvent = events
                     AppLogger.shared.debug("Successfully loaded events")
-                    print("Successfully loaded events")
                     self.eventBookingPageState = .loaded
                 case .failure(let failure):
                     AppLogger.shared.debug("\(failure)")

@@ -29,7 +29,7 @@ struct BookmarkCalendarView: View {
                 days: days,
                 courseColors: courseColors
             )
-            .frame(height: 350)
+            .frame(height: 400)
             .onAppear {
                 updateDisplayedDayEvents(for: selectedDate)
             }

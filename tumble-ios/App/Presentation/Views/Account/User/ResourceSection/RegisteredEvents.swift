@@ -22,9 +22,15 @@ struct RegisteredEvents: View {
                 if let events = registeredEvents {
                     if !events.isEmpty {
                         ForEach(events) { event in
-                            ResourceCard(
-                                timeSpan: "\(event.eventStart.convertToHourMinute() ?? "")",
-                                title: event.title, date: event.eventStart.formatDate() ?? "FAILED")
+                            if let eventStart = event.eventStart.convertToHourMinute(),
+                               let eventEnd = event.eventEnd.convertToHourMinute() {
+                                ResourceCard(
+                                    timeSpan: "\(event.eventStart.convertToHourMinute() ?? "")",
+                                    title: event.title,
+                                    date: event.eventStart.toDate() ?? "(no date)",
+                                    hoursMinutes: "\(eventStart) - \(eventEnd)")
+                            }
+                            
                         }
                     } else {
                         Text("No registered events yet")

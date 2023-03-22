@@ -9,15 +9,34 @@ import SwiftUI
 
 struct ResourceBookings: View {
     
-    @EnvironmentObject var user: UserController
+    @ObservedObject var parentViewModel: AccountPageViewModel
+    @State private var selectedPickerDate: Date = Date.now
     
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            switch parentViewModel.resourceBookingPageState {
+            case .loading:
+                CustomProgressIndicator()
+            case .loaded:
+                Text("Loaded")
+            case .error:
+                Info(title: "Could not contact the server", image: "wifi.exclamationmark")
+            }
+        }
+        .frame(
+            maxWidth: .infinity,
+            maxHeight: .infinity,
+            alignment: .top
+        )
+        .background(Color.background)
+        .onAppear {
+            parentViewModel.getAllResourceData()
+        }
     }
 }
 
 struct ResourceBookings_Previews: PreviewProvider {
     static var previews: some View {
-        ResourceBookings()
+        ResourceBookings(parentViewModel: ViewModelFactory.shared.makeViewModelAccountPage())
     }
 }

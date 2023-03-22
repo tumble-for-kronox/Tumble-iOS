@@ -26,7 +26,7 @@ struct Resources: View {
             }
             ResourceSectionDivider (title: "Your bookings", image: "books.vertical",
                          destination: AnyView(
-                            ResourceBookings()
+                            ResourceBookings(parentViewModel: parentViewModel)
                                 .customNavigationBackButton(previousPage: "Account"))) {
                                     RegisteredBookings(
                                         state: $parentViewModel.bookingSectionState,

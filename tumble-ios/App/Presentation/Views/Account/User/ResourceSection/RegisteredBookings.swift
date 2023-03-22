@@ -23,8 +23,10 @@ struct RegisteredBookings: View {
                     if !bookings.isEmpty {
                         ForEach(bookings) { booking in
                             ResourceCard(
-                                timeSpan: "\(booking.timeSlot.from.convertToHourMinute() ?? "")",
-                                location: booking.locationID, date: booking.timeSlot.from.formatDate() ?? "FAILED")
+                                timeSpan: "\(booking.timeSlot.from?.convertToHourMinute() ?? "")",
+                                location: booking.locationID,
+                                date: booking.timeSlot.from?.toDate() ?? "(no date)",
+                                hoursMinutes: booking.timeSlot.from?.convertToHourMinute() ?? "(no time")
                         }
                     } else {
                         Text("No booked resources yet")
