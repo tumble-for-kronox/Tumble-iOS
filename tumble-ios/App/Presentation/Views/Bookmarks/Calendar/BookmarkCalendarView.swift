@@ -18,7 +18,6 @@ struct BookmarkCalendarView: View {
     
     @State private var displayedDayEvents: [Response.Event] = [Response.Event]()
     @State private var selectedDate: Date = Date()
-    @State private var reloadToken: UUID = UUID()
 
     
     var body: some View {
@@ -34,9 +33,6 @@ struct BookmarkCalendarView: View {
             .onAppear {
                 updateDisplayedDayEvents(for: selectedDate)
             }
-            .onChange(of: days, perform: { _ in
-                reloadToken = UUID()
-            })
             
             // Add other views below the calendar view inside a VStack
             VStack {
