@@ -9,7 +9,7 @@ import SwiftUI
 
 struct AccountPage: View {
     
-    @ObservedObject var viewModel: AccountPageViewModel
+    @ObservedObject var viewModel: AccountViewModel
     
     let createToast: (ToastStyle, String, String) -> Void
     

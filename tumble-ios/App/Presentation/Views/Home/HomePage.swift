@@ -9,7 +9,7 @@ import SwiftUI
 
 struct HomePage: View {
     
-    @ObservedObject var viewModel: HomePageViewModel
+    @ObservedObject var viewModel: HomeViewModel
     @ObservedObject var parentViewModel: ParentViewModel
     
     @Binding var domain: String?

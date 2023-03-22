@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-@MainActor final class HomePageViewModel: ObservableObject {
+@MainActor final class HomeViewModel: ObservableObject {
     
     @Inject var preferenceService: PreferenceService
     @Inject var userController: UserController
@@ -101,7 +101,7 @@ import SwiftUI
     }
 }
 
-extension HomePageViewModel {
+extension HomeViewModel {
     
     fileprivate func filterEventsMatchingToday(events: [Response.Event]) -> [Response.Event] {
         let now = Date()

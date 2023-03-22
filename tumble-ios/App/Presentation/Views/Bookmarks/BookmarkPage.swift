@@ -9,7 +9,7 @@ import SwiftUI
 
 struct BookmarkPage: View {
     
-    @ObservedObject var viewModel: BookmarkPageViewModel
+    @ObservedObject var viewModel: BookmarksViewModel
     @ObservedObject var parentViewModel: ParentViewModel
     @ObservedObject var appController: AppController
     

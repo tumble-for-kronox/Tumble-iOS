@@ -9,7 +9,7 @@ import SwiftUI
 
 struct Resources: View {
     
-    @ObservedObject var parentViewModel: AccountPageViewModel
+    @ObservedObject var parentViewModel: AccountViewModel
     
     var body: some View {
         ScrollView (showsIndicators: false) {

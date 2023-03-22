@@ -29,7 +29,7 @@ struct UpcomingEventCardButton: View {
                             .font(.system(size: 15))
                             .foregroundColor(.onSurface.opacity(0.7))
                         if let eventStart = event.eventStart.toDate(),
-                            let eventHoursMinutes = event.eventStart.convertToHourMinute() {
+                            let eventHoursMinutes = event.eventStart.convertToHoursAndMinutes() {
                             Text("\(eventStart) at \(eventHoursMinutes)")
                                 .font(.system(size: 15))
                                 .foregroundColor(.onSurface.opacity(0.7))

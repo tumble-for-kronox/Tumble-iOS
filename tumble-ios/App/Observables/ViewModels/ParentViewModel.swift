@@ -27,9 +27,9 @@ import SwiftUI
     @Published var universityImage: Image?
     @Published var universityName: String?
     
-    let homeViewModel: HomePageViewModel
-    let bookmarksViewModel: BookmarkPageViewModel
-    let accountPageViewModel: AccountPageViewModel
+    let homeViewModel: HomeViewModel
+    let bookmarksViewModel: BookmarksViewModel
+    let accountPageViewModel: AccountViewModel
     let searchViewModel: SearchViewModel
     let sidebarViewModel: SidebarViewModel
 
@@ -37,9 +37,9 @@ import SwiftUI
     init() {
         
         // ViewModels to subviews
-        self.homeViewModel = viewModelFactory.makeViewModelHomePage()
+        self.homeViewModel = viewModelFactory.makeViewModelHome()
         self.bookmarksViewModel = viewModelFactory.makeViewModelBookmarks()
-        self.accountPageViewModel = viewModelFactory.makeViewModelAccountPage()
+        self.accountPageViewModel = viewModelFactory.makeViewModelAccount()
         self.searchViewModel = viewModelFactory.makeViewModelSearch()
         self.sidebarViewModel = viewModelFactory.makeViewModelSidebar()
         

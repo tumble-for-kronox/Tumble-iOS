@@ -11,7 +11,7 @@ import SwiftUI
 
 struct EventBookings: View {
     
-    @ObservedObject var viewModel: AccountPageViewModel
+    @ObservedObject var viewModel: AccountViewModel
     
     var body: some View {
         GeometryReader { geo in

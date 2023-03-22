@@ -9,7 +9,7 @@ import SwiftUI
 
 struct HomePageHeader: View {
     
-    @ObservedObject var parentViewModel: HomePageViewModel
+    @ObservedObject var parentViewModel: HomeViewModel
     @Binding var domain: String?
     @Binding var collapsedHeader: Bool
     

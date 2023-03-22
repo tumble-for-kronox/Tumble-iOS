@@ -9,7 +9,7 @@ import SwiftUI
 
 struct HomePageNewsSection: View {
     
-    @ObservedObject var parentViewModel: HomePageViewModel
+    @ObservedObject var parentViewModel: HomeViewModel
     
     var body: some View {
         VStack (alignment: .leading) {
@@ -52,7 +52,7 @@ struct HomePageNewsSection: View {
 struct HomePageNewsSection_Previews: PreviewProvider {
     static var previews: some View {
         HomePageNewsSection(
-            parentViewModel: ViewModelFactory.shared.makeViewModelHomePage()
+            parentViewModel: ViewModelFactory.shared.makeViewModelHome()
         )
     }
 }

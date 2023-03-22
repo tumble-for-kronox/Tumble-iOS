@@ -55,7 +55,7 @@ struct EventDetailsBody: View {
                         .foregroundColor(.onSurface)
                 }
                 EventDetailsBodyBuilder(title: "Time", image: "clock") {
-                    Text("\(event.from.convertISOToHoursAndMinutes() ?? "") - \(event.to.convertISOToHoursAndMinutes() ?? "")")
+                    Text("\(event.from.convertToHoursAndMinutesISOString() ?? "") - \(event.to.convertToHoursAndMinutesISOString() ?? "")")
                         .font(.system(size: 17))
                         .foregroundColor(.onSurface)
                 }

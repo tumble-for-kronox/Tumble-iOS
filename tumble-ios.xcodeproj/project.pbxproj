@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		D40CC161292AFB9F00664776 /* BookmarkPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40CC160292AFB9F00664776 /* BookmarkPage.swift */; };
-		D40CC163292AFE7200664776 /* BookmarkPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40CC162292AFE7200664776 /* BookmarkPageViewModel.swift */; };
+		D40CC163292AFE7200664776 /* BookmarksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40CC162292AFE7200664776 /* BookmarksViewModel.swift */; };
 		D40D808929247123008CA68D /* Root.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40D808829247123008CA68D /* Root.swift */; };
 		D40D809829251EEF008CA68D /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40D809729251EEF008CA68D /* ToastView.swift */; };
 		D40D809B29251FD7008CA68D /* ToastStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40D809A29251FD7008CA68D /* ToastStyle.swift */; };
@@ -22,7 +22,7 @@
 		D40D80CC29265C36008CA68D /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40D80CB29265C36008CA68D /* SearchViewModel.swift */; };
 		D40D80CE29265D49008CA68D /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40D80CD29265D49008CA68D /* SearchBar.swift */; };
 		D40E843B2981C85400C2CF2E /* AccountPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40E843A2981C85400C2CF2E /* AccountPage.swift */; };
-		D40E843D2981C8B200C2CF2E /* AccountPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40E843C2981C8B200C2CF2E /* AccountPageViewModel.swift */; };
+		D40E843D2981C8B200C2CF2E /* AccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40E843C2981C8B200C2CF2E /* AccountViewModel.swift */; };
 		D41172B52985DA740082BB4F /* TextFieldExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41172B42985DA740082BB4F /* TextFieldExtensions.swift */; };
 		D416D33229C9FD85009A4FB8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D416D33129C9FD85009A4FB8 /* GoogleService-Info.plist */; };
 		D416D33529CA2A46009A4FB8 /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D416D33429CA2A46009A4FB8 /* TabBar.swift */; };
@@ -76,6 +76,8 @@
 		D441B10D298A8CEC00D22142 /* EventDetailsSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D441B10C298A8CEC00D22142 /* EventDetailsSheetViewModel.swift */; };
 		D443962829CB3BEA0069D66A /* UpcomingEventCardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D443962729CB3BEA0069D66A /* UpcomingEventCardButton.swift */; };
 		D443962A29CB40C70069D66A /* ToTopButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D443962929CB40C70069D66A /* ToTopButtonStyle.swift */; };
+		D443962C29CB4D720069D66A /* BookResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D443962B29CB4D720069D66A /* BookResource.swift */; };
+		D443962E29CB56040069D66A /* ResourceBookingButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D443962D29CB56040069D66A /* ResourceBookingButtonStyle.swift */; };
 		D4462C3029858A280067DA65 /* TextExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4462C2F29858A280067DA65 /* TextExtensions.swift */; };
 		D4462C3229858A7D0067DA65 /* ImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4462C3129858A7D0067DA65 /* ImageExtensions.swift */; };
 		D44ABF0729BFE89D00344792 /* SchoolRowStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44ABF0629BFE89D00344792 /* SchoolRowStyle.swift */; };
@@ -96,7 +98,7 @@
 		D460763B292AAD5400DE9590 /* PopupToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460763A292AAD5400DE9590 /* PopupToastView.swift */; };
 		D460763D292AAE7800DE9590 /* RootViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460763C292AAE7800DE9590 /* RootViewModel.swift */; };
 		D4607641292AB18D00DE9590 /* HomePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4607640292AB18D00DE9590 /* HomePage.swift */; };
-		D4607643292AB1C000DE9590 /* HomePageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4607642292AB1C000DE9590 /* HomePageViewModel.swift */; };
+		D4607643292AB1C000DE9590 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4607642292AB1C000DE9590 /* HomeViewModel.swift */; };
 		D4607645292AC41D00DE9590 /* SearchResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4607644292AC41D00DE9590 /* SearchResults.swift */; };
 		D4607647292AE06600DE9590 /* SearchInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4607646292AE06600DE9590 /* SearchInfo.swift */; };
 		D460764A292AE77E00DE9590 /* BubbleShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4607649292AE77E00DE9590 /* BubbleShape.swift */; };
@@ -203,7 +205,7 @@
 
 /* Begin PBXFileReference section */
 		D40CC160292AFB9F00664776 /* BookmarkPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkPage.swift; sourceTree = "<group>"; };
-		D40CC162292AFE7200664776 /* BookmarkPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkPageViewModel.swift; sourceTree = "<group>"; };
+		D40CC162292AFE7200664776 /* BookmarksViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksViewModel.swift; sourceTree = "<group>"; };
 		D40D808829247123008CA68D /* Root.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Root.swift; sourceTree = "<group>"; };
 		D40D809729251EEF008CA68D /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
 		D40D809A29251FD7008CA68D /* ToastStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastStyle.swift; sourceTree = "<group>"; };
@@ -217,7 +219,7 @@
 		D40D80CB29265C36008CA68D /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		D40D80CD29265D49008CA68D /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		D40E843A2981C85400C2CF2E /* AccountPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountPage.swift; sourceTree = "<group>"; };
-		D40E843C2981C8B200C2CF2E /* AccountPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountPageViewModel.swift; sourceTree = "<group>"; };
+		D40E843C2981C8B200C2CF2E /* AccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewModel.swift; sourceTree = "<group>"; };
 		D41172B42985DA740082BB4F /* TextFieldExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldExtensions.swift; sourceTree = "<group>"; };
 		D416D33129C9FD85009A4FB8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D416D33429CA2A46009A4FB8 /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
@@ -269,6 +271,8 @@
 		D441B10C298A8CEC00D22142 /* EventDetailsSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailsSheetViewModel.swift; sourceTree = "<group>"; };
 		D443962729CB3BEA0069D66A /* UpcomingEventCardButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingEventCardButton.swift; sourceTree = "<group>"; };
 		D443962929CB40C70069D66A /* ToTopButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToTopButtonStyle.swift; sourceTree = "<group>"; };
+		D443962B29CB4D720069D66A /* BookResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookResource.swift; sourceTree = "<group>"; };
+		D443962D29CB56040069D66A /* ResourceBookingButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceBookingButtonStyle.swift; sourceTree = "<group>"; };
 		D4462C2F29858A280067DA65 /* TextExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextExtensions.swift; sourceTree = "<group>"; };
 		D4462C3129858A7D0067DA65 /* ImageExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageExtensions.swift; sourceTree = "<group>"; };
 		D44ABF0629BFE89D00344792 /* SchoolRowStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolRowStyle.swift; sourceTree = "<group>"; };
@@ -288,7 +292,7 @@
 		D460763A292AAD5400DE9590 /* PopupToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupToastView.swift; sourceTree = "<group>"; };
 		D460763C292AAE7800DE9590 /* RootViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewModel.swift; sourceTree = "<group>"; };
 		D4607640292AB18D00DE9590 /* HomePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePage.swift; sourceTree = "<group>"; };
-		D4607642292AB1C000DE9590 /* HomePageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageViewModel.swift; sourceTree = "<group>"; };
+		D4607642292AB1C000DE9590 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		D4607644292AC41D00DE9590 /* SearchResults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResults.swift; sourceTree = "<group>"; };
 		D4607646292AE06600DE9590 /* SearchInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchInfo.swift; sourceTree = "<group>"; };
 		D4607649292AE77E00DE9590 /* BubbleShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleShape.swift; sourceTree = "<group>"; };
@@ -643,6 +647,7 @@
 			children = (
 				D426E3A3299C39DE00A8D7AE /* ResourceBookings.swift */,
 				D44FBFEA29CB1CC500CAAD39 /* ResourceDatePicker.swift */,
+				D443962B29CB4D720069D66A /* BookResource.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -680,6 +685,7 @@
 				D48CC59729C7C3C70028179A /* HomePageSeeAllStyle.swift */,
 				D48CC59B29C7D1E70028179A /* CompactButtonStyle.swift */,
 				D443962929CB40C70069D66A /* ToTopButtonStyle.swift */,
+				D443962D29CB56040069D66A /* ResourceBookingButtonStyle.swift */,
 			);
 			path = Styles;
 			sourceTree = "<group>";
@@ -1049,9 +1055,9 @@
 				D460763C292AAE7800DE9590 /* RootViewModel.swift */,
 				D40D80A829252688008CA68D /* ParentViewModel.swift */,
 				D40D80CB29265C36008CA68D /* SearchViewModel.swift */,
-				D4607642292AB1C000DE9590 /* HomePageViewModel.swift */,
-				D40CC162292AFE7200664776 /* BookmarkPageViewModel.swift */,
-				D40E843C2981C8B200C2CF2E /* AccountPageViewModel.swift */,
+				D4607642292AB1C000DE9590 /* HomeViewModel.swift */,
+				D40CC162292AFE7200664776 /* BookmarksViewModel.swift */,
+				D40E843C2981C8B200C2CF2E /* AccountViewModel.swift */,
 				D43419C32985684C001089A0 /* OnBoardingViewModel.swift */,
 				D441B10C298A8CEC00D22142 /* EventDetailsSheetViewModel.swift */,
 				D4A550CB2994509A00028BCF /* SidebarViewModel.swift */,
@@ -1396,7 +1402,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D4607643292AB1C000DE9590 /* HomePageViewModel.swift in Sources */,
+				D4607643292AB1C000DE9590 /* HomeViewModel.swift in Sources */,
 				D460763D292AAE7800DE9590 /* RootViewModel.swift in Sources */,
 				D40D809829251EEF008CA68D /* ToastView.swift in Sources */,
 				D430F74029C613DB00E30E48 /* BookmarkCalendarView.swift in Sources */,
@@ -1416,6 +1422,7 @@
 				D4A550CA2994507B00028BCF /* BookmarksSidebarSheet.swift in Sources */,
 				D43419A9298546B0001089A0 /* FeatureCard.swift in Sources */,
 				D48F0D8829367A7F0039CD0F /* CourseColorService.swift in Sources */,
+				D443962E29CB56040069D66A /* ResourceBookingButtonStyle.swift in Sources */,
 				D43419B029854FCA001089A0 /* AppFeaturesList.swift in Sources */,
 				D46ABF0A29843B9D00B059F6 /* ScheduleServiceProtocol.swift in Sources */,
 				D46BB118298B21DA00887A24 /* InfoLoading.swift in Sources */,
@@ -1520,6 +1527,7 @@
 				D42DFD5E29BD5BC9002942D7 /* ExternalLinkPillStyle.swift in Sources */,
 				D476BD2E293A32BF0027CFE8 /* RoundedCornerShape.swift in Sources */,
 				D44ABF0729BFE89D00344792 /* SchoolRowStyle.swift in Sources */,
+				D443962C29CB4D720069D66A /* BookResource.swift in Sources */,
 				D45338FD29297C8B00198411 /* DayUIModel.swift in Sources */,
 				D46BB10C298ADDF600887A24 /* CustomCorners.swift in Sources */,
 				D4462C3229858A7D0067DA65 /* ImageExtensions.swift in Sources */,
@@ -1554,7 +1562,7 @@
 				D498290D299D910F0017D636 /* RegisteredEvents.swift in Sources */,
 				D426E3A4299C39DE00A8D7AE /* ResourceBookings.swift in Sources */,
 				D421EAF22993FBB00045D438 /* SideBarSheetModel.swift in Sources */,
-				D40E843D2981C8B200C2CF2E /* AccountPageViewModel.swift in Sources */,
+				D40E843D2981C8B200C2CF2E /* AccountViewModel.swift in Sources */,
 				D4ABD26B298C19AB002FD8F5 /* SideBarSheet.swift in Sources */,
 				D40D80A0292520C5008CA68D /* ToastModifier.swift in Sources */,
 				D4644A26298DAA4F00B0BB28 /* NotificationManagerProtocol.swift in Sources */,
@@ -1563,7 +1571,7 @@
 				D40D809D29251FF6008CA68D /* Toast.swift in Sources */,
 				D4CF9B2C293572BE00DDB5F0 /* Info.swift in Sources */,
 				D41ED54A29843460009DCF8B /* Request.swift in Sources */,
-				D40CC163292AFE7200664776 /* BookmarkPageViewModel.swift in Sources */,
+				D40CC163292AFE7200664776 /* BookmarksViewModel.swift in Sources */,
 				D44FBFEB29CB1CC500CAAD39 /* ResourceDatePicker.swift in Sources */,
 				D46ABF0C29843C2400B059F6 /* CourseColorServiceProtocol.swift in Sources */,
 				D40D80CC29265C36008CA68D /* SearchViewModel.swift in Sources */,

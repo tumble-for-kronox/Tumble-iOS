@@ -9,7 +9,7 @@ import SwiftUI
 
 struct HomePageUpcomingEventsSection: View {
     
-    @ObservedObject var parentViewModel: HomePageViewModel
+    @ObservedObject var parentViewModel: HomeViewModel
     
     var body: some View {
         // List of events that are for the coming week
@@ -61,7 +61,7 @@ struct HomePageUpcomingEventsSection: View {
 struct HomePageUpcomingEventsSection_Previews: PreviewProvider {
     static var previews: some View {
         HomePageUpcomingEventsSection(
-            parentViewModel: ViewModelFactory.shared.makeViewModelHomePage()
+            parentViewModel: ViewModelFactory.shared.makeViewModelHome()
         )
     }
 }

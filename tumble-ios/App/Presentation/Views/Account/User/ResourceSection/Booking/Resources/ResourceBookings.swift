@@ -9,8 +9,7 @@ import SwiftUI
 
 struct ResourceBookings: View {
     
-    @ObservedObject var parentViewModel: AccountPageViewModel
-    @State private var selectedPickerDate: Date = Date.now
+    @ObservedObject var parentViewModel: AccountViewModel
     
     var body: some View {
         VStack {
@@ -18,7 +17,7 @@ struct ResourceBookings: View {
             case .loading:
                 CustomProgressIndicator()
             case .loaded:
-                Text("Loaded")
+                BookResource(parentViewModel: parentViewModel)
             case .error:
                 Info(title: "Could not contact the server", image: "wifi.exclamationmark")
             }
@@ -26,7 +25,7 @@ struct ResourceBookings: View {
         .frame(
             maxWidth: .infinity,
             maxHeight: .infinity,
-            alignment: .top
+            alignment: .center
         )
         .background(Color.background)
         .onAppear {
@@ -37,6 +36,6 @@ struct ResourceBookings: View {
 
 struct ResourceBookings_Previews: PreviewProvider {
     static var previews: some View {
-        ResourceBookings(parentViewModel: ViewModelFactory.shared.makeViewModelAccountPage())
+        ResourceBookings(parentViewModel: ViewModelFactory.shared.makeViewModelAccount())
     }
 }

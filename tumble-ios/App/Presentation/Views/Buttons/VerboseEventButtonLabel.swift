@@ -55,8 +55,8 @@ struct VerboseEventButtonLabel: View {
                             .foregroundColor(.onSurface)
                     }
                     Spacer()
-                    if let timeFrom = event.from.convertISOToHoursAndMinutes(),
-                       let timeTo = event.to.convertISOToHoursAndMinutes() {
+                    if let timeFrom = event.from.convertToHoursAndMinutesISOString(),
+                       let timeTo = event.to.convertToHoursAndMinutesISOString() {
                         HStack {
                             Circle()
                                 .foregroundColor(event.isSpecial ? Color.red : color)

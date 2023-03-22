@@ -17,7 +17,7 @@ enum BookmarksViewStatus {
     case error
 }
 
-@MainActor final class BookmarkPageViewModel: ObservableObject {
+@MainActor final class BookmarksViewModel: ObservableObject {
     
     let viewModelFactory: ViewModelFactory = ViewModelFactory()
     
@@ -128,7 +128,7 @@ enum BookmarksViewStatus {
 
 
 // Fileprivate methods
-extension BookmarkPageViewModel {
+extension BookmarksViewModel {
     
     fileprivate func needsUpdate(schedule: ScheduleStoreModel) -> Bool {
         let calendar = Calendar(identifier: .gregorian)

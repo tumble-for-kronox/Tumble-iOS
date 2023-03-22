@@ -9,7 +9,7 @@ import SwiftUI
 
 struct UserOverview: View {
     
-    @ObservedObject var viewModel: AccountPageViewModel
+    @ObservedObject var viewModel: AccountViewModel
         
     @State private var inputImage: UIImage?
     @State private var showImagePicker: Bool = false

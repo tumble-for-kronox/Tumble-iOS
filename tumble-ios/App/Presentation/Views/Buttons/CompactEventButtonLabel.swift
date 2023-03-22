@@ -14,7 +14,7 @@ struct CompactEventButtonLabel: View {
     
     var body: some View {
         HStack (spacing: 0) {
-            if let time = event.from.convertISOToHoursAndMinutes() {
+            if let time = event.from.convertToHoursAndMinutesISOString() {
                 HStack {
                     Circle()
                         .foregroundColor(color)

@@ -18,11 +18,11 @@ class ViewModelFactory {
 
     @MainActor func makeViewModelSearch() -> SearchViewModel { .init() }
     
-    @MainActor func makeViewModelHomePage() -> HomePageViewModel { .init() }
+    @MainActor func makeViewModelHome() -> HomeViewModel { .init() }
     
-    @MainActor func makeViewModelBookmarks() -> BookmarkPageViewModel { .init() }
+    @MainActor func makeViewModelBookmarks() -> BookmarksViewModel { .init() }
     
-    @MainActor func makeViewModelAccountPage() -> AccountPageViewModel { .init() }
+    @MainActor func makeViewModelAccount() -> AccountViewModel { .init() }
     
     @MainActor func makeViewModelOnBoarding() -> OnBoardingViewModel { .init() }
     

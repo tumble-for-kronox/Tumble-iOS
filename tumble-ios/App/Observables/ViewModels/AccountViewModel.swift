@@ -17,7 +17,11 @@ enum NetworkResponse {
     case error
 }
 
-@MainActor final class AccountPageViewModel: ObservableObject {
+
+/// ViewModel for the account page of the app.
+/// It handles the signing in of users, registering and unregistering
+/// for KronoX events, and booking and unbooking of resources.
+@MainActor final class AccountViewModel: ObservableObject {
     
     @Inject var userController: UserController
     @Inject var networkManager: NetworkManager
@@ -51,15 +55,18 @@ enum NetworkResponse {
     
     func login(username: String, password: String, createToast: @escaping (Bool) -> Void ) -> Void {
         self.status = .loading
-        self.userController.logIn(username: username, password: password, completion: { [weak self] success in
-            guard let self = self else { return }
-            DispatchQueue.main.async {
-                self.status = .initial
-            }
-            self.getUserEventsForSection()
-            self.getUserBookingsForSection()
-            createToast(success)
-        })
+        self.userController.logIn(
+            username: username,
+            password: password,
+            completion: { [weak self] success in
+                guard let self = self else { return }
+                DispatchQueue.main.async {
+                    self.status = .initial
+                }
+                self.getUserEventsForSection()
+                self.getUserBookingsForSection()
+                createToast(success)
+            })
     }
     
     func getAllResourceData(tries: Int = 1) -> Void {
@@ -82,7 +89,8 @@ enum NetworkResponse {
         }
         let request = Endpoint.allResources(sessionToken: sessionToken.value, schoolId: String(school.id))
         print(request)
-        self.networkManager.get(request, then: { [weak self] (result: Result<Response.KronoxResources, Response.ErrorMessage>) in
+        self.networkManager.get(request,
+        then: { [weak self] (result: Result<Response.KronoxResources, Response.ErrorMessage>) in
             guard let self = self else { return }
             DispatchQueue.main.async {
                 switch result {
@@ -118,7 +126,8 @@ enum NetworkResponse {
             return
         } 
         let request = Endpoint.userEvents(sessionToken: sessionToken.value, schoolId: String(school.id))
-        networkManager.get(request, then: { [weak self] (result: Result<Response.KronoxCompleteUserEvent, Response.ErrorMessage>) in
+        networkManager.get(request,
+        then: { [weak self] (result: Result<Response.KronoxCompleteUserEvent, Response.ErrorMessage>) in
             guard let self = self else { return }
             DispatchQueue.main.async {
                 switch result {
@@ -152,7 +161,8 @@ enum NetworkResponse {
             return
         }
         let request = Endpoint.userEvents(sessionToken: sessionToken.value, schoolId: String(school.id))
-        networkManager.get(request, then: { [weak self] (result: Result<Response.KronoxCompleteUserEvent, Response.ErrorMessage>) in
+        networkManager.get(request,
+        then: { [weak self] (result: Result<Response.KronoxCompleteUserEvent, Response.ErrorMessage>) in
             guard let self = self else { return }
             DispatchQueue.main.async {
                 switch result {

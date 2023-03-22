@@ -8,13 +8,15 @@
 import Foundation
 import SwiftUI
 
+let extensionDateFormatter = DateFormatter()
+let extensionIsoFormatter = ISO8601DateFormatter()
+
 extension String {
     
     func getDateComponents() -> DateComponents? {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
-        formatter.locale = Locale(identifier: "en_US_POSIX")
-        if let date = formatter.date(from: self) {
+        extensionDateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+        extensionDateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        if let date = extensionDateFormatter.date(from: self) {
             let calendar = Calendar.current
             let components = calendar.dateComponents([.year, .month, .day, .hour, .minute, .second], from: date)
             return components
@@ -54,24 +56,20 @@ extension String {
     }
     
     func formatDate() -> String? {
-        let formatter = ISO8601DateFormatter()
-        formatter.formatOptions = [.withFullDate, .withDashSeparatorInDate]
-        
-        if let date = formatter.date(from: self) {
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "yyyy-MM-dd"
-            dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
-            return dateFormatter.string(from: date)
+        extensionIsoFormatter.formatOptions = [.withFullDate, .withDashSeparatorInDate]
+        if let date = extensionIsoFormatter.date(from: self) {
+            extensionDateFormatter.dateFormat = "yyyy-MM-dd"
+            extensionDateFormatter.timeZone = TimeZone(abbreviation: "UTC")
+            return extensionDateFormatter.string(from: date)
         }
         
         return nil
     }
 
     
-    // Should not be used with strings that are not ISO formatted
-    func convertISOToHoursAndMinutes() -> String? {
-        let dateFormatter = ISO8601DateFormatter()
-        guard let date = dateFormatter.date(from: self) else {
+    /// Should not be used with strings that are not ISO formatted
+    func convertToHoursAndMinutesISOString() -> String? {
+        guard let date = extensionIsoFormatter.date(from: self) else {
             return nil
         }
         
@@ -85,10 +83,9 @@ extension String {
         return String(format: "%02d:%02d", hour, minute)
     }
     
-    func convertToHourMinute() -> String? {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
-        guard let date = dateFormatter.date(from: self) else {
+    func convertToHoursAndMinutes() -> String? {
+        extensionDateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        guard let date = extensionDateFormatter.date(from: self) else {
             return nil
         }
         
@@ -103,27 +100,24 @@ extension String {
     }
     
     func isValidSignupDate() -> Bool {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
-        guard let date = dateFormatter.date(from: self) else {
+        extensionDateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        guard let date = extensionDateFormatter.date(from: self) else {
             return false
         }
         return date > Date()
     }
     
     func toDate() -> String? {
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
-            if let date = dateFormatter.date(from: self) {
-                dateFormatter.dateFormat = "yyyy-MM-dd"
-                return dateFormatter.string(from: date)
-            }
-            return nil
+        extensionDateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        if let date = extensionDateFormatter.date(from: self) {
+            extensionDateFormatter.dateFormat = "yyyy-MM-dd"
+            return extensionDateFormatter.string(from: date)
         }
+        return nil
+    }
     
     func isAvailableNotificationDate() -> Bool {
-        let dateFormatter = ISO8601DateFormatter()
-        guard let eventDate = dateFormatter.date(from: self) else {
+        guard let eventDate = extensionIsoFormatter.date(from: self) else {
             return false
         }
 
@@ -141,10 +135,9 @@ extension String {
     // the given date day name
     func day() -> String {
         let date = Date()
-        let formatter = DateFormatter()
-        formatter.locale = Locale(identifier: "en_us")
-        formatter.dateFormat = "EEEE"
-        let today = formatter.string(from: date).capitalizingFirstLetter()
+        extensionDateFormatter.locale = Locale(identifier: "en_us")
+        extensionDateFormatter.dateFormat = "EEEE"
+        let today = extensionDateFormatter.string(from: date).capitalizingFirstLetter()
         if today == self {
             return "Today"
         } else {
@@ -153,7 +146,7 @@ extension String {
     }
     
     func capitalizingFirstLetter() -> String {
-          return prefix(1).uppercased() + self.lowercased().dropFirst()
-        }
+      return prefix(1).uppercased() + self.lowercased().dropFirst()
+    }
 
 }

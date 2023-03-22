@@ -22,10 +22,10 @@ struct RegisteredEvents: View {
                 if let events = registeredEvents {
                     if !events.isEmpty {
                         ForEach(events) { event in
-                            if let eventStart = event.eventStart.convertToHourMinute(),
-                               let eventEnd = event.eventEnd.convertToHourMinute() {
+                            if let eventStart = event.eventStart.convertToHoursAndMinutes(),
+                               let eventEnd = event.eventEnd.convertToHoursAndMinutes() {
                                 ResourceCard(
-                                    timeSpan: "\(event.eventStart.convertToHourMinute() ?? "")",
+                                    timeSpan: "\(event.eventStart.convertToHoursAndMinutes() ?? "")",
                                     type: event.type, title: event.title,
                                     date: event.eventStart.toDate() ?? "(no date)",
                                     hoursMinutes: "\(eventStart) - \(eventEnd)")
