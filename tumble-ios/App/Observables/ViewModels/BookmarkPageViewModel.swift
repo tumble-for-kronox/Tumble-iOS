@@ -58,9 +58,9 @@ enum BookmarksViewStatus {
     }
     
     func loadBookmarkedSchedules() {
+        self.status = .loading
         loadSchedules { [weak self] result in
             guard let self = self else { return }
-            
             switch result {
             case .failure:
                 AppLogger.shared.debug("Could not load schedules from local storage")
