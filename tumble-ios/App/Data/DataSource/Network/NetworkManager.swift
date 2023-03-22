@@ -122,21 +122,16 @@ class NetworkManager: NetworkManagerProtocol {
                     }
                     
                     do {
-                        guard !data.isEmpty else {
-                            if let result = httpUrlNetworkResponse.toHttpResponseObject() as? NetworkResponse {
-                                if httpUrlNetworkResponse.statusCode > 200 {
-                                    completion(.failure(Response.ErrorMessage(message: "Something went wrong on our end")))
-                                    return
-                                }
-                                completion(.success(result))
-                                return
-                            }
-                            completion(.failure(Response.ErrorMessage(message: "Could not contact the server")))
+                        if httpUrlNetworkResponse.statusCode > 200 {
+                            completion(.failure(Response.ErrorMessage(
+                                message: "Something went wrong on our end",
+                                statusCode: httpUrlNetworkResponse.statusCode)
+                            ))
                             return
                         }
                         let result = try self.decoder.decode(NetworkResponse.self, from: data)
-                        
                         completion(.success(result))
+                        
                     } catch (let error) {
                         do {
                             AppLogger.shared.critical("Failed to decode response to object \(NetworkResponse.self). Error: \(error)", source: "NetworkManager")
@@ -175,6 +170,7 @@ class NetworkManager: NetworkManagerProtocol {
                     return nil
                 }
             }
+            print(urlRequest)
             return urlRequest
         }
 }

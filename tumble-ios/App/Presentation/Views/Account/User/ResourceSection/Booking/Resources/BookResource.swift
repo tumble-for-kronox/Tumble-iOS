@@ -10,19 +10,21 @@ import SwiftUI
 struct BookResource: View {
     
     @ObservedObject var parentViewModel: AccountViewModel
-    @State private var selectedPickerDate: Date = Date.now
+    @Binding var selectedPickerDate: Date
     
     var body: some View {
-        ScrollView (showsIndicators: false) {
-            ResourceDatePicker(date: $selectedPickerDate)
+        VStack {
             Divider()
                 .foregroundColor(.onBackground)
             /// List of all available buildings that
             /// allow for booking rooms
             VStack {
                 ForEach(parentViewModel.allResources!, id: \.self.id) { resource in
-                    Button(action: {
-                        
+                    NavigationLink(destination: {
+                        ResourceSelection(
+                            parentViewModel: parentViewModel,
+                            resource: resource
+                        )
                     }, label: {
                         HStack (spacing: 0) {
                             VStack (alignment: .leading, spacing: 10) {
@@ -46,7 +48,7 @@ struct BookResource: View {
                                     Image(systemName: "mappin.and.ellipse")
                                         .font(.system(size: 15))
                                         .foregroundColor(.onSurface.opacity(0.7))
-                                    Text("Locations: \(resource.locationIDS?.count ?? 0)")
+                                    Text("Available: \(resource.availabilities.countAvailable())")
                                         .font(.system(size: 15))
                                         .foregroundColor(.onSurface.opacity(0.7))
                                 }
@@ -62,11 +64,5 @@ struct BookResource: View {
             .padding(.top)
             Spacer()
         }
-    }
-}
-
-struct BookResource_Previews: PreviewProvider {
-    static var previews: some View {
-        BookResource(parentViewModel: ViewModelFactory.shared.makeViewModelAccount())
     }
 }

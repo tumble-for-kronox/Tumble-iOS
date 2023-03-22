@@ -36,6 +36,7 @@ enum NetworkResponse {
     @Published var bookingSectionState: PageState = .loading
     @Published var resourceBookingPageState: PageState = .loading
     @Published var eventBookingPageState: PageState = .loading
+    @Published var error: Response.ErrorMessage? = nil
     
     init() {
         self.school = preferenceService.getDefaultSchool()
@@ -69,7 +70,7 @@ enum NetworkResponse {
             })
     }
     
-    func getAllResourceData(tries: Int = 1) -> Void {
+    func getAllResourceData(tries: Int = 1, date: Date) -> Void {
         DispatchQueue.main.async {
             self.resourceBookingPageState = .loading
         }
@@ -79,7 +80,7 @@ enum NetworkResponse {
             if tries < NetworkConstants.MAX_CONSECUTIVE_ATTEMPTS {
                 AppLogger.shared.debug("Attempting auto login ...")
                 userController.autoLogin(completion: {
-                    self.getAllResourceData(tries: tries + 1)
+                    self.getAllResourceData(tries: tries + 1, date: date)
                 })
             }
             DispatchQueue.main.async {
@@ -87,8 +88,7 @@ enum NetworkResponse {
             }
             return
         }
-        let request = Endpoint.allResources(sessionToken: sessionToken.value, schoolId: String(school.id))
-        print(request)
+        let request = Endpoint.allResources(sessionToken: sessionToken.value, schoolId: String(school.id), date: date)
         self.networkManager.get(request,
         then: { [weak self] (result: Result<Response.KronoxResources, Response.ErrorMessage>) in
             guard let self = self else { return }
@@ -100,6 +100,7 @@ enum NetworkResponse {
                 case .failure(let error):
                     AppLogger.shared.debug("\(error)")
                     self.resourceBookingPageState = .error
+                    self.error = error
                 }
             }
         })

@@ -10,27 +10,43 @@ import SwiftUI
 struct ResourceBookings: View {
     
     @ObservedObject var parentViewModel: AccountViewModel
+    @State private var selectedPickerDate: Date = Date.now
     
     var body: some View {
-        VStack {
+        ScrollView (showsIndicators: false) {
+            ResourceDatePicker(date: $selectedPickerDate)
             switch parentViewModel.resourceBookingPageState {
             case .loading:
                 CustomProgressIndicator()
+                    .frame(
+                        maxWidth: .infinity,
+                        maxHeight: .infinity,
+                        alignment: .center
+                    )
             case .loaded:
-                BookResource(parentViewModel: parentViewModel)
+                BookResource(parentViewModel: parentViewModel, selectedPickerDate: $selectedPickerDate)
             case .error:
-                Info(title: "Could not contact the server", image: "wifi.exclamationmark")
+                switch parentViewModel.error?.statusCode {
+                case 404:
+                    Info(title: "No rooms available on weekends", image: nil)
+                default:
+                    Info(title: "Something went wrong", image: nil)
+                }
             }
         }
         .frame(
             maxWidth: .infinity,
             maxHeight: .infinity,
-            alignment: .center
+            alignment: .top
         )
         .background(Color.background)
         .onAppear {
-            parentViewModel.getAllResourceData()
+            parentViewModel.getAllResourceData(date: selectedPickerDate)
         }
+        .onChange(of: selectedPickerDate, perform: { _ in
+            
+            parentViewModel.getAllResourceData(date: selectedPickerDate)
+        })
     }
 }
 

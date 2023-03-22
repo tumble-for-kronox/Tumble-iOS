@@ -24,11 +24,6 @@ extension Text {
             .foregroundColor(.onBackground)
             .padding(.leading, 15)
     }
-    
-    func caption() -> some View {
-        self
-            .font(.system(size: 13))
-    }
 
     func onSurfaceSmall() -> some View {
         self

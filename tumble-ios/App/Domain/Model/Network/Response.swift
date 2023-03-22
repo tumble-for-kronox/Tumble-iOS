@@ -185,6 +185,7 @@ public enum Response {
         }
     }
     
+    typealias Availabilities = [String : [Int: AvailabilityValue]]?
     typealias KronoxResources = [KronoxResourceElement]
     // MARK: - KronoxResourceElement
     struct KronoxResourceElement: Codable {
@@ -192,7 +193,7 @@ public enum Response {
         let timeSlots: [TimeSlot]?
         let date: String?
         let locationIDS: [String]?
-        let availabilities: [String: [String: AvailabilityValue]]?
+        let availabilities: Availabilities
 
         enum CodingKeys: String, CodingKey {
             case id, name, timeSlots, date
@@ -202,7 +203,10 @@ public enum Response {
     }
 
     // MARK: - AvailabilityValue
-    struct AvailabilityValue: Codable {
+    struct AvailabilityValue: Codable, Identifiable {
+        
+        var id: UUID = UUID()
+        
         let availability: AvailabilityEnum?
         let locationID, resourceType, timeSlotID, bookedBy: String?
 
@@ -217,10 +221,17 @@ public enum Response {
 
     enum AvailabilityEnum: String, Codable {
         case unavailable = "UNAVAILABLE"
+        case booked = "BOOKED"
+        case available = "AVAILABLE"
     }
 
     // MARK: - TimeSlot
-    struct TimeSlot: Codable {
+    struct TimeSlot: Codable, Hashable {
+        
+        static func == (lhs: Response.TimeSlot, rhs:  Response.TimeSlot) -> Bool {
+            return lhs.id == rhs.id
+        }
+        
         let id: Int?
         let from, to, duration: String?
     }
@@ -267,6 +278,7 @@ public enum Response {
     // MARK: - ErrorMessage
     struct ErrorMessage: Codable, LocalizedError {
         let message: String
+        var statusCode: Int? = nil
     }
     
     typealias NewsItems = [NotificationContent]

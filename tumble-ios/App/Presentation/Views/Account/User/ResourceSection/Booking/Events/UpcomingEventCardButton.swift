@@ -18,7 +18,7 @@ struct UpcomingEventCardButton: View {
             HStack {
                 VStack (alignment: .leading, spacing: 10) {
                     HStack {
-                        Text(event.title ?? "No title")
+                        Text(event.title)
                             .font(.system(size: 17, weight: .medium))
                             .foregroundColor(.onSurface)
                             .lineLimit(1)

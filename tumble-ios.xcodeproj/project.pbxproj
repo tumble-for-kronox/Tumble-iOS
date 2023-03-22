@@ -133,6 +133,8 @@
 		D476BD2A293A31FD0027CFE8 /* SchedulePreviewList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D476BD29293A31FD0027CFE8 /* SchedulePreviewList.swift */; };
 		D476BD2E293A32BF0027CFE8 /* RoundedCornerShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = D476BD2D293A32BF0027CFE8 /* RoundedCornerShape.swift */; };
 		D47A1AF729C00C0E004F03DB /* HomePageOptionStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47A1AF629C00C0E004F03DB /* HomePageOptionStyle.swift */; };
+		D481F15729CB820D0088C28E /* AvailabilitiesExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D481F15629CB820D0088C28E /* AvailabilitiesExtension.swift */; };
+		D481F15929CB84F10088C28E /* ResourceSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D481F15829CB84F10088C28E /* ResourceSelection.swift */; };
 		D48CC59629C7BB160028179A /* HomePageEventButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48CC59529C7BB160028179A /* HomePageEventButton.swift */; };
 		D48CC59829C7C3C70028179A /* HomePageSeeAllStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48CC59729C7C3C70028179A /* HomePageSeeAllStyle.swift */; };
 		D48CC59C29C7D1E70028179A /* CompactButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48CC59B29C7D1E70028179A /* CompactButtonStyle.swift */; };
@@ -197,6 +199,8 @@
 		D4E83EC62999686F002E5F88 /* KeyChainManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E83EC52999686F002E5F88 /* KeyChainManagerProtocol.swift */; };
 		D4E83ECE2999B041002E5F88 /* UserOverview.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E83ECD2999B041002E5F88 /* UserOverview.swift */; };
 		D4E83ED12999B1B1002E5F88 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E83ED02999B1B1002E5F88 /* AuthManager.swift */; };
+		D4EACB3629CB99540096ADD2 /* ResourceTimeButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EACB3529CB99540096ADD2 /* ResourceTimeButtonStyle.swift */; };
+		D4EACB3829CB9E640096ADD2 /* ResourceRoomSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EACB3729CB9E640096ADD2 /* ResourceRoomSelection.swift */; };
 		D4EAD3B9298D633B00678DF8 /* NetworkManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EAD3B8298D633B00678DF8 /* NetworkManagerProtocol.swift */; };
 		D4FCD14B2995AD64009D2987 /* UIColorWellExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FCD14A2995AD64009D2987 /* UIColorWellExtension.swift */; };
 		D4FCD14E2995ADFE009D2987 /* UIColorWellHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FCD14D2995ADFE009D2987 /* UIColorWellHelper.swift */; };
@@ -327,6 +331,8 @@
 		D476BD29293A31FD0027CFE8 /* SchedulePreviewList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulePreviewList.swift; sourceTree = "<group>"; };
 		D476BD2D293A32BF0027CFE8 /* RoundedCornerShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedCornerShape.swift; sourceTree = "<group>"; };
 		D47A1AF629C00C0E004F03DB /* HomePageOptionStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageOptionStyle.swift; sourceTree = "<group>"; };
+		D481F15629CB820D0088C28E /* AvailabilitiesExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvailabilitiesExtension.swift; sourceTree = "<group>"; };
+		D481F15829CB84F10088C28E /* ResourceSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceSelection.swift; sourceTree = "<group>"; };
 		D48CC59529C7BB160028179A /* HomePageEventButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageEventButton.swift; sourceTree = "<group>"; };
 		D48CC59729C7C3C70028179A /* HomePageSeeAllStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageSeeAllStyle.swift; sourceTree = "<group>"; };
 		D48CC59B29C7D1E70028179A /* CompactButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompactButtonStyle.swift; sourceTree = "<group>"; };
@@ -388,6 +394,8 @@
 		D4E83EC52999686F002E5F88 /* KeyChainManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChainManagerProtocol.swift; sourceTree = "<group>"; };
 		D4E83ECD2999B041002E5F88 /* UserOverview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserOverview.swift; sourceTree = "<group>"; };
 		D4E83ED02999B1B1002E5F88 /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
+		D4EACB3529CB99540096ADD2 /* ResourceTimeButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceTimeButtonStyle.swift; sourceTree = "<group>"; };
+		D4EACB3729CB9E640096ADD2 /* ResourceRoomSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceRoomSelection.swift; sourceTree = "<group>"; };
 		D4EAD3B8298D633B00678DF8 /* NetworkManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManagerProtocol.swift; sourceTree = "<group>"; };
 		D4FCD14A2995AD64009D2987 /* UIColorWellExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorWellExtension.swift; sourceTree = "<group>"; };
 		D4FCD14D2995ADFE009D2987 /* UIColorWellHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorWellHelper.swift; sourceTree = "<group>"; };
@@ -648,6 +656,8 @@
 				D426E3A3299C39DE00A8D7AE /* ResourceBookings.swift */,
 				D44FBFEA29CB1CC500CAAD39 /* ResourceDatePicker.swift */,
 				D443962B29CB4D720069D66A /* BookResource.swift */,
+				D481F15829CB84F10088C28E /* ResourceSelection.swift */,
+				D4EACB3729CB9E640096ADD2 /* ResourceRoomSelection.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -686,6 +696,7 @@
 				D48CC59B29C7D1E70028179A /* CompactButtonStyle.swift */,
 				D443962929CB40C70069D66A /* ToTopButtonStyle.swift */,
 				D443962D29CB56040069D66A /* ResourceBookingButtonStyle.swift */,
+				D4EACB3529CB99540096ADD2 /* ResourceTimeButtonStyle.swift */,
 			);
 			path = Styles;
 			sourceTree = "<group>";
@@ -1292,6 +1303,7 @@
 				D4644A2C298DE35F00B0BB28 /* DateComponentsExtension.swift */,
 				D4E39E312989BBD9004C30DF /* ColorExtensions.swift */,
 				D4294B3329C91CF700007747 /* ArrayExtension.swift */,
+				D481F15629CB820D0088C28E /* AvailabilitiesExtension.swift */,
 			);
 			path = Types;
 			sourceTree = "<group>";
@@ -1425,6 +1437,7 @@
 				D443962E29CB56040069D66A /* ResourceBookingButtonStyle.swift in Sources */,
 				D43419B029854FCA001089A0 /* AppFeaturesList.swift in Sources */,
 				D46ABF0A29843B9D00B059F6 /* ScheduleServiceProtocol.swift in Sources */,
+				D481F15929CB84F10088C28E /* ResourceSelection.swift in Sources */,
 				D46BB118298B21DA00887A24 /* InfoLoading.swift in Sources */,
 				D40CC161292AFB9F00664776 /* BookmarkPage.swift in Sources */,
 				D46081552930053E00FFFB44 /* ScheduleService.swift in Sources */,
@@ -1443,6 +1456,7 @@
 				D4644A29298DD79D00B0BB28 /* Notification.swift in Sources */,
 				D416D33529CA2A46009A4FB8 /* TabBar.swift in Sources */,
 				D43419BE2985628C001089A0 /* NotificationInstructions.swift in Sources */,
+				D4EACB3629CB99540096ADD2 /* ResourceTimeButtonStyle.swift in Sources */,
 				D471A90F29C79449005541FA /* HomePageUpcomingEventsSection.swift in Sources */,
 				D4E83EC62999686F002E5F88 /* KeyChainManagerProtocol.swift in Sources */,
 				D4ABD270298C2E15002FD8F5 /* DayUiModelExtension.swift in Sources */,
@@ -1500,6 +1514,7 @@
 				D4FCD14B2995AD64009D2987 /* UIColorWellExtension.swift in Sources */,
 				D426E3A6299C39EA00A8D7AE /* EventBookings.swift in Sources */,
 				D41ADFE7299F8D2E0074E2C7 /* NetworkConstants.swift in Sources */,
+				D481F15729CB820D0088C28E /* AvailabilitiesExtension.swift in Sources */,
 				D4E39E322989BBD9004C30DF /* ColorExtensions.swift in Sources */,
 				D41ADFEA299F8D930074E2C7 /* AuthManagerProtocol.swift in Sources */,
 				D4D4CD1A299CE5FF00D48180 /* SectionDivider.swift in Sources */,
@@ -1539,6 +1554,7 @@
 				D416D33929CA7C5B009A4FB8 /* CalendarViewRepresentable.swift in Sources */,
 				D40D80C72925BA62008CA68D /* SidebarMenuButton.swift in Sources */,
 				D43419B829855A9C001089A0 /* SkipButton.swift in Sources */,
+				D4EACB3829CB9E640096ADD2 /* ResourceRoomSelection.swift in Sources */,
 				D43419BA29855CF6001089A0 /* BookingInstructions.swift in Sources */,
 				D40D80A929252688008CA68D /* ParentViewModel.swift in Sources */,
 				D4A550CC2994509A00028BCF /* SidebarViewModel.swift in Sources */,
