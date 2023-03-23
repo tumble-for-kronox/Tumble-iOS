@@ -24,7 +24,7 @@ enum NetworkResponse {
 @MainActor final class AccountViewModel: ObservableObject {
     
     @Inject var userController: UserController
-    @Inject var networkManager: NetworkManager
+    @Inject var networkManager: KronoxManager
     @Inject var preferenceService: PreferenceService
     
     @Published var school: School?
@@ -111,6 +111,7 @@ enum NetworkResponse {
 
     
     func getAllResourceData(tries: Int = 1, date: Date) -> Void {
+        self.resourceBookingPageState = .loading
         authenticateAndExecute(
             school: school,
             refreshToken: userController.refreshToken,

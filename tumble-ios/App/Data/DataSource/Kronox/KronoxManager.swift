@@ -8,13 +8,13 @@
 import Foundation
 
 
-class NetworkManager: NetworkManagerProtocol {
+class KronoxManager: KronoxManagerProtocol {
     
     private let serialQueue = OperationQueue()
-    private let encoder = JSONEncoder()
-    private let decoder = JSONDecoder()
+    private let encoder = JSONEncoder.shared
+    private let decoder = JSONDecoder.shared
+    private let urlRequestUtils = URLRequestUtils.shared
     private let session: URLSession
-    private var MAX_CONSECUTIVE_ATTEMPTS: Int = 4
     
     init() {
         
@@ -79,7 +79,7 @@ class NetworkManager: NetworkManagerProtocol {
         method: Method,
         body: Request? = nil,
         completion: @escaping (Result<NetworkResponse, Response.ErrorMessage>) -> Void) {
-            guard let urlRequest = createUrlRequest(method: method, endpoint: endpoint, refreshToken: refreshToken, body: body) else {
+            guard let urlRequest = urlRequestUtils.createUrlRequest(method: method, endpoint: endpoint, refreshToken: refreshToken, body: body) else {
                 completion(.failure(Response.ErrorMessage(message: "Something went wrong on our end")))
                 return
             }
@@ -103,7 +103,7 @@ class NetworkManager: NetworkManagerProtocol {
                         switch statusCode {
                         case 200:
                             guard let data = data else {
-                                completion(.failure(Response.ErrorMessage(message: "Failed to retrieve data")))
+                                completion(.failure(Response.ErrorMessage(message: "Failed to retrieve data", statusCode: statusCode)))
                                 return
                             }
                             do {
@@ -116,42 +116,14 @@ class NetworkManager: NetworkManagerProtocol {
                                     completion(.success(result))
                                     return
                                 }
-                                completion(.failure(Response.ErrorMessage(message: "Unable to convert empty response object to \(NetworkResponse.self)")))
+                                completion(.failure(Response.ErrorMessage(message: "Unable to convert empty response object to \(NetworkResponse.self)", statusCode: statusCode)))
                             }
                         default:
-                            completion(.failure(Response.ErrorMessage(message: "Something went wrong")))
+                            completion(.failure(Response.ErrorMessage(message: "Something went wrong", statusCode: statusCode)))
                         }
                     } else {
                         completion(.failure(Response.ErrorMessage(message: "Did not receive valid HTTP response")))
                     }
                 }
-        }
-    
-    
-    // Creates a URLRequest with necessary headers and body
-    // based on method type
-    fileprivate func createUrlRequest<Request: Encodable>(
-        method: Method,
-        endpoint: Endpoint,
-        refreshToken: String?,
-        body: Request? = nil) -> URLRequest? {
-        
-            var urlRequest = URLRequest(url: endpoint.url)
-            urlRequest.httpMethod = method.rawValue
-            
-            urlRequest.setValue(refreshToken, forHTTPHeaderField: "X-auth-token")
-            urlRequest.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
-            urlRequest.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")
-            
-            // If a body is attached to the fetch call,
-            // attempt to encode the request body
-            if let body = body {
-                do {
-                    urlRequest.httpBody = try encoder.encode(body)
-                } catch {
-                    return nil
-                }
-            }
-            return urlRequest
         }
 }

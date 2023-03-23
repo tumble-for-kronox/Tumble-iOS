@@ -45,6 +45,7 @@ struct RegisteredEvents: View {
                 Text("Could not contact the server")
                     .sectionDividerEmpty()
             }
+            Spacer()
         }
     }
 }

@@ -14,7 +14,7 @@ import SwiftUI
     @Inject var userController: UserController
     @Inject var scheduleService: ScheduleService
     @Inject var courseColorService: CourseColorService
-    @Inject var networkManager: NetworkManager
+    @Inject var networkManager: KronoxManager
     
     @Published var eventSheet: EventDetailsSheetModel? = nil
     @Published var bookmarkedEventsSectionStatus: PageState = .loading

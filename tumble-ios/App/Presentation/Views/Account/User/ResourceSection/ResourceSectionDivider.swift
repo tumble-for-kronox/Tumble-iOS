@@ -59,6 +59,7 @@ struct ResourceSectionDivider<Content : View>: View {
             }
             .padding(.bottom, 10)
             content
+                .frame(minHeight: 100)
         }
         .padding(.vertical, 7.5)
         .padding(.horizontal, 17)

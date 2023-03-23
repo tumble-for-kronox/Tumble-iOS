@@ -28,7 +28,7 @@ enum SchedulePreviewStatus {
     @Inject var courseColorService: CourseColorService
     @Inject var scheduleService: ScheduleService
     @Inject var preferenceService: PreferenceService
-    @Inject var networkManager: NetworkManager
+    @Inject var networkManager: KronoxManager
     @Inject var notificationManager: NotificationManager
     
     @Published var status: SearchStatus = .initial

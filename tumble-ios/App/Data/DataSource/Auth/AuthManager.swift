@@ -11,10 +11,14 @@ class AuthManager: AuthManagerProtocol {
     
     private let urlSession: URLSession
     private let serialQueue = OperationQueue()
-    private let encoder = JSONEncoder()
-    private let decoder = JSONDecoder()
+    private let encoder = JSONEncoder.shared
+    private let decoder = JSONDecoder.shared
+    private let urlRequestUtils = URLRequestUtils.shared
     
     init() {
+        
+        // Limit amount of concurrent operations to avoid
+        // potentially strange state behavior
         serialQueue.maxConcurrentOperationCount = 1
         serialQueue.qualityOfService = .userInitiated
         
@@ -125,7 +129,7 @@ extension AuthManager {
             if let school = self.getDefaultSchool(), let user = self.user {
                 let userRequest = Request.KronoxUserLogin(username: user.username, password: user.password)
                 AppLogger.shared.info("Running login with keychain credentials for user: \(userRequest.username)", source: "AuthManager")
-                let urlRequest = self.createUrlRequest(
+                let urlRequest = urlRequestUtils.createUrlRequest(
                     method: .post,
                     endpoint: .login(schoolId: String(school.id)),
                     body: userRequest
@@ -155,7 +159,7 @@ extension AuthManager {
         user: Request.KronoxUserLogin,
         completionHandler: @escaping (Result<TumbleUser, Error>) -> Void) {
             if let school = self.getDefaultSchool() {
-                let urlRequest = self.createUrlRequest(
+                let urlRequest = urlRequestUtils.createUrlRequest(
                     method: .post,
                     endpoint: .login(schoolId: String(school.id)),
                     body: user
@@ -178,7 +182,7 @@ extension AuthManager {
     private func processAutoLogin(completionHandler: @escaping (Result<TumbleUser, Error>) -> Void) -> Void {
         // If there is a school selected and an available refresh token
         if let school = self.getDefaultSchool(), let token = self.refreshToken {
-            let urlRequest = self.createUrlRequest(
+            let urlRequest = urlRequestUtils.createUrlRequest(
                 method: .get,
                 endpoint: .users(schoolId: String(school.id)),
                 refreshToken: token.value,
@@ -328,36 +332,6 @@ extension AuthManager {
             }
         }
     }
-    
-    // Creates a URLRequest with necessary headers and body
-    // based on method type
-    private func createUrlRequest<Request: Encodable>(
-        method: Method,
-        endpoint: Endpoint,
-        refreshToken: String? = nil,
-        body: Request? = nil) -> URLRequest? {
-        
-            var urlRequest = URLRequest(url: endpoint.url)
-            urlRequest.httpMethod = method.rawValue
-            
-            urlRequest.setValue(refreshToken, forHTTPHeaderField: "X-auth-token")
-            urlRequest.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
-            urlRequest.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")
-            
-            // If a body is attached to the fetch call,
-            // attempt to encode the request body
-            if method != .get {
-                if let body = body {
-                    do {
-                        urlRequest.httpBody = try encoder.encode(body)
-                    } catch {
-                        return nil
-                    }
-                }
-            }
-            
-            return urlRequest
-        }
     
     private func updateKeyChain(
         _ data: Data,

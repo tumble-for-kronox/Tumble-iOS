@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol NetworkManagerProtocol {
+protocol KronoxManagerProtocol {
     
     func get<NetworkResponse: Decodable>(
         _ endpoint: Endpoint,

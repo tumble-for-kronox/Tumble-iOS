@@ -24,7 +24,7 @@ enum AuthStatus {
 class UserController: ObservableObject {
         
     @Inject private var authManager: AuthManager
-    @Inject private var networkManager: NetworkManager
+    @Inject private var networkManager: KronoxManager
     @Inject private var preferenceService: PreferenceService
     
     @Published var authStatus: AuthStatus = .unAuthorized

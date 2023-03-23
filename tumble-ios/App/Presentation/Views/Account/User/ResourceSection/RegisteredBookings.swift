@@ -42,6 +42,7 @@ struct RegisteredBookings: View {
                 Text("Could not contact the server")
                     .sectionDividerEmpty()
             }
+            Spacer()
         }
         .frame(maxHeight: UIScreen.main.bounds.height / 4)
     }

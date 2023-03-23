@@ -24,7 +24,7 @@ enum BookmarksViewStatus {
     @Inject var scheduleService: ScheduleService
     @Inject var preferenceService: PreferenceService
     @Inject var courseColorService: CourseColorService
-    @Inject var networkManager: NetworkManager
+    @Inject var networkManager: KronoxManager
     
     @Published var scheduleViewTypes: [BookmarksViewType] = BookmarksViewType.allValues
     @Published var status: BookmarksViewStatus = .loading
