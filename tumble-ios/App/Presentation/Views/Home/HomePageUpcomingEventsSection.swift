@@ -19,13 +19,14 @@ struct HomePageUpcomingEventsSection: View {
             }, title: "Today's classes", contentCount: parentViewModel.eventsForToday?.count ?? 0)
             switch parentViewModel.bookmarkedEventsSectionStatus {
             case .loading:
-                Spacer()
-                HStack {
-                    Spacer()
+                VStack {
                     CustomProgressIndicator()
-                    Spacer()
                 }
-                Spacer()
+                .frame(
+                    maxWidth: .infinity,
+                    maxHeight: .infinity,
+                    alignment: .center
+                )
             case .loaded:
                 if !parentViewModel.eventsForToday!.isEmpty {
                     ScrollView (showsIndicators: false) {

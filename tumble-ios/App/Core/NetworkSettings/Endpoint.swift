@@ -14,15 +14,15 @@ enum Endpoint {
     case schedule(scheduleId: String, schoolId: String)
     
     // USERS, EVENTS, RESOURCES
-    case userEvents(sessionToken: String, schoolId: String)
-    case resourceAvailabilities(sessionToken: String, schoolId: String, resourceId: String, date: String)
-    case allResources(sessionToken: String, schoolId: String, date: Date)
-    case userBookings(schoolId: String, sessionToken: String)
+    case userEvents(schoolId: String)
+    case resourceAvailabilities(schoolId: String, resourceId: String, date: String)
+    case allResources(schoolId: String, date: Date)
+    case userBookings(schoolId: String)
     case login(schoolId: String)
     case users(schoolId: String)
-    case registerAllEvents(schoolId: String, sessionToken: String)
-    case registerEvent(eventId: String, schoolId: String, sessionToken: String)
-    case unregisterEvent(eventId: String, schoolId: String, sessionToken: String)
+    case registerAllEvents(schoolId: String)
+    case registerEvent(eventId: String, schoolId: String)
+    case unregisterEvent(eventId: String, schoolId: String)
     
     // FCM TOPICS
     case news
@@ -48,26 +48,22 @@ enum Endpoint {
             components.queryItems = [
                 URLQueryItem(name: "schoolId", value: schoolId)
             ]
-        case .userEvents(sessionToken: let sessionToken, schoolId: let schoolId):
+        case .userEvents(schoolId: let schoolId):
             components.path = "/api/users/events/"
             components.queryItems = [
-                URLQueryItem(name: "schoolId", value: schoolId),
-                URLQueryItem(name: "sessionToken", value: sessionToken)
-                
+                URLQueryItem(name: "schoolId", value: schoolId)
             ]
-        case .resourceAvailabilities(sessionToken: let sessionToken, schoolId: let schoolId, resourceId: let resourceId, date: let date):
+        case .resourceAvailabilities(schoolId: let schoolId, resourceId: let resourceId, date: let date):
             components.path = "/api/resources/"
             components.queryItems = [
-                URLQueryItem(name: "sessionToken", value: sessionToken),
                 URLQueryItem(name: "schoolId", value: schoolId),
                 URLQueryItem(name: "resourceId", value: resourceId),
                 URLQueryItem(name: "date", value: date)
             ]
-        case .userBookings(schoolId: let schoolId, sessionToken: let sessionToken):
+        case .userBookings(schoolId: let schoolId):
             components.path = "/api/resources/userbookings"
             components.queryItems = [
-                URLQueryItem(name: "schoolId", value: schoolId),
-                URLQueryItem(name: "sessionToken", value: sessionToken)
+                URLQueryItem(name: "schoolId", value: schoolId)
             ]
         case .login(schoolId: let schoolId):
             components.path = "/api/users/login"
@@ -79,31 +75,27 @@ enum Endpoint {
             components.queryItems = [
                 URLQueryItem(name: "schoolId", value: schoolId)
             ]
-        case .registerAllEvents(schoolId: let schoolId, sessionToken: let sessionToken):
+        case .registerAllEvents(schoolId: let schoolId):
             components.path = "/api/users/events/register/all"
             components.queryItems = [
-                URLQueryItem(name: "schoolId", value: schoolId),
-                URLQueryItem(name: "sessionToken", value: sessionToken)
+                URLQueryItem(name: "schoolId", value: schoolId)
             ]
-        case .registerEvent(eventId: let eventId, schoolId: let schoolId, sessionToken: let sessionToken):
+        case .registerEvent(eventId: let eventId, schoolId: let schoolId):
             components.path = "/api/users/events/register/\(eventId)"
             components.queryItems = [
-                URLQueryItem(name: "schoolId", value: schoolId),
-                URLQueryItem(name: "sessionToken", value: sessionToken)
+                URLQueryItem(name: "schoolId", value: schoolId)
             ]
-        case .unregisterEvent(eventId: let eventId, schoolId: let schoolId, sessionToken: let sessionToken):
+        case .unregisterEvent(eventId: let eventId, schoolId: let schoolId):
             components.path = "/api/users/events/unregister/\(eventId)"
             components.queryItems = [
-                URLQueryItem(name: "schoolId", value: schoolId),
-                URLQueryItem(name: "sessionToken", value: sessionToken)
+                URLQueryItem(name: "schoolId", value: schoolId)
             ]
         case .news:
             components.path = "/api/misc/news"
-        case .allResources(sessionToken: let sessionToken, schoolId: let schoolId, date: let date):
+        case .allResources(schoolId: let schoolId, date: let date):
             components.path = "/api/resources/all"
             components.queryItems = [
                 URLQueryItem(name: "schoolId", value: schoolId),
-                URLQueryItem(name: "sessionToken", value: sessionToken),
                 URLQueryItem(name: "date", value: inDateFormatter.string(from: date))
             ]
         }

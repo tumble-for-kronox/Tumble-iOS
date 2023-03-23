@@ -51,10 +51,6 @@ class UserController: ObservableObject {
         get { authManager.refreshToken }
     }
     
-    var sessionToken: Token? {
-        get { authManager.sessionToken }
-    }
-    
     var autoSignup: Bool {
         get { preferenceService.getDefault(key: StoreKey.autoSignup.rawValue) as? Bool ?? false }
         set { preferenceService.setAutoSignup(autoSignup: newValue) }

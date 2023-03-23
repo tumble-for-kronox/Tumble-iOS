@@ -15,27 +15,41 @@ struct ResourceBookings: View {
     var body: some View {
         ScrollView (showsIndicators: false) {
             ResourceDatePicker(date: $selectedPickerDate)
+            Divider()
+                .foregroundColor(.onBackground)
             switch parentViewModel.resourceBookingPageState {
             case .loading:
-                CustomProgressIndicator()
-                    .frame(
-                        maxWidth: .infinity,
-                        maxHeight: .infinity,
-                        alignment: .center
-                    )
+                VStack {
+                    CustomProgressIndicator()
+                }
+                .frame(
+                    maxWidth: .infinity,
+                    minHeight: getRect().width / 3,
+                    maxHeight: .infinity,
+                    alignment: .center
+                )
             case .loaded:
                 BookResource(parentViewModel: parentViewModel, selectedPickerDate: $selectedPickerDate)
             case .error:
-                switch parentViewModel.error?.statusCode {
-                case 404:
-                    Info(title: "No rooms available on weekends", image: nil)
-                default:
-                    Info(title: "Something went wrong", image: nil)
+                VStack {
+                    switch parentViewModel.error?.statusCode {
+                    case 404:
+                        Info(title: "No rooms available on weekends", image: nil)
+                    default:
+                        Info(title: "Something went wrong", image: nil)
+                    }
                 }
+                .frame(
+                    maxWidth: .infinity,
+                    minHeight: getRect().width / 3,
+                    maxHeight: .infinity,
+                    alignment: .center
+                )
             }
         }
         .frame(
             maxWidth: .infinity,
+            minHeight: getRect().width / 3,
             maxHeight: .infinity,
             alignment: .top
         )

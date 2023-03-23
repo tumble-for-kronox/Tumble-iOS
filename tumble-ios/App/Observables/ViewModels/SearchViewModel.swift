@@ -123,8 +123,7 @@ enum SchedulePreviewStatus {
         self.status = .loading
         networkManager.get(.searchProgramme(
             searchQuery: searchQuery,
-            schoolId: String(school!.id)),
-            sessionToken: nil) { [weak self] (result: Result<Response.Search, Response.ErrorMessage>) in
+            schoolId: String(school!.id))) { [weak self] (result: Result<Response.Search, Response.ErrorMessage>) in
                 guard let self = self else { return }
                 switch result {
                 case .success(let result):

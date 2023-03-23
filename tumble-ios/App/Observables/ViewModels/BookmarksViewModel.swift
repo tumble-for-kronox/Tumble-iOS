@@ -267,8 +267,7 @@ extension BookmarksViewModel {
         networkManager.get(
             .schedule(
                 scheduleId: scheduleId,
-                schoolId: String(preferenceService.getDefaultSchool()!.id)),
-            sessionToken: nil) { (result: Result<Response.Schedule, Response.ErrorMessage>) in
+                schoolId: String(preferenceService.getDefaultSchool()!.id))) { (result: Result<Response.Schedule, Response.ErrorMessage>) in
             switch result {
             case .failure(let error):
                 AppLogger.shared.debug("Encountered error when attempting to update schedule -> \(scheduleId): \(error)")

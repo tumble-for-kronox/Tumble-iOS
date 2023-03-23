@@ -19,6 +19,6 @@ struct HomePageEventButton: View {
         }, label: {
             CompactEventButtonLabel(event: event, color: color)
         })
-        .buttonStyle(CompactButtonStyle(backgroundColor: color.opacity(0.15)))
+        .buttonStyle(CompactButtonStyle(backgroundColor: event.isSpecial ? .red.opacity(0.2) : color.opacity(0.15)))
     }
 }

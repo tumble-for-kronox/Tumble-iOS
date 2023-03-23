@@ -18,13 +18,14 @@ struct HomePageNewsSection: View {
             }, title: "News", contentCount: parentViewModel.news?.count ?? 0)
             switch parentViewModel.newsSectionStatus {
             case .loading:
-                Spacer()
-                HStack {
-                    Spacer()
+                VStack {
                     CustomProgressIndicator()
-                    Spacer()
                 }
-                Spacer()
+                .frame(
+                    maxWidth: .infinity,
+                    maxHeight: .infinity,
+                    alignment: .center
+                )
             case .loaded:
                 if !parentViewModel.news!.isEmpty {
                     ScrollView (showsIndicators: false) {

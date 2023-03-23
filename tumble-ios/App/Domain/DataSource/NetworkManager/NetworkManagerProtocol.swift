@@ -11,17 +11,17 @@ protocol NetworkManagerProtocol {
     
     func get<NetworkResponse: Decodable>(
         _ endpoint: Endpoint,
-        sessionToken: String?,
+        refreshToken: String?,
         then completion: ((Result<NetworkResponse, Response.ErrorMessage>) -> Void)?)
     
     func put<NetworkResponse: Decodable>(
         _ endpoint: Endpoint,
-        sessionToken: String?,
+        refreshToken: String?,
         then completion: ((Result<NetworkResponse, Response.ErrorMessage>) -> Void)?)
     
     func post<NetworkResponse: Decodable, Request: Encodable>(
         _ endpoint: Endpoint,
-        sessionToken: String?,
+        refreshToken: String?,
         body: Request,
         then completion: ((Result<NetworkResponse, Response.ErrorMessage>) -> Void)?)
 }

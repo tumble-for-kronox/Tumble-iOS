@@ -12,7 +12,7 @@ struct ResourceDatePicker: View {
     @Binding var date: Date
     
     var body: some View {
-        DatePicker("Pick a date", selection: $date, in: Date.now..., displayedComponents: [.date, .hourAndMinute])
+        DatePicker("Pick a date", selection: $date, in: Date.now..., displayedComponents: [.date])
             .padding()
             .datePickerStyle(.graphical)
             .accentColor(Color.primary)

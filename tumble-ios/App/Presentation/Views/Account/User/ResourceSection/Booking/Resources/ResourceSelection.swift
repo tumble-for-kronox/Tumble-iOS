@@ -12,45 +12,25 @@ struct ResourceSelection: View {
     @ObservedObject var parentViewModel: AccountViewModel
     @State private var selectedTimeIndex: Int = 0
     @State private var availabilityValues: [Response.AvailabilityValue] = [Response.AvailabilityValue]()
+    
     let resource: Response.KronoxResourceElement
+    let selectedPickerDate: Date
     
     var body: some View {
         if let timeslots = resource.timeSlots {
-            VStack {
-                Menu {
-                    ForEach(Array(timeslots.enumerated()), id: \.offset) { index, timeslot in
-                        if let timeslotId = timeslot.id,
-                           resource.availabilities.timeslotHasAvailable(for: timeslotId),
-                           let start = timeslot.from?.convertToHoursAndMinutes(),
-                           let end = timeslot.to?.convertToHoursAndMinutes() {
-                            Button(action: {
-                                selectedTimeIndex = index
-                            }, label: {
-                                Text("\(start) - \(end)")
-                                    .font(.system(size: 18, weight: .semibold))
-                                    .foregroundColor(.onSurface)
-                            })
-                        }
-                    }
-                } label: {
-                    Button(action: {}, label: {
-                        if let timeslot = timeslots[selectedTimeIndex],
-                           let start = timeslot.from?.convertToHoursAndMinutes(),
-                           let end = timeslot.to?.convertToHoursAndMinutes() {
-                            HStack {
-                                Text("\(start) - \(end)")
-                                    .font(.system(size: 20, weight: .semibold))
-                                    .foregroundColor(.onSurface)
-                                Spacer()
-                                Image(systemName: "chevron.down")
-                                    .font(.system(size: 20, weight: .semibold))
-                                    .foregroundColor(.onSurface)
-                            }
-                            .padding(.horizontal, 15)
-                        }
-                    })
-                    .buttonStyle(ResourceTimeButtonStyle())
-                }
+            VStack (alignment: .leading) {
+                Text(selectedPickerDate.formatDate())
+                    .font(.system(size: 24, weight: .semibold))
+                    .foregroundColor(.onBackground)
+                    .padding(.horizontal, 15)
+                    .padding(.top, 15)
+                ResourceTimeDropdownMenu(
+                    resource: resource,
+                    timeslots: timeslots,
+                    selectedIndex: $selectedTimeIndex
+                )
+                Divider()
+                    .foregroundColor(.onBackground)
                 ResourceRoomSelection(availabilityValues: $availabilityValues)
             }
             .frame(
@@ -58,6 +38,7 @@ struct ResourceSelection: View {
                 maxHeight: .infinity,
                 alignment: .top
             )
+            .background(Color.background)
             .onAppear {
                 availabilityValues = resource.availabilities.getAvailabilityValues(for: selectedTimeIndex)
             }
@@ -74,3 +55,4 @@ struct ResourceSelection: View {
         }
     }
 }
+

@@ -20,7 +20,6 @@ class NetworkManager: NetworkManagerProtocol {
         
         self.serialQueue.maxConcurrentOperationCount = 1
         self.serialQueue.qualityOfService = .userInitiated
-        
         let config: URLSessionConfiguration = URLSessionConfiguration.default
         config.timeoutIntervalForRequest = 20
         config.timeoutIntervalForResource = 20
@@ -30,11 +29,11 @@ class NetworkManager: NetworkManagerProtocol {
     // [HTTP GET]
     func get<NetworkResponse: Decodable>(
         _ endpoint: Endpoint,
-        sessionToken: String? = nil,
+        refreshToken: String? = nil,
         then completion: ((Result<NetworkResponse, Response.ErrorMessage>) -> Void)? = nil
     ) {
         let body: Request.Empty? = nil
-        self.createRequest(sessionToken: sessionToken, endpoint: endpoint, method: .get, body: body) { result in
+        self.createRequest(refreshToken: refreshToken, endpoint: endpoint, method: .get, body: body) { result in
             completion?(result)
         }
     }
@@ -42,11 +41,11 @@ class NetworkManager: NetworkManagerProtocol {
     // [HTTP PUT]
     func put<NetworkResponse: Decodable>(
         _ endpoint: Endpoint,
-        sessionToken: String? = nil,
+        refreshToken: String? = nil,
         then completion: ((Result<NetworkResponse, Response.ErrorMessage>) -> Void)? = nil
     ) {
         let body: Request.Empty? = nil
-        self.createRequest(sessionToken: sessionToken, endpoint: endpoint, method: .put, body: body) { result in
+        self.createRequest(refreshToken: refreshToken, endpoint: endpoint, method: .put, body: body) { result in
             completion?(result)
         }
     }
@@ -54,11 +53,11 @@ class NetworkManager: NetworkManagerProtocol {
     // [HTTP POST]
     func post<NetworkResponse: Decodable, Request: Encodable>(
         _ endpoint: Endpoint,
-        sessionToken: String? = nil,
+        refreshToken: String? = nil,
         body: Request,
         then completion: ((Result<NetworkResponse, Response.ErrorMessage>) -> Void)? = nil
     ) {
-        self.createRequest(sessionToken: sessionToken, endpoint: endpoint, method: .post, body: body) { result in
+        self.createRequest(refreshToken: refreshToken, endpoint: endpoint, method: .post, body: body) { result in
             completion?(result)
         }
     }
@@ -67,14 +66,19 @@ class NetworkManager: NetworkManagerProtocol {
     
     // Adds network request to serial queue
     fileprivate func createRequest<Request: Encodable, NetworkResponse: Decodable>(
-        sessionToken: String?,
+        refreshToken: String?,
         endpoint: Endpoint,
         method: Method,
         body: Request? = nil,
         completion: @escaping (Result<NetworkResponse, Response.ErrorMessage>) -> Void) {
             serialQueue.addOperation {
                 let semaphore = DispatchSemaphore(value: 0)
-                self.processNetworkRequest(sessionToken: sessionToken, endpoint: endpoint, method: method, body: body, completion: { (result: Result<NetworkResponse, Response.ErrorMessage>) in
+                self.processNetworkRequest(
+                    refreshToken: refreshToken,
+                    endpoint: endpoint,
+                    method: method,
+                    body: body,
+                    completion: { (result: Result<NetworkResponse, Response.ErrorMessage>) in
                     completion(result)
                     semaphore.signal()
                 })
@@ -85,12 +89,12 @@ class NetworkManager: NetworkManagerProtocol {
     
     // Processes the queued network request, creating a URLSessionDataTask
     fileprivate func processNetworkRequest<Request: Encodable, NetworkResponse: Decodable>(
-        sessionToken: String?,
+        refreshToken: String?,
         endpoint: Endpoint,
         method: Method,
         body: Request? = nil,
         completion: @escaping (Result<NetworkResponse, Response.ErrorMessage>) -> Void) {
-            guard let urlRequest = createUrlRequest(method: method, endpoint: endpoint, sessionToken: sessionToken, body: body) else {
+            guard let urlRequest = createUrlRequest(method: method, endpoint: endpoint, refreshToken: refreshToken, body: body) else {
                 completion(.failure(Response.ErrorMessage(message: "Something went wrong on our end")))
                 return
             }
@@ -151,13 +155,13 @@ class NetworkManager: NetworkManagerProtocol {
     fileprivate func createUrlRequest<Request: Encodable>(
         method: Method,
         endpoint: Endpoint,
-        sessionToken: String?,
+        refreshToken: String?,
         body: Request? = nil) -> URLRequest? {
         
             var urlRequest = URLRequest(url: endpoint.url)
             urlRequest.httpMethod = method.rawValue
             
-            urlRequest.setValue(sessionToken, forHTTPHeaderField: "X-auth-token")
+            urlRequest.setValue(refreshToken, forHTTPHeaderField: "X-auth-token")
             urlRequest.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
             urlRequest.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")
             
@@ -170,7 +174,6 @@ class NetworkManager: NetworkManagerProtocol {
                     return nil
                 }
             }
-            print(urlRequest)
             return urlRequest
         }
 }

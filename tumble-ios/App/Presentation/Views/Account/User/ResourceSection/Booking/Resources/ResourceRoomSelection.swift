@@ -17,22 +17,25 @@ struct ResourceRoomSelection: View {
                 if let locationId = availabilityValue.locationID {
                     HStack {
                         Text("\(locationId)")
-                            .font(.system(size: 18, weight: .semibold))
+                            .font(.system(size: 20, weight: .semibold))
                             .foregroundColor(.onSurface)
                         Spacer()
                         Button(action: {}, label: {
                             Text("Book")
-                                .font(.system(size: 18, weight: .semibold))
-                                .foregroundColor(.onSurface)
+                                .font(.system(size: 20, weight: .semibold))
+                                .foregroundColor(.onPrimary)
                         })
                         .padding()
+                        .frame(minWidth: 85, maxHeight: 50)
                         .background(Color.primary)
                         .cornerRadius(20)
                     }
                     .padding()
-                    .frame(maxWidth: .infinity)
-                    .background(Color.background)
+                    .frame(maxWidth: .infinity, maxHeight: 80)
+                    .background(Color.surface)
                     .cornerRadius(20)
+                    .padding(.horizontal, 15)
+                    .padding(.vertical, 10)
                 }
             }
         }
