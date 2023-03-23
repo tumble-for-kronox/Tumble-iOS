@@ -570,7 +570,6 @@
 				D46ABF0729843A4600B059F6 /* DataSource */,
 				D41ADFE5299F8D230074E2C7 /* Constants */,
 				D49D2503299AC25A001D2751 /* Resources */,
-				D40D80A429252156008CA68D /* Extensions */,
 				D41ED546298433AA009DCF8B /* Repository */,
 			);
 			path = Data;
@@ -941,6 +940,7 @@
 			children = (
 				D4722148292454560063BDB7 /* tumble_iosApp.swift */,
 				D4A433B729951F2B00BFEB7A /* AppDelegate.swift */,
+				D40D80A429252156008CA68D /* Extensions */,
 				D40D80A72925267F008CA68D /* Observables */,
 				D48CE4542984912100D312EC /* Core */,
 				D41ED54429843371009DCF8B /* Presentation */,
