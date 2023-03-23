@@ -70,6 +70,13 @@ enum NetworkResponse {
             })
     }
     
+    func bookResource(
+        resourceId: String,
+        date: Date,
+        availabilityValue: Response.AvailabilityValue) -> Void {
+            /// Network call
+    }
+    
     func getAllResourceData(tries: Int = 1, date: Date) -> Void {
         DispatchQueue.main.async {
             self.resourceBookingPageState = .loading
@@ -317,7 +324,10 @@ enum NetworkResponse {
             registerAutoSignup()
         }
     }
-    
+}
+
+
+extension AccountViewModel {
     fileprivate func registerAutoSignup(tries: Int = 1) {
         guard let school = school,
               let refreshToken = userController.refreshToken,
@@ -358,4 +368,5 @@ enum NetworkResponse {
             completion(false)
         }
     }
+
 }

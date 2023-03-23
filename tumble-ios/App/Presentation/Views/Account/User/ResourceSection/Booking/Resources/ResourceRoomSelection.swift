@@ -9,6 +9,9 @@ import SwiftUI
 
 struct ResourceRoomSelection: View {
     
+    let resourceId: String
+    let bookResource: (String, Date, Response.AvailabilityValue) -> Void
+    let selectedPickerDate: Date
     @Binding var availabilityValues: [Response.AvailabilityValue]
     
     var body: some View {
@@ -21,27 +24,9 @@ struct ResourceRoomSelection: View {
             ScrollView (showsIndicators: false) {
                 ForEach(availabilityValues) { availabilityValue in
                     if let locationId = availabilityValue.locationID {
-                        HStack {
-                            Text("\(locationId)")
-                                .font(.system(size: 20, weight: .semibold))
-                                .foregroundColor(.onSurface)
-                            Spacer()
-                            Button(action: {}, label: {
-                                Text("Book")
-                                    .font(.system(size: 20, weight: .semibold))
-                                    .foregroundColor(.onPrimary)
-                            })
-                            .padding()
-                            .frame(minWidth: 85, maxHeight: 50)
-                            .background(Color.primary)
-                            .cornerRadius(20)
-                        }
-                        .padding()
-                        .frame(maxWidth: .infinity, maxHeight: 80)
-                        .background(Color.surface)
-                        .cornerRadius(20)
-                        .padding(.horizontal, 15)
-                        .padding(.vertical, 10)
+                        RoomContainerCard(onBook: {
+                            bookResource(resourceId, selectedPickerDate, availabilityValue)
+                        }, locationId: locationId)
                     }
                 }
             }

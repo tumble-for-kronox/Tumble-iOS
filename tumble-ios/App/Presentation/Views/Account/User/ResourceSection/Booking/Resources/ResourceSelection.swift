@@ -31,7 +31,12 @@ struct ResourceSelection: View {
                 )
                 Divider()
                     .foregroundColor(.onBackground)
-                ResourceRoomSelection(availabilityValues: $availabilityValues)
+                ResourceRoomSelection(
+                    resourceId: resource.id ?? "",
+                    bookResource: bookResource,
+                    selectedPickerDate: selectedPickerDate,
+                    availabilityValues: $availabilityValues
+                )
             }
             .frame(
                 maxWidth: .infinity,
@@ -42,9 +47,9 @@ struct ResourceSelection: View {
             .onAppear {
                 for timeslot in timeslots {
                     if let timeslotId = timeslot.id,
-                        resource.availabilities.timeslotHasAvailable(for: timeslotId) {
-                            selectedTimeIndex = timeslotId
-                            break
+                       resource.availabilities.timeslotHasAvailable(for: timeslotId) {
+                        selectedTimeIndex = timeslotId
+                        break
                     }
                 }
                 availabilityValues = resource.availabilities.getAvailabilityValues(for: selectedTimeIndex)
@@ -61,5 +66,16 @@ struct ResourceSelection: View {
                 )
         }
     }
-}
 
+    fileprivate func bookResource(
+        resourceId: String,
+        date: Date,
+        availabilityValue: Response.AvailabilityValue) -> Void {
+            parentViewModel.bookResource(
+                resourceId: resourceId,
+                date: date,
+                availabilityValue: availabilityValue
+            )
+        }
+    
+}
