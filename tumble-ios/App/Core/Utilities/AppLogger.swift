@@ -8,6 +8,7 @@
 import Foundation
 import Logging
 
+/// Basic logger singleton shared globally
 struct AppLogger {
-    static let shared = Logger(label: "com.tumble.ios")
+    static let shared = Logger(label: "com.example.tumble")
 }

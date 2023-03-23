@@ -7,9 +7,12 @@
 
 import Foundation
 
-
+/// Dynamic network settings based on the $(NETWORK_SETTINGS)
+/// property list key that is toggled by changing build schemes.
 struct NetworkSettings {
 
+    static let shared = NetworkSettings()
+    
     enum Environments {
         
         // Production URL

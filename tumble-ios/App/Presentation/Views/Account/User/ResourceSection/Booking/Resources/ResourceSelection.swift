@@ -23,7 +23,7 @@ struct ResourceSelection: View {
                     .font(.system(size: 24, weight: .semibold))
                     .foregroundColor(.onBackground)
                     .padding(.horizontal, 15)
-                    .padding(.top, 15)
+                    .padding(.vertical, 20)
                 ResourceTimeDropdownMenu(
                     resource: resource,
                     timeslots: timeslots,
@@ -40,13 +40,20 @@ struct ResourceSelection: View {
             )
             .background(Color.background)
             .onAppear {
+                for timeslot in timeslots {
+                    if let timeslotId = timeslot.id,
+                        resource.availabilities.timeslotHasAvailable(for: timeslotId) {
+                            selectedTimeIndex = timeslotId
+                            break
+                    }
+                }
                 availabilityValues = resource.availabilities.getAvailabilityValues(for: selectedTimeIndex)
             }
             .onChange(of: selectedTimeIndex, perform: { _ in
                 availabilityValues = resource.availabilities.getAvailabilityValues(for: selectedTimeIndex)
             })
         } else {
-            Text("No timeslots")
+            Info(title: "No available timeslots", image: "clock.arrow.circlepath")
                 .frame(
                     maxWidth: .infinity,
                     maxHeight: .infinity,

@@ -7,13 +7,14 @@
 
 import Foundation
 
+
+/// This file contains the endpoint structure for each
+/// possible request. It dynamically generates url components
+/// based on selected Endpoint case, and is then passed to the NetworkManager.
 enum Endpoint {
     
-    // SCHEDULE, SEARCH
     case searchProgramme(searchQuery: String, schoolId: String)
     case schedule(scheduleId: String, schoolId: String)
-    
-    // USERS, EVENTS, RESOURCES
     case userEvents(schoolId: String)
     case resourceAvailabilities(schoolId: String, resourceId: String, date: String)
     case allResources(schoolId: String, date: Date)
@@ -23,18 +24,15 @@ enum Endpoint {
     case registerAllEvents(schoolId: String)
     case registerEvent(eventId: String, schoolId: String)
     case unregisterEvent(eventId: String, schoolId: String)
-    
-    // FCM TOPICS
+    case bookResource(resourceId: String, date: Date, availabilityValue: Response.AvailabilityValue)
     case news
     
     var url: URL {
         
         var components = URLComponents()
-        let networkSettings = NetworkSettings()
-        
-        components.host = networkSettings.tumbleUrl
-        components.port = networkSettings.port
-        components.scheme = networkSettings.scheme
+        components.host = NetworkSettings.shared.tumbleUrl
+        components.port = NetworkSettings.shared.port
+        components.scheme = NetworkSettings.shared.scheme
         
         switch self {
         case .searchProgramme(searchQuery: let searchQuery, schoolId: let schoolId):
@@ -98,6 +96,17 @@ enum Endpoint {
                 URLQueryItem(name: "schoolId", value: schoolId),
                 URLQueryItem(name: "date", value: inDateFormatter.string(from: date))
             ]
+        case .bookResource(resourceId: let resourceId, date: let date, availabilityValue: let availabilityValue):
+            components.path = "/api/resources/book"
+            let encoder = JSONEncoder()
+            if let availabilityJSON = try? encoder.encode(availabilityValue),
+                let availabilityString = String(data: availabilityJSON, encoding: .utf8) {
+                components.queryItems = [
+                    URLQueryItem(name: "resourceId", value: resourceId),
+                    URLQueryItem(name: "date", value: inDateFormatter.string(from: date)),
+                    URLQueryItem(name: "availabilityValue", value: availabilityString)
+                ]
+            }
         }
         return components.url!
     }

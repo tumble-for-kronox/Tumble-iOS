@@ -12,30 +12,37 @@ struct ResourceRoomSelection: View {
     @Binding var availabilityValues: [Response.AvailabilityValue]
     
     var body: some View {
-        ScrollView (showsIndicators: false) {
-            ForEach(availabilityValues) { availabilityValue in
-                if let locationId = availabilityValue.locationID {
-                    HStack {
-                        Text("\(locationId)")
-                            .font(.system(size: 20, weight: .semibold))
-                            .foregroundColor(.onSurface)
-                        Spacer()
-                        Button(action: {}, label: {
-                            Text("Book")
+        if availabilityValues.isEmpty {
+            VStack {
+                Info(title: "No available timeslots", image: "clock.arrow.circlepath")
+            }.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+        }
+        else {
+            ScrollView (showsIndicators: false) {
+                ForEach(availabilityValues) { availabilityValue in
+                    if let locationId = availabilityValue.locationID {
+                        HStack {
+                            Text("\(locationId)")
                                 .font(.system(size: 20, weight: .semibold))
-                                .foregroundColor(.onPrimary)
-                        })
+                                .foregroundColor(.onSurface)
+                            Spacer()
+                            Button(action: {}, label: {
+                                Text("Book")
+                                    .font(.system(size: 20, weight: .semibold))
+                                    .foregroundColor(.onPrimary)
+                            })
+                            .padding()
+                            .frame(minWidth: 85, maxHeight: 50)
+                            .background(Color.primary)
+                            .cornerRadius(20)
+                        }
                         .padding()
-                        .frame(minWidth: 85, maxHeight: 50)
-                        .background(Color.primary)
+                        .frame(maxWidth: .infinity, maxHeight: 80)
+                        .background(Color.surface)
                         .cornerRadius(20)
+                        .padding(.horizontal, 15)
+                        .padding(.vertical, 10)
                     }
-                    .padding()
-                    .frame(maxWidth: .infinity, maxHeight: 80)
-                    .background(Color.surface)
-                    .cornerRadius(20)
-                    .padding(.horizontal, 15)
-                    .padding(.vertical, 10)
                 }
             }
         }

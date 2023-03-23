@@ -7,7 +7,8 @@
 
 import Foundation
 
-// Initialize dependencies
+/// Initialize dependencies used primarily in ViewModels
+/// and Controllers, using our custom dependency framework.
 actor Dependencies {
     init() {
         @Provider var networkManager = NetworkManager()

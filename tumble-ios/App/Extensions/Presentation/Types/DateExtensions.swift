@@ -7,15 +7,6 @@
 
 import Foundation
 
-private extension DateFormatter {
-    static let shared: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.locale = Locale(identifier: "en_US_POSIX")
-        formatter.dateFormat = "EEEE, MMMM d, yyyy"
-        return formatter
-    }()
-}
-
 extension Date {
     func get(_ components: Calendar.Component..., calendar: Calendar = Calendar.current) -> DateComponents {
         return calendar.dateComponents(Set(components), from: self)
@@ -27,6 +18,7 @@ extension Date {
     
     func formatDate() -> String {
         let formatter = DateFormatter.shared
+        formatter.dateFormat = "EEEE, MMMM d, yyyy"
         return formatter.string(from: self)
     }
 }

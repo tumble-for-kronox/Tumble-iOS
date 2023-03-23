@@ -7,6 +7,12 @@
 
 import Foundation
 
+
+/// This is a custom injector to instantiate
+/// repositories and observable classes used throughout the app.
+/// An instance of a class wrapped with @Provider can be injected
+/// into any other class with the @Inject wrapper. This allows
+/// for a shared instance of a class without having to create static shared.
 struct DependencyInjector {
     
     private static var dependencyList: [String : Any] = [:]

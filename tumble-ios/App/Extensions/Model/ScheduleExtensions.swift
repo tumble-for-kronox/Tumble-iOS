@@ -8,19 +8,6 @@
 import Foundation
 import SwiftUI
 
-//To convert API result date (ISO8601) to `Date`, this property should not be inside any methods
-let inDateFormatter: ISO8601DateFormatter = {
-    let formatter = ISO8601DateFormatter()
-    formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
-    return formatter
-}()
-
-let eventDateFormatter: DateFormatter = {
-    let eventDateFormatter = DateFormatter()
-    eventDateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
-    return eventDateFormatter
-}()
-
 
 extension [Response.Schedule] {
     
@@ -41,7 +28,13 @@ extension [Response.Schedule] {
                     let uniqueEvents = day.events.filter { event in
                         eventIds.insert(event.id).inserted
                     }
-                    return Response.Day(name: day.name, date: day.date, isoString: day.isoString, weekNumber: day.weekNumber, events: uniqueEvents)
+                    return Response.Day(
+                        name: day.name,
+                        date: day.date,
+                        isoString: day.isoString,
+                        weekNumber: day.weekNumber,
+                        events: uniqueEvents
+                    )
                 }
                 return Response.Schedule(id: schedule.id, cachedAt: schedule.cachedAt, days: uniqueDays)
             }
@@ -50,7 +43,7 @@ extension [Response.Schedule] {
 
 extension Response.Schedule {
     
-    // Returns dictionary of random colors for each course in a schedule
+    /// Returns dictionary of random colors for each course in a schedule
     func assignCoursesRandomColors() -> [String : String] {
         var courseColors: [String : String] = [:]
         var availableColors = Set(colors)
