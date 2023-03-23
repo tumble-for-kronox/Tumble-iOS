@@ -15,9 +15,10 @@ struct HomePageEventButton: View {
     
     var body: some View {
         Button(action: {
+            HapticsController.triggerHapticLight()
             onTapEvent(event, color)
         }, label: {
-            CompactEventButtonLabel(event: event, color: color)
+            CompactEventButtonLabel(event: event, color: event.isSpecial ? .red : color)
         })
         .buttonStyle(CompactButtonStyle(backgroundColor: event.isSpecial ? .red.opacity(0.2) : color.opacity(0.15)))
     }
