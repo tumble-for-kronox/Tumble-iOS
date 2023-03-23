@@ -7,11 +7,18 @@
 
 import SwiftUI
 
+enum BookingButtonState {
+    case loading
+    case booked
+    case available
+}
+
 struct ResourceRoomSelection: View {
     
     let resourceId: String
-    let bookResource: (String, Date, Response.AvailabilityValue) -> Void
+    let bookResource: (String, Date, Response.AvailabilityValue, @escaping (Result<Void, Error>) -> Void) -> Void
     let selectedPickerDate: Date
+    @State var buttonStateMap: [String : BookingButtonState] = [:]
     @Binding var availabilityValues: [Response.AvailabilityValue]
     
     var body: some View {
@@ -22,14 +29,36 @@ struct ResourceRoomSelection: View {
         }
         else {
             ScrollView (showsIndicators: false) {
-                ForEach(availabilityValues) { availabilityValue in
+                ForEach(availabilityValues, id: \.self) { availabilityValue in
                     if let locationId = availabilityValue.locationID {
                         RoomContainerCard(onBook: {
-                            bookResource(resourceId, selectedPickerDate, availabilityValue)
-                        }, locationId: locationId)
+                            buttonStateMap[locationId] = .loading
+                            bookResource(resourceId, selectedPickerDate, availabilityValue) { result in
+                                handleBookingResponse(locationId: locationId, result: result)
+                            }
+                        }, locationId: locationId, bookingButtonState: Binding(
+                            get: { buttonStateMap[locationId] ?? .loading },
+                            set: { buttonStateMap[locationId] = $0 }
+                        ))
                     }
                 }
             }
+            .onAppear {
+                for availabilityValue in availabilityValues {
+                    if let locationId = availabilityValue.locationID {
+                        buttonStateMap[locationId] = .available
+                    }
+                }
+            }
+        }
+    }
+    
+    func handleBookingResponse(locationId: String, result: Result<Void, Error>) -> Void {
+        switch result {
+        case .success:
+            buttonStateMap[locationId] = .booked
+        case .failure:
+            buttonStateMap[locationId] = .available
         }
     }
 }

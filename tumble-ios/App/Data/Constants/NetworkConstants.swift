@@ -8,5 +8,5 @@
 import Foundation
 
 class NetworkConstants {
-    static let MAX_CONSECUTIVE_ATTEMPTS: Int = 4
+    static let MAX_CONSECUTIVE_ATTEMPTS: Int = 2
 }

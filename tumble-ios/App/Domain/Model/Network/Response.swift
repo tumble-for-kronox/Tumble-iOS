@@ -22,6 +22,11 @@ public enum Response {
         }
         
     }
+    
+    // MARK: - Message
+    struct Message: Codable {
+        let message: String
+    }
 
     // MARK: - Headers
     struct Headers: Codable {
@@ -34,6 +39,8 @@ public enum Response {
             case server = "Server"
         }
     }
+    
+    struct Empty: Codable {}
     
     // ------ SCHEDULE ------
     // ----------------------
@@ -203,9 +210,11 @@ public enum Response {
     }
 
     // MARK: - AvailabilityValue
-    struct AvailabilityValue: Codable, Identifiable {
+    struct AvailabilityValue: Codable, Hashable {
         
-        var id: UUID = UUID()
+        static func == (lhs: Response.AvailabilityValue, rhs: Response.AvailabilityValue) -> Bool {
+            return lhs.hashValue == rhs.hashValue
+        }
         
         let availability: AvailabilityEnum?
         let locationID, resourceType, timeSlotID, bookedBy: String?

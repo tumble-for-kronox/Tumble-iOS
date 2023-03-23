@@ -11,6 +11,7 @@ struct RoomContainerCard: View {
     
     let onBook: () -> Void
     let locationId: String
+    @Binding var bookingButtonState: BookingButtonState
     
     var body: some View {
         HStack {
@@ -21,11 +22,23 @@ struct RoomContainerCard: View {
             Button(action: {
                 onBook()
             }, label: {
-                Text("Book")
-                    .font(.system(size: 20, weight: .semibold))
-                    .foregroundColor(.onPrimary)
-                    .padding()
+                switch bookingButtonState {
+                case .loading:
+                    CustomProgressIndicator(tint: .onPrimary)
+                        .padding()
+                case .booked:
+                    Text("Booked")
+                        .font(.system(size: 20, weight: .semibold))
+                        .foregroundColor(.gray)
+                        .padding()
+                case .available:
+                    Text("Book")
+                        .font(.system(size: 20, weight: .semibold))
+                        .foregroundColor(.onPrimary)
+                        .padding()
+                }
             })
+            .disabled(bookingButtonState == .booked)
             .buttonStyle(BookButtonStyle())
         }
         .padding()

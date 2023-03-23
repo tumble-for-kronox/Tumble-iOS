@@ -21,7 +21,7 @@ class NotificationManager: NotificationManagerProtocol {
             switch result {
             case .success:
                 self.notificationCenter.add(self.request(for: notification, userOffset: userOffset))
-                AppLogger.shared.debug("Successfully set notification for event with id -> \(notification.id)")
+                AppLogger.shared.info("Successfully set notification for event with id -> \(notification.id)")
                 completion(.success(1))
             case .failure(let error):
                 AppLogger.shared.critical("Could not set notification")
@@ -32,7 +32,7 @@ class NotificationManager: NotificationManagerProtocol {
 
     func cancelNotification(for eventId: String) {
         notificationCenter.removePendingNotificationRequests(withIdentifiers: [eventId])
-        AppLogger.shared.debug("Cancelled notifications with eventId -> \(eventId)")
+        AppLogger.shared.info("Cancelled notifications with eventId -> \(eventId)")
     }
     
     func isNotificationScheduled(eventId: String, completion: @escaping (Bool) -> Void) -> Void {
@@ -55,14 +55,14 @@ class NotificationManager: NotificationManagerProtocol {
             guard let self = self else { return }
             let requestsWithMatchingCategory = requests.filter { $0.content.categoryIdentifier == categoryIdentifier }
             let identifiers = requestsWithMatchingCategory.map { $0.identifier }
-            AppLogger.shared.debug("Cancelling notifications with categoryIdentifier -> \(categoryIdentifier)")
+            AppLogger.shared.info("Cancelling notifications with categoryIdentifier -> \(categoryIdentifier)")
             self.notificationCenter.removePendingNotificationRequests(withIdentifiers: identifiers)
         }
     }
     
     func cancelNotifications() -> Void {
         notificationCenter.removeAllPendingNotificationRequests()
-        AppLogger.shared.debug("Cancelled all notifications for this school")
+        AppLogger.shared.info("Cancelled all notifications for this school")
     }
     
     func createNotificationFromEvent(event: Response.Event, color: String) -> Notification {
@@ -79,7 +79,7 @@ class NotificationManager: NotificationManagerProtocol {
 extension NotificationManager {
     
     fileprivate func request(for notification: Notification, userOffset: Int) -> UNNotificationRequest {
-        AppLogger.shared.debug("Making notification request for -> \(notification.id)")
+        AppLogger.shared.info("Making notification request for -> \(notification.id)")
         let content = UNMutableNotificationContent()
         content.title = (notification.content?.toEvent()?.course.englishName)!
         content.subtitle = (notification.content?.toEvent()?.title)!
@@ -116,7 +116,7 @@ extension NotificationManager {
                         completion?(.success(true))
                     case .failure(let error):
                         completion?(.failure(error))
-                        AppLogger.shared.debug("\(error)")
+                        AppLogger.shared.info("\(error)")
                     }
                 }
             }
@@ -124,7 +124,7 @@ extension NotificationManager {
     }
     
     fileprivate func requestAuthorization(completion: ((Result<Bool, NotificationError>) -> Void)? = nil) {
-        AppLogger.shared.debug("Requesting authorization")
+        AppLogger.shared.info("Requesting authorization")
         notificationCenter.requestAuthorization(options: authorizationOptions) { success, error in
             if success {
                 completion?(.success(true))

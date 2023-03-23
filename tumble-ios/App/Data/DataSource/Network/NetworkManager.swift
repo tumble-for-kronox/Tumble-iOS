@@ -39,30 +39,15 @@ class NetworkManager: NetworkManagerProtocol {
     }
     
     // [HTTP PUT]
-    func put<NetworkResponse: Decodable>(
+    func put<NetworkResponse: Decodable, Request: Encodable>(
         _ endpoint: Endpoint,
         refreshToken: String? = nil,
-        then completion: ((Result<NetworkResponse, Response.ErrorMessage>) -> Void)? = nil
-    ) {
-        let body: Request.Empty? = nil
+        body: Request? = nil,
+        then completion: ((Result<NetworkResponse, Response.ErrorMessage>) -> Void)?) {
         self.createRequest(refreshToken: refreshToken, endpoint: endpoint, method: .put, body: body) { result in
             completion?(result)
         }
     }
-    
-    // [HTTP POST]
-    func post<NetworkResponse: Decodable, Request: Encodable>(
-        _ endpoint: Endpoint,
-        refreshToken: String? = nil,
-        body: Request,
-        then completion: ((Result<NetworkResponse, Response.ErrorMessage>) -> Void)? = nil
-    ) {
-        self.createRequest(refreshToken: refreshToken, endpoint: endpoint, method: .post, body: body) { result in
-            completion?(result)
-        }
-    }
-    
-    
     
     // Adds network request to serial queue
     fileprivate func createRequest<Request: Encodable, NetworkResponse: Decodable>(
@@ -110,41 +95,34 @@ class NetworkManager: NetworkManagerProtocol {
         completion: @escaping (Result<NetworkResponse, Response.ErrorMessage>) -> Void) -> URLSessionDataTask {
             return self.session
                 .dataTask(with: urlRequest) { data, response, error in
-                    if let _ = error {
-                        completion(.failure(Response.ErrorMessage(message: "Could not contact the server")))
+                    if let error = error {
+                        completion(.failure(Response.ErrorMessage(message: "Could not contact the server: \(error)")))
                         return
                     }
-                    
-                    guard let httpUrlNetworkResponse = response as? HTTPURLResponse else {
-                        completion(.failure(Response.ErrorMessage(message: "Could not contact the server")))
-                        return
-                    }
-                    
-                    guard let data = data else {
-                        completion(.failure(Response.ErrorMessage(message: "Something went wrong on our end")))
-                        return
-                    }
-                    
-                    do {
-                        if httpUrlNetworkResponse.statusCode > 200 {
-                            completion(.failure(Response.ErrorMessage(
-                                message: "Something went wrong on our end",
-                                statusCode: httpUrlNetworkResponse.statusCode)
-                            ))
-                            return
+                    if let statusCode = (response as? HTTPURLResponse)?.statusCode {
+                        switch statusCode {
+                        case 200:
+                            guard let data = data else {
+                                completion(.failure(Response.ErrorMessage(message: "Failed to retrieve data")))
+                                return
+                            }
+                            do {
+                                let result = try self.decoder.decode(NetworkResponse.self, from: data)
+                                completion(.success(result))
+                            } catch (let error) {
+                                AppLogger.shared.critical("Failed to decode response to object \(NetworkResponse.self). Error: \(error)",
+                                  source: "NetworkManager")
+                                if let result = Response.Empty() as? NetworkResponse {
+                                    completion(.success(result))
+                                    return
+                                }
+                                completion(.failure(Response.ErrorMessage(message: "Unable to convert empty response object to \(NetworkResponse.self)")))
+                            }
+                        default:
+                            completion(.failure(Response.ErrorMessage(message: "Something went wrong")))
                         }
-                        let result = try self.decoder.decode(NetworkResponse.self, from: data)
-                        completion(.success(result))
-                        
-                    } catch (let error) {
-                        do {
-                            AppLogger.shared.critical("Failed to decode response to object \(NetworkResponse.self). Error: \(error)", source: "NetworkManager")
-                            // Attempt to decode object into server response error message, if request fails
-                            let result = try self.decoder.decode(Response.ErrorMessage.self, from: data)
-                            completion(.failure(result))
-                        } catch {
-                            completion(.failure(Response.ErrorMessage(message: "Something went wrong on our end")))
-                        }
+                    } else {
+                        completion(.failure(Response.ErrorMessage(message: "Did not receive valid HTTP response")))
                     }
                 }
         }

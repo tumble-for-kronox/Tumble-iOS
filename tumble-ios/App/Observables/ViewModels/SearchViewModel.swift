@@ -100,7 +100,7 @@ enum SchedulePreviewStatus {
                                     self.schedulePreviewStatus = .loaded
                                 }
                             case .failure(let failure):
-                                AppLogger.shared.debug("\(failure)")
+                                AppLogger.shared.info("\(failure)")
                                 DispatchQueue.main.async {
                                     self.schedulePreviewStatus = .error
                                 }
@@ -132,7 +132,7 @@ enum SchedulePreviewStatus {
                     DispatchQueue.main.async {
                         self.status = SearchStatus.error
                     }
-                    AppLogger.shared.debug("Encountered error when trying to search for programme \(searchQuery): \(error)")
+                    AppLogger.shared.info("Encountered error when trying to search for programme \(searchQuery): \(error)")
                 }
         }
     }
@@ -217,17 +217,17 @@ extension SearchViewModel {
     // local storage. if it is, we set the preview button for favoriting
     // to be either save or remove.
     fileprivate func checkSavedSchedule(programmeId: String, closure: @escaping () -> Void) -> Void {
-        AppLogger.shared.debug("Checking if schedule is already saved...")
+        AppLogger.shared.info("Checking if schedule is already saved...")
         scheduleService.load(with: programmeId) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .failure(_):
-                AppLogger.shared.debug("Schedule was not previously saved")
+                AppLogger.shared.info("Schedule was not previously saved")
                 self.schedulePreviewIsSaved = false
                 break
             case .success(_):
                 self.schedulePreviewIsSaved = true
-                AppLogger.shared.debug("Schedule is already saved")
+                AppLogger.shared.info("Schedule is already saved")
             }
             closure()
         }
@@ -242,7 +242,7 @@ extension SearchViewModel {
         } else {
             self.scheduleForPreview = schedule
             self.scheduleListOfDays = schedule.days.toOrderedDays()
-            AppLogger.shared.debug("Set schedule local variables")
+            AppLogger.shared.info("Set schedule local variables")
         }
         closure()
     }
@@ -279,7 +279,7 @@ extension SearchViewModel {
                         guard let self = self else { return }
                         switch result {
                         case .success(let result):
-                            AppLogger.shared.debug("Fetched schedule")
+                            AppLogger.shared.info("Fetched schedule")
                             self.handleFetchedSchedule(schedule: result) {
                                 closure(true)
                             }
@@ -287,7 +287,7 @@ extension SearchViewModel {
                             closure(false)
                             self.schedulePreviewStatus = .error
                             self.errorMessage = error.message
-                            AppLogger.shared.debug("Encountered error when attempting to load schedule for programme \(programmeId): \(error)")
+                            AppLogger.shared.info("Encountered error when attempting to load schedule for programme \(programmeId): \(error)")
                         }
                     }
         }
@@ -319,7 +319,7 @@ extension SearchViewModel {
                 self.schedulePreviewIsSaved = true
                 completion(.success(()))
             case .failure(let error):
-                AppLogger.shared.debug("Fatal error \(error)")
+                AppLogger.shared.info("Fatal error \(error)")
                 completion(.failure(error))
             }
         }
@@ -345,7 +345,7 @@ extension SearchViewModel {
                 self.removeCourseColors(completion: completion)
                 return
             case .failure(let error):
-                AppLogger.shared.debug("Fatal error \(error)")
+                AppLogger.shared.info("Fatal error \(error)")
                 completion(.failure(error))
             }
         }
@@ -354,11 +354,11 @@ extension SearchViewModel {
     fileprivate func removeCourseColors(completion: @escaping (Result<Void, Error>) -> Void) -> Void {
         courseColorService.remove(removeCourses: (self.scheduleForPreview!.courses())) { result in
             if case .failure(let error) = result {
-                AppLogger.shared.debug("Fatal error \(error)")
+                AppLogger.shared.info("Fatal error \(error)")
                 completion(.failure(.generic(reason: error.localizedDescription)))
                 return
             } else {
-                AppLogger.shared.debug("Removed course colors")
+                AppLogger.shared.info("Removed course colors")
                 completion(.success(()))
             }
         }
@@ -371,7 +371,7 @@ extension SearchViewModel {
             DispatchQueue.main.async {
                 switch result {
                 case .failure(_):
-                    AppLogger.shared.debug("Could not load course colors for saved schedule")
+                    AppLogger.shared.info("Could not load course colors for saved schedule")
                 case .success(let courses):
                     if !courses.isEmpty {
                         self.assignCourseColorsToSavedSchedule(courses: courses) { newCourseColors in
@@ -389,7 +389,7 @@ extension SearchViewModel {
             if case .failure(let error) = courseResult {
                 fatalError(error.localizedDescription)
             } else {
-                AppLogger.shared.debug("Successfully saved course colors")
+                AppLogger.shared.info("Successfully saved course colors")
             }
         }
     }

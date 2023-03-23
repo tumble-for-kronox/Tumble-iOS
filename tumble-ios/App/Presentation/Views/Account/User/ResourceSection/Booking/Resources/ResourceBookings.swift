@@ -58,7 +58,6 @@ struct ResourceBookings: View {
             parentViewModel.getAllResourceData(date: selectedPickerDate)
         }
         .onChange(of: selectedPickerDate, perform: { _ in
-            
             parentViewModel.getAllResourceData(date: selectedPickerDate)
         })
     }

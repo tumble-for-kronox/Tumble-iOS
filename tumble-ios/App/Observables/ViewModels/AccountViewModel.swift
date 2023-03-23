@@ -38,15 +38,15 @@ enum NetworkResponse {
     @Published var eventBookingPageState: PageState = .loading
     @Published var error: Response.ErrorMessage? = nil
     
+    private let jsonEncoder = JSONEncoder()
+    
     init() {
         self.school = preferenceService.getDefaultSchool()
         if userController.autoSignup {
             self.registerAutoSignup()
         } else {
-            AppLogger.shared.debug("User has not enabled auto signup for events")
+            AppLogger.shared.info("User has not enabled auto signup for events")
         }
-        self.getUserBookingsForSection()
-        self.getUserEventsForSection()
     }
     
     func updateViewLocals() -> Void {
@@ -59,8 +59,7 @@ enum NetworkResponse {
         self.userController.logIn(
             username: username,
             password: password,
-            completion: { [weak self] success in
-                guard let self = self else { return }
+            completion: { [unowned self] success in
                 DispatchQueue.main.async {
                     self.status = .initial
                 }
@@ -73,44 +72,75 @@ enum NetworkResponse {
     func bookResource(
         resourceId: String,
         date: Date,
-        availabilityValue: Response.AvailabilityValue) -> Void {
-            /// Network call
-    }
-    
-    func getAllResourceData(tries: Int = 1, date: Date) -> Void {
-        DispatchQueue.main.async {
-            self.resourceBookingPageState = .loading
-        }
-        guard let school = school,
-              let refreshToken = userController.refreshToken,
-              !refreshToken.isExpired() else {
-            if tries < NetworkConstants.MAX_CONSECUTIVE_ATTEMPTS {
-                AppLogger.shared.debug("Attempting auto login ...")
-                userController.autoLogin(completion: {
-                    self.getAllResourceData(tries: tries + 1, date: date)
-                })
-            }
-            DispatchQueue.main.async {
-                self.resourceBookingPageState = .error
-            }
-            return
-        }
-        let request = Endpoint.allResources(schoolId: String(school.id), date: date)
-        self.networkManager.get(request, refreshToken: refreshToken.value,
-        then: { [weak self] (result: Result<Response.KronoxResources, Response.ErrorMessage>) in
-            guard let self = self else { return }
-            DispatchQueue.main.async {
+        availabilityValue: Response.AvailabilityValue,
+        completion: @escaping (Result<Void, Error>) -> Void
+    ) {
+        authenticateAndExecute(
+            school: school,
+            refreshToken: userController.refreshToken,
+            execute: { [unowned self] result in
                 switch result {
-                case .success(let resources):
-                    self.allResources = resources
-                    self.resourceBookingPageState = .loaded
+                case .success((let schoolId, let refreshToken)):
+                    let requestUrl = Endpoint.bookResource(
+                        schoolId: String(schoolId)
+                    )
+                    let requestBody = Request.BookKronoxResource(
+                        resourceId: resourceId,
+                        date: inDateFormatter.string(from: date),
+                        slot: availabilityValue
+                    )
+                    self.networkManager.put(requestUrl, refreshToken: refreshToken, body: requestBody) {
+                        (result: Result<Response.Empty, Response.ErrorMessage>) in
+                        switch result {
+                        case .success:
+                            AppLogger.shared.info("Booked resource \(resourceId)")
+                            completion(.success(()))
+                        case .failure(let error):
+                            AppLogger.shared.critical("Failed to book resource \(resourceId)")
+                            completion(.failure(.internal(reason: "\(error)")))
+                        }
+                    }
                 case .failure(let error):
-                    AppLogger.shared.debug("\(error)")
-                    self.resourceBookingPageState = .error
-                    self.error = error
+                    AppLogger.shared.critical("\(error)")
+                    completion(.failure(.internal(reason: "\(error)")))
                 }
             }
-        })
+        )
+    }
+
+
+    
+    func getAllResourceData(tries: Int = 1, date: Date) -> Void {
+        authenticateAndExecute(
+            school: school,
+            refreshToken: userController.refreshToken,
+            execute: { [unowned self] result in
+                switch result {
+                case .success((let schoolId, let refreshToken)):
+                    let request = Endpoint.allResources(schoolId: String(schoolId), date: date)
+                    self.networkManager.get(request, refreshToken: refreshToken,
+                    then: { [unowned self] (result: Result<Response.KronoxResources?, Response.ErrorMessage>) in
+                        switch result {
+                        case .success(let resources):
+                            DispatchQueue.main.async {
+                                self.allResources = resources
+                                self.resourceBookingPageState = .loaded
+                            }
+                        case .failure(let error):
+                            AppLogger.shared.info("\(error)")
+                            DispatchQueue.main.async {
+                                self.resourceBookingPageState = .error
+                                self.error = error
+                            }
+                        }
+                    })
+                case .failure:
+                    DispatchQueue.main.async {
+                        self.resourceBookingPageState = .error
+                    }
+                }
+                
+            })
     }
     
     
@@ -119,203 +149,161 @@ enum NetworkResponse {
         DispatchQueue.main.async {
             self.registeredEventSectionState = .loading
         }
-        guard let school = school,
-              let refreshToken = userController.refreshToken,
-              !refreshToken.isExpired() else {
-            if tries < NetworkConstants.MAX_CONSECUTIVE_ATTEMPTS {
-                AppLogger.shared.debug("Attempting auto login ...")
-                userController.autoLogin(completion: {
-                    self.getUserEventsForSection(tries: tries + 1)
-                })
-            }
-            DispatchQueue.main.async {
-                self.registeredEventSectionState = .error
-            }
-            return
-        } 
-        let request = Endpoint.userEvents(schoolId: String(school.id))
-        networkManager.get(request, refreshToken: refreshToken.value,
-        then: { [weak self] (result: Result<Response.KronoxCompleteUserEvent, Response.ErrorMessage>) in
-            guard let self = self else { return }
-            DispatchQueue.main.async {
+        authenticateAndExecute(
+            school: school,
+            refreshToken: userController.refreshToken,
+            execute: { [unowned self] result in
                 switch result {
-                case .success(let events):
-                    self.completeUserEvent = events
-                    self.registeredEventSectionState = .loaded
-                case .failure(let failure):
-                    AppLogger.shared.debug("\(failure)")
-                    self.registeredEventSectionState = .error
+                case .success((let schoolId, let refreshToken)):
+                    let request = Endpoint.userEvents(schoolId: String(schoolId))
+                    networkManager.get(request, refreshToken: refreshToken,
+                    then: { [unowned self] (result: Result<Response.KronoxCompleteUserEvent?, Response.ErrorMessage>) in
+                        switch result {
+                        case .success(let events):
+                            DispatchQueue.main.async {
+                                self.completeUserEvent = events
+                                self.registeredEventSectionState = .loaded
+                            }
+                        case .failure(let failure):
+                            AppLogger.shared.info("\(failure)")
+                            DispatchQueue.main.async {
+                                self.registeredEventSectionState = .error
+                            }
+                        }
+                    })
+                case .failure:
+                    DispatchQueue.main.async {
+                        self.registeredEventSectionState = .error
+                    }
                 }
-            }
-        })
+            })
     }
     
     func getUserEventsForPage(tries: Int = 0, completion: (() -> Void)? = nil) {
         DispatchQueue.main.async {
             self.eventBookingPageState = .loading
         }
-        guard let school = school,
-              let refreshToken = userController.refreshToken,
-              !refreshToken.isExpired() else {
-            if tries < NetworkConstants.MAX_CONSECUTIVE_ATTEMPTS {
-                AppLogger.shared.debug("Attempting auto login ...")
-                userController.autoLogin(completion: {
-                    self.getUserEventsForPage(tries: tries + 1)
-                })
-            }
-            DispatchQueue.main.async {
-                self.eventBookingPageState = .error
-            }
-            return
-        }
-        let request = Endpoint.userEvents(schoolId: String(school.id))
-        networkManager.get(request, refreshToken: refreshToken.value,
-        then: { [weak self] (result: Result<Response.KronoxCompleteUserEvent, Response.ErrorMessage>) in
-            guard let self = self else { return }
-            DispatchQueue.main.async {
+        authenticateAndExecute(
+            school: school,
+            refreshToken: userController.refreshToken,
+            execute: { [unowned self] result in
                 switch result {
-                case .success(let events):
-                    self.completeUserEvent = events
-                    AppLogger.shared.debug("Successfully loaded events")
-                    self.eventBookingPageState = .loaded
-                case .failure(let failure):
-                    AppLogger.shared.debug("\(failure)")
-                    self.eventBookingPageState = .error
+                case .success((let schoolId, let refreshToken)):
+                    let request = Endpoint.userEvents(schoolId: String(schoolId))
+                    networkManager.get(request, refreshToken: refreshToken,
+                    then: { [unowned self] (result: Result<Response.KronoxCompleteUserEvent?, Response.ErrorMessage>) in
+                        switch result {
+                        case .success(let events):
+                            AppLogger.shared.info("Successfully loaded events")
+                            DispatchQueue.main.async {
+                                self.completeUserEvent = events
+                                self.eventBookingPageState = .loaded
+                            }
+                        case .failure(let failure):
+                            AppLogger.shared.info("\(failure)")
+                            DispatchQueue.main.async {
+                                self.eventBookingPageState = .error
+                            }
+                        }
+                    })
+                case .failure(_):
+                    DispatchQueue.main.async {
+                        self.eventBookingPageState = .error
+                    }
                 }
-            }
-        })
+            })
     }
     
     func getUserBookingsForSection(tries: Int = 1) {
         DispatchQueue.main.async {
             self.bookingSectionState = .loading
         }
-        guard let school = school,
-              let refreshToken = userController.refreshToken,
-              !refreshToken.isExpired() else {
-            if tries < NetworkConstants.MAX_CONSECUTIVE_ATTEMPTS {
-                AppLogger.shared.debug("Attempting auto login ...")
-                userController.autoLogin(completion: {
-                    self.getUserBookingsForSection(tries: tries + 1)
-                })
-            }
-            DispatchQueue.main.async {
-                self.bookingSectionState = .error
-                // If this fails then we want to set the
-                // user events section to error as well, as that request
-                // does not necessarily fail but will be empty
-                self.registeredEventSectionState = .error
-                self.completeUserEvent = nil
-            }
-            return
-        }
-        let request = Endpoint.userBookings(schoolId: String(school.id))
-        networkManager.get(request, refreshToken: refreshToken.value,
-           then: { [weak self] (result: Result<Response.KronoxUserBooking, Response.ErrorMessage>) in
-            guard let self = self else { return }
-            DispatchQueue.main.async {
+        authenticateAndExecute(
+            school: school,
+            refreshToken: userController.refreshToken,
+            execute: { [unowned self] result in
                 switch result {
-                case .success(let bookings):
-                    self.bookingSectionState = .loaded
-                    self.userBookings = bookings
-                case .failure(let failure):
-                    AppLogger.shared.debug("\(failure)")
-                    self.bookingSectionState = .error
+                case .success((let schoolId, let refreshToken)):
+                    let request = Endpoint.userBookings(schoolId: String(schoolId))
+                    networkManager.get(request, refreshToken: refreshToken,
+                       then: { [unowned self] (result: Result<Response.KronoxUserBooking?, Response.ErrorMessage>) in
+                        switch result {
+                        case .success(let bookings):
+                            DispatchQueue.main.async {
+                                self.bookingSectionState = .loaded
+                                self.userBookings = bookings
+                            }
+                        case .failure(let failure):
+                            AppLogger.shared.info("\(failure)")
+                            DispatchQueue.main.async {
+                                self.bookingSectionState = .error
+                            }
+                        }
+                    })
+                case .failure:
+                    DispatchQueue.main.async {
+                        self.bookingSectionState = .error
+                        self.registeredEventSectionState = .error
+                        self.completeUserEvent = nil
+                    }
                 }
-            }
-        })
-    }
-    
-    func getUserBookingsForPage(tries: Int = 1) {
-        DispatchQueue.main.async {
-            self.resourceBookingPageState = .loading
-        }
-        guard let school = school,
-              let refreshToken = userController.refreshToken,
-              !refreshToken.isExpired() else {
-            if tries < NetworkConstants.MAX_CONSECUTIVE_ATTEMPTS {
-                AppLogger.shared.debug("Attempting auto login ...")
-                userController.autoLogin(completion: {
-                    self.getUserBookingsForPage(tries: tries + 1)
-                })
-            }
-            DispatchQueue.main.async {
-                self.resourceBookingPageState = .error
-            }
-            return
-        }
-        let request = Endpoint.userBookings(schoolId: String(school.id))
-        networkManager.get(request, refreshToken: refreshToken.value,
-           then: { [weak self] (result: Result<Response.KronoxUserBooking, Response.ErrorMessage>) in
-            guard let self = self else { return }
-            DispatchQueue.main.async {
-                switch result {
-                case .success(_):
-                    self.getUserBookingsForPage()
-                case .failure(let failure):
-                    AppLogger.shared.debug("\(failure)")
-                    self.resourceBookingPageState = .error
-                }
-            }
-        })
+            })
     }
     
     func registerForEvent(tries: Int = 1, eventId: String) {
         self.eventBookingPageState = .loading
-        guard let school = school,
-              let refreshToken = userController.refreshToken,
-              !refreshToken.isExpired() else {
-            if tries < NetworkConstants.MAX_CONSECUTIVE_ATTEMPTS {
-                AppLogger.shared.debug("Attempting auto login ...")
-                userController.autoLogin(completion: {
-                    self.registerForEvent(tries: tries + 1, eventId: eventId)
-                })
-            }
-            self.eventBookingPageState = .error
-            return
-        }
-        let request = Endpoint.registerEvent(eventId: eventId, schoolId: String(school.id))
-        networkManager.put(request, refreshToken: refreshToken.value,
-           then: { [weak self] (result: Result<Response.HTTPResponse, Response.ErrorMessage>) in
-            guard let self = self else { return }
-            DispatchQueue.main.async {
+        authenticateAndExecute(
+            school: school,
+            refreshToken: userController.refreshToken,
+            execute: { [unowned self] result in
                 switch result {
-                case .success(_):
-                    self.getUserEventsForPage()
-                case .failure(_):
-                    self.eventBookingPageState = .error
+                case .success((let schoolId, let refreshToken)):
+                    let request = Endpoint.registerEvent(eventId: eventId, schoolId: String(schoolId))
+                    networkManager.put(request, refreshToken: refreshToken, body: Request.Empty(),
+                       then: { [unowned self] (result: Result<Response.HTTPResponse?, Response.ErrorMessage>) in
+                        DispatchQueue.main.async {
+                            switch result {
+                            case .success:
+                                self.getUserEventsForPage()
+                            case .failure:
+                                self.eventBookingPageState = .error
+                            }
+                        }
+                    })
+                case .failure:
+                    DispatchQueue.main.async {
+                        self.eventBookingPageState = .error
+                    }
                 }
-            }
-        })
+            })
     }
     
     func unregisterForEvent(tries: Int = 1, eventId: String) {
         self.eventBookingPageState = .loading
-        guard let school = school,
-              let refreshToken = userController.refreshToken,
-              !refreshToken.isExpired() else {
-            if tries < NetworkConstants.MAX_CONSECUTIVE_ATTEMPTS {
-                AppLogger.shared.debug("Attempting auto login ...")
-                userController.autoLogin(completion: {
-                    self.unregisterForEvent(tries: tries + 1, eventId: eventId)
-                })
-            }
-            self.eventBookingPageState = .error
-            return
-        }
-        let request = Endpoint.unregisterEvent(eventId: eventId, schoolId: String(school.id))
-        networkManager.put(request, refreshToken: refreshToken.value,
-           then: { [weak self] (result: Result<Response.HTTPResponse, Response.ErrorMessage>) in
-            guard let self = self else { return }
-            DispatchQueue.main.async {
+        authenticateAndExecute(
+            school: school,
+            refreshToken: userController.refreshToken,
+            execute: { [unowned self] result in
                 switch result {
-                case .success(_):
-                    self.getUserEventsForPage()
-                case .failure(_):
-                    self.eventBookingPageState = .error
+                case .success((let schoolId, let refreshToken)):
+                    let request = Endpoint.unregisterEvent(eventId: eventId, schoolId: String(schoolId))
+                    networkManager.put(request, refreshToken: refreshToken, body: Request.Empty(),
+                       then: { [unowned self] (result: Result<Response.HTTPResponse?, Response.ErrorMessage>) in
+                        DispatchQueue.main.async {
+                            switch result {
+                            case .success(_):
+                                self.getUserEventsForPage()
+                            case .failure(_):
+                                self.eventBookingPageState = .error
+                            }
+                        }
+                    })
+                case .failure:
+                    DispatchQueue.main.async {
+                        self.eventBookingPageState = .error
+                    }
                 }
-            }
-        })
+            })
     }
     
     func toggleAutoSignup(value: Bool) {
@@ -329,44 +317,60 @@ enum NetworkResponse {
 
 extension AccountViewModel {
     fileprivate func registerAutoSignup(tries: Int = 1) {
-        guard let school = school,
-              let refreshToken = userController.refreshToken,
-              !refreshToken.isExpired() else {
-            if tries < NetworkConstants.MAX_CONSECUTIVE_ATTEMPTS {
-                AppLogger.shared.debug("Attempting auto log in ...")
-                userController.autoLogin(completion: {
-                    self.registerAutoSignup(tries: tries + 1)
-                })
-            }
-            AppLogger.shared.debug("Could not log in in order to get new session token")
-            return
-        }
-        let request = Endpoint.registerAllEvents(schoolId: String(school.id))
-        networkManager.put(request, then: { (result: Result<Response.KronoxEventRegistration, Response.ErrorMessage>) in
-            DispatchQueue.main.async {
+        authenticateAndExecute(
+            school: school,
+            refreshToken: userController.refreshToken,
+            execute: { [unowned self] result in
                 switch result {
-                case .success(let eventRegistrations):
-                    AppLogger.shared.debug("\(eventRegistrations)")
-                    AppLogger.shared.debug("Successful registrations: \(String(describing: eventRegistrations.successfulRegistrations?.count))")
-                    AppLogger.shared.debug("Failed registrations: \(String(describing: eventRegistrations.failedRegistrations?.count))")
-                case .failure(let failure):
-                    AppLogger.shared.debug("\(failure)")
+                case .success((let schoolId, let refreshToken)):
+                    let request = Endpoint.registerAllEvents(schoolId: String(schoolId))
+                    networkManager.put(request, refreshToken: refreshToken, body: Request.Empty(),
+                       then: { (result: Result<Response.KronoxEventRegistration?, Response.ErrorMessage>) in
+                        DispatchQueue.main.async {
+                            switch result {
+                            case .success(let eventRegistrations):
+                                if let eventRegistrations = eventRegistrations {
+                                    AppLogger.shared.info("Successful registrations: \(String(describing: eventRegistrations.successfulRegistrations?.count))")
+                                    AppLogger.shared.info("Failed registrations: \(String(describing: eventRegistrations.failedRegistrations?.count))")
+                                }
+                            case .failure(let failure):
+                                AppLogger.shared.info("\(failure)")
+                            }
+                        }
+                    })
+                case .failure:
+                    AppLogger.shared.info("Could not log in to register for available events")
                 }
-            }
-        })
-        
+            })
     }
     
-    /// Executes if the user is attempting to fetch resources/events in either booking
-    /// pages or the overview resource section and their sessiontoken/login has expired
-    fileprivate func autoLoginIfNeeded(tries: Int, completion: @escaping (Bool) -> Void) {
-        if tries < NetworkConstants.MAX_CONSECUTIVE_ATTEMPTS {
-            userController.autoLogin {
-                completion(self.userController.refreshToken != nil && !self.userController.refreshToken!.isExpired())
+    /// Wrapper function that is meant to be used on functions
+    /// that require authentication to be active before processing
+    fileprivate func authenticateAndExecute(
+        tries: Int = 1,
+        school: School?,
+        refreshToken: Token?,
+        execute: @escaping (Result<(Int, String), Error>) -> Void
+    ) {
+        guard let school = school,
+              let refreshToken = refreshToken,
+              !refreshToken.isExpired() else {
+            if tries < NetworkConstants.MAX_CONSECUTIVE_ATTEMPTS {
+                AppLogger.shared.info("Attempting auto login ...")
+                userController.autoLogin { [unowned self] in
+                    self.authenticateAndExecute(
+                        tries: tries + 1,
+                        school: school,
+                        refreshToken: refreshToken,
+                        execute: execute
+                    )
+                }
+            } else {
+                execute(.failure(.internal(reason: "Could not authenticate user")))
             }
-        } else {
-            completion(false)
+            return
         }
+        execute(.success((school.id, refreshToken.value)))
     }
 
 }

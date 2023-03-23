@@ -55,7 +55,7 @@ import SwiftUI
                 self.bookmarks = bookmarks
                 
             case .failure(let failure):
-                AppLogger.shared.debug("\(failure)")
+                AppLogger.shared.info("\(failure)")
             }
             
         })
@@ -103,18 +103,18 @@ import SwiftUI
                                 completion: { (result: Result<Int, NotificationError>) in
                                     switch result {
                                     case .success(let success):
-                                        AppLogger.shared.debug("\(success) notification set")
+                                        AppLogger.shared.info("\(success) notification set")
                                     case .failure(let failure):
-                                        AppLogger.shared.debug("\(failure)")
+                                        AppLogger.shared.info("\(failure)")
                                     }
                                 })
                         }
                     case .failure(let failure):
-                        AppLogger.shared.debug("Colors could not be loaded from local storage: \(failure)")
+                        AppLogger.shared.info("Colors could not be loaded from local storage: \(failure)")
                     }
                 }
             case .failure:
-                AppLogger.shared.debug("Schedules could not be loaded from local storage")
+                AppLogger.shared.info("Schedules could not be loaded from local storage")
             }
         })
     }

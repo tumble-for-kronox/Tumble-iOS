@@ -70,11 +70,14 @@ struct ResourceSelection: View {
     fileprivate func bookResource(
         resourceId: String,
         date: Date,
-        availabilityValue: Response.AvailabilityValue) -> Void {
+        availabilityValue: Response.AvailabilityValue,
+        closure: @escaping (Result<Void, Error>) -> Void
+    ) -> Void {
             parentViewModel.bookResource(
                 resourceId: resourceId,
                 date: date,
-                availabilityValue: availabilityValue
+                availabilityValue: availabilityValue,
+                completion: closure
             )
         }
     

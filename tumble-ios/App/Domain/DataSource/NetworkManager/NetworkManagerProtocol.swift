@@ -14,14 +14,10 @@ protocol NetworkManagerProtocol {
         refreshToken: String?,
         then completion: ((Result<NetworkResponse, Response.ErrorMessage>) -> Void)?)
     
-    func put<NetworkResponse: Decodable>(
+    func put<NetworkResponse: Decodable, Request: Encodable>(
         _ endpoint: Endpoint,
         refreshToken: String?,
+        body: Request?,
         then completion: ((Result<NetworkResponse, Response.ErrorMessage>) -> Void)?)
     
-    func post<NetworkResponse: Decodable, Request: Encodable>(
-        _ endpoint: Endpoint,
-        refreshToken: String?,
-        body: Request,
-        then completion: ((Result<NetworkResponse, Response.ErrorMessage>) -> Void)?)
 }

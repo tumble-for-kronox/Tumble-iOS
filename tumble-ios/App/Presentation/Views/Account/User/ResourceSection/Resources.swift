@@ -12,19 +12,20 @@ struct Resources: View {
     @ObservedObject var parentViewModel: AccountViewModel
     
     var body: some View {
-        ScrollView (showsIndicators: false) {
-            ResourceSectionDivider (title: "User options", image: "gearshape") {
+        VStack {
+            ResourceSectionDivider (title: "User options") {
                 Toggle(isOn: $parentViewModel.userController.autoSignup) {
                     Text("Automatic exam signup")
                         .sectionDividerEmpty()
                 }
+                .padding(.bottom)
                 .toggleStyle(SwitchToggleStyle(tint: .primary))
                 .onChange(of: parentViewModel.userController.autoSignup, perform: { (value: Bool) in
                     parentViewModel.toggleAutoSignup(value: value)
-                    AppLogger.shared.debug("Toggled to \(value)")
+                    AppLogger.shared.info("Toggled to \(value)")
                 })
             }
-            ResourceSectionDivider (title: "Your bookings", image: "books.vertical",
+            ResourceSectionDivider (title: "Your bookings", resourceType: .resource,
                          destination: AnyView(
                             ResourceBookings(parentViewModel: parentViewModel)
                                 .customNavigationBackButton(previousPage: "Account"))) {
@@ -32,7 +33,7 @@ struct Resources: View {
                                         state: $parentViewModel.bookingSectionState,
                                         bookings: parentViewModel.userBookings)
             }
-            ResourceSectionDivider (title: "Your events", image: "newspaper",
+            ResourceSectionDivider (title: "Your events", resourceType: .event,
                          destination: AnyView(
                             EventBookings(viewModel: parentViewModel)
                                 .customNavigationBackButton(previousPage: "Account"))) {
@@ -41,14 +42,9 @@ struct Resources: View {
                                         registeredEvents: parentViewModel.completeUserEvent?.registeredEvents)
             }
         }
-        .refreshable {
-            parentViewModel.getUserBookingsForSection()
-            parentViewModel.getUserEventsForSection()
-        }
-        .frame(maxWidth: .infinity).cornerRadius(20)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.background)
         .cornerRadius(20, corners: [.topLeft, .topRight])
-        .padding(.top, 10)
         .onAppear {
             UIRefreshControl.appearance().tintColor = UIColor(named: "PrimaryColor")
         }

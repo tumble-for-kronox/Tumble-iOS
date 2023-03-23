@@ -18,38 +18,41 @@ struct UserOverview: View {
     let createToast: (ToastStyle, String, String) -> Void
         
     var body: some View {
-        ZStack {
-            Color.surface
-            VStack {
-                HStack {
-                    if let name = viewModel.userController.user?.name,
-                       let username = viewModel.userController.user?.username {
-                        UserAvatar(name: name)
-                        VStack (alignment: .leading, spacing: 0) {
-                            Text(name)
-                                .font(.system(size: 22, weight: .semibold))
-                            Text(username)
-                                .font(.system(size: 16, weight: .regular))
-                            Text(schoolName)
-                                .font(.system(size: 16, weight: .regular))
-                                .padding(.top, 10)
-                        }
-                        .padding(10)
-                        .padding(.top, 20)
+        ScrollView (showsIndicators: false) {
+            HStack {
+                if let name = viewModel.userController.user?.name,
+                   let username = viewModel.userController.user?.username {
+                    UserAvatar(name: name)
+                    VStack (alignment: .leading, spacing: 0) {
+                        Text(name)
+                            .font(.system(size: 22, weight: .semibold))
+                        Text(username)
+                            .font(.system(size: 16, weight: .regular))
+                        Text(schoolName)
+                            .font(.system(size: 16, weight: .regular))
+                            .padding(.top, 10)
                     }
+                    .padding(10)
                 }
-                .padding()
-                .padding(.top, 80)
-                .frame(maxWidth: .infinity, maxHeight: UIScreen.main.bounds.height / 3.5, alignment: .leading)
-                .background(Color.background)
-                .cornerRadius(20, corners: [.bottomLeft, .bottomRight])
-                Spacer()
-                Resources(parentViewModel: viewModel)
             }
-            
+            .padding()
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+            .background(Color.background)
+            .cornerRadius(20, corners: [.bottomLeft, .bottomRight])
+            Divider()
+                .foregroundColor(.onBackground)
+                .padding(.horizontal, 15)
+            Resources(parentViewModel: viewModel)
         }
-        .edgesIgnoringSafeArea([.top, .bottom])
+        .onAppear {
+            getResourcesAndEvents()
+        }
         .background(Color.background)
+    }
+    
+    fileprivate func getResourcesAndEvents() -> Void {
+        viewModel.getUserBookingsForSection()
+        viewModel.getUserEventsForSection()
     }
     
 }

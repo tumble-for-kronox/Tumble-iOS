@@ -24,7 +24,7 @@ enum Endpoint {
     case registerAllEvents(schoolId: String)
     case registerEvent(eventId: String, schoolId: String)
     case unregisterEvent(eventId: String, schoolId: String)
-    case bookResource(resourceId: String, date: Date, availabilityValue: Response.AvailabilityValue)
+    case bookResource(schoolId: String)
     case news
     
     var url: URL {
@@ -96,17 +96,12 @@ enum Endpoint {
                 URLQueryItem(name: "schoolId", value: schoolId),
                 URLQueryItem(name: "date", value: inDateFormatter.string(from: date))
             ]
-        case .bookResource(resourceId: let resourceId, date: let date, availabilityValue: let availabilityValue):
+        case .bookResource(
+            schoolId: let schoolId):
             components.path = "/api/resources/book"
-            let encoder = JSONEncoder()
-            if let availabilityJSON = try? encoder.encode(availabilityValue),
-                let availabilityString = String(data: availabilityJSON, encoding: .utf8) {
-                components.queryItems = [
-                    URLQueryItem(name: "resourceId", value: resourceId),
-                    URLQueryItem(name: "date", value: inDateFormatter.string(from: date)),
-                    URLQueryItem(name: "availabilityValue", value: availabilityString)
-                ]
-            }
+            components.queryItems = [
+                URLQueryItem(name: "schoolId", value: schoolId),
+            ]
         }
         return components.url!
     }

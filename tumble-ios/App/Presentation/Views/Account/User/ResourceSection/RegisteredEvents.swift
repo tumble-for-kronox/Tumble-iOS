@@ -18,6 +18,7 @@ struct RegisteredEvents: View {
             case .loading:
                 CustomProgressIndicator()
                     .frame(maxWidth: .infinity, alignment: .center)
+                    .padding(.top)
             case .loaded:
                 if let events = registeredEvents {
                     if !events.isEmpty {
@@ -45,6 +46,5 @@ struct RegisteredEvents: View {
                     .sectionDividerEmpty()
             }
         }
-        .padding(.bottom, 70)
     }
 }

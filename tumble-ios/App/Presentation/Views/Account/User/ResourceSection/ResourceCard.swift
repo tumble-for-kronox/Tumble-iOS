@@ -32,43 +32,47 @@ struct ResourceCard: View {
     
     var body: some View {
         Button(action: {}, label: {
-            VStack (alignment: .leading, spacing: 10) {
-                Text(title ?? "No title")
-                    .font(.system(size: 17, weight: .medium))
-                    .foregroundColor(.onSurface)
-                    .lineLimit(1)
-                    .truncationMode(.tail)
-                if let type = type {
+            HStack {
+                VStack (alignment: .leading, spacing: 10) {
+                    Text(title ?? "No title")
+                        .font(.system(size: 17, weight: .medium))
+                        .foregroundColor(.onSurface)
+                        .lineLimit(1)
+                        .truncationMode(.tail)
+                    if let type = type {
+                        HStack {
+                            Image(systemName: "info.circle")
+                                .font(.system(size: 15))
+                                .foregroundColor(.onSurface.opacity(0.7))
+                            Text(type)
+                                .font(.system(size: 15))
+                                .foregroundColor(.onSurface.opacity(0.7))
+                        }
+                    }
+                    if let location = location {
+                        HStack {
+                            Image(systemName: "mappin.and.ellipse")
+                                .font(.system(size: 15))
+                                .foregroundColor(.onSurface.opacity(0.7))
+                            Text(location)
+                                .font(.system(size: 15))
+                                .foregroundColor(.onSurface.opacity(0.7))
+                        }
+                    }
                     HStack {
-                        Image(systemName: "info.circle")
+                        Image(systemName: "calendar.badge.clock")
                             .font(.system(size: 15))
                             .foregroundColor(.onSurface.opacity(0.7))
-                        Text(type)
+                        Text("\(date) from \(hoursMinutes)")
                             .font(.system(size: 15))
                             .foregroundColor(.onSurface.opacity(0.7))
                     }
                 }
-                if let location = location {
-                    HStack {
-                        Image(systemName: "mappin.and.ellipse")
-                            .font(.system(size: 15))
-                            .foregroundColor(.onSurface.opacity(0.7))
-                        Text(location)
-                            .font(.system(size: 15))
-                            .foregroundColor(.onSurface.opacity(0.7))
-                    }
-                }
-                HStack {
-                    Image(systemName: "calendar.badge.clock")
-                        .font(.system(size: 15))
-                        .foregroundColor(.onSurface.opacity(0.7))
-                    Text("\(date) from \(hoursMinutes)")
-                        .font(.system(size: 15))
-                        .foregroundColor(.onSurface.opacity(0.7))
-                }
+                .padding()
+                Spacer()
             }
-            .padding()
         })
+        .padding(.top)
         .buttonStyle(CompactButtonStyle())
     }
 }

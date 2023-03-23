@@ -8,9 +8,7 @@
 import Foundation
 
 enum Request {
-    struct Empty: Encodable {
-    
-    }
+    struct Empty: Encodable {}
     
     struct RegisterUserEvent: Encodable {
         let eventId: String
@@ -37,7 +35,7 @@ enum Request {
     struct BookKronoxResource: Encodable {
         let resourceId: String
         let date: String
-        let availabilitySlot: String
+        let slot: Response.AvailabilityValue
     }
     
     struct UnbookKronoxResource: Encodable {

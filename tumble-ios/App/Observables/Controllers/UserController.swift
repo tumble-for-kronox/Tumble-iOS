@@ -28,7 +28,6 @@ class UserController: ObservableObject {
     @Inject private var preferenceService: PreferenceService
     
     @Published var authStatus: AuthStatus = .unAuthorized
-
     
     init() {
         autoLogin(completion: {
@@ -68,13 +67,13 @@ extension UserController {
             DispatchQueue.main.async {
                 switch result {
                 case .success(let amount):
-                    AppLogger.shared.debug("Successfully deleted \(amount) items from KeyChain")
+                    AppLogger.shared.info("Successfully deleted \(amount) items from KeyChain")
                     self.user = nil
                     self.authStatus = .unAuthorized
                     self.preferenceService.setProfileImage(image: nil)
                     completion?(true)
                 case .failure(_):
-                    AppLogger.shared.debug("Could not clear user from KeyChain")
+                    AppLogger.shared.info("Could not clear user from KeyChain")
                     completion?(false)
                 }
             }
@@ -89,12 +88,12 @@ extension UserController {
             DispatchQueue.main.async {
                 switch result {
                 case .success(let user):
-                    AppLogger.shared.debug("Successfully logged in user \(user.username)")
+                    AppLogger.shared.info("Successfully logged in user \(user.username)")
                     self.user = TumbleUser(username: user.username, password: password, name: user.name)
                     self.authStatus = .authorized
                     completion?(true)
                 case .failure(let failure):
-                    AppLogger.shared.debug("Failed to log in user -> \(failure.localizedDescription)")
+                    AppLogger.shared.info("Failed to log in user -> \(failure.localizedDescription)")
                     self.authStatus = .unAuthorized
                     completion?(false)
                 }
@@ -104,16 +103,16 @@ extension UserController {
     
     
     func autoLogin(completion: (() -> Void)? = nil) {
-        self.authManager.autoLoginUser(completionHandler: { [weak self] result in
-            guard let self = self else { return }
+        AppLogger.shared.info("Attempting auto login for user", source: "UserController")
+        self.authManager.autoLoginUser(completionHandler: { [unowned self] result in
             switch result {
             case .success(let user):
-                AppLogger.shared.debug("Successfully logged in user \(user.username)")
+                AppLogger.shared.info("Successfully logged in user \(user.username)")
                 self.user = TumbleUser(username: user.username, password: user.password, name: user.name)
                 self.authStatus = .authorized
                 completion?()
             case .failure(let failure):
-                AppLogger.shared.debug("Failed to log in user -> \(failure.localizedDescription)")
+                AppLogger.shared.info("Failed to log in user -> \(failure.localizedDescription)")
                 self.authStatus = .unAuthorized
                 completion?()
             }
