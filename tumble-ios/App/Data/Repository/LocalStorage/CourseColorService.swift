@@ -34,7 +34,7 @@ class CourseColorService: ObservableObject, CourseColorServiceProtocol {
                         do {
                             var newCourses = courses
                             newCourses[event.course.id] = color.toHex()
-                            let data = try JSONEncoder().encode(newCourses)
+                            let data = try JSONEncoder.shared.encode(newCourses)
                             try data.write(to: fileURL)
                             DispatchQueue.main.async {
                                 completion(.success(1))
@@ -64,7 +64,7 @@ class CourseColorService: ObservableObject, CourseColorServiceProtocol {
                         }
                         return
                     }
-                let courses = try JSONDecoder().decode(CourseAndColorDict.self, from: file.availableData)
+                let courses = try JSONDecoder.shared.decode(CourseAndColorDict.self, from: file.availableData)
                 DispatchQueue.main.async {
                     completion(.success(courses))
                 }
@@ -91,7 +91,7 @@ class CourseColorService: ObservableObject, CourseColorServiceProtocol {
                         do {
 
                             let finalCourseColorDict = courses.merging(coursesAndColors) { (_, new) in new }
-                            let data = try JSONEncoder().encode(finalCourseColorDict)
+                            let data = try JSONEncoder.shared.encode(finalCourseColorDict)
                             try data.write(to: fileURL)
                             DispatchQueue.main.async {
                                 completion(.success(1))
@@ -121,11 +121,11 @@ class CourseColorService: ObservableObject, CourseColorServiceProtocol {
                         }
                         return
                     }
-                var courses = try JSONDecoder().decode(CourseAndColorDict.self, from: file.availableData)
+                var courses = try JSONDecoder.shared.decode(CourseAndColorDict.self, from: file.availableData)
                 
                 courses.removeAll()
                 
-                let data = try JSONEncoder().encode(courses)
+                let data = try JSONEncoder.shared.encode(courses)
                 try data.write(to: fileURL)
                 
                 DispatchQueue.main.async {
@@ -149,13 +149,13 @@ class CourseColorService: ObservableObject, CourseColorServiceProtocol {
                         }
                         return
                     }
-                var courses = try JSONDecoder().decode(CourseAndColorDict.self, from: file.availableData)
+                var courses = try JSONDecoder.shared.decode(CourseAndColorDict.self, from: file.availableData)
                 
                 for courseId in removeCourses {
                     courses.removeValue(forKey: courseId)
                 }
                 
-                let data = try JSONEncoder().encode(courses)
+                let data = try JSONEncoder.shared.encode(courses)
                 try data.write(to: fileURL)
                 
                 DispatchQueue.main.async {

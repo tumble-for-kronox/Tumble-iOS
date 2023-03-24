@@ -94,7 +94,7 @@ enum Endpoint {
             components.path = "/api/resources/all"
             components.queryItems = [
                 URLQueryItem(name: "schoolId", value: schoolId),
-                URLQueryItem(name: "date", value: inDateFormatter.string(from: date))
+                URLQueryItem(name: "date", value: isoDateFormatterFract.string(from: date))
             ]
         case .bookResource(
             schoolId: let schoolId):

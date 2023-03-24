@@ -41,27 +41,19 @@ extension String {
     }
     
     func formatDate() -> String? {
-        let formatter = ISO8601DateFormatter()
-        formatter.formatOptions = [.withFullDate, .withDashSeparatorInDate]
-        
-        if let date = formatter.date(from: self) {
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "yyyy-MM-dd"
-            dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
-            return dateFormatter.string(from: date)
+        if let date = isoDateFormatterDashed.date(from: self) {
+            dateFormatterSemi.timeZone = TimeZone(abbreviation: "UTC")
+            return dateFormatterSemi.string(from: date)
         }
-        
         return nil
     }
 
     
     // Should not be used with strings that are not ISO formatted
     func convertToHoursAndMinutesISOString() -> String? {
-        let dateFormatter = ISO8601DateFormatter()
-        guard let date = dateFormatter.date(from: self) else {
+        guard let date = isoDateFormatter.date(from: self) else {
             return nil
         }
-        
         let calendar = Calendar.current
         let components = calendar.dateComponents([.hour, .minute], from: date)
         
@@ -73,9 +65,7 @@ extension String {
     }
     
     func convertToHoursAndMinutes() -> String? {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
-        guard let date = dateFormatter.date(from: self) else {
+        guard let date = dateFormatterFull.date(from: self) else {
             return nil
         }
         
@@ -90,53 +80,26 @@ extension String {
     }
     
     func isValidSignupDate() -> Bool {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
-        guard let date = dateFormatter.date(from: self) else {
+        guard let date = dateFormatterFull.date(from: self) else {
             return false
         }
         return date > Date()
     }
     
     func toDate() -> String? {
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
-            if let date = dateFormatter.date(from: self) {
-                dateFormatter.dateFormat = "yyyy-MM-dd"
-                return dateFormatter.string(from: date)
+            if let date = dateFormatterFull.date(from: self) {
+                return dateFormatterSemi.string(from: date)
             }
             return nil
         }
     
     func isAvailableNotificationDate() -> Bool {
-        let dateFormatter = ISO8601DateFormatter()
-        guard let eventDate = dateFormatter.date(from: self) else {
+        guard let eventDate = isoDateFormatter.date(from: self) else {
             return false
         }
-
         let now = Date()
         let threeHoursFromNow = Calendar.current.date(byAdding: .hour, value: 3, to: now)!
-
         return eventDate > now && eventDate > threeHoursFromNow
-    }
-
-
-
-    
-    // Checks if the given day name is todays day,
-    // if so it returns the string 'Today' instead of
-    // the given date day name
-    func day() -> String {
-        let date = Date()
-        let formatter = DateFormatter()
-        formatter.locale = Locale(identifier: "en_us")
-        formatter.dateFormat = "EEEE"
-        let today = formatter.string(from: date).capitalizingFirstLetter()
-        if today == self {
-            return "Today"
-        } else {
-            return self
-        }
     }
     
     func capitalizingFirstLetter() -> String {

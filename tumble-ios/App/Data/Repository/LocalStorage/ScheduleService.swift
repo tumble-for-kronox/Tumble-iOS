@@ -35,7 +35,7 @@ class ScheduleService: ObservableObject, ScheduleServiceProtocol {
                         }
                         return
                     }
-                let schedules = try JSONDecoder().decode([ScheduleStoreModel].self, from: file.availableData)
+                let schedules = try JSONDecoder.shared.decode([ScheduleStoreModel].self, from: file.availableData)
                 DispatchQueue.main.async {
                     completion(.success(schedules))
                 }
@@ -79,7 +79,7 @@ class ScheduleService: ObservableObject, ScheduleServiceProtocol {
                     }
                     return
                 }
-                let schedules = try JSONDecoder().decode([ScheduleStoreModel].self, from: file.availableData)
+                let schedules = try JSONDecoder.shared.decode([ScheduleStoreModel].self, from: file.availableData)
                 if let schedule = schedules.first(where: { $0.id == id }) {
                     DispatchQueue.main.async {
                         completion(.success(schedule))
@@ -114,7 +114,7 @@ class ScheduleService: ObservableObject, ScheduleServiceProtocol {
                             
                             let newSchedules = self.insertOrReplace(for: schedule, with: schedules)
                             
-                            let data = try JSONEncoder().encode(newSchedules)
+                            let data = try JSONEncoder.shared.encode(newSchedules)
                             try data.write(to: fileURL)
                             DispatchQueue.main.async {
                                 AppLogger.shared.info("Successfully saved schedule \(schedule.id)")
@@ -146,9 +146,9 @@ class ScheduleService: ObservableObject, ScheduleServiceProtocol {
                     }
                     return
                 }
-                var schedules = try JSONDecoder().decode([ScheduleStoreModel].self, from: file.availableData)
+                var schedules = try JSONDecoder.shared.decode([ScheduleStoreModel].self, from: file.availableData)
                 schedules.removeAll()
-                let data = try JSONEncoder().encode(schedules)
+                let data = try JSONEncoder.shared.encode(schedules)
                 try data.write(to: fileURL)
                 
                 DispatchQueue.main.async {
@@ -173,11 +173,11 @@ class ScheduleService: ObservableObject, ScheduleServiceProtocol {
                         }
                         return
                     }
-                var schedules = try JSONDecoder().decode([ScheduleStoreModel].self, from: file.availableData)
+                var schedules = try JSONDecoder.shared.decode([ScheduleStoreModel].self, from: file.availableData)
                 
                 schedules.removeAll(where: {$0.id == scheduleId})
                 
-                let data = try JSONEncoder().encode(schedules)
+                let data = try JSONEncoder.shared.encode(schedules)
                 try data.write(to: fileURL)
                 
                 DispatchQueue.main.async {
@@ -228,7 +228,7 @@ extension ScheduleService {
                         }
                         return
                     }
-                    let schedules = try JSONDecoder().decode([ScheduleStoreModel].self, from: file.availableData)
+                    let schedules = try JSONDecoder.shared.decode([ScheduleStoreModel].self, from: file.availableData)
                     let events = schedules
                         .filter { !hiddenBookmarks.contains($0.id) }
                         .flatMap { $0.days }

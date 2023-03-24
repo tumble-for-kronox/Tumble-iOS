@@ -8,8 +8,6 @@
 import Foundation
 import UIKit
 
-/// This is
-
 func navigationBarFont() -> UIFont {
     var titleFont = UIFont.preferredFont(forTextStyle: .headline) 
             titleFont = UIFont(
@@ -25,49 +23,62 @@ func navigationBarFont() -> UIFont {
 
 
 func getCurrentDate(truncate: Bool = false) -> String {
-    let dateFormatter = DateFormatter()
-    dateFormatter.locale = Locale(identifier: "en_US")
     let currentDate = Date()
-    dateFormatter.dateStyle = .long
     if truncate {
-        dateFormatter.dateStyle = .medium
+        dateFormatterLong.dateStyle = .medium
     }
-    dateFormatter.timeStyle = .none
-    let dateString = dateFormatter.string(from: currentDate)
+    dateFormatterLong.timeStyle = .none
+    let dateString = dateFormatterLong.string(from: currentDate)
     return dateString
 }
 
 
 /// Formatters used globally
-///
 
 /// To convert API result date (ISO8601) to `Date`
-let inDateFormatter: ISO8601DateFormatter = {
+let isoDateFormatterFract: ISO8601DateFormatter = {
     let formatter = ISO8601DateFormatter()
     formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
     return formatter
 }()
 
 /// Used on event dates
-let eventDateFormatter: DateFormatter = {
+let dateFormatterEvent: DateFormatter = {
     let eventDateFormatter = DateFormatter()
     eventDateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
     return eventDateFormatter
 }()
 
-extension DateFormatter {
-    static let shared: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.locale = Locale(identifier: "en_US_POSIX")
-        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
-        return formatter
-    }()
-}
+let dateFormatterComma: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.locale = Locale(identifier: "en_US_POSIX")
+    formatter.dateFormat = "EEEE, MMMM d, yyyy"
+    return formatter
+}()
 
-extension ISO8601DateFormatter {
-    static let shared: ISO8601DateFormatter = {
-        let formatter = ISO8601DateFormatter()
-        formatter.formatOptions = [.withFullDate, .withDashSeparatorInDate]
-        return formatter
-    }()
-}
+let dateFormatterFull: DateFormatter = {
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+    return dateFormatter
+}()
+
+let dateFormatterSemi: DateFormatter = {
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "yyyy-MM-dd"
+    return dateFormatter
+}()
+
+let isoDateFormatterDashed: ISO8601DateFormatter = {
+    let formatter = ISO8601DateFormatter()
+    formatter.formatOptions = [.withFullDate, .withDashSeparatorInDate]
+    return formatter
+}()
+
+let isoDateFormatter: ISO8601DateFormatter = ISO8601DateFormatter()
+
+let dateFormatterLong: DateFormatter = {
+    let dateFormatter = DateFormatter()
+    dateFormatter.locale = Locale(identifier: "en_US")
+    dateFormatter.dateStyle = .long
+    return dateFormatter
+}()

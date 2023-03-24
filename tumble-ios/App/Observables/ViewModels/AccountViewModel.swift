@@ -38,7 +38,7 @@ enum NetworkResponse {
     @Published var eventBookingPageState: PageState = .loading
     @Published var error: Response.ErrorMessage? = nil
     
-    private let jsonEncoder = JSONEncoder()
+    private let jsonEncoder = JSONEncoder.shared
     
     init() {
         self.school = preferenceService.getDefaultSchool()
@@ -86,7 +86,7 @@ enum NetworkResponse {
                     )
                     let requestBody = Request.BookKronoxResource(
                         resourceId: resourceId,
-                        date: inDateFormatter.string(from: date),
+                        date: isoDateFormatterFract.string(from: date),
                         slot: availabilityValue
                     )
                     self.networkManager.put(requestUrl, refreshToken: refreshToken, body: requestBody) {

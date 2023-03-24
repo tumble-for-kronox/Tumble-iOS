@@ -79,7 +79,7 @@ struct CalendarViewRepresentable: UIViewRepresentable {
         
         for day in days {
             for event in day.events {
-                if let date = eventDateFormatter.date(from: event.from) {
+                if let date = dateFormatterEvent.date(from: event.from) {
                     let normalizedDate = Calendar.current.startOfDay(for: date)
                     if dict[normalizedDate] == nil {
                         dict[normalizedDate] = [event]

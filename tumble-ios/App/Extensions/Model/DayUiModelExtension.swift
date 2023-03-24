@@ -24,7 +24,7 @@ extension [DayUiModel] {
     func toOrderedDayUiModels() -> [DayUiModel] {
         return self.compactMap { $0 }.merge().sorted(by: {
             // Ascending order
-            inDateFormatter.date(from: $0.isoString)! < inDateFormatter.date(from: $1.isoString)!
+            isoDateFormatterFract.date(from: $0.isoString)! < isoDateFormatterFract.date(from: $1.isoString)!
         })
     }
     
@@ -48,9 +48,9 @@ extension DayUiModel {
     // correspond to the given days date in order for the function
     // to return "Today" as a string
     func string() -> String {
-        inDateFormatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+        isoDateFormatterFract.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
         let dayIsoString: String = self.isoString
-        guard let day = inDateFormatter.date(from: dayIsoString) else { return "" }
+        guard let day = isoDateFormatterFract.date(from: dayIsoString) else { return "" }
         let today = Date()
         if Calendar.current.startOfDay(for: day) == Calendar.current.startOfDay(for: today) {
             return "Today"

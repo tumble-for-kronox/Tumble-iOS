@@ -17,8 +17,6 @@ extension Date {
     }
     
     func formatDate() -> String {
-        let formatter = DateFormatter.shared
-        formatter.dateFormat = "EEEE, MMMM d, yyyy"
-        return formatter.string(from: self)
+        return dateFormatterComma.string(from: self)
     }
 }

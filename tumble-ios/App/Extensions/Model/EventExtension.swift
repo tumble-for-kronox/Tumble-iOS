@@ -55,7 +55,7 @@ extension [Response.Event] {
     func sorted() -> [Response.Event] {
         return self.sorted(by: {
             // Ascending order
-            return eventDateFormatter.date(from: $0.from)! < eventDateFormatter.date(from: $1.from)!
+            return dateFormatterEvent.date(from: $0.from)! < dateFormatterEvent.date(from: $1.from)!
         })
     }
 }
