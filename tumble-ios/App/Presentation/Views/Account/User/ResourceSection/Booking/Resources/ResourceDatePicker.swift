@@ -12,12 +12,17 @@ struct ResourceDatePicker: View {
     @Binding var date: Date
     
     var body: some View {
-        DatePicker("Pick a date", selection: $date, in: Date.now..., displayedComponents: [.date])
-            .padding()
-            .datePickerStyle(.graphical)
-            .accentColor(Color.primary)
-            .background(Color.background)
-            .environment(\.locale, Locale(identifier: "en_GB"))
+        DatePicker(
+            "Pick a date",
+            selection: $date,
+            in: Calendar.current.date(byAdding: .year, value: -1, to: Date())!...,
+            displayedComponents: [.date]
+        )
+        .datePickerStyle(.graphical)
+        .accentColor(Color.primary)
+        .background(Color.background)
+        .environment(\.locale, Locale(identifier: "en_GB"))
+        .environment(\.calendar, Calendar(identifier: .iso8601))
     }
 }
 

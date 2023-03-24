@@ -46,6 +46,7 @@ struct HomePage: View {
                     })
                 }
             }
+            .padding(.bottom, -10)
             .coordinateSpace(name: scrollSpace)
             .onPreferenceChange(ScrollViewOffsetPreferenceKey.self, perform: handleScroll)
             Spacer()

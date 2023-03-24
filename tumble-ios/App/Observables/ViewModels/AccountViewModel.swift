@@ -12,9 +12,14 @@ enum PageState {
     case error
 }
 
-enum NetworkResponse {
-    case success
-    case error
+struct ResourceDetailSheetModel: Identifiable {
+    var id: UUID = UUID()
+    let resource: Response.KronoxUserBookingElement
+}
+
+struct ExamDetailSheetModel: Identifiable {
+    var id: UUID = UUID()
+    let event: Response.AvailableKronoxUserEvent
 }
 
 
@@ -37,6 +42,8 @@ enum NetworkResponse {
     @Published var resourceBookingPageState: PageState = .loading
     @Published var eventBookingPageState: PageState = .loading
     @Published var error: Response.ErrorMessage? = nil
+    @Published var resourceDetailsSheetModel: ResourceDetailSheetModel? = nil
+    @Published var examDetailSheetModel: ExamDetailSheetModel? = nil
     
     private let jsonEncoder = JSONEncoder.shared
     

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct RegisteredEvents: View {
     
+    let onClickEvent: (Response.AvailableKronoxUserEvent) -> Void
     @Binding var state: PageState
     let registeredEvents: [Response.AvailableKronoxUserEvent]?
     
@@ -27,9 +28,14 @@ struct RegisteredEvents: View {
                                let eventEnd = event.eventEnd.convertToHoursAndMinutes() {
                                 ResourceCard(
                                     timeSpan: "\(event.eventStart.convertToHoursAndMinutes() ?? "")",
-                                    type: event.type, title: event.title,
+                                    type: event.type,
+                                    title: event.title,
                                     date: event.eventStart.toDate() ?? "(no date)",
-                                    hoursMinutes: "\(eventStart) - \(eventEnd)")
+                                    hoursMinutes: "\(eventStart) - \(eventEnd)",
+                                    onClick: {
+                                        onClickEvent(event)
+                                    }
+                                )
                             }
                             
                         }

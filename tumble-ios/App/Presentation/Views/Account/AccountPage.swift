@@ -15,7 +15,7 @@ struct AccountPage: View {
     
     var body: some View {
         VStack (alignment: .center) {
-            if viewModel.userController.authStatus == .authorized || viewModel.userController.refreshToken != nil {
+            if userAuthenticatedAndSignedIn() {
                 UserOverview(viewModel: viewModel, schoolName: viewModel.school?.name ?? "", createToast: createToast)
             } else {
                 if viewModel.status == .loading {
@@ -25,8 +25,18 @@ struct AccountPage: View {
                 }
             }
         }
+        .sheet(item: $viewModel.examDetailSheetModel, content: { examDetails in
+            EmptyView()
+        })
+        .sheet(item: $viewModel.resourceDetailsSheetModel, content: { resourceDetails in
+            ResourceDetailSheet(resource: resourceDetails.resource)
+        })
         .background(Color.background)
         .padding(.bottom, -10)
+    }
+    
+    fileprivate func userAuthenticatedAndSignedIn() -> Bool {
+        return viewModel.userController.authStatus == .authorized || viewModel.userController.refreshToken != nil
     }
     
 }

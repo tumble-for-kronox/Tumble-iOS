@@ -18,31 +18,36 @@ struct UserOverview: View {
     let createToast: (ToastStyle, String, String) -> Void
         
     var body: some View {
-        ScrollView (showsIndicators: false) {
-            HStack {
-                if let name = viewModel.userController.user?.name,
-                   let username = viewModel.userController.user?.username {
-                    UserAvatar(name: name)
-                    VStack (alignment: .leading, spacing: 0) {
-                        Text(name)
-                            .font(.system(size: 22, weight: .semibold))
-                        Text(username)
-                            .font(.system(size: 16, weight: .regular))
-                        Text(schoolName)
-                            .font(.system(size: 16, weight: .regular))
-                            .padding(.top, 10)
+        VStack {
+            ScrollView (showsIndicators: false) {
+                HStack {
+                    if let name = viewModel.userController.user?.name,
+                       let username = viewModel.userController.user?.username {
+                        UserAvatar(name: name)
+                        VStack (alignment: .leading, spacing: 0) {
+                            Text(name)
+                                .font(.system(size: 22, weight: .semibold))
+                            Text(username)
+                                .font(.system(size: 16, weight: .regular))
+                            Text(schoolName)
+                                .font(.system(size: 16, weight: .regular))
+                                .padding(.top, 10)
+                        }
+                        .padding(10)
                     }
-                    .padding(10)
                 }
+                .padding()
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+                .background(Color.background)
+                .cornerRadius(20, corners: [.bottomLeft, .bottomRight])
+                Divider()
+                    .foregroundColor(.onBackground)
+                    .padding(.horizontal, 15)
+                Resources(parentViewModel: viewModel)
             }
-            .padding()
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
-            .background(Color.background)
-            .cornerRadius(20, corners: [.bottomLeft, .bottomRight])
-            Divider()
-                .foregroundColor(.onBackground)
-                .padding(.horizontal, 15)
-            Resources(parentViewModel: viewModel)
+            .refreshable {
+                getResourcesAndEvents()
+            }
         }
         .onAppear {
             getResourcesAndEvents()

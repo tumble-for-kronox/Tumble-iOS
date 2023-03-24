@@ -20,7 +20,9 @@ struct RoomContainerCard: View {
                 .foregroundColor(.onSurface)
             Spacer()
             Button(action: {
-                onBook()
+                if bookingButtonState != .booked {
+                    onBook()
+                }
             }, label: {
                 switch bookingButtonState {
                 case .loading:
@@ -29,7 +31,7 @@ struct RoomContainerCard: View {
                 case .booked:
                     Text("Booked")
                         .font(.system(size: 20, weight: .semibold))
-                        .foregroundColor(.gray)
+                        .foregroundColor(.onPrimary)
                         .padding()
                 case .available:
                     Text("Book")

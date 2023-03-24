@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct EventDetailsBodyBuilder<Content : View>: View {
+struct DetailsBuilder<Content : View>: View {
     let title: String
     let image: String
     let content: Content
@@ -26,7 +26,7 @@ struct EventDetailsBodyBuilder<Content : View>: View {
                         .font(.system(size: 20))
                         .foregroundColor(.onSurface)
                     Text(title)
-                        .font(.system(size: 18))
+                        .font(.system(size: 20))
                         .bold()
                         .foregroundColor(.onBackground)
                     

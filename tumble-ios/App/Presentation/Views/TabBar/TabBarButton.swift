@@ -18,7 +18,7 @@ struct TabBarButton: View {
                 .tabBarIcon(isSelected: isSelected())
             Text(appTab.displayName)
                 .font(.system(size: 12, weight: .semibold))
-                .foregroundColor(isSelected() ? .primary : .onSurface)
+                .foregroundColor(isSelected() ? .primary : .onSurface.opacity(0.5))
                 .padding(.top, 5)
         }
         .frame(maxWidth: .infinity)

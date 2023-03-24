@@ -30,6 +30,7 @@ struct Resources: View {
                             ResourceBookings(parentViewModel: parentViewModel)
                                 .customNavigationBackButton(previousPage: "Account"))) {
                                     RegisteredBookings(
+                                        onClickResource: onClickResource,
                                         state: $parentViewModel.bookingSectionState,
                                         bookings: parentViewModel.userBookings)
             }
@@ -38,6 +39,7 @@ struct Resources: View {
                             EventBookings(viewModel: parentViewModel)
                                 .customNavigationBackButton(previousPage: "Account"))) {
                                     RegisteredEvents(
+                                        onClickEvent: onClickEvent,
                                         state: $parentViewModel.registeredEventSectionState,
                                         registeredEvents: parentViewModel.completeUserEvent?.registeredEvents)
             }
@@ -49,5 +51,16 @@ struct Resources: View {
             UIRefreshControl.appearance().tintColor = UIColor(named: "PrimaryColor")
         }
     }
+    
+    fileprivate func onClickResource(resource: Response.KronoxUserBookingElement) -> Void {
+        AppLogger.shared.info("Clicked resource")
+        parentViewModel.resourceDetailsSheetModel = ResourceDetailSheetModel(resource: resource)
+    }
+    
+    fileprivate func onClickEvent(event: Response.AvailableKronoxUserEvent) -> Void {
+        parentViewModel.examDetailSheetModel = ExamDetailSheetModel(event: event)
+    }
+    
+    
 }
 

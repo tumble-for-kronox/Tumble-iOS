@@ -34,9 +34,9 @@ struct ResourceBookings: View {
                 VStack {
                     switch parentViewModel.error?.statusCode {
                     case 404:
-                        Info(title: "No rooms available on weekends", image: nil)
+                        Info(title: "No rooms available on weekends", image: "moon.stars")
                     default:
-                        Info(title: "Something went wrong", image: nil)
+                        Info(title: "Could not contact the server", image: "wifi.exclamationmark")
                     }
                 }
                 .frame(

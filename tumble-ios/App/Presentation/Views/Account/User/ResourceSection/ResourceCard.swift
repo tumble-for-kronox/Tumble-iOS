@@ -15,23 +15,26 @@ struct ResourceCard: View {
     let type: String?
     let location: String?
     let title: String?
+    let onClick: () -> Void
     
     init(timeSpan: String,
          type: String? = nil,
          title: String? = nil,
          location: String? = nil,
          date: String,
-         hoursMinutes: String) {
+         hoursMinutes: String,
+         onClick: @escaping () -> Void) {
         self.timeSpan = timeSpan
         self.type = type
         self.title = title
         self.date = date
         self.hoursMinutes = hoursMinutes
         self.location = location
+        self.onClick = onClick
     }
     
     var body: some View {
-        Button(action: {}, label: {
+        Button(action: onClick, label: {
             HStack {
                 VStack (alignment: .leading, spacing: 10) {
                     Text(title ?? "No title")

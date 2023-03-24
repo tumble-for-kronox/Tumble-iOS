@@ -9,6 +9,7 @@ import SwiftUI
 
 struct RegisteredBookings: View {
     
+    let onClickResource: (Response.KronoxUserBookingElement) -> Void
     @Binding var state: PageState
     let bookings: Response.KronoxUserBooking?
     
@@ -22,13 +23,17 @@ struct RegisteredBookings: View {
             case .loaded:
                 if let bookings = bookings {
                     if !bookings.isEmpty {
-                        ForEach(bookings) { booking in
+                        ForEach(bookings) { resource in
                             ResourceCard(
-                                timeSpan: "\(booking.timeSlot.from?.convertToHoursAndMinutes() ?? "")",
+                                timeSpan: "\(resource.timeSlot.from?.convertToHoursAndMinutes() ?? "")",
                                 title: "Booked resource",
-                                location: booking.locationID,
-                                date: booking.timeSlot.from?.toDate() ?? "(no date)",
-                                hoursMinutes: booking.timeSlot.from?.convertToHoursAndMinutes() ?? "(no time")
+                                location: resource.locationID,
+                                date: resource.timeSlot.from?.toDate() ?? "(no date)",
+                                hoursMinutes: "\(resource.timeSlot.from?.convertToHoursAndMinutes() ?? "(no time)") - \(resource.timeSlot.to?.convertToHoursAndMinutes() ?? "(no time)")",
+                                onClick: {
+                                    onClickResource(resource)
+                                }
+                            )
                         }
                     } else {
                         Text("No booked resources yet")
@@ -44,7 +49,6 @@ struct RegisteredBookings: View {
             }
             Spacer()
         }
-        .frame(maxHeight: UIScreen.main.bounds.height / 4)
     }
 }
 

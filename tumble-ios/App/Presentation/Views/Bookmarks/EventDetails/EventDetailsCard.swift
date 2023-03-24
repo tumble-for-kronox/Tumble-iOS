@@ -19,19 +19,19 @@ struct EventDetailsCard: View {
     var body: some View {
         VStack (alignment: .leading, spacing: 0) {
             HStack {
-                VStack {
+                VStack (alignment: .leading) {
                     HStack {
                         VStack (alignment: .leading, spacing: 0) {
                             Text(event.course.englishName)
                                 .font(.system(size: 28, weight: .semibold))
                                 .foregroundColor(.onSurface)
+                                .fixedSize(horizontal: false, vertical: true) // <-- Here's the modification
                                 .padding(.bottom, 7)
                             Text(event.title)
                                 .font(.system(size: 20))
                                 .foregroundColor(.onSurface)
                         }
-                        .padding(.bottom, 30)
-                        Spacer()
+                        .padding(.bottom, 20)
                     }
                     HStack (spacing: 7.5) {
                         if event.from.isAvailableNotificationDate() {
