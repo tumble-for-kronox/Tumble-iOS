@@ -21,9 +21,9 @@ extension Dictionary where Key == String, Value == Any {
                 return nil
         }
         
-        let course = Response.Course(id: courseDict["englishName"] ?? "",
+        let course = Response.Course(id: courseDict["id"] ?? "",
                                      swedishName: courseDict["swedishName"] ?? "",
-                                     englishName: courseDict["id"] ?? "")
+                                     englishName: courseDict["englishName"] ?? "")
         
         var locations: [Response.Location] = []
         for locationDict in locationsArray {
