@@ -25,12 +25,6 @@ struct AccountPage: View {
                 }
             }
         }
-        .sheet(item: $viewModel.examDetailSheetModel, content: { examDetails in
-            EmptyView()
-        })
-        .sheet(item: $viewModel.resourceDetailsSheetModel, content: { resourceDetails in
-            ResourceDetailSheet(resource: resourceDetails.resource)
-        })
         .background(Color.background)
         .padding(.bottom, -10)
     }

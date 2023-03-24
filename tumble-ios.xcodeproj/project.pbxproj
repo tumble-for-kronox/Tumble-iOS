@@ -131,6 +131,7 @@
 		D473870129C88E4F0035CD4C /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = D473870029C88E4F0035CD4C /* FirebaseMessaging */; };
 		D475626C29CDEE9500B72008 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D475626B29CDEE9500B72008 /* GoogleService-Info.plist */; };
 		D475626F29CE09A600B72008 /* ResourceDetailSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = D475626E29CE09A600B72008 /* ResourceDetailSheet.swift */; };
+		D475627129CE20A700B72008 /* ExamDetailsSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = D475627029CE20A700B72008 /* ExamDetailsSheet.swift */; };
 		D476BD2A293A31FD0027CFE8 /* SchedulePreviewList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D476BD29293A31FD0027CFE8 /* SchedulePreviewList.swift */; };
 		D476BD2E293A32BF0027CFE8 /* RoundedCornerShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = D476BD2D293A32BF0027CFE8 /* RoundedCornerShape.swift */; };
 		D47A1AF729C00C0E004F03DB /* HomePageOptionStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47A1AF629C00C0E004F03DB /* HomePageOptionStyle.swift */; };
@@ -333,6 +334,7 @@
 		D473870229C895510035CD4C /* tumble-ios.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "tumble-ios.entitlements"; sourceTree = "<group>"; };
 		D475626B29CDEE9500B72008 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D475626E29CE09A600B72008 /* ResourceDetailSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceDetailSheet.swift; sourceTree = "<group>"; };
+		D475627029CE20A700B72008 /* ExamDetailsSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExamDetailsSheet.swift; sourceTree = "<group>"; };
 		D476BD29293A31FD0027CFE8 /* SchedulePreviewList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulePreviewList.swift; sourceTree = "<group>"; };
 		D476BD2D293A32BF0027CFE8 /* RoundedCornerShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedCornerShape.swift; sourceTree = "<group>"; };
 		D47A1AF629C00C0E004F03DB /* HomePageOptionStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageOptionStyle.swift; sourceTree = "<group>"; };
@@ -983,6 +985,7 @@
 			isa = PBXGroup;
 			children = (
 				D475626E29CE09A600B72008 /* ResourceDetailSheet.swift */,
+				D475627029CE20A700B72008 /* ExamDetailsSheet.swift */,
 			);
 			path = Sheets;
 			sourceTree = "<group>";
@@ -1589,6 +1592,7 @@
 				D43419BA29855CF6001089A0 /* BookingInstructions.swift in Sources */,
 				D40D80A929252688008CA68D /* ParentViewModel.swift in Sources */,
 				D4A550CC2994509A00028BCF /* SidebarViewModel.swift in Sources */,
+				D475627129CE20A700B72008 /* ExamDetailsSheet.swift in Sources */,
 				D41F152B299C699500E13264 /* Events.swift in Sources */,
 				D48CC59F29C7DB6E0028179A /* CompactEventButtonLabel.swift in Sources */,
 				D49D2500299A9495001D2751 /* UserController.swift in Sources */,

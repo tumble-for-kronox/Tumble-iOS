@@ -50,6 +50,12 @@ struct Resources: View {
         .onAppear {
             UIRefreshControl.appearance().tintColor = UIColor(named: "PrimaryColor")
         }
+        .sheet(item: $parentViewModel.examDetailSheetModel, content: { examDetails in
+            ExamDetailsSheet(event: examDetails.event)
+        })
+        .sheet(item: $parentViewModel.resourceDetailsSheetModel, content: { resourceDetails in
+            ResourceDetailSheet(resource: resourceDetails.resource)
+        })
     }
     
     fileprivate func onClickResource(resource: Response.KronoxUserBookingElement) -> Void {
