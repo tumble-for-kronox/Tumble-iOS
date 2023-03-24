@@ -42,8 +42,6 @@ struct SideBarSheet: View {
                     scheduleNotificationsForAllCourses: scheduleNotificationsForAllCourses
                 )
             }
-        case .none:
-            EmptyView()
         case .more:
             SidebarSheetViewBuilder(header: "More", dismiss: dismiss) {
                 MoreSidebarSheet()

@@ -13,8 +13,7 @@ struct SidebarMenuButton: View {
     let image: String
     
     @ObservedObject var parentViewModel: SidebarViewModel
-    @Binding var selectedSideBarTab: SidebarTabType
-    var animation: Namespace.ID
+    @Binding var selectedSideBarTab: SidebarTabType?
     
     var body: some View {
         Button(action: {
@@ -32,19 +31,16 @@ struct SidebarMenuButton: View {
                     .fontWeight(.semibold)
                     .font(.system(size: 20))
             }
-            .foregroundColor(selectedSideBarTab.rawValue == title ? .onPrimary : .onSurface)
+            .foregroundColor(.onSurface)
             .padding(.vertical, 12)
             .padding(.horizontal, 20)
             .frame(maxWidth: getRect().width - 170, alignment: .leading)
-            .background(
-                ZStack {
-                    if selectedSideBarTab.rawValue == title {
-                        Color.primary.opacity(selectedSideBarTab.rawValue == title ? 1 : 0)
-                            .clipShape(CustomCorners(corners: [.topRight, .bottomRight], radius: 10))
-                            .matchedGeometryEffect(id: "SIDEBARTAB", in: animation)
-                    }
-                }
-            )
         })
+        .padding(.top, 10)
+        Divider()
+            .foregroundColor(.onSurface)
+            .padding(.leading, 25)
+            .padding(.trailing, getRect().width / 2)
+            .padding(.bottom, 10)
     }
 }

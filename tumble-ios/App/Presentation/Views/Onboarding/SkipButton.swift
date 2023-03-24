@@ -14,7 +14,7 @@ struct SkipButton: View {
     var body: some View {
         Button(action: onClickSkip) {
                 Image(systemName: "arrow.uturn.right")
-                .font(.system(size: 22))
+                .font(.system(size: 22, weight: .semibold))
                 .foregroundColor(.onPrimary)
                 .padding(15)
                 .background(Color.primary)

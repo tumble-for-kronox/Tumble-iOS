@@ -12,7 +12,7 @@ struct SidebarMenu: View {
     @ObservedObject var viewModel: SidebarViewModel
     
     @Binding var showSideBar: Bool
-    @State var selectedSideBarTab: SidebarTabType = .none
+    @State var selectedSideBarTab: SidebarTabType? = nil
     @Binding var selectedBottomTab: TabbarTabType
     @Namespace var animation
     
@@ -24,14 +24,14 @@ struct SidebarMenu: View {
     var body: some View {
         
         VStack(alignment: .leading, spacing: 15) {
-            VStack (alignment: .leading) {
+            HStack (alignment: .bottom) {
                 viewModel.universityImage?
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .frame(width: 75, height: 75)
-                    .cornerRadius(10)
+                    .frame(width: 35, height: 35)
+                    .cornerRadius(5)
                 Text(viewModel.universityName ?? "")
-                    .font(.system(size: 20))
+                    .font(.system(size: 16))
                     .fontWeight(.semibold)
                     .multilineTextAlignment(.leading)
                     .foregroundColor(.onSurface)
@@ -46,24 +46,24 @@ struct SidebarMenu: View {
             VStack (alignment: .leading, spacing: 0) {
                 SidebarMenuButton(sideBarTabType: .bookmarks,
                                   title: SidebarTabType.bookmarks.rawValue, image: "bookmark",
-                                  parentViewModel: viewModel, selectedSideBarTab: $selectedSideBarTab,
-                                  animation: animation)
+                                  parentViewModel: viewModel, selectedSideBarTab: $selectedSideBarTab
+                                  )
                 SidebarMenuButton(sideBarTabType: .notifications,
                                   title: SidebarTabType.notifications.rawValue, image: "bell.badge",
-                                  parentViewModel: viewModel, selectedSideBarTab: $selectedSideBarTab,
-                                  animation: animation)
+                                  parentViewModel: viewModel, selectedSideBarTab: $selectedSideBarTab
+                                  )
                 SidebarMenuButton(sideBarTabType: .school,
                                   title: SidebarTabType.school.rawValue, image: "arrow.left.arrow.right",
-                                  parentViewModel: viewModel, selectedSideBarTab: $selectedSideBarTab,
-                                  animation: animation)
+                                  parentViewModel: viewModel, selectedSideBarTab: $selectedSideBarTab
+                                  )
                 SidebarMenuButton(sideBarTabType: .support,
                                   title: SidebarTabType.support.rawValue, image: "questionmark.circle",
-                                  parentViewModel: viewModel, selectedSideBarTab: $selectedSideBarTab,
-                                  animation: animation)
+                                  parentViewModel: viewModel, selectedSideBarTab: $selectedSideBarTab
+                                  )
                 SidebarMenuButton(sideBarTabType: .more,
                                   title: SidebarTabType.more.rawValue, image: "ellipsis",
-                                  parentViewModel: viewModel, selectedSideBarTab: $selectedSideBarTab,
-                                  animation: animation)
+                                  parentViewModel: viewModel, selectedSideBarTab: $selectedSideBarTab
+                                  )
             }
             .padding(.top, 40)
             .padding(.leading, -16)
@@ -73,11 +73,11 @@ struct SidebarMenu: View {
             VStack (alignment: .leading, spacing: 0) {
                 Button(action: onPress, label: {
                     HStack {
-                        Text(viewModel.userController.authStatus == .authorized || viewModel.userController.refreshToken != nil ? "Log out" : "Log in")
+                        Text(userAuthenticatedAndSignedIn() ? "Log out" : "Log in")
                             .fontWeight(.semibold)
                             .font(.system(size: 20))
                             .foregroundColor(.onSurface)
-                        Image(systemName: viewModel.userController.user != nil ? "arrow.left.square" : "arrow.right.square")
+                        Image(systemName: userAuthenticatedAndSignedIn() ? "arrow.left.square" : "arrow.right.square")
                             .foregroundColor(.onSurface)
                             .font(.system(size: 20))
                             .frame(width: 32)
@@ -116,8 +116,12 @@ struct SidebarMenu: View {
         })
     }
 
+    fileprivate func userAuthenticatedAndSignedIn() -> Bool {
+        return viewModel.userController.authStatus == .authorized || viewModel.userController.refreshToken != nil
+    }
+    
     func onPress() -> Void {
-        if viewModel.userController.authStatus == .authorized || viewModel.userController.refreshToken != nil {
+        if userAuthenticatedAndSignedIn() {
             viewModel.userController.logOut(completion: { success in
                 if success {
                     createToast(.success, "Logged out", "You've logged out from your account")

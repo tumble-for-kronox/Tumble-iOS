@@ -39,10 +39,10 @@ struct OnBoarding: View {
                     OnBoardingViewBuilder (header: "Saving schedules", subHeader: "Here's how to save a schedule") {
                         BookmarkInstructions()
                     }.tag(1)
-                    OnBoardingViewBuilder (header: "Signing up for exams", subHeader: "Here's how to sign up for an exam") {
+                    OnBoardingViewBuilder (header: "Signing up for events", subHeader: "Here's how to sign up for an event") {
                         ExamInstructions()
                     }.tag(2)
-                    OnBoardingViewBuilder (header: "Booking rooms", subHeader: "Here's how to book a room") {
+                    OnBoardingViewBuilder (header: "Booking resources", subHeader: "Here's how to book a resource") {
                         BookingInstructions()
                     }.tag(3)
                     OnBoardingViewBuilder (header: "Setting notifications", subHeader: "Here's how to set notifications") {

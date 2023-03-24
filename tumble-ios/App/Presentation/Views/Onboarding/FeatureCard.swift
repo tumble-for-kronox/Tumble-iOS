@@ -11,21 +11,18 @@ struct FeatureCard: View {
     let title: String
     let image: String
     var body: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 10)
-                .fill(Color("SurfaceColor"))
-            HStack {
-                Text(title)
-                    .featureText()
-                Spacer()
-                Image(systemName: image)
-                    .featureIcon()
-                    
-            }
-            .padding([.leading, .trailing], 20)
+        HStack (alignment: .center) {
+            Text(title)
+                .featureText()
+            Spacer()
+            Image(systemName: image)
+                .featureIcon()
         }
+        .padding(.horizontal, 15)
         .frame(height: 50)
-        .padding([.leading, .trailing], 20)
+        .background(Color.surface)
+        .cornerRadius(15)
+        .padding(.horizontal, 15)
         .padding([.top, .bottom], 10)
     }
 }

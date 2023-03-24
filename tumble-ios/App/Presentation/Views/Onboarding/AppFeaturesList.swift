@@ -10,11 +10,11 @@ import SwiftUI
 struct AppFeaturesList: View {
     var body: some View {
         ScrollView (showsIndicators: false) {
-            FeatureCard(title: "Saving schedules", image: "list.bullet.clipboard.fill")
+            FeatureCard(title: "Saving schedules", image: "bookmark.fill")
             
-            FeatureCard(title: "Signing up for exams", image: "graduationcap.fill")
+            FeatureCard(title: "Signing up for events", image: "graduationcap.fill")
             
-            FeatureCard(title: "Booking rooms", image: "studentdesk")
+            FeatureCard(title: "Booking resources", image: "studentdesk")
             
             FeatureCard(title: "Setting notifications", image: "bell.badge.fill")
             

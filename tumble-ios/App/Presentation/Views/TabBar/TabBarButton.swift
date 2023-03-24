@@ -13,11 +13,16 @@ struct TabBarButton: View {
     @Binding var selectedAppTab: TabbarTabType
    
     var body: some View {
-        VStack(spacing: 8) {
+        VStack(spacing: 0) {
             Image(systemName: isSelected() ? appTab.rawValue + ".fill" : appTab.rawValue)
                 .tabBarIcon(isSelected: isSelected())
+            Text(appTab.displayName)
+                .font(.system(size: 12, weight: .semibold))
+                .foregroundColor(isSelected() ? .primary : .onSurface)
+                .padding(.top, 5)
         }
         .frame(maxWidth: .infinity)
+        .padding(.top, 10)
         .onTapGesture {
             self.selectedAppTab = appTab
         }

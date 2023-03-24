@@ -37,8 +37,8 @@ extension Text {
             .padding(.bottom, 3)
     }
     
-    func titleBody() -> some View {
-        self.font(.system(size: 14))
+    func bodyInstructions() -> some View {
+        self.font(.system(size: 14, weight: .medium))
     }
     
     func titleSchool() -> some View {
@@ -46,7 +46,7 @@ extension Text {
     }
     
     func featureText() -> some View {
-        self.font(.system(size: 20))
+        self.font(.system(size: 20, weight: .medium))
             .foregroundColor(.onSurface)
     }
     

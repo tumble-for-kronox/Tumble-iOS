@@ -22,7 +22,7 @@ struct UsageCard: View {
                 Text(titleInstruction)
                     .titleInstructions()
                 Text(bodyInstruction)
-                    .titleBody()
+                    .bodyInstructions()
             }
             .frame(minHeight: 70, alignment: .top)
             .padding(.trailing, 10)

@@ -129,6 +129,7 @@
 		D4722161292455710063BDB7 /* KronoxManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D472215E292455710063BDB7 /* KronoxManager.swift */; };
 		D47386FF29C88E4F0035CD4C /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = D47386FE29C88E4F0035CD4C /* FirebaseAnalytics */; };
 		D473870129C88E4F0035CD4C /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = D473870029C88E4F0035CD4C /* FirebaseMessaging */; };
+		D475626C29CDEE9500B72008 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D475626B29CDEE9500B72008 /* GoogleService-Info.plist */; };
 		D476BD2A293A31FD0027CFE8 /* SchedulePreviewList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D476BD29293A31FD0027CFE8 /* SchedulePreviewList.swift */; };
 		D476BD2E293A32BF0027CFE8 /* RoundedCornerShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = D476BD2D293A32BF0027CFE8 /* RoundedCornerShape.swift */; };
 		D47A1AF729C00C0E004F03DB /* HomePageOptionStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47A1AF629C00C0E004F03DB /* HomePageOptionStyle.swift */; };
@@ -151,7 +152,6 @@
 		D49D2500299A9495001D2751 /* UserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49D24FF299A9495001D2751 /* UserController.swift */; };
 		D49D2502299AC240001D2751 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49D2501299AC240001D2751 /* ImagePicker.swift */; };
 		D4A328DE29CD10F300945AF4 /* URLRequestUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A328DD29CD10F300945AF4 /* URLRequestUtils.swift */; };
-		D4A328E229CD250B00945AF4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D4A328E129CD250B00945AF4 /* GoogleService-Info.plist */; };
 		D4A433B829951F2B00BFEB7A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A433B729951F2B00BFEB7A /* AppDelegate.swift */; };
 		D4A433BA29952A8A00BFEB7A /* EventExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A433B929952A8A00BFEB7A /* EventExtension.swift */; };
 		D4A433BC29952BE600BFEB7A /* DictionaryExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A433BB29952BE600BFEB7A /* DictionaryExtension.swift */; };
@@ -330,6 +330,7 @@
 		D472214F292454570063BDB7 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		D472215E292455710063BDB7 /* KronoxManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KronoxManager.swift; sourceTree = "<group>"; };
 		D473870229C895510035CD4C /* tumble-ios.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "tumble-ios.entitlements"; sourceTree = "<group>"; };
+		D475626B29CDEE9500B72008 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D476BD29293A31FD0027CFE8 /* SchedulePreviewList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulePreviewList.swift; sourceTree = "<group>"; };
 		D476BD2D293A32BF0027CFE8 /* RoundedCornerShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedCornerShape.swift; sourceTree = "<group>"; };
 		D47A1AF629C00C0E004F03DB /* HomePageOptionStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageOptionStyle.swift; sourceTree = "<group>"; };
@@ -352,7 +353,6 @@
 		D49D24FF299A9495001D2751 /* UserController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserController.swift; sourceTree = "<group>"; };
 		D49D2501299AC240001D2751 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		D4A328DD29CD10F300945AF4 /* URLRequestUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLRequestUtils.swift; sourceTree = "<group>"; };
-		D4A328E129CD250B00945AF4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D4A433B729951F2B00BFEB7A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D4A433B929952A8A00BFEB7A /* EventExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventExtension.swift; sourceTree = "<group>"; };
 		D4A433BB29952BE600BFEB7A /* DictionaryExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryExtension.swift; sourceTree = "<group>"; };
@@ -467,7 +467,6 @@
 		D40D80A429252156008CA68D /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				D4D4CD1F299D273200D48180 /* Types */,
 				D4ABD273298C2EAF002FD8F5 /* Repository */,
 				D4ABD26E298C2E02002FD8F5 /* Model */,
 				D4ABD26C298C2DF0002FD8F5 /* Presentation */,
@@ -913,7 +912,7 @@
 		D4722147292454560063BDB7 /* tumble-ios */ = {
 			isa = PBXGroup;
 			children = (
-				D4A328E129CD250B00945AF4 /* GoogleService-Info.plist */,
+				D475626B29CDEE9500B72008 /* GoogleService-Info.plist */,
 				D473870229C895510035CD4C /* tumble-ios.entitlements */,
 				D4D4DD212927CFFA0083BB7F /* Info.plist */,
 				D47221582924548A0063BDB7 /* App */,
@@ -1198,13 +1197,6 @@
 			path = Navigation;
 			sourceTree = "<group>";
 		};
-		D4D4CD1F299D273200D48180 /* Types */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Types;
-			sourceTree = "<group>";
-		};
 		D4D4DD062927CA660083BB7F /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -1426,7 +1418,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D4BAE61929246AA200143717 /* schools.json in Resources */,
-				D4A328E229CD250B00945AF4 /* GoogleService-Info.plist in Resources */,
+				D475626C29CDEE9500B72008 /* GoogleService-Info.plist in Resources */,
 				D4722150292454570063BDB7 /* Preview Assets.xcassets in Resources */,
 				D472214D292454570063BDB7 /* Assets.xcassets in Resources */,
 			);

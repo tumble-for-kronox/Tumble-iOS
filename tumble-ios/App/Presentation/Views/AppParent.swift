@@ -92,8 +92,7 @@ struct AppParent: View {
                             .onTapGesture {
                                 withAnimation {
                                     handleSideBarAction(
-                                        shouldShowSideBar: false,
-                                        newSideBarTab: .none
+                                        shouldShowSideBar: false
                                     )
                                 }
                             }
@@ -107,7 +106,7 @@ struct AppParent: View {
         .zIndex(1)
     }
     
-    fileprivate func handleSideBarAction(shouldShowSideBar: Bool, newSideBarTab: SidebarTabType) -> Void {
+    fileprivate func handleSideBarAction(shouldShowSideBar: Bool) -> Void {
         appController.showSideBar = shouldShowSideBar
     }
     

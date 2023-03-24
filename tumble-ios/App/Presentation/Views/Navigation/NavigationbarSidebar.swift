@@ -10,12 +10,12 @@ import SwiftUI
 struct NavigationbarSidebar: View {
     
     @Binding var showSideBar: Bool
-    let handleClose: (Bool, SidebarTabType) -> Void
+    let handleClose: (Bool) -> Void
     
     var body: some View {
         Button(action: {
             withAnimation(.spring()) {
-                handleClose(showSideBar ? false : true, showSideBar ? .none : .none)
+                handleClose(showSideBar ? false : true)
             }
         }, label: {
             VStack (spacing: 5) {

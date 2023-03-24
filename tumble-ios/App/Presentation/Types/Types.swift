@@ -28,7 +28,6 @@ enum TabbarTabType: String {
 }
 
 enum SidebarTabType: String {
-    case none = ""
     case notifications = "Notifications" // Opens sheet
     case bookmarks = "Bookmarks"
     case more = "More"

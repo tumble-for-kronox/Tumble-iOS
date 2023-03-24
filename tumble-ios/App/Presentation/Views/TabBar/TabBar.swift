@@ -16,8 +16,9 @@ struct TabBar: View {
                 TabBarButton(appTab: .bookmarks, selectedAppTab: $selectedAppTab)
                 TabBarButton(appTab: .account, selectedAppTab: $selectedAppTab)
             }
+            .frame(maxHeight: 20)
             .padding()
-            .background(Color.background)
+            .background(Color.surface)
         }
 }
 

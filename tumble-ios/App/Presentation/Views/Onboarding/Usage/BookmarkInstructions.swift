@@ -14,9 +14,9 @@ struct BookmarkInstructions: View {
             
             UsageCard(titleInstruction: "Open", bodyInstruction: "Open the schedule you want to view", image: "rectangle.and.hand.point.up.left.filled")
             
-            UsageCard(titleInstruction: "Bookmark", bodyInstruction: "Press the bookmark icon on the bottom left ", image: "bookmark")
+            UsageCard(titleInstruction: "Bookmark", bodyInstruction: "Press the 'bookmark' button on the bottom left ", image: "bookmark")
             
-            UsageCard(titleInstruction: "Check it out", bodyInstruction: "View your schedule in your schedule view", image: "arrowshape.turn.up.backward")
+            UsageCard(titleInstruction: "Check it out", bodyInstruction: "View your schedule in your preferred schedule view", image: "arrowshape.turn.up.backward")
         }
     }
 }
