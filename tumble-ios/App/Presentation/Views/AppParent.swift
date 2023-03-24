@@ -102,6 +102,7 @@ struct AppParent: View {
             .offset(x: appController.showSideBar ? getRect().width - 120 : 0)
             .toastView(toast: $appController.toast)
             .ignoresSafeArea()
+            .navigationViewStyle(StackNavigationViewStyle())
         }
         .zIndex(1)
     }
