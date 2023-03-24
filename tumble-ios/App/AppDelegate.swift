@@ -14,23 +14,27 @@ import FirebaseMessaging
 class AppDelegate: NSObject, UIApplicationDelegate {
     let gcmMessageIDKey = "gcm.message_id"
 
-    func application(
-        _ application: UIApplication,
-        didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
-                        
-            FirebaseApp.configure()
-            Messaging.messaging().delegate = self
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+        FirebaseApp.configure()
 
-            if #available(iOS 10.0, *) {
-              // For iOS 10 display notification (sent via APNS)
-                UNUserNotificationCenter.current().delegate = self
-            } else {
-              let settings: UIUserNotificationSettings =
-              UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
-              application.registerUserNotificationSettings(settings)
-            }
-            application.registerForRemoteNotifications()
-            return true
+        Messaging.messaging().delegate = self
+
+        if #available(iOS 10.0, *) {
+          // For iOS 10 display notification (sent via APNS)
+          UNUserNotificationCenter.current().delegate = self
+
+          let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
+          UNUserNotificationCenter.current().requestAuthorization(
+            options: authOptions,
+            completionHandler: {_, _ in })
+        } else {
+          let settings: UIUserNotificationSettings =
+          UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
+          application.registerUserNotificationSettings(settings)
+        }
+
+        application.registerForRemoteNotifications()
+        return true
     }
 
     func application(
@@ -39,7 +43,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
 
           if let messageID = userInfo[gcmMessageIDKey] {
-              AppLogger.shared.info("Message ID: \(messageID)", source: "AppDelegate")
+              AppLogger.shared.info("Message ID: \(messageID)")
           }
 
           AppLogger.shared.info("\(userInfo)")
@@ -49,16 +53,19 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 }
 
 extension AppDelegate: MessagingDelegate {
-    func messaging(
-        _ messaging: Messaging,
-        didReceiveRegistrationToken fcmToken: String?) {
-            let deviceToken: [String: String] = ["token": fcmToken ?? ""]
-            AppLogger.shared.info("Device token: \(deviceToken)", source: "AppDelegate") // Unique user device token for remote FCM
-            if deviceToken["token"] != nil {
-                Messaging.messaging().subscribe(toTopic: "news") { error in
-                    AppLogger.shared.info("Failed to subscribe to news topic", source: "AppDelegate")
+    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
+
+      let deviceToken: [String: String] = ["token": fcmToken ?? ""]
+        AppLogger.shared.debug("Device token: \(deviceToken)")
+        if deviceToken["token"] != nil {
+            Messaging.messaging().subscribe(toTopic: "updates") { error in
+                if let error = error {
+                    AppLogger.shared.info("Failed to subscribe to news topic: \(error.localizedDescription)", source: "AppDelegate")
+                } else {
+                    AppLogger.shared.info("Subscribed to news topic", source: "AppDelegate")
                 }
             }
+        }
     }
 }
 
@@ -73,14 +80,12 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
         completionHandler([[.banner, .badge, .list, .sound]])
   }
 
-    func application(
-        _ application: UIApplication,
-        didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        AppLogger.shared.info("Registered for remote notifications device token: \(deviceToken)", source: "AppDelegate")
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        AppLogger.shared.critical("Failed to register for remote notifications for the current device token: \(deviceToken)")
     }
 
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
-        AppLogger.shared.critical("Failed to register for remote notifications: \(error)", source: "AppDelegate")
+        AppLogger.shared.critical("Failed to register for remote notifications: \(error)")
     }
 
   func userNotificationCenter(
@@ -89,7 +94,7 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
     withCompletionHandler completionHandler: @escaping () -> Void) {
         
         let userInfo = response.notification.request.content.userInfo
-        AppLogger.shared.info("\(userInfo)")
+
         if let event = (userInfo[NotificationContentKey.event.rawValue] as! [String : Any]).toEvent() {
             // Message successully parsed as Event, which means it was a local notification
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
@@ -100,10 +105,10 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
             }
         }
         
-        else if let messageID = userInfo[gcmMessageIDKey] {
-            AppLogger.shared.info("Message ID from userNotificationCenter didReceive: \(messageID)", source: "AppDelegate")
+        if let messageID = userInfo[gcmMessageIDKey] {
+            AppLogger.shared.info("Message ID from userNotificationCenter didReceive: \(messageID)")
         }
 
         completionHandler()
-    }
+  }
 }
