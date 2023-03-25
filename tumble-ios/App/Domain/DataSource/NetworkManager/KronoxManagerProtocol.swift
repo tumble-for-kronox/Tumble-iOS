@@ -12,12 +12,14 @@ protocol KronoxManagerProtocol {
     func get<NetworkResponse: Decodable>(
         _ endpoint: Endpoint,
         refreshToken: String?,
-        then completion: ((Result<NetworkResponse, Response.ErrorMessage>) -> Void)?)
+        then completion: ((Result<NetworkResponse, Response.ErrorMessage>) -> Void)?
+    ) -> URLSessionDataTask?
     
     func put<NetworkResponse: Decodable, Request: Encodable>(
         _ endpoint: Endpoint,
         refreshToken: String?,
         body: Request?,
-        then completion: ((Result<NetworkResponse, Response.ErrorMessage>) -> Void)?)
+        then completion: ((Result<NetworkResponse, Response.ErrorMessage>) -> Void)?
+    ) -> URLSessionDataTask?
     
 }

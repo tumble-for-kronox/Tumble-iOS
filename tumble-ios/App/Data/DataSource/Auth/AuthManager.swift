@@ -14,6 +14,7 @@ class AuthManager: AuthManagerProtocol {
     private let encoder = JSONEncoder.shared
     private let decoder = JSONDecoder.shared
     private let urlRequestUtils = URLRequestUtils.shared
+    private let keychainManager = KeyChainManager()
     
     init() {
         
@@ -21,12 +22,7 @@ class AuthManager: AuthManagerProtocol {
         // potentially strange state behavior
         serialQueue.maxConcurrentOperationCount = 1
         serialQueue.qualityOfService = .userInitiated
-        
-        let config: URLSessionConfiguration = URLSessionConfiguration.default
-        config.timeoutIntervalForRequest = 20
-        config.timeoutIntervalForResource = 20
-        
-        self.urlSession = URLSession(configuration: config)
+        self.urlSession = URLSession.shared
     }
     
     var refreshToken: Token? {
@@ -108,7 +104,7 @@ extension AuthManager {
         let tokensToDelete = [TokenType.refreshToken.rawValue, TokenType.sessionToken.rawValue]
 
         for token in tokensToDelete {
-            self.deleteKeyChain(for: token, account: school.name) { result in
+            self.keychainManager.deleteKeyChain(for: token, account: school.name) { result in
                 switch result {
                 case .success:
                     AppLogger.shared.info("Successfully cleared keychain of \(token)")
@@ -135,7 +131,7 @@ extension AuthManager {
                     body: userRequest
                 )
                 if let urlRequest = urlRequest {
-                    urlSession.dataTask(with: urlRequest, completionHandler: { data, response, error in
+                    urlSession.dataTask(with: urlRequest, completionHandler: { [unowned self] data, response, error in
                         self.handleAuthResponse(
                             data: data,
                             response: response,
@@ -165,7 +161,7 @@ extension AuthManager {
                     body: user
                 )
                 if let urlRequest = urlRequest {
-                    urlSession.dataTask(with: urlRequest, completionHandler: { data, response, error in
+                    urlSession.dataTask(with: urlRequest, completionHandler: { [unowned self] data, response, error in
                         self.handleAuthResponse(
                             password: user.password,
                             data: data,
@@ -188,12 +184,12 @@ extension AuthManager {
                 refreshToken: token.value
             )
             if let urlRequest = urlRequest {
-                urlSession.dataTask(with: urlRequest, completionHandler: { data, response, error in
+                urlSession.dataTask(with: urlRequest, completionHandler: { [unowned self] data, response, error in
                     self.handleAuthResponse(
                         data: data,
                         response: response,
                         error: error as? Error,
-                        completionHandler: { (result: Result<TumbleUser, Error>) in
+                        completionHandler: { [unowned self](result: Result<TumbleUser, Error>) in
                         switch result {
                         case .success(let user):
                             completionHandler(.success(user))
@@ -258,7 +254,7 @@ extension AuthManager {
     
     private func getToken(tokenType: TokenType) -> Token? {
         if let school = self.getDefaultSchool() {
-            if let data = self.readKeyChain(for: tokenType.rawValue, account: school.name) {
+            if let data = self.keychainManager.readKeyChain(for: tokenType.rawValue, account: school.name) {
                 do {
                     return try decoder.decode(Token.self, from: data)
                 } catch {
@@ -272,7 +268,7 @@ extension AuthManager {
     private func getUser() -> TumbleUser? {
         do {
             if let school = self.getDefaultSchool() {
-                if let data = self.readKeyChain(for: "tumble-user", account: school.name) {
+                if let data = self.keychainManager.readKeyChain(for: "tumble-user", account: school.name) {
                     let user = try decoder.decode(TumbleUser.self, from: data)
                     return TumbleUser(username: user.username, password: user.password, name: user.name)
                 }
@@ -288,7 +284,7 @@ extension AuthManager {
         do {
             let data = try encoder.encode(newValue)
             if let school = self.getDefaultSchool() {
-                self.saveKeyChain(data, for: "tumble-user", account: school.name, completion: { result in
+                self.keychainManager.saveKeyChain(data, for: "tumble-user", account: school.name, completion: { result in
                     switch result {
                     case .success:
                         AppLogger.shared.info("Updated user in keychain")
@@ -307,7 +303,7 @@ extension AuthManager {
             if newValue != nil {
                 do {
                     let storedData = try encoder.encode(newValue)
-                    self.saveKeyChain(storedData, for: tokenType.rawValue, account: school.name) { result in
+                    self.keychainManager.saveKeyChain(storedData, for: tokenType.rawValue, account: school.name) { result in
                         switch result {
                         case .success(_):
                             AppLogger.shared.info("Successfully stored \(tokenType.rawValue)")
@@ -320,7 +316,7 @@ extension AuthManager {
                 }
                 
             } else {
-                self.deleteKeyChain(for: tokenType.rawValue, account: school.name, completion: { result in
+                self.keychainManager.deleteKeyChain(for: tokenType.rawValue, account: school.name, completion: { result in
                     switch result {
                     case .success(_):
                         AppLogger.shared.info("Successfully deleted \(tokenType.rawValue)")
@@ -330,92 +326,5 @@ extension AuthManager {
                 })
             }
         }
-    }
-    
-    private func updateKeyChain(
-        _ data: Data,
-        for service: String,
-        account: String,
-        completion: @escaping (Result<Bool, Error>) -> Void) {
-            let query = [
-                    kSecClass: kSecClassGenericPassword,
-                    kSecAttrService: service,
-                    kSecAttrAccount: account
-                ] as CFDictionary
-
-                let attributes = [
-                    kSecValueData: data
-                ] as CFDictionary
-
-            let status = SecItemUpdate(query, attributes)
-            guard status == errSecSuccess else {
-                completion(.failure(.internal(reason: status.description)))
-                return
-            }
-            completion(.success(true))
-    }
-    
-    
-    private func deleteKeyChain(
-        for service: String,
-        account: String,
-        completion: @escaping (Result<Bool, Error>) -> Void) {
-            let query = [
-                kSecAttrService: service,
-                kSecAttrAccount: account,
-                kSecClass: kSecClassGenericPassword,
-                ] as CFDictionary
-            
-            // Delete item from keychain
-            SecItemDelete(query)
-            AppLogger.shared.info("Deleted item from keychain")
-            completion(.success(true))
-    }
-    
-    private func readKeyChain(for service: String, account: String) -> Data? {
-        let query = [
-            kSecAttrService: service,
-            kSecAttrAccount: account,
-            kSecClass: kSecClassGenericPassword,
-            kSecReturnData: true
-        ] as CFDictionary
-        
-        var result: AnyObject?
-        SecItemCopyMatching(query, &result)
-        
-        guard let data = result as? Data else {
-            return nil
-        }
-        return data
-    }
-    
-    private func saveKeyChain(
-        _ data: Data,
-        for service: String,
-        account: String,
-        completion: @escaping (Result<Bool, Error>) -> Void) {
-            let query = [
-                kSecValueData: data,
-                kSecClass: kSecClassGenericPassword,
-                kSecAttrService: service,
-                kSecAttrAccount: account,
-            ] as CFDictionary
-            
-            // Add data in query to keychain
-            let status = SecItemAdd(query, nil)
-            
-            if status == errSecDuplicateItem {
-                updateKeyChain(data, for: service, account: account, completion: completion)
-                return
-            }
-            
-            if status != errSecSuccess {
-                AppLogger.shared.info("Could not save item to keychain -> \(status)")
-                completion(.failure(.internal(reason: status.description)))
-                return
-            }
-            
-            AppLogger.shared.info("Added item to keychain")
-            completion(.success(true))
     }
 }

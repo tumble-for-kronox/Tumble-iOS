@@ -20,10 +20,7 @@ class KronoxManager: KronoxManagerProtocol {
         
         self.serialQueue.maxConcurrentOperationCount = 1
         self.serialQueue.qualityOfService = .userInitiated
-        let config: URLSessionConfiguration = URLSessionConfiguration.default
-        config.timeoutIntervalForRequest = 20
-        config.timeoutIntervalForResource = 20
-        self.session = URLSession(configuration: config)
+        self.session = URLSession.shared
     }
     
     // [HTTP GET]
@@ -31,9 +28,9 @@ class KronoxManager: KronoxManagerProtocol {
         _ endpoint: Endpoint,
         refreshToken: String? = nil,
         then completion: ((Result<NetworkResponse, Response.ErrorMessage>) -> Void)? = nil
-    ) {
+    ) -> URLSessionDataTask? {
         let body: Request.Empty? = nil
-        self.createRequest(refreshToken: refreshToken, endpoint: endpoint, method: .get, body: body) { result in
+        return self.createRequest(refreshToken: refreshToken, endpoint: endpoint, method: .get, body: body) { result in
             completion?(result)
         }
     }
@@ -43,8 +40,9 @@ class KronoxManager: KronoxManagerProtocol {
         _ endpoint: Endpoint,
         refreshToken: String? = nil,
         body: Request? = nil,
-        then completion: ((Result<NetworkResponse, Response.ErrorMessage>) -> Void)?) {
-        self.createRequest(refreshToken: refreshToken, endpoint: endpoint, method: .put, body: body) { result in
+        then completion: ((Result<NetworkResponse, Response.ErrorMessage>) -> Void)? = nil
+    ) -> URLSessionDataTask? {
+        return self.createRequest(refreshToken: refreshToken, endpoint: endpoint, method: .put, body: body) { result in
             completion?(result)
         }
     }
@@ -55,21 +53,24 @@ class KronoxManager: KronoxManagerProtocol {
         endpoint: Endpoint,
         method: Method,
         body: Request? = nil,
-        completion: @escaping (Result<NetworkResponse, Response.ErrorMessage>) -> Void) {
-            serialQueue.addOperation {
-                let semaphore = DispatchSemaphore(value: 0)
-                self.processNetworkRequest(
-                    refreshToken: refreshToken,
-                    endpoint: endpoint,
-                    method: method,
-                    body: body,
-                    completion: { (result: Result<NetworkResponse, Response.ErrorMessage>) in
-                    completion(result)
-                    semaphore.signal()
-                })
-                _ = semaphore.wait(timeout: DispatchTime.distantFuture)
+        completion: @escaping (Result<NetworkResponse, Response.ErrorMessage>) -> Void
+    ) -> URLSessionDataTask? {
+            guard let urlRequest = urlRequestUtils.createUrlRequest(
+                method: method,
+                endpoint: endpoint,
+                refreshToken: refreshToken,
+                body: body)
+            else {
+                completion(.failure(Response.ErrorMessage(message: "Something went wrong on our end")))
+                return nil
             }
-        }
+            let networkTask: URLSessionDataTask = createUrlSessionDataTask(
+                urlRequest: urlRequest,
+                completion: completion
+            )
+            networkTask.resume()
+            return networkTask
+    }
     
     
     // Processes the queued network request, creating a URLSessionDataTask
@@ -90,49 +91,49 @@ class KronoxManager: KronoxManagerProtocol {
     
     // Creates a URLSessionDataTask that handles all possible response cases
     fileprivate func createUrlSessionDataTask<NetworkResponse: Decodable>(
-        urlRequest: URLRequest,
-        completion: @escaping (Result<NetworkResponse, Response.ErrorMessage>) -> Void) -> URLSessionDataTask {
-            return self.session
-                .dataTask(with: urlRequest) { data, response, error in
-                    if let error = error {
-                        completion(.failure(Response.ErrorMessage(message: "Could not contact the server: \(error)")))
-                        return
-                    }
-                    if let statusCode = (response as? HTTPURLResponse)?.statusCode {
-                        guard let data = data else {
-                            completion(.failure(Response.ErrorMessage(message: "Failed to retrieve data", statusCode: statusCode)))
-                            return
-                        }
-                        switch statusCode {
-                        case 200:
-                            do {
-                                let result = try self.decoder.decode(NetworkResponse.self, from: data)
-                                completion(.success(result))
-                            } catch (let error) {
-                                AppLogger.shared.critical("Failed to decode response to object \(NetworkResponse.self). Attempting to parse as empty obejct since status was 200. Error: \(error)",
-                                  source: "NetworkManager")
-                                if let result = Response.Empty() as? NetworkResponse {
-                                    completion(.success(result))
-                                    return
-                                }
-                                completion(.failure(Response.ErrorMessage(message: "Unable to convert empty response object to \(NetworkResponse.self)", statusCode: statusCode)))
-                            }
-                        case 400:
-                            do {
-                                /// Try parsing as error message that failed
-                                let result = try self.decoder.decode(Response.ErrorMessage.self, from: data)
-                                completion(.failure(result))
-                            } catch {
-                                AppLogger.shared.critical("Failed to decode response to object \(Response.ErrorMessage.self)",
-                                  source: "NetworkManager")
-                                completion(.failure(Response.ErrorMessage(message: "Unable to convert empty response object to \(NetworkResponse.self)", statusCode: statusCode)))
-                            }
-                        default:
-                            completion(.failure(Response.ErrorMessage(message: "Something went wrong", statusCode: statusCode)))
-                        }
+            urlRequest: URLRequest,
+            completion: @escaping (Result<NetworkResponse, Response.ErrorMessage>) -> Void) -> URLSessionDataTask {
+        
+        let task = session.dataTask(with: urlRequest) { [unowned self] data, response, error in
+            guard let httpResponse = response as? HTTPURLResponse else {
+                completion(.failure(Response.ErrorMessage(message: "Did not receive valid HTTP response")))
+                return
+            }
+            
+            guard let data = data else {
+                completion(.failure(Response.ErrorMessage(message: "Failed to retrieve data", statusCode: httpResponse.statusCode)))
+                return
+            }
+            
+            switch httpResponse.statusCode {
+            case 200:
+                do {
+                    let result = try self.decoder.decode(NetworkResponse.self, from: data)
+                    completion(.success(result))
+                } catch let error {
+                    AppLogger.shared.critical("Failed to decode response to object \(NetworkResponse.self). Attempting to parse as empty object since status was 200. Error: \(error)",
+                                              source: "NetworkManager")
+                    if let result = Response.Empty() as? NetworkResponse {
+                        completion(.success(result))
                     } else {
-                        completion(.failure(Response.ErrorMessage(message: "Did not receive valid HTTP response")))
+                        completion(.failure(Response.ErrorMessage(message: "Unable to convert empty response object to \(NetworkResponse.self)", statusCode: httpResponse.statusCode)))
                     }
                 }
+            case 400:
+                do {
+                    let result = try self.decoder.decode(Response.ErrorMessage.self, from: data)
+                    completion(.failure(result))
+                } catch {
+                    AppLogger.shared.critical("Failed to decode response to object \(Response.ErrorMessage.self)",
+                                              source: "NetworkManager")
+                    completion(.failure(Response.ErrorMessage(message: "Unable to convert empty response object to \(NetworkResponse.self)", statusCode: httpResponse.statusCode)))
+                }
+            default:
+                completion(.failure(Response.ErrorMessage(message: "Something went wrong", statusCode: httpResponse.statusCode)))
+            }
         }
+        
+        return task
+    }
+
 }

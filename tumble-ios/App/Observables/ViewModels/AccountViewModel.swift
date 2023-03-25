@@ -47,6 +47,8 @@ struct ExamDetailSheetModel: Identifiable {
     @Published var examDetailSheetModel: ExamDetailSheetModel? = nil
     
     private let jsonEncoder = JSONEncoder.shared
+    private var resourceSectionDataTask: URLSessionDataTask? = nil
+    private var eventSectionDataTask: URLSessionDataTask? = nil
     
     init() {
         self.school = preferenceService.getDefaultSchool()
@@ -108,7 +110,7 @@ struct ExamDetailSheetModel: Identifiable {
                         date: isoDateFormatterFract.string(from: date),
                         slot: availabilityValue
                     )
-                    self.networkManager.put(requestUrl, refreshToken: refreshToken, body: requestBody) {
+                    let _ = self.networkManager.put(requestUrl, refreshToken: refreshToken, body: requestBody) {
                         (result: Result<Response.Empty, Response.ErrorMessage>) in
                         switch result {
                         case .success:
@@ -135,7 +137,7 @@ struct ExamDetailSheetModel: Identifiable {
                 switch result {
                 case .success((let schoolId, let refreshToken)):
                     let requestUrl: Endpoint = .unbookResource(schoolId: String(schoolId), bookingId: bookingId)
-                    self.networkManager.put(requestUrl, refreshToken: refreshToken, body: Request.Empty()) {
+                    let _ = self.networkManager.put(requestUrl, refreshToken: refreshToken, body: Request.Empty()) {
                         (result: Result<Response.Empty, Response.ErrorMessage>) in
                         switch result {
                         case .success:
@@ -163,7 +165,7 @@ struct ExamDetailSheetModel: Identifiable {
                 switch result {
                 case .success((let schoolId, let refreshToken)):
                     let request = Endpoint.allResources(schoolId: String(schoolId), date: date)
-                    self.networkManager.get(request, refreshToken: refreshToken,
+                    let _ = self.networkManager.get(request, refreshToken: refreshToken,
                     then: { [unowned self] (result: Result<Response.KronoxResources?, Response.ErrorMessage>) in
                         switch result {
                         case .success(let resources):
@@ -201,7 +203,7 @@ struct ExamDetailSheetModel: Identifiable {
                 switch result {
                 case .success((let schoolId, let refreshToken)):
                     let request = Endpoint.userEvents(schoolId: String(schoolId))
-                    networkManager.get(request, refreshToken: refreshToken,
+                    self.eventSectionDataTask = networkManager.get(request, refreshToken: refreshToken,
                     then: { [unowned self] (result: Result<Response.KronoxCompleteUserEvent?, Response.ErrorMessage>) in
                         switch result {
                         case .success(let events):
@@ -222,6 +224,7 @@ struct ExamDetailSheetModel: Identifiable {
                     }
                 }
             })
+        cancelDataTaskIfTabChanged(dataTask: eventSectionDataTask)
     }
     
     func getUserEventsForPage(tries: Int = 0, completion: (() -> Void)? = nil) {
@@ -235,7 +238,7 @@ struct ExamDetailSheetModel: Identifiable {
                 switch result {
                 case .success((let schoolId, let refreshToken)):
                     let request = Endpoint.userEvents(schoolId: String(schoolId))
-                    networkManager.get(request, refreshToken: refreshToken,
+                    let _ = networkManager.get(request, refreshToken: refreshToken,
                     then: { [unowned self] (result: Result<Response.KronoxCompleteUserEvent?, Response.ErrorMessage>) in
                         switch result {
                         case .success(let events):
@@ -258,7 +261,8 @@ struct ExamDetailSheetModel: Identifiable {
                 }
             })
     }
-    
+
+
     func getUserBookingsForSection(tries: Int = 1) {
         DispatchQueue.main.async {
             self.bookingSectionState = .loading
@@ -270,8 +274,9 @@ struct ExamDetailSheetModel: Identifiable {
                 switch result {
                 case .success((let schoolId, let refreshToken)):
                     let request = Endpoint.userBookings(schoolId: String(schoolId))
-                    networkManager.get(request, refreshToken: refreshToken,
-                       then: { [unowned self] (result: Result<Response.KronoxUserBookings?, Response.ErrorMessage>) in
+                    self.resourceSectionDataTask = networkManager.get(request, refreshToken: refreshToken,
+                       then: { [weak self] (result: Result<Response.KronoxUserBookings?, Response.ErrorMessage>) in
+                        guard let self = self else { return }
                         switch result {
                         case .success(let bookings):
                             DispatchQueue.main.async {
@@ -293,6 +298,7 @@ struct ExamDetailSheetModel: Identifiable {
                     }
                 }
             })
+        cancelDataTaskIfTabChanged(dataTask: resourceSectionDataTask)
     }
     
     func registerForEvent(
@@ -308,7 +314,7 @@ struct ExamDetailSheetModel: Identifiable {
                 switch result {
                 case .success((let schoolId, let refreshToken)):
                     let request = Endpoint.registerEvent(eventId: eventId, schoolId: String(schoolId))
-                    networkManager.put(request, refreshToken: refreshToken, body: Request.Empty(),
+                    let _ = networkManager.put(request, refreshToken: refreshToken, body: Request.Empty(),
                        then: { (result: Result<Response.Empty, Response.ErrorMessage>) in
                         DispatchQueue.main.async {
                             switch result {
@@ -340,7 +346,7 @@ struct ExamDetailSheetModel: Identifiable {
                 switch result {
                 case .success((let schoolId, let refreshToken)):
                     let request = Endpoint.unregisterEvent(eventId: eventId, schoolId: String(schoolId))
-                    networkManager.put(request, refreshToken: refreshToken, body: Request.Empty(),
+                    let _ = networkManager.put(request, refreshToken: refreshToken, body: Request.Empty(),
                        then: { (result: Result<Response.Empty, Response.ErrorMessage>) in
                         DispatchQueue.main.async {
                             switch result {
@@ -388,7 +394,7 @@ extension AccountViewModel {
                 switch result {
                 case .success((let schoolId, let refreshToken)):
                     let request = Endpoint.registerAllEvents(schoolId: String(schoolId))
-                    networkManager.put(request, refreshToken: refreshToken, body: Request.Empty(),
+                    let _ = networkManager.put(request, refreshToken: refreshToken, body: Request.Empty(),
                        then: { (result: Result<Response.KronoxEventRegistration?, Response.ErrorMessage>) in
                         DispatchQueue.main.async {
                             switch result {
@@ -439,5 +445,19 @@ extension AccountViewModel {
         }
         execute(.success((school.id, refreshToken.value)))
     }
+    
+    fileprivate func cancelDataTaskIfTabChanged(dataTask: URLSessionDataTask?) {
+        let currentSelectedTab = AppController.shared.selectedAppTab
+        DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + .seconds(1)) {
+            if AppController.shared.selectedAppTab != currentSelectedTab {
+                DispatchQueue.main.async {
+                    // selected app tab has changed, cancel the dataTask
+                    AppLogger.shared.info("Cancelling task due to tab change")
+                    dataTask?.cancel()
+                }
+            }
+        }
+    }
+
 
 }
