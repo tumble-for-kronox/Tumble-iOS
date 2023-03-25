@@ -11,7 +11,7 @@ import SwiftUI
 struct BookButtonStyle: ButtonStyle {
     func makeBody(configuration: Self.Configuration) -> some View {
         configuration.label
-            .frame(minWidth: 85, maxHeight: 50)
+            .frame(minWidth: 85, maxHeight: 40)
             .background(Color.primary)
             .cornerRadius(20)
             .scaleEffect(configuration.isPressed ? 0.9 : 1)

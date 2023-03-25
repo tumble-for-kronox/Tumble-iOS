@@ -25,6 +25,8 @@ struct AccountPage: View {
                 }
             }
         }
+        .frame(maxHeight: .infinity)
+        .ignoresSafeArea(.keyboard)
         .background(Color.background)
         .padding(.bottom, -10)
     }

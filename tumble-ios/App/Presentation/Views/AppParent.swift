@@ -30,14 +30,18 @@ struct AppParent: View {
             Color.surface
                 .ignoresSafeArea()
             
-            SidebarMenu(
-                viewModel: viewModel.sidebarViewModel,
-                showSideBar: $appController.showSideBar,
-                selectedBottomTab: $appController.selectedAppTab,
-                createToast: createToast,
-                removeBookmark: removeBookmark,
-                updateBookmarks: updateBookmarks,
-                onChangeSchool: onChangeSchool)
+            GeometryReader { geometry in
+                SidebarMenu(
+                    viewModel: viewModel.sidebarViewModel,
+                    showSideBar: $appController.showSideBar,
+                    selectedBottomTab: $appController.selectedAppTab,
+                    createToast: createToast,
+                    removeBookmark: removeBookmark,
+                    updateBookmarks: updateBookmarks,
+                    onChangeSchool: onChangeSchool)
+                    .padding(.bottom, geometry.safeAreaInsets.bottom) // apply safe area insets manually
+            }
+            .ignoresSafeArea(.keyboard)
             
             NavigationView {
                 VStack {
@@ -101,10 +105,11 @@ struct AppParent: View {
             )
             .offset(x: appController.showSideBar ? getRect().width - 120 : 0)
             .toastView(toast: $appController.toast)
-            .ignoresSafeArea()
+            .ignoresSafeArea(.keyboard)
             .navigationViewStyle(StackNavigationViewStyle())
         }
         .zIndex(1)
+        .ignoresSafeArea(.keyboard)
     }
     
     fileprivate func handleSideBarAction(shouldShowSideBar: Bool) -> Void {

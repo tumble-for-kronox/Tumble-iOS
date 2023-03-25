@@ -37,8 +37,9 @@ struct SidebarMenu: View {
                     .foregroundColor(.onSurface)
                     .padding(.top, 10)
             }
+            .ignoresSafeArea(.keyboard)
             .padding(.leading, 10)
-            .padding(.top, 60)
+            .padding(.top, 25)
             .padding(.trailing, 120)
             
             /// List of sidebar menu options. Each onClick should
@@ -65,6 +66,7 @@ struct SidebarMenu: View {
                                   parentViewModel: viewModel, selectedSideBarTab: $selectedSideBarTab
                                   )
             }
+            .ignoresSafeArea(.keyboard)
             .padding(.top, 40)
             .padding(.leading, -16)
             
@@ -95,8 +97,9 @@ struct SidebarMenu: View {
                     .padding(.bottom, 55)
                     .padding(.leading, 8)
             }
-            
+            .ignoresSafeArea(.keyboard)
         }
+        .ignoresSafeArea(.keyboard)
         .padding(.top, 20)
         .padding(8)
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)

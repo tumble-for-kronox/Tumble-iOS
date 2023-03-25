@@ -13,43 +13,44 @@ struct ResourceBookings: View {
     @State private var selectedPickerDate: Date = Date.now
     
     var body: some View {
-        ScrollView (showsIndicators: false) {
-            ResourceDatePicker(date: $selectedPickerDate)
-            Divider()
-                .foregroundColor(.onBackground)
-            switch parentViewModel.resourceBookingPageState {
-            case .loading:
-                VStack {
-                    CustomProgressIndicator()
-                }
-                .frame(
-                    maxWidth: .infinity,
-                    minHeight: getRect().width / 3,
-                    maxHeight: .infinity,
-                    alignment: .center
-                )
-            case .loaded:
-                BookResource(parentViewModel: parentViewModel, selectedPickerDate: $selectedPickerDate)
-            case .error:
-                VStack {
-                    switch parentViewModel.error?.statusCode {
-                    case 404:
-                        Info(title: "No rooms available on weekends", image: "moon.stars")
-                    default:
-                        Info(title: "Could not contact the server", image: nil)
+        VStack {
+            ScrollView (showsIndicators: false) {
+                ResourceDatePicker(date: $selectedPickerDate)
+                Divider()
+                    .foregroundColor(.onBackground)
+                switch parentViewModel.resourceBookingPageState {
+                case .loading:
+                    VStack {
+                        CustomProgressIndicator()
                     }
+                    .frame(
+                        maxWidth: .infinity,
+                        minHeight: 200,
+                        maxHeight: .infinity,
+                        alignment: .center
+                    )
+                case .loaded:
+                    BookResource(parentViewModel: parentViewModel, selectedPickerDate: $selectedPickerDate)
+                case .error:
+                    VStack {
+                        switch parentViewModel.error?.statusCode {
+                        case 404:
+                            Info(title: "No rooms available on weekends", image: "moon.stars")
+                        default:
+                            Info(title: "Could not contact the server", image: nil)
+                        }
+                    }
+                    .frame(
+                        maxWidth: .infinity,
+                        minHeight: 200,
+                        maxHeight: .infinity,
+                        alignment: .center
+                    )
                 }
-                .frame(
-                    maxWidth: .infinity,
-                    minHeight: getRect().width / 3,
-                    maxHeight: .infinity,
-                    alignment: .center
-                )
             }
         }
         .frame(
             maxWidth: .infinity,
-            minHeight: getRect().width / 3,
             maxHeight: .infinity,
             alignment: .top
         )

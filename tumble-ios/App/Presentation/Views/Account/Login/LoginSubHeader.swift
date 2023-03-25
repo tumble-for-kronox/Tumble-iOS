@@ -25,6 +25,7 @@ struct LoginSubHeader: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
         }
+        .ignoresSafeArea(.keyboard)
         .padding(.top, 35)
     }
 }

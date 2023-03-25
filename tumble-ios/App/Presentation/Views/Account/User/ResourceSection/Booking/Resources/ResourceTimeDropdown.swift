@@ -20,11 +20,11 @@ struct ResourceTimeDropdownMenu: View {
         VStack {
             HStack {
                 Text(selectionTitle)
-                    .font(.system(size: 20, weight: .semibold))
+                    .font(.system(size: 18, weight: .semibold))
                     .foregroundColor(.onSurface)
                 Spacer()
                 Image(systemName: "chevron.down")
-                    .font(.system(size: 20, weight: .semibold))
+                    .font(.system(size: 18, weight: .semibold))
                     .foregroundColor(.onSurface)
             }
             .padding(.horizontal, 15)
@@ -101,12 +101,12 @@ fileprivate struct DropdownMenuItemView: View {
         }) {
             HStack {
                 Text(item.title)
-                    .font(.system(size: 20, weight: .semibold))
+                    .font(.system(size: 18, weight: .semibold))
                     .foregroundColor(.onSurface)
                 Spacer()
                 if selectedIndex == item.id {
-                    Image(systemName: "checkmark")
-                        .font(.system(size: 20, weight: .semibold))
+                    Image(systemName: "checkmark.circle")
+                        .font(.system(size: 18, weight: .semibold))
                         .foregroundColor(.onSurface)
                 }
             }

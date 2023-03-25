@@ -18,6 +18,7 @@ struct ResourceDatePicker: View {
             in: Calendar.current.date(byAdding: .year, value: -1, to: Date())!...,
             displayedComponents: [.date]
         )
+        .frame(minHeight: 300)
         .datePickerStyle(.graphical)
         .accentColor(Color.primary)
         .background(Color.background)

@@ -16,7 +16,7 @@ struct RoomContainerCard: View {
     var body: some View {
         HStack {
             Text(locationId)
-                .font(.system(size: 20, weight: .semibold))
+                .font(.system(size: 18, weight: .semibold))
                 .foregroundColor(.onSurface)
             Spacer()
             Button(action: {
@@ -29,22 +29,32 @@ struct RoomContainerCard: View {
                     CustomProgressIndicator(tint: .onPrimary)
                         .padding()
                 case .booked:
-                    Text("Booked")
-                        .font(.system(size: 20, weight: .semibold))
-                        .foregroundColor(.onPrimary)
-                        .padding()
+                    HStack {
+                        Image(systemName: "checkmark.circle.fill")
+                            .font(.system(size: 18, weight: .semibold))
+                            .foregroundColor(.onPrimary)
+                        Text("Booked")
+                            .font(.system(size: 18, weight: .semibold))
+                            .foregroundColor(.onPrimary)
+                    }
+                    .padding()
                 case .available:
-                    Text("Book")
-                        .font(.system(size: 20, weight: .semibold))
-                        .foregroundColor(.onPrimary)
-                        .padding()
+                    HStack {
+                        Image(systemName: "checkmark.circle")
+                            .font(.system(size: 18, weight: .semibold))
+                            .foregroundColor(.onPrimary)
+                        Text("Book")
+                            .font(.system(size: 18, weight: .semibold))
+                            .foregroundColor(.onPrimary)
+                    }
+                    .padding()
                 }
             })
             .disabled(bookingButtonState == .booked)
             .buttonStyle(BookButtonStyle())
         }
         .padding()
-        .frame(maxWidth: .infinity, maxHeight: 80)
+        .frame(maxWidth: .infinity, maxHeight: 70)
         .background(Color.surface)
         .cornerRadius(20)
         .padding(.horizontal, 15)

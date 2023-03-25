@@ -39,6 +39,7 @@ struct PasswordField: View {
                 Image(systemName: visiblePassword ? "eye" : "eye.slash")
                     .foregroundColor(.onBackground.opacity(0.75))
             }
+            Spacer()
         }
         .padding(10)
         .overlay(

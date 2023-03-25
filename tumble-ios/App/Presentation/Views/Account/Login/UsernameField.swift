@@ -19,6 +19,7 @@ struct UsernameField: View {
                 .foregroundColor(.onBackground)
                 .autocapitalization(.none)
                 .disableAutocorrection(true)
+            Spacer()
         }
         .padding(10)
         .overlay(RoundedRectangle(

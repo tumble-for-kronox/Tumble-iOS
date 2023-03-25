@@ -21,21 +21,25 @@ struct AccountLogin: View {
     let createToast: (ToastStyle, String, String) -> Void
     
     var body: some View {
-        VStack (spacing: 30) {
-            LoginHeader()
-            VStack {
-                UsernameField(username: $username)
-                PasswordField(password: $password, visiblePassword: $visiblePassword)
+        GeometryReader { geometry in
+            VStack (spacing: 30) {
+                LoginHeader()
+                VStack {
+                    UsernameField(username: $username)
+                    PasswordField(password: $password, visiblePassword: $visiblePassword)
+                }
+                LoginButton(login: {
+                    viewModel.login(username: username, password: password, createToast: createToast)
+                })
+                LoginSubHeader(schoolName: viewModel.school?.name ?? "")
+                Spacer()
             }
-            LoginButton(login: {
-                viewModel.login(username: username, password: password, createToast: createToast)
-            })
-            LoginSubHeader(schoolName: viewModel.school?.name ?? "")
-            Spacer()
+            .padding(.horizontal, 15)
+            .padding(.top, 20)
+            .background(Color.background)
+            .frame(width: geometry.size.width, height: geometry.size.height) // Set the frame size to match the screen size
         }
-        .padding(.horizontal, 15)
-        .padding(.top, 20)
-        .background(Color.background)
+        .ignoresSafeArea(.keyboard)
     }
     
     fileprivate func createToast(success: Bool) -> Void {
