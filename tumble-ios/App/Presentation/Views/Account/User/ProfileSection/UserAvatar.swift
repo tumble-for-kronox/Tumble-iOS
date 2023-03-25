@@ -10,10 +10,11 @@ import SwiftUI
 struct UserAvatar: View {
     
     let name: String
+    @Binding var collapsedHeader: Bool
     
     var body: some View {
         Text(name.abbreviate())
-            .font(.system(size: 40, weight: .semibold))
+            .font(.system(size: collapsedHeader ? 20 : 40, weight: .semibold))
             .foregroundColor(.onPrimary)
             .padding()
             .background(Circle().fill(Color("PrimaryColor")))

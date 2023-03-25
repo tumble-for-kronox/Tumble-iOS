@@ -30,6 +30,7 @@ struct ExamDetailSheetModel: Identifiable {
     
     @Inject var userController: UserController
     @Inject var networkManager: KronoxManager
+    @Inject var notificationManager: NotificationManager
     @Inject var preferenceService: PreferenceService
     
     @Published var school: School?
@@ -74,6 +75,10 @@ struct ExamDetailSheetModel: Identifiable {
                 self.getUserBookingsForSection()
                 createToast(success)
             })
+    }
+    
+    func createNotification(id: String) -> Void {
+        // Schedule notification for resource booking confirmation
     }
     
     func bookResource(

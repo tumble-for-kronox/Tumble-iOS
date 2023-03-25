@@ -185,8 +185,7 @@ extension AuthManager {
             let urlRequest = urlRequestUtils.createUrlRequest(
                 method: .get,
                 endpoint: .users(schoolId: String(school.id)),
-                refreshToken: token.value,
-                body: Request.Empty()
+                refreshToken: token.value
             )
             if let urlRequest = urlRequest {
                 urlSession.dataTask(with: urlRequest, completionHandler: { data, response, error in

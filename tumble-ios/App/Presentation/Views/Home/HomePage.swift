@@ -41,14 +41,14 @@ struct HomePage: View {
                     .background(GeometryReader { geo in
                         let offset = -geo.frame(in: .named(scrollSpace)).minY
                         Color.clear
-                            .preference(key: ScrollViewOffsetPreferenceKey.self,
+                            .preference(key: HomeScrollViewOffsetPreferenceKey.self,
                                         value: offset)
                     })
                 }
             }
             .padding(.bottom, -10)
             .coordinateSpace(name: scrollSpace)
-            .onPreferenceChange(ScrollViewOffsetPreferenceKey.self, perform: handleScroll)
+            .onPreferenceChange(HomeScrollViewOffsetPreferenceKey.self, perform: handleScroll)
             Spacer()
         }
         .sheet(item: $viewModel.eventSheet) { (eventSheet: EventDetailsSheetModel) in
@@ -84,7 +84,7 @@ struct HomePage: View {
     
 }
 
-struct ScrollViewOffsetPreferenceKey: PreferenceKey {
+fileprivate struct HomeScrollViewOffsetPreferenceKey: PreferenceKey {
   static var defaultValue = CGFloat.zero
 
   static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {

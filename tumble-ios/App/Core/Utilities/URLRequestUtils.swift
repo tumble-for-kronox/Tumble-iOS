@@ -43,4 +43,14 @@ struct URLRequestUtils {
             }
             return urlRequest
         }
+    
+    /// Overload function in case no body is given,
+    /// as in for example GET requests
+    func createUrlRequest(
+        method: Method,
+        endpoint: Endpoint,
+        refreshToken: String? = nil
+    ) -> URLRequest? {
+        return createUrlRequest(method: method, endpoint: endpoint, refreshToken: refreshToken, body: Optional<String>.none)
+    }
 }

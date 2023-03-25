@@ -92,7 +92,6 @@ enum Endpoint {
             components.path = "/api/misc/news"
         case .allResources(schoolId: let schoolId, date: let date):
             components.path = "/api/resources/all"
-            print("Converted date " + isoDateFormatterSemi.string(from: date))
             components.queryItems = [
                 URLQueryItem(name: "schoolId", value: schoolId),
                 URLQueryItem(name: "date", value: isoDateFormatterSemi.string(from: date))

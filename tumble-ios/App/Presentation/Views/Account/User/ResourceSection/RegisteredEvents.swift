@@ -53,5 +53,6 @@ struct RegisteredEvents: View {
             }
             Spacer()
         }
+        .frame(minHeight: 100)
     }
 }

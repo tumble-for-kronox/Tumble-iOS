@@ -49,6 +49,7 @@ struct RegisteredBookings: View {
             }
             Spacer()
         }
+        .frame(minHeight: 100)
     }
 }
 
