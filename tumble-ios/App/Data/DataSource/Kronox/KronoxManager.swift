@@ -100,12 +100,12 @@ class KronoxManager: KronoxManagerProtocol {
                         return
                     }
                     if let statusCode = (response as? HTTPURLResponse)?.statusCode {
+                        guard let data = data else {
+                            completion(.failure(Response.ErrorMessage(message: "Failed to retrieve data", statusCode: statusCode)))
+                            return
+                        }
                         switch statusCode {
                         case 200:
-                            guard let data = data else {
-                                completion(.failure(Response.ErrorMessage(message: "Failed to retrieve data", statusCode: statusCode)))
-                                return
-                            }
                             do {
                                 let result = try self.decoder.decode(NetworkResponse.self, from: data)
                                 completion(.success(result))
@@ -116,6 +116,16 @@ class KronoxManager: KronoxManagerProtocol {
                                     completion(.success(result))
                                     return
                                 }
+                                completion(.failure(Response.ErrorMessage(message: "Unable to convert empty response object to \(NetworkResponse.self)", statusCode: statusCode)))
+                            }
+                        case 400:
+                            do {
+                                /// Try parsing as error message that failed
+                                let result = try self.decoder.decode(Response.ErrorMessage.self, from: data)
+                                completion(.failure(result))
+                            } catch {
+                                AppLogger.shared.critical("Failed to decode response to object \(Response.ErrorMessage.self)",
+                                  source: "NetworkManager")
                                 completion(.failure(Response.ErrorMessage(message: "Unable to convert empty response object to \(NetworkResponse.self)", statusCode: statusCode)))
                             }
                         default:

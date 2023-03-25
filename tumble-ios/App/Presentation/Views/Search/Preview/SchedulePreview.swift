@@ -29,13 +29,13 @@ struct SchedulePreview: View {
             case .loading:
                 CustomProgressIndicator()
             case .error:
-                if let error = parentViewModel.errorMessage {
-                    Info(title: error, image: "wifi.exclamationmark")
+                if let error = parentViewModel.errorMessagePreview {
+                    Info(title: error, image: nil)
                 } else {
-                    Info(title: "Something went wrong", image: "wifi.exclamationmark")
+                    Info(title: "Something went wrong", image: nil)
                 }
             case .empty:
-                Info(title: "Schedule seems to be empty", image: "questionmark.bubble")
+                Info(title: "Schedule seems to be empty", image: nil)
             }
         }
         .frame(

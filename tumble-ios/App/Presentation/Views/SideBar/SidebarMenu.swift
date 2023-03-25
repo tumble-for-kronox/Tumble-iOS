@@ -38,7 +38,7 @@ struct SidebarMenu: View {
                     .padding(.top, 10)
             }
             .padding(.leading, 10)
-            .padding(.top, 40)
+            .padding(.top, 60)
             .padding(.trailing, 120)
             
             /// List of sidebar menu options. Each onClick should

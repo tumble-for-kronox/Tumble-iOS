@@ -27,7 +27,7 @@ struct SearchPage: View {
                     case .loaded:
                         SearchResults(searchText: searchBarText, numberOfSearchResults: viewModel.programmeSearchResults.count, searchResults: viewModel.programmeSearchResults, onOpenProgramme: onOpenProgramme, universityImage: $universityImage)
                     case .error:
-                        SearchError()
+                        Info(title: viewModel.errorMessageSearch ?? "Something went wrong", image: nil)
                     case .empty:
                         Info(title: "Schedule is empty", image: nil)
                     }

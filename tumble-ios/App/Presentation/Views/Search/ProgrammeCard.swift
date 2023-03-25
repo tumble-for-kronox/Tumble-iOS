@@ -17,7 +17,7 @@ struct ProgrammeCard: View {
         }, label: {
             HStack {
                 VStack(alignment:.leading) {
-                    Text(programme.subtitle.trimmingCharacters(in: .whitespaces))
+                    Text(programme.title)
                         .programmeTitle()
                     HStack {
                         if universityImage != nil {
@@ -27,7 +27,7 @@ struct ProgrammeCard: View {
                                 .frame(width: 20, height: 20)
                                 .cornerRadius(2.5)
                         }
-                        Text(programme.title)
+                        Text(programme.subtitle.trimmingCharacters(in: .whitespaces))
                             .programmeSubTitle()
                     }
                 }

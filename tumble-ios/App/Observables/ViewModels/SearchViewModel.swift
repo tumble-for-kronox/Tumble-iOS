@@ -40,7 +40,8 @@ enum SchedulePreviewStatus {
     @Published var schedulePreviewIsSaved: Bool = false
     @Published var courseColors: [String : String]? = nil
     @Published var school: School?
-    @Published var errorMessage: String? = nil
+    @Published var errorMessagePreview: String? = nil
+    @Published var errorMessageSearch: String? = nil
     @Published var previewButtonState: ButtonState = .loading
     
     
@@ -129,8 +130,17 @@ enum SchedulePreviewStatus {
                 case .success(let result):
                     self.parseSearchResults(result)
                 case .failure(let error):
-                    DispatchQueue.main.async {
-                        self.status = SearchStatus.error
+                    switch error.statusCode {
+                    case 204:
+                        DispatchQueue.main.async {
+                            self.errorMessageSearch = "No schedules found"
+                            self.status = SearchStatus.error
+                        }
+                    default:
+                        DispatchQueue.main.async {
+                            self.errorMessageSearch = "Something went wrong"
+                            self.status = SearchStatus.error
+                        }
                     }
                     AppLogger.shared.info("Encountered error when trying to search for programme \(searchQuery): \(error)")
                 }
@@ -286,7 +296,7 @@ extension SearchViewModel {
                         case .failure(let error):
                             closure(false)
                             self.schedulePreviewStatus = .error
-                            self.errorMessage = error.message
+                            self.errorMessagePreview = error.message.contains("NSURLErrorDomain") ? "Could not contact the server" : error.message
                             AppLogger.shared.info("Encountered error when attempting to load schedule for programme \(programmeId): \(error)")
                         }
                     }

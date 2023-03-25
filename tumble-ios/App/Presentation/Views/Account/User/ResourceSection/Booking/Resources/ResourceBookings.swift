@@ -36,7 +36,7 @@ struct ResourceBookings: View {
                     case 404:
                         Info(title: "No rooms available on weekends", image: "moon.stars")
                     default:
-                        Info(title: "Could not contact the server", image: "wifi.exclamationmark")
+                        Info(title: "Could not contact the server", image: nil)
                     }
                 }
                 .frame(

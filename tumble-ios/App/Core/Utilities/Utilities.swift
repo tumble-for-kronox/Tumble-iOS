@@ -76,6 +76,12 @@ var isoDateFormatterDashed: ISO8601DateFormatter = {
 
 var isoDateFormatter: ISO8601DateFormatter = ISO8601DateFormatter()
 
+var isoDateFormatterSemi: ISO8601DateFormatter = {
+    let formatter = ISO8601DateFormatter()
+    formatter.formatOptions = [.withFullDate, .withTimeZone]
+    return formatter
+}()
+
 var dateFormatterLong: DateFormatter = {
     let dateFormatter = DateFormatter()
     dateFormatter.locale = Locale(identifier: "en_US")
