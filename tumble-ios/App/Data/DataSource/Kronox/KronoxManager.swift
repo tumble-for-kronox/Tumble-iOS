@@ -110,7 +110,7 @@ class KronoxManager: KronoxManagerProtocol {
                                 let result = try self.decoder.decode(NetworkResponse.self, from: data)
                                 completion(.success(result))
                             } catch (let error) {
-                                AppLogger.shared.critical("Failed to decode response to object \(NetworkResponse.self). Error: \(error)",
+                                AppLogger.shared.critical("Failed to decode response to object \(NetworkResponse.self). Attempting to parse as empty obejct since status was 200. Error: \(error)",
                                   source: "NetworkManager")
                                 if let result = Response.Empty() as? NetworkResponse {
                                     completion(.success(result))

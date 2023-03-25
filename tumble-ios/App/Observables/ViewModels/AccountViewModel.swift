@@ -268,7 +268,7 @@ struct ExamDetailSheetModel: Identifiable {
                 case .success((let schoolId, let refreshToken)):
                     let request = Endpoint.registerEvent(eventId: eventId, schoolId: String(schoolId))
                     networkManager.put(request, refreshToken: refreshToken, body: Request.Empty(),
-                       then: { [unowned self] (result: Result<Response.HTTPResponse?, Response.ErrorMessage>) in
+                       then: { [unowned self] (result: Result<Response.Empty, Response.ErrorMessage>) in
                         DispatchQueue.main.async {
                             switch result {
                             case .success:
@@ -296,7 +296,7 @@ struct ExamDetailSheetModel: Identifiable {
                 case .success((let schoolId, let refreshToken)):
                     let request = Endpoint.unregisterEvent(eventId: eventId, schoolId: String(schoolId))
                     networkManager.put(request, refreshToken: refreshToken, body: Request.Empty(),
-                       then: { [unowned self] (result: Result<Response.HTTPResponse?, Response.ErrorMessage>) in
+                       then: { [unowned self] (result: Result<Response.Empty, Response.ErrorMessage>) in
                         DispatchQueue.main.async {
                             switch result {
                             case .success(_):

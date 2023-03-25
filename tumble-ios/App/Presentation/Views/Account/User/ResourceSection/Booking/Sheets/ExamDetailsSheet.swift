@@ -24,7 +24,7 @@ struct ExamDetailsSheet: View {
                     .font(.system(size: 18))
                     .foregroundColor(.onSurface)
             })
-            DetailsBuilder(title: "Type", image: "folder", content: {
+            DetailsBuilder(title: "Type", image: "info.circle", content: {
                 Text(event.type ?? "No type")
                     .font(.system(size: 18))
                     .foregroundColor(.onSurface)

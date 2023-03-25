@@ -77,6 +77,7 @@ struct ResourceCard: View {
         })
         .padding(.top)
         .buttonStyle(CompactButtonStyle())
+        .padding(.bottom, -10)
     }
 }
 

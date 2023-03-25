@@ -19,9 +19,7 @@ struct EventCardButton: View {
     let onTap: (String, EventType) -> Void
     
     var body: some View {
-        Button(action: {
-            
-        }, label: {
+        VStack {
             HStack {
                 VStack (alignment: .leading, spacing: 10) {
                     HStack {
@@ -64,8 +62,33 @@ struct EventCardButton: View {
                 
             }
             .padding()
-        })
-        .buttonStyle(CompactButtonStyle())
+            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 100, maxHeight: 100, alignment: .center)
+            .background(Color.surface)
+            .cornerRadius(20)
+            if event.lastSignupDate.isValidSignupDate() {
+                HStack {
+                    Spacer()
+                    Button(action: {
+                        if let eventId = event.eventId {
+                            onTap(eventId, eventType)
+                        }
+                    }, label: {
+                        HStack {
+                            Image(systemName: eventType.rawValue)
+                                .font(.system(size: 18))
+                                .foregroundColor(.onPrimary)
+                            Text(eventType == .unregister ? "Unregister" : "Register")
+                                .font(.system(size: 18, weight: .semibold))
+                                .foregroundColor(.onPrimary)
+                        }
+                        .padding(10)
+                        .background(Color.primary)
+                        .cornerRadius(10)
+                    })
+                }
+            }
+        }
+        .padding(.bottom, 10)
     }
 }
 
