@@ -28,9 +28,7 @@ struct AccountLogin: View {
                     UsernameField(username: $username)
                     PasswordField(password: $password, visiblePassword: $visiblePassword)
                 }
-                LoginButton(login: {
-                    viewModel.login(username: username, password: password, createToast: createToast)
-                })
+                LoginButton(login: login, username: $username, password: $password)
                 LoginSubHeader(schoolName: viewModel.school?.name ?? "")
                 Spacer()
             }
@@ -40,6 +38,10 @@ struct AccountLogin: View {
             .frame(width: geometry.size.width, height: geometry.size.height) // Set the frame size to match the screen size
         }
         .ignoresSafeArea(.keyboard)
+    }
+    
+    fileprivate func login() -> Void {
+        viewModel.login(username: username, password: password, createToast: createToast)
     }
     
     fileprivate func createToast(success: Bool) -> Void {

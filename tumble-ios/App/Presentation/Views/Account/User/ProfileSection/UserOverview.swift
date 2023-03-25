@@ -16,7 +16,8 @@ struct UserOverview: View {
     
     let schoolName: String
     let createToast: (ToastStyle, String, String) -> Void
-    @State var collapsedHeader: Bool = false
+    @State private var collapsedHeader: Bool = false
+    @State private var toast: Toast? = nil
     
     var body: some View {
         VStack {
@@ -48,6 +49,7 @@ struct UserOverview: View {
             Resources(
                 parentViewModel: viewModel,
                 getResourcesAndEvents: getResourcesAndEvents,
+                createToast: createToast,
                 collapsedHeader: $collapsedHeader
             )
         }
@@ -55,6 +57,11 @@ struct UserOverview: View {
             getResourcesAndEvents()
         }
         .background(Color.background)
+        .toastView(toast: $toast)
+    }
+    
+    fileprivate func createToast(toastStyle: ToastStyle, title: String, message: String) -> Void {
+        toast = Toast(type: toastStyle, title: title, message: message)
     }
     
     fileprivate func getResourcesAndEvents() -> Void {

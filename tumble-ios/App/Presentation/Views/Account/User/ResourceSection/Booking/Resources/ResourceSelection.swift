@@ -12,6 +12,7 @@ struct ResourceSelection: View {
     @ObservedObject var parentViewModel: AccountViewModel
     @State private var selectedTimeIndex: Int = 0
     @State private var availabilityValues: [Response.AvailabilityValue] = [Response.AvailabilityValue]()
+    @State private var toast: Toast? = nil
     
     let resource: Response.KronoxResourceElement
     let selectedPickerDate: Date
@@ -35,6 +36,7 @@ struct ResourceSelection: View {
                     resourceId: resource.id ?? "",
                     bookResource: bookResource,
                     selectedPickerDate: selectedPickerDate,
+                    makeToast: makeToast,
                     availabilityValues: $availabilityValues
                 )
             }
@@ -57,6 +59,7 @@ struct ResourceSelection: View {
             .onChange(of: selectedTimeIndex, perform: { _ in
                 availabilityValues = resource.availabilities.getAvailabilityValues(for: selectedTimeIndex)
             })
+            .toastView(toast: $toast)
         } else {
             Info(title: "No available timeslots", image: "clock.arrow.circlepath")
                 .frame(
@@ -64,6 +67,14 @@ struct ResourceSelection: View {
                     maxHeight: .infinity,
                     alignment: .center
                 )
+        }
+    }
+    
+    fileprivate func makeToast(success: Bool) -> Void {
+        if success {
+            toast = Toast(type: .success, title: "Booked", message: "Successfully booked resource")
+        } else {
+            toast = Toast(type: .error, title: "Not booked", message: "Failed to book the specified resource")
         }
     }
 

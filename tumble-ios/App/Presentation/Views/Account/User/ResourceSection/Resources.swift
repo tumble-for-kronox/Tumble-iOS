@@ -11,26 +11,40 @@ struct Resources: View {
     
     @ObservedObject var parentViewModel: AccountViewModel
     let getResourcesAndEvents: () -> Void
+    let createToast: (ToastStyle, String, String) -> Void
     
     @Namespace var scrollSpace
     @State var scrollOffset: CGFloat = .zero
     @Binding var collapsedHeader: Bool
+    
+    @State private var isAutoSignupEnabled: Bool
+        
+    init(
+        parentViewModel: AccountViewModel,
+        getResourcesAndEvents: @escaping () -> Void,
+        createToast: @escaping (ToastStyle, String, String) -> Void,
+        collapsedHeader: Binding<Bool>
+    ) {
+        self._isAutoSignupEnabled = State(initialValue: parentViewModel.userController.autoSignup)
+        self.parentViewModel = parentViewModel
+        self.getResourcesAndEvents = getResourcesAndEvents
+        self.createToast = createToast
+        self._collapsedHeader = collapsedHeader
+    }
     
     var body: some View {
         ScrollView (showsIndicators: false) {
             ScrollViewReader { proxy in
                 VStack {
                     ResourceSectionDivider (title: "User options") {
-                        Toggle(isOn: $parentViewModel.userController.autoSignup) {
+                        Toggle(isOn: $isAutoSignupEnabled) {
                             Text("Automatic exam signup")
                                 .sectionDividerEmpty()
                         }
+                        .onChange(of: isAutoSignupEnabled, perform: toggleAutomaticExamSignup)
                         .padding(.bottom)
                         .toggleStyle(SwitchToggleStyle(tint: .primary))
-                        .onChange(of: parentViewModel.userController.autoSignup, perform: { (value: Bool) in
-                            parentViewModel.toggleAutoSignup(value: value)
-                            AppLogger.shared.info("Toggled to \(value)")
-                        })
+                        
                     }
                     .padding(.top)
                     ResourceSectionDivider (title: "Your bookings", resourceType: .resource,
@@ -72,15 +86,22 @@ struct Resources: View {
             UIRefreshControl.appearance().tintColor = UIColor(named: "PrimaryColor")
         }
         .sheet(item: $parentViewModel.examDetailSheetModel, content: { examDetails in
-            ExamDetailsSheet(event: examDetails.event)
+            ExamDetailsSheet(
+                event: examDetails.event,
+                getResourcesAndEvents: getResourcesAndEvents,
+                unregisterEvent: unregisterEvent
+            )
         })
         .sheet(item: $parentViewModel.resourceDetailsSheetModel, content: { resourceDetails in
-            ResourceDetailSheet(resource: resourceDetails.resource)
+            ResourceDetailSheet(
+                resource: resourceDetails.resource,
+                unbookResource: unbookResource,
+                getResourcesAndEvents: getResourcesAndEvents
+            )
         })
     }
     
     fileprivate func onClickResource(resource: Response.KronoxUserBookingElement) -> Void {
-        AppLogger.shared.info("Clicked resource")
         parentViewModel.resourceDetailsSheetModel = ResourceDetailSheetModel(resource: resource)
     }
     
@@ -99,6 +120,44 @@ struct Resources: View {
                 collapsedHeader = false
             }
         }
+    }
+    
+    fileprivate func unregisterEvent(eventId: String) -> Void {
+        parentViewModel.unregisterForEvent(eventId: eventId) { result in
+            switch result {
+            case .success:
+                AppLogger.shared.info("Unregistered for event: \(eventId)")
+                getResourcesAndEvents()
+                createToast(.success, "Unregistered from event", "You have been unregistered from the specified event")
+            case .failure:
+                AppLogger.shared.critical("Failed to unregister for event: \(eventId)")
+                createToast(.error, "Error", "We couldnt unregister you for the specified event")
+            }
+        }
+    }
+    
+    fileprivate func unbookResource(bookingId: String) -> Void {
+        parentViewModel.unbookResource(bookingId: bookingId, completion: { result in
+            switch result {
+            case .success:
+                AppLogger.shared.info("Unbooked resource: \(bookingId)")
+                getResourcesAndEvents()
+                createToast(.success, "Unbooked resource", "You have unbooked the selected resource")
+            case .failure:
+                AppLogger.shared.critical("Failed to unbook resource: \(bookingId)")
+                createToast(.error, "Error", "We couldn't unbook the specified resource")
+            }
+        })
+    }
+    
+    fileprivate func toggleAutomaticExamSignup(value: Bool) -> Void {
+        parentViewModel.toggleAutoSignup(value: value)
+        if value {
+            createToast(.info, "Automatic signup", "Automatic exam/event signup has been enabled, but make sure you are always registered for exams through your institution.")
+        } else {
+            createToast(.info, "Automatic signup", "Automatic exam/event signup has been disabled.")
+        }
+        AppLogger.shared.info("Toggled to \(value)")
     }
     
 }

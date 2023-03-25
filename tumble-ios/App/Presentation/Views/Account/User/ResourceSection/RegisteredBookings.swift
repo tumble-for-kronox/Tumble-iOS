@@ -11,7 +11,7 @@ struct RegisteredBookings: View {
     
     let onClickResource: (Response.KronoxUserBookingElement) -> Void
     @Binding var state: PageState
-    let bookings: Response.KronoxUserBooking?
+    let bookings: Response.KronoxUserBookings?
     
     var body: some View {
         VStack {

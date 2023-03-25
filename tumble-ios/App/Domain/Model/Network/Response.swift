@@ -245,7 +245,7 @@ public enum Response {
         let from, to, duration: String?
     }
 
-    typealias KronoxUserBooking = [KronoxUserBookingElement]
+    typealias KronoxUserBookings = [KronoxUserBookingElement]
     
     // MARK: - KronoxUserBookingElement
     struct KronoxUserBookingElement: Identifiable, Decodable {

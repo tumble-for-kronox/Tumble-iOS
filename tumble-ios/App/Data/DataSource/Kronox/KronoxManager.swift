@@ -83,7 +83,6 @@ class KronoxManager: KronoxManagerProtocol {
                 completion(.failure(Response.ErrorMessage(message: "Something went wrong on our end")))
                 return
             }
-            
             let networkTask: URLSessionDataTask = createUrlSessionDataTask(urlRequest: urlRequest, completion: completion)
             networkTask.resume()
         }

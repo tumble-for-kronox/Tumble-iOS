@@ -18,6 +18,7 @@ struct ResourceRoomSelection: View {
     let resourceId: String
     let bookResource: (String, Date, Response.AvailabilityValue, @escaping (Result<Void, Error>) -> Void) -> Void
     let selectedPickerDate: Date
+    let makeToast: (Bool) -> Void
     @State var buttonStateMap: [String : BookingButtonState] = [:]
     @Binding var availabilityValues: [Response.AvailabilityValue]
     
@@ -57,8 +58,10 @@ struct ResourceRoomSelection: View {
         switch result {
         case .success:
             buttonStateMap[locationId] = .booked
+            makeToast(true)
         case .failure:
             buttonStateMap[locationId] = .available
+            makeToast(false)
         }
     }
 }

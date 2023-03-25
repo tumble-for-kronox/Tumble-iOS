@@ -41,7 +41,6 @@ enum Request {
     struct UnbookKronoxResource: Encodable {
         let bookingId: String
         let schoolId: Int
-        let sessionToken: String
     }
     
     struct KronoxUserLogin: Encodable {

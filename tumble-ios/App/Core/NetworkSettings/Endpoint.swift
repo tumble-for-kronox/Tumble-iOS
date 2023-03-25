@@ -25,6 +25,7 @@ enum Endpoint {
     case registerEvent(eventId: String, schoolId: String)
     case unregisterEvent(eventId: String, schoolId: String)
     case bookResource(schoolId: String)
+    case unbookResource(schoolId: String, bookingId: String)
     case news
     
     var url: URL {
@@ -101,6 +102,12 @@ enum Endpoint {
             components.path = "/api/resources/book"
             components.queryItems = [
                 URLQueryItem(name: "schoolId", value: schoolId),
+            ]
+        case .unbookResource(schoolId: let schoolId, bookingId: let bookingId):
+            components.path = "/api/resources/unbook"
+            components.queryItems = [
+                URLQueryItem(name: "schoolId", value: schoolId),
+                URLQueryItem(name: "bookingId", value: bookingId)
             ]
         }
         return components.url!

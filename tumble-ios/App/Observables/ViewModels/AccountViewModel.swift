@@ -37,7 +37,7 @@ struct ExamDetailSheetModel: Identifiable {
     @Published var status: AccountPageViewStatus = .initial
     @Published var completeUserEvent: Response.KronoxCompleteUserEvent? = nil
     @Published var allResources: Response.KronoxResources? = nil
-    @Published var userBookings: Response.KronoxUserBooking? = nil
+    @Published var userBookings: Response.KronoxUserBookings? = nil
     @Published var registeredEventSectionState: PageState = .loading
     @Published var bookingSectionState: PageState = .loading
     @Published var resourceBookingPageState: PageState = .loading
@@ -51,7 +51,14 @@ struct ExamDetailSheetModel: Identifiable {
     init() {
         self.school = preferenceService.getDefaultSchool()
         if userController.autoSignup {
-            self.registerAutoSignup()
+            self.registerAutoSignup(completion: { result in
+                switch result {
+                case .success:
+                    break
+                case .failure:
+                    break
+                }
+            })
         } else {
             AppLogger.shared.info("User has not enabled auto signup for events")
         }
@@ -108,7 +115,7 @@ struct ExamDetailSheetModel: Identifiable {
                             AppLogger.shared.info("Booked resource \(resourceId)")
                             completion(.success(()))
                         case .failure(let error):
-                            AppLogger.shared.critical("Failed to book resource \(resourceId)")
+                            AppLogger.shared.critical("Failed to book resource: \(resourceId)")
                             completion(.failure(.internal(reason: "\(error)")))
                         }
                     }
@@ -120,6 +127,31 @@ struct ExamDetailSheetModel: Identifiable {
         )
     }
 
+    func unbookResource(bookingId: String, completion: @escaping (Result<Void, Error>) -> Void) -> Void {
+        authenticateAndExecute(
+            school: school,
+            refreshToken: userController.refreshToken,
+            execute: { [unowned self] result in
+                switch result {
+                case .success((let schoolId, let refreshToken)):
+                    let requestUrl: Endpoint = .unbookResource(schoolId: String(schoolId), bookingId: bookingId)
+                    self.networkManager.put(requestUrl, refreshToken: refreshToken, body: Request.Empty()) {
+                        (result: Result<Response.Empty, Response.ErrorMessage>) in
+                        switch result {
+                        case .success:
+                            AppLogger.shared.info("Unbooked resource")
+                            completion(.success(()))
+                        case .failure(let error):
+                            AppLogger.shared.critical("Failed to unbook resource: \(bookingId)")
+                            completion(.failure(.internal(reason: "\(error)")))
+                        }
+                    }
+                case .failure(let error):
+                    AppLogger.shared.critical("\(error)")
+                    completion(.failure(.internal(reason: "\(error)")))
+                }
+            })
+    }
 
     
     func getAllResourceData(tries: Int = 1, date: Date) -> Void {
@@ -239,7 +271,7 @@ struct ExamDetailSheetModel: Identifiable {
                 case .success((let schoolId, let refreshToken)):
                     let request = Endpoint.userBookings(schoolId: String(schoolId))
                     networkManager.get(request, refreshToken: refreshToken,
-                       then: { [unowned self] (result: Result<Response.KronoxUserBooking?, Response.ErrorMessage>) in
+                       then: { [unowned self] (result: Result<Response.KronoxUserBookings?, Response.ErrorMessage>) in
                         switch result {
                         case .success(let bookings):
                             DispatchQueue.main.async {
@@ -263,7 +295,11 @@ struct ExamDetailSheetModel: Identifiable {
             })
     }
     
-    func registerForEvent(tries: Int = 1, eventId: String) {
+    func registerForEvent(
+        tries: Int = 1,
+        eventId: String,
+        completion: @escaping (Result<Void, Error>) -> Void
+    ) {
         self.eventBookingPageState = .loading
         authenticateAndExecute(
             school: school,
@@ -273,25 +309,29 @@ struct ExamDetailSheetModel: Identifiable {
                 case .success((let schoolId, let refreshToken)):
                     let request = Endpoint.registerEvent(eventId: eventId, schoolId: String(schoolId))
                     networkManager.put(request, refreshToken: refreshToken, body: Request.Empty(),
-                       then: { [unowned self] (result: Result<Response.Empty, Response.ErrorMessage>) in
+                       then: { (result: Result<Response.Empty, Response.ErrorMessage>) in
                         DispatchQueue.main.async {
                             switch result {
                             case .success:
-                                self.getUserEventsForPage()
-                            case .failure:
-                                self.eventBookingPageState = .error
+                                completion(.success(()))
+                            case .failure(let error):
+                                completion(.failure(.internal(reason: "\(error)")))
                             }
                         }
                     })
-                case .failure:
+                case .failure(let error):
                     DispatchQueue.main.async {
-                        self.eventBookingPageState = .error
+                        completion(.failure(.internal(reason: "\(error)")))
                     }
                 }
             })
     }
     
-    func unregisterForEvent(tries: Int = 1, eventId: String) {
+    func unregisterForEvent(
+        tries: Int = 1,
+        eventId: String,
+        completion: @escaping (Result<Void, Error>) -> Void
+    ) {
         self.eventBookingPageState = .loading
         authenticateAndExecute(
             school: school,
@@ -301,19 +341,19 @@ struct ExamDetailSheetModel: Identifiable {
                 case .success((let schoolId, let refreshToken)):
                     let request = Endpoint.unregisterEvent(eventId: eventId, schoolId: String(schoolId))
                     networkManager.put(request, refreshToken: refreshToken, body: Request.Empty(),
-                       then: { [unowned self] (result: Result<Response.Empty, Response.ErrorMessage>) in
+                       then: { (result: Result<Response.Empty, Response.ErrorMessage>) in
                         DispatchQueue.main.async {
                             switch result {
                             case .success(_):
-                                self.getUserEventsForPage()
-                            case .failure(_):
-                                self.eventBookingPageState = .error
+                                completion(.success(()))
+                            case .failure(let error):
+                                completion(.failure(.internal(reason: "\(error)")))
                             }
                         }
                     })
-                case .failure:
+                case .failure(let error):
                     DispatchQueue.main.async {
-                        self.eventBookingPageState = .error
+                        completion(.failure(.internal(reason: "\(error)")))
                     }
                 }
             })
@@ -322,14 +362,25 @@ struct ExamDetailSheetModel: Identifiable {
     func toggleAutoSignup(value: Bool) {
         userController.autoSignup = value
         if value {
-            registerAutoSignup()
+            registerAutoSignup(completion: { [unowned self] result in
+                switch result {
+                case .success:
+                    self.getUserEventsForSection()
+                case .failure:
+                    break
+                }
+            })
         }
     }
 }
 
 
 extension AccountViewModel {
-    fileprivate func registerAutoSignup(tries: Int = 1) {
+    fileprivate func registerAutoSignup(
+        tries: Int = 1,
+        completion: @escaping (Result<Void, Error>) -> Void
+    ) {
+        AppLogger.shared.info("Automatically signing up for exams")
         authenticateAndExecute(
             school: school,
             refreshToken: userController.refreshToken,
@@ -345,14 +396,17 @@ extension AccountViewModel {
                                 if let eventRegistrations = eventRegistrations {
                                     AppLogger.shared.info("Successful registrations: \(String(describing: eventRegistrations.successfulRegistrations?.count))")
                                     AppLogger.shared.info("Failed registrations: \(String(describing: eventRegistrations.failedRegistrations?.count))")
+                                    completion(.success(()))
                                 }
-                            case .failure(let failure):
-                                AppLogger.shared.info("\(failure)")
+                            case .failure(let error):
+                                AppLogger.shared.info("Failed to automatically sign up for exams: \(error)")
+                                completion(.failure(.generic(reason: "\(error)")))
                             }
                         }
                     })
-                case .failure:
+                case .failure(let error):
                     AppLogger.shared.info("Could not log in to register for available events")
+                    completion(.failure(.generic(reason: "\(error)")))
                 }
             })
     }
@@ -368,7 +422,7 @@ extension AccountViewModel {
         guard let school = school,
               let refreshToken = refreshToken,
               !refreshToken.isExpired() else {
-            if tries < NetworkConstants.MAX_CONSECUTIVE_ATTEMPTS {
+            if tries <= NetworkConstants.MAX_CONSECUTIVE_ATTEMPTS {
                 AppLogger.shared.info("Attempting auto login ...")
                 userController.autoLogin { [unowned self] in
                     self.authenticateAndExecute(

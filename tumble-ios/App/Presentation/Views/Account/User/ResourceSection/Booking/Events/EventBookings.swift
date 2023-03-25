@@ -74,9 +74,27 @@ struct EventBookings: View {
     func onTapEventAction(eventId: String, eventType: EventType) -> Void {
         switch eventType {
         case .register:
-            viewModel.registerForEvent(eventId: eventId)
+            viewModel.registerForEvent(eventId: eventId, completion: { result in
+                switch result {
+                case .success:
+                    viewModel.getUserEventsForPage()
+                case .failure:
+                    DispatchQueue.main.async {
+                        viewModel.eventBookingPageState = .error
+                    }
+                }
+            })
         case .unregister:
-            viewModel.unregisterForEvent(eventId: eventId)
+            viewModel.unregisterForEvent(eventId: eventId, completion: { result in
+                switch result {
+                case .success:
+                    viewModel.getUserEventsForPage()
+                case .failure:
+                    DispatchQueue.main.async {
+                        viewModel.eventBookingPageState = .error
+                    }
+                }
+            })
         }
     }
     

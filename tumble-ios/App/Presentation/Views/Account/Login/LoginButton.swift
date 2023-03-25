@@ -10,6 +10,8 @@ import SwiftUI
 struct LoginButton: View {
     
     let login: () -> Void
+    @Binding var username: String
+    @Binding var password: String
     
     var body: some View {
         Button(action: login, label: {
@@ -17,13 +19,14 @@ struct LoginButton: View {
                 Text("Log in")
                     .font(.system(size: 20, weight: .semibold))
                     .foregroundColor(.onPrimary)
-                    .padding(15)
             }
-            .frame(maxWidth: .infinity)
         })
-        .background(Color("PrimaryColor"))
-        .cornerRadius(20)
-        .frame(maxWidth: .infinity, alignment: .center)
+        .disabled(emptyCredentials())
+        .buttonStyle(WideAnimatedButtonStyle())
         .padding(.top, 25)
+    }
+    
+    fileprivate func emptyCredentials() -> Bool {
+        return username.isEmpty || password.isEmpty
     }
 }
