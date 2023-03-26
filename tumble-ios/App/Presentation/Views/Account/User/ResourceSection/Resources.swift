@@ -49,7 +49,7 @@ struct Resources: View {
                     .padding(.top)
                     ResourceSectionDivider (title: "Your bookings", resourceType: .resource,
                                  destination: AnyView(
-                                    ResourceBookings(parentViewModel: parentViewModel)
+                                    ResourceBookings(viewModel: parentViewModel.resourceViewModel)
                                         .customNavigationBackButton(previousPage: "Account"))) {
                                             RegisteredBookings(
                                                 onClickResource: onClickResource,
@@ -58,7 +58,10 @@ struct Resources: View {
                     }
                     ResourceSectionDivider (title: "Your events", resourceType: .event,
                                  destination: AnyView(
-                                    EventBookings(viewModel: parentViewModel)
+                                    EventBookings(
+                                        viewModel: parentViewModel.resourceViewModel,
+                                        getUserEventsForSection: getUserEventsForSection
+                                    )
                                         .customNavigationBackButton(previousPage: "Account"))) {
                                             RegisteredEvents(
                                                 onClickEvent: onClickEvent,
@@ -101,6 +104,10 @@ struct Resources: View {
         })
     }
     
+    fileprivate func getUserEventsForSection() -> Void {
+        parentViewModel.getUserEventsForSection()
+    }
+    
     fileprivate func onClickResource(resource: Response.KronoxUserBookingElement) -> Void {
         parentViewModel.resourceDetailsSheetModel = ResourceDetailSheetModel(resource: resource)
     }
@@ -137,7 +144,7 @@ struct Resources: View {
     }
     
     fileprivate func unbookResource(bookingId: String) -> Void {
-        parentViewModel.unbookResource(bookingId: bookingId, completion: { result in
+        parentViewModel.resourceViewModel.unbookResource(bookingId: bookingId, completion: { result in
             switch result {
             case .success:
                 AppLogger.shared.info("Unbooked resource: \(bookingId)")

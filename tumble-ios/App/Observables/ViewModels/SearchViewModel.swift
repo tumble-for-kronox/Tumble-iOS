@@ -122,7 +122,7 @@ enum SchedulePreviewStatus {
     
     func onSearchProgrammes(searchQuery: String) -> Void {
         self.status = .loading
-        networkManager.get(.searchProgramme(
+        let _ = networkManager.get(.searchProgramme(
             searchQuery: searchQuery,
             schoolId: String(school!.id))) { [weak self] (result: Result<Response.Search, Response.ErrorMessage>) in
                 guard let self = self else { return }
@@ -281,7 +281,7 @@ extension SearchViewModel {
     
     // API Call to fetch a schedule from backend
     fileprivate func fetchSchedule(programmeId: String, closure: @escaping (Bool) -> Void) -> Void {
-        networkManager.get(
+        let _ = networkManager.get(
             .schedule(
                 scheduleId: programmeId,
                 schoolId: String(school!.id))) { [weak self] (result: Result<Response.Schedule, Response.ErrorMessage>) in

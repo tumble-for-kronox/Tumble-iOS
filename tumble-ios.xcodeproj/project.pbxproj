@@ -107,7 +107,7 @@
 		D46081552930053E00FFFB44 /* ScheduleService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46081542930053E00FFFB44 /* ScheduleService.swift */; };
 		D4644A23298DA93A00B0BB28 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4644A22298DA93A00B0BB28 /* NotificationManager.swift */; };
 		D4644A26298DAA4F00B0BB28 /* NotificationManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4644A25298DAA4F00B0BB28 /* NotificationManagerProtocol.swift */; };
-		D4644A29298DD79D00B0BB28 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4644A28298DD79D00B0BB28 /* Notification.swift */; };
+		D4644A29298DD79D00B0BB28 /* EventNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4644A28298DD79D00B0BB28 /* EventNotification.swift */; };
 		D4644A2B298DD7B000B0BB28 /* NotificatonError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4644A2A298DD7B000B0BB28 /* NotificatonError.swift */; };
 		D4644A2D298DE35F00B0BB28 /* DateComponentsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4644A2C298DE35F00B0BB28 /* DateComponentsExtension.swift */; };
 		D46ABF0A29843B9D00B059F6 /* ScheduleServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46ABF0929843B9D00B059F6 /* ScheduleServiceProtocol.swift */; };
@@ -157,6 +157,7 @@
 		D49B985429CF47C60023DF75 /* KeyChainManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49B985329CF47C60023DF75 /* KeyChainManagerProtocol.swift */; };
 		D49D2500299A9495001D2751 /* UserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49D24FF299A9495001D2751 /* UserController.swift */; };
 		D49D2502299AC240001D2751 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49D2501299AC240001D2751 /* ImagePicker.swift */; };
+		D49FCAD629CFCA5400E3CE6E /* ResourceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49FCAD529CFCA5400E3CE6E /* ResourceViewModel.swift */; };
 		D4A328DE29CD10F300945AF4 /* URLRequestUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A328DD29CD10F300945AF4 /* URLRequestUtils.swift */; };
 		D4A433B829951F2B00BFEB7A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A433B729951F2B00BFEB7A /* AppDelegate.swift */; };
 		D4A433BA29952A8A00BFEB7A /* EventExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A433B929952A8A00BFEB7A /* EventExtension.swift */; };
@@ -313,7 +314,7 @@
 		D46081542930053E00FFFB44 /* ScheduleService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleService.swift; sourceTree = "<group>"; };
 		D4644A22298DA93A00B0BB28 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		D4644A25298DAA4F00B0BB28 /* NotificationManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManagerProtocol.swift; sourceTree = "<group>"; };
-		D4644A28298DD79D00B0BB28 /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
+		D4644A28298DD79D00B0BB28 /* EventNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventNotification.swift; sourceTree = "<group>"; };
 		D4644A2A298DD7B000B0BB28 /* NotificatonError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificatonError.swift; sourceTree = "<group>"; };
 		D4644A2C298DE35F00B0BB28 /* DateComponentsExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateComponentsExtension.swift; sourceTree = "<group>"; };
 		D46ABF0929843B9D00B059F6 /* ScheduleServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleServiceProtocol.swift; sourceTree = "<group>"; };
@@ -363,6 +364,7 @@
 		D49B985329CF47C60023DF75 /* KeyChainManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChainManagerProtocol.swift; sourceTree = "<group>"; };
 		D49D24FF299A9495001D2751 /* UserController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserController.swift; sourceTree = "<group>"; };
 		D49D2501299AC240001D2751 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		D49FCAD529CFCA5400E3CE6E /* ResourceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceViewModel.swift; sourceTree = "<group>"; };
 		D4A328DD29CD10F300945AF4 /* URLRequestUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLRequestUtils.swift; sourceTree = "<group>"; };
 		D4A433B729951F2B00BFEB7A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D4A433B929952A8A00BFEB7A /* EventExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventExtension.swift; sourceTree = "<group>"; };
@@ -848,7 +850,7 @@
 		D4644A27298DD78800B0BB28 /* Notifications */ = {
 			isa = PBXGroup;
 			children = (
-				D4644A28298DD79D00B0BB28 /* Notification.swift */,
+				D4644A28298DD79D00B0BB28 /* EventNotification.swift */,
 				D4644A2A298DD7B000B0BB28 /* NotificatonError.swift */,
 			);
 			path = Notifications;
@@ -1095,6 +1097,7 @@
 				D43419C32985684C001089A0 /* OnBoardingViewModel.swift */,
 				D441B10C298A8CEC00D22142 /* EventDetailsSheetViewModel.swift */,
 				D4A550CB2994509A00028BCF /* SidebarViewModel.swift */,
+				D49FCAD529CFCA5400E3CE6E /* ResourceViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -1489,7 +1492,7 @@
 				D4DDE59129CBBC6A0030607B /* ResourceTimeDropdown.swift in Sources */,
 				D4722149292454560063BDB7 /* tumble_iosApp.swift in Sources */,
 				D441B10D298A8CEC00D22142 /* EventDetailsSheetViewModel.swift in Sources */,
-				D4644A29298DD79D00B0BB28 /* Notification.swift in Sources */,
+				D4644A29298DD79D00B0BB28 /* EventNotification.swift in Sources */,
 				D416D33529CA2A46009A4FB8 /* TabBar.swift in Sources */,
 				D43419BE2985628C001089A0 /* NotificationInstructions.swift in Sources */,
 				D4EACB3629CB99540096ADD2 /* ResourceTimeButtonStyle.swift in Sources */,
@@ -1572,6 +1575,7 @@
 				D4607653292AF5DA00DE9590 /* DayHeader.swift in Sources */,
 				D430F73E29C60DC500E30E48 /* VerboseButtonStyle.swift in Sources */,
 				D49D2502299AC240001D2751 /* ImagePicker.swift in Sources */,
+				D49FCAD629CFCA5400E3CE6E /* ResourceViewModel.swift in Sources */,
 				D419EDF6299A78C400479DCE /* ResourceSectionDivider.swift in Sources */,
 				D40D80A629252165008CA68D /* ViewExtensions.swift in Sources */,
 				D4EAD3B9298D633B00678DF8 /* KronoxManagerProtocol.swift in Sources */,

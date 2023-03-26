@@ -70,7 +70,7 @@ import SwiftUI
         
         // Create notification for event without categoryIdentifier,
         // since it does not need to be set for the entire course
-        let notification = Notification(
+        let notification = EventNotification(
             id: self.event.id,
             color: self.color.toHex() ?? "#FFFFFF",
             dateComponents: self.event.dateComponents!,
@@ -79,6 +79,7 @@ import SwiftUI
         
         self.notificationManager.scheduleNotification(
             for: notification,
+            type: .event,
             userOffset: userOffset,
             completion: { [weak self] result in
                 guard let self = self else { return }
@@ -135,14 +136,17 @@ extension EventDetailsSheetViewModel {
             .filter { $0.course.id == self.event.course.id }
 
                 events.forEach { event in
-                    let notification = Notification(
+                    let notification = EventNotification(
                         id: event.id,
                         color: color.toHex() ?? "#FFFFFF",
                         dateComponents: event.dateComponents!,
                         categoryIdentifier: event.course.id, content: event.toDictionary())
                     // Sets notifications for course. If events already have notifications set for them without a categoryIdentifier,
                     // they will be reset in order to be able to remove course notifications on a categoryIdentifier basis
-                    self.notificationManager.scheduleNotification(for: notification, userOffset: self.notificationOffset) { result in
+                    self.notificationManager.scheduleNotification(
+                        for: notification,
+                        type: .event,
+                        userOffset: self.notificationOffset) { result in
                         switch result {
                         case .success(let success):
                             AppLogger.shared.info("Scheduled \(success) notifications")

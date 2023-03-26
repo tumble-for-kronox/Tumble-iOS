@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ResourceBookings: View {
     
-    @ObservedObject var parentViewModel: AccountViewModel
+    @ObservedObject var viewModel: ResourceViewModel
     @State private var selectedPickerDate: Date = Date.now
     
     var body: some View {
@@ -18,7 +18,7 @@ struct ResourceBookings: View {
                 ResourceDatePicker(date: $selectedPickerDate)
                 Divider()
                     .foregroundColor(.onBackground)
-                switch parentViewModel.resourceBookingPageState {
+                switch viewModel.resourceBookingPageState {
                 case .loading:
                     VStack {
                         CustomProgressIndicator()
@@ -30,10 +30,10 @@ struct ResourceBookings: View {
                         alignment: .center
                     )
                 case .loaded:
-                    BookResource(parentViewModel: parentViewModel, selectedPickerDate: $selectedPickerDate)
+                    BookResource(parentViewModel: viewModel, selectedPickerDate: $selectedPickerDate)
                 case .error:
                     VStack {
-                        switch parentViewModel.error?.statusCode {
+                        switch viewModel.error?.statusCode {
                         case 404:
                             Info(title: "No rooms available on weekends", image: "moon.stars")
                         default:
@@ -56,16 +56,16 @@ struct ResourceBookings: View {
         )
         .background(Color.background)
         .onAppear {
-            parentViewModel.getAllResourceData(date: selectedPickerDate)
+            viewModel.getAllResourceData(date: selectedPickerDate)
         }
         .onChange(of: selectedPickerDate, perform: { _ in
-            parentViewModel.getAllResourceData(date: selectedPickerDate)
+            viewModel.getAllResourceData(date: selectedPickerDate)
         })
     }
 }
 
 struct ResourceBookings_Previews: PreviewProvider {
     static var previews: some View {
-        ResourceBookings(parentViewModel: ViewModelFactory.shared.makeViewModelAccount())
+        ResourceBookings(viewModel: ViewModelFactory.shared.makeViewModelResource())
     }
 }

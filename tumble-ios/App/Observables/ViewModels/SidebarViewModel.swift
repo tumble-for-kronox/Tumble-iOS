@@ -98,7 +98,7 @@ import SwiftUI
                                 for: self.notificationManager.createNotificationFromEvent(
                                     event: event,
                                     color: courseColorsDict[event.course.id] ?? "#FEFEFE"
-                                ),
+                                ), type: .event,
                                 userOffset: self.preferenceService.getNotificationOffset(),
                                 completion: { (result: Result<Int, NotificationError>) in
                                     switch result {

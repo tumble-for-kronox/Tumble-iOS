@@ -9,7 +9,7 @@ import SwiftUI
 
 struct BookResource: View {
     
-    @ObservedObject var parentViewModel: AccountViewModel
+    @ObservedObject var parentViewModel: ResourceViewModel
     @Binding var selectedPickerDate: Date
     
     var body: some View {

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Notification: Identifiable {
+struct EventNotification: LocalNotification {
     
     var id: String
     let color: String
@@ -15,6 +15,18 @@ struct Notification: Identifiable {
     let categoryIdentifier: String?
     let content: [String : Any]?
 
+}
+
+struct BookingNotification: LocalNotification {
+    var id: String
+    let dateComponents: DateComponents
+}
+
+protocol LocalNotification: Identifiable {}
+
+enum NotificationType {
+    case event
+    case booking
 }
 
 enum NotificationContentKey: String {
