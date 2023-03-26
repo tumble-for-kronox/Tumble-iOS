@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ResourceSelection: View {
     
-    @ObservedObject var parentViewModel: AccountViewModel
+    @ObservedObject var parentViewModel: ResourceViewModel
     @State private var selectedTimeIndex: Int = 0
     @State private var availabilityValues: [Response.AvailabilityValue] = [Response.AvailabilityValue]()
     @State private var toast: Toast? = nil

@@ -9,35 +9,9 @@ import Foundation
 
 public enum Response {
     
-    // MARK: - HTTPResponse
-    struct HTTPResponse: Codable {
-        let url: String?
-        let statusCode: Int
-        let headers: Headers?
-        
-        enum CodingKeys: String, CodingKey {
-            case url = "URL"
-            case statusCode = "Status Code"
-            case headers = "Headers"
-        }
-        
-    }
-    
     // MARK: - Message
     struct Message: Codable {
         let message: String
-    }
-
-    // MARK: - Headers
-    struct Headers: Codable {
-        let contentLength: Int
-        let date, server: String
-
-        enum CodingKeys: String, CodingKey {
-            case contentLength = "Content-Length"
-            case date = "Date"
-            case server = "Server"
-        }
     }
     
     struct Empty: Codable {}
@@ -149,9 +123,7 @@ public enum Response {
     // MARK: - AvailableKronoxUserEvent
     struct AvailableKronoxUserEvent: Identifiable, Encodable, Decodable {
         
-        var id: UUID {
-            return UUID()
-        }
+        var id: UUID = UUID()
         
         let eventId, title, type: String?
         let eventStart, eventEnd, lastSignupDate: String
@@ -193,6 +165,7 @@ public enum Response {
     }
     
     typealias Availabilities = [String : [Int: AvailabilityValue]]?
+    
     typealias KronoxResources = [KronoxResourceElement]
     // MARK: - KronoxResourceElement
     struct KronoxResourceElement: Codable {

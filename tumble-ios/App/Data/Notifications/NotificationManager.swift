@@ -13,15 +13,24 @@ class NotificationManager: NotificationManagerProtocol {
     private let notificationCenter = UNUserNotificationCenter.current()
     private let authorizationOptions: UNAuthorizationOptions = [.alert, .sound, .badge]
 
-    func scheduleNotification(
+    func scheduleNotification<Notification : LocalNotification>(
         for notification: Notification,
+        type: NotificationType,
         userOffset: Int,
         completion: @escaping (Result<Int, NotificationError>) -> Void) {
         notificationsAreAllowed { result in
             switch result {
             case .success:
-                self.notificationCenter.add(self.request(for: notification, userOffset: userOffset))
-                AppLogger.shared.info("Successfully set notification for event with id -> \(notification.id)")
+                switch type {
+                case .event:
+                    let eventNotification = notification as! EventNotification
+                    self.notificationCenter.add(self.requestEventNotification(for: eventNotification, userOffset: userOffset))
+                case .booking:
+                    let bookingNotification = notification as! BookingNotification
+                    self.notificationCenter.add(self.requestBookingNotification(for: bookingNotification, userOffset: userOffset))
+                }
+                
+                AppLogger.shared.info("Successfully set notification with id -> \(notification.id)")
                 completion(.success(1))
             case .failure(let error):
                 AppLogger.shared.critical("Could not set notification. Not allowed")
@@ -32,7 +41,7 @@ class NotificationManager: NotificationManagerProtocol {
 
     func cancelNotification(for eventId: String) {
         notificationCenter.removePendingNotificationRequests(withIdentifiers: [eventId])
-        AppLogger.shared.info("Cancelled notifications with eventId -> \(eventId)")
+        AppLogger.shared.info("Cancelled notifications with id -> \(eventId)")
     }
     
     func isNotificationScheduled(eventId: String, completion: @escaping (Bool) -> Void) -> Void {
@@ -65,12 +74,13 @@ class NotificationManager: NotificationManagerProtocol {
         AppLogger.shared.info("Cancelled all notifications for this school")
     }
     
-    func createNotificationFromEvent(event: Response.Event, color: String) -> Notification {
-        let notification = Notification(
+    func createNotificationFromEvent(event: Response.Event, color: String) -> EventNotification {
+        let notification = EventNotification(
             id: event.id,
             color: color,
             dateComponents: event.dateComponents!,
-            categoryIdentifier: event.course.id, content: event.toDictionary())
+            categoryIdentifier: event.course.id, content: event.toDictionary()
+        )
         return notification
     }
 }
@@ -78,25 +88,51 @@ class NotificationManager: NotificationManagerProtocol {
 
 extension NotificationManager {
     
-    fileprivate func request(for notification: Notification, userOffset: Int) -> UNNotificationRequest {
-        AppLogger.shared.info("Making notification request for -> \(notification.id)")
-        let content = UNMutableNotificationContent()
-        content.title = (notification.content?.toEvent()?.course.englishName)!
-        content.subtitle = (notification.content?.toEvent()?.title)!
-        // Optional course id
-        content.categoryIdentifier = notification.categoryIdentifier ?? ""
-        content.sound = .default
-        content.badge = 1
-        content.userInfo[NotificationContentKey.event.rawValue] = notification.content
-        content.userInfo[NotificationContentKey.color.rawValue] = notification.color
-        
-        let components = dateComponentsAfterSubtractingUserOffset(dateComponents: notification.dateComponents, userOffset: userOffset)
-        let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
-        return UNNotificationRequest(
-            identifier: notification.id,
-            content: content,
-            trigger: trigger)
+    fileprivate func requestEventNotification(
+        for notification: EventNotification,
+        userOffset: Int) -> UNNotificationRequest {
+            AppLogger.shared.info("Making notification request for -> \(notification.id)")
+            let content = UNMutableNotificationContent()
+            content.title = (notification.content?.toEvent()?.course.englishName)!
+            content.subtitle = (notification.content?.toEvent()?.title)!
+            // Optional course id
+            content.categoryIdentifier = notification.categoryIdentifier ?? ""
+            content.sound = .default
+            content.badge = 1
+            content.userInfo[NotificationContentKey.event.rawValue] = notification.content
+            content.userInfo[NotificationContentKey.color.rawValue] = notification.color
+            
+            let components = dateComponentsAfterSubtractingUserOffset(
+                dateComponents: notification.dateComponents,
+                userOffset: userOffset
+            )
+            let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
+            return UNNotificationRequest(
+                identifier: notification.id,
+                content: content,
+                trigger: trigger
+            )
     }
+    
+    fileprivate func requestBookingNotification(
+        for notification: BookingNotification,
+        userOffset: Int) -> UNNotificationRequest {
+            let content = UNMutableNotificationContent()
+            content.title = "Booking confirmation"
+            content.subtitle = "A booking needs to be confirmed"
+            content.sound = .default
+            content.badge = 1
+            let components = dateComponentsAfterSubtractingUserOffset(
+                dateComponents: notification.dateComponents,
+                userOffset: userOffset
+            )
+            let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
+            return UNNotificationRequest(
+                identifier: notification.id,
+                content: content,
+                trigger: trigger
+            )
+        }
 
     fileprivate func dateComponentsAfterSubtractingUserOffset(dateComponents: DateComponents, userOffset: Int) -> DateComponents {
         let calendarDateFromComponents = Calendar(identifier: .gregorian).date(from: dateComponents)

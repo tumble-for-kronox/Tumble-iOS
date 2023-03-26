@@ -11,7 +11,9 @@ import SwiftUI
 
 struct EventBookings: View {
     
-    @ObservedObject var viewModel: AccountViewModel
+    @ObservedObject var viewModel: ResourceViewModel
+    
+    let getUserEventsForSection: () -> Void
     
     var body: some View {
         GeometryReader { geo in
@@ -66,7 +68,7 @@ struct EventBookings: View {
             viewModel.getUserEventsForPage()
         }
         .onDisappear {
-            viewModel.getUserEventsForSection()
+            getUserEventsForSection()
         }
     }
     

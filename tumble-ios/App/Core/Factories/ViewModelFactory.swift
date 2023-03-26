@@ -24,17 +24,24 @@ class ViewModelFactory {
     
     @MainActor func makeViewModelAccount() -> AccountViewModel { .init() }
     
+    @MainActor func makeViewModelResource() -> ResourceViewModel { .init() }
+    
     @MainActor func makeViewModelOnBoarding() -> OnBoardingViewModel { .init() }
     
     // Special viewmodel important for checking user onboarding in order to change
     // the displayed child view
     @MainActor func makeViewModelRoot() -> RootViewModel {
             .init(
-                userNotOnBoarded: !preferenceService.isKeyPresentInUserDefaults(key: StoreKey.userOnboarded.rawValue))
+                userNotOnBoarded: !preferenceService.isKeyPresentInUserDefaults(
+                    key: StoreKey.userOnboarded.rawValue
+                )
+            )
         }
     // Isolated viewmodel requiring an event and color
-    @MainActor func makeViewModelEventDetailsSheet(event: Response.Event, color: Color) -> EventDetailsSheetViewModel {
-        .init(event: event, color: color)
+    @MainActor func makeViewModelEventDetailsSheet(
+        event: Response.Event,
+        color: Color) -> EventDetailsSheetViewModel {
+            .init(event: event, color: color)
     }
     
     @MainActor func makeViewModelSidebar() -> SidebarViewModel { .init() }

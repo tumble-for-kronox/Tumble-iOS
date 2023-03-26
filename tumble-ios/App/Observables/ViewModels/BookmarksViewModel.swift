@@ -267,7 +267,7 @@ extension BookmarksViewModel {
     fileprivate func fetchSchedule(
         for scheduleId: String,
         closure: @escaping (Result<Response.Schedule, Error>) -> Void) {
-        networkManager.get(
+        let _ = networkManager.get(
             .schedule(
                 scheduleId: scheduleId,
                 schoolId: String(preferenceService.getDefaultSchool()!.id))) { (result: Result<Response.Schedule, Response.ErrorMessage>) in

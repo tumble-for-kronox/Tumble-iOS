@@ -57,7 +57,7 @@ import SwiftUI
     
     func getNews() -> Void {
         self.newsSectionStatus = .loading
-        networkManager.get(.news) { [weak self] (result: Result<Response.NewsItems, Response.ErrorMessage>) in
+        let _ = networkManager.get(.news) { [weak self] (result: Result<Response.NewsItems, Response.ErrorMessage>) in
             guard let self = self else { return }
             switch result {
             case .success(let news):
