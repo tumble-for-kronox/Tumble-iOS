@@ -13,7 +13,7 @@ struct ResourceTimeButtonStyle: ButtonStyle {
         configuration.label
             .frame(minWidth: 0, maxWidth: .infinity, minHeight: 50, maxHeight: 50, alignment: .center)
             .background(Color.surface)
-            .cornerRadius(20)
+            .cornerRadius(10)
             .padding(.bottom, 10)
             .scaleEffect(configuration.isPressed ? 0.9 : 1)
             .animation(.easeOut(duration: 0.2), value: configuration.isPressed)

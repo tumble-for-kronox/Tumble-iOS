@@ -56,7 +56,7 @@ struct EventBookings: View {
                         }
                     })
                 case .error:
-                    Info(title: "Could not contact the server", image: "wifi.exclamationmark")
+                    Info(title: "Could not contact the server", image: nil)
                         .frame(width: geo.size.width)
                         .frame(minHeight: geo.size.height)
                 }
