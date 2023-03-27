@@ -23,10 +23,10 @@ struct DetailsBuilder<Content : View>: View {
             VStack (alignment: .leading, spacing: 0) {
                 HStack (alignment: .center, spacing: 10) {
                     Image(systemName: image)
-                        .font(.system(size: 20))
+                        .font(.system(size: 17))
                         .foregroundColor(.onSurface)
                     Text(title)
-                        .font(.system(size: 20))
+                        .font(.system(size: 17))
                         .bold()
                         .foregroundColor(.onBackground)
                     

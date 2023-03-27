@@ -26,7 +26,7 @@ struct ResourceDetailSheet: View {
                 Divider()
                 DetailsBuilder(title: "Location", image: "mappin.and.ellipse", content: {
                     Text(resource.locationID)
-                        .font(.system(size: 18))
+                        .font(.system(size: 16))
                         .foregroundColor(.onSurface)
                 })
                 DetailsBuilder(title: "Timeslot", image: "clock.arrow.circlepath", content: {
@@ -34,7 +34,7 @@ struct ResourceDetailSheet: View {
                 })
                 DetailsBuilder(title: "Date", image: "calendar.badge.clock", content: {
                     Text(resource.timeSlot.from?.toDate() ?? "(no date)")
-                        .font(.system(size: 18))
+                        .font(.system(size: 16))
                         .foregroundColor(.onSurface)
                 })
                 DetailsBuilder(title: "Confirmation", image: "checkmark.seal", content: {
@@ -42,7 +42,7 @@ struct ResourceDetailSheet: View {
                     let from = resource.confirmationOpen.convertToHoursAndMinutes() ?? "(missing)"
                     let to = resource.confirmationClosed.convertToHoursAndMinutes() ?? "(missing)"
                     Text("\(date), from \(from) - \(to)")
-                        .font(.system(size: 18))
+                        .font(.system(size: 16))
                         .foregroundColor(.onSurface)
                 })
                 Button(action: {
@@ -52,7 +52,7 @@ struct ResourceDetailSheet: View {
                 }, label: {
                     HStack {
                         Text("Remove booking")
-                            .font(.system(size: 20, weight: .semibold))
+                            .font(.system(size: 17, weight: .semibold))
                             .foregroundColor(.onPrimary)
                     }
                 })

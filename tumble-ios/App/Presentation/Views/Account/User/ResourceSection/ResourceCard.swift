@@ -34,7 +34,10 @@ struct ResourceCard: View {
     }
     
     var body: some View {
-        Button(action: onClick, label: {
+        Button(action: {
+            HapticsController.triggerHapticLight()
+            onClick()
+        }, label: {
             HStack {
                 VStack (alignment: .leading, spacing: 10) {
                     Text(title ?? "No title")
