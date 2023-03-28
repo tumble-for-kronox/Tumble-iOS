@@ -31,7 +31,10 @@ struct EventDetailsSheet: View {
                 .labelsHidden().opacity(0)
                 
         )
-        .onDisappear(perform: updateCourseColors)
+        .onDisappear(perform: {
+            updateCourseColors()
+            AppController.shared.eventSheet = nil
+        })
     }
     
     

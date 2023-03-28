@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D4040EC429D310A800613144 /* Refreshable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4040EC329D310A800613144 /* Refreshable.swift */; };
 		D40CC161292AFB9F00664776 /* BookmarkPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40CC160292AFB9F00664776 /* BookmarkPage.swift */; };
 		D40CC163292AFE7200664776 /* BookmarksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40CC162292AFE7200664776 /* BookmarksViewModel.swift */; };
 		D40D808929247123008CA68D /* Root.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40D808829247123008CA68D /* Root.swift */; };
@@ -217,6 +218,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D4040EC329D310A800613144 /* Refreshable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Refreshable.swift; sourceTree = "<group>"; };
 		D40CC160292AFB9F00664776 /* BookmarkPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkPage.swift; sourceTree = "<group>"; };
 		D40CC162292AFE7200664776 /* BookmarksViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksViewModel.swift; sourceTree = "<group>"; };
 		D40D808829247123008CA68D /* Root.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Root.swift; sourceTree = "<group>"; };
@@ -453,6 +455,7 @@
 				D45338FA2929730200198411 /* CustomProgressIndicator.swift */,
 				D4CF9B2B293572BE00DDB5F0 /* Info.swift */,
 				D46BB117298B21DA00887A24 /* InfoLoading.swift */,
+				D4040EC329D310A800613144 /* Refreshable.swift */,
 			);
 			path = General;
 			sourceTree = "<group>";
@@ -1569,6 +1572,7 @@
 				D48F0D8A29367CAF0039CD0F /* Colors.swift in Sources */,
 				D4E83ED12999B1B1002E5F88 /* AuthManager.swift in Sources */,
 				D4A550CF299454F700028BCF /* ScheduleStoreModel.swift in Sources */,
+				D4040EC429D310A800613144 /* Refreshable.swift in Sources */,
 				D4607632292AA39400DE9590 /* Types.swift in Sources */,
 				D416D33729CA2A4F009A4FB8 /* TabBarButton.swift in Sources */,
 				D454203E29BE914800EF0FC9 /* EventDetailsPillStyle.swift in Sources */,

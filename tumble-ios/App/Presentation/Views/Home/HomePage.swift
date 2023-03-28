@@ -17,7 +17,7 @@ struct HomePage: View {
     @Binding var kronoxUrl: String?
     @Binding var selectedAppTab: TabbarTabType
     
-    @Namespace var scrollSpace
+    var scrollSpace: String = "homeRefreshable"
     @State var scrollOffset: CGFloat = .zero
     
     @State private var collapsedHeader: Bool = false
@@ -33,6 +33,9 @@ struct HomePage: View {
                 collapsedHeader: $collapsedHeader
             )
             ScrollView (showsIndicators: false) {
+                Refreshable(coordinateSpaceName: scrollSpace, onRefresh: {
+                    viewModel.getNews()
+                })
                 ScrollViewReader { proxy in
                     VStack {
                         HomePageUpcomingEventsSection(parentViewModel: viewModel)

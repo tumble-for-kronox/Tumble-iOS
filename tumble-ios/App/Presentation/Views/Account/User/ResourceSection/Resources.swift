@@ -13,7 +13,7 @@ struct Resources: View {
     let getResourcesAndEvents: () -> Void
     let createToast: (ToastStyle, String, String) -> Void
     
-    @Namespace var scrollSpace
+    var scrollSpace: String = "resourceRefreshable"
     @State var scrollOffset: CGFloat = .zero
     @Binding var collapsedHeader: Bool
     
@@ -35,6 +35,7 @@ struct Resources: View {
     var body: some View {
         ScrollView (showsIndicators: false) {
             ScrollViewReader { proxy in
+                Refreshable(coordinateSpaceName: scrollSpace, onRefresh: getResourcesAndEvents)
                 VStack {
                     ResourceSectionDivider (title: "User options") {
                         Toggle(isOn: $isAutoSignupEnabled) {
@@ -82,12 +83,6 @@ struct Resources: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.background)
         .cornerRadius(20, corners: [.topLeft, .topRight])
-        .refreshable {
-            getResourcesAndEvents()
-        }
-        .onAppear {
-            UIRefreshControl.appearance().tintColor = UIColor(named: "PrimaryColor")
-        }
         .sheet(item: $parentViewModel.examDetailSheetModel, content: { examDetails in
             ExamDetailsSheet(
                 event: examDetails.event,
