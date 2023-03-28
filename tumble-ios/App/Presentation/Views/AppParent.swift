@@ -129,7 +129,9 @@ struct AppParent: View {
     }
     
     fileprivate func createToast(type: ToastStyle, title: String, message: String) -> Void {
-        appController.toast = Toast(type: type, title: title, message: message)
+        DispatchQueue.main.async {
+            appController.toast = Toast(type: type, title: title, message: message)
+        }
     }
     
     fileprivate func updateBookmarks() -> Void {

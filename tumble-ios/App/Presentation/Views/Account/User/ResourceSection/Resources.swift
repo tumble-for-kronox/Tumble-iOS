@@ -13,7 +13,7 @@ struct Resources: View {
     let getResourcesAndEvents: () -> Void
     let createToast: (ToastStyle, String, String) -> Void
     
-    @Namespace var scrollSpace
+    var scrollSpace: String = "resourceRefreshable"
     @State var scrollOffset: CGFloat = .zero
     @Binding var collapsedHeader: Bool
     
@@ -35,6 +35,7 @@ struct Resources: View {
     var body: some View {
         ScrollView (showsIndicators: false) {
             ScrollViewReader { proxy in
+                Refreshable(coordinateSpaceName: scrollSpace, onRefresh: getResourcesAndEvents)
                 VStack {
                     ResourceSectionDivider (title: "User options") {
                         Toggle(isOn: $isAutoSignupEnabled) {
@@ -82,12 +83,6 @@ struct Resources: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.background)
         .cornerRadius(20, corners: [.topLeft, .topRight])
-        .refreshable {
-            getResourcesAndEvents()
-        }
-        .onAppear {
-            UIRefreshControl.appearance().tintColor = UIColor(named: "PrimaryColor")
-        }
         .sheet(item: $parentViewModel.examDetailSheetModel, content: { examDetails in
             ExamDetailsSheet(
                 event: examDetails.event,
@@ -130,28 +125,42 @@ struct Resources: View {
     }
     
     fileprivate func unregisterEvent(eventId: String) -> Void {
+        parentViewModel.registeredEventSectionState = .loading
         parentViewModel.unregisterForEvent(eventId: eventId) { result in
             switch result {
             case .success:
                 AppLogger.shared.info("Unregistered for event: \(eventId)")
-                getResourcesAndEvents()
+                parentViewModel.removeUserEvent(where: eventId)
+                DispatchQueue.main.async {
+                    parentViewModel.registeredEventSectionState = .loaded
+                }
                 createToast(.success, "Unregistered from event", "You have been unregistered from the specified event")
             case .failure:
                 AppLogger.shared.critical("Failed to unregister for event: \(eventId)")
+                DispatchQueue.main.async {
+                    parentViewModel.registeredEventSectionState = .error
+                }
                 createToast(.error, "Error", "We couldnt unregister you for the specified event")
             }
         }
     }
     
     fileprivate func unbookResource(bookingId: String) -> Void {
+        parentViewModel.bookingSectionState = .loading
         parentViewModel.resourceViewModel.unbookResource(bookingId: bookingId, completion: { result in
             switch result {
             case .success:
                 AppLogger.shared.info("Unbooked resource: \(bookingId)")
-                getResourcesAndEvents()
+                parentViewModel.removeUserBooking(where: bookingId)
+                DispatchQueue.main.async {
+                    parentViewModel.bookingSectionState = .loaded
+                }
                 createToast(.success, "Unbooked resource", "You have unbooked the selected resource")
             case .failure:
                 AppLogger.shared.critical("Failed to unbook resource: \(bookingId)")
+                DispatchQueue.main.async {
+                    parentViewModel.bookingSectionState = .error
+                }
                 createToast(.error, "Error", "We couldn't unbook the specified resource")
             }
         })

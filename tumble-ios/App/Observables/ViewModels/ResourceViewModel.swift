@@ -188,13 +188,13 @@ import Foundation
                         requestUrl,
                         refreshToken: refreshToken,
                         body: requestBody) {
-                        (result: Result<Response.Empty, Response.ErrorMessage>) in
+                        (result: Result<Response.KronoxUserBookingElement, Response.ErrorMessage>) in
                         switch result {
                         case .success:
                             AppLogger.shared.info("Booked resource \(resourceId)")
                             completion(.success(()))
                         case .failure(let error):
-                            AppLogger.shared.critical("Failed to book resource: \(resourceId)")
+                            AppLogger.shared.critical("Failed to book resource: \(error)")
                             completion(.failure(.internal(reason: "\(error)")))
                         }
                     }
