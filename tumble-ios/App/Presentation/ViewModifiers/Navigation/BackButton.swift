@@ -28,7 +28,7 @@ struct BackButton: View {
             HStack {
                 Spacer()
                 Image(systemName: "chevron.backward")
-                    .font(.system(size: 16, weight: .semibold))
+                    .font(.system(size: 16))
                     .foregroundColor(.primary)
                 Text(previousPage)
                     .backButton()

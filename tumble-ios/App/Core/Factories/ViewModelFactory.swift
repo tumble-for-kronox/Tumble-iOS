@@ -44,5 +44,5 @@ class ViewModelFactory {
             .init(event: event, color: color)
     }
     
-    @MainActor func makeViewModelSidebar() -> SidebarViewModel { .init() }
+    @MainActor func makeViewModelSettings() -> SettingsViewModel { .init() }
 }

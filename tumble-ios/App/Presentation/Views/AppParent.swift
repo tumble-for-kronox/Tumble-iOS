@@ -26,88 +26,71 @@ struct AppParent: View {
     }
     
     var body: some View {
-        ZStack {
-            Color.surface
-                .ignoresSafeArea()
-            
-            GeometryReader { geometry in
-                SidebarMenu(
-                    viewModel: viewModel.sidebarViewModel,
-                    showSideBar: $appController.showSideBar,
-                    selectedBottomTab: $appController.selectedAppTab,
-                    createToast: createToast,
-                    removeBookmark: removeBookmark,
-                    updateBookmarks: updateBookmarks,
-                    onChangeSchool: onChangeSchool)
-                    .padding(.bottom, geometry.safeAreaInsets.bottom) // apply safe area insets manually
+        NavigationView {
+            VStack {
+                // Main home page view switcher
+                switch appController.selectedAppTab {
+                case .home:
+                    HomePage(
+                        viewModel: viewModel.homeViewModel,
+                        parentViewModel: viewModel,
+                        domain: $viewModel.domain,
+                        canvasUrl: $viewModel.canvasUrl,
+                        kronoxUrl: $viewModel.kronoxUrl,
+                        selectedAppTab: $appController.selectedAppTab
+                    )
+                case .bookmarks:
+                    BookmarkPage(
+                        viewModel: viewModel.bookmarksViewModel,
+                        parentViewModel: viewModel,
+                        appController: appController
+                    )
+                case .account:
+                    AccountPage(
+                        viewModel: viewModel.accountPageViewModel,
+                        createToast: createToast
+                    )
+                }
+                TabBar(selectedAppTab: $appController.selectedAppTab)
             }
             .ignoresSafeArea(.keyboard)
-            
-            NavigationView {
-                VStack {
-                    // Main home page view switcher
-                    switch appController.selectedAppTab {
-                    case .home:
-                        HomePage(
-                            viewModel: viewModel.homeViewModel,
-                            parentViewModel: viewModel,
-                            domain: $viewModel.domain,
-                            canvasUrl: $viewModel.canvasUrl,
-                            kronoxUrl: $viewModel.kronoxUrl,
-                            selectedAppTab: $appController.selectedAppTab
-                        )
-                    case .bookmarks:
-                        BookmarkPage(
-                            viewModel: viewModel.bookmarksViewModel,
-                            parentViewModel: viewModel,
-                            appController: appController
-                        )
-                    case .account:
-                        AccountPage(
-                            viewModel: viewModel.accountPageViewModel,
-                            createToast: createToast
-                        )
-                    }
-                    TabBar(selectedAppTab: $appController.selectedAppTab)
-                }
-                .ignoresSafeArea(.keyboard)
-                .navigationTitle(appController.selectedAppTab.displayName)
-                .navigationBarTitleDisplayMode(.inline)
-                .toolbar {
-                    ToolbarItem(placement: .navigationBarLeading, content: {
-                        NavigationbarSidebar(
-                            showSideBar: $appController.showSideBar,
-                            handleClose: handleSideBarAction)
-                    })
-                    ToolbarItem(placement: .navigationBarTrailing, content: {
-                        NavigationbarSearch(
-                            viewModel: viewModel.searchViewModel,
-                            backButtonTitle: appController.selectedAppTab.displayName,
-                            checkForNewSchedules: updateBookmarks,
-                            universityImage: $viewModel.universityImage)
-                    })
-                }
-                
+            .navigationTitle(appController.selectedAppTab.displayName)
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading, content: {
+                    NavigationbarSearch(
+                        viewModel: viewModel.searchViewModel,
+                        checkForNewSchedules: updateBookmarks,
+                        universityImage: $viewModel.universityImage)
+                })
+                ToolbarItem(placement: .navigationBarTrailing, content: {
+                    NavigationBarSettings(
+                        viewModel: viewModel.sidebarViewModel,
+                        onChangeSchool: onChangeSchool,
+                        updateBookmarks: updateBookmarks,
+                        removeBookmark: removeBookmark)
+                })
             }
-            .overlay(
-                Group {
-                    if appController.showSideBar {
-                        Color.white.opacity(0.001)
-                            .onTapGesture {
-                                withAnimation {
-                                    handleSideBarAction(
-                                        shouldShowSideBar: false
-                                    )
-                                }
-                            }
-                    }
-                }
-            )
-            .offset(x: appController.showSideBar ? getRect().width - 120 : 0)
-            .toastView(toast: $appController.toast)
-            .ignoresSafeArea(.keyboard)
-            .navigationViewStyle(StackNavigationViewStyle())
         }
+        .tint(.primary)
+        .overlay(
+            Group {
+                if appController.showSideBar {
+                    Color.white.opacity(0.001)
+                        .onTapGesture {
+                            withAnimation {
+                                handleSideBarAction(
+                                    shouldShowSideBar: false
+                                )
+                            }
+                        }
+                }
+            }
+        )
+        .offset(x: appController.showSideBar ? getRect().width - 120 : 0)
+        .toastView(toast: $appController.toast)
+        .ignoresSafeArea(.keyboard)
+        .navigationViewStyle(StackNavigationViewStyle())
         .zIndex(1)
         .ignoresSafeArea(.keyboard)
     }
