@@ -49,7 +49,7 @@ struct ExamDetailSheetModel: Identifiable {
     private var resourceSectionDataTask: URLSessionDataTask? = nil
     private var eventSectionDataTask: URLSessionDataTask? = nil
     
-    /// AccountViewModel is responsible to instantiate
+    /// AccountViewModel is responsible for instantiating
     /// the viewmodel used in its child views it navigates to
     let resourceViewModel: ResourceViewModel
     
@@ -74,6 +74,42 @@ struct ExamDetailSheetModel: Identifiable {
         self.school = preferenceService.getDefaultSchool()
     }
 
+    func removeUserBooking(where id: String) -> Void {
+        DispatchQueue.main.async {
+            self.userBookings?.removeAll {
+                $0.id == id
+            }
+        }
+    }
+    
+    /// This is a caching approach to avoid a network call after user
+    /// unregisters for an event in account page, and instead modify it in place,
+    /// since network errors can occur.
+    func removeUserEvent(where id: String) -> Void {
+        if var mutRegisteredEvents = completeUserEvent?.registeredEvents,
+           var mutUnregisteredEvents = completeUserEvent?.unregisteredEvents {
+            // Find subject in current struct
+            let eventRemoved = mutRegisteredEvents.first {
+                $0.eventId == id
+            }
+            // Add to new array
+            if let eventRemoved = eventRemoved {
+                mutUnregisteredEvents.append(eventRemoved)
+            }
+            mutRegisteredEvents.removeAll {
+                $0.eventId == id
+            }
+            DispatchQueue.main.async {
+                // Rebuild user events
+                self.completeUserEvent = Response.KronoxCompleteUserEvent(
+                    upcomingEvents: self.completeUserEvent?.upcomingEvents,
+                    registeredEvents: mutRegisteredEvents, // Insert modified events
+                    availableEvents: self.completeUserEvent?.availableEvents,
+                    unregisteredEvents: mutUnregisteredEvents
+                )
+            }
+        }
+    }
     
     func login(username: String, password: String, createToast: @escaping (Bool) -> Void ) -> Void {
         self.status = .loading
