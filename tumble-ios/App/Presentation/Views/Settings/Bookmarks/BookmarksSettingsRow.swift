@@ -1,13 +1,13 @@
 //
-//  BookmarkRow.swift
+//  BookmarksSettingsRow.swift
 //  tumble-ios
 //
-//  Created by Adis Veletanlic on 2023-02-09.
+//  Created by Adis Veletanlic on 3/29/23.
 //
 
 import SwiftUI
 
-struct BookmarkRow: View {
+struct BookmarkSettingsRow: View {
     
     @ObservedObject var bookmark: Bookmark
     let toggleBookmark: (String, Bool) -> Void
@@ -19,11 +19,11 @@ struct BookmarkRow: View {
                 HStack (alignment: .center, spacing: 0) {
                     Button(action: { deleteBookmark(bookmark.id) }) {
                         Image(systemName: "minus.circle")
-                            .font(.system(size: 24))
+                            .font(.system(size: 20))
                             .foregroundColor(.onBackground)
                     }
                     Text(bookmark.id)
-                        .font(.system(size: 18))
+                        .font(.system(size: 16))
                         .padding(15)
                     Spacer()
                 }
@@ -37,5 +37,3 @@ struct BookmarkRow: View {
         .padding([.leading, .trailing])
     }
 }
-
-

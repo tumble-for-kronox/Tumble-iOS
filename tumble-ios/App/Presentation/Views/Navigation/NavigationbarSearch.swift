@@ -9,15 +9,18 @@ import SwiftUI
 
 struct NavigationbarSearch: View {
     
-    @StateObject var viewModel: SearchViewModel
-    let backButtonTitle: String
+    @ObservedObject var viewModel: SearchViewModel
     let checkForNewSchedules: () -> Void
     @Binding var universityImage: Image?
     
     var body: some View {
         NavigationLink(destination:
-            SearchPage(viewModel: viewModel, universityImage: $universityImage, checkForNewSchedules: checkForNewSchedules)
-            .customNavigationBackButton(previousPage: backButtonTitle, callback: checkForNewSchedules)
+            SearchPage(
+                viewModel: viewModel,
+                universityImage: $universityImage,
+                checkForNewSchedules: checkForNewSchedules
+            )
+            .navigationBarTitle("Search")
            , label: {
             Image(systemName: "magnifyingglass")
                 .navBarIcon()

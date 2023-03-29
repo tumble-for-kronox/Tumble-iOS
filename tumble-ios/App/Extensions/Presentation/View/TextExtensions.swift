@@ -125,7 +125,7 @@ extension Text {
     
     func backButton() -> some View {
         self
-            .font(.system(size: 18, weight: .semibold))
+            .font(.system(size: 16))
             .foregroundColor(.primary)
     }
     

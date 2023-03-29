@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-struct SidebarSheetButtonStyle: ButtonStyle {
+struct SettingsButtonStyle: ButtonStyle {
     func makeBody(configuration: Self.Configuration) -> some View {
         configuration.label
             .background(Color.surface)

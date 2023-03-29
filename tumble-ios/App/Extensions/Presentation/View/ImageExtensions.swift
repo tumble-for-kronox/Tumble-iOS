@@ -12,7 +12,7 @@ extension Image {
     
     func tabBarIcon(isSelected: Bool) -> some View {
         self
-            .font(.system(size: 22))
+            .font(.system(size: 20))
             .foregroundColor(isSelected ? .primary : .onSurface.opacity(0.5))
     }
     

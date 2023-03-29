@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-@MainActor final class SidebarViewModel: ObservableObject {
+@MainActor final class SettingsViewModel: ObservableObject {
     
     @Inject var preferenceService: PreferenceService
     @Inject var scheduleService: ScheduleService
@@ -122,7 +122,7 @@ import SwiftUI
     
 }
 
-extension SidebarViewModel {
+extension SettingsViewModel {
     
     fileprivate func loadSchedules(completion: @escaping ([ScheduleStoreModel]) -> Void) -> Void {
         self.scheduleService.load(completion: {result in

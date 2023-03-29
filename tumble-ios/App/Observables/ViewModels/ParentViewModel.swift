@@ -31,7 +31,7 @@ import SwiftUI
     let bookmarksViewModel: BookmarksViewModel
     let accountPageViewModel: AccountViewModel
     let searchViewModel: SearchViewModel
-    let sidebarViewModel: SidebarViewModel
+    let sidebarViewModel: SettingsViewModel
 
     
     init() {
@@ -41,7 +41,7 @@ import SwiftUI
         self.bookmarksViewModel = viewModelFactory.makeViewModelBookmarks()
         self.accountPageViewModel = viewModelFactory.makeViewModelAccount()
         self.searchViewModel = viewModelFactory.makeViewModelSearch()
-        self.sidebarViewModel = viewModelFactory.makeViewModelSidebar()
+        self.sidebarViewModel = viewModelFactory.makeViewModelSettings()
         
         self.canvasUrl = preferenceService.getCanvasUrl()
         self.kronoxUrl = preferenceService.getUniversityKronoxUrl()
