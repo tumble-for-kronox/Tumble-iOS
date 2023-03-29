@@ -46,7 +46,7 @@ extension Image {
     func drawerIcon() -> some View {
         self.font(.system(size: 18))
             .frame(width: 15, height: 15)
-            .foregroundColor(.background)
+            .foregroundColor(Color(UIColor.systemBackground))
             .padding(5)
             .background(Color.onBackground)
             .clipShape(RoundedRectangle(cornerRadius: 10))

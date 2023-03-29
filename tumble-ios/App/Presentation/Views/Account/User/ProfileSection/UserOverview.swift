@@ -41,7 +41,7 @@ struct UserOverview: View {
             }
             .padding()
             .frame(maxWidth: .infinity, alignment: .leading)
-            .background(Color.background)
+            .background(Color(UIColor.systemBackground))
             .cornerRadius(20, corners: [.bottomLeft, .bottomRight])
             Divider()
                 .foregroundColor(.onBackground)
@@ -56,7 +56,7 @@ struct UserOverview: View {
         .onAppear {
             getResourcesAndEvents()
         }
-        .background(Color.background)
+        .background(Color(UIColor.systemBackground))
         .toastView(toast: $toast)
     }
     

@@ -62,7 +62,7 @@ struct BookmarkListView: View {
                 }, label: {
                     Image(systemName: "arrow.up")
                         .font(.system(size: 24, weight: .semibold))
-                        .foregroundColor(.background)
+                        .foregroundColor(Color(UIColor.systemBackground))
                         .padding(15)
                         .background(Color.primary)
                         .clipShape(Rectangle())

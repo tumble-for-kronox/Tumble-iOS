@@ -51,7 +51,9 @@ struct Resources: View {
                     ResourceSectionDivider (title: "Your bookings", resourceType: .resource,
                                  destination: AnyView(
                                     ResourceBookings(viewModel: parentViewModel.resourceViewModel)
-                                        .customNavigationBackButton(previousPage: "Account"))) {
+                                        .navigationTitle("Resources")
+                                        .navigationBarTitleDisplayMode(.inline)
+                                    )) {
                                             RegisteredBookings(
                                                 onClickResource: onClickResource,
                                                 state: $parentViewModel.bookingSectionState,
@@ -63,7 +65,8 @@ struct Resources: View {
                                         viewModel: parentViewModel.resourceViewModel,
                                         getUserEventsForSection: getUserEventsForSection
                                     )
-                                        .customNavigationBackButton(previousPage: "Account"))) {
+                                    .navigationTitle("Events")
+                                    .navigationBarTitleDisplayMode(.inline))) {
                                             RegisteredEvents(
                                                 onClickEvent: onClickEvent,
                                                 state: $parentViewModel.registeredEventSectionState,
@@ -81,7 +84,7 @@ struct Resources: View {
         .coordinateSpace(name: scrollSpace)
         .onPreferenceChange(ResourcesScrollViewOffsetPreferenceKey.self, perform: handleScroll)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color.background)
+        .background(Color(UIColor.systemBackground))
         .cornerRadius(20, corners: [.topLeft, .topRight])
         .sheet(item: $parentViewModel.examDetailSheetModel, content: { examDetails in
             ExamDetailsSheet(

@@ -54,7 +54,7 @@ struct ResourceBookings: View {
             maxHeight: .infinity,
             alignment: .top
         )
-        .background(Color.background)
+        .background(Color(UIColor.systemBackground))
         .onAppear {
             viewModel.getAllResourceData(date: selectedPickerDate)
         }

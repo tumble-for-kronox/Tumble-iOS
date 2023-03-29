@@ -27,7 +27,7 @@ struct AccountPage: View {
         }
         .frame(maxHeight: .infinity)
         .ignoresSafeArea(.keyboard)
-        .background(Color.background)
+        .background(Color(UIColor.systemBackground))
         .padding(.bottom, -10)
     }
     

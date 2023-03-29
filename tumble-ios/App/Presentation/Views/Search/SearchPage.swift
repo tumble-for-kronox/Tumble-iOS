@@ -36,7 +36,7 @@ struct SearchPage: View {
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
         }
-        .background(Color.background)
+        .background(Color(UIColor.systemBackground))
         .sheet(isPresented: $viewModel.presentPreview) {
             SchedulePreview(
                 parentViewModel: viewModel,

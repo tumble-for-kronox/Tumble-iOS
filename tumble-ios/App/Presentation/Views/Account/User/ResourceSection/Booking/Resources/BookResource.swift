@@ -23,9 +23,9 @@ struct BookResource: View {
                         parentViewModel: parentViewModel,
                         resource: resource,
                         selectedPickerDate: selectedPickerDate
-                    ).customNavigationBackButton(
-                        previousPage: "Date"
                     )
+                    .navigationTitle("Rooms")
+                    .navigationBarTitleDisplayMode(.inline)
                 }, label: {
                     HStack (spacing: 0) {
                         VStack (alignment: .leading, spacing: 10) {

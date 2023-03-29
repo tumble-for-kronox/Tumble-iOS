@@ -43,7 +43,7 @@ struct ToastView: View {
             }
             .padding()
         }
-        .background(Color.background)
+        .background(Color(UIColor.systemBackground))
         .overlay(
             Rectangle()
                 .fill(type.themeColor)

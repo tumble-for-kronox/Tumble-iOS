@@ -15,13 +15,10 @@ struct AppParent: View {
     @ObservedObject var viewModel: ParentViewModel
         
     private let navigationBarAppearance = UINavigationBar.appearance()
-    private let tabBarAppearance = UITabBar.appearance()
     
     init(viewModel: ParentViewModel) {
         navigationBarAppearance.titleTextAttributes = [.font: navigationBarFont()]
         navigationBarAppearance.titleTextAttributes = [.foregroundColor: UIColor(named: "OnSurface")!]
-        tabBarAppearance.backgroundColor = UIColor(named: "BackgroundColor")
-        tabBarAppearance.tintColor = UIColor(named: "PrimaryColor")
         self.viewModel = viewModel
     }
     

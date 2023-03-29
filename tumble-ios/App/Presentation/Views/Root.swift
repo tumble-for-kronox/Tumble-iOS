@@ -20,7 +20,7 @@ struct Root: View {
     
     var body: some View {
         ZStack {
-            Color.background
+            Color(UIColor.systemBackground)
             switch viewModel.currentView {
             case .onboarding:
                 OnBoarding(viewModel: viewModel.onBoardingViewModel, updateUserOnBoarded: setUserOnBoarded)

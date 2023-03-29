@@ -61,7 +61,7 @@ struct EventBookings: View {
                         .frame(minHeight: geo.size.height)
                 }
             }
-            .background(Color.background)
+            .background(Color(UIColor.systemBackground))
             .frame(maxHeight: .infinity, alignment: .center)
         }
         .onAppear {

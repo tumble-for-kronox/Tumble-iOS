@@ -34,7 +34,7 @@ struct SearchResults: View {
                     }
                 }
             }
-            .background(Color.background)
+            .background(Color(UIColor.systemBackground))
         }
     }
 }

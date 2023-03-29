@@ -34,7 +34,7 @@ struct AccountLogin: View {
             }
             .padding(.horizontal, 15)
             .padding(.top, 20)
-            .background(Color.background)
+            .background(Color(UIColor.systemBackground))
             .frame(width: geometry.size.width, height: geometry.size.height) // Set the frame size to match the screen size
         }
         .ignoresSafeArea(.keyboard)
