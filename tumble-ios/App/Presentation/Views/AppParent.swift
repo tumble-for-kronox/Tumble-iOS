@@ -57,7 +57,7 @@ struct AppParent: View {
             .navigationTitle(appController.selectedAppTab.displayName)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .navigationBarLeading, content: {
+                ToolbarItem(placement: .navigationBarTrailing, content: {
                     NavigationbarSearch(
                         viewModel: viewModel.searchViewModel,
                         checkForNewSchedules: updateBookmarks,

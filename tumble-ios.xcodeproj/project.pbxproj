@@ -51,7 +51,7 @@
 		D42BAC1E298D3D6A0025EAA9 /* AppLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42BAC1D298D3D6A0025EAA9 /* AppLogger.swift */; };
 		D42BAC23298D5BFA0025EAA9 /* DependencyInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42BAC22298D5BFA0025EAA9 /* DependencyInjector.swift */; };
 		D42BAC25298D5EBC0025EAA9 /* Dependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42BAC24298D5EBC0025EAA9 /* Dependencies.swift */; };
-		D42DFD5C29BD5920002942D7 /* SidebarSheetButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42DFD5B29BD5920002942D7 /* SidebarSheetButtonStyle.swift */; };
+		D42DFD5C29BD5920002942D7 /* SettingsButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42DFD5B29BD5920002942D7 /* SettingsButtonStyle.swift */; };
 		D42DFD5E29BD5BC9002942D7 /* ExternalLinkPillStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42DFD5D29BD5BC9002942D7 /* ExternalLinkPillStyle.swift */; };
 		D430F73E29C60DC500E30E48 /* VerboseButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D430F73D29C60DC500E30E48 /* VerboseButtonStyle.swift */; };
 		D430F74029C613DB00E30E48 /* BookmarkCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D430F73F29C613DB00E30E48 /* BookmarkCalendarView.swift */; };
@@ -89,6 +89,11 @@
 		D454203E29BE914800EF0FC9 /* EventDetailsPillStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D454203D29BE914800EF0FC9 /* EventDetailsPillStyle.swift */; };
 		D454204129BE982000EF0FC9 /* HapticsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D454204029BE982000EF0FC9 /* HapticsController.swift */; };
 		D454DECA29D35EF5005BDAE3 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D454DEC929D35EF5005BDAE3 /* Settings.swift */; };
+		D454DECC29D3B1E5005BDAE3 /* SchoolSelectionSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D454DECB29D3B1E5005BDAE3 /* SchoolSelectionSettings.swift */; };
+		D454DECE29D3B900005BDAE3 /* BookmarksSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D454DECD29D3B900005BDAE3 /* BookmarksSettings.swift */; };
+		D454DED029D3B953005BDAE3 /* BookmarksSettingsRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D454DECF29D3B953005BDAE3 /* BookmarksSettingsRow.swift */; };
+		D454DED529D3BB13005BDAE3 /* NotificationSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D454DED429D3BB13005BDAE3 /* NotificationSettings.swift */; };
+		D454DED729D3BB48005BDAE3 /* SettingsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D454DED629D3BB48005BDAE3 /* SettingsButton.swift */; };
 		D4563E7E2985F96C003261FA /* NetworkSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4563E7D2985F96C003261FA /* NetworkSettings.swift */; };
 		D4563E802985FBFB003261FA /* NetworkExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4563E7F2985FBFB003261FA /* NetworkExtensions.swift */; };
 		D4607632292AA39400DE9590 /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4607631292AA39400DE9590 /* Types.swift */; };
@@ -252,7 +257,7 @@
 		D42BAC1D298D3D6A0025EAA9 /* AppLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLogger.swift; sourceTree = "<group>"; };
 		D42BAC22298D5BFA0025EAA9 /* DependencyInjector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyInjector.swift; sourceTree = "<group>"; };
 		D42BAC24298D5EBC0025EAA9 /* Dependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dependencies.swift; sourceTree = "<group>"; };
-		D42DFD5B29BD5920002942D7 /* SidebarSheetButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarSheetButtonStyle.swift; sourceTree = "<group>"; };
+		D42DFD5B29BD5920002942D7 /* SettingsButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsButtonStyle.swift; sourceTree = "<group>"; };
 		D42DFD5D29BD5BC9002942D7 /* ExternalLinkPillStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalLinkPillStyle.swift; sourceTree = "<group>"; };
 		D430F73D29C60DC500E30E48 /* VerboseButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerboseButtonStyle.swift; sourceTree = "<group>"; };
 		D430F73F29C613DB00E30E48 /* BookmarkCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkCalendarView.swift; sourceTree = "<group>"; };
@@ -289,6 +294,11 @@
 		D454203D29BE914800EF0FC9 /* EventDetailsPillStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailsPillStyle.swift; sourceTree = "<group>"; };
 		D454204029BE982000EF0FC9 /* HapticsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticsController.swift; sourceTree = "<group>"; };
 		D454DEC929D35EF5005BDAE3 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		D454DECB29D3B1E5005BDAE3 /* SchoolSelectionSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolSelectionSettings.swift; sourceTree = "<group>"; };
+		D454DECD29D3B900005BDAE3 /* BookmarksSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksSettings.swift; sourceTree = "<group>"; };
+		D454DECF29D3B953005BDAE3 /* BookmarksSettingsRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksSettingsRow.swift; sourceTree = "<group>"; };
+		D454DED429D3BB13005BDAE3 /* NotificationSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettings.swift; sourceTree = "<group>"; };
+		D454DED629D3BB48005BDAE3 /* SettingsButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsButton.swift; sourceTree = "<group>"; };
 		D4563E7D2985F96C003261FA /* NetworkSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkSettings.swift; sourceTree = "<group>"; };
 		D4563E7F2985FBFB003261FA /* NetworkExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkExtensions.swift; sourceTree = "<group>"; };
 		D4607631292AA39400DE9590 /* Types.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Types.swift; sourceTree = "<group>"; };
@@ -516,7 +526,11 @@
 		D41172C02985EB2C0082BB4F /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				D454DED329D3BB08005BDAE3 /* Notifications */,
+				D454DED229D3BAF6005BDAE3 /* SchoolSelection */,
+				D454DED129D3BAEA005BDAE3 /* Bookmarks */,
 				D454DEC929D35EF5005BDAE3 /* Settings.swift */,
+				D454DED629D3BB48005BDAE3 /* SettingsButton.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -689,7 +703,7 @@
 			children = (
 				D4B7F25A29CC6187006E2449 /* Bookmarks */,
 				D4B7F25929CC615C006E2449 /* Home */,
-				D42DFD5B29BD5920002942D7 /* SidebarSheetButtonStyle.swift */,
+				D42DFD5B29BD5920002942D7 /* SettingsButtonStyle.swift */,
 				D44ABF0629BFE89D00344792 /* SchoolRowStyle.swift */,
 				D443962D29CB56040069D66A /* ResourceBookingButtonStyle.swift */,
 				D4EACB3529CB99540096ADD2 /* ResourceTimeButtonStyle.swift */,
@@ -757,6 +771,31 @@
 				D454204029BE982000EF0FC9 /* HapticsController.swift */,
 			);
 			path = Haptics;
+			sourceTree = "<group>";
+		};
+		D454DED129D3BAEA005BDAE3 /* Bookmarks */ = {
+			isa = PBXGroup;
+			children = (
+				D454DECD29D3B900005BDAE3 /* BookmarksSettings.swift */,
+				D454DECF29D3B953005BDAE3 /* BookmarksSettingsRow.swift */,
+			);
+			path = Bookmarks;
+			sourceTree = "<group>";
+		};
+		D454DED229D3BAF6005BDAE3 /* SchoolSelection */ = {
+			isa = PBXGroup;
+			children = (
+				D454DECB29D3B1E5005BDAE3 /* SchoolSelectionSettings.swift */,
+			);
+			path = SchoolSelection;
+			sourceTree = "<group>";
+		};
+		D454DED329D3BB08005BDAE3 /* Notifications */ = {
+			isa = PBXGroup;
+			children = (
+				D454DED429D3BB13005BDAE3 /* NotificationSettings.swift */,
+			);
+			path = Notifications;
 			sourceTree = "<group>";
 		};
 		D4563E7C2985F960003261FA /* NetworkSettings */ = {
@@ -1414,6 +1453,7 @@
 				D40D80CE29265D49008CA68D /* SearchBar.swift in Sources */,
 				D454203C29BE857500EF0FC9 /* ToastController.swift in Sources */,
 				D4294B3229C9188C00007747 /* HomePageNewsButton.swift in Sources */,
+				D454DED529D3BB13005BDAE3 /* NotificationSettings.swift in Sources */,
 				D421EAF02993FB660045D438 /* EventDetailsSheetModel.swift in Sources */,
 				D46ABF1229843D3000B059F6 /* StoreKey.swift in Sources */,
 				D443962A29CB40C70069D66A /* ToTopButtonStyle.swift in Sources */,
@@ -1445,6 +1485,7 @@
 				D4E83EB8299959AF002E5F88 /* LoginButton.swift in Sources */,
 				D4A550D52994755900028BCF /* BookmarkButton.swift in Sources */,
 				D43419C02985639D001089A0 /* ColorInstructions.swift in Sources */,
+				D454DECE29D3B900005BDAE3 /* BookmarksSettings.swift in Sources */,
 				D4A433BA29952A8A00BFEB7A /* EventExtension.swift in Sources */,
 				D419EDF4299A662400479DCE /* UserAvatar.swift in Sources */,
 				D460763B292AAD5400DE9590 /* PopupToastView.swift in Sources */,
@@ -1456,7 +1497,7 @@
 				D46BB10A298AC31E00887A24 /* DetailsBuilder.swift in Sources */,
 				D4A433BC29952BE600BFEB7A /* DictionaryExtension.swift in Sources */,
 				D4E39E402989DDDC004C30DF /* EventDetailsBody.swift in Sources */,
-				D42DFD5C29BD5920002942D7 /* SidebarSheetButtonStyle.swift in Sources */,
+				D42DFD5C29BD5920002942D7 /* SettingsButtonStyle.swift in Sources */,
 				D4E39E3A2989CE84004C30DF /* EventDetailsSheet.swift in Sources */,
 				D4FF4726299156FC0080C898 /* ScheduleStoreObjectExtension.swift in Sources */,
 				D4A550D129946B8200028BCF /* Bookmark.swift in Sources */,
@@ -1491,6 +1532,7 @@
 				D45338F9292825B200198411 /* BookmarkCard.swift in Sources */,
 				D471A90B29C7939E005541FA /* HomePageHeader.swift in Sources */,
 				D476BD2A293A31FD0027CFE8 /* SchedulePreviewList.swift in Sources */,
+				D454DED029D3B953005BDAE3 /* BookmarksSettingsRow.swift in Sources */,
 				D46ABF0F29843CF300B059F6 /* PreferenceServiceProtocol.swift in Sources */,
 				D4ABD275298C2EC2002FD8F5 /* PreferenceServiceExtension.swift in Sources */,
 				D4B4B62D29C37C130098D175 /* ProgrammeCardStyle.swift in Sources */,
@@ -1510,6 +1552,7 @@
 				D419EDF6299A78C400479DCE /* ResourceSectionDivider.swift in Sources */,
 				D40D80A629252165008CA68D /* ViewExtensions.swift in Sources */,
 				D4EAD3B9298D633B00678DF8 /* KronoxManagerProtocol.swift in Sources */,
+				D454DECC29D3B1E5005BDAE3 /* SchoolSelectionSettings.swift in Sources */,
 				D454204129BE982000EF0FC9 /* HapticsController.swift in Sources */,
 				D42DFD5E29BD5BC9002942D7 /* ExternalLinkPillStyle.swift in Sources */,
 				D476BD2E293A32BF0027CFE8 /* RoundedCornerShape.swift in Sources */,
@@ -1520,6 +1563,7 @@
 				D46BB10C298ADDF600887A24 /* CustomCorners.swift in Sources */,
 				D4462C3229858A7D0067DA65 /* ImageExtensions.swift in Sources */,
 				D460764A292AE77E00DE9590 /* BubbleShape.swift in Sources */,
+				D454DED729D3BB48005BDAE3 /* SettingsButton.swift in Sources */,
 				D48CC59829C7C3C70028179A /* HomePageSeeAllStyle.swift in Sources */,
 				D46ABF14298443AC00B059F6 /* ViewModelFactory.swift in Sources */,
 				D460764C292AEAEC00DE9590 /* BookmarkListView.swift in Sources */,

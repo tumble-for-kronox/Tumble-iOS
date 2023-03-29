@@ -15,7 +15,11 @@ struct NavigationbarSearch: View {
     
     var body: some View {
         NavigationLink(destination:
-            SearchPage(viewModel: viewModel, universityImage: $universityImage, checkForNewSchedules: checkForNewSchedules)
+            SearchPage(
+                viewModel: viewModel,
+                universityImage: $universityImage,
+                checkForNewSchedules: checkForNewSchedules
+            )
             .navigationBarTitle("Search")
            , label: {
             Image(systemName: "magnifyingglass")

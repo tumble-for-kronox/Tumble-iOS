@@ -38,8 +38,6 @@ struct SchoolRow: View {
                 .padding(.trailing, 10)
                 .padding([.top, .bottom], 10)
                 Spacer()
-                Image(systemName: "chevron.right")
-                    .padding([.leading, .trailing], 20)
             }
         })
         .buttonStyle(SchoolRowStyle())
