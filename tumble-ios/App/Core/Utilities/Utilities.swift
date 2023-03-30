@@ -51,7 +51,6 @@ var dateFormatterEvent: DateFormatter = {
 
 var dateFormatterComma: DateFormatter = {
     let formatter = DateFormatter()
-    formatter.locale = Locale(identifier: "en_US_POSIX")
     formatter.dateFormat = "EEEE, MMMM d, yyyy"
     return formatter
 }()
@@ -84,7 +83,6 @@ var isoDateFormatterSemi: ISO8601DateFormatter = {
 
 var dateFormatterLong: DateFormatter = {
     let dateFormatter = DateFormatter()
-    dateFormatter.locale = Locale(identifier: "en_US")
     dateFormatter.dateStyle = .long
     return dateFormatter
 }()

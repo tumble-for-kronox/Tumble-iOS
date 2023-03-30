@@ -18,11 +18,11 @@ enum TabbarTabType: String {
     var displayName: String {
         switch self {
         case .home:
-            return NSLocalizedString("Home", comment: "Home")
+            return NSLocalizedString("Home", comment: "")
         case .bookmarks:
-            return NSLocalizedString("Bookmarks", comment: "Bookmarks")
+            return NSLocalizedString("Bookmarks", comment: "")
         case .account:
-            return NSLocalizedString("Account", comment: "Account")
+            return NSLocalizedString("Account", comment: "")
         }
     }
 }
@@ -34,9 +34,9 @@ enum BookmarksViewType: String {
     var displayName: String {
         switch self {
         case .calendar:
-            return NSLocalizedString("List", comment: "List")
+            return NSLocalizedString("Calendar", comment: "")
         case .list:
-            return NSLocalizedString("Calendar", comment: "Calendar")
+            return NSLocalizedString("List", comment: "")
         }
     }
     

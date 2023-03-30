@@ -140,6 +140,7 @@
 		D4761C4429CF222900B3BB0B /* WideAnimatedButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4761C4329CF222900B3BB0B /* WideAnimatedButtonStyle.swift */; };
 		D476BD2A293A31FD0027CFE8 /* SchedulePreviewList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D476BD29293A31FD0027CFE8 /* SchedulePreviewList.swift */; };
 		D476BD2E293A32BF0027CFE8 /* RoundedCornerShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = D476BD2D293A32BF0027CFE8 /* RoundedCornerShape.swift */; };
+		D478452629D64F0F00BDF7A3 /* LanguageTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = D478452529D64F0F00BDF7A3 /* LanguageTypes.swift */; };
 		D47A1AF729C00C0E004F03DB /* HomePageOptionStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47A1AF629C00C0E004F03DB /* HomePageOptionStyle.swift */; };
 		D481F15729CB820D0088C28E /* AvailabilitiesExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D481F15629CB820D0088C28E /* AvailabilitiesExtension.swift */; };
 		D481F15929CB84F10088C28E /* ResourceSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D481F15829CB84F10088C28E /* ResourceSelection.swift */; };
@@ -180,7 +181,6 @@
 		D4BAE61929246AA200143717 /* schools.json in Resources */ = {isa = PBXBuildFile; fileRef = D4BAE61829246AA200143717 /* schools.json */; };
 		D4BAE61C29246AF800143717 /* SchoolRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BAE61B29246AF800143717 /* SchoolRow.swift */; };
 		D4CD0EFF29D5B00A00AB5FD0 /* UIApplicationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CD0EFE29D5B00A00AB5FD0 /* UIApplicationExtension.swift */; };
-		D4CD0F0229D5D9BC00AB5FD0 /* LanguageSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CD0F0129D5D9BC00AB5FD0 /* LanguageSettings.swift */; };
 		D4CD0F0529D5DC9D00AB5FD0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D4CD0F0729D5DC9D00AB5FD0 /* Localizable.strings */; };
 		D4CE2DBD2982E55200B81052 /* NavigationbarSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CE2DBC2982E55200B81052 /* NavigationbarSearch.swift */; };
 		D4CF9B2A2935634800DDB5F0 /* SearchError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CF9B292935634800DDB5F0 /* SearchError.swift */; };
@@ -350,6 +350,10 @@
 		D4761C4329CF222900B3BB0B /* WideAnimatedButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WideAnimatedButtonStyle.swift; sourceTree = "<group>"; };
 		D476BD29293A31FD0027CFE8 /* SchedulePreviewList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulePreviewList.swift; sourceTree = "<group>"; };
 		D476BD2D293A32BF0027CFE8 /* RoundedCornerShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedCornerShape.swift; sourceTree = "<group>"; };
+		D478452129D64C3600BDF7A3 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		D478452229D64CC300BDF7A3 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		D478452429D64D8800BDF7A3 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; };
+		D478452529D64F0F00BDF7A3 /* LanguageTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageTypes.swift; sourceTree = "<group>"; };
 		D47A1AF629C00C0E004F03DB /* HomePageOptionStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageOptionStyle.swift; sourceTree = "<group>"; };
 		D481F15629CB820D0088C28E /* AvailabilitiesExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvailabilitiesExtension.swift; sourceTree = "<group>"; };
 		D481F15829CB84F10088C28E /* ResourceSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceSelection.swift; sourceTree = "<group>"; };
@@ -390,8 +394,7 @@
 		D4BAE61829246AA200143717 /* schools.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = schools.json; sourceTree = "<group>"; };
 		D4BAE61B29246AF800143717 /* SchoolRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolRow.swift; sourceTree = "<group>"; };
 		D4CD0EFE29D5B00A00AB5FD0 /* UIApplicationExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplicationExtension.swift; sourceTree = "<group>"; };
-		D4CD0F0129D5D9BC00AB5FD0 /* LanguageSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageSettings.swift; sourceTree = "<group>"; };
-		D4CD0F0629D5DC9D00AB5FD0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		D4CD0F0629D5DC9D00AB5FD0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; wrapsLines = 1; };
 		D4CD0F0829D5DCA300AB5FD0 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D4CE2DBC2982E55200B81052 /* NavigationbarSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationbarSearch.swift; sourceTree = "<group>"; };
 		D4CF9B292935634800DDB5F0 /* SearchError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchError.swift; sourceTree = "<group>"; };
@@ -543,7 +546,6 @@
 				D455E04829D58CA600770910 /* SettingsNavLink.swift */,
 				D455E04629D58B9B00770910 /* SettingsButton.swift */,
 				D4EE5B6D29D50FD3002A1399 /* SettingsRadioButton.swift */,
-				D4CD0F0029D5D9AC00AB5FD0 /* Language */,
 				D4EE5B6A29D50FAF002A1399 /* Appearance */,
 				D454DED329D3BB08005BDAE3 /* Notifications */,
 				D454DED229D3BAF6005BDAE3 /* SchoolSelection */,
@@ -586,6 +588,7 @@
 				D4EAD3B6298D632500678DF8 /* DataSource */,
 				D46ABF032984385700B059F6 /* Repository */,
 				D41ED545298433A3009DCF8B /* Model */,
+				D478452529D64F0F00BDF7A3 /* LanguageTypes.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -1205,14 +1208,6 @@
 			path = SchoolSelection;
 			sourceTree = "<group>";
 		};
-		D4CD0F0029D5D9AC00AB5FD0 /* Language */ = {
-			isa = PBXGroup;
-			children = (
-				D4CD0F0129D5D9BC00AB5FD0 /* LanguageSettings.swift */,
-			);
-			path = Language;
-			sourceTree = "<group>";
-		};
 		D4D2996A299B1592003B8C65 /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
@@ -1400,7 +1395,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1410;
-				LastUpgradeCheck = 1410;
+				LastUpgradeCheck = 1420;
 				TargetAttributes = {
 					D4722144292454560063BDB7 = {
 						CreatedOnToolsVersion = 14.1;
@@ -1415,6 +1410,9 @@
 				en,
 				sv,
 				Base,
+				fr,
+				de,
+				it,
 			);
 			mainGroup = D472213C292454560063BDB7;
 			packageReferences = (
@@ -1540,6 +1538,7 @@
 				D4CF9B2A2935634800DDB5F0 /* SearchError.swift in Sources */,
 				D40E843B2981C85400C2CF2E /* AccountPage.swift in Sources */,
 				D4E83EBE299960E0002E5F88 /* LoginHeader.swift in Sources */,
+				D478452629D64F0F00BDF7A3 /* LanguageTypes.swift in Sources */,
 				D47A1AF729C00C0E004F03DB /* HomePageOptionStyle.swift in Sources */,
 				D40D809B29251FD7008CA68D /* ToastStyle.swift in Sources */,
 				D40D80CA29265B98008CA68D /* SearchPage.swift in Sources */,
@@ -1583,7 +1582,6 @@
 				D430F73E29C60DC500E30E48 /* VerboseButtonStyle.swift in Sources */,
 				D49D2502299AC240001D2751 /* ImagePicker.swift in Sources */,
 				D49FCAD629CFCA5400E3CE6E /* ResourceViewModel.swift in Sources */,
-				D4CD0F0229D5D9BC00AB5FD0 /* LanguageSettings.swift in Sources */,
 				D419EDF6299A78C400479DCE /* ResourceSectionDivider.swift in Sources */,
 				D40D80A629252165008CA68D /* ViewExtensions.swift in Sources */,
 				D4EAD3B9298D633B00678DF8 /* KronoxManagerProtocol.swift in Sources */,
@@ -1660,6 +1658,9 @@
 			children = (
 				D4CD0F0629D5DC9D00AB5FD0 /* en */,
 				D4CD0F0829D5DCA300AB5FD0 /* sv */,
+				D478452129D64C3600BDF7A3 /* fr */,
+				D478452229D64CC300BDF7A3 /* de */,
+				D478452429D64D8800BDF7A3 /* it */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -1671,6 +1672,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -1770,6 +1772,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -1830,6 +1833,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";

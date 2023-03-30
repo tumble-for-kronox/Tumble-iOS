@@ -1,0 +1,400 @@
+/* 
+  Localizable.strings
+  tumble-ios
+
+  Created by Adis Veletanlic on 2023-03-30.
+  
+*/
+
+"Monday"="Montag";
+
+"Tuesday"="Dienstag";
+
+"Wednesday"="Mittwoch";
+
+"Thursday"="Donnerstag";
+
+"Friday"="Freitag";
+
+"Saturday"="Samstag";
+
+"Sunday"="Sonntag";
+
+"English"="Englisch";
+
+"Swedish"="Schwedisch";
+
+"Italian"="Italienisch";
+
+"French"="Französisch";
+
+"German"="Deutsch";
+
+"Home"="Heim";
+
+"Bookmarks"="Lesezeichen";
+
+"Account"="Konto";
+
+"Calendar"="Kalender";
+
+"List"="Aufführen";
+
+"New school"="Neue schule";
+
+"Set %@ to default"="Setzen sie %@ auf standard";
+
+"School already selected"="Schule bereits ausgewählt";
+
+"You already have '%@' as your default school"="Sie haben bereits „%@“ als ihre standardschule";
+
+"Removed schedule"="Zeitplan entfernt";
+
+"Successfully removed the schedule '%@' from your bookmarks"="Der zeitplan „%@“ wurde erfolgreich aus ihren lesezeichen entfernt";
+
+"Could not remove schedule"="Zeitplan konnte nicht entfernt werden";
+
+"The schedule '%@' could not be removed from your bookmarks"="Der zeitplan „%@“ konnte nicht aus ihren lesezeichen entfernt werden";
+
+"Appearance"="Aussehen";
+
+"App language"="App-Sprache";
+
+"Notifications"="Benachrichtigungen";
+
+"School"="Schule";
+
+"App review"="App-überprüfung";
+
+"Share feedback"="Feedback teilen";
+
+"How to use the app"="So verwenden sie die app";
+
+"Settings"="Einstellungen";
+
+"Scheduled notifications"="Geplante benachrichtigungen";
+
+"Scheduled notifications for all available events"="Geplante benachrichtigungen für alle verfügbaren ereignisse";
+
+"Error"="Fehler";
+
+"Failed to set notifications for all available events"="Fehler beim festlegen von benachrichtigungen für alle verfügbaren ereignisse";
+
+"Automatic"="Automatisch";
+
+"Light"="Licht";
+
+"Dark"="Dunkel";
+
+"No bookmarks yet"="Noch keine lesezeichen";
+
+"minutes"="Protokoll";
+
+"hour"="Stunde";
+
+"hours"="Std.";
+
+"Set notifications for all events"="Legen sie benachrichtigungen für alle ereignisse fest";
+
+"Cancel all notifications"="Alle benachrichtigungen abbrechen";
+
+"Notification offset"="Benachrichtigungs-offset";
+
+"Today's events"="Die heutigen ereignisse";
+
+"No classes for today"="Kein unterricht für heute";
+
+"Something went wrong"="Etwas ist schief gelaufen";
+
+"News"="Nachricht";
+
+"No recent news items"="Keine aktuellen nachrichten";
+
+"See all"="Alles sehen";
+
+"No teachers listed"="Keine lehrer aufgelistet";
+
+"Unknown"="Unbekannt";
+
+"Search"="Suchen";
+
+"%@ results"="%@ ergebnisse";
+
+"This is where you find your schedules"="Hier finden sie ihre stundenpläne";
+
+"Search schedules"="Suchpläne";
+
+"Looks like something went wrong"="Scheint etwas schief gelaufen zu sein";
+
+"Schedule is empty"="Zeitplan ist leer";
+
+"Remove"="Entfernen";
+
+"Bookmark"="Lesezeichen";
+
+"Schedule seems to be empty"="Der zeitplan scheint leer zu sein";
+
+"There was an error retrieving your schedules"="Beim abrufen ihrer zeitpläne ist ein fehler aufgetreten";
+
+"All your bookmarks are hidden"="Alle ihre lesezeichen sind ausgeblendet";
+
+"No events for this date"="Keine veranstaltungen für dieses datum";
+
+"Course"="Kurs";
+
+"Teachers"="Lehrer";
+
+"No teachers listed at this time"="Zur zeit sind keine lehrer eingetragen";
+
+"Date"="Datum";
+
+"Time"="Zeit";
+
+"Locations"="Standorte";
+
+"No locations listed at this time"="Derzeit sind keine standorte aufgeführt";
+
+"Select course color"="Kursfarbe auswählen";
+
+"Event"="Fall";
+
+"Color"="Farbe";
+
+"Attempting to log in user"="Versuch, benutzer anzumelden";
+
+"(no date)"="(kein datum)";
+
+"No registered events yet"="Noch keine veranstaltungen registriert";
+
+"Could not contact the server"="Der server konnte nicht kontaktiert werden";
+
+"Booked resource"="Gebuchte ressource";
+
+"(no time)"="(keine zeit)";
+
+"No booked resources yet"="Noch keine gebuchten ressourcen";
+
+"No title"="Kein titel";
+
+"Date:"="Datum:";
+
+"Time:"="Zeit:";
+
+"User options"="Benutzeroptionen";
+
+"Automatic exam signup"="Automatische prüfungsanmeldung";
+
+"Your bookings"="Ihre buchungen";
+
+"Resources"="Ressourcen";
+
+"Your events"="Ihre veranstaltungen";
+
+"Events"="Veranstaltungen";
+
+"Unregistered from event"="Von der veranstaltung abgemeldet";
+
+"You have been unregistered from the specified event"="Sie wurden von der angegebenen veranstaltung abgemeldet";
+
+"We couldn't unregister you for the specified event"="Wir konnten sie für die angegebene veranstaltung nicht abmelden";
+
+"Unbooked resource"="Nicht gebuchte ressource";
+
+"You have unbooked the selected resource"="Sie haben die ausgewählte ressource ausgebucht";
+
+"We couldn't unbook the specified resource"="Wir konnten die angegebene ressource nicht abbuchen";
+
+"Automatic signup"="Automatische anmeldung";
+
+"Automatic exam/event signup has been enabled, but make sure you are always registered for exams through your institution."="Die automatische prüfungs-/veranstaltungsanmeldung wurde aktiviert, aber stellen sie sicher, dass sie sich immer über ihre institution für prüfungen angemeldet haben.";
+
+"Automatic exam/event signup has been disabled."="Die automatische prüfungs-/veranstaltungsanmeldung wurde deaktiviert.";
+
+"Book more"="Buchen sie mehr";
+
+"Event details"="Veranstaltungsdetails";
+
+"Title"="Titel";
+
+"Type"="Typ";
+
+"No type"="Kein typ";
+
+"No date"="Kein datum";
+
+"\(date), from"="\(stammen aus";
+
+"Available until"="Verfügbar bis";
+
+"(no date set)"="(kein datum gesetzt)";
+
+"Unregister event"="Veranstaltung abmelden";
+
+"Resource details"="Ressourcendetails";
+
+"Location"="Standort";
+
+"Timeslot"="Zeitfenster";
+
+"Confirmation"="Bestätigung";
+
+"(missing)"="(fehlen)";
+
+"Remove booking"="Buchung entfernen";
+
+"Booked"="Gebucht";
+
+"Book"="Buch";
+
+"No available timeslots"="Keine verfügbaren zeitfenster";
+
+"Successfully booked resource"="Ressource erfolgreich gebucht";
+
+"Not booked"="Nicht gebucht";
+
+"Failed to book the specified resource"="Die angegebene ressource konnte nicht gebucht werden";
+
+"Rooms"="Räume";
+
+"No name"="Kein name";
+
+"Available timeslots: %d"="Verfügbare zeitfenster: %d";
+
+"Pick a date"="Suche dir einen termin aus";
+
+"No rooms available on weekends"="Am wochenende sind keine zimmer verfügbar";
+
+"at"="Bei";
+
+"No date at this time"="Derzeit kein datum";
+
+"Available at:"="Verfügbar um:";
+
+"Registered"="Eingetragen";
+
+"No registered events available"="Keine registrierten veranstaltungen verfügbar";
+
+"Unregistered"="Nicht registriert";
+
+"No unregistered events available"="Keine nicht registrierten veranstaltungen verfügbar";
+
+"Upcoming"="Bevorstehende";
+
+"No upcoming events available"="Keine bevorstehenden veranstaltungen verfügbar";
+
+"Signup has passed"="Die anmeldung ist abgelaufen";
+
+"Unregister"="Registrierung aufheben";
+
+"Register"="Registrieren";
+
+"Password"="Passwort";
+
+"Need help?"="Brauchen sie hilfe?";
+
+"Logged in"="Eingeloggt";
+
+"Successfully logged in as %@"="Erfolgreich angemeldet als %@";
+
+"Something went wrong when logging in to your account"="Bei der anmeldung bei ihrem konto ist etwas schief gelaufen";
+
+"Username/Email address"="Benutzername (e-mail addresse";
+
+"Log in"="Anmeldung";
+
+"Please log in to continue"="Bitte einloggen zum fortfahren";
+
+"Saving schedules"="Zeitpläne speichern";
+
+"Signing up for events"="Anmeldung für veranstaltungen";
+
+"Booking resources"="Buchungsressourcen";
+
+"Setting notifications"="Benachrichtigungen einstellen";
+
+"Customizing course colors"="Kursfarben anpassen";
+
+"Let's get started"="Lass uns anfangen";
+
+"We'll walk you through how to use Tumble"="Wir führen sie durch die verwendung von tumble";
+
+"Here's how to save a schedule"="So speichern sie einen zeitplan";
+
+"Here's how to sign up for an event"="So melden sie sich für eine veranstaltung an";
+
+"Here's how to book a resource"="So buchen sie eine ressource";
+
+"Here's how to set notifications"="So stellen sie benachrichtigungen ein";
+
+"Here's how to modify course colors"="So ändern sie kursfarben";
+
+"All done"="Alles erledigt";
+
+"Now we'll leave you to it. First, choose your university."="Jetzt überlassen wir es ihnen. wählen sie zunächst ihre hochschule aus.";
+
+"Bookmarks page"="Lesezeichen-seite";
+
+"Press the bookmarks tab in the tab bar"="Drücken sie die lesezeichen-registerkarte in der registerkartenleiste";
+
+"Click"="Klicken";
+
+"Click an event card in your schedule"="Klicken sie in ihrem zeitplan auf eine ereigniskarte";
+
+"Select"="Wählen";
+
+"Press the 'Color' option in the sheet that appears"="Drücken sie im angezeigten blatt auf die option „farbe“.";
+
+"Apply"="Anwenden";
+
+"Choose any color from the color palette and apply it"="Wählen sie eine beliebige farbe aus der farbpalette und wenden sie sie an";
+
+"Done"="Erledigt";
+
+"The specific course under the event will have a new color"="Der spezifische kurs unter dem event hat eine neue farbe";
+
+"Search for a schedule from the search page"="Suchen sie auf der suchseite nach einem zeitplan";
+
+"Open"="Offen";
+
+"Open the schedule you want to view"="Öffnen sie den zeitplan, den sie anzeigen möchten";
+
+"Press the 'bookmark' button on the bottom left "="Drücken sie unten links auf die schaltfläche „lesezeichen“.";
+
+"Check it out"="Hör zu";
+
+"View your schedule in your preferred schedule view"="Zeigen sie ihren zeitplan in ihrer bevorzugten zeitplanansicht an";
+
+"Account page"="Kontoseite";
+
+"Press the account page tab on the bottom"="Drücken sie unten auf die registerkarte kontoseite";
+
+"Log in with your institution credentials"="Melden sie sich mit ihren institutions-anmeldeinformationen an";
+
+"Navigate to the event booking page by pressing 'See all'"="Navigieren sie zur veranstaltungsbuchungsseite, indem sie auf „alle anzeigen“ klicken.";
+
+"Choose"="Wählen";
+
+"Select an available event to sign up for and press the register button"="Wählen sie eine verfügbare veranstaltung aus, für die sie sich anmelden möchten, und klicken sie auf die schaltfläche „registrieren“.";
+
+"Now you've signed up for the specified exam, check your email for confirmation"="Nachdem sie sich jetzt für die angegebene prüfung angemeldet haben, überprüfen sie ihre e-mail auf bestätigung";
+
+"Press the 'Event' or 'Course' notification setting in the sheet that appears"="Drücken sie auf der angezeigten seite auf die benachrichtigungseinstellung „ereignis“ oder „kurs“.";
+
+"A notification will be set for the specified event or course"="Für die angegebene veranstaltung oder den kurs wird eine benachrichtigung eingerichtet";
+
+"Sign in"="Anmelden";
+
+"Sign in with your institution credentials"="Melden sie sich mit ihren institutions-anmeldeinformationen an";
+
+"Navigate to the resource booking page by pressing 'Book more'"="Navigieren sie zur ressourcenbuchungsseite, indem sie auf „mehr buchen“ klicken.";
+
+"Choose a time to search for available dates and select an opening"="Wählen sie eine zeit aus, um nach verfügbaren terminen zu suchen, und wählen sie eine öffnung aus";
+
+"Building"="Gebäude";
+
+"Select a building on campus to book a room in, then select a room for a specific timeslot"="Wählen sie ein gebäude auf dem campus aus, um einen raum zu buchen, und wählen sie dann einen raum für ein bestimmtes zeitfenster aus";
+
+"Confirm"="Bestätigen";
+
+"Now confirm your selected booking by pressing the confirm button"="Bestätigen sie nun ihre ausgewählte buchung durch drücken des bestätigen-buttons";
+

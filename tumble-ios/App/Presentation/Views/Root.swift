@@ -11,9 +11,12 @@ import PermissionsSwiftUINotification
 struct Root: View {
     
     @ObservedObject var viewModel: RootViewModel
+    @AppStorage(StoreKey.appearance.rawValue) private var appearance = AppearanceTypes.system.rawValue
     
-    @AppStorage(StoreKey.locale.rawValue) private var locale = LanguageTypes.english.localeName
-    @AppStorage(StoreKey.appearance.rawValue) private var appearance = AppearanceType.system.rawValue
+    init(viewModel: RootViewModel) {
+        self.viewModel = viewModel
+        UserDefaults.standard.set("sv", forKey: "AppleLanguage")
+    }
     
     var body: some View {
         ZStack {
@@ -26,7 +29,6 @@ struct Root: View {
                     .environmentObject(AppController.shared)
             }
         }
-        .environment(\.locale, .init(identifier: locale))
         .colorScheme(getThemeColorScheme())
         .preferredColorScheme(getThemeColorScheme())
         .edgesIgnoringSafeArea(.all)
@@ -43,9 +45,9 @@ struct Root: View {
     
     private func getThemeColorScheme() -> ColorScheme {
         switch appearance {
-        case AppearanceType.dark.rawValue:
+        case AppearanceTypes.dark.rawValue:
             return .dark
-        case AppearanceType.light.rawValue:
+        case AppearanceTypes.light.rawValue:
             return .light
         default:
             if UITraitCollection.current.userInterfaceStyle == .dark {

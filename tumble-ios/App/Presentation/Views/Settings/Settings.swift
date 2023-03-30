@@ -10,8 +10,7 @@ import StoreKit
 
 struct Settings: View {
     
-    @AppStorage(StoreKey.appearance.rawValue) var appearance: String = AppearanceType.system.rawValue
-    @AppStorage(StoreKey.locale.rawValue) var language: String = LanguageTypes.english.localeName
+    @AppStorage(StoreKey.appearance.rawValue) var appearance: String = AppearanceTypes.system.rawValue
     @ObservedObject var viewModel: SettingsViewModel
     
     let removeSchedule: (String) -> Void
@@ -25,13 +24,9 @@ struct Settings: View {
                     NavigationLink(destination: AnyView(
                         AppearanceSettings()
                     ), label: {
-                        SettingsNavLink(title: NSLocalizedString("Appearance", comment: ""), current: appearance)
+                        SettingsNavLink(title: NSLocalizedString("Appearance", comment: ""), current: AppearanceTypes.fromRawValue(appearance)?.displayName ?? "")
                     })
-                    NavigationLink(destination: AnyView(
-                        LanguageSettings()
-                    ), label: {
-                        SettingsNavLink(title: NSLocalizedString("App language", comment: ""), current: LanguageTypes.fromLocaleName(language)?.displayName ?? "")
-                    })
+                    appLanguageButton
                     NavigationLink(destination: AnyView(
                             NotificationSettings(
                                 clearAllNotifications: clearAllNotifications,
@@ -68,6 +63,28 @@ struct Settings: View {
         }
         .navigationTitle(NSLocalizedString("Settings", comment: ""))
         .navigationBarTitleDisplayMode(.inline)
+    }
+    
+    var appLanguageButton: some View {
+        Button(action: {
+            UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
+        }, label: {
+            HStack {
+                Text(NSLocalizedString("App language", comment: ""))
+                    .font(.system(size: 16))
+                    .foregroundColor(.onSurface)
+                Spacer()
+                if let currentLocale = Bundle.main.preferredLocalizations.first,
+                    let displayName = LanguageTypes.fromLocaleName(currentLocale)?.displayName {
+                    Text(displayName)
+                        .font(.system(size: 16))
+                        .foregroundColor(.onSurface.opacity(0.7))
+                }
+                Image(systemName: "chevron.right")
+                    .font(.system(size: 14, weight: .medium))
+                    .foregroundColor(.gray.opacity(0.5))
+            }
+        })
     }
     
     fileprivate func clearAllNotifications() -> Void {

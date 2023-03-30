@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-enum AppearanceType: String, Identifiable {
+enum AppearanceTypes: String, Identifiable {
     var id: UUID {
        return UUID()
     }
@@ -26,19 +26,23 @@ enum AppearanceType: String, Identifiable {
         }
     }
     
+    static func fromRawValue(_ rawValue: String) -> AppearanceTypes? {
+        return allCases.first(where: { $0.rawValue == rawValue })
+    }
+    
     static var allCases = [system, light, dark]
 }
 
 struct AppearanceSettings: View {
     
-    @AppStorage(StoreKey.appearance.rawValue) var appearance: String = AppearanceType.system.rawValue
+    @AppStorage(StoreKey.appearance.rawValue) var appearance: String = AppearanceTypes.system.rawValue
     
     var body: some View {
         List {
             Section {
-                ForEach(AppearanceType.allCases) { type in
+                ForEach(AppearanceTypes.allCases) { type in
                     SettingsRadioButton(
-                        title: type.rawValue,
+                        title: type.displayName,
                         isSelected: Binding<Bool>(
                             get: { appearance == type.rawValue },
                             set: { selected in

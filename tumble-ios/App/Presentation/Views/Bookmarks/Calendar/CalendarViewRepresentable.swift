@@ -24,7 +24,6 @@ struct CalendarViewRepresentable: UIViewRepresentable {
         calendar.delegate = context.coordinator
         calendar.dataSource = context.coordinator
         
-        calendar.locale = Locale(identifier: "en")
         calendar.appearance.weekdayTextColor = UIColor(named: "OnBackground")?.withAlphaComponent(0.7)
         calendar.appearance.titleDefaultColor = UIColor(named: "OnBackground")
         calendar.appearance.selectionColor = UIColor(named: "PrimaryColor")
@@ -49,7 +48,6 @@ struct CalendarViewRepresentable: UIViewRepresentable {
     
     func updateUIView(_ uiView: FSCalendar, context: Context) {
             uiView.scope = .month
-            uiView.locale = Locale(identifier: "en")
             uiView.firstWeekday = 2
         uiView.appearance.weekdayTextColor = UIColor(named: "OnBackground")?.withAlphaComponent(0.7)
             uiView.appearance.titleDefaultColor = UIColor(named: "OnBackground")

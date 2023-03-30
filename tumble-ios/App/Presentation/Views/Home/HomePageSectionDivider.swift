@@ -18,6 +18,7 @@ struct HomePageSectionDivider: View {
             Text(title)
                 .font(.system(size: 18, weight: .semibold))
                 .foregroundColor(.onBackground)
+                .environment(\.locale, Locale(identifier: "sv"))
             Text("(\(contentCount))")
                 .font(.system(size: 16))
                 .foregroundColor(.onBackground.opacity(0.5))
@@ -39,7 +40,7 @@ struct HomePageSectionDivider_Previews: PreviewProvider {
     static var previews: some View {
         HomePageSectionDivider(
             onTapSeeAll: {},
-            title: "Today's classes",
+            title: "Today's events",
             contentCount: 3
         )
     }
