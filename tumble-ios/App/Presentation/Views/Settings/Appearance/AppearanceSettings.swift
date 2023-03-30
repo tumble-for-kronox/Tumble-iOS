@@ -28,7 +28,6 @@ struct AppearanceSettings: View {
                 ForEach(AppearanceType.allCases) { type in
                     SettingsRadioButton(
                         title: type.rawValue,
-                        onToggle: {},
                         isSelected: Binding<Bool>(
                             get: { appearance == type.rawValue },
                             set: { selected in

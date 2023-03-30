@@ -32,7 +32,6 @@ struct NotificationOffsetSettings: View {
                     let title = type.rawValue / 60 < 1 ? "\(type.rawValue % 60) minutes" : "\(type.rawValue / 60) hour(s)"
                     SettingsRadioButton(
                         title: title,
-                        onToggle: {},
                         isSelected: Binding<Bool>(
                             get: { offset == type.rawValue },
                             set: { selected in

@@ -10,13 +10,11 @@ import SwiftUI
 struct SettingsRadioButton: View {
     
     let title: String
-    let onToggle: () -> Void
     @Binding var isSelected: Bool
     
     var body: some View {
         Button(action: {
             isSelected = true
-            onToggle()
         }) {
             HStack {
                 Text(title)

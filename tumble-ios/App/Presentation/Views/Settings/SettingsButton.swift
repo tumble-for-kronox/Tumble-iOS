@@ -11,7 +11,16 @@ struct SettingsButton: View {
     
     let onClick: () -> Void
     let title: String
-    let image: String
+    let image: String?
+    
+    init(
+        onClick: @escaping () -> Void,
+        title: String,
+        image: String? = nil) {
+            self.onClick = onClick
+            self.title = title
+            self.image = image
+    }
     
     var body: some View {
         Button(action: onClick, label: {
@@ -20,9 +29,11 @@ struct SettingsButton: View {
                     .font(.system(size: 16))
                     .foregroundColor(.onSurface)
                 Spacer()
-                Image(systemName: image)
-                    .frame(width: 25, height: 25)
-                    .foregroundColor(.primary)
+                if let image = image {
+                    Image(systemName: image)
+                        .frame(width: 25, height: 25)
+                        .foregroundColor(.primary)
+                }
             }
         })
     }

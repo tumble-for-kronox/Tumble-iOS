@@ -11,7 +11,9 @@ import StoreKit
 struct Settings: View {
     
     @AppStorage(StoreKey.appearance.rawValue) var appearance: String = AppearanceType.system.rawValue
+    @AppStorage(StoreKey.language.rawValue) var language: String = LanguageTypes.english.rawValue
     @ObservedObject var viewModel: SettingsViewModel
+    
     let removeSchedule: (String) -> Void
     let updateBookmarks: () -> Void
     let onChangeSchool: (School) -> Void
@@ -25,8 +27,10 @@ struct Settings: View {
                     ), label: {
                         SettingsNavLink(title: "Appearance", current: appearance)
                     })
-                    NavigationLink(destination: AnyView(EmptyView()), label: {
-                        SettingsNavLink(title: "App language")
+                    NavigationLink(destination: AnyView(
+                        LanguageSettings()
+                    ), label: {
+                        SettingsNavLink(title: "App language", current: language)
                     })
                     NavigationLink(destination: AnyView(
                             NotificationSettings(
