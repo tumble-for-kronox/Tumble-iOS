@@ -1,0 +1,400 @@
+/* 
+  Localizable.strings
+  tumble-ios
+
+  Created by Adis Veletanlic on 2023-03-30.
+  
+*/
+
+"Monday"="Lunedì";
+
+"Tuesday"="Martedì";
+
+"Wednesday"="Mercoledì";
+
+"Thursday"="Giovedì";
+
+"Friday"="Venerdì";
+
+"Saturday"="Sabato";
+
+"Sunday"="Domenica";
+
+"English"="Inglese";
+
+"Swedish"="Svedese";
+
+"Italian"="Italiano";
+
+"French"="Francese";
+
+"German"="Tedesco";
+
+"Home"="Casa";
+
+"Bookmarks"="Segnalibri";
+
+"Account"="Account";
+
+"Calendar"="Calendario";
+
+"List"="Elenco";
+
+"New school"="Nuova scuola";
+
+"Set %@ to default"="Imposta %@ come predefinito";
+
+"School already selected"="Scuola già selezionata";
+
+"You already have '%@' as your default school"="Hai già '%@' come scuola predefinita";
+
+"Removed schedule"="Programma rimosso";
+
+"Successfully removed the schedule '%@' from your bookmarks"="Rimossa con successo la pianificazione '%@' dai tuoi segnalibri";
+
+"Could not remove schedule"="Impossibile rimuovere la pianificazione";
+
+"The schedule '%@' could not be removed from your bookmarks"="Il programma '%@' non può essere rimosso dai tuoi segnalibri";
+
+"Appearance"="Aspetto";
+
+"App language"="Lingua dell'app";
+
+"Notifications"="Notifiche";
+
+"School"="Scuola";
+
+"App review"="Recensione dell'app";
+
+"Share feedback"="Condividi feedback";
+
+"How to use the app"="Come usare l'app";
+
+"Settings"="Impostazioni";
+
+"Scheduled notifications"="Notifiche programmate";
+
+"Scheduled notifications for all available events"="Notifiche pianificate per tutti gli eventi disponibili";
+
+"Error"="Errore";
+
+"Failed to set notifications for all available events"="Impossibile impostare le notifiche per tutti gli eventi disponibili";
+
+"Automatic"="Automatico";
+
+"Light"="Leggero";
+
+"Dark"="Buio";
+
+"No bookmarks yet"="Nessun segnalibro ancora";
+
+"minutes"="Minuti";
+
+"hour"="Ora";
+
+"hours"="Ore";
+
+"Set notifications for all events"="Imposta le notifiche per tutti gli eventi";
+
+"Cancel all notifications"="Annulla tutte le notifiche";
+
+"Notification offset"="Offset di notifica";
+
+"Today's events"="Gli eventi di oggi";
+
+"No classes for today"="Niente lezioni per oggi";
+
+"Something went wrong"="Qualcosa è andato storto";
+
+"News"="Notizia";
+
+"No recent news items"="Nessuna notizia recente";
+
+"See all"="Vedi tutto";
+
+"No teachers listed"="Nessun insegnante elencato";
+
+"Unknown"="Sconosciuto";
+
+"Search"="Ricerca";
+
+"%@ results"="%@ risultati";
+
+"This is where you find your schedules"="Qui è dove trovi i tuoi programmi";
+
+"Search schedules"="Cerca orari";
+
+"Looks like something went wrong"="Sembra che qualcosa sia andato storto";
+
+"Schedule is empty"="Il programma è vuoto";
+
+"Remove"="Rimuovere";
+
+"Bookmark"="Segnalibro";
+
+"Schedule seems to be empty"="Il programma sembra essere vuoto";
+
+"There was an error retrieving your schedules"="Si è verificato un errore durante il recupero delle tue pianificazioni";
+
+"All your bookmarks are hidden"="Tutti i tuoi segnalibri sono nascosti";
+
+"No events for this date"="Nessun evento per questa data";
+
+"Course"="Corso";
+
+"Teachers"="Insegnanti";
+
+"No teachers listed at this time"="Nessun insegnante elencato in questo momento";
+
+"Date"="Data";
+
+"Time"="Tempo";
+
+"Locations"="Luoghi";
+
+"No locations listed at this time"="Nessuna località elencata in questo momento";
+
+"Select course color"="Seleziona il colore del corso";
+
+"Event"="Evento";
+
+"Color"="Colore";
+
+"Attempting to log in user"="Tentativo di accesso utente";
+
+"(no date)"="(nessuna data)";
+
+"No registered events yet"="Nessun evento ancora registrato";
+
+"Could not contact the server"="Impossibile contattare il server";
+
+"Booked resource"="Risorsa prenotata";
+
+"(no time)"="(non c'è tempo)";
+
+"No booked resources yet"="Ancora nessuna risorsa prenotata";
+
+"No title"="Senza titolo";
+
+"Date:"="Data:";
+
+"Time:"="Tempo:";
+
+"User options"="Opzioni utente";
+
+"Automatic exam signup"="Iscrizione automatica all'esame";
+
+"Your bookings"="Le tue prenotazioni";
+
+"Resources"="Risorse";
+
+"Your events"="I tuoi eventi";
+
+"Events"="Eventi";
+
+"Unregistered from event"="Non registrato dall'evento";
+
+"You have been unregistered from the specified event"="La tua registrazione è stata annullata dall'evento specificato";
+
+"We couldn't unregister you for the specified event"="Non è stato possibile annullare la registrazione per l'evento specificato";
+
+"Unbooked resource"="Risorsa non prenotata";
+
+"You have unbooked the selected resource"="Hai annullato la prenotazione della risorsa selezionata";
+
+"We couldn't unbook the specified resource"="Non è stato possibile annullare la prenotazione della risorsa specificata";
+
+"Automatic signup"="Iscrizione automatica";
+
+"Automatic exam/event signup has been enabled, but make sure you are always registered for exams through your institution."="L'iscrizione automatica a esami/eventi è stata abilitata, ma assicurati di essere sempre registrato agli esami tramite il tuo istituto.";
+
+"Automatic exam/event signup has been disabled."="L'iscrizione automatica a esami/eventi è stata disabilitata.";
+
+"Book more"="Prenota di più";
+
+"Event details"="Dettagli dell'evento";
+
+"Title"="Titolo";
+
+"Type"="Tipo";
+
+"No type"="Nessun tipo";
+
+"No date"="Nessuna data";
+
+"\(date), from"="\(data da";
+
+"Available until"="Disponibile fino";
+
+"(no date set)"="(nessuna data fissata)";
+
+"Unregister event"="Annulla registrazione evento";
+
+"Resource details"="Dettagli della risorsa";
+
+"Location"="Posizione";
+
+"Timeslot"="Fascia oraria";
+
+"Confirmation"="Conferma";
+
+"(missing)"="(mancante)";
+
+"Remove booking"="Rimuovi la prenotazione";
+
+"Booked"="Prenotato";
+
+"Book"="Libro";
+
+"No available timeslots"="Nessuna fascia oraria disponibile";
+
+"Successfully booked resource"="Risorsa prenotata con successo";
+
+"Not booked"="Non prenotato";
+
+"Failed to book the specified resource"="Impossibile prenotare la risorsa specificata";
+
+"Rooms"="Camere";
+
+"No name"="Senza nome";
+
+"Available timeslots: %d"="Fasce orarie disponibili: %d";
+
+"Pick a date"="Scegli una data";
+
+"No rooms available on weekends"="Nessuna camera disponibile nei fine settimana";
+
+"at"="A";
+
+"No date at this time"="Nessuna data in questo momento";
+
+"Available at:"="Disponibile a:";
+
+"Registered"="Registrato";
+
+"No registered events available"="Nessun evento registrato disponibile";
+
+"Unregistered"="Non registrato";
+
+"No unregistered events available"="Nessun evento non registrato disponibile";
+
+"Upcoming"="In arrivo";
+
+"No upcoming events available"="Nessun evento in programma disponibile";
+
+"Signup has passed"="La registrazione è passata";
+
+"Unregister"="Annulla registrazione";
+
+"Register"="Registrati";
+
+"Password"="Parola d'ordine";
+
+"Need help?"="Ho bisogno di aiuto?";
+
+"Logged in"="Connesso";
+
+"Successfully logged in as %@"="Accesso riuscito come %@";
+
+"Something went wrong when logging in to your account"="Qualcosa è andato storto durante l'accesso al tuo account";
+
+"Username/Email address"="Nome utente/indirizzo e-mail";
+
+"Log in"="Login";
+
+"Please log in to continue"="Per favore accedi per continuare";
+
+"Saving schedules"="Risparmiare orari";
+
+"Signing up for events"="Iscrizione agli eventi";
+
+"Booking resources"="Risorse di prenotazione";
+
+"Setting notifications"="Impostazione delle notifiche";
+
+"Customizing course colors"="Personalizzazione dei colori del corso";
+
+"Let's get started"="Iniziamo";
+
+"We'll walk you through how to use Tumble"="Ti guideremo attraverso come usare tumble";
+
+"Here's how to save a schedule"="Ecco come salvare una pianificazione";
+
+"Here's how to sign up for an event"="Ecco come iscriversi a un evento";
+
+"Here's how to book a resource"="Ecco come prenotare una risorsa";
+
+"Here's how to set notifications"="Ecco come impostare le notifiche";
+
+"Here's how to modify course colors"="Ecco come modificare i colori del corso";
+
+"All done"="Tutto fatto";
+
+"Now we'll leave you to it. First, choose your university."="Ora ti lasciamo a questo. innanzitutto, scegli la tua università.";
+
+"Bookmarks page"="Pagina dei segnalibri";
+
+"Press the bookmarks tab in the tab bar"="Premi la scheda dei segnalibri nella barra delle schede";
+
+"Click"="Clic";
+
+"Click an event card in your schedule"="Fai clic su una scheda evento nel tuo programma";
+
+"Select"="Selezionare";
+
+"Press the 'Color' option in the sheet that appears"="Premi l'opzione 'colore' nel foglio che appare";
+
+"Apply"="Fare domanda a";
+
+"Choose any color from the color palette and apply it"="Scegli qualsiasi colore dalla tavolozza dei colori e applicalo";
+
+"Done"="Fatto";
+
+"The specific course under the event will have a new color"="Il corso specifico sotto l'evento avrà un nuovo colore";
+
+"Search for a schedule from the search page"="Cerca un programma dalla pagina di ricerca";
+
+"Open"="Aprire";
+
+"Open the schedule you want to view"="Apri il programma che desideri visualizzare";
+
+"Press the 'bookmark' button on the bottom left "="Premi il pulsante 'segnalibro' in basso a sinistra";
+
+"Check it out"="Controlla";
+
+"View your schedule in your preferred schedule view"="Visualizza il tuo programma nella visualizzazione del programma preferita";
+
+"Account page"="Pagina dell'account";
+
+"Press the account page tab on the bottom"="Premi la scheda della pagina dell'account in basso";
+
+"Log in with your institution credentials"="Accedi con le credenziali del tuo istituto";
+
+"Navigate to the event booking page by pressing 'See all'"="Vai alla pagina di prenotazione dell'evento premendo 'vedi tutto'";
+
+"Choose"="Scegliere";
+
+"Select an available event to sign up for and press the register button"="Seleziona un evento disponibile a cui iscriverti e premi il pulsante registrati";
+
+"Now you've signed up for the specified exam, check your email for confirmation"="Ora che ti sei registrato per l'esame specificato, controlla la tua email per conferma";
+
+"Press the 'Event' or 'Course' notification setting in the sheet that appears"="Premi l'impostazione di notifica 'evento' o 'corso' nel foglio che appare";
+
+"A notification will be set for the specified event or course"="Verrà impostata una notifica per l'evento o il corso specificato";
+
+"Sign in"="Registrazione";
+
+"Sign in with your institution credentials"="Accedi con le credenziali del tuo istituto";
+
+"Navigate to the resource booking page by pressing 'Book more'"="Vai alla pagina di prenotazione delle risorse premendo 'prenota di più'";
+
+"Choose a time to search for available dates and select an opening"="Scegli un orario per cercare le date disponibili e seleziona un'apertura";
+
+"Building"="Edificio";
+
+"Select a building on campus to book a room in, then select a room for a specific timeslot"="Seleziona un edificio del campus in cui prenotare una stanza, quindi seleziona una stanza per una fascia oraria specifica";
+
+"Confirm"="Confermare";
+
+"Now confirm your selected booking by pressing the confirm button"="Ora conferma la prenotazione selezionata premendo il pulsante di conferma";
+

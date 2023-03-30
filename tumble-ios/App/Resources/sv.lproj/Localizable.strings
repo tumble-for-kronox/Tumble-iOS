@@ -5,4 +5,390 @@
   Created by Adis Veletanlic on 2023-03-30.
   
 */
-"Today's classes" = "Dagens föreläsningar";
+
+"Monday"="Måndag";
+
+"Tuesday"="Tisdag";
+
+"Wednesday"="Onsdag";
+
+"Thursday"="Torsdag";
+
+"Friday"="Fredag";
+
+"Saturday"="Lördag";
+
+"Sunday"="Söndag";
+
+"Home"="Hem";
+
+"Bookmarks"="Bokmärken";
+
+"Account"="Konto";
+
+"Calendar"="Kalender";
+
+"List"="Lista";
+
+"New school"="Ny skola";
+
+"Set %@ to default"="Ställ in %@ till standard";
+
+"School already selected"="Skolan är redan vald";
+
+"You already have '%@' as your default school"="Du har redan '%@' som standardskola";
+
+"Removed schedule"="Borttaget schema";
+
+"Successfully removed the schedule '%@' from your bookmarks"="Har tagit bort schemat '%@' från dina bokmärken";
+
+"Could not remove schedule"="Det gick inte att ta bort schemat";
+
+"The schedule '%@' could not be removed from your bookmarks"="Schemat '%@' kunde inte tas bort från dina bokmärken";
+
+"Appearance"="Utseende";
+
+"App language"="Appens språk";
+
+"Notifications"="Aviseringar";
+
+"School"="Skola";
+
+"App review"="App granskning";
+
+"Share feedback"="Dela feedback";
+
+"How to use the app"="Hur man använder appen";
+
+"Settings"="Inställningar";
+
+"Scheduled notifications"="Schemalagda aviseringar";
+
+"Scheduled notifications for all available events"="Schemalagda aviseringar för alla tillgängliga händelser";
+
+"Error"="Fel";
+
+"Failed to set notifications for all available events"="Det gick inte att ställa in aviseringar för alla tillgängliga händelser";
+
+"Automatic"="Automatisk";
+
+"Light"="Ljus";
+
+"Dark"="Mörk";
+
+"English"="Engelska";
+
+"Swedish"="Svenska";
+
+"No bookmarks yet"="Inga bokmärken än";
+
+"minutes"="minuter";
+
+"hour"="timme";
+
+"hours"="timmar";
+
+"Set notifications for all events"="Ställ in aviseringar för alla händelser";
+
+"Cancel all notifications"="Avbryt alla aviseringar";
+
+"Notification offset"="Aviseringsförskjutning";
+
+"Today's events"="Dagens evenemang";
+
+"No classes for today"="Inga lektioner för idag";
+
+"Something went wrong"="Något gick fel";
+
+"News"="Nyheter";
+
+"No recent news items"="Inga senaste nyheter";
+
+"See all"="Se alla";
+
+"No teachers listed"="Inga lärare listade";
+
+"Unknown"="Okänd";
+
+"Search"="Sök";
+
+"%@ results"="%@ resultat";
+
+"This is where you find your schedules"="Det är här du hittar dina scheman";
+
+"Search schedules"="Sök scheman";
+
+"Looks like something went wrong"="Det verkar som att något gick fel";
+
+"Schedule is empty"="Schemat är tomt";
+
+"Remove"="Ta bort";
+
+"Bookmark"="Bokmärke";
+
+"Schedule seems to be empty"="Schemat verkar vara tomt";
+
+"There was an error retrieving your schedules"="Det uppstod ett fel när dina scheman skulle hämtas";
+
+"All your bookmarks are hidden"="Alla dina bokmärken är dolda";
+
+"No events for this date"="Inga evenemang för detta datum";
+
+"Course"="Kurs";
+
+"Teachers"="Lärare";
+
+"No teachers listed at this time"="Inga lärare listade just nu";
+
+"Date"="Datum";
+
+"Time"="Tid";
+
+"Locations"="Platser";
+
+"No locations listed at this time"="Inga platser angivna just nu";
+
+"Select course color"="Välj kursfärg";
+
+"Event"="Evenemang";
+
+"Color"="Färg";
+
+"Attempting to log in user"="Försöker logga in användare";
+
+"(no date)"="(inget datum)";
+
+"No registered events yet"="Inga registrerade evenemang ännu";
+
+"Could not contact the server"="Kunde inte kontakta servern";
+
+"Booked resource"="Bokad resurs";
+
+"(no time)"="(ingen tid)";
+
+"No booked resources yet"="Inga bokade resurser ännu";
+
+"No title"="Ingen titel";
+
+"Date:"="Datum:";
+
+"Time:"="Tid:";
+
+"User options"="Användaralternativ";
+
+"Automatic exam signup"="Automatisk examensregistrering";
+
+"Your bookings"="Dina bokningar";
+
+"Resources"="Resurser";
+
+"Your events"="Dina händelser";
+
+"Events"="Evenemang";
+
+"Unregistered from event"="Avregistrerad från evenemanget";
+
+"You have been unregistered from the specified event"="Du har blivit avregistrerad från den angivna händelsen";
+
+"We couldn't unregister you for the specified event"="Vi kunde inte avregistrera dig för den angivna händelsen";
+
+"Unbooked resource"="Obokad resurs";
+
+"You have unbooked the selected resource"="Du har avbokat den valda resursen";
+
+"We couldn't unbook the specified resource"="Vi kunde inte avboka den angivna resursen";
+
+"Automatic signup"="Automatisk registrering";
+
+"Automatic exam/event signup has been enabled, but make sure you are always registered for exams through your institution."="Automatisk examens-/eventregistrering har aktiverats, men se till att du alltid är registrerad för examen via din institution.";
+
+"Automatic exam/event signup has been disabled."="Automatisk examen/eventregistrering har inaktiverats.";
+
+"Book more"="Boka fler";
+
+"Event details"="Evenemangsdetaljer";
+
+"Title"="Titel";
+
+"Type"="Typ";
+
+"No type"="Ingen typ";
+
+"No date"="Inget datum";
+
+"\(date), from"="\(datum från";
+
+"Available until"="Finns till kl";
+
+"(no date set)"="(inget datum satt)";
+
+"Unregister event"="Avregistrera händelse";
+
+"Resource details"="Resursdetaljer";
+
+"Location"="Plats";
+
+"Timeslot"="Tidslucka";
+
+"Confirmation"="Bekräftelse";
+
+"(missing)"="(saknas)";
+
+"Remove booking"="Ta bort bokningen";
+
+"Booked"="Bokad";
+
+"Book"="Boka";
+
+"No available timeslots"="Inga tillgängliga tider";
+
+"Successfully booked resource"="Resurs har bokats";
+
+"Not booked"="Ej bokad";
+
+"Failed to book the specified resource"="Det gick inte att boka den angivna resursen";
+
+"Rooms"="Rum";
+
+"No name"="Inget namn";
+
+"Available timeslots: %d"="Tillgängliga tidsluckor: %d";
+
+"Pick a date"="Välj ett datum";
+
+"No rooms available on weekends"="Inga rum tillgängliga på helgerna";
+
+"at"="på";
+
+"No date at this time"="Inget datum just nu";
+
+"Available at:"="Tillgänglig på:";
+
+"Registered"="Registrerad";
+
+"No registered events available"="Inga registrerade evenemang tillgängliga";
+
+"Unregistered"="Oregistrerad";
+
+"No unregistered events available"="Inga oregistrerade evenemang tillgängliga";
+
+"Upcoming"="Kommande";
+
+"No upcoming events available"="Inga kommande evenemang tillgängliga";
+
+"Signup has passed"="Registreringen har passerat";
+
+"Unregister"="Avregistrera dig";
+
+"Register"="Registrera";
+
+"Password"="Lösenord";
+
+"Need help?"="Behöver du hjälp?";
+
+"Logged in"="Inloggad";
+
+"Successfully logged in as %@"="Inloggad som %@";
+
+"Something went wrong when logging in to your account"="Något gick fel när du loggade in på ditt konto";
+
+"Username/Email address"="Användarnamn/e-postadress";
+
+"Log in"="Logga in";
+
+"Please log in to continue"="Var vänlig logga in för att fortsätta";
+
+"Saving schedules"="Spara scheman";
+
+"Signing up for events"="Anmälan till evenemang";
+
+"Booking resources"="Bokningsresurser";
+
+"Setting notifications"="Ställ in aviseringar";
+
+"Customizing course colors"="Anpassa kursfärger";
+
+"Let's get started"="Låt oss börja";
+
+"We'll walk you through how to use Tumble"="Vi går igenom hur du använder Tumble";
+
+"Here's how to save a schedule"="Så här sparar du ett schema";
+
+"Here's how to sign up for an event"="Så här anmäler du dig till ett event";
+
+"Here's how to book a resource"="Så här bokar du en resurs";
+
+"Here's how to set notifications"="Så här ställer du in aviseringar";
+
+"Here's how to modify course colors"="Så här ändrar du kursfärgerna";
+
+"All done"="Helt klar";
+
+"Now we'll leave you to it. First, choose your university."="Nu lämnar vi dig till det. Välj först ditt universitet.";
+
+"Bookmarks page"="Bokmärkesfliken";
+
+"Press the bookmarks tab in the tab bar"="Tryck på bokmärkesfliken i navigeringsfältet";
+
+"Click"="Klicka";
+
+"Click an event card in your schedule"="Klicka på ett evenemangskort i ditt schema";
+
+"Select"="Välj";
+
+"Press the 'Color' option in the sheet that appears"="Tryck på alternativet 'Färg' i bladet som visas";
+
+"Apply"="Tillämpa";
+
+"Choose any color from the color palette and apply it"="Välj valfri färg från färgpaletten och applicera den";
+
+"Done"="Klar";
+
+"The specific course under the event will have a new color"="Den specifika kursen under evenemanget kommer att få en ny färg";
+
+"Search for a schedule from the search page"="Sök efter ett schema från söksidan";
+
+"Open"="Öppna";
+
+"Open the schedule you want to view"="Öppna schemat du vill se";
+
+"Press the 'bookmark' button on the bottom left "="Tryck på knappen 'bokmärk' längst ner till vänster";
+
+"Check it out"="Kolla in det";
+
+"View your schedule in your preferred schedule view"="Visa ditt schema i din föredragna schemavy";
+
+"Account page"="Kontofliken";
+
+"Press the account page tab on the bottom"="Tryck på kontofliken i navigeringsfältet";
+
+"Log in with your institution credentials"="Logga in med dina institutionsuppgifter";
+
+"Navigate to the event booking page by pressing 'See all'"="Navigera till evenemangsbokningssidan genom att trycka på 'Se alla'";
+
+"Choose"="Välj";
+
+"Select an available event to sign up for and press the register button"="Välj ett tillgängligt evenemang att anmäla dig till och tryck på registreringsknappen";
+
+"Now you've signed up for the specified exam, check your email for confirmation"="Nu har du registrerat dig för det angivna provet, kontrollera din e-post för bekräftelse";
+
+"Press the 'Event' or 'Course' notification setting in the sheet that appears"="Tryck på aviseringsinställningen 'Evenemang' eller 'Kurs' i bladet som visas";
+
+"A notification will be set for the specified event or course"="En notifikation kommer att ställas in för den angivna händelsen eller flera för kursen";
+
+"Sign in"="Logga in";
+
+"Sign in with your institution credentials"="Logga in med dina institutionsuppgifter";
+
+"Navigate to the resource booking page by pressing 'Book more'"="Navigera till resursbokningssidan genom att trycka på 'Boka fler'";
+
+"Choose a time to search for available dates and select an opening"="Välj en tid för att söka efter tillgängliga datum och välj en öppning";
+
+"Building"="Byggnad";
+
+"Select a building on campus to book a room in, then select a room for a specific timeslot"="Välj en byggnad på campus att boka ett rum i och välj sedan ett rum för en specifik tidslucka";
+
+"Confirm"="Bekräfta";
+
+"Now confirm your selected booking by pressing the confirm button"="Bekräfta nu din valda bokning genom att trycka på bekräftelseknappen";
+

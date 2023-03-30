@@ -24,7 +24,7 @@ struct EventDetailsPill: View {
                     .font(.system(size: 14))
                     .foregroundColor(.onSurface)
                 Text(title)
-                    .font(.system(size: 15, weight: .semibold))
+                    .font(.system(size: 14, weight: .semibold))
                     .multilineTextAlignment(.leading)
                     .foregroundColor(.onSurface)
                     .matchedGeometryEffect(id: title, in: pillNamespace)

@@ -33,21 +33,22 @@ struct EventDetailsCard: View {
                         }
                         .padding(.bottom, 20)
                     }
-                    HStack (spacing: 7.5) {
-                        if event.from.isAvailableNotificationDate() {
+                    VStack (alignment: .leading) {
+                        HStack (spacing: 5) {
+                            if event.from.isAvailableNotificationDate() {
+                                EventDetailsPill(
+                                    title: !parentViewModel.isNotificationSetForEvent ?
+                                        NSLocalizedString("Event", comment: "") : NSLocalizedString("Remove", comment: ""),
+                                    image: "bell.badge",
+                                    onTap: !parentViewModel.isNotificationSetForEvent ? onSetNotificationEvent : onRemoveNotificationForEvent)
+                            }
                             EventDetailsPill(
-                                title: !parentViewModel.isNotificationSetForEvent ?
-                                    NSLocalizedString("Event", comment: "") : NSLocalizedString("Remove", comment: ""),
-                                image: "bell.badge",
-                                onTap: !parentViewModel.isNotificationSetForEvent ? onSetNotificationEvent : onRemoveNotificationForEvent)
+                                title: !parentViewModel.isNotificationSetForCourse ?
+                                    NSLocalizedString("Course", comment: "") : NSLocalizedString("Remove", comment: ""),
+                                image: "bell.badge.fill",
+                                onTap: !parentViewModel.isNotificationSetForCourse ? onSetNotificationForCourse : onRemoveNotificationForCourse)
+                            EventDetailsPill(title: NSLocalizedString("Color", comment: ""), image: "paintbrush", onTap: openColorPicker)
                         }
-                        EventDetailsPill(
-                            title: !parentViewModel.isNotificationSetForCourse ?
-                                NSLocalizedString("Course", comment: "") : NSLocalizedString("Remove", comment: ""),
-                            image: "bell.badge.fill",
-                            onTap: !parentViewModel.isNotificationSetForCourse ? onSetNotificationForCourse : onRemoveNotificationForCourse)
-                        EventDetailsPill(title: NSLocalizedString("Color", comment: ""), image: "paintbrush", onTap: openColorPicker)
-                        Spacer()
                     }
                 }
                 Spacer()

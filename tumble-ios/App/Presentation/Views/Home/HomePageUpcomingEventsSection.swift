@@ -16,7 +16,7 @@ struct HomePageUpcomingEventsSection: View {
         VStack (alignment: .leading) {
             HomePageSectionDivider(onTapSeeAll: {
                 AppController.shared.selectedAppTab = .bookmarks
-            }, title: NSLocalizedString("Today's classes", comment: ""), contentCount: parentViewModel.eventsForToday?.count ?? 0)
+            }, title: NSLocalizedString("Today's events", comment: ""), contentCount: parentViewModel.eventsForToday?.count ?? 0)
             switch parentViewModel.bookmarkedEventsSectionStatus {
             case .loading:
                 VStack {

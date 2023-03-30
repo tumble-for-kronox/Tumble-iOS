@@ -35,7 +35,6 @@ struct OnBoardingViewBuilder<Content : View>: View {
             .padding(.top, 30)
             Spacer()
         }
-        .padding([.leading, .trailing], 10)
         .padding(.top, 5)
     }
 }

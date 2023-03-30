@@ -12,7 +12,7 @@ struct DayHeader: View {
     let day: DayUiModel
     var body: some View {
         HStack (spacing: 0) {
-            Text(day.name)
+            Text(NSLocalizedString(localizedKey(for: day.name), comment: ""))
                 .dayHeader()
             Text(day.date)
                 .dayHeader()
@@ -25,4 +25,10 @@ struct DayHeader: View {
         }
         .padding(.leading, 10)
     }
+    
+    fileprivate func localizedKey(for inputString: String) -> String {
+        return "\(inputString)"
+    }
+
+    
 }
