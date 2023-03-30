@@ -18,7 +18,7 @@ struct BookmarkPage: View {
             VStack {
                 Picker("ViewType", selection: $viewModel.defaultViewType) {
                     ForEach(viewModel.scheduleViewTypes, id: \.self) {
-                        Text(NSLocalizedString($0.rawValue, comment: ""))
+                        Text(NSLocalizedString($0.displayName, comment: ""))
                             .foregroundColor(.onSurface)
                             .font(.caption)
                     }
