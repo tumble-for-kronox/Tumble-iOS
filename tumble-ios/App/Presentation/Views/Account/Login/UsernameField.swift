@@ -15,7 +15,7 @@ struct UsernameField: View {
         HStack {
             Image(systemName: "person")
                 .foregroundColor(.onBackground.opacity(0.75))
-            TextField("Username/Email address", text: $username)
+            TextField(NSLocalizedString("Username/Email address", comment: ""), text: $username)
                 .foregroundColor(.onBackground)
                 .autocapitalization(.none)
                 .disableAutocorrection(true)

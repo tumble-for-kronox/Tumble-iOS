@@ -16,7 +16,7 @@ struct HomePageUpcomingEventsSection: View {
         VStack (alignment: .leading) {
             HomePageSectionDivider(onTapSeeAll: {
                 AppController.shared.selectedAppTab = .bookmarks
-            }, title: "Today's classes", contentCount: parentViewModel.eventsForToday?.count ?? 0)
+            }, title: NSLocalizedString("Today's classes", comment: ""), contentCount: parentViewModel.eventsForToday?.count ?? 0)
             switch parentViewModel.bookmarkedEventsSectionStatus {
             case .loading:
                 VStack {
@@ -42,16 +42,23 @@ struct HomePageUpcomingEventsSection: View {
                         }
                     }
                 } else {
-                    Text("No classes for today")
+                    Text(NSLocalizedString("No classes for today", comment: ""))
                         .font(.system(size: 18))
                         .foregroundColor(.onBackground)
                     Spacer()
                 }
             case .error:
-                Text("Error")
+                VStack {
+                    Info(title: NSLocalizedString("Something went wrong", comment: ""), image: "questionmark.bubble")
+                }
+                .frame(
+                    maxWidth: .infinity,
+                    maxHeight: .infinity,
+                    alignment: .center
+                )
             }
         }
-        .frame(minHeight: UIScreen.main.bounds.height / 5)
+        .frame(minHeight: getRect().height / 5)
     }
     
     func onTapEvent(event: Response.Event, color: Color) -> Void {

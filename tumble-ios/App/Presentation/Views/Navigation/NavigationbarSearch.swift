@@ -20,7 +20,7 @@ struct NavigationbarSearch: View {
                 universityImage: $universityImage,
                 checkForNewSchedules: checkForNewSchedules
             )
-            .navigationBarTitle("Search")
+            .navigationBarTitle(NSLocalizedString("Search", comment: ""))
            , label: {
             Image(systemName: "magnifyingglass")
                 .navBarIcon()

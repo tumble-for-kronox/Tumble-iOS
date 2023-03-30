@@ -29,6 +29,6 @@ struct FeatureCard: View {
 
 struct FeatureCardView_Previews: PreviewProvider {
     static var previews: some View {
-        FeatureCard(title: "Save schedules", image: "list.bullet.clipboard")
+        FeatureCard(title: "Save schedules", image: "bookmarks")
     }
 }

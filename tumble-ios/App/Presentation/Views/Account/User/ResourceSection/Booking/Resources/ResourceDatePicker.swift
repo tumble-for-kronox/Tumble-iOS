@@ -13,7 +13,7 @@ struct ResourceDatePicker: View {
     
     var body: some View {
         DatePicker(
-            "Pick a date",
+            NSLocalizedString("Pick a date", comment: ""),
             selection: $date,
             in: Calendar.current.date(byAdding: .year, value: -1, to: Date())!...,
             displayedComponents: [.date]
@@ -23,7 +23,6 @@ struct ResourceDatePicker: View {
         .datePickerStyle(.graphical)
         .accentColor(Color.primary)
         .background(Color(UIColor.systemBackground))
-        .environment(\.locale, Locale(identifier: "en_GB"))
         .environment(\.calendar, Calendar(identifier: .iso8601))
     }
 }

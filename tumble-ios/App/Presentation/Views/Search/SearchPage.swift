@@ -27,12 +27,12 @@ struct SearchPage: View {
                     case .loaded:
                         SearchResults(searchText: searchBarText, numberOfSearchResults: viewModel.programmeSearchResults.count, searchResults: viewModel.programmeSearchResults, onOpenProgramme: onOpenProgramme, universityImage: $universityImage)
                     case .error:
-                        Info(title: viewModel.errorMessageSearch ?? "Something went wrong", image: nil)
+                        Info(title: viewModel.errorMessageSearch ?? NSLocalizedString("Something went wrong", comment: ""), image: nil)
                     case .empty:
-                        Info(title: "Schedule is empty", image: nil)
+                        Info(title: NSLocalizedString("Schedule is empty", comment: ""), image: nil)
                     }
                 SearchBar(searchBarText: $searchBarText, onSearch: onSearch, onClearSearch: onClearSearch)
-                    .background(Color.surface)
+                    
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
         }

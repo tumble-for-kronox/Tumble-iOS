@@ -32,10 +32,10 @@ struct SchedulePreview: View {
                 if let error = parentViewModel.errorMessagePreview {
                     Info(title: error, image: nil)
                 } else {
-                    Info(title: "Something went wrong", image: nil)
+                    Info(title: NSLocalizedString("Something went wrong", comment: ""), image: nil)
                 }
             case .empty:
-                Info(title: "Schedule seems to be empty", image: nil)
+                Info(title: NSLocalizedString("Schedule seems to be empty", comment: ""), image: nil)
             }
         }
         .frame(

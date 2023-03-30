@@ -8,23 +8,39 @@
 import SwiftUI
 
 struct BookmarksSettings: View {
-    @Binding var bookmarks: [Bookmark]?
-    let toggleBookmark: (String, Bool) -> Void
-    let deleteBookmark: (String) -> Void
+    
+    @ObservedObject var parentViewModel: SettingsViewModel
+    let updateBookmarks: () -> Void
+    let removeSchedule: (String) -> Void
     
     var body: some View {
-        VStack {
-            if bookmarks != nil {
-                if !bookmarks!.isEmpty {
-                    ScrollView (showsIndicators: false) {
-                        ForEach(bookmarks!, id: \.id) { bookmark in
-                            BookmarkSettingsRow(bookmark: bookmark, toggleBookmark: toggleBookmark, deleteBookmark: deleteBookmark)
-                        }
+        if let bookmarks = parentViewModel.bookmarks {
+            if !bookmarks.isEmpty {
+                let sortedBookmarks = bookmarks.sorted(by: { $0.id < $1.id })
+                List {
+                    ForEach(sortedBookmarks, id: \.id) { bookmark in
+                        BookmarkSettingsRow(
+                            bookmark: bookmark,
+                            toggleBookmark: toggleBookmark,
+                            deleteBookmark: deleteBookmark
+                        )
                     }
-                } else {
-                    Info(title: "No bookmarks yet", image: "bookmark.slash")
                 }
+            } else {
+                Info(title: NSLocalizedString("No bookmarks yet", comment: ""), image: "bookmark.slash")
             }
         }
     }
+    
+    fileprivate func deleteBookmark(id: String) -> Void {
+        parentViewModel.deleteBookmark(id: id)
+        // Also remove schedule from scheduleservice
+        removeSchedule(id)
+    }
+    
+    fileprivate func toggleBookmark(id: String, toggled: Bool) -> Void {
+        parentViewModel.toggleBookmarkVisibility(for: id, to: toggled)
+        updateBookmarks()
+    }
+
 }

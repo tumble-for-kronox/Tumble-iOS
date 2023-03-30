@@ -30,7 +30,7 @@ struct RegisteredEvents: View {
                                     timeSpan: "\(event.eventStart.convertToHoursAndMinutes() ?? "")",
                                     type: event.type,
                                     title: event.title,
-                                    date: event.eventStart.toDate() ?? "(no date)",
+                                    date: event.eventStart.toDate() ?? NSLocalizedString("(no date)", comment: ""),
                                     hoursMinutes: "\(eventStart) - \(eventEnd)",
                                     onClick: {
                                         onClickEvent(event)
@@ -40,15 +40,15 @@ struct RegisteredEvents: View {
                             
                         }
                     } else {
-                        Text("No registered events yet")
+                        Text(NSLocalizedString("No registered events yet", comment: ""))
                             .sectionDividerEmpty()
                     }
                 } else {
-                    Text("No registered events yet")
+                    Text(NSLocalizedString("No registered events yet", comment: ""))
                         .sectionDividerEmpty()
                 }
             case .error:
-                Text("Could not contact the server")
+                Text(NSLocalizedString("Could not contact the server", comment: ""))
                     .sectionDividerEmpty()
             }
             Spacer()

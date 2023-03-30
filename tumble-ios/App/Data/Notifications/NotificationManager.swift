@@ -39,6 +39,7 @@ class NotificationManager: NotificationManagerProtocol {
         }
     }
 
+
     func cancelNotification(for eventId: String) {
         notificationCenter.removePendingNotificationRequests(withIdentifiers: [eventId])
         AppLogger.shared.info("Cancelled notifications with id -> \(eventId)")
@@ -74,12 +75,22 @@ class NotificationManager: NotificationManagerProtocol {
         AppLogger.shared.info("Cancelled all notifications for this school")
     }
     
-    func createNotificationFromEvent(event: Response.Event, color: String) -> EventNotification {
+    func createNotificationFromEvent(event: Response.Event, color: String) -> EventNotification? {
+        guard let dateComponents = event.dateComponents else { return nil }
         let notification = EventNotification(
             id: event.id,
             color: color,
-            dateComponents: event.dateComponents!,
+            dateComponents: dateComponents,
             categoryIdentifier: event.course.id, content: event.toDictionary()
+        )
+        return notification
+    }
+    
+    func createNotificationFromBooking(booking: Response.KronoxUserBookingElement) -> BookingNotification? {
+        guard let dateComponents = booking.dateComponentsConfirmation else { return nil }
+        let notification = BookingNotification(
+            id: booking.resourceID,
+            dateComponents: dateComponents
         )
         return notification
     }

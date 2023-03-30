@@ -14,12 +14,11 @@ struct SchoolSelection: View {
     let onSelectSchool: OnSelectSchool
     
     var body: some View {
-        ScrollView (showsIndicators: false) {
+        List {
             ForEach(schools, id: \.id) { school in
                 SchoolRow(school: school, onSelectSchool: onSelectSchool)
             }
         }
-        .padding([.top], 5)
     }
 }
 

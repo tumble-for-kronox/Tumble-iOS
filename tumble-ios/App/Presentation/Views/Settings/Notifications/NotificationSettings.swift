@@ -8,16 +8,44 @@
 import SwiftUI
 
 struct NotificationSettings: View {
+    
+    @AppStorage(StoreKey.notificationOffset.rawValue) var offset: Int = 60
     let clearAllNotifications: () -> Void
     let scheduleNotificationsForAllCourses: () -> Void
-   
+    var offsetDisplayName: String {
+        let hours = offset / 60
+        let minuteString = NSLocalizedString("minutes", comment: "")
+        let hourString = NSLocalizedString("hour", comment: "")
+        let hoursString = NSLocalizedString("hours", comment: "")
+        let hourPostfix = hours == 1 ? hourString : hoursString
+        return hours < 1 ? "\(offset % 60) \(minuteString)" : "\(hours) \(hourPostfix)"
+    }
+    
     var body: some View {
-        // List of options for notifications
-        VStack {
-            SettingsButton(image: "bell.slash", title: "Cancel all notifications", onClick: clearAllNotifications)
-            SettingsButton(image: "bell.badge", title: "Set notifications for all schedules", onClick: scheduleNotificationsForAllCourses)
-            Spacer()
+        
+        
+        
+        List {
+            Section {
+                SettingsButton(
+                    onClick: scheduleNotificationsForAllCourses,
+                    title: NSLocalizedString("Set notifications for all events", comment: ""),
+                    image: "bell.badge"
+                )
+                SettingsButton(
+                    onClick: clearAllNotifications,
+                    title: NSLocalizedString("Cancel all notifications", comment: ""),
+                    image: "bell.slash"
+                )
+            }
+            Section {
+                NavigationLink(destination: AnyView(
+                    NotificationOffsetSettings(offset: $offset)), label: {
+                    SettingsNavLink(
+                        title: NSLocalizedString("Notification offset", comment: ""),
+                        current: offsetDisplayName)
+                })
+            }
         }
-        .padding(.top, 25)
     }
 }

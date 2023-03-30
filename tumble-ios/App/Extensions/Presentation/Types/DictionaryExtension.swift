@@ -67,3 +67,15 @@ extension Dictionary where Key == String, Value == Any {
     }
 }
 
+extension Dictionary where Key == String, Value == Bool {
+    func encode() -> Data? {
+        try? JSONEncoder().encode(self)
+    }
+    
+    init?(data: Data) {
+        guard let dictionary = try? JSONDecoder().decode(Dictionary.self, from: data) else {
+            return nil
+        }
+        self = dictionary
+    }
+}

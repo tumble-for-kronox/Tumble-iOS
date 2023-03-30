@@ -21,7 +21,7 @@ struct SearchBar: View {
                 .foregroundColor(.gray)
                 .font(.system(size: 20))
                 .padding(.leading, 5)
-            TextField("Search schedules", text: $searchBarText)
+            TextField(NSLocalizedString("Search schedules", comment: ""), text: $searchBarText)
                 .searchBoxText()
                 .onTapGesture {
                     self.animateCloseButtonIntoView()
@@ -36,7 +36,7 @@ struct SearchBar: View {
                 
             }) {
                 Image(systemName: "xmark.circle")
-                    .foregroundColor(Color("PrimaryColor"))
+                    .foregroundColor(Color.primary)
                     .font(.system(size: 20))
             }
             .offset(x: closeButtonOffset)

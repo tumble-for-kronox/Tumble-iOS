@@ -55,6 +55,6 @@ struct ToastView: View {
         .cornerRadius(8)
         .shadow(color: Color.black.opacity(0.25), radius: 4, x: 0, y: 1)
         .padding(.horizontal, 16)
-        .padding(.bottom, 55)
+        .padding(.bottom, 15)
     }
 }

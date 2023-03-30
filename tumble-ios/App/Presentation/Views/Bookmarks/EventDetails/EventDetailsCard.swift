@@ -36,15 +36,17 @@ struct EventDetailsCard: View {
                     HStack (spacing: 7.5) {
                         if event.from.isAvailableNotificationDate() {
                             EventDetailsPill(
-                                title: !parentViewModel.isNotificationSetForEvent ? "Event" : "Remove",
+                                title: !parentViewModel.isNotificationSetForEvent ?
+                                    NSLocalizedString("Event", comment: "") : NSLocalizedString("Remove", comment: ""),
                                 image: "bell.badge",
                                 onTap: !parentViewModel.isNotificationSetForEvent ? onSetNotificationEvent : onRemoveNotificationForEvent)
                         }
                         EventDetailsPill(
-                            title: !parentViewModel.isNotificationSetForCourse ? "Course" : "Remove",
+                            title: !parentViewModel.isNotificationSetForCourse ?
+                                NSLocalizedString("Course", comment: "") : NSLocalizedString("Remove", comment: ""),
                             image: "bell.badge.fill",
                             onTap: !parentViewModel.isNotificationSetForCourse ? onSetNotificationForCourse : onRemoveNotificationForCourse)
-                        EventDetailsPill(title: "Color", image: "paintbrush", onTap: openColorPicker)
+                        EventDetailsPill(title: NSLocalizedString("Color", comment: ""), image: "paintbrush", onTap: openColorPicker)
                         Spacer()
                     }
                 }

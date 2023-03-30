@@ -33,25 +33,39 @@ struct OnBoarding: View {
         ZStack {
             VStack {
                 TabView (selection: $viewedTab) {
-                    OnBoardingViewBuilder (header: "Let's get started", subHeader: "We'll walk you through how to use Tumble") {
+                    OnBoardingViewBuilder (
+                        header: NSLocalizedString("Let's get started", comment: ""),
+                        subHeader: NSLocalizedString("We'll walk you through how to use Tumble", comment: "")) {
                         AppFeaturesList()
                     }.tag(0)
-                    OnBoardingViewBuilder (header: "Saving schedules", subHeader: "Here's how to save a schedule") {
+                    OnBoardingViewBuilder (
+                        header: NSLocalizedString("Saving schedules", comment: ""),
+                        subHeader: NSLocalizedString("Here's how to save a schedule", comment: "")) {
                         BookmarkInstructions()
                     }.tag(1)
-                    OnBoardingViewBuilder (header: "Signing up for events", subHeader: "Here's how to sign up for an event") {
+                    OnBoardingViewBuilder (
+                        header: NSLocalizedString("Signing up for events", comment: ""),
+                        subHeader: NSLocalizedString("Here's how to sign up for an event", comment: "")) {
                         ExamInstructions()
                     }.tag(2)
-                    OnBoardingViewBuilder (header: "Booking resources", subHeader: "Here's how to book a resource") {
+                    OnBoardingViewBuilder (
+                        header: NSLocalizedString("Booking resources", comment: ""),
+                        subHeader: NSLocalizedString("Here's how to book a resource", comment: "")) {
                         BookingInstructions()
                     }.tag(3)
-                    OnBoardingViewBuilder (header: "Setting notifications", subHeader: "Here's how to set notifications") {
+                    OnBoardingViewBuilder (
+                        header: NSLocalizedString("Setting notifications", comment: ""),
+                        subHeader: NSLocalizedString("Here's how to set notifications", comment: "")) {
                         NotificationInstructions()
                     }.tag(4)
-                    OnBoardingViewBuilder (header: "Customizing course colors", subHeader: "Here's how to modify course colors") {
+                    OnBoardingViewBuilder (
+                        header: NSLocalizedString("Customizing course colors", comment: ""),
+                        subHeader: NSLocalizedString("Here's how to modify course colors", comment: "")) {
                         ColorInstructions()
                     }.tag(5)
-                    OnBoardingViewBuilder (header: "All done", subHeader: "Now we'll leave you to it. First, choose your university.") {
+                    OnBoardingViewBuilder (
+                        header: NSLocalizedString("All done", comment: ""),
+                        subHeader: NSLocalizedString("Now we'll leave you to it. First, choose your university.", comment: "")) {
                         SchoolSelection(onSelectSchool: onSelectSchool)
                     }.tag(6)
                 }

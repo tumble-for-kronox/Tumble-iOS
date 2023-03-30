@@ -18,7 +18,7 @@ struct BookmarkPage: View {
             VStack {
                 Picker("ViewType", selection: $viewModel.defaultViewType) {
                     ForEach(viewModel.scheduleViewTypes, id: \.self) {
-                        Text($0.rawValue)
+                        Text(NSLocalizedString($0.displayName, comment: ""))
                             .foregroundColor(.onSurface)
                             .font(.caption)
                     }
@@ -58,11 +58,11 @@ struct BookmarkPage: View {
                         )
                     }
                 case .uninitialized:
-                    Info(title: "No bookmarks yet", image: "bookmark.slash")
+                    Info(title: NSLocalizedString("No bookmarks yet", comment: ""), image: "bookmark.slash")
                 case .error:
-                    Info(title: "There was an error retrieving your schedules", image: "exclamationmark.circle")
+                    Info(title: NSLocalizedString("There was an error retrieving your schedules", comment: ""), image: "exclamationmark.circle")
                 case .hiddenAll:
-                    Info(title: "All your bookmarks are hidden", image: "bookmark.slash")
+                    Info(title: NSLocalizedString("All your bookmarks are hidden", comment: ""), image: "bookmark.slash")
                 }
             }
         }

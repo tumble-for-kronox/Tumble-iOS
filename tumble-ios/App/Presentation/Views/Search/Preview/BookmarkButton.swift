@@ -28,7 +28,7 @@ struct BookmarkButton: View {
                         Image(systemName: "bookmark.fill")
                             .font(.system(size: 20))
                             .foregroundColor(.onPrimary)
-                        Text("Remove")
+                        Text(NSLocalizedString("Remove", comment: ""))
                             .font(.system(size: 20, weight: .semibold))
                             .foregroundColor(.onPrimary)
                     }
@@ -37,7 +37,7 @@ struct BookmarkButton: View {
                         Image(systemName: "bookmark")
                             .font(.system(size: 20))
                             .foregroundColor(.onPrimary)
-                        Text("Bookmark")
+                        Text(NSLocalizedString("Bookmark", comment: ""))
                             .font(.system(size: 20, weight: .semibold))
                             .foregroundColor(.onPrimary)
                     }

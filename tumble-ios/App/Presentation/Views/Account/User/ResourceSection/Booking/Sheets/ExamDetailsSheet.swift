@@ -18,32 +18,33 @@ struct ExamDetailsSheet: View {
     var body: some View {
         VStack (alignment: .leading) {
             HStack {
-                Text("Event details")
+                Text(NSLocalizedString("Event details", comment: ""))
                     .sheetTitle()
                 Spacer()
             }
             VStack {
                 Divider()
-                DetailsBuilder(title: "Title", image: "a.magnify", content: {
-                    Text(event.title ?? "No title")
+                DetailsBuilder(title: NSLocalizedString("Title", comment: ""), image: "a.magnify", content: {
+                    Text(event.title ?? NSLocalizedString("No title", comment: ""))
                         .font(.system(size: 16))
                         .foregroundColor(.onSurface)
                 })
-                DetailsBuilder(title: "Type", image: "info.circle", content: {
-                    Text(event.type ?? "No type")
+                DetailsBuilder(title: NSLocalizedString("Type", comment: ""), image: "info.circle", content: {
+                    Text(event.type ?? NSLocalizedString("No type", comment: ""))
                         .font(.system(size: 16))
                         .foregroundColor(.onSurface)
                 })
-                DetailsBuilder(title: "Date", image: "calendar.badge.clock", content: {
-                    let date = event.eventStart.toDate() ?? "No date"
-                    let start = event.eventStart.convertToHoursAndMinutes() ?? "(no time)"
-                    let end = event.eventEnd.convertToHoursAndMinutes() ?? "(no time)"
-                    Text("\(date), from \(start) - \(end)")
+                DetailsBuilder(title: NSLocalizedString("Date", comment: ""), image: "calendar.badge.clock", content: {
+                    let date = event.eventStart.toDate() ?? NSLocalizedString("No date", comment: "")
+                    let start = event.eventStart.convertToHoursAndMinutes() ?? NSLocalizedString("(no time)", comment: "")
+                    let end = event.eventEnd.convertToHoursAndMinutes() ?? NSLocalizedString("(no time)", comment: "")
+                    Text(NSLocalizedString("\(date), from", comment: "") + " \(start) - \(end)")
                         .font(.system(size: 16))
                         .foregroundColor(.onSurface)
+
                 })
-                DetailsBuilder(title: "Available until", image: "signature", content: {
-                    Text(event.lastSignupDate.toDate() ?? "(no date set)")
+                DetailsBuilder(title: NSLocalizedString("Available until", comment: ""), image: "signature", content: {
+                    Text(event.lastSignupDate.toDate() ?? NSLocalizedString("(no date set)", comment: ""))
                         .font(.system(size: 16))
                         .foregroundColor(.onSurface)
                 })
@@ -55,7 +56,7 @@ struct ExamDetailsSheet: View {
                     }
                 }, label: {
                     HStack {
-                        Text("Unregister event")
+                        Text(NSLocalizedString("Unregister event", comment: ""))
                             .font(.system(size: 17, weight: .semibold))
                             .foregroundColor(.onPrimary)
                     }

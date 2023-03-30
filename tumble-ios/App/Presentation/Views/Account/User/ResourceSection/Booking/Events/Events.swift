@@ -41,7 +41,7 @@ struct Events: View {
                     }
                 }
                 if events.isEmpty {
-                    Text("No registered events available")
+                    Text(NSLocalizedString("No registered events available", comment: ""))
                         .sectionDividerEmpty()
                         .padding(.top, 5)
                 }
@@ -58,7 +58,7 @@ struct Events: View {
                     }
                 }
                 if events.isEmpty {
-                    Text("No unregistered events available")
+                    Text(NSLocalizedString("No unregistered events available", comment: ""))
                         .sectionDividerEmpty()
                         .padding(.top, 5)
                 }
@@ -75,7 +75,7 @@ struct Events: View {
                     }
                 }
                 if upcomingEvents.isEmpty {
-                    Text("No upcoming events available")
+                    Text(NSLocalizedString("No upcoming events available", comment: ""))
                         .sectionDividerEmpty()
                         .padding(.top, 5)
                 }

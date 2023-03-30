@@ -1,36 +1,40 @@
 //
-//  SettingsButton.swift
+//  NotificationSettingsButton.swift
 //  tumble-ios
 //
-//  Created by Adis Veletanlic on 3/29/23.
+//  Created by Adis Veletanlic on 3/30/23.
 //
 
 import SwiftUI
 
 struct SettingsButton: View {
     
-    let image: String
-    let title: String
     let onClick: () -> Void
-
+    let title: String
+    let image: String?
+    
+    init(
+        onClick: @escaping () -> Void,
+        title: String,
+        image: String? = nil) {
+            self.onClick = onClick
+            self.title = title
+            self.image = image
+    }
+    
     var body: some View {
-        Button(action: onClick) {
+        Button(action: onClick, label: {
             HStack {
-                Image(systemName: image)
-                    .font(.system(size: 16))
-                    .frame(width: 30)
-                    .padding(.trailing, 15)
-                    .foregroundColor(.primary)
                 Text(title)
-                    .multilineTextAlignment(.leading)
-                    .font(.system(size: 16, weight: .semibold))
+                    .font(.system(size: 16))
                     .foregroundColor(.onSurface)
                 Spacer()
+                if let image = image {
+                    Image(systemName: image)
+                        .frame(width: 25, height: 25)
+                        .foregroundColor(.primary)
+                }
             }
-            .padding(15)
-        }
-        .buttonStyle(SettingsButtonStyle())
-        .padding([.leading, .trailing], 20)
-        .padding([.bottom, .top], 10)
+        })
     }
 }

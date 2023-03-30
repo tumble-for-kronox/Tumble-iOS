@@ -22,18 +22,14 @@ protocol PreferenceServiceProtocol {
     
     func setBookmarks(bookmarks: [Bookmark]) -> Void
     
-    func setTheme(isDarkMode: Bool) -> Void
-    
-    func setOverrideSystemFalse() -> Void
-    
+    func setAppearance(appearance: String) -> Void
+        
     func setLang(lang: String) -> Void
     
     func setAutoSignup(autoSignup: Bool) -> Void
     
     func setViewType(viewType: Int) -> Void
-    
-    func setOverrideSystem(value: Bool) -> Void
-    
+        
     func toggleBookmark(bookmark: String, value: Bool) -> Void
     
     // ----------- GET -----------

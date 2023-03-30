@@ -18,32 +18,33 @@ struct ResourceDetailSheet: View {
     var body: some View {
         VStack (alignment: .leading) {
             HStack {
-                Text("Resource details")
+                Text(NSLocalizedString("Resource details", comment: ""))
                     .sheetTitle()
                 Spacer()
             }
             VStack {
                 Divider()
-                DetailsBuilder(title: "Location", image: "mappin.and.ellipse", content: {
+                DetailsBuilder(title: NSLocalizedString("Location", comment: ""), image: "mappin.and.ellipse", content: {
                     Text(resource.locationID)
                         .font(.system(size: 16))
                         .foregroundColor(.onSurface)
                 })
-                DetailsBuilder(title: "Timeslot", image: "clock.arrow.circlepath", content: {
+                DetailsBuilder(title: NSLocalizedString("Timeslot", comment: ""), image: "clock.arrow.circlepath", content: {
                     Text("\(resource.timeSlot.from?.convertToHoursAndMinutes() ?? "(no time)") - \(resource.timeSlot.to?.convertToHoursAndMinutes() ?? "(no time")")
                 })
-                DetailsBuilder(title: "Date", image: "calendar.badge.clock", content: {
-                    Text(resource.timeSlot.from?.toDate() ?? "(no date)")
+                DetailsBuilder(title: NSLocalizedString("Date", comment: ""), image: "calendar.badge.clock", content: {
+                    Text(resource.timeSlot.from?.toDate() ?? NSLocalizedString("(no date)", comment: ""))
                         .font(.system(size: 16))
                         .foregroundColor(.onSurface)
                 })
-                DetailsBuilder(title: "Confirmation", image: "checkmark.seal", content: {
+                DetailsBuilder(title: NSLocalizedString("Confirmation", comment: ""), image: "checkmark.seal", content: {
                     let date = resource.confirmationOpen.toDate() ?? "(missing)"
-                    let from = resource.confirmationOpen.convertToHoursAndMinutes() ?? "(missing)"
-                    let to = resource.confirmationClosed.convertToHoursAndMinutes() ?? "(missing)"
-                    Text("\(date), from \(from) - \(to)")
+                    let from = resource.confirmationOpen.convertToHoursAndMinutes() ?? NSLocalizedString("(missing)", comment: "")
+                    let to = resource.confirmationClosed.convertToHoursAndMinutes() ?? NSLocalizedString("(missing)", comment: "")
+                    Text(NSLocalizedString("\(date), from", comment: "") + " \(from) - \(to)")
                         .font(.system(size: 16))
                         .foregroundColor(.onSurface)
+
                 })
                 Button(action: {
                     HapticsController.triggerHapticLight()
@@ -51,7 +52,7 @@ struct ResourceDetailSheet: View {
                     unbookResource(resource.id)
                 }, label: {
                     HStack {
-                        Text("Remove booking")
+                        Text(NSLocalizedString("Remove booking", comment: ""))
                             .font(.system(size: 17, weight: .semibold))
                             .foregroundColor(.onPrimary)
                     }

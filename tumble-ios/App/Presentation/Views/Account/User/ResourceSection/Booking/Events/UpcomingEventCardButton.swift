@@ -30,11 +30,12 @@ struct UpcomingEventCardButton: View {
                             .foregroundColor(.onSurface.opacity(0.7))
                         if let eventStart = event.eventStart.toDate(),
                             let eventHoursMinutes = event.eventStart.convertToHoursAndMinutes() {
-                            Text("\(eventStart) at \(eventHoursMinutes)")
+                            Text("\(eventStart) \(NSLocalizedString("at", comment: "")) \(eventHoursMinutes)")
                                 .font(.system(size: 15))
                                 .foregroundColor(.onSurface.opacity(0.7))
+
                         } else {
-                            Text("No date at this time")
+                            Text(NSLocalizedString("No date at this time", comment: ""))
                                 .font(.system(size: 15))
                                 .foregroundColor(.onSurface.opacity(0.7))
                         }
@@ -43,9 +44,10 @@ struct UpcomingEventCardButton: View {
                         Image(systemName: "signature")
                             .font(.system(size: 15))
                             .foregroundColor(.onSurface.opacity(0.7))
-                        Text("Available at \(event.firstSignupDate.toDate() ?? "(no date set)")")
+                        Text("\(NSLocalizedString("Available at:", comment: "")) \(event.firstSignupDate.toDate() ?? "(no date set)")")
                             .font(.system(size: 15))
                             .foregroundColor(.onSurface.opacity(0.7))
+
                     }
                 }
                 

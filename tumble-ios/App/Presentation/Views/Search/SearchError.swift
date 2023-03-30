@@ -14,7 +14,7 @@ struct SearchError: View {
             Image(systemName: "wifi.exclamationmark")
                 .font(.system(size: 24))
                 .padding(.bottom, 20)
-            Text("Oops! Looks like something went wrong.")
+            Text(NSLocalizedString("Looks like something went wrong", comment: ""))
                 .font(.headline)
                 .foregroundColor(.onBackground)
                 .padding(.bottom, 25)

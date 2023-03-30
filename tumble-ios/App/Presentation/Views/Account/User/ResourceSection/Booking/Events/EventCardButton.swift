@@ -23,7 +23,7 @@ struct EventCardButton: View {
             HStack {
                 VStack (alignment: .leading, spacing: 10) {
                     HStack {
-                        Text(event.title ?? "No title")
+                        Text(event.title ?? NSLocalizedString("No title", comment: ""))
                             .font(.system(size: 17, weight: .medium))
                             .foregroundColor(.onSurface)
                             .lineLimit(1)
@@ -39,7 +39,7 @@ struct EventCardButton: View {
                                 .font(.system(size: 15))
                                 .foregroundColor(.onSurface.opacity(0.7))
                         } else {
-                            Text("No date at this time")
+                            Text(NSLocalizedString("No date at this time", comment: ""))
                                 .font(.system(size: 15))
                                 .foregroundColor(.onSurface.opacity(0.7))
                         }
@@ -49,11 +49,12 @@ struct EventCardButton: View {
                             .font(.system(size: 15))
                             .foregroundColor(.onSurface.opacity(0.7))
                         if event.lastSignupDate.isValidSignupDate() {
-                            Text("Available until \(event.lastSignupDate.toDate() ?? "(no date set)")")
+                            Text("\(NSLocalizedString("Available until", comment: "")) \(event.lastSignupDate.toDate() ?? NSLocalizedString("(no date set)", comment: ""))")
                                 .font(.system(size: 15))
                                 .foregroundColor(.onSurface.opacity(0.7))
+
                         } else {
-                            Text("Signup has passed")
+                            Text(NSLocalizedString("Signup has passed", comment: ""))
                                 .font(.system(size: 15))
                                 .foregroundColor(.onSurface.opacity(0.7))
                         }
@@ -77,7 +78,7 @@ struct EventCardButton: View {
                             Image(systemName: eventType.rawValue)
                                 .font(.system(size: 18))
                                 .foregroundColor(.onPrimary)
-                            Text(eventType == .unregister ? "Unregister" : "Register")
+                            Text(eventType == .unregister ? NSLocalizedString("Unregister", comment: "") : NSLocalizedString("Register", comment: ""))
                                 .font(.system(size: 18, weight: .semibold))
                                 .foregroundColor(.onPrimary)
                         }

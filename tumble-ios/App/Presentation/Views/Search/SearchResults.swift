@@ -19,22 +19,19 @@ struct SearchResults: View {
     var body: some View {
         VStack {
             HStack {
-                Text("\(numberOfSearchResults) results")
+                Text(NSLocalizedString("\(numberOfSearchResults) results", comment: ""))
                     .searchResultsField()
                 Spacer()
             }
-            ScrollView (showsIndicators: false) {
-                LazyVStack {
-                    ForEach(searchResults, id: \.id) { programme in
-                        ProgrammeCard(
-                            programme: programme,
-                            universityImage: universityImage,
-                            onOpenProgramme: onOpenProgramme
-                        )
-                    }
+            List {
+                ForEach(searchResults, id: \.id) { programme in
+                    ProgrammeCard(
+                        programme: programme,
+                        universityImage: universityImage,
+                        onOpenProgramme: onOpenProgramme
+                    )
                 }
             }
-            .background(Color(UIColor.systemBackground))
         }
     }
 }

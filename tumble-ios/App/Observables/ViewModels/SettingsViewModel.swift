@@ -19,7 +19,6 @@ import SwiftUI
     @Published var universityImage: Image?
     @Published var universityName: String?
     @Published var bookmarks: [Bookmark]?
-    @Published var sidebarSheetType: SidebarTabType? = nil
     @Published var presentSidebarSheet: Bool = false
     
     
@@ -52,7 +51,9 @@ import SwiftUI
                 
                 self.preferenceService.setBookmarks(bookmarks: bookmarks)
                 
-                self.bookmarks = bookmarks
+                DispatchQueue.main.async {
+                    self.bookmarks = bookmarks
+                }
                 
             case .failure(let failure):
                 AppLogger.shared.info("\(failure)")
@@ -67,9 +68,9 @@ import SwiftUI
     }
     
     func deleteBookmark(id: String) -> Void {
-        var bookmarks = self.preferenceService.getBookmarks() ?? []
-        bookmarks.removeAll(where: { $0.id == id })
-        preferenceService.setBookmarks(bookmarks: bookmarks)
+        var preferenceBookmarks = self.preferenceService.getBookmarks() ?? []
+        preferenceBookmarks.removeAll(where: { $0.id == id })
+        preferenceService.setBookmarks(bookmarks: preferenceBookmarks)
         self.loadSchedules { schedules in
             let schedulesToRemove = schedules.filter { $0.id == id }
             let events = schedulesToRemove
@@ -77,14 +78,16 @@ import SwiftUI
                 .flatMap { day in day.events }
             events.forEach { event in self.notificationManager.cancelNotification(for: event.id) }
         }
-        self.bookmarks = bookmarks
+        DispatchQueue.main.async {
+            self.bookmarks = preferenceBookmarks
+        }
     }
     
     func clearAllNotifications() -> Void {
         self.notificationManager.cancelNotifications()
     }
     
-    func scheduleNotificationsForAllCourses() -> Void {
+    func scheduleNotificationsForAllEvents(completion: @escaping (Result<Void, Error>) -> Void) -> Void {
         self.scheduleService.load(completion: { [weak self] (result: Result<[ScheduleStoreModel], Error>) in
             guard let self = self else { return }
             switch result {
@@ -94,11 +97,16 @@ import SwiftUI
                     case .success(let courseColorsDict):
                         let allEvents = schedules.flatMap { $0.days.flatMap { $0.events } }
                         for event in allEvents {
+                            guard let notification = self.notificationManager.createNotificationFromEvent(
+                                event: event,
+                                color: courseColorsDict[event.course.id] ?? "#FEFEFE"
+                            ) else {
+                                AppLogger.shared.info("Could not set notification for event \(event.id)")
+                                completion(.failure(.generic(reason: "Failed to set notification continuously")))
+                                break
+                            }
                             self.notificationManager.scheduleNotification(
-                                for: self.notificationManager.createNotificationFromEvent(
-                                    event: event,
-                                    color: courseColorsDict[event.course.id] ?? "#FEFEFE"
-                                ), type: .event,
+                                for: notification, type: .event,
                                 userOffset: self.preferenceService.getNotificationOffset(),
                                 completion: { (result: Result<Int, NotificationError>) in
                                     switch result {
@@ -109,12 +117,15 @@ import SwiftUI
                                     }
                                 })
                         }
+                        completion(.success(()))
                     case .failure(let failure):
                         AppLogger.shared.info("Colors could not be loaded from local storage: \(failure)")
+                        completion(.failure(.internal(reason: "Failed to load course colors")))
                     }
                 }
             case .failure:
                 AppLogger.shared.info("Schedules could not be loaded from local storage")
+                completion(.failure(.internal(reason: "Failed to load schedules")))
             }
         })
     }

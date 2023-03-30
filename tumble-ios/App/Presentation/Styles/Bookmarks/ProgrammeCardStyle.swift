@@ -13,10 +13,6 @@ struct ProgrammeCardStyle: ButtonStyle {
     func makeBody(configuration: Self.Configuration) -> some View {
         configuration.label
             .padding()
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .background(Color.surface)
-            .cornerRadius(10)
-            .padding()
             .scaleEffect(configuration.isPressed ? 0.9 : 1)
             .animation(.easeOut(duration: 0.2), value: configuration.isPressed)
     }

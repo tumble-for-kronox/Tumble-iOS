@@ -14,12 +14,12 @@ struct EventDetailsBody: View {
     var body: some View {
         VStack (alignment: .leading) {
             VStack  {
-                DetailsBuilder(title: "Course", image: "text.book.closed") {
+                DetailsBuilder(title: NSLocalizedString("Course", comment: ""), image: "text.book.closed") {
                     Text(event.course.englishName)
                         .font(.system(size: 16))
                         .foregroundColor(.onSurface)
                 }
-                DetailsBuilder(title: "Teachers", image: "person.3.sequence") {
+                DetailsBuilder(title: NSLocalizedString("Teachers", comment: ""), image: "person.3.sequence") {
                     if !event.teachers.isEmpty {
                         if !event.teachers.first!.firstName.isEmpty && !event.teachers.first!.lastName.isEmpty {
                             ForEach(event.teachers, id: \.self) { teacher in
@@ -28,27 +28,27 @@ struct EventDetailsBody: View {
                                     .foregroundColor(.onSurface)
                             }
                         } else {
-                            Text("No teachers listed at this time")
+                            Text(NSLocalizedString("No teachers listed at this time", comment: ""))
                                 .font(.system(size: 16))
                                 .foregroundColor(.onSurface)
                         }
                     } else {
-                        Text("No teachers listed at this time")
+                        Text(NSLocalizedString("No teachers listed at this time", comment: ""))
                             .font(.system(size: 16))
                             .foregroundColor(.onSurface)
                     }
                 }
-                DetailsBuilder(title: "Date", image: "calendar") {
+                DetailsBuilder(title: NSLocalizedString("Date", comment: ""), image: "calendar") {
                     Text("\(event.from.formatDate() ?? "")")
                         .font(.system(size: 16))
                         .foregroundColor(.onSurface)
                 }
-                DetailsBuilder(title: "Time", image: "clock") {
+                DetailsBuilder(title: NSLocalizedString("Time", comment: ""), image: "clock") {
                     Text("\(event.from.convertToHoursAndMinutesISOString() ?? "") - \(event.to.convertToHoursAndMinutesISOString() ?? "")")
                         .font(.system(size: 16))
                         .foregroundColor(.onSurface)
                 }
-                DetailsBuilder(title: "Locations", image: "mappin.and.ellipse") {
+                DetailsBuilder(title: NSLocalizedString("Locations", comment: ""), image: "mappin.and.ellipse") {
                     if event.locations.count > 0 {
                         ForEach(event.locations, id: \.self) { location in
                             Text(location.id.capitalized)
@@ -56,7 +56,7 @@ struct EventDetailsBody: View {
                                 .foregroundColor(.onSurface)
                         }
                     } else {
-                        Text("No locations listed at this time")
+                        Text(NSLocalizedString("No locations listed at this time", comment: ""))
                             .font(.system(size: 16))
                             .foregroundColor(.onSurface)
                     }

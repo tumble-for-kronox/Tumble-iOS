@@ -10,17 +10,35 @@ import SwiftUI
 struct BookingInstructions: View {
     var body: some View {
         ScrollView (showsIndicators: false) {
-            UsageCard(titleInstruction: "Account page", bodyInstruction: "Press the account page tab on the bottom", image: "person")
+            UsageCard(
+                titleInstruction: NSLocalizedString("Account page", comment: ""),
+                bodyInstruction: NSLocalizedString("Press the account page tab on the bottom", comment: ""),
+                image: "person")
             
-            UsageCard(titleInstruction: "Sign in", bodyInstruction: "Sign in with your institution credentials", image: "arrow.up.and.person.rectangle.portrait")
+            UsageCard(
+                titleInstruction: NSLocalizedString("Sign in", comment: ""),
+                bodyInstruction: NSLocalizedString("Sign in with your institution credentials", comment: ""),
+                image: "arrow.up.and.person.rectangle.portrait")
             
-            UsageCard(titleInstruction: "Click", bodyInstruction: "Navigate to the resource booking page by pressing 'Book more'", image: "rectangle.and.hand.point.up.left")
+            UsageCard(
+                titleInstruction: NSLocalizedString("Click", comment: ""),
+                bodyInstruction: NSLocalizedString("Navigate to the resource booking page by pressing 'Book more'", comment: ""),
+                image: "rectangle.and.hand.point.up.left")
             
-            UsageCard(titleInstruction: "Date", bodyInstruction: "Choose a time to search for available dates and select an opening", image: "calendar")
+            UsageCard(
+                titleInstruction: NSLocalizedString("Date", comment: ""),
+                bodyInstruction: NSLocalizedString("Choose a time to search for available dates and select an opening", comment: ""),
+                image: "calendar")
             
-            UsageCard(titleInstruction: "Building", bodyInstruction: "Select a building on campus to book a room in, then select a room for a specific timeslot", image: "building.2")
+            UsageCard(
+                titleInstruction: NSLocalizedString("Building", comment: ""),
+                bodyInstruction: NSLocalizedString("Select a building on campus to book a room in, then select a room for a specific timeslot", comment: ""),
+                image: "building.2")
             
-            UsageCard(titleInstruction: "Confirm", bodyInstruction: "Now confirm your selected booking by pressing the confirm button", image: "checkmark.seal")
+            UsageCard(
+                titleInstruction: NSLocalizedString("Confirm", comment: ""),
+                bodyInstruction: NSLocalizedString("Now confirm your selected booking by pressing the confirm button", comment: ""),
+                image: "checkmark.seal")
                 .padding(.bottom, 55)
         }
     }
