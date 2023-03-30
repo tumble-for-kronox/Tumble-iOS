@@ -10,15 +10,30 @@ import SwiftUI
 struct ExamInstructions: View {
     var body: some View {
         ScrollView (showsIndicators: false) {
-            UsageCard(titleInstruction: "Account page", bodyInstruction: "Press the account page tab on the bottom", image: "person")
+            UsageCard(
+                titleInstruction: NSLocalizedString("Account page", comment: ""),
+                bodyInstruction: NSLocalizedString("Press the account page tab on the bottom", comment: ""),
+                image: "person")
             
-            UsageCard(titleInstruction: "Sign in", bodyInstruction: "Sign in with your institution credentials", image: "arrow.up.and.person.rectangle.portrait")
+            UsageCard(
+                titleInstruction: NSLocalizedString("Log in", comment: ""),
+                bodyInstruction: NSLocalizedString("Log in with your institution credentials", comment: ""),
+                image: "arrow.up.and.person.rectangle.portrait")
             
-            UsageCard(titleInstruction: "Click", bodyInstruction: "Navigate to the event booking page by pressing 'See all'", image: "rectangle.and.hand.point.up.left")
+            UsageCard(
+                titleInstruction: NSLocalizedString("Click", comment: ""),
+                bodyInstruction: NSLocalizedString("Navigate to the event booking page by pressing 'See all'", comment: ""),
+                image: "rectangle.and.hand.point.up.left")
             
-            UsageCard(titleInstruction: "Choose", bodyInstruction: "Select an available event to sign up for and press the register button", image: "signature")
+            UsageCard(
+                titleInstruction: NSLocalizedString("Choose", comment: ""),
+                bodyInstruction: NSLocalizedString("Select an available event to sign up for and press the register button", comment: ""),
+                image: "signature")
             
-            UsageCard(titleInstruction: "Done", bodyInstruction: "Now you've signed up for the specified exam, check your email for confirmation", image: "checkmark.seal")
+            UsageCard(
+                titleInstruction: NSLocalizedString("Done", comment: ""),
+                bodyInstruction: NSLocalizedString("Now you've signed up for the specified exam, check your email for confirmation", comment: ""),
+                image: "checkmark.seal")
                 .padding(.bottom, 55)
         }
     }

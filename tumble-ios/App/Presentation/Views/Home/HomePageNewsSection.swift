@@ -15,7 +15,7 @@ struct HomePageNewsSection: View {
         VStack (alignment: .leading) {
             HomePageSectionDivider(onTapSeeAll: {
                 // Open sheet with all news items
-            }, title: "News", contentCount: parentViewModel.news?.count ?? 0)
+            }, title: NSLocalizedString("News", comment: ""), contentCount: parentViewModel.news?.count ?? 0)
             switch parentViewModel.newsSectionStatus {
             case .loading:
                 VStack {
@@ -36,12 +36,12 @@ struct HomePageNewsSection: View {
                         }
                     }
                 } else {
-                    Text("No recent news items")
+                    Text(NSLocalizedString("No recent news items", comment: ""))
                         .font(.system(size: 18))
                         .foregroundColor(.onBackground)
                 }
             case .error:
-                Text("Something went wrong")
+                Text(NSLocalizedString("Something went wrong", comment: ""))
                     .font(.system(size: 18))
                     .foregroundColor(.onBackground)
             }

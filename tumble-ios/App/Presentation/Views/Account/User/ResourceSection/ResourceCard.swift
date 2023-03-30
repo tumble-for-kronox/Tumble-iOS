@@ -40,7 +40,7 @@ struct ResourceCard: View {
         }, label: {
             HStack {
                 VStack (alignment: .leading, spacing: 10) {
-                    Text(title ?? "No title")
+                    Text(title ?? NSLocalizedString("No title", comment: ""))
                         .font(.system(size: 17, weight: .medium))
                         .foregroundColor(.onSurface)
                         .lineLimit(1)
@@ -69,7 +69,7 @@ struct ResourceCard: View {
                         Image(systemName: "calendar.badge.clock")
                             .font(.system(size: 15))
                             .foregroundColor(.onSurface.opacity(0.7))
-                        Text("\(date) from \(hoursMinutes)")
+                        Text("\(NSLocalizedString("Date:", comment: "")) \(date) \(NSLocalizedString("Time:", comment: "")) \(hoursMinutes)")
                             .font(.system(size: 15))
                             .foregroundColor(.onSurface.opacity(0.7))
                     }

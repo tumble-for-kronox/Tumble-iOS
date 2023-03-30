@@ -23,7 +23,7 @@ struct HomePageSectionDivider: View {
                 .foregroundColor(.onBackground.opacity(0.5))
             Spacer()
             Button(action: onTapSeeAll, label: {
-                Text("See all")
+                Text(NSLocalizedString("See all", comment: ""))
                     .font(.system(size: 16, weight: .semibold))
                     .foregroundColor(.primary)
             })

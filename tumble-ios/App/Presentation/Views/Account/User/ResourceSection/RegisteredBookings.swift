@@ -26,25 +26,25 @@ struct RegisteredBookings: View {
                         ForEach(bookings) { resource in
                             ResourceCard(
                                 timeSpan: "\(resource.timeSlot.from?.convertToHoursAndMinutes() ?? "")",
-                                title: "Booked resource",
+                                title: NSLocalizedString("Booked resource", comment: ""),
                                 location: resource.locationID,
-                                date: resource.timeSlot.from?.toDate() ?? "(no date)",
-                                hoursMinutes: "\(resource.timeSlot.from?.convertToHoursAndMinutes() ?? "(no time)") - \(resource.timeSlot.to?.convertToHoursAndMinutes() ?? "(no time)")",
+                                date: resource.timeSlot.from?.toDate() ?? NSLocalizedString("(no date)", comment: ""),
+                                hoursMinutes: "\(resource.timeSlot.from?.convertToHoursAndMinutes() ?? NSLocalizedString("(no time)", comment: "")) - \(resource.timeSlot.to?.convertToHoursAndMinutes() ?? NSLocalizedString("(no time)", comment: ""))",
                                 onClick: {
                                     onClickResource(resource)
                                 }
                             )
                         }
                     } else {
-                        Text("No booked resources yet")
+                        Text(NSLocalizedString("No booked resources yet", comment: ""))
                             .sectionDividerEmpty()
                     }
                 } else {
-                    Text("No booked resources yet")
+                    Text(NSLocalizedString("No booked resources yet", comment: ""))
                         .sectionDividerEmpty()
                 }
             case .error:
-                Text("Could not contact the server")
+                Text(NSLocalizedString("Could not contact the server", comment: ""))
                     .sectionDividerEmpty()
             }
             Spacer()

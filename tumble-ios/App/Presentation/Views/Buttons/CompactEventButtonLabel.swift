@@ -47,7 +47,7 @@ struct CompactEventButtonLabel: View {
                     Image(systemName: "mappin.and.ellipse")
                         .font(.system(size: 15))
                         .foregroundColor(.onSurface.opacity(0.7))
-                    Text(event.locations.first?.id.capitalized ?? "Unknown")
+                    Text(event.locations.first?.id.capitalized ?? NSLocalizedString("Unknown", comment: ""))
                         .font(.system(size: 15))
                         .foregroundColor(.onSurface.opacity(0.7))
                 }
@@ -61,12 +61,12 @@ struct CompactEventButtonLabel: View {
                                 .font(.system(size: 15))
                                 .foregroundColor(.onSurface.opacity(0.7))
                         } else {
-                            Text("No teachers listed")
+                            Text(NSLocalizedString("No teachers listed", comment: ""))
                                 .font(.system(size: 15))
                                 .foregroundColor(.onSurface.opacity(0.7))
                         }
                     }  else {
-                        Text("No teachers listed")
+                        Text(NSLocalizedString("No teachers listed", comment: ""))
                             .font(.system(size: 15))
                             .foregroundColor(.onSurface.opacity(0.7))
                     }

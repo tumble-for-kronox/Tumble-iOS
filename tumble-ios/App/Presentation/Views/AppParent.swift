@@ -99,11 +99,17 @@ struct AppParent: View {
     fileprivate func onChangeSchool(school: School) -> Void {
         viewModel.changeSchool(school: school, closure: { success in
             if success {
-                appController.toast = Toast(type: .success, title: "New school", message: "Set \(school.name) to default")
+                appController.toast = Toast(
+                    type: .success,
+                    title: NSLocalizedString("New school", comment: ""),
+                    message: String(format: NSLocalizedString("Set %@ to default", comment: ""), school.name))
                 viewModel.updateLocalsAndChildViews()
                 viewModel.userController.logOut()
             } else {
-                appController.toast = Toast(type: .info, title: "School already selected", message: "You already have '\(school.name)' as your default school")
+                appController.toast = Toast(
+                    type: .info,
+                    title: NSLocalizedString("School already selected", comment: ""),
+                    message: String(format: NSLocalizedString("You already have '%@' as your default school", comment: ""), school.name))
             }
         })
     }
@@ -124,15 +130,18 @@ struct AppParent: View {
                 viewModel.updateSchedulesChildView()
                 appController.toast = Toast(
                     type: .success,
-                    title: "Removed schedule",
-                    message: "Successfully removed the schedule '\(id)' from your bookmarks")
+                    title: NSLocalizedString("Removed schedule", comment: ""),
+                    message: String(format: NSLocalizedString("Successfully removed the schedule '%@' from your bookmarks", comment: ""), id)
+                )
             } else {
                 appController.toast = Toast(
                     type: .error,
-                    title: "Could not remove schedule",
-                    message: "The schedule '\(id)' could not be removed from your bookmarks")
+                    title: NSLocalizedString("Could not remove schedule", comment: ""),
+                    message: String(format: NSLocalizedString("The schedule '%@' could not be removed from your bookmarks", comment: ""), id)
+                )
             }
         }
     }
+
 }
 

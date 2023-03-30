@@ -18,28 +18,27 @@ enum TabbarTabType: String {
     var displayName: String {
         switch self {
         case .home:
-            return "Home"
+            return NSLocalizedString("Home", comment: "Home")
         case .bookmarks:
-            return "Bookmarks"
+            return NSLocalizedString("Bookmarks", comment: "Bookmarks")
         case .account:
-            return "Account"
+            return NSLocalizedString("Account", comment: "Account")
         }
     }
 }
 
-enum SidebarTabType: String {
-    case notifications = "Notifications" // Opens sheet
-    case bookmarks = "Bookmarks"
-    case more = "More"
-    case school = "Schools" // Opens sheet
-    case support = "Support" // Opens sheet
-    case logOut = "Log out" // Performs api call
-    case logIn = "Log in"
-}
-
 enum BookmarksViewType: String {
-    case list = "List"
-    case calendar = "Calendar"
+    case list = "list"
+    case calendar = "calendar"
+    
+    var displayName: String {
+        switch self {
+        case .calendar:
+            return NSLocalizedString("List", comment: "List")
+        case .list:
+            return NSLocalizedString("Calendar", comment: "Calendar")
+        }
+    }
     
     static let allValues: [BookmarksViewType] = [list, calendar]
 }

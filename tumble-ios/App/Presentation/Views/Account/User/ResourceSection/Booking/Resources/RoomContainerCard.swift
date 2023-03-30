@@ -33,7 +33,7 @@ struct RoomContainerCard: View {
                         Image(systemName: "checkmark.circle.fill")
                             .font(.system(size: 18, weight: .semibold))
                             .foregroundColor(.onPrimary)
-                        Text("Booked")
+                        Text(NSLocalizedString("Booked", comment: ""))
                             .font(.system(size: 18, weight: .semibold))
                             .foregroundColor(.onPrimary)
                     }
@@ -43,7 +43,7 @@ struct RoomContainerCard: View {
                         Image(systemName: "checkmark.circle")
                             .font(.system(size: 18, weight: .semibold))
                             .foregroundColor(.onPrimary)
-                        Text("Book")
+                        Text(NSLocalizedString("Book", comment: ""))
                             .font(.system(size: 18, weight: .semibold))
                             .foregroundColor(.onPrimary)
                     }

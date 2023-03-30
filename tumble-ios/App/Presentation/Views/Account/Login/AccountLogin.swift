@@ -48,14 +48,14 @@ struct AccountLogin: View {
         if success {
             createToast(
                 .success,
-                "Logged in",
-                "Successfully logged in as \(viewModel.userController.user?.username ?? username)"
+                NSLocalizedString("Logged in", comment: ""),
+                String(format: NSLocalizedString("Successfully logged in as %@", comment: ""), viewModel.userController.user?.username ?? username)
             )
         } else {
             createToast(
                 .error,
-                "Error",
-                "Something went wrong when logging in to your account"
+                NSLocalizedString("Error", comment: ""),
+                NSLocalizedString("Something went wrong when logging in to your account", comment: "")
             )
         }
     }

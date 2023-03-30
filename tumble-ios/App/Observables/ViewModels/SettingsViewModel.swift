@@ -19,7 +19,6 @@ import SwiftUI
     @Published var universityImage: Image?
     @Published var universityName: String?
     @Published var bookmarks: [Bookmark]?
-    @Published var sidebarSheetType: SidebarTabType? = nil
     @Published var presentSidebarSheet: Bool = false
     
     

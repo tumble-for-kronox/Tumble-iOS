@@ -19,7 +19,7 @@ struct AccountPage: View {
                 UserOverview(viewModel: viewModel, schoolName: viewModel.school?.name ?? "", createToast: createToast)
             } else {
                 if viewModel.status == .loading {
-                    InfoLoading(title: "Attempting to log in user")
+                    InfoLoading(title: NSLocalizedString("Attempting to log in user", comment: ""))
                 } else if viewModel.status == .initial {
                     AccountLogin(viewModel: viewModel, createToast: createToast)
                 }

@@ -24,13 +24,13 @@ struct BookResource: View {
                         resource: resource,
                         selectedPickerDate: selectedPickerDate
                     )
-                    .navigationTitle("Rooms")
+                    .navigationTitle(NSLocalizedString("Rooms", comment: ""))
                     .navigationBarTitleDisplayMode(.inline)
                 }, label: {
                     HStack (spacing: 0) {
                         VStack (alignment: .leading, spacing: 10) {
                             HStack {
-                                Text(resource.name ?? "No name")
+                                Text(resource.name ?? NSLocalizedString("No name", comment: ""))
                                     .font(.system(size: 18, weight: .medium))
                                     .foregroundColor(.onSurface)
                                     .lineLimit(1)
@@ -49,9 +49,10 @@ struct BookResource: View {
                                 Image(systemName: "clock.arrow.circlepath")
                                     .font(.system(size: 15))
                                     .foregroundColor(.onSurface.opacity(0.7))
-                                Text("Available timeslots: \(availableCounts)")
+                                Text(String(format: NSLocalizedString("Available timeslots: %d", comment: ""), availableCounts))
                                     .font(.system(size: 15))
                                     .foregroundColor(.onSurface.opacity(0.7))
+
                             }
                         }
                         .padding()

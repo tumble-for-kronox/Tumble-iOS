@@ -12,6 +12,7 @@ struct Root: View {
     
     @ObservedObject var viewModel: RootViewModel
     
+    @AppStorage(StoreKey.locale.rawValue) private var locale = LanguageTypes.english.localeName
     @AppStorage(StoreKey.appearance.rawValue) private var appearance = AppearanceType.system.rawValue
     
     var body: some View {
@@ -25,6 +26,7 @@ struct Root: View {
                     .environmentObject(AppController.shared)
             }
         }
+        .environment(\.locale, .init(identifier: locale))
         .colorScheme(getThemeColorScheme())
         .preferredColorScheme(getThemeColorScheme())
         .edgesIgnoringSafeArea(.all)

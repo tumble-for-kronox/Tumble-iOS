@@ -15,7 +15,7 @@ struct SearchInfo: View {
                 .font(.system(size: 24))
                 .foregroundColor(Color("OnBackground"))
                 .padding(.bottom, 15)
-            Text("This is where you find your schedules")
+            Text(NSLocalizedString("This is where you find your schedules", comment: ""))
                 .info()
             Spacer()
                 

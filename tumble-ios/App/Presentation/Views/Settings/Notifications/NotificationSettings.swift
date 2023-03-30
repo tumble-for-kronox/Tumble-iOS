@@ -12,26 +12,38 @@ struct NotificationSettings: View {
     @AppStorage(StoreKey.notificationOffset.rawValue) var offset: Int = 60
     let clearAllNotifications: () -> Void
     let scheduleNotificationsForAllCourses: () -> Void
-   
+    var offsetDisplayName: String {
+        let hours = offset / 60
+        let minuteString = NSLocalizedString("minutes", comment: "")
+        let hourString = NSLocalizedString("hour", comment: "")
+        let hoursString = NSLocalizedString("hours", comment: "")
+        let hourPostfix = hours == 1 ? hourString : hoursString
+        return hours < 1 ? "\(offset % 60) \(minuteString)" : "\(hours) \(hourPostfix)"
+    }
+    
     var body: some View {
-        // List of options for notifications
+        
+        
+        
         List {
             Section {
                 SettingsButton(
                     onClick: scheduleNotificationsForAllCourses,
-                    title: "Set notifications for all events",
+                    title: NSLocalizedString("Set notifications for all events", comment: ""),
                     image: "bell.badge"
                 )
                 SettingsButton(
                     onClick: clearAllNotifications,
-                    title: "Cancel all notifications",
+                    title: NSLocalizedString("Cancel all notifications", comment: ""),
                     image: "bell.slash"
                 )
             }
             Section {
                 NavigationLink(destination: AnyView(
                     NotificationOffsetSettings(offset: $offset)), label: {
-                    SettingsNavLink(title: "Notification offset", current: offset / 60 < 1 ? "\(offset % 60) minutes" : "\(offset / 60) hour(s)")
+                    SettingsNavLink(
+                        title: NSLocalizedString("Notification offset", comment: ""),
+                        current: offsetDisplayName)
                 })
             }
         }

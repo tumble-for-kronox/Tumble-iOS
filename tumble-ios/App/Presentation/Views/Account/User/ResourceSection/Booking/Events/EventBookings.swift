@@ -24,39 +24,39 @@ struct EventBookings: View {
                         .frame(width: geo.size.width)
                         .frame(minHeight: geo.size.height)
                 case .loaded:
-                    SectionDivider(title: "Registered", image: "person.crop.circle.badge.checkmark", content: {
+                    SectionDivider(title: NSLocalizedString("Registered", comment: ""), image: "person.crop.circle.badge.checkmark", content: {
                         if (viewModel.completeUserEvent?.registeredEvents) != nil {
                             Events(registeredEvents: viewModel.completeUserEvent?.registeredEvents, onTapEventAction: { eventId, eventType in
                                 onTapEventAction(eventId: eventId, eventType: eventType)
                             })
                         } else {
-                            Text("No registered events available")
+                            Text(NSLocalizedString("No registered events available", comment: ""))
                                 .sectionDividerEmpty()
                                 .padding(.top, 5)
                         }
                     })
-                    SectionDivider(title: "Unregistered", image: "person.crop.circle.badge.xmark", content: {
+                    SectionDivider(title: NSLocalizedString("Unregistered", comment: ""), image: "person.crop.circle.badge.xmark", content: {
                         if (viewModel.completeUserEvent?.unregisteredEvents != nil) {
                             Events(unregisteredEvents: viewModel.completeUserEvent?.unregisteredEvents, onTapEventAction: { eventId, eventType in
                                 onTapEventAction(eventId: eventId, eventType: eventType)
                             })
                         } else {
-                            Text("No unregistered events available")
+                            Text(NSLocalizedString("No unregistered events available", comment: ""))
                                 .sectionDividerEmpty()
                                 .padding(.top, 5)
                         }
                     })
-                    SectionDivider(title: "Upcoming", image: "person.crop.circle.badge.clock", content: {
+                    SectionDivider(title: NSLocalizedString("Upcoming", comment: ""), image: "person.crop.circle.badge.clock", content: {
                         if (viewModel.completeUserEvent?.upcomingEvents != nil) {
                             Events(upcomingEvents: viewModel.completeUserEvent?.upcomingEvents)
                         } else {
-                            Text("No upcoming events available")
+                            Text(NSLocalizedString("No upcoming events available", comment: ""))
                                 .sectionDividerEmpty()
                                 .padding(.top, 5)
                         }
                     })
                 case .error:
-                    Info(title: "Could not contact the server", image: nil)
+                    Info(title: NSLocalizedString("Could not contact the server", comment: ""), image: nil)
                         .frame(width: geo.size.width)
                         .frame(minHeight: geo.size.height)
                 }

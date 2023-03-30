@@ -45,11 +45,11 @@ struct ResourceSectionDivider<Content : View>: View {
                         HStack {
                             switch resourceType! {
                             case .event:
-                                Text("See all")
+                                Text(NSLocalizedString("See all", comment: ""))
                                     .font(.system(size: 16, weight: .semibold))
                                     .foregroundColor(.primary)
                             case .resource:
-                                Text("Book more")
+                                Text(NSLocalizedString("Book more", comment: ""))
                                     .font(.system(size: 16, weight: .semibold))
                                     .foregroundColor(.primary)
                             }

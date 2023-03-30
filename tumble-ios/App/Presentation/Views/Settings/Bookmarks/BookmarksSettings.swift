@@ -27,7 +27,7 @@ struct BookmarksSettings: View {
                     }
                 }
             } else {
-                Info(title: "No bookmarks yet", image: "bookmark.slash")
+                Info(title: NSLocalizedString("No bookmarks yet", comment: ""), image: "bookmark.slash")
             }
         }
     }

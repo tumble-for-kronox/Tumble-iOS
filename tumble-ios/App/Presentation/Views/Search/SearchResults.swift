@@ -19,7 +19,7 @@ struct SearchResults: View {
     var body: some View {
         VStack {
             HStack {
-                Text("\(numberOfSearchResults) results")
+                Text(NSLocalizedString("\(numberOfSearchResults) results", comment: ""))
                     .searchResultsField()
                 Spacer()
             }

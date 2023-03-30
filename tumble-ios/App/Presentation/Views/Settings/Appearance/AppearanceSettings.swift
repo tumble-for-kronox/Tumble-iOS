@@ -15,6 +15,17 @@ enum AppearanceType: String, Identifiable {
     case light = "Light"
     case dark = "Dark"
     
+    var displayName: String {
+        switch self {
+        case .system:
+            return NSLocalizedString("Automatic", comment: "")
+        case .light:
+            return NSLocalizedString("Light", comment: "")
+        case .dark:
+            return NSLocalizedString("Dark", comment: "")
+        }
+    }
+    
     static var allCases = [system, light, dark]
 }
 

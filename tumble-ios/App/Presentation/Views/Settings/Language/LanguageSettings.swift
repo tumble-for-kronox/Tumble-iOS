@@ -7,33 +7,57 @@
 
 import SwiftUI
 
-enum LanguageTypes: String, Identifiable {
+enum LanguageTypes: Identifiable {
     
     var id: UUID {
         return UUID()
     }
     
-    case english = "English"
-    case swedish = "Swedish"
+    case english
+    case swedish
     
     static var allCases = [english, swedish]
+    
+    var localeName: String {
+        switch self {
+        case .english:
+            return "en"
+        case .swedish:
+            return "se"
+        }
+    }
+    
+    var displayName: String {
+        switch self {
+        case .english:
+            return NSLocalizedString("English", comment: "")
+        case .swedish:
+            return NSLocalizedString("Swedish", comment: "")
+        }
+    }
+    
+    static func fromLocaleName(_ localeName: String) -> LanguageTypes? {
+        return allCases.first(where: { $0.localeName == localeName })
+    }
+    
 }
 
 struct LanguageSettings: View {
     
-    @AppStorage(StoreKey.language.rawValue) var selectedLanguage = LanguageTypes.english.rawValue
+    @AppStorage(StoreKey.locale.rawValue) var locale = LanguageTypes.english.localeName
     
     var body: some View {
         List {
             Section {
                 ForEach(LanguageTypes.allCases, id: \.self) { type in
                     SettingsRadioButton(
-                        title: type.rawValue,
+                        title: type.displayName,
                         isSelected: Binding<Bool>(
-                            get: { selectedLanguage == type.rawValue },
+                            get: { locale == type.localeName },
                             set: { selected in
                                 if selected {
-                                    selectedLanguage = type.rawValue
+                                    locale = type.localeName
+                                    print("CHANGED LOCALE TO \(locale)")
                                 }
                             }
                         )

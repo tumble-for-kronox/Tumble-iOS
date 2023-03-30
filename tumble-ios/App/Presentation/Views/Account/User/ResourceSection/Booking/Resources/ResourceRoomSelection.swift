@@ -25,7 +25,7 @@ struct ResourceRoomSelection: View {
     var body: some View {
         if availabilityValues.isEmpty {
             VStack {
-                Info(title: "No available timeslots", image: "clock.arrow.circlepath")
+                Info(title: NSLocalizedString("No available timeslots", comment: ""), image: "clock.arrow.circlepath")
             }.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
         }
         else {

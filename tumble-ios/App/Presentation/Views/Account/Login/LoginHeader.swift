@@ -10,10 +10,10 @@ import SwiftUI
 struct LoginHeader: View {
     var body: some View {
         VStack (alignment: .leading, spacing: 5) {
-            Text("Log in")
+            Text(NSLocalizedString("Log in", comment: ""))
                 .font(.system(size: 30, weight: .semibold))
                 .foregroundColor(.onBackground)
-            Text("Please log in to continue")
+            Text(NSLocalizedString("Please log in to continue", comment: ""))
                 .font(.system(size: 18, weight: .regular))
                 .foregroundColor(.onBackground.opacity(0.75))
         }

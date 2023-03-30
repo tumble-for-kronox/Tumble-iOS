@@ -11,7 +11,7 @@ import StoreKit
 struct Settings: View {
     
     @AppStorage(StoreKey.appearance.rawValue) var appearance: String = AppearanceType.system.rawValue
-    @AppStorage(StoreKey.language.rawValue) var language: String = LanguageTypes.english.rawValue
+    @AppStorage(StoreKey.locale.rawValue) var language: String = LanguageTypes.english.localeName
     @ObservedObject var viewModel: SettingsViewModel
     
     let removeSchedule: (String) -> Void
@@ -25,24 +25,24 @@ struct Settings: View {
                     NavigationLink(destination: AnyView(
                         AppearanceSettings()
                     ), label: {
-                        SettingsNavLink(title: "Appearance", current: appearance)
+                        SettingsNavLink(title: NSLocalizedString("Appearance", comment: ""), current: appearance)
                     })
                     NavigationLink(destination: AnyView(
                         LanguageSettings()
                     ), label: {
-                        SettingsNavLink(title: "App language", current: language)
+                        SettingsNavLink(title: NSLocalizedString("App language", comment: ""), current: LanguageTypes.fromLocaleName(language)?.displayName ?? "")
                     })
                     NavigationLink(destination: AnyView(
                             NotificationSettings(
                                 clearAllNotifications: clearAllNotifications,
                                 scheduleNotificationsForAllCourses: scheduleNotificationsForAllCourses)
                     ), label: {
-                        SettingsNavLink(title: "Notifications")
+                        SettingsNavLink(title: NSLocalizedString("Notifications", comment: ""))
                     })
                 }
                 Section {
                     NavigationLink(destination: AnyView(SchoolSelectionSettings(onChangeSchool: onChangeSchool)), label: {
-                        SettingsNavLink(title: "School", current: viewModel.universityName)
+                        SettingsNavLink(title: NSLocalizedString("School", comment: ""), current: viewModel.universityName)
                     })
                     NavigationLink(destination: AnyView(
                         BookmarksSettings(
@@ -50,23 +50,23 @@ struct Settings: View {
                             updateBookmarks: updateBookmarks,
                             removeSchedule: removeSchedule
                         )), label: {
-                            SettingsNavLink(title: "Bookmarks")
+                            SettingsNavLink(title: NSLocalizedString("Bookmarks", comment: ""))
                     })
                 }
                 Section {
                     SettingsButton(onClick: {
                         UIApplication.shared.requestReview()
-                    }, title: "App review", image: "square.and.arrow.up")
+                    }, title: NSLocalizedString("App review", comment: ""), image: "square.and.arrow.up")
                     SettingsButton(onClick: {
                         UIApplication.shared.shareFeedback()
-                    }, title: "Share feedback", image: "envelope")
+                    }, title: NSLocalizedString("Share feedback", comment: ""), image: "envelope")
                     NavigationLink(destination: AnyView(EmptyView()), label: {
-                        SettingsNavLink(title: "How to use the app")
+                        SettingsNavLink(title: NSLocalizedString("How to use the app", comment: ""))
                     })
                 }
             }
         }
-        .navigationTitle("Settings")
+        .navigationTitle(NSLocalizedString("Settings", comment: ""))
         .navigationBarTitleDisplayMode(.inline)
     }
     
@@ -86,16 +86,16 @@ struct Settings: View {
                 DispatchQueue.main.async {
                     AppController.shared.toast = Toast(
                         type: .success,
-                        title: "Scheduled notifications",
-                        message: "Scheduled notifications for all available events"
+                        title: NSLocalizedString("Scheduled notifications", comment: ""),
+                        message: NSLocalizedString("Scheduled notifications for all available events", comment: "")
                     )
                 }
             case .failure:
                 DispatchQueue.main.async {
                     AppController.shared.toast = Toast(
                         type: .error,
-                        title: "Error",
-                        message: "Failed to set notifications for all available events"
+                        title: NSLocalizedString("Error", comment: ""),
+                        message: NSLocalizedString("Failed to set notifications for all available events", comment: "")
                     )
                 }
             }

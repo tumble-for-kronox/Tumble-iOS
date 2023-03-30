@@ -29,9 +29,8 @@ struct NotificationOffsetSettings: View {
         List {
             Section {
                 ForEach(NotificationOffset.allCases) { type in
-                    let title = type.rawValue / 60 < 1 ? "\(type.rawValue % 60) minutes" : "\(type.rawValue / 60) hour(s)"
                     SettingsRadioButton(
-                        title: title,
+                        title: getOffsetDisplayName(offset: type),
                         isSelected: Binding<Bool>(
                             get: { offset == type.rawValue },
                             set: { selected in
@@ -46,6 +45,18 @@ struct NotificationOffsetSettings: View {
         }
     }
     
-    
+    func getOffsetDisplayName(offset: NotificationOffset) -> String {
+        let minutes = offset.rawValue
+        if minutes < 60 {
+            return "\(minutes) \(NSLocalizedString("minutes", comment: ""))"
+        } else {
+            let hours = minutes / 60
+            if hours == 1 {
+                return "\(hours) \(NSLocalizedString("hour", comment: ""))"
+            } else {
+                return "\(hours) \(NSLocalizedString("hours", comment: ""))"
+            }
+        }
+    }
     
 }

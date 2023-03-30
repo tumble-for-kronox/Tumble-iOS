@@ -61,7 +61,7 @@ struct ResourceSelection: View {
             })
             .toastView(toast: $toast)
         } else {
-            Info(title: "No available timeslots", image: "clock.arrow.circlepath")
+            Info(title: NSLocalizedString("No available timeslots", comment: ""), image: "clock.arrow.circlepath")
                 .frame(
                     maxWidth: .infinity,
                     maxHeight: .infinity,
@@ -72,9 +72,15 @@ struct ResourceSelection: View {
     
     fileprivate func makeToast(success: Bool) -> Void {
         if success {
-            toast = Toast(type: .success, title: "Booked", message: "Successfully booked resource")
+            toast = Toast(
+                type: .success,
+                title: NSLocalizedString("Booked", comment: ""),
+                message: NSLocalizedString("Successfully booked resource", comment: ""))
         } else {
-            toast = Toast(type: .error, title: "Not booked", message: "Failed to book the specified resource")
+            toast = Toast(
+                type: .error,
+                title: NSLocalizedString("Not booked", comment: ""),
+                message: NSLocalizedString("Failed to book the specified resource", comment: ""))
         }
     }
 

@@ -61,7 +61,7 @@ class PreferenceService: PreferenceServiceProtocol {
     }
     
     func setLang(lang: String) -> Void {
-        UserDefaults.standard.set(lang, forKey: StoreKey.language.rawValue)
+        UserDefaults.standard.set(lang, forKey: StoreKey.locale.rawValue)
         UserDefaults.standard.synchronize()
     }
     
