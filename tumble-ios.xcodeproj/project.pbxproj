@@ -124,7 +124,7 @@
 		D46ABF14298443AC00B059F6 /* ViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46ABF13298443AC00B059F6 /* ViewModelFactory.swift */; };
 		D46BB10A298AC31E00887A24 /* DetailsBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46BB109298AC31E00887A24 /* DetailsBuilder.swift */; };
 		D46BB10C298ADDF600887A24 /* CustomCorners.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46BB10B298ADDF600887A24 /* CustomCorners.swift */; };
-		D46BB112298B0E2800887A24 /* NavigationBarSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46BB111298B0E2800887A24 /* NavigationBarSettings.swift */; };
+		D46BB112298B0E2800887A24 /* NavigationbarSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46BB111298B0E2800887A24 /* NavigationbarSettings.swift */; };
 		D46BB118298B21DA00887A24 /* InfoLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46BB117298B21DA00887A24 /* InfoLoading.swift */; };
 		D471A90B29C7939E005541FA /* HomePageHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D471A90A29C7939E005541FA /* HomePageHeader.swift */; };
 		D471A90D29C7942D005541FA /* HomePageSectionDivider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D471A90C29C7942D005541FA /* HomePageSectionDivider.swift */; };
@@ -333,7 +333,7 @@
 		D46ABF13298443AC00B059F6 /* ViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelFactory.swift; sourceTree = "<group>"; };
 		D46BB109298AC31E00887A24 /* DetailsBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsBuilder.swift; sourceTree = "<group>"; };
 		D46BB10B298ADDF600887A24 /* CustomCorners.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCorners.swift; sourceTree = "<group>"; };
-		D46BB111298B0E2800887A24 /* NavigationBarSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarSettings.swift; sourceTree = "<group>"; };
+		D46BB111298B0E2800887A24 /* NavigationbarSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationbarSettings.swift; sourceTree = "<group>"; };
 		D46BB117298B21DA00887A24 /* InfoLoading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoLoading.swift; sourceTree = "<group>"; };
 		D471A90A29C7939E005541FA /* HomePageHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageHeader.swift; sourceTree = "<group>"; };
 		D471A90C29C7942D005541FA /* HomePageSectionDivider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageSectionDivider.swift; sourceTree = "<group>"; };
@@ -695,7 +695,7 @@
 			isa = PBXGroup;
 			children = (
 				D4CE2DBC2982E55200B81052 /* NavigationbarSearch.swift */,
-				D46BB111298B0E2800887A24 /* NavigationBarSettings.swift */,
+				D46BB111298B0E2800887A24 /* NavigationbarSettings.swift */,
 			);
 			path = Navigation;
 			sourceTree = "<group>";
@@ -1503,7 +1503,7 @@
 				D4A433BE29953AD300BFEB7A /* AppController.swift in Sources */,
 				D4B7F25629CC60EB006E2449 /* RoomContainerCard.swift in Sources */,
 				D4ABD272298C2E32002FD8F5 /* DayExtension.swift in Sources */,
-				D46BB112298B0E2800887A24 /* NavigationBarSettings.swift in Sources */,
+				D46BB112298B0E2800887A24 /* NavigationbarSettings.swift in Sources */,
 				D4607634292AA83F00DE9590 /* AppParent.swift in Sources */,
 				D4563E802985FBFB003261FA /* NetworkExtensions.swift in Sources */,
 				D4E83ECE2999B041002E5F88 /* UserOverview.swift in Sources */,

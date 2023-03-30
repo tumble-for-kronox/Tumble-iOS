@@ -31,7 +31,7 @@ import SwiftUI
     let bookmarksViewModel: BookmarksViewModel
     let accountPageViewModel: AccountViewModel
     let searchViewModel: SearchViewModel
-    let sidebarViewModel: SettingsViewModel
+    let settingsViewModel: SettingsViewModel
 
     
     init() {
@@ -41,7 +41,7 @@ import SwiftUI
         self.bookmarksViewModel = viewModelFactory.makeViewModelBookmarks()
         self.accountPageViewModel = viewModelFactory.makeViewModelAccount()
         self.searchViewModel = viewModelFactory.makeViewModelSearch()
-        self.sidebarViewModel = viewModelFactory.makeViewModelSettings()
+        self.settingsViewModel = viewModelFactory.makeViewModelSettings()
         
         self.canvasUrl = preferenceService.getCanvasUrl()
         self.kronoxUrl = preferenceService.getUniversityKronoxUrl()
@@ -61,7 +61,7 @@ import SwiftUI
         self.universityName = preferenceService.getUniversityName()
         self.searchViewModel.update()
         self.bookmarksViewModel.updateViewLocals()
-        self.sidebarViewModel.updateViewLocals()
+        self.settingsViewModel.updateViewLocals()
         self.bookmarksViewModel.loadBookmarkedSchedules()
         self.accountPageViewModel.updateViewLocals()
         self.homeViewModel.updateViewLocals()
@@ -70,7 +70,7 @@ import SwiftUI
     
     
     func updateSchedulesChildView() -> Void {
-        sidebarViewModel.updateBookmarks()
+        settingsViewModel.updateBookmarks()
         homeViewModel.updateViewLocals()
         bookmarksViewModel.loadBookmarkedSchedules()
     }

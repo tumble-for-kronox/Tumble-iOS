@@ -52,7 +52,9 @@ import SwiftUI
                 
                 self.preferenceService.setBookmarks(bookmarks: bookmarks)
                 
-                self.bookmarks = bookmarks
+                DispatchQueue.main.async {
+                    self.bookmarks = bookmarks
+                }
                 
             case .failure(let failure):
                 AppLogger.shared.info("\(failure)")
@@ -67,9 +69,9 @@ import SwiftUI
     }
     
     func deleteBookmark(id: String) -> Void {
-        var bookmarks = self.preferenceService.getBookmarks() ?? []
-        bookmarks.removeAll(where: { $0.id == id })
-        preferenceService.setBookmarks(bookmarks: bookmarks)
+        var preferenceBookmarks = self.preferenceService.getBookmarks() ?? []
+        preferenceBookmarks.removeAll(where: { $0.id == id })
+        preferenceService.setBookmarks(bookmarks: preferenceBookmarks)
         self.loadSchedules { schedules in
             let schedulesToRemove = schedules.filter { $0.id == id }
             let events = schedulesToRemove
@@ -77,7 +79,9 @@ import SwiftUI
                 .flatMap { day in day.events }
             events.forEach { event in self.notificationManager.cancelNotification(for: event.id) }
         }
-        self.bookmarks = bookmarks
+        DispatchQueue.main.async {
+            self.bookmarks = preferenceBookmarks
+        }
     }
     
     func clearAllNotifications() -> Void {

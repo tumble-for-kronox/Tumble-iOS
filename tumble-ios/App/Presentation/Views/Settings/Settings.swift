@@ -12,7 +12,7 @@ struct Settings: View {
     
     @AppStorage(StoreKey.appearance.rawValue) var appearance: String = AppearanceType.system.rawValue
     @ObservedObject var viewModel: SettingsViewModel
-    let removeBookmark: (String) -> Void
+    let removeSchedule: (String) -> Void
     let updateBookmarks: () -> Void
     let onChangeSchool: (School) -> Void
     
@@ -42,9 +42,9 @@ struct Settings: View {
                     })
                     NavigationLink(destination: AnyView(
                         BookmarksSettings(
-                            bookmarks: $viewModel.bookmarks,
-                            toggleBookmark: toggleBookmark,
-                            deleteBookmark: deleteBookmark
+                            parentViewModel: viewModel,
+                            updateBookmarks: updateBookmarks,
+                            removeSchedule: removeSchedule
                         )), label: {
                             SettingsNavLink(title: "Bookmarks")
                     })
@@ -99,14 +99,8 @@ struct Settings: View {
         
     }
     
-    fileprivate func toggleBookmark(id: String, value: Bool) -> Void {
-        viewModel.toggleBookmarkVisibility(for: id, to: value)
-        updateBookmarks()
-    }
-    
     fileprivate func deleteBookmark(id: String) -> Void {
-        viewModel.deleteBookmark(id: id)
-        removeBookmark(id)
+        removeSchedule(id)
     }
 }
 
@@ -114,7 +108,7 @@ struct Settings_Previews: PreviewProvider {
     static var previews: some View {
         Settings(
             viewModel: ViewModelFactory.shared.makeViewModelSettings(),
-            removeBookmark: {_ in},
+            removeSchedule: {_ in},
             updateBookmarks: {},
             onChangeSchool: {_ in})
     }

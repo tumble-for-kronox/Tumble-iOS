@@ -61,11 +61,11 @@ struct AppParent: View {
                         universityImage: $viewModel.universityImage)
                 })
                 ToolbarItem(placement: .navigationBarTrailing, content: {
-                    NavigationBarSettings(
-                        viewModel: viewModel.sidebarViewModel,
+                    NavigationbarSettings(
+                        viewModel: viewModel.settingsViewModel,
                         onChangeSchool: onChangeSchool,
                         updateBookmarks: updateBookmarks,
-                        removeBookmark: removeBookmark)
+                        removeSchedule: removeSchedule)
                 })
             }
         }
@@ -118,7 +118,7 @@ struct AppParent: View {
         viewModel.updateSchedulesChildView()
     }
     
-    fileprivate func removeBookmark(id: String) -> Void {
+    fileprivate func removeSchedule(where id: String) -> Void {
         viewModel.removeSchedule(id: id) { success in
             if success {
                 viewModel.updateSchedulesChildView()

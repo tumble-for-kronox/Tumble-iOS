@@ -7,18 +7,18 @@
 
 import SwiftUI
 
-struct NavigationBarSettings: View {
+struct NavigationbarSettings: View {
     
     @ObservedObject var viewModel: SettingsViewModel
     let onChangeSchool: (School) -> Void
     let updateBookmarks: () -> Void
-    let removeBookmark: (String) -> Void
+    let removeSchedule: (String) -> Void
     
     var body: some View {
         NavigationLink(destination:
                         Settings(
                             viewModel: viewModel,
-                            removeBookmark: removeBookmark,
+                            removeSchedule: removeSchedule,
                             updateBookmarks: updateBookmarks,
                             onChangeSchool: onChangeSchool
             

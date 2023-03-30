@@ -14,26 +14,24 @@ struct BookmarkSettingsRow: View {
     let deleteBookmark: (String) -> Void
     
     var body: some View {
-        VStack {
-            Toggle(isOn: $bookmark.toggled) {
-                HStack (alignment: .center, spacing: 0) {
-                    Button(action: { deleteBookmark(bookmark.id) }) {
-                        Image(systemName: "minus.circle")
-                            .font(.system(size: 20))
-                            .foregroundColor(.onBackground)
-                    }
-                    Text(bookmark.id)
-                        .font(.system(size: 16))
-                        .padding(15)
-                    Spacer()
-                }
-            }
-            .toggleStyle(SwitchToggleStyle(tint: .primary))
-            .onChange(of: bookmark.toggled) { value in
-                toggleBookmark(bookmark.id, value)
-            }
-            Divider()
+        Toggle(isOn: $bookmark.toggled) {
+            Text(bookmark.id)
+                .font(.system(size: 16))
+                .padding(15)
         }
-        .padding([.leading, .trailing])
+        .id(bookmark.id)
+        .swipeActions(content: {
+            Button(action: {
+                deleteBookmark(bookmark.id)
+            }, label: {
+                Image(systemName: "trash")
+                    .frame(width: 25, height: 25)
+                    .foregroundColor(.onPrimary)
+            })
+            .tint(.red)
+        })
+        .onChange(of: bookmark.toggled) { value in
+            toggleBookmark(bookmark.id, value)
+        }
     }
 }
