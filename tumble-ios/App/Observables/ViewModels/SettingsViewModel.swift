@@ -84,7 +84,7 @@ import SwiftUI
         self.notificationManager.cancelNotifications()
     }
     
-    func scheduleNotificationsForAllCourses() -> Void {
+    func scheduleNotificationsForAllEvents() -> Void {
         self.scheduleService.load(completion: { [weak self] (result: Result<[ScheduleStoreModel], Error>) in
             guard let self = self else { return }
             switch result {
@@ -94,11 +94,15 @@ import SwiftUI
                     case .success(let courseColorsDict):
                         let allEvents = schedules.flatMap { $0.days.flatMap { $0.events } }
                         for event in allEvents {
+                            guard let notification = self.notificationManager.createNotificationFromEvent(
+                                event: event,
+                                color: courseColorsDict[event.course.id] ?? "#FEFEFE"
+                            ) else {
+                                AppLogger.shared.info("Could not set notification for event \(event.id)")
+                                break
+                            }
                             self.notificationManager.scheduleNotification(
-                                for: self.notificationManager.createNotificationFromEvent(
-                                    event: event,
-                                    color: courseColorsDict[event.course.id] ?? "#FEFEFE"
-                                ), type: .event,
+                                for: notification, type: .event,
                                 userOffset: self.preferenceService.getNotificationOffset(),
                                 completion: { (result: Result<Int, NotificationError>) in
                                     switch result {

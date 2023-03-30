@@ -7,27 +7,27 @@
 
 import SwiftUI
 
-struct AppearanceOptionButton: View {
+struct SettingsRadioButton: View {
     
-    let appearanceType: AppearanceType
-    let onToggle: (AppearanceType) -> Void
+    let title: String
+    let onToggle: () -> Void
     @Binding var isSelected: Bool
     
     var body: some View {
         Button(action: {
             isSelected = true
-            onToggle(appearanceType)
+            onToggle()
         }) {
             HStack {
-                Text(appearanceType.rawValue)
+                Text(title)
                     .font(.system(size: 16))
                     .foregroundColor(.onSurface)
                 Spacer()
                 if isSelected {
                     Image(systemName: "checkmark")
-                        .font(.system(size: 14, weight: .semibold))
+                        .font(.system(size: 12, weight: .semibold))
                         .frame(width: 25, height: 25)
-                        .foregroundColor(.white)
+                        .foregroundColor(.onPrimary)
                         .background(Color.primary)
                         .clipShape(Circle())
                 } else {

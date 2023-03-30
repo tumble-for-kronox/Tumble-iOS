@@ -26,9 +26,9 @@ struct AppearanceSettings: View {
         List {
             Section {
                 ForEach(AppearanceType.allCases) { type in
-                    AppearanceOptionButton(
-                        appearanceType: type,
-                        onToggle: changeAppearance,
+                    SettingsRadioButton(
+                        title: type.rawValue,
+                        onToggle: {},
                         isSelected: Binding<Bool>(
                             get: { appearance == type.rawValue },
                             set: { selected in
@@ -43,9 +43,6 @@ struct AppearanceSettings: View {
         }
     }
     
-    fileprivate func changeAppearance(appearance: AppearanceType) -> Void {
-        self.appearance = appearance.rawValue
-    }
 }
 
 struct AppearanceSettings_Previews: PreviewProvider {

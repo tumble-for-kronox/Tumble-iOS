@@ -8,16 +8,32 @@
 import SwiftUI
 
 struct NotificationSettings: View {
+    
+    @AppStorage(StoreKey.notificationOffset.rawValue) var offset: Int = 60
     let clearAllNotifications: () -> Void
     let scheduleNotificationsForAllCourses: () -> Void
    
     var body: some View {
         // List of options for notifications
-        VStack {
-            SettingsButton(image: "bell.slash", title: "Cancel all notifications", onClick: clearAllNotifications)
-            SettingsButton(image: "bell.badge", title: "Set notifications for all schedules", onClick: scheduleNotificationsForAllCourses)
-            Spacer()
+        List {
+            Section {
+                NotificationSettingsButton(
+                    onClick: scheduleNotificationsForAllCourses,
+                    title: "Set notifications for all events",
+                    image: "bell.badge"
+                )
+                NotificationSettingsButton(
+                    onClick: clearAllNotifications,
+                    title: "Cancel all notifications",
+                    image: "bell.slash"
+                )
+            }
+            Section {
+                NavigationLink(destination: AnyView(
+                    NotificationOffsetSettings(offset: $offset)), label: {
+                    SettingsNavLink(title: "Notification offset", current: offset / 60 < 1 ? "\(offset % 60) minutes" : "\(offset / 60) hour(s)")
+                })
+            }
         }
-        .padding(.top, 25)
     }
 }

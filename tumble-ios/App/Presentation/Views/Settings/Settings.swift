@@ -21,40 +21,22 @@ struct Settings: View {
                     NavigationLink(destination: AnyView(
                         AppearanceSettings()
                     ), label: {
-                        HStack {
-                            Text("Appearance")
-                                .font(.system(size: 16))
-                                .foregroundColor(.onSurface)
-                        }
+                        SettingsNavLink(title: "Appearance")
                     })
                     NavigationLink(destination: AnyView(EmptyView()), label: {
-                        HStack {
-                            Text("App language")
-                                .font(.system(size: 16))
-                                .foregroundColor(.onSurface)
-                        }
+                        SettingsNavLink(title: "App language")
                     })
                     NavigationLink(destination: AnyView(
                             NotificationSettings(
                                 clearAllNotifications: clearAllNotifications,
                                 scheduleNotificationsForAllCourses: scheduleNotificationsForAllCourses)
                     ), label: {
-                        Text("Notifications")
-                            .font(.system(size: 16))
-                            .foregroundColor(.onSurface)
+                        SettingsNavLink(title: "Notifications")
                     })
                 }
                 Section {
                     NavigationLink(destination: AnyView(SchoolSelectionSettings(onChangeSchool: onChangeSchool)), label: {
-                        HStack {
-                            Text("School")
-                                .font(.system(size: 16))
-                                .foregroundColor(.onSurface)
-                            Spacer()
-                            Text(viewModel.universityName ?? "")
-                                .font(.system(size: 16))
-                                .foregroundColor(.onSurface.opacity(0.7))
-                        }
+                        SettingsNavLink(title: "School", current: viewModel.universityName)
                     })
                     NavigationLink(destination: AnyView(
                         BookmarksSettings(
@@ -62,28 +44,20 @@ struct Settings: View {
                             toggleBookmark: toggleBookmark,
                             deleteBookmark: deleteBookmark
                         )), label: {
-                        Text("Bookmarks")
-                            .font(.system(size: 16))
-                            .foregroundColor(.onSurface)
+                            SettingsNavLink(title: "Bookmarks")
                     })
                 }
                 Section {
                     NavigationLink(destination: AnyView(EmptyView()), label: {
                         HStack {
-                            Text("App review")
-                                .font(.system(size: 16))
-                                .foregroundColor(.onSurface)
+                            SettingsNavLink(title: "App review")
                         }
                     })
                     NavigationLink(destination: AnyView(EmptyView()), label: {
-                        Text("Share feedback")
-                            .font(.system(size: 16))
-                            .foregroundColor(.onSurface)
+                        SettingsNavLink(title: "Share feedback")
                     })
                     NavigationLink(destination: AnyView(EmptyView()), label: {
-                        Text("How to use the app")
-                            .font(.system(size: 16))
-                            .foregroundColor(.onSurface)
+                        SettingsNavLink(title: "How to use the app")
                     })
                 }
             }
@@ -97,7 +71,7 @@ struct Settings: View {
     }
     
     fileprivate func scheduleNotificationsForAllCourses() -> Void {
-        viewModel.scheduleNotificationsForAllCourses()
+        viewModel.scheduleNotificationsForAllEvents()
     }
     
     fileprivate func toggleBookmark(id: String, value: Bool) -> Void {

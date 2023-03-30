@@ -235,6 +235,15 @@ public enum Response {
             case locationID = "locationId"
             case showConfirmButton, showUnbookButton, confirmationOpen, confirmationClosed
         }
+        
+        var dateComponentsConfirmation: DateComponents? {
+            guard let date = isoDateFormatter.date(from: confirmationOpen) else {
+                return nil
+            }
+            let calendar = Calendar.current
+            let dateComponents = calendar.dateComponents([.year, .month, .day, .hour, .minute, .second], from: date)
+            return dateComponents
+        }
     }
     
     // MARK: - KronoxEventRegistration
