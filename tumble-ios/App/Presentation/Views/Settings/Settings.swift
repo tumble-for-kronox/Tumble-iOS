@@ -18,7 +18,9 @@ struct Settings: View {
         VStack {
             List {
                 Section {
-                    NavigationLink(destination: AnyView(EmptyView()), label: {
+                    NavigationLink(destination: AnyView(
+                        AppearanceSettings()
+                    ), label: {
                         HStack {
                             Text("Appearance")
                                 .font(.system(size: 16))

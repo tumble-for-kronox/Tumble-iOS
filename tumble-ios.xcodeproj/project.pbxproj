@@ -208,6 +208,8 @@
 		D4EACB3629CB99540096ADD2 /* ResourceTimeButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EACB3529CB99540096ADD2 /* ResourceTimeButtonStyle.swift */; };
 		D4EACB3829CB9E640096ADD2 /* ResourceRoomSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EACB3729CB9E640096ADD2 /* ResourceRoomSelection.swift */; };
 		D4EAD3B9298D633B00678DF8 /* KronoxManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EAD3B8298D633B00678DF8 /* KronoxManagerProtocol.swift */; };
+		D4EE5B6C29D50FC0002A1399 /* AppearanceSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EE5B6B29D50FC0002A1399 /* AppearanceSettings.swift */; };
+		D4EE5B6E29D50FD3002A1399 /* AppearanceOptionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EE5B6D29D50FD3002A1399 /* AppearanceOptionButton.swift */; };
 		D4FCD14B2995AD64009D2987 /* UIColorWellExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FCD14A2995AD64009D2987 /* UIColorWellExtension.swift */; };
 		D4FCD14E2995ADFE009D2987 /* UIColorWellHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FCD14D2995ADFE009D2987 /* UIColorWellHelper.swift */; };
 		D4FF4726299156FC0080C898 /* ScheduleStoreObjectExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FF4725299156FC0080C898 /* ScheduleStoreObjectExtension.swift */; };
@@ -409,6 +411,8 @@
 		D4EACB3529CB99540096ADD2 /* ResourceTimeButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceTimeButtonStyle.swift; sourceTree = "<group>"; };
 		D4EACB3729CB9E640096ADD2 /* ResourceRoomSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceRoomSelection.swift; sourceTree = "<group>"; };
 		D4EAD3B8298D633B00678DF8 /* KronoxManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KronoxManagerProtocol.swift; sourceTree = "<group>"; };
+		D4EE5B6B29D50FC0002A1399 /* AppearanceSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceSettings.swift; sourceTree = "<group>"; };
+		D4EE5B6D29D50FD3002A1399 /* AppearanceOptionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceOptionButton.swift; sourceTree = "<group>"; };
 		D4FCD14A2995AD64009D2987 /* UIColorWellExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorWellExtension.swift; sourceTree = "<group>"; };
 		D4FCD14D2995ADFE009D2987 /* UIColorWellHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorWellHelper.swift; sourceTree = "<group>"; };
 		D4FF4725299156FC0080C898 /* ScheduleStoreObjectExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleStoreObjectExtension.swift; sourceTree = "<group>"; };
@@ -526,6 +530,7 @@
 		D41172C02985EB2C0082BB4F /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				D4EE5B6A29D50FAF002A1399 /* Appearance */,
 				D454DED329D3BB08005BDAE3 /* Notifications */,
 				D454DED229D3BAF6005BDAE3 /* SchoolSelection */,
 				D454DED129D3BAEA005BDAE3 /* Bookmarks */,
@@ -1282,6 +1287,15 @@
 			path = Factories;
 			sourceTree = "<group>";
 		};
+		D4EE5B6A29D50FAF002A1399 /* Appearance */ = {
+			isa = PBXGroup;
+			children = (
+				D4EE5B6B29D50FC0002A1399 /* AppearanceSettings.swift */,
+				D4EE5B6D29D50FD3002A1399 /* AppearanceOptionButton.swift */,
+			);
+			path = Appearance;
+			sourceTree = "<group>";
+		};
 		D4F145E62982144C00C3A351 /* Calendar */ = {
 			isa = PBXGroup;
 			children = (
@@ -1491,6 +1505,7 @@
 				D460763B292AAD5400DE9590 /* PopupToastView.swift in Sources */,
 				D4D4DD032927C7DA0083BB7F /* ProgrammeCard.swift in Sources */,
 				D4D4CD17299CE57C00D48180 /* EventCardButton.swift in Sources */,
+				D4EE5B6E29D50FD3002A1399 /* AppearanceOptionButton.swift in Sources */,
 				D48CC59C29C7D1E70028179A /* CompactButtonStyle.swift in Sources */,
 				D498290F299D9E7F0017D636 /* RegisteredBookings.swift in Sources */,
 				D4294B3429C91CF700007747 /* ArrayExtension.swift in Sources */,
@@ -1540,6 +1555,7 @@
 				D48F0D8A29367CAF0039CD0F /* Colors.swift in Sources */,
 				D4E83ED12999B1B1002E5F88 /* AuthManager.swift in Sources */,
 				D4A550CF299454F700028BCF /* ScheduleStoreModel.swift in Sources */,
+				D4EE5B6C29D50FC0002A1399 /* AppearanceSettings.swift in Sources */,
 				D4040EC429D310A800613144 /* Refreshable.swift in Sources */,
 				D454DECA29D35EF5005BDAE3 /* Settings.swift in Sources */,
 				D4607632292AA39400DE9590 /* Types.swift in Sources */,

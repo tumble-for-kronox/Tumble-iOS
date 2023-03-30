@@ -5,8 +5,6 @@
 //  Created by Adis Veletanlic on 11/16/22.
 //
 
-import Foundation
-
 import SwiftUI
 import PermissionsSwiftUINotification
 
@@ -14,9 +12,7 @@ struct Root: View {
     
     @ObservedObject var viewModel: RootViewModel
     
-    @Environment(\.colorScheme) var colorScheme: ColorScheme
-    @AppStorage(StoreKey.overrideSystemTheme.rawValue) private var overrideSystem = false
-    @AppStorage(StoreKey.theme.rawValue) private var isDarkMode = false
+    @AppStorage(StoreKey.appearance.rawValue) private var appearance = AppearanceType.system.rawValue
     
     var body: some View {
         ZStack {
@@ -29,7 +25,7 @@ struct Root: View {
                     .environmentObject(AppController.shared)
             }
         }
-        .environment(\.colorScheme, colorScheme)
+        .colorScheme(getThemeColorScheme())
         .edgesIgnoringSafeArea(.all)
         .ignoresSafeArea(.keyboard)
         .JMModal(showModal: $viewModel.showNotificationsPermission, for: [.notification])
@@ -41,4 +37,20 @@ struct Root: View {
             self.viewModel.currentView = .app
         }
     }
+    
+    private func getThemeColorScheme() -> ColorScheme {
+        switch appearance {
+        case AppearanceType.dark.rawValue:
+            return .dark
+        case AppearanceType.light.rawValue:
+            return .light
+        default:
+            if UITraitCollection.current.userInterfaceStyle == .dark {
+                return .dark
+            } else {
+                return .light
+            }
+        }
+    }
 }
+

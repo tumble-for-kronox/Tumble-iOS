@@ -55,14 +55,8 @@ class PreferenceService: PreferenceServiceProtocol {
         UserDefaults.standard.synchronize()
     }
     
-    func setTheme(isDarkMode: Bool) -> Void {
-        UserDefaults.standard.set(isDarkMode, forKey: StoreKey.theme.rawValue)
-        UserDefaults.standard.set(true, forKey: StoreKey.overrideSystemTheme.rawValue)
-        UserDefaults.standard.synchronize()
-    }
-    
-    func setOverrideSystemFalse() -> Void {
-        UserDefaults.standard.set(false, forKey: StoreKey.overrideSystemTheme.rawValue)
+    func setAppearance(appearance: String) -> Void {
+        UserDefaults.standard.set(appearance, forKey: StoreKey.appearance.rawValue)
         UserDefaults.standard.synchronize()
     }
     
@@ -80,12 +74,6 @@ class PreferenceService: PreferenceServiceProtocol {
         UserDefaults.standard.set(viewType, forKey: StoreKey.viewType.rawValue)
         UserDefaults.standard.synchronize()
     }
-    
-    func setOverrideSystem(value: Bool) {
-        UserDefaults.standard.set(value, forKey: StoreKey.overrideSystemTheme.rawValue)
-        UserDefaults.standard.synchronize()
-    }
-    
     
     // ----------- GET -----------
     func getDefault(key: String) -> Any? {
