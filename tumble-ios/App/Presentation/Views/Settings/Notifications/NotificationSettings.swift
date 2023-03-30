@@ -17,12 +17,12 @@ struct NotificationSettings: View {
         // List of options for notifications
         List {
             Section {
-                NotificationSettingsButton(
+                SettingsButton(
                     onClick: scheduleNotificationsForAllCourses,
                     title: "Set notifications for all events",
                     image: "bell.badge"
                 )
-                NotificationSettingsButton(
+                SettingsButton(
                     onClick: clearAllNotifications,
                     title: "Cancel all notifications",
                     image: "bell.slash"

@@ -32,7 +32,7 @@ struct SearchPage: View {
                         Info(title: "Schedule is empty", image: nil)
                     }
                 SearchBar(searchBarText: $searchBarText, onSearch: onSearch, onClearSearch: onClearSearch)
-                    .background(Color.surface)
+                    
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
         }

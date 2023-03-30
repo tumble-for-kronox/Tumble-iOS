@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct NotificationSettingsButton: View {
+struct SettingsButton: View {
     
     let onClick: () -> Void
     let title: String
@@ -21,11 +21,8 @@ struct NotificationSettingsButton: View {
                     .foregroundColor(.onSurface)
                 Spacer()
                 Image(systemName: image)
-                    .font(.system(size: 12, weight: .semibold))
                     .frame(width: 25, height: 25)
-                    .foregroundColor(.onPrimary)
-                    .background(Color.primary)
-                    .clipShape(Circle())
+                    .foregroundColor(.primary)
             }
         })
     }

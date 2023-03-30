@@ -93,7 +93,7 @@
 		D454DECE29D3B900005BDAE3 /* BookmarksSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D454DECD29D3B900005BDAE3 /* BookmarksSettings.swift */; };
 		D454DED029D3B953005BDAE3 /* BookmarksSettingsRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D454DECF29D3B953005BDAE3 /* BookmarksSettingsRow.swift */; };
 		D454DED529D3BB13005BDAE3 /* NotificationSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D454DED429D3BB13005BDAE3 /* NotificationSettings.swift */; };
-		D455E04729D58B9B00770910 /* NotificationSettingsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D455E04629D58B9B00770910 /* NotificationSettingsButton.swift */; };
+		D455E04729D58B9B00770910 /* SettingsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D455E04629D58B9B00770910 /* SettingsButton.swift */; };
 		D455E04929D58CA600770910 /* SettingsNavLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = D455E04829D58CA600770910 /* SettingsNavLink.swift */; };
 		D455E04B29D58F7D00770910 /* NotificationOffsetSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D455E04A29D58F7D00770910 /* NotificationOffsetSettings.swift */; };
 		D4563E7E2985F96C003261FA /* NetworkSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4563E7D2985F96C003261FA /* NetworkSettings.swift */; };
@@ -180,6 +180,7 @@
 		D4BAE614292466F700143717 /* SchoolLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BAE613292466F700143717 /* SchoolLoader.swift */; };
 		D4BAE61929246AA200143717 /* schools.json in Resources */ = {isa = PBXBuildFile; fileRef = D4BAE61829246AA200143717 /* schools.json */; };
 		D4BAE61C29246AF800143717 /* SchoolRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BAE61B29246AF800143717 /* SchoolRow.swift */; };
+		D4CD0EFF29D5B00A00AB5FD0 /* UIApplicationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CD0EFE29D5B00A00AB5FD0 /* UIApplicationExtension.swift */; };
 		D4CE2DBD2982E55200B81052 /* NavigationbarSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CE2DBC2982E55200B81052 /* NavigationbarSearch.swift */; };
 		D4CF9B2A2935634800DDB5F0 /* SearchError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CF9B292935634800DDB5F0 /* SearchError.swift */; };
 		D4CF9B2C293572BE00DDB5F0 /* Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CF9B2B293572BE00DDB5F0 /* Info.swift */; };
@@ -302,7 +303,7 @@
 		D454DECD29D3B900005BDAE3 /* BookmarksSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksSettings.swift; sourceTree = "<group>"; };
 		D454DECF29D3B953005BDAE3 /* BookmarksSettingsRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksSettingsRow.swift; sourceTree = "<group>"; };
 		D454DED429D3BB13005BDAE3 /* NotificationSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettings.swift; sourceTree = "<group>"; };
-		D455E04629D58B9B00770910 /* NotificationSettingsButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsButton.swift; sourceTree = "<group>"; };
+		D455E04629D58B9B00770910 /* SettingsButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsButton.swift; sourceTree = "<group>"; };
 		D455E04829D58CA600770910 /* SettingsNavLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsNavLink.swift; sourceTree = "<group>"; };
 		D455E04A29D58F7D00770910 /* NotificationOffsetSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationOffsetSettings.swift; sourceTree = "<group>"; };
 		D4563E7D2985F96C003261FA /* NetworkSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkSettings.swift; sourceTree = "<group>"; };
@@ -388,6 +389,7 @@
 		D4BAE613292466F700143717 /* SchoolLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolLoader.swift; sourceTree = "<group>"; };
 		D4BAE61829246AA200143717 /* schools.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = schools.json; sourceTree = "<group>"; };
 		D4BAE61B29246AF800143717 /* SchoolRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolRow.swift; sourceTree = "<group>"; };
+		D4CD0EFE29D5B00A00AB5FD0 /* UIApplicationExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplicationExtension.swift; sourceTree = "<group>"; };
 		D4CE2DBC2982E55200B81052 /* NavigationbarSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationbarSearch.swift; sourceTree = "<group>"; };
 		D4CF9B292935634800DDB5F0 /* SearchError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchError.swift; sourceTree = "<group>"; };
 		D4CF9B2B293572BE00DDB5F0 /* Info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Info.swift; sourceTree = "<group>"; };
@@ -534,13 +536,14 @@
 		D41172C02985EB2C0082BB4F /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				D454DEC929D35EF5005BDAE3 /* Settings.swift */,
+				D455E04829D58CA600770910 /* SettingsNavLink.swift */,
+				D455E04629D58B9B00770910 /* SettingsButton.swift */,
 				D4EE5B6D29D50FD3002A1399 /* SettingsRadioButton.swift */,
 				D4EE5B6A29D50FAF002A1399 /* Appearance */,
 				D454DED329D3BB08005BDAE3 /* Notifications */,
 				D454DED229D3BAF6005BDAE3 /* SchoolSelection */,
 				D454DED129D3BAEA005BDAE3 /* Bookmarks */,
-				D454DEC929D35EF5005BDAE3 /* Settings.swift */,
-				D455E04829D58CA600770910 /* SettingsNavLink.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -804,7 +807,6 @@
 			isa = PBXGroup;
 			children = (
 				D454DED429D3BB13005BDAE3 /* NotificationSettings.swift */,
-				D455E04629D58B9B00770910 /* NotificationSettingsButton.swift */,
 				D455E04A29D58F7D00770910 /* NotificationOffsetSettings.swift */,
 			);
 			path = Notifications;
@@ -1315,6 +1317,7 @@
 		D4FCD1472995AD30009D2987 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				D4CD0EFE29D5B00A00AB5FD0 /* UIApplicationExtension.swift */,
 				D41172B42985DA740082BB4F /* TextFieldExtensions.swift */,
 				D4462C3129858A7D0067DA65 /* ImageExtensions.swift */,
 				D4462C2F29858A280067DA65 /* TextExtensions.swift */,
@@ -1546,7 +1549,7 @@
 				D49B985229CF47700023DF75 /* KeyChainManager.swift in Sources */,
 				D4FCD14B2995AD64009D2987 /* UIColorWellExtension.swift in Sources */,
 				D426E3A6299C39EA00A8D7AE /* EventBookings.swift in Sources */,
-				D455E04729D58B9B00770910 /* NotificationSettingsButton.swift in Sources */,
+				D455E04729D58B9B00770910 /* SettingsButton.swift in Sources */,
 				D41ADFE7299F8D2E0074E2C7 /* NetworkConstants.swift in Sources */,
 				D481F15729CB820D0088C28E /* AvailabilitiesExtension.swift in Sources */,
 				D4E39E322989BBD9004C30DF /* ColorExtensions.swift in Sources */,
@@ -1582,6 +1585,7 @@
 				D42DFD5E29BD5BC9002942D7 /* ExternalLinkPillStyle.swift in Sources */,
 				D476BD2E293A32BF0027CFE8 /* RoundedCornerShape.swift in Sources */,
 				D49B985429CF47C60023DF75 /* KeyChainManagerProtocol.swift in Sources */,
+				D4CD0EFF29D5B00A00AB5FD0 /* UIApplicationExtension.swift in Sources */,
 				D44ABF0729BFE89D00344792 /* SchoolRowStyle.swift in Sources */,
 				D443962C29CB4D720069D66A /* BookResource.swift in Sources */,
 				D45338FD29297C8B00198411 /* DayUIModel.swift in Sources */,

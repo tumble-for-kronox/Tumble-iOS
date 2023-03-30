@@ -26,6 +26,7 @@ struct Root: View {
             }
         }
         .colorScheme(getThemeColorScheme())
+        .preferredColorScheme(getThemeColorScheme())
         .edgesIgnoringSafeArea(.all)
         .ignoresSafeArea(.keyboard)
         .JMModal(showModal: $viewModel.showNotificationsPermission, for: [.notification])

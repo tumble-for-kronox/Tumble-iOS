@@ -119,6 +119,13 @@ class KronoxManager: KronoxManagerProtocol {
                         completion(.failure(Response.ErrorMessage(message: "Unable to convert empty response object to \(NetworkResponse.self)", statusCode: httpResponse.statusCode)))
                     }
                 }
+            case 202:
+                // Return an empty object that conforms to the expected type of NetworkResponse
+                if let result = Response.Empty() as? NetworkResponse {
+                    completion(.success(result))
+                } else {
+                    completion(.failure(Response.ErrorMessage(message: "Unable to convert empty response object to \(NetworkResponse.self)", statusCode: httpResponse.statusCode)))
+                }
             case 400:
                 do {
                     let result = try self.decoder.decode(Response.ErrorMessage.self, from: data)

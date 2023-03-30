@@ -22,9 +22,8 @@ struct SchoolRow: View {
                 school.logo
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .frame(width: 50, height: 50)
-                    .foregroundColor(.primary)
-                    .frame(width: 60)
+                    .frame(width: 40, height: 40)
+                    .frame(width: 50)
                     .padding(10)
                 
                 VStack (alignment: .leading) {
@@ -34,13 +33,12 @@ struct SchoolRow: View {
                     Spacer()
                     
                 }
-                .frame(height: 80, alignment: .top)
+                .frame(height: 60, alignment: .top)
                 .padding(.trailing, 10)
                 .padding([.top, .bottom], 10)
                 Spacer()
             }
         })
-        .buttonStyle(SchoolRowStyle())
     }
 }
 

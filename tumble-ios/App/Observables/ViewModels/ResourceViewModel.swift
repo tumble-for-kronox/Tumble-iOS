@@ -188,14 +188,18 @@ import Foundation
                         requestUrl,
                         refreshToken: refreshToken,
                         body: requestBody) {
-                        (result: Result<Response.KronoxUserBookingElement, Response.ErrorMessage>) in
+                        (result: Result<Response.KronoxUserBookingElement?, Response.ErrorMessage>) in
                         switch result {
                         case .success:
                             AppLogger.shared.info("Booked resource \(resourceId)")
                             completion(.success(()))
                         case .failure(let error):
-                            AppLogger.shared.critical("Failed to book resource: \(error)")
-                            completion(.failure(.internal(reason: "\(error)")))
+                            if error.statusCode == 202 {
+                                completion(.success(()))
+                            } else {
+                                AppLogger.shared.critical("Failed to book resource: \(error)")
+                                completion(.failure(.internal(reason: "\(error)")))
+                            }
                         }
                     }
                 case .failure(let error):
@@ -205,7 +209,7 @@ import Foundation
             }
         )
     }
-
+    
     func unbookResource(bookingId: String, completion: @escaping (Result<Void, Error>) -> Void) -> Void {
         authenticateAndExecute(
             school: school,

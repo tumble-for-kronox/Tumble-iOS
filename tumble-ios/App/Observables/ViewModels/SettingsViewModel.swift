@@ -84,7 +84,7 @@ import SwiftUI
         self.notificationManager.cancelNotifications()
     }
     
-    func scheduleNotificationsForAllEvents() -> Void {
+    func scheduleNotificationsForAllEvents(completion: @escaping (Result<Void, Error>) -> Void) -> Void {
         self.scheduleService.load(completion: { [weak self] (result: Result<[ScheduleStoreModel], Error>) in
             guard let self = self else { return }
             switch result {
@@ -99,6 +99,7 @@ import SwiftUI
                                 color: courseColorsDict[event.course.id] ?? "#FEFEFE"
                             ) else {
                                 AppLogger.shared.info("Could not set notification for event \(event.id)")
+                                completion(.failure(.generic(reason: "Failed to set notification continuously")))
                                 break
                             }
                             self.notificationManager.scheduleNotification(
@@ -113,12 +114,15 @@ import SwiftUI
                                     }
                                 })
                         }
+                        completion(.success(()))
                     case .failure(let failure):
                         AppLogger.shared.info("Colors could not be loaded from local storage: \(failure)")
+                        completion(.failure(.internal(reason: "Failed to load course colors")))
                     }
                 }
             case .failure:
                 AppLogger.shared.info("Schedules could not be loaded from local storage")
+                completion(.failure(.internal(reason: "Failed to load schedules")))
             }
         })
     }

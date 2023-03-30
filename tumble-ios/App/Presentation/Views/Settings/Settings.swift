@@ -6,9 +6,11 @@
 //
 
 import SwiftUI
+import StoreKit
 
 struct Settings: View {
     
+    @AppStorage(StoreKey.appearance.rawValue) var appearance: String = AppearanceType.system.rawValue
     @ObservedObject var viewModel: SettingsViewModel
     let removeBookmark: (String) -> Void
     let updateBookmarks: () -> Void
@@ -21,7 +23,7 @@ struct Settings: View {
                     NavigationLink(destination: AnyView(
                         AppearanceSettings()
                     ), label: {
-                        SettingsNavLink(title: "Appearance")
+                        SettingsNavLink(title: "Appearance", current: appearance)
                     })
                     NavigationLink(destination: AnyView(EmptyView()), label: {
                         SettingsNavLink(title: "App language")
@@ -48,14 +50,12 @@ struct Settings: View {
                     })
                 }
                 Section {
-                    NavigationLink(destination: AnyView(EmptyView()), label: {
-                        HStack {
-                            SettingsNavLink(title: "App review")
-                        }
-                    })
-                    NavigationLink(destination: AnyView(EmptyView()), label: {
-                        SettingsNavLink(title: "Share feedback")
-                    })
+                    SettingsButton(onClick: {
+                        UIApplication.shared.requestReview()
+                    }, title: "App review", image: "square.and.arrow.up")
+                    SettingsButton(onClick: {
+                        UIApplication.shared.shareFeedback()
+                    }, title: "Share feedback", image: "envelope")
                     NavigationLink(destination: AnyView(EmptyView()), label: {
                         SettingsNavLink(title: "How to use the app")
                     })
@@ -65,13 +65,38 @@ struct Settings: View {
         .navigationTitle("Settings")
         .navigationBarTitleDisplayMode(.inline)
     }
-        
+    
     fileprivate func clearAllNotifications() -> Void {
         viewModel.clearAllNotifications()
+        AppController.shared.toast = Toast(
+            type: .success,
+            title: "Cancelled notifications",
+            message: "Cancelled all available notifications set for events"
+        )
     }
     
     fileprivate func scheduleNotificationsForAllCourses() -> Void {
-        viewModel.scheduleNotificationsForAllEvents()
+        viewModel.scheduleNotificationsForAllEvents(completion: { result in
+            switch result {
+            case .success:
+                DispatchQueue.main.async {
+                    AppController.shared.toast = Toast(
+                        type: .success,
+                        title: "Scheduled notifications",
+                        message: "Scheduled notifications for all available events"
+                    )
+                }
+            case .failure:
+                DispatchQueue.main.async {
+                    AppController.shared.toast = Toast(
+                        type: .error,
+                        title: "Error",
+                        message: "Failed to set notifications for all available events"
+                    )
+                }
+            }
+        })
+        
     }
     
     fileprivate func toggleBookmark(id: String, value: Bool) -> Void {
