@@ -56,7 +56,7 @@ struct Settings: View {
                     SettingsButton(onClick: {
                         UIApplication.shared.shareFeedback()
                     }, title: NSLocalizedString("Share feedback", comment: ""), image: "envelope")
-                    NavigationLink(destination: AnyView(EmptyView()), label: {
+                    NavigationLink(destination: AnyView(AppUsage()), label: {
                         SettingsNavLink(title: NSLocalizedString("How to use the app", comment: ""))
                     })
                 }

@@ -41,10 +41,9 @@ struct ResourceDetailSheet: View {
                     let date = resource.confirmationOpen.toDate() ?? "(missing)"
                     let from = resource.confirmationOpen.convertToHoursAndMinutes() ?? NSLocalizedString("(missing)", comment: "")
                     let to = resource.confirmationClosed.convertToHoursAndMinutes() ?? NSLocalizedString("(missing)", comment: "")
-                    Text(NSLocalizedString("\(date), from", comment: "") + " \(from) - \(to)")
+                    Text(String(format: NSLocalizedString("%@, from %@ - %@", comment: ""), date, from, to))
                         .font(.system(size: 16))
                         .foregroundColor(.onSurface)
-
                 })
                 Button(action: {
                     HapticsController.triggerHapticLight()

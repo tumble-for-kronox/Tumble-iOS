@@ -53,7 +53,7 @@ import SwiftUI
     
     
     func updateLocalsAndChildViews() -> Void {
-        AppLogger.shared.info("Updating child views and local university specifics")
+        AppLogger.shared.debug("Updating child views and local university specifics")
         self.kronoxUrl = preferenceService.getUniversityKronoxUrl()
         self.canvasUrl = preferenceService.getCanvasUrl()
         self.domain = preferenceService.getUniversityDomain()
@@ -84,10 +84,10 @@ import SwiftUI
         scheduleService.remove(scheduleId: id) { result in
             switch result {
             case .success(_):
-                AppLogger.shared.info("Schedule '\(id)' successfully removed")
+                AppLogger.shared.debug("Schedule '\(id)' successfully removed")
                 completion(true)
             case .failure(_):
-                AppLogger.shared.info("Schedule '\(id)' could not be removed")
+                AppLogger.shared.critical("Schedule '\(id)' could not be removed")
                 completion(false)
             }
         }
@@ -126,10 +126,10 @@ extension ParentViewModel {
             switch result {
             case .failure(let error):
                 // TODO: Add error message for user
-                AppLogger.shared.info("Could not remove course colors: \(error)")
+                AppLogger.shared.critical("Could not remove course colors: \(error)")
             case .success:
                 // TODO: Add success message for user
-                AppLogger.shared.info("Removed all course colors from local storage")
+                AppLogger.shared.debug("Removed all course colors from local storage")
                 completion()
             }
         }
@@ -141,10 +141,10 @@ extension ParentViewModel {
             switch result {
             case .failure(let error):
                 // TODO: Add error message for user
-                AppLogger.shared.info("Could not remove schedules: \(error)")
+                AppLogger.shared.critical("Could not remove schedules: \(error)")
             case .success:
                 // TODO: Add success message for user
-                AppLogger.shared.info("Removed all schedules from local storage")
+                AppLogger.shared.debug("Removed all schedules from local storage")
                 completion()
             }
         }

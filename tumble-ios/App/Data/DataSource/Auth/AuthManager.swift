@@ -46,7 +46,7 @@ class AuthManager: AuthManagerProtocol {
     func autoLoginUser(completionHandler: @escaping (Result<TumbleUser, Error>) -> Void) -> Void {
         serialQueue.addOperation {
             let semaphore = DispatchSemaphore(value: 0)
-            AppLogger.shared.info("Running auto login ...")
+            AppLogger.shared.debug("Running auto login ...")
             self.processAutoLogin(completionHandler: { (result: Result<TumbleUser, Error>) in
                 completionHandler(result)
                 semaphore.signal()
@@ -107,9 +107,9 @@ extension AuthManager {
             self.keychainManager.deleteKeyChain(for: token, account: school.name) { result in
                 switch result {
                 case .success:
-                    AppLogger.shared.info("Successfully cleared keychain of \(token)")
+                    AppLogger.shared.debug("Successfully cleared keychain of \(token)")
                 case .failure(let failure):
-                    AppLogger.shared.info("Failed to clear keychain of \(token) -> \(failure.localizedDescription)")
+                    AppLogger.shared.critical("Failed to clear keychain of \(token) -> \(failure.localizedDescription)")
                     completionHandler?(.failure(.internal(reason: "Failed to modify keychain for value '\(token)'")))
                     return
                 }
@@ -124,7 +124,7 @@ extension AuthManager {
         completionHandler: @escaping (Result<TumbleUser, Error>) -> Void) -> Void {
             if let school = self.getDefaultSchool(), let user = self.user {
                 let userRequest = Request.KronoxUserLogin(username: user.username, password: user.password)
-                AppLogger.shared.info("Running login with keychain credentials for user: \(userRequest.username)", source: "AuthManager")
+                AppLogger.shared.debug("Running login with keychain credentials for user: \(userRequest.username)", source: "AuthManager")
                 let urlRequest = urlRequestUtils.createUrlRequest(
                     method: .post,
                     endpoint: .login(schoolId: String(school.id)),
@@ -139,11 +139,11 @@ extension AuthManager {
                             completionHandler: completionHandler)
                     }).resume()
                 } else {
-                    AppLogger.shared.info("Could not create URLRequest object")
+                    AppLogger.shared.critical("Could not create URLRequest object")
                     completionHandler(.failure(.generic(reason: "Failed to instantiate URLRequest object")))
                 }
             } else {
-                AppLogger.shared.info("Missing school/keychain user ...")
+                AppLogger.shared.critical("Missing school/keychain user ...")
                 completionHandler(.failure(.generic(reason: "No school selected or no user available in KeyChain")))
             }
     }
@@ -202,7 +202,7 @@ extension AuthManager {
                 }).resume()
             }
         } else {
-            AppLogger.shared.info("Missing school/token ... Attempting login with keychain credentials instead", source: "AuthManager")
+            AppLogger.shared.debug("Missing school/token ... Attempting login with keychain credentials instead", source: "AuthManager")
             self.processAutoLoginWithKeyChainCredentials(completionHandler: completionHandler)
         }
     }
@@ -214,14 +214,15 @@ extension AuthManager {
         error: Error?,
         completionHandler: @escaping (Result<TumbleUser, Error>) -> Void) {
             if let data = data, let result = try? self.decoder.decode(Response.KronoxUser.self, from: data) {
+                AppLogger.shared.debug("Retrieved new refresh token: \(result.refreshToken)")
                 self.refreshToken = Token(value: result.refreshToken, createdDate: Date.now)
                 // Replace old user with new user if
                 // the call instance contains a new password.
                 // Completion always returns instance of TumbleUser
                 if let password = password {
-                    AppLogger.shared.info("Creating new user")
+                    AppLogger.shared.debug("Creating new user")
                     let newUser = TumbleUser(username: result.username, password: password, name: result.name)
-                    AppLogger.shared.info("Registering new user \(result.username)")
+                    AppLogger.shared.debug("Registering new user \(result.username)")
                     self.user = newUser
                     completionHandler(.success(newUser))
                     return
@@ -275,7 +276,7 @@ extension AuthManager {
             }
             return nil
         } catch {
-            AppLogger.shared.info("No available user to decode")
+            AppLogger.shared.debug("No available user to decode")
             return nil
         }
     }
@@ -287,14 +288,14 @@ extension AuthManager {
                 self.keychainManager.saveKeyChain(data, for: "tumble-user", account: school.name, completion: { result in
                     switch result {
                     case .success:
-                        AppLogger.shared.info("Updated user in keychain")
+                        AppLogger.shared.debug("Updated user in keychain")
                     case .failure:
-                        AppLogger.shared.info("Failed to update user in keychain")
+                        AppLogger.shared.critical("Failed to update user in keychain")
                     }
                 })
             }
         } catch {
-            AppLogger.shared.info("Encoding error")
+            AppLogger.shared.critical("Encoding error")
         }
     }
     
@@ -306,22 +307,22 @@ extension AuthManager {
                     self.keychainManager.saveKeyChain(storedData, for: tokenType.rawValue, account: school.name) { result in
                         switch result {
                         case .success(_):
-                            AppLogger.shared.info("Successfully stored \(tokenType.rawValue)")
+                            AppLogger.shared.debug("Successfully stored \(tokenType.rawValue)")
                         case .failure(_):
-                            AppLogger.shared.info("Failed to store \(tokenType.rawValue)")
+                            AppLogger.shared.critical("Failed to store \(tokenType.rawValue)")
                         }
                     }
                 } catch {
-                    AppLogger.shared.info("Failed to store \(tokenType.rawValue) object")
+                    AppLogger.shared.critical("Failed to store \(tokenType.rawValue) object")
                 }
                 
             } else {
                 self.keychainManager.deleteKeyChain(for: tokenType.rawValue, account: school.name, completion: { result in
                     switch result {
                     case .success(_):
-                        AppLogger.shared.info("Successfully deleted \(tokenType.rawValue)")
+                        AppLogger.shared.debug("Successfully deleted \(tokenType.rawValue)")
                     case .failure(_):
-                        AppLogger.shared.info("Failed to delete \(tokenType.rawValue)")
+                        AppLogger.shared.critical("Failed to delete \(tokenType.rawValue)")
                     }
                 })
             }

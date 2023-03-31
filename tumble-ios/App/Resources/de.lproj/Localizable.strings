@@ -226,7 +226,7 @@
 
 "No date"="Kein datum";
 
-"\(date), from"="\(stammen aus";
+"%@, from %@ - %@"="%@, von %@ - %@";
 
 "Available until"="Verfügbar bis";
 

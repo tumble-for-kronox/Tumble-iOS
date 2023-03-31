@@ -27,7 +27,7 @@ struct DependencyInjector {
     
     // Register dependency
     static func register<T>(dependency: T) {
-        AppLogger.shared.info("Added dependency \(dependency)")
+        AppLogger.shared.debug("Added dependency \(dependency)")
         dependencyList[String(describing: T.self)] = dependency
     }
 }
@@ -39,7 +39,7 @@ struct DependencyInjector {
     
     init() {
         self.wrappedValue = DependencyInjector.resolve()
-        AppLogger.shared.info("Injected <- \(self.wrappedValue)")
+        AppLogger.shared.debug("Injected <- \(self.wrappedValue)")
     }
 }
 
@@ -51,6 +51,6 @@ struct DependencyInjector {
     init(wrappedValue: T) {
         self.wrappedValue = wrappedValue
         DependencyInjector.register(dependency: wrappedValue)
-        AppLogger.shared.info("Provided -> \(self.wrappedValue)")
+        AppLogger.shared.debug("Provided -> \(self.wrappedValue)")
     }
 }

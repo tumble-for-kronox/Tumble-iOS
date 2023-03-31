@@ -136,7 +136,7 @@ struct Resources: View {
         parentViewModel.unregisterForEvent(eventId: eventId) { result in
             switch result {
             case .success:
-                AppLogger.shared.info("Unregistered for event: \(eventId)")
+                AppLogger.shared.debug("Unregistered for event: \(eventId)")
                 parentViewModel.removeUserEvent(where: eventId)
                 DispatchQueue.main.async {
                     parentViewModel.registeredEventSectionState = .loaded
@@ -163,7 +163,7 @@ struct Resources: View {
         parentViewModel.resourceViewModel.unbookResource(bookingId: bookingId, completion: { result in
             switch result {
             case .success:
-                AppLogger.shared.info("Unbooked resource: \(bookingId)")
+                AppLogger.shared.debug("Unbooked resource: \(bookingId)")
                 parentViewModel.removeUserBooking(where: bookingId)
                 DispatchQueue.main.async {
                     parentViewModel.bookingSectionState = .loaded
@@ -198,7 +198,7 @@ struct Resources: View {
                 NSLocalizedString("Automatic signup", comment: ""),
                 NSLocalizedString("Automatic exam/event signup has been disabled.", comment: ""))
         }
-        AppLogger.shared.info("Toggled to \(value)")
+        AppLogger.shared.debug("Toggled to \(value)")
     }
     
 }

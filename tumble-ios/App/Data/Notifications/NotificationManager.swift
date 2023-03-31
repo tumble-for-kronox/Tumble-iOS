@@ -32,7 +32,7 @@ class NotificationManager: NotificationManagerProtocol {
                     }
                 }
                 
-                AppLogger.shared.info("Successfully set notification with id -> \(notification.id)")
+                AppLogger.shared.debug("Successfully set notification with id -> \(notification.id)")
                 completion(.success(1))
             case .failure(let error):
                 AppLogger.shared.critical("Could not set notification. Not allowed")
@@ -44,7 +44,7 @@ class NotificationManager: NotificationManagerProtocol {
 
     func cancelNotification(for id: String) {
         notificationCenter.removePendingNotificationRequests(withIdentifiers: [id])
-        AppLogger.shared.info("Cancelled notifications with id -> \(id)")
+        AppLogger.shared.debug("Cancelled notifications with id -> \(id)")
     }
     
     func isNotificationScheduled(eventId: String, completion: @escaping (Bool) -> Void) -> Void {
@@ -67,14 +67,14 @@ class NotificationManager: NotificationManagerProtocol {
             guard let self = self else { return }
             let requestsWithMatchingCategory = requests.filter { $0.content.categoryIdentifier == categoryIdentifier }
             let identifiers = requestsWithMatchingCategory.map { $0.identifier }
-            AppLogger.shared.info("Cancelling notifications with categoryIdentifier -> \(categoryIdentifier)")
+            AppLogger.shared.debug("Cancelling notifications with categoryIdentifier -> \(categoryIdentifier)")
             self.notificationCenter.removePendingNotificationRequests(withIdentifiers: identifiers)
         }
     }
     
     func cancelNotifications() -> Void {
         notificationCenter.removeAllPendingNotificationRequests()
-        AppLogger.shared.info("Cancelled all notifications for this school")
+        AppLogger.shared.debug("Cancelled all notifications for this school")
     }
     
     func createNotificationFromEvent(event: Response.Event, color: String) -> EventNotification? {
@@ -113,7 +113,7 @@ class NotificationManager: NotificationManagerProtocol {
     func rescheduleEventNotifications(previousOffset: Int, userOffset: Int) {
         notificationCenter.getPendingNotificationRequests { [unowned self] requests in
             let eventRequests = requests.filter { $0.content.userInfo[NotificationContentKey.event.rawValue] != nil }
-            AppLogger.shared.info("Found \(eventRequests.count) notifications that need rescheduling")
+            AppLogger.shared.debug("Found \(eventRequests.count) notifications that need rescheduling")
             let modifiedRequests = eventRequests.map { request -> UNNotificationRequest in
                 let trigger = request.trigger as! UNCalendarNotificationTrigger
                 let newTrigger = UNCalendarNotificationTrigger(
@@ -124,12 +124,12 @@ class NotificationManager: NotificationManagerProtocol {
                 let modifiedRequest = UNNotificationRequest(identifier: request.identifier, content: request.content, trigger: newTrigger)
                 return modifiedRequest
             }
-            AppLogger.shared.info("Removing \(eventRequests.map { $0.identifier }.count) notifications")
+            AppLogger.shared.debug("Removing \(eventRequests.map { $0.identifier }.count) notifications")
             self.notificationCenter.removePendingNotificationRequests(withIdentifiers: eventRequests.map { $0.identifier })
             for request in modifiedRequests {
                 self.notificationCenter.add(request)
             }
-            AppLogger.shared.info("Rescheduled \(modifiedRequests.count) notifications")
+            AppLogger.shared.debug("Rescheduled \(modifiedRequests.count) notifications")
             notificationCenter.getPendingNotificationRequests { requests in
                 let eventRequests = requests.filter { $0.content.userInfo[NotificationContentKey.event.rawValue] != nil }
                 for request in eventRequests {
@@ -149,7 +149,7 @@ extension NotificationManager {
     fileprivate func requestEventNotification(
         for notification: EventNotification,
         userOffset: Int) -> UNNotificationRequest {
-            AppLogger.shared.info("Making notification request for -> \(notification.id)")
+            AppLogger.shared.debug("Making notification request for -> \(notification.id)")
             let content = UNMutableNotificationContent()
             content.title = (notification.content?.toEvent()?.course.englishName)!
             content.subtitle = (notification.content?.toEvent()?.title)!
@@ -180,7 +180,7 @@ extension NotificationManager {
             content.sound = .default
             content.badge = 1
             let trigger = UNCalendarNotificationTrigger(dateMatching: notification.dateComponents, repeats: false)
-            AppLogger.shared.info("Created trigger with date components: \(notification.dateComponents)")
+            AppLogger.shared.debug("Created trigger with date components: \(notification.dateComponents)")
             return UNNotificationRequest(
                 identifier: notification.id,
                 content: content,

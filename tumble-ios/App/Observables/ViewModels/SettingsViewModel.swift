@@ -56,7 +56,7 @@ import SwiftUI
                 }
                 
             case .failure(let failure):
-                AppLogger.shared.info("\(failure)")
+                AppLogger.shared.debug("\(failure)")
             }
             
         })
@@ -105,7 +105,7 @@ import SwiftUI
                                 event: event,
                                 color: courseColorsDict[event.course.id] ?? "#FEFEFE"
                             ) else {
-                                AppLogger.shared.info("Could not set notification for event \(event.id)")
+                                AppLogger.shared.critical("Could not set notification for event \(event.id)")
                                 completion(.failure(.generic(reason: "Failed to set notification continuously")))
                                 break
                             }
@@ -115,20 +115,20 @@ import SwiftUI
                                 completion: { (result: Result<Int, NotificationError>) in
                                     switch result {
                                     case .success(let success):
-                                        AppLogger.shared.info("\(success) notification set")
+                                        AppLogger.shared.debug("\(success) notification set")
                                     case .failure(let failure):
-                                        AppLogger.shared.info("\(failure)")
+                                        AppLogger.shared.critical("\(failure)")
                                     }
                                 })
                         }
                         completion(.success(()))
                     case .failure(let failure):
-                        AppLogger.shared.info("Colors could not be loaded from local storage: \(failure)")
+                        AppLogger.shared.critical("Colors could not be loaded from local storage: \(failure)")
                         completion(.failure(.internal(reason: "Failed to load course colors")))
                     }
                 }
             case .failure:
-                AppLogger.shared.info("Schedules could not be loaded from local storage")
+                AppLogger.shared.critical("Schedules could not be loaded from local storage")
                 completion(.failure(.internal(reason: "Failed to load schedules")))
             }
         })

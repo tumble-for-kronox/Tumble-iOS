@@ -41,20 +41,20 @@ import Foundation
                     then: { [unowned self] (result: Result<Response.KronoxCompleteUserEvent?, Response.ErrorMessage>) in
                         switch result {
                         case .success(let events):
-                            AppLogger.shared.info("Successfully loaded events")
+                            AppLogger.shared.debug("Successfully loaded events")
                             DispatchQueue.main.async {
                                 self.completeUserEvent = events
                                 self.eventBookingPageState = .loaded
                             }
                         case .failure(let failure):
-                            AppLogger.shared.info("\(failure)")
+                            AppLogger.shared.debug("\(failure)")
                             DispatchQueue.main.async {
                                 self.eventBookingPageState = .error
                             }
                         }
                     })
                 case .failure(let error):
-                    AppLogger.shared.info("Failed to get events: \(error)")
+                    AppLogger.shared.critical("Failed to get events: \(error)")
                     DispatchQueue.main.async {
                         self.eventBookingPageState = .error
                     }
@@ -144,7 +144,7 @@ import Foundation
                                 self.resourceBookingPageState = .loaded
                             }
                         case .failure(let error):
-                            AppLogger.shared.info("\(error)")
+                            AppLogger.shared.debug("\(error)")
                             DispatchQueue.main.async {
                                 self.resourceBookingPageState = .error
                                 self.error = error
@@ -191,7 +191,7 @@ import Foundation
                         (result: Result<Response.KronoxUserBookingElement?, Response.ErrorMessage>) in
                         switch result {
                         case .success:
-                            AppLogger.shared.info("Booked resource \(resourceId)")
+                            AppLogger.shared.debug("Booked resource \(resourceId)")
                             completion(.success(()))
                         case .failure(let error):
                             if error.statusCode == 202 {
@@ -222,7 +222,7 @@ import Foundation
                         (result: Result<Response.Empty, Response.ErrorMessage>) in
                         switch result {
                         case .success:
-                            AppLogger.shared.info("Unbooked resource")
+                            AppLogger.shared.debug("Unbooked resource")
                             self.notificationManager.cancelNotification(for: bookingId)
                             completion(.success(()))
                         case .failure(let error):
@@ -252,7 +252,7 @@ extension ResourceViewModel {
               let refreshToken = refreshToken,
               !refreshToken.isExpired() else {
             if tries < NetworkConstants.MAX_CONSECUTIVE_ATTEMPTS {
-                AppLogger.shared.info("Attempting auto login ...")
+                AppLogger.shared.debug("Attempting auto login ...")
                 userController.autoLogin { [unowned self] in
                     self.authenticateAndExecute(
                         tries: tries + 1,

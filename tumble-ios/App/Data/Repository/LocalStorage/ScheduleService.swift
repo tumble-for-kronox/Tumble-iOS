@@ -58,7 +58,7 @@ class ScheduleService: ObservableObject, ScheduleServiceProtocol {
         }
         let weekEndDate = calendar.date(byAdding: .day, value: 7, to: weekStartDate)!
         let weekDateRange = weekStartDate...weekEndDate
-        AppLogger.shared.info("Date range: \(weekDateRange)", source: "ScheduleService")
+        AppLogger.shared.debug("Date range: \(weekDateRange)", source: "ScheduleService")
         load(forWeeksInRange: weekDateRange, hiddenBookmarks: hiddenBookmarks) { result in
             switch result {
             case .failure(let error):
@@ -106,7 +106,7 @@ class ScheduleService: ObservableObject, ScheduleServiceProtocol {
                     switch result {
                     case .failure(let error):
                         DispatchQueue.main.async {
-                            AppLogger.shared.info("Failed to save \(schedule.id)")
+                            AppLogger.shared.critical("Failed to save \(schedule.id)")
                             completion(.failure(error))
                         }
                     case .success(let schedules):
@@ -117,12 +117,12 @@ class ScheduleService: ObservableObject, ScheduleServiceProtocol {
                             let data = try JSONEncoder.shared.encode(newSchedules)
                             try data.write(to: fileURL)
                             DispatchQueue.main.async {
-                                AppLogger.shared.info("Successfully saved schedule \(schedule.id)")
+                                AppLogger.shared.debug("Successfully saved schedule \(schedule.id)")
                                 completion(.success(1))
                             }
                         } catch {
                             DispatchQueue.main.async {
-                                AppLogger.shared.info("Failed to save \(schedule.id)")
+                                AppLogger.shared.critical("Failed to save \(schedule.id)")
                                 completion(.failure(.internal(reason: error.localizedDescription)))
                             }
                         }
@@ -152,7 +152,7 @@ class ScheduleService: ObservableObject, ScheduleServiceProtocol {
                 try data.write(to: fileURL)
                 
                 DispatchQueue.main.async {
-                    AppLogger.shared.info("Removed all schedules")
+                    AppLogger.shared.debug("Removed all schedules")
                     completion(.success(schedules.count))
                 }
             } catch {
@@ -181,7 +181,7 @@ class ScheduleService: ObservableObject, ScheduleServiceProtocol {
                 try data.write(to: fileURL)
                 
                 DispatchQueue.main.async {
-                    AppLogger.shared.info("Removed schedule \(scheduleId)")
+                    AppLogger.shared.debug("Removed schedule \(scheduleId)")
                     completion(.success(schedules.count))
                 }
             } catch {
@@ -240,7 +240,7 @@ extension ScheduleService {
                         }
                         .flatMap { $0.events }
                     DispatchQueue.main.async {
-                        AppLogger.shared.info("Retrieved events for range \(range)", source: "ScheduleService")
+                        AppLogger.shared.debug("Retrieved events for range \(range)", source: "ScheduleService")
                         completion(.success(events))
                     }
                 } catch {

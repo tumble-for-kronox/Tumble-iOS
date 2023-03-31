@@ -77,7 +77,6 @@
 		D443962E29CB56040069D66A /* ResourceBookingButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D443962D29CB56040069D66A /* ResourceBookingButtonStyle.swift */; };
 		D4462C3029858A280067DA65 /* TextExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4462C2F29858A280067DA65 /* TextExtensions.swift */; };
 		D4462C3229858A7D0067DA65 /* ImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4462C3129858A7D0067DA65 /* ImageExtensions.swift */; };
-		D448E75C29D6E3F900C56F93 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D448E75B29D6E3F900C56F93 /* GoogleService-Info.plist */; };
 		D448E76429D6E43300C56F93 /* OnBoardingUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D448E76329D6E43300C56F93 /* OnBoardingUITests.swift */; };
 		D448E76E29D6E91E00C56F93 /* CorePermissionsSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = D448E76D29D6E91E00C56F93 /* CorePermissionsSwiftUI */; };
 		D448E77029D6E91E00C56F93 /* PermissionsSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = D448E76F29D6E91E00C56F93 /* PermissionsSwiftUI */; };
@@ -146,6 +145,8 @@
 		D476BD2E293A32BF0027CFE8 /* RoundedCornerShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = D476BD2D293A32BF0027CFE8 /* RoundedCornerShape.swift */; };
 		D478452629D64F0F00BDF7A3 /* LanguageTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = D478452529D64F0F00BDF7A3 /* LanguageTypes.swift */; };
 		D47A1AF729C00C0E004F03DB /* HomePageOptionStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47A1AF629C00C0E004F03DB /* HomePageOptionStyle.swift */; };
+		D47A450D29D742FB008626E6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D47A450C29D742FB008626E6 /* GoogleService-Info.plist */; };
+		D47A451029D74929008626E6 /* AppUsage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47A450F29D74929008626E6 /* AppUsage.swift */; };
 		D481F15729CB820D0088C28E /* AvailabilitiesExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D481F15629CB820D0088C28E /* AvailabilitiesExtension.swift */; };
 		D481F15929CB84F10088C28E /* ResourceSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D481F15829CB84F10088C28E /* ResourceSelection.swift */; };
 		D48CC59629C7BB160028179A /* HomePageEventButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48CC59529C7BB160028179A /* HomePageEventButton.swift */; };
@@ -302,7 +303,6 @@
 		D443962D29CB56040069D66A /* ResourceBookingButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceBookingButtonStyle.swift; sourceTree = "<group>"; };
 		D4462C2F29858A280067DA65 /* TextExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextExtensions.swift; sourceTree = "<group>"; };
 		D4462C3129858A7D0067DA65 /* ImageExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageExtensions.swift; sourceTree = "<group>"; };
-		D448E75B29D6E3F900C56F93 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Documents/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D448E76129D6E43300C56F93 /* tumble-iosUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "tumble-iosUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D448E76329D6E43300C56F93 /* OnBoardingUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingUITests.swift; sourceTree = "<group>"; };
 		D44ABF0629BFE89D00344792 /* SchoolRowStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolRowStyle.swift; sourceTree = "<group>"; };
@@ -371,6 +371,8 @@
 		D478452429D64D8800BDF7A3 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D478452529D64F0F00BDF7A3 /* LanguageTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageTypes.swift; sourceTree = "<group>"; };
 		D47A1AF629C00C0E004F03DB /* HomePageOptionStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageOptionStyle.swift; sourceTree = "<group>"; };
+		D47A450C29D742FB008626E6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		D47A450F29D74929008626E6 /* AppUsage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUsage.swift; sourceTree = "<group>"; };
 		D481F15629CB820D0088C28E /* AvailabilitiesExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvailabilitiesExtension.swift; sourceTree = "<group>"; };
 		D481F15829CB84F10088C28E /* ResourceSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceSelection.swift; sourceTree = "<group>"; };
 		D48CC59529C7BB160028179A /* HomePageEventButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageEventButton.swift; sourceTree = "<group>"; };
@@ -572,6 +574,7 @@
 				D455E04829D58CA600770910 /* SettingsNavLink.swift */,
 				D455E04629D58B9B00770910 /* SettingsButton.swift */,
 				D4EE5B6D29D50FD3002A1399 /* SettingsRadioButton.swift */,
+				D47A450E29D7491B008626E6 /* Usage */,
 				D4EE5B6A29D50FAF002A1399 /* Appearance */,
 				D454DED329D3BB08005BDAE3 /* Notifications */,
 				D454DED229D3BAF6005BDAE3 /* SchoolSelection */,
@@ -1005,7 +1008,7 @@
 		D4722147292454560063BDB7 /* tumble-ios */ = {
 			isa = PBXGroup;
 			children = (
-				D448E75B29D6E3F900C56F93 /* GoogleService-Info.plist */,
+				D47A450C29D742FB008626E6 /* GoogleService-Info.plist */,
 				D473870229C895510035CD4C /* tumble-ios.entitlements */,
 				D4D4DD212927CFFA0083BB7F /* Info.plist */,
 				D47221582924548A0063BDB7 /* App */,
@@ -1086,6 +1089,14 @@
 				D4A550D42994755900028BCF /* BookmarkButton.swift */,
 			);
 			path = Preview;
+			sourceTree = "<group>";
+		};
+		D47A450E29D7491B008626E6 /* Usage */ = {
+			isa = PBXGroup;
+			children = (
+				D47A450F29D74929008626E6 /* AppUsage.swift */,
+			);
+			path = Usage;
 			sourceTree = "<group>";
 		};
 		D48CC59D29C7DB5C0028179A /* Buttons */ = {
@@ -1511,7 +1522,7 @@
 				D4BAE61929246AA200143717 /* schools.json in Resources */,
 				D4722150292454570063BDB7 /* Preview Assets.xcassets in Resources */,
 				D472214D292454570063BDB7 /* Assets.xcassets in Resources */,
-				D448E75C29D6E3F900C56F93 /* GoogleService-Info.plist in Resources */,
+				D47A450D29D742FB008626E6 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1621,6 +1632,7 @@
 				D47A1AF729C00C0E004F03DB /* HomePageOptionStyle.swift in Sources */,
 				D40D809B29251FD7008CA68D /* ToastStyle.swift in Sources */,
 				D40D80CA29265B98008CA68D /* SearchPage.swift in Sources */,
+				D47A451029D74929008626E6 /* AppUsage.swift in Sources */,
 				D41ED5502984350A009DCF8B /* Endpoint.swift in Sources */,
 				D41172B52985DA740082BB4F /* TextFieldExtensions.swift in Sources */,
 				D4E83EB629994D5F002E5F88 /* AccountLogin.swift in Sources */,

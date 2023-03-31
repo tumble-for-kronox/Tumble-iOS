@@ -66,7 +66,7 @@ import SwiftUI
                     self.newsSectionStatus = .loaded
                 }
             case .failure(let failure):
-                AppLogger.shared.error("Failed to retrieve news items: \(failure)")
+                AppLogger.shared.critical("Failed to retrieve news items: \(failure)")
                 DispatchQueue.main.async {
                     self.newsSectionStatus = .error
                 }
@@ -77,16 +77,16 @@ import SwiftUI
     func getEventsForWeek() {
         self.bookmarkedEventsSectionStatus = .loading
         let hiddenBookmarks: [String] = self.preferenceService.getHiddenBookmarks()
-        AppLogger.shared.info("Fetching events for the week", source: "HomePageViewModel")
+        AppLogger.shared.debug("Fetching events for the week", source: "HomePageViewModel")
         
         scheduleService.load(forCurrentWeek: { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .failure(let error):
-                AppLogger.shared.info("Failed to load schedules for the week: \(error.localizedDescription)", source: "HomePageViewModel")
+                AppLogger.shared.critical("Failed to load schedules for the week: \(error.localizedDescription)", source: "HomePageViewModel")
                 self.bookmarkedEventsSectionStatus = .error
             case .success(let events):
-                AppLogger.shared.info("Loaded \(events.count) events for the week", source: "HomePageViewModel")
+                AppLogger.shared.debug("Loaded \(events.count) events for the week", source: "HomePageViewModel")
                 self.eventsForToday = self.filterEventsMatchingToday(events: events)
                 self.eventsForWeek = events
                 self.loadCourseColors { [weak self] courseColors in
@@ -128,7 +128,7 @@ extension HomeViewModel {
                 DispatchQueue.main.async {
                     self.bookmarkedEventsSectionStatus = .error
                 }
-                AppLogger.shared.info("Error occured loading colors -> \(failure.localizedDescription)")
+                AppLogger.shared.debug("Error occured loading colors -> \(failure.localizedDescription)")
             }
         }
     }

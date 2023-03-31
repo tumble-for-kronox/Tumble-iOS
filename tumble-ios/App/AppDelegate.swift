@@ -31,10 +31,10 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
 
           if let messageID = userInfo[gcmMessageIDKey] {
-              AppLogger.shared.info("Message ID: \(messageID)")
+              AppLogger.shared.debug("Message ID: \(messageID)")
           }
 
-          AppLogger.shared.info("\(userInfo)")
+          AppLogger.shared.debug("\(userInfo)")
 
           completionHandler(UIBackgroundFetchResult.newData)
         }
@@ -48,9 +48,9 @@ extension AppDelegate: MessagingDelegate {
         if deviceToken["token"] != nil {
             Messaging.messaging().subscribe(toTopic: "updates") { error in
                 if let error = error {
-                    AppLogger.shared.info("Failed to subscribe to news topic: \(error.localizedDescription)", source: "AppDelegate")
+                    AppLogger.shared.critical("Failed to subscribe to news topic: \(error.localizedDescription)", source: "AppDelegate")
                 } else {
-                    AppLogger.shared.info("Subscribed to news topic", source: "AppDelegate")
+                    AppLogger.shared.debug("Subscribed to news topic", source: "AppDelegate")
                 }
             }
         }
@@ -94,7 +94,7 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
         }
         
         if let messageID = userInfo[gcmMessageIDKey] {
-            AppLogger.shared.info("Message ID from userNotificationCenter didReceive: \(messageID)")
+            AppLogger.shared.debug("Message ID from userNotificationCenter didReceive: \(messageID)")
         }
 
         completionHandler()

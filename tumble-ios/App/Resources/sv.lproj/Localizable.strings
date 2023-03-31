@@ -220,7 +220,7 @@
 
 "No date"="Inget datum";
 
-"\(date), from"="\(datum från";
+"%@, from %@ - %@"="%@, från %@ - %@";
 
 "Available until"="Finns till kl";
 

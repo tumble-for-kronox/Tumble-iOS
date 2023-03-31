@@ -66,7 +66,7 @@ struct ExamDetailSheetModel: Identifiable {
                 }
             })
         } else {
-            AppLogger.shared.info("User has not enabled auto signup for events")
+            AppLogger.shared.debug("User has not enabled auto signup for events")
         }
         self.checkNotificationsForUserBookings()
     }
@@ -149,7 +149,7 @@ struct ExamDetailSheetModel: Identifiable {
                                 self.registeredEventSectionState = .loaded
                             }
                         case .failure(let failure):
-                            AppLogger.shared.info("Could not get user events: \(failure)")
+                            AppLogger.shared.critical("Could not get user events: \(failure)")
                             DispatchQueue.main.async {
                                 self.registeredEventSectionState = .error
                             }
@@ -186,7 +186,7 @@ struct ExamDetailSheetModel: Identifiable {
                                 self.userBookings = bookings
                             }
                         case .failure(let failure):
-                            AppLogger.shared.info("\(failure)")
+                            AppLogger.shared.debug("\(failure)")
                             DispatchQueue.main.async {
                                 self.bookingSectionState = .error
                             }
@@ -250,7 +250,7 @@ struct ExamDetailSheetModel: Identifiable {
     }
     
     func checkNotificationsForUserBookings() -> Void {
-        AppLogger.shared.info("Checking for notifications to set for user booked resources ...")
+        AppLogger.shared.debug("Checking for notifications to set for user booked resources ...")
         authenticateAndExecute(
             school: school,
             refreshToken: userController.refreshToken,
@@ -264,7 +264,7 @@ struct ExamDetailSheetModel: Identifiable {
                         case .success(let bookings):
                             self.scheduleBookingNotifications(for: bookings)
                         case .failure(let failure):
-                            AppLogger.shared.info("\(failure)")
+                            AppLogger.shared.debug("\(failure)")
                             DispatchQueue.main.async {
                                 self.bookingSectionState = .error
                             }
@@ -298,13 +298,13 @@ extension AccountViewModel {
                     completion: { result in
                         switch result {
                         case .success(let success):
-                            AppLogger.shared.info("Scheduled \(success) notification")
+                            AppLogger.shared.debug("Scheduled \(success) notification")
                         case .failure(let failure):
-                            AppLogger.shared.info("Failed : \(failure)")
+                            AppLogger.shared.debug("Failed : \(failure)")
                         }
                     })
             } else {
-                AppLogger.shared.info("Failed to retrieve date components for booking")
+                AppLogger.shared.critical("Failed to retrieve date components for booking")
             }
         }
     }
@@ -313,7 +313,7 @@ extension AccountViewModel {
         tries: Int = 0,
         completion: @escaping (Result<Void, Error>) -> Void
     ) {
-        AppLogger.shared.info("Automatically signing up for exams")
+        AppLogger.shared.debug("Automatically signing up for exams")
         authenticateAndExecute(
             school: school,
             refreshToken: userController.refreshToken,
@@ -327,18 +327,18 @@ extension AccountViewModel {
                             switch result {
                             case .success(let eventRegistrations):
                                 if let eventRegistrations = eventRegistrations {
-                                    AppLogger.shared.info("Successful registrations: \(String(describing: eventRegistrations.successfulRegistrations?.count))")
-                                    AppLogger.shared.info("Failed registrations: \(String(describing: eventRegistrations.failedRegistrations?.count))")
+                                    AppLogger.shared.debug("Successful registrations: \(String(describing: eventRegistrations.successfulRegistrations?.count))")
+                                    AppLogger.shared.debug("Failed registrations: \(String(describing: eventRegistrations.failedRegistrations?.count))")
                                     completion(.success(()))
                                 }
                             case .failure(let error):
-                                AppLogger.shared.info("Failed to automatically sign up for exams: \(error)")
+                                AppLogger.shared.critical("Failed to automatically sign up for exams: \(error)")
                                 completion(.failure(.generic(reason: "\(error)")))
                             }
                         }
                     })
                 case .failure(let error):
-                    AppLogger.shared.info("Could not log in to register for available events")
+                    AppLogger.shared.critical("Could not log in to register for available events")
                     completion(.failure(.generic(reason: "\(error)")))
                 }
             })
@@ -356,7 +356,7 @@ extension AccountViewModel {
               let refreshToken = refreshToken,
               !refreshToken.isExpired() else {
             if tries < NetworkConstants.MAX_CONSECUTIVE_ATTEMPTS {
-                AppLogger.shared.info("Attempting auto login ...")
+                AppLogger.shared.debug("Attempting auto login ...")
                 userController.autoLogin { [unowned self] in
                     self.authenticateAndExecute(
                         tries: tries + 1,
@@ -379,7 +379,7 @@ extension AccountViewModel {
             if AppController.shared.selectedAppTab != currentSelectedTab {
                 DispatchQueue.main.async {
                     // selected app tab has changed, cancel the dataTask
-                    AppLogger.shared.info("Cancelling task due to tab change")
+                    AppLogger.shared.debug("Cancelling task due to tab change")
                     dataTask?.cancel()
                 }
             }

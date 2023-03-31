@@ -47,7 +47,7 @@ class KeyChainManager: KeyChainManagerProtocol {
             
             // Delete item from keychain
             SecItemDelete(query)
-            AppLogger.shared.info("Deleted item from keychain")
+            AppLogger.shared.debug("Deleted item from keychain")
             completion(.success(true))
     }
     
@@ -89,12 +89,12 @@ class KeyChainManager: KeyChainManagerProtocol {
             }
             
             if status != errSecSuccess {
-                AppLogger.shared.info("Could not save item to keychain -> \(status)")
+                AppLogger.shared.critical("Could not save item to keychain -> \(status)")
                 completion(.failure(.internal(reason: status.description)))
                 return
             }
             
-            AppLogger.shared.info("Added item to keychain")
+            AppLogger.shared.debug("Added item to keychain")
             completion(.success(true))
     }
 }
