@@ -28,6 +28,28 @@ import SwiftUI
         self.bookmarks = preferenceService.getBookmarks() ?? []
     }
     
+    func userAuthenticatedAndSignedIn() -> Bool {
+        return userController.authStatus == .authorized || userController.refreshToken != nil
+    }
+    
+    func logOut() -> Void {
+        userController.logOut(completion: { success in
+            if success {
+                AppLogger.shared.debug("Logged out")
+                AppController.shared.toast = Toast(
+                    type: .success,
+                    title: NSLocalizedString("Logged out", comment: ""),
+                    message: NSLocalizedString("You have successfully logged out of your account", comment: ""))
+            } else {
+                AppLogger.shared.debug("Could not log out")
+                AppController.shared.toast = Toast(
+                    type: .success,
+                    title: NSLocalizedString("Error", comment: ""),
+                    message: NSLocalizedString("Could not log out from your account", comment: ""))
+            }
+        })
+    }
+    
     func updateViewLocals() -> Void {
         self.universityImage = self.preferenceService.getUniversityImage()
         self.universityName = self.preferenceService.getUniversityName()

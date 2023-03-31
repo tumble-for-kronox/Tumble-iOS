@@ -91,6 +91,8 @@
 
 "Italian"="Italian";
 
+"Bosnian"="Bosnian";
+
 "No bookmarks yet"="No bookmarks yet";
 
 "minutes"="Minutes";
@@ -128,6 +130,8 @@
 "This is where you find your schedules"="This is where you find your schedules";
 
 "Search schedules"="Search schedules";
+
+"There are no schedules that match your search"="There are no schedules that match your search";
 
 "Looks like something went wrong"="Looks like something went wrong";
 
@@ -387,9 +391,17 @@
 
 "A notification will be set for the specified event or course"="A notification will be set for the specified event or course";
 
-"Sign in"="Sign in";
+"Use your university credentials for %@ to sign in to your KronoX account"="Use your university credentials for %@ to sign in to your KronoX account";
 
-"Sign in with your institution credentials"="Sign in with your institution credentials";
+"Could not log out from your account"="Could not log out from your account";
+
+"Log in"="Log in";
+
+"Logged out"="Logged out";
+
+"Log out"="Log out";
+
+"You have successfully logged out of your account"="You have successfully logged out of your account";
 
 "Navigate to the resource booking page by pressing 'Book more'"="Navigate to the resource booking page by pressing 'book more'";
 

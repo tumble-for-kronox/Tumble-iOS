@@ -84,6 +84,18 @@
 
 "Swedish"="Svenska";
 
+"French"="Franska";
+
+"German"="Tyska";
+
+"Italian"="Italienska";
+
+"Bosnian"="Bosniska";
+
+"English"="Engelska";
+
+"Swedish"="Svenska";
+
 "No bookmarks yet"="Inga bokmärken än";
 
 "minutes"="minuter";
@@ -121,6 +133,8 @@
 "This is where you find your schedules"="Det är här du hittar dina scheman";
 
 "Search schedules"="Sök scheman";
+
+"There are no schedules that match your search"="Det finns inga scheman som matchar din sökning";
 
 "Looks like something went wrong"="Det verkar som att något gick fel";
 
@@ -380,9 +394,19 @@
 
 "A notification will be set for the specified event or course"="En notifikation kommer att ställas in för den angivna händelsen eller flera för kursen";
 
-"Sign in"="Logga in";
+"Use your university credentials for %@ to sign in to your KronoX account"="Använd dina universitetsuppgifter för %@ för att logga in på ditt KronoX-konto";
 
-"Sign in with your institution credentials"="Logga in med dina institutionsuppgifter";
+"Could not log out from your account"="Det gick inte att logga ut från ditt konto";
+
+"Log in"="Logga in";
+
+"Logged out"="Loggade ut";
+
+"Log out"="Logga ut";
+
+"You have successfully logged out of your account"="Du har loggat ut från ditt konto";
+
+"Log in with your institution credentials"="Logga in med dina institutionsuppgifter";
 
 "Navigate to the resource booking page by pressing 'Book more'"="Navigera till resursbokningssidan genom att trycka på 'Boka fler'";
 

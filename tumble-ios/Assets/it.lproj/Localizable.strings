@@ -26,6 +26,8 @@
 
 "Italian"="Italiano";
 
+"Bosnian"="Bosniaco";
+
 "French"="Francese";
 
 "German"="Tedesco";
@@ -127,6 +129,8 @@
 "This is where you find your schedules"="Qui è dove trovi i tuoi programmi";
 
 "Search schedules"="Cerca orari";
+
+"There are no schedules that match your search"="Non ci sono programmi che corrispondono alla tua ricerca";
 
 "Looks like something went wrong"="Sembra che qualcosa sia andato storto";
 
@@ -372,8 +376,6 @@
 
 "Press the account page tab on the bottom"="Premi la scheda della pagina dell'account in basso";
 
-"Log in with your institution credentials"="Accedi con le credenziali del tuo istituto";
-
 "Navigate to the event booking page by pressing 'See all'"="Vai alla pagina di prenotazione dell'evento premendo 'vedi tutto'";
 
 "Choose"="Scegliere";
@@ -386,9 +388,19 @@
 
 "A notification will be set for the specified event or course"="Verrà impostata una notifica per l'evento o il corso specificato";
 
-"Sign in"="Registrazione";
+"Use your university credentials for %@ to sign in to your KronoX account"="Usa le tue credenziali universitarie per %@ per accedere al tuo account KronoX";
 
-"Sign in with your institution credentials"="Accedi con le credenziali del tuo istituto";
+"Could not log out from your account"="Impossibile disconnettersi dal tuo account";
+
+"Log in"="Registrazione";
+
+"Logged out"="Disconnesso";
+
+"You have successfully logged out of your account"="Sei uscito con successo dal tuo account";
+
+"Log out"="Disconnettersi";
+
+"Log in with your institution credentials"="Accedi con le credenziali del tuo istituto";
 
 "Navigate to the resource booking page by pressing 'Book more'"="Vai alla pagina di prenotazione delle risorse premendo 'prenota di più'";
 

@@ -26,6 +26,8 @@
 
 "Italian"="Italienisch";
 
+"Bosnian"="Bosnisch";
+
 "French"="Französisch";
 
 "German"="Deutsch";
@@ -127,6 +129,8 @@
 "This is where you find your schedules"="Hier finden sie ihre stundenpläne";
 
 "Search schedules"="Suchpläne";
+
+"There are no schedules that match your search"="Es gibt keine Zeitpläne, die Ihrer Suche entsprechen";
 
 "Looks like something went wrong"="Scheint etwas schief gelaufen zu sein";
 
@@ -386,9 +390,17 @@
 
 "A notification will be set for the specified event or course"="Für die angegebene veranstaltung oder den kurs wird eine benachrichtigung eingerichtet";
 
-"Sign in"="Anmelden";
+"Use your university credentials for %@ to sign in to your KronoX account"="Verwenden Sie Ihre Universitätszugangsdaten für %@, um sich bei Ihrem KronoX-Konto anzumelden";
 
-"Sign in with your institution credentials"="Melden sie sich mit ihren institutions-anmeldeinformationen an";
+"Could not log out from your account"="Konnte sich nicht von Ihrem Konto abmelden";
+
+"Log in"="Anmelden";
+
+"Logged out"="Abgemeldet";
+
+"You have successfully logged out of your account"="Sie haben sich erfolgreich von Ihrem Konto abgemeldet";
+
+"Log out"="Ausloggen";
 
 "Navigate to the resource booking page by pressing 'Book more'"="Navigieren sie zur ressourcenbuchungsseite, indem sie auf „mehr buchen“ klicken.";
 

@@ -26,7 +26,7 @@ struct Settings: View {
                     ), label: {
                         SettingsNavLink(title: NSLocalizedString("Appearance", comment: ""), current: AppearanceTypes.fromRawValue(appearance)?.displayName ?? "")
                     })
-                    appLanguageButton
+                    AppLanguageButton()
                     NavigationLink(destination: AnyView(
                             NotificationSettings(
                                 clearAllNotifications: clearAllNotifications,
@@ -60,33 +60,13 @@ struct Settings: View {
                         SettingsNavLink(title: NSLocalizedString("How to use the app", comment: ""))
                     })
                 }
+                LogInOutButton(parentViewModel: viewModel)
             }
         }
         .navigationTitle(NSLocalizedString("Settings", comment: ""))
         .navigationBarTitleDisplayMode(.inline)
     }
     
-    var appLanguageButton: some View {
-        Button(action: {
-            UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
-        }, label: {
-            HStack {
-                Text(NSLocalizedString("App language", comment: ""))
-                    .font(.system(size: 16))
-                    .foregroundColor(.onSurface)
-                Spacer()
-                if let currentLocale = Bundle.main.preferredLocalizations.first,
-                    let displayName = LanguageTypes.fromLocaleName(currentLocale)?.displayName {
-                    Text(displayName)
-                        .font(.system(size: 16))
-                        .foregroundColor(.onSurface.opacity(0.7))
-                }
-                Image(systemName: "chevron.right")
-                    .font(.system(size: 14, weight: .medium))
-                    .foregroundColor(.gray.opacity(0.5))
-            }
-        })
-    }
     
     fileprivate func rescheduleNotifications(previousOffset: Int, newOffset: Int) -> Void {
         viewModel.rescheduleNotifications(previousOffset: previousOffset, newOffset: newOffset)
@@ -125,17 +105,4 @@ struct Settings: View {
         
     }
     
-    fileprivate func deleteBookmark(id: String) -> Void {
-        removeSchedule(id)
-    }
-}
-
-struct Settings_Previews: PreviewProvider {
-    static var previews: some View {
-        Settings(
-            viewModel: ViewModelFactory.shared.makeViewModelSettings(),
-            removeSchedule: {_ in},
-            updateBookmarks: {},
-            onChangeSchool: {_ in})
-    }
 }

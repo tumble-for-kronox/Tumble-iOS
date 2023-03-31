@@ -133,12 +133,12 @@ enum SchedulePreviewStatus {
                     switch error.statusCode {
                     case 204:
                         DispatchQueue.main.async {
-                            self.errorMessageSearch = "No schedules found"
+                            self.errorMessageSearch = NSLocalizedString("No schedules found", comment: "")
                             self.status = SearchStatus.error
                         }
                     default:
                         DispatchQueue.main.async {
-                            self.errorMessageSearch = "Something went wrong"
+                            self.errorMessageSearch = NSLocalizedString("Something went wrong", comment: "")
                             self.status = SearchStatus.error
                         }
                     }

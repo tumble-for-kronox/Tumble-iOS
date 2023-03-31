@@ -20,12 +20,12 @@ struct SettingsNavLink: View {
     var body: some View {
         HStack {
             Text(title)
-                .font(.system(size: 16))
-                .foregroundColor(.onSurface)
+                .font(.system(size: 17))
+                .foregroundColor(.onBackground)
             Spacer()
             if let current = current {
                 Text(current)
-                    .font(.system(size: 16))
+                    .font(.system(size: 17))
                     .foregroundColor(.onSurface.opacity(0.7))
             }
         }
