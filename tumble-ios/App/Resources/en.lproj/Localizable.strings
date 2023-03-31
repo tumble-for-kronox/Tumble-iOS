@@ -67,6 +67,10 @@
 
 "Scheduled notifications for all available events"="Scheduled notifications for all available events";
 
+"Cancelled notifications"="Cancelled notifications";
+
+"Cancelled all available notifications set for events"="Cancelled all available notifications set for events";
+
 "Error"="Error";
 
 "Failed to set notifications for all available events"="Failed to set notifications for all available events";

@@ -76,6 +76,10 @@
 
 "Scheduled notifications for all available events"="Geplante benachrichtigungen für alle verfügbaren ereignisse";
 
+"Cancelled notifications"="Stornierte benachrichtigungen";
+
+"Cancelled all available notifications set for events"="Alle verfügbaren benachrichtigungen für Ereignisse abgebrochen";
+
 "Error"="Fehler";
 
 "Failed to set notifications for all available events"="Fehler beim festlegen von benachrichtigungen für alle verfügbaren ereignisse";

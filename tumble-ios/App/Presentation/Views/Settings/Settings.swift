@@ -91,8 +91,8 @@ struct Settings: View {
         viewModel.clearAllNotifications()
         AppController.shared.toast = Toast(
             type: .success,
-            title: "Cancelled notifications",
-            message: "Cancelled all available notifications set for events"
+            title: NSLocalizedString("Cancelled notifications", comment: ""),
+            message: NSLocalizedString("Cancelled all available notifications set for events", comment: "")
         )
     }
     

@@ -64,7 +64,11 @@
 
 "Scheduled notifications"="Schemalagda aviseringar";
 
-"Scheduled notifications for all available events"="Schemalagda aviseringar för alla tillgängliga händelser";
+"Scheduled notifications for all available events"="Schemalagde aviseringar för alla tillgängliga händelser";
+
+"Cancelled notifications"="Avbröt aviseringar";
+
+"Cancelled all available notifications set for events"="Avbröt alla tillgängliga aviseringar för evenemang";
 
 "Error"="Fel";
 
