@@ -134,7 +134,6 @@
 		D471A90F29C79449005541FA /* HomePageUpcomingEventsSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D471A90E29C79449005541FA /* HomePageUpcomingEventsSection.swift */; };
 		D4722149292454560063BDB7 /* tumble_iosApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4722148292454560063BDB7 /* tumble_iosApp.swift */; };
 		D472214D292454570063BDB7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D472214C292454570063BDB7 /* Assets.xcassets */; };
-		D4722150292454570063BDB7 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D472214F292454570063BDB7 /* Preview Assets.xcassets */; };
 		D4722161292455710063BDB7 /* KronoxManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D472215E292455710063BDB7 /* KronoxManager.swift */; };
 		D47386FF29C88E4F0035CD4C /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = D47386FE29C88E4F0035CD4C /* FirebaseAnalytics */; };
 		D473870129C88E4F0035CD4C /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = D473870029C88E4F0035CD4C /* FirebaseMessaging */; };
@@ -358,7 +357,6 @@
 		D4722145292454560063BDB7 /* tumble-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "tumble-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4722148292454560063BDB7 /* tumble_iosApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tumble_iosApp.swift; sourceTree = "<group>"; };
 		D472214C292454570063BDB7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		D472214F292454570063BDB7 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		D472215E292455710063BDB7 /* KronoxManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KronoxManager.swift; sourceTree = "<group>"; };
 		D473870229C895510035CD4C /* tumble-ios.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "tumble-ios.entitlements"; sourceTree = "<group>"; };
 		D475626E29CE09A600B72008 /* ResourceDetailSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceDetailSheet.swift; sourceTree = "<group>"; };
@@ -1008,22 +1006,14 @@
 		D4722147292454560063BDB7 /* tumble-ios */ = {
 			isa = PBXGroup;
 			children = (
+				D4CD0F0729D5DC9D00AB5FD0 /* Localizable.strings */,
 				D47A450C29D742FB008626E6 /* GoogleService-Info.plist */,
+				D472214C292454570063BDB7 /* Assets.xcassets */,
 				D473870229C895510035CD4C /* tumble-ios.entitlements */,
 				D4D4DD212927CFFA0083BB7F /* Info.plist */,
 				D47221582924548A0063BDB7 /* App */,
-				D472214C292454570063BDB7 /* Assets.xcassets */,
-				D472214E292454570063BDB7 /* Preview Content */,
 			);
 			path = "tumble-ios";
-			sourceTree = "<group>";
-		};
-		D472214E292454570063BDB7 /* Preview Content */ = {
-			isa = PBXGroup;
-			children = (
-				D472214F292454570063BDB7 /* Preview Assets.xcassets */,
-			);
-			path = "Preview Content";
 			sourceTree = "<group>";
 		};
 		D47221582924548A0063BDB7 /* App */ = {
@@ -1067,7 +1057,6 @@
 			children = (
 				D4BAE61829246AA200143717 /* schools.json */,
 				D48F0D8929367CAF0039CD0F /* Colors.swift */,
-				D4CD0F0729D5DC9D00AB5FD0 /* Localizable.strings */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -1520,7 +1509,6 @@
 			files = (
 				D4CD0F0529D5DC9D00AB5FD0 /* Localizable.strings in Resources */,
 				D4BAE61929246AA200143717 /* schools.json in Resources */,
-				D4722150292454570063BDB7 /* Preview Assets.xcassets in Resources */,
 				D472214D292454570063BDB7 /* Assets.xcassets in Resources */,
 				D47A450D29D742FB008626E6 /* GoogleService-Info.plist in Resources */,
 			);
