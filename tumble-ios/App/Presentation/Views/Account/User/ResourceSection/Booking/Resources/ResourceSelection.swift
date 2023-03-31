@@ -16,6 +16,7 @@ struct ResourceSelection: View {
     
     let resource: Response.KronoxResourceElement
     let selectedPickerDate: Date
+    let updateBookingNotifications: () -> Void
     
     var body: some View {
         if let timeslots = resource.timeSlots {
@@ -37,6 +38,7 @@ struct ResourceSelection: View {
                     bookResource: bookResource,
                     selectedPickerDate: selectedPickerDate,
                     makeToast: makeToast,
+                    updateBookingNotifications: updateBookingNotifications,
                     availabilityValues: $availabilityValues
                 )
             }

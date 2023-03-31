@@ -30,7 +30,8 @@ struct Settings: View {
                     NavigationLink(destination: AnyView(
                             NotificationSettings(
                                 clearAllNotifications: clearAllNotifications,
-                                scheduleNotificationsForAllCourses: scheduleNotificationsForAllCourses)
+                                scheduleNotificationsForAllCourses: scheduleNotificationsForAllCourses,
+                                rescheduleNotifications: rescheduleNotifications)
                     ), label: {
                         SettingsNavLink(title: NSLocalizedString("Notifications", comment: ""))
                     })
@@ -85,6 +86,10 @@ struct Settings: View {
                     .foregroundColor(.gray.opacity(0.5))
             }
         })
+    }
+    
+    fileprivate func rescheduleNotifications(previousOffset: Int, newOffset: Int) -> Void {
+        viewModel.rescheduleNotifications(previousOffset: previousOffset, newOffset: newOffset)
     }
     
     fileprivate func clearAllNotifications() -> Void {

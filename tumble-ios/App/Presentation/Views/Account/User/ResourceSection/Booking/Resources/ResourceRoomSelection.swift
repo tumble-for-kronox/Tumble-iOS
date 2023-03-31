@@ -19,6 +19,7 @@ struct ResourceRoomSelection: View {
     let bookResource: (String, Date, Response.AvailabilityValue, @escaping (Result<Void, Error>) -> Void) -> Void
     let selectedPickerDate: Date
     let makeToast: (Bool) -> Void
+    let updateBookingNotifications: () -> Void
     @State var buttonStateMap: [String : BookingButtonState] = [:]
     @Binding var availabilityValues: [Response.AvailabilityValue]
     
@@ -38,7 +39,7 @@ struct ResourceRoomSelection: View {
                                 handleBookingResponse(locationId: locationId, result: result)
                             }
                         }, locationId: locationId, bookingButtonState: Binding(
-                            get: { buttonStateMap[locationId] ?? .loading },
+                            get: { buttonStateMap[locationId] ?? .available },
                             set: { buttonStateMap[locationId] = $0 }
                         ))
                     }
@@ -58,6 +59,7 @@ struct ResourceRoomSelection: View {
         switch result {
         case .success:
             buttonStateMap[locationId] = .booked
+            updateBookingNotifications()
             makeToast(true)
         case .failure:
             buttonStateMap[locationId] = .available

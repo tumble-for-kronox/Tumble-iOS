@@ -68,6 +68,7 @@ struct ExamDetailSheetModel: Identifiable {
         } else {
             AppLogger.shared.info("User has not enabled auto signup for events")
         }
+        self.checkNotificationsForUserBookings()
     }
     
     func updateViewLocals() -> Void {
@@ -176,7 +177,7 @@ struct ExamDetailSheetModel: Identifiable {
                 case .success((let schoolId, let refreshToken)):
                     let request = Endpoint.userBookings(schoolId: String(schoolId))
                     self.resourceSectionDataTask = networkManager.get(request, refreshToken: refreshToken,
-                       then: { [weak self] (result: Result<Response.KronoxUserBookings?, Response.ErrorMessage>) in
+                       then: { [weak self] (result: Result<Response.KronoxUserBookings, Response.ErrorMessage>) in
                         guard let self = self else { return }
                         switch result {
                         case .success(let bookings):
@@ -247,10 +248,67 @@ struct ExamDetailSheetModel: Identifiable {
             })
         }
     }
+    
+    func checkNotificationsForUserBookings() -> Void {
+        AppLogger.shared.info("Checking for notifications to set for user booked resources ...")
+        authenticateAndExecute(
+            school: school,
+            refreshToken: userController.refreshToken,
+            execute: { [unowned self] result in
+                switch result {
+                case .success((let schoolId, let refreshToken)):
+                    let request = Endpoint.userBookings(schoolId: String(schoolId))
+                    self.resourceSectionDataTask = networkManager.get(request, refreshToken: refreshToken,
+                       then: { [unowned self] (result: Result<Response.KronoxUserBookings, Response.ErrorMessage>) in
+                        switch result {
+                        case .success(let bookings):
+                            self.scheduleBookingNotifications(for: bookings)
+                        case .failure(let failure):
+                            AppLogger.shared.info("\(failure)")
+                            DispatchQueue.main.async {
+                                self.bookingSectionState = .error
+                            }
+                        }
+                    })
+                case .failure:
+                    DispatchQueue.main.async {
+                        self.bookingSectionState = .error
+                        self.registeredEventSectionState = .error
+                        self.completeUserEvent = nil
+                    }
+                }
+            })
+    }
 }
 
 
 extension AccountViewModel {
+    
+    fileprivate func scheduleBookingNotifications(for bookings: Response.KronoxUserBookings) -> Void {
+        for booking in bookings {
+            if let dateComponents = booking.dateComponentsConfirmation {
+                let notification = BookingNotification(
+                    id: booking.id,
+                    dateComponents: dateComponents
+                )
+                self.notificationManager.scheduleNotification(
+                    for: notification,
+                    type: .booking,
+                    userOffset: self.preferenceService.getNotificationOffset(),
+                    completion: { result in
+                        switch result {
+                        case .success(let success):
+                            AppLogger.shared.info("Scheduled \(success) notification")
+                        case .failure(let failure):
+                            AppLogger.shared.info("Failed : \(failure)")
+                        }
+                    })
+            } else {
+                AppLogger.shared.info("Failed to retrieve date components for booking")
+            }
+        }
+    }
+    
     fileprivate func registerAutoSignup(
         tries: Int = 0,
         completion: @escaping (Result<Void, Error>) -> Void

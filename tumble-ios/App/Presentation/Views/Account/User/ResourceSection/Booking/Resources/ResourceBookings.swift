@@ -11,6 +11,7 @@ struct ResourceBookings: View {
     
     @ObservedObject var viewModel: ResourceViewModel
     @State private var selectedPickerDate: Date = Date.now
+    let updateBookingNotifications: () -> Void
     
     var body: some View {
         VStack {
@@ -30,7 +31,10 @@ struct ResourceBookings: View {
                         alignment: .center
                     )
                 case .loaded:
-                    BookResource(parentViewModel: viewModel, selectedPickerDate: $selectedPickerDate)
+                    BookResource(
+                        parentViewModel: viewModel,
+                        selectedPickerDate: $selectedPickerDate,
+                        updateBookingNotifications: updateBookingNotifications)
                 case .error:
                     VStack {
                         switch viewModel.error?.statusCode {
@@ -61,11 +65,5 @@ struct ResourceBookings: View {
         .onChange(of: selectedPickerDate, perform: { _ in
             viewModel.getAllResourceData(date: selectedPickerDate)
         })
-    }
-}
-
-struct ResourceBookings_Previews: PreviewProvider {
-    static var previews: some View {
-        ResourceBookings(viewModel: ViewModelFactory.shared.makeViewModelResource())
     }
 }

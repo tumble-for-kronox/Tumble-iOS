@@ -23,11 +23,13 @@ class NotificationManager: NotificationManagerProtocol {
             case .success:
                 switch type {
                 case .event:
-                    let eventNotification = notification as! EventNotification
-                    self.notificationCenter.add(self.requestEventNotification(for: eventNotification, userOffset: userOffset))
+                    if let eventNotification = notification as? EventNotification {
+                        self.notificationCenter.add(self.requestEventNotification(for: eventNotification, userOffset: userOffset))
+                    }
                 case .booking:
-                    let bookingNotification = notification as! BookingNotification
-                    self.notificationCenter.add(self.requestBookingNotification(for: bookingNotification, userOffset: userOffset))
+                    if let bookingNotification = notification as? BookingNotification {
+                        self.notificationCenter.add(self.requestBookingNotification(for: bookingNotification))
+                    }
                 }
                 
                 AppLogger.shared.info("Successfully set notification with id -> \(notification.id)")
@@ -40,9 +42,9 @@ class NotificationManager: NotificationManagerProtocol {
     }
 
 
-    func cancelNotification(for eventId: String) {
-        notificationCenter.removePendingNotificationRequests(withIdentifiers: [eventId])
-        AppLogger.shared.info("Cancelled notifications with id -> \(eventId)")
+    func cancelNotification(for id: String) {
+        notificationCenter.removePendingNotificationRequests(withIdentifiers: [id])
+        AppLogger.shared.info("Cancelled notifications with id -> \(id)")
     }
     
     func isNotificationScheduled(eventId: String, completion: @escaping (Bool) -> Void) -> Void {
@@ -108,6 +110,37 @@ class NotificationManager: NotificationManagerProtocol {
         }
     }
     
+    func rescheduleEventNotifications(previousOffset: Int, userOffset: Int) {
+        notificationCenter.getPendingNotificationRequests { [unowned self] requests in
+            let eventRequests = requests.filter { $0.content.userInfo[NotificationContentKey.event.rawValue] != nil }
+            AppLogger.shared.info("Found \(eventRequests.count) notifications that need rescheduling")
+            let modifiedRequests = eventRequests.map { request -> UNNotificationRequest in
+                let trigger = request.trigger as! UNCalendarNotificationTrigger
+                let newTrigger = UNCalendarNotificationTrigger(
+                    dateMatching: self.dateComponentsAfterSubtractingUserOffset(
+                        date: dateAfterAddingUserOffset(date: trigger.nextTriggerDate()!, userOffset: previousOffset),
+                        userOffset: userOffset),
+                    repeats: false)
+                let modifiedRequest = UNNotificationRequest(identifier: request.identifier, content: request.content, trigger: newTrigger)
+                return modifiedRequest
+            }
+            AppLogger.shared.info("Removing \(eventRequests.map { $0.identifier }.count) notifications")
+            self.notificationCenter.removePendingNotificationRequests(withIdentifiers: eventRequests.map { $0.identifier })
+            for request in modifiedRequests {
+                self.notificationCenter.add(request)
+            }
+            AppLogger.shared.info("Rescheduled \(modifiedRequests.count) notifications")
+            notificationCenter.getPendingNotificationRequests { requests in
+                let eventRequests = requests.filter { $0.content.userInfo[NotificationContentKey.event.rawValue] != nil }
+                for request in eventRequests {
+                    let trigger = request.trigger as! UNCalendarNotificationTrigger
+                    let triggerDate = trigger.nextTriggerDate()!
+                    print("Notification \(request.identifier) scheduled for \(triggerDate)")
+                }
+            }
+
+        }
+    }
 }
 
 
@@ -140,18 +173,14 @@ extension NotificationManager {
     }
     
     fileprivate func requestBookingNotification(
-        for notification: BookingNotification,
-        userOffset: Int) -> UNNotificationRequest {
+        for notification: BookingNotification) -> UNNotificationRequest {
             let content = UNMutableNotificationContent()
             content.title = "Booking confirmation"
             content.subtitle = "A booking needs to be confirmed"
             content.sound = .default
             content.badge = 1
-            let components = dateComponentsAfterSubtractingUserOffset(
-                dateComponents: notification.dateComponents,
-                userOffset: userOffset
-            )
-            let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
+            let trigger = UNCalendarNotificationTrigger(dateMatching: notification.dateComponents, repeats: false)
+            AppLogger.shared.info("Created trigger with date components: \(notification.dateComponents)")
             return UNNotificationRequest(
                 identifier: notification.id,
                 content: content,
@@ -164,5 +193,15 @@ extension NotificationManager {
         let subtractUserOffset = Calendar.current.date(byAdding: .minute, value: -userOffset, to: calendarDateFromComponents!)
         return Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: subtractUserOffset!)
     }
+        
+    fileprivate func dateComponentsAfterSubtractingUserOffset(date: Date, userOffset: Int) -> DateComponents {
+        let subtractUserOffset = Calendar.current.date(byAdding: .minute, value: -userOffset, to: date)!
+        return Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: subtractUserOffset)
+    }
     
+    fileprivate func dateAfterAddingUserOffset(date: Date, userOffset: Int) -> Date {
+        let addUserOffset = Calendar.current.date(byAdding: .minute, value: userOffset, to: date)!
+        return addUserOffset
+    }
+
 }

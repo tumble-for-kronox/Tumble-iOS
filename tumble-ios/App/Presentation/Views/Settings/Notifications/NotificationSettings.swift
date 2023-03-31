@@ -10,8 +10,11 @@ import SwiftUI
 struct NotificationSettings: View {
     
     @AppStorage(StoreKey.notificationOffset.rawValue) var offset: Int = 60
+    
     let clearAllNotifications: () -> Void
     let scheduleNotificationsForAllCourses: () -> Void
+    let rescheduleNotifications: (Int, Int) -> Void
+    
     var offsetDisplayName: String {
         let hours = offset / 60
         let minuteString = NSLocalizedString("minutes", comment: "")
@@ -22,9 +25,6 @@ struct NotificationSettings: View {
     }
     
     var body: some View {
-        
-        
-        
         List {
             Section {
                 SettingsButton(
@@ -40,7 +40,9 @@ struct NotificationSettings: View {
             }
             Section {
                 NavigationLink(destination: AnyView(
-                    NotificationOffsetSettings(offset: $offset)), label: {
+                    NotificationOffsetSettings(
+                        offset: $offset,
+                        rescheduleNotifications: rescheduleNotifications)), label: {
                     SettingsNavLink(
                         title: NSLocalizedString("Notification offset", comment: ""),
                         current: offsetDisplayName)

@@ -237,7 +237,7 @@ public enum Response {
         }
         
         var dateComponentsConfirmation: DateComponents? {
-            guard let date = isoDateFormatter.date(from: confirmationOpen) else {
+            guard let date = dateFormatterFull.date(from: confirmationOpen) else {
                 return nil
             }
             let calendar = Calendar.current

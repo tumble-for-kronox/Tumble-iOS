@@ -10,11 +10,11 @@ import SwiftUI
 
 @MainActor final class SettingsViewModel: ObservableObject {
     
-    @Inject var preferenceService: PreferenceService
-    @Inject var scheduleService: ScheduleService
-    @Inject var courseColorService: CourseColorService
-    @Inject var notificationManager: NotificationManager
-    @Inject var userController: UserController
+    @Inject private var preferenceService: PreferenceService
+    @Inject private var scheduleService: ScheduleService
+    @Inject private var courseColorService: CourseColorService
+    @Inject private var notificationManager: NotificationManager
+    @Inject private var userController: UserController
     
     @Published var universityImage: Image?
     @Published var universityName: String?
@@ -85,6 +85,10 @@ import SwiftUI
     
     func clearAllNotifications() -> Void {
         self.notificationManager.cancelNotifications()
+    }
+    
+    func rescheduleNotifications(previousOffset: Int, newOffset: Int) -> Void {
+        notificationManager.rescheduleEventNotifications(previousOffset: previousOffset, userOffset: newOffset)
     }
     
     func scheduleNotificationsForAllEvents(completion: @escaping (Result<Void, Error>) -> Void) -> Void {

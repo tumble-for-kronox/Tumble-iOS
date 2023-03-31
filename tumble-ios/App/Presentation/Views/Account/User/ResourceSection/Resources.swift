@@ -50,7 +50,11 @@ struct Resources: View {
                     .padding(.top)
                     ResourceSectionDivider (title: NSLocalizedString("Your bookings", comment: ""), resourceType: .resource,
                                  destination: AnyView(
-                                    ResourceBookings(viewModel: parentViewModel.resourceViewModel)
+                                    ResourceBookings(
+                                        viewModel: parentViewModel.resourceViewModel,
+                                        updateBookingNotifications: {
+                                            parentViewModel.checkNotificationsForUserBookings()
+                                        })
                                         .navigationTitle(NSLocalizedString("Resources", comment: ""))
                                         .navigationBarTitleDisplayMode(.inline)
                                     )) {

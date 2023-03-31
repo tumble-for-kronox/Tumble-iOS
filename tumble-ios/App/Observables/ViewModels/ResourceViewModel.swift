@@ -223,6 +223,7 @@ import Foundation
                         switch result {
                         case .success:
                             AppLogger.shared.info("Unbooked resource")
+                            self.notificationManager.cancelNotification(for: bookingId)
                             completion(.success(()))
                         case .failure(let error):
                             AppLogger.shared.critical("Failed to unbook resource: \(bookingId)")
@@ -235,7 +236,6 @@ import Foundation
                 }
             })
     }
-    
 }
 
 extension ResourceViewModel {
