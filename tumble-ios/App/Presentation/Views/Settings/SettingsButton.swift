@@ -26,12 +26,12 @@ struct SettingsButton: View {
         Button(action: onClick, label: {
             HStack {
                 Text(title)
-                    .font(.system(size: 16))
-                    .foregroundColor(.onSurface)
+                    .font(.system(size: 17))
+                    .foregroundColor(.onBackground)
                 Spacer()
                 if let image = image {
                     Image(systemName: image)
-                        .frame(width: 25, height: 25)
+                        .frame(width: 27, height: 27)
                         .foregroundColor(.primary)
                 }
             }

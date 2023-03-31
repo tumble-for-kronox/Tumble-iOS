@@ -13,10 +13,7 @@ struct LoginSubHeader: View {
     
     var body: some View {
         VStack (spacing: 15) {
-            Text(NSLocalizedString(
-                "Use your university credentials for", comment: "") + " \(schoolName) " + NSLocalizedString(
-                    "to sign into your KronoX account", comment: "")
-            )
+            Text(String(format: NSLocalizedString("Use your university credentials for %@ to sign in to your KronoX account", comment: ""), schoolName))
                 .font(.system(size: 16))
                 .foregroundColor(.onSurface.opacity(0.75))
                 .frame(maxWidth: .infinity, alignment: .leading)

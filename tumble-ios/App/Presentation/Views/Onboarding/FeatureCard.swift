@@ -19,7 +19,8 @@ struct FeatureCard: View {
                 .featureIcon()
         }
         .padding(.horizontal, 15)
-        .frame(height: 50)
+        .padding(.vertical)
+        .frame(minHeight: 50)
         .background(Color.surface)
         .cornerRadius(15)
         .padding(.horizontal, 15)

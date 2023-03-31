@@ -16,8 +16,8 @@ struct BookingInstructions: View {
                 image: "person")
             
             UsageCard(
-                titleInstruction: NSLocalizedString("Sign in", comment: ""),
-                bodyInstruction: NSLocalizedString("Sign in with your institution credentials", comment: ""),
+                titleInstruction: NSLocalizedString("Login", comment: ""),
+                bodyInstruction: NSLocalizedString("Log in with your institution credentials", comment: ""),
                 image: "arrow.up.and.person.rectangle.portrait")
             
             UsageCard(

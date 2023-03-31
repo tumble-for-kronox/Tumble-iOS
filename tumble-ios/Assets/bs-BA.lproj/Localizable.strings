@@ -1,0 +1,417 @@
+/* 
+  Localizable.strings
+  tumble-ios
+
+  Created by Adis Veletanlic on 2023-03-30.
+  
+*/
+
+"Monday"="Ponedjeljak";
+
+"Tuesday"="Utorak";
+
+"Wednesday"="Srijeda";
+
+"Thursday"="Četvrtak";
+
+"Friday"="Petak";
+
+"Saturday"="Subota";
+
+"Sunday"="Nedjelja";
+
+"Logged out"="Odjavljen";
+
+"You have successfully logged out of your account"="Uspješno ste se odjavili sa svog naloga";
+
+"Error"="Greška";
+
+"Could not log out from your account"="Ne mogu se odjaviti s vašeg računa";
+
+"No schedules found"="Nema pronađenih rasporeda";
+
+"Something went wrong"="Nešto je pošlo po zlu";
+
+"English"="Engleski";
+
+"Swedish"="Švedski";
+
+"Italian"="Talijanski";
+
+"Bosnian"="Bosanski";
+
+"French"="Francuski";
+
+"German"="Njemački";
+
+"Home"="Dom";
+
+"Bookmarks"="Bookmarks";
+
+"Account"="Račun";
+
+"Calendar"="Kalendar";
+
+"List"="Lista";
+
+"New school"="Nova škola";
+
+"Set %@ to default"="Postavite %@ na zadano";
+
+"School already selected"="Škola je već odabrana";
+
+"You already have '%@' as your default school"="Već imate '%@' kao svoju zadanu školu";
+
+"Removed schedule"="Uklonjen raspored";
+
+"Successfully removed the schedule '%@' from your bookmarks"="Raspored '%@' uspješno je uklonjen iz vaših oznaka";
+
+"Could not remove schedule"="Nije moguće ukloniti raspored";
+
+"The schedule '%@' could not be removed from your bookmarks"="Raspored '%@' nije mogao biti uklonjen iz vaših oznaka";
+
+"Appearance"="Izgled";
+
+"Notifications"="Obavještenja";
+
+"School"="Škola";
+
+"App review"="Pregled aplikacije";
+
+"Share feedback"="Podijelite povratne informacije";
+
+"How to use the app"="Kako koristiti aplikaciju";
+
+"Settings"="Postavke";
+
+"Cancelled notifications"="Obavještenja su otkazana";
+
+"Cancelled all available notifications set for events"="Otkazano je sva dostupna obavještenja postavljena za događaje";
+
+"Scheduled notifications"="Zakazana obavještenja";
+
+"Scheduled notifications for all available events"="Zakazana obavještenja za sve dostupne događaje";
+
+"Failed to set notifications for all available events"="Nije uspjelo postavljanje obavještenja za sve dostupne događaje";
+
+"Log out"="Odjaviti se";
+
+"Log in"="Ulogovati se";
+
+"App language"="Jezik aplikacije";
+
+"Automatic"="Automatski";
+
+"Light"="Light";
+
+"Dark"="Dark";
+
+"Let's get started"="Hajde da počnemo";
+
+"We'll walk you through how to use Tumble"="Provest ćemo vas kroz kako da koristite tumble";
+
+"Saving schedules"="Spremanje rasporeda";
+
+"Here's how to save a schedule"="Evo kako da sačuvate raspored";
+
+"Signing up for events"="Prijava za događaje";
+
+"Here's how to sign up for an event"="Evo kako se prijaviti za događaj";
+
+"Booking resources"="Rezervacija resursa";
+
+"Here's how to book a resource"="Evo kako da rezervišete resurs";
+
+"Setting notifications"="Postavljanje obavještenja";
+
+"Here's how to set notifications"="Evo kako postaviti obavještenja";
+
+"Customizing course colors"="Prilagođavanje boja kursa";
+
+"Here's how to modify course colors"="Evo kako da izmenite boje kursa";
+
+"No bookmarks yet"="Još nema oznaka";
+
+"minutes"="Minuta";
+
+"hour"="Sat";
+
+"hours"="Sati";
+
+"Set notifications for all events"="Postavite obavještenja za sve događaje";
+
+"Cancel all notifications"="Otkažite sva obavještenja";
+
+"Notification offset"="Pomak obavještenja";
+
+"Today's events"="Današnji događaji";
+
+"No classes for today"="Nema nastave za danas";
+
+"News"="Vijesti";
+
+"No recent news items"="Nema nedavnih vijesti";
+
+"See all"="Vidjeti sve";
+
+"No teachers listed"="Nema navedenih nastavnika";
+
+"Unknown"="Nepoznato";
+
+"Search"="Traži";
+
+"%@ results"="%@ rezultati";
+
+"This is where you find your schedules"="Ovdje ćete naći svoje rasporede";
+
+"Search schedules"="Pretražite rasporede";
+
+"Looks like something went wrong"="Izgleda da je nešto pošlo po zlu";
+
+"Schedule is empty"="Raspored je prazan";
+
+"Remove"="Ukloni";
+
+"Bookmark"="Bookmark";
+
+"Schedule seems to be empty"="Čini se da je raspored prazan";
+
+"There was an error retrieving your schedules"="Došlo je do greške pri preuzimanju vaših rasporeda";
+
+"All your bookmarks are hidden"="Sve vaše oznake su skrivene";
+
+"No events for this date"="Nema događaja za ovaj datum";
+
+"Course"="Kurs";
+
+"Teachers"="Nastavnici";
+
+"No teachers listed at this time"="Trenutno nema navedenih nastavnika";
+
+"Date"="Datum";
+
+"Time"="Vrijeme";
+
+"Locations"="Lokacije";
+
+"No locations listed at this time"="Trenutno nema navedenih lokacija";
+
+"Select course color"="Odaberite boju kursa";
+
+"Event"="Događaj";
+
+"Color"="Boja";
+
+"Attempting to log in user"="Pokušaj prijave korisnika";
+
+"(no date)"="(bez datuma)";
+
+"No registered events yet"="Još nema registrovanih događaja";
+
+"Could not contact the server"="Nije moguće kontaktirati server";
+
+"Booked resource"="Rezervirani resurs";
+
+"(no time)"="(nema vremena)";
+
+"No booked resources yet"="Još nema rezervisanih resursa";
+
+"No title"="Bez naslova";
+
+"Date:"="Datum:";
+
+"Time:"="Vrijeme:";
+
+"User options"="Korisničke opcije";
+
+"Automatic exam signup"="Automatska prijava za ispit";
+
+"Your bookings"="Vaše rezervacije";
+
+"Resources"="Resursi";
+
+"Your events"="Vaši događaji";
+
+"Events"="Događaji";
+
+"Unregistered from event"="Odjavljen sa događaja";
+
+"You have been unregistered from the specified event"="Odjavljeni ste sa navedenog događaja";
+
+"We couldn't unregister you for the specified event"="Nismo mogli poništiti vašu registraciju za navedeni događaj";
+
+"Unbooked resource"="Nerezervirani resurs";
+
+"You have unbooked the selected resource"="Poništili ste rezervaciju odabranog resursa";
+
+"We couldn't unbook the specified resource"="Nismo mogli poništiti rezervaciju navedenog resursa";
+
+"Automatic signup"="Automatska prijava";
+
+"Automatic exam/event signup has been enabled, but make sure you are always registered for exams through your institution."="Automatska prijava za ispit/događaj je omogućena, ali vodite računa da ste uvijek prijavljeni za ispite preko svoje institucije.";
+
+"Automatic exam/event signup has been disabled."="Automatska prijava na ispit/događaj je onemogućena.";
+
+"Book more"="Rezervišite više";
+
+"Event details"="Detalji događaja";
+
+"Title"="Naslov";
+
+"Type"="Tip";
+
+"No type"="Nema tipa";
+
+"No date"="Nema datuma";
+
+"\(date), from"="\(datum), od";
+
+"Available until"="Dostupno do";
+
+"(no date set)"="(nije postavljen datum)";
+
+"Unregister event"="Poništi registraciju događaja";
+
+"Resource details"="Detalji o resursima";
+
+"Location"="Lokacija";
+
+"Timeslot"="Timeslot";
+
+"Confirmation"="Potvrda";
+
+"(missing)"="(nedostaje)";
+
+"%@, from %@ - %@"="%@, od %@ - %@";
+
+"Remove booking"="Ukloni rezervaciju";
+
+"Booked"="Rezervisano";
+
+"Book"="Book";
+
+"No available timeslots"="Nema dostupnih termina";
+
+"Successfully booked resource"="Uspješno rezerviran resurs";
+
+"Not booked"="Nije rezervisano";
+
+"Failed to book the specified resource"="Rezervacija navedenog resursa nije uspjela";
+
+"Rooms"="Sobe";
+
+"No name"="Bez imena";
+
+"Available timeslots: %d"="Dostupni termini: %d";
+
+"Pick a date"="Izaberite datum";
+
+"No rooms available on weekends"="Nema slobodnih soba vikendom";
+
+"at"="At";
+
+"No date at this time"="Nema datuma u ovom trenutku";
+
+"Available at:"="Dostupno na:";
+
+"Registered"="Registrovan";
+
+"No registered events available"="Nema dostupnih registrovanih događaja";
+
+"Unregistered"="Neregistrovan";
+
+"No unregistered events available"="Nema dostupnih neregistriranih događaja";
+
+"Upcoming"="Nadolazeće";
+
+"No upcoming events available"="Nema dostupnih predstojećih događaja";
+
+"Signup has passed"="Prijava je prošla";
+
+"Unregister"="Odjavi se";
+
+"Register"="Registrirajte se";
+
+"Password"="Lozinka";
+
+"Use your university credentials for %@ to sign in to your KronoX account"="Koristite svoje univerzitetske akreditive za %@ da se prijavite na svoj kronox nalog";
+
+"Need help?"="Trebati pomoć?";
+
+"Logged in"="Prijavljeni";
+
+"Successfully logged in as %@"="Uspješno prijavljen kao %@";
+
+"Something went wrong when logging in to your account"="Nešto nije u redu prilikom prijavljivanja na vaš račun";
+
+"Username/Email address"="Korisničko ime/e-mail adresa";
+
+"Please log in to continue"="Molimo prijavite se da nastavite";
+
+"All done"="Sve završeno";
+
+"Now we'll leave you to it. First, choose your university."="Sada ćemo vas prepustiti tome. prvo odaberite svoj univerzitet.";
+
+"Bookmarks page"="Stranica sa oznakama";
+
+"Press the bookmarks tab in the tab bar"="Pritisnite karticu sa oznakama na traci sa karticama";
+
+"Click"="Kliknite";
+
+"Click an event card in your schedule"="Kliknite na karticu događaja u svom rasporedu";
+
+"Select"="Odaberite";
+
+"Press the 'Color' option in the sheet that appears"="Pritisnite opciju 'boja' na listu koji se pojavi";
+
+"Apply"="Prijavite se";
+
+"Choose any color from the color palette and apply it"="Odaberite bilo koju boju iz palete boja i primijenite je";
+
+"Done"="Gotovo";
+
+"The specific course under the event will have a new color"="Specifični kurs u okviru događaja će imati novu boju";
+
+"Search for a schedule from the search page"="Potražite raspored na stranici za pretraživanje";
+
+"Open"="Otvori";
+
+"Open the schedule you want to view"="Otvorite raspored koji želite pogledati";
+
+"Press the 'bookmark' button on the bottom left "="Pritisnite dugme 'bookmark' u donjem levom uglu";
+
+"Check it out"="Provjeri";
+
+"View your schedule in your preferred schedule view"="Pogledajte svoj raspored u željenom prikazu rasporeda";
+
+"Account page"="Stranica računa";
+
+"Press the account page tab on the bottom"="Pritisnite karticu stranice naloga na dnu";
+
+"Log in with your institution credentials"="Prijavite se sa akreditivima svoje institucije";
+
+"Navigate to the event booking page by pressing 'See all'"="Idite na stranicu za rezervaciju događaja pritiskom na 'prikaži sve'";
+
+"Choose"="Izaberi";
+
+"Select an available event to sign up for and press the register button"="Odaberite događaj na koji ćete se prijaviti i pritisnite dugme za registraciju";
+
+"Now you've signed up for the specified exam, check your email for confirmation"="Sada kada ste se prijavili za navedeni ispit, provjerite svoju e-poštu za potvrdu";
+
+"Press the 'Event' or 'Course' notification setting in the sheet that appears"="Pritisnite postavku obavještenja 'događaj' ili 'kurs' na listu koji se pojavi";
+
+"A notification will be set for the specified event or course"="Obavijest će biti postavljena za navedeni događaj ili kurs";
+
+"Login"="Ulogovati se";
+
+"Navigate to the resource booking page by pressing 'Book more'"="Idite na stranicu za rezervaciju resursa pritiskom na 'rezerviraj više'";
+
+"Choose a time to search for available dates and select an opening"="Odaberite vrijeme za traženje dostupnih datuma i odaberite otvaranje";
+
+"Building"="Zgrada";
+
+"Select a building on campus to book a room in, then select a room for a specific timeslot"="Odaberite zgradu u kampusu u kojoj želite rezervirati sobu, a zatim odaberite sobu za određeni vremenski termin";
+
+"Confirm"="Potvrdi";
+
+"Now confirm your selected booking by pressing the confirm button"="Sada potvrdite odabranu rezervaciju pritiskom na dugme za potvrdu";

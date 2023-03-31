@@ -18,9 +18,6 @@ extension View {
         }
     }
     
-    func customNavigationBackButton(previousPage: String, callback: (() -> Void)? = nil) -> some View {
-        self.modifier(NavigationButtonModifier(previousPage: previousPage, callback: callback))
-    }
     
     func toastView(toast: Binding<Toast?>) -> some View {
         self.modifier(ToastModifier(toast: toast))
