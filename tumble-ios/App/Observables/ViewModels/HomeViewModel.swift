@@ -10,11 +10,11 @@ import SwiftUI
 
 @MainActor final class HomeViewModel: ObservableObject {
     
-    @Inject var preferenceService: PreferenceService
-    @Inject var userController: UserController
-    @Inject var scheduleService: ScheduleService
-    @Inject var courseColorService: CourseColorService
-    @Inject var networkManager: KronoxManager
+    @Inject private var preferenceService: PreferenceService
+    @Inject private var userController: UserController
+    @Inject private var scheduleService: ScheduleService
+    @Inject private var courseColorService: CourseColorService
+    @Inject private var networkManager: KronoxManager
     
     @Published var eventSheet: EventDetailsSheetModel? = nil
     @Published var bookmarkedEventsSectionStatus: PageState = .loading

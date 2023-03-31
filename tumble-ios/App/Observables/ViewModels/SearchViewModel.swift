@@ -25,11 +25,11 @@ enum SchedulePreviewStatus {
 
 @MainActor final class SearchViewModel: ObservableObject {
     
-    @Inject var courseColorService: CourseColorService
-    @Inject var scheduleService: ScheduleService
-    @Inject var preferenceService: PreferenceService
-    @Inject var networkManager: KronoxManager
-    @Inject var notificationManager: NotificationManager
+    @Inject private var courseColorService: CourseColorService
+    @Inject private var scheduleService: ScheduleService
+    @Inject private var preferenceService: PreferenceService
+    @Inject private var networkManager: KronoxManager
+    @Inject private var notificationManager: NotificationManager
     
     @Published var status: SearchStatus = .initial
     @Published var programmeSearchResults: [Response.Programme] = []

@@ -15,11 +15,11 @@ import SwiftUI
     
     let viewModelFactory: ViewModelFactory = ViewModelFactory.shared
     
-    @Inject var scheduleService: ScheduleService
-    @Inject var courseColorService: CourseColorService
-    @Inject var preferenceService: PreferenceService
-    @Inject var notificationManager: NotificationManager
-    @Inject var userController: UserController
+    @Inject private var scheduleService: ScheduleService
+    @Inject private var courseColorService: CourseColorService
+    @Inject private var preferenceService: PreferenceService
+    @Inject private var notificationManager: NotificationManager
+    @Inject private var userController: UserController
     
     @Published var kronoxUrl: String?
     @Published var canvasUrl: String?
@@ -51,6 +51,9 @@ import SwiftUI
         
     }
     
+    func logOutUser() -> Void {
+        userController.logOut()
+    }
     
     func updateLocalsAndChildViews() -> Void {
         AppLogger.shared.debug("Updating child views and local university specifics")

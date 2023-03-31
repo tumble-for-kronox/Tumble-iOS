@@ -9,11 +9,8 @@ import Foundation
 
 @MainActor final class OnBoardingViewModel: ObservableObject {
     
-    @Inject var preferenceService: PreferenceService
-    
-    var showModal: Bool = true
-    
-    
+    @Inject private var preferenceService: PreferenceService
+        
     func onSelectSchool(school: School, updateUserOnBoarded: @escaping UpdateUserOnBoarded) -> Void {
         preferenceService.setSchool(id: school.id) {
             self.preferenceService.setUserOnboarded()

@@ -21,10 +21,10 @@ enum BookmarksViewStatus {
     
     let viewModelFactory: ViewModelFactory = ViewModelFactory()
     
-    @Inject var scheduleService: ScheduleService
-    @Inject var preferenceService: PreferenceService
-    @Inject var courseColorService: CourseColorService
-    @Inject var networkManager: KronoxManager
+    @Inject private var scheduleService: ScheduleService
+    @Inject private var preferenceService: PreferenceService
+    @Inject private var courseColorService: CourseColorService
+    @Inject private var networkManager: KronoxManager
     
     @Published var scheduleViewTypes: [BookmarksViewType] = BookmarksViewType.allValues
     @Published var status: BookmarksViewStatus = .loading

@@ -10,10 +10,10 @@ import SwiftUI
 
 @MainActor final class EventDetailsSheetViewModel: ObservableObject {
     
-    @Inject var notificationManager: NotificationManager
-    @Inject var preferenceService: PreferenceService
-    @Inject var scheduleService: ScheduleService
-    @Inject var courseColorService: CourseColorService
+    @Inject private var notificationManager: NotificationManager
+    @Inject private var preferenceService: PreferenceService
+    @Inject private var scheduleService: ScheduleService
+    @Inject private var courseColorService: CourseColorService
     
     @Published var event: Response.Event
     @Published var color: Color {

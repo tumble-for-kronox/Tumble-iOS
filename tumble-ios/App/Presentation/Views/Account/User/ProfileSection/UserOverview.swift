@@ -22,8 +22,8 @@ struct UserOverview: View {
     var body: some View {
         VStack {
             HStack {
-                if let name = viewModel.userController.user?.name,
-                   let username = viewModel.userController.user?.username {
+                if let name = viewModel.userDisplayName,
+                   let username = viewModel.username {
                     UserAvatar(name: name, collapsedHeader: $collapsedHeader)
                     VStack (alignment: .leading, spacing: 0) {
                         Text(name)

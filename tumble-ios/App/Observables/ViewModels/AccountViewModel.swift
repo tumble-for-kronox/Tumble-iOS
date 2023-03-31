@@ -30,10 +30,10 @@ struct ExamDetailSheetModel: Identifiable {
     
     let viewModelFactory: ViewModelFactory = ViewModelFactory.shared
     
-    @Inject var userController: UserController
-    @Inject var networkManager: KronoxManager
-    @Inject var notificationManager: NotificationManager
-    @Inject var preferenceService: PreferenceService
+    @Inject private var userController: UserController
+    @Inject private var networkManager: KronoxManager
+    @Inject private var notificationManager: NotificationManager
+    @Inject private var preferenceService: PreferenceService
     
     @Published var school: School?
     @Published var status: AccountPageViewStatus = .initial
@@ -48,6 +48,18 @@ struct ExamDetailSheetModel: Identifiable {
     private let jsonEncoder = JSONEncoder.shared
     private var resourceSectionDataTask: URLSessionDataTask? = nil
     private var eventSectionDataTask: URLSessionDataTask? = nil
+    
+    var userDisplayName: String? {
+       return userController.user?.name
+    }
+    
+    var username: String? {
+        return userController.user?.username
+    }
+    
+    var autoSignupEnabled: Bool {
+        return userController.autoSignup
+    }
     
     /// AccountViewModel is responsible for instantiating
     /// the viewmodel used in its child views it navigates to
@@ -81,6 +93,10 @@ struct ExamDetailSheetModel: Identifiable {
                 $0.id == id
             }
         }
+    }
+    
+    func userAuthenticatedAndSignedIn() -> Bool {
+        return userController.authStatus == .authorized || userController.refreshToken != nil
     }
     
     /// This is a caching approach to avoid a network call after user

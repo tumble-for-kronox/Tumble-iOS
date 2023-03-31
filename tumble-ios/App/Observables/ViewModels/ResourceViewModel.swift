@@ -9,10 +9,10 @@ import Foundation
 
 @MainActor final class ResourceViewModel: ObservableObject {
     
-    @Inject var userController: UserController
-    @Inject var networkManager: KronoxManager
-    @Inject var notificationManager: NotificationManager
-    @Inject var preferenceService: PreferenceService
+    @Inject private var userController: UserController
+    @Inject private var networkManager: KronoxManager
+    @Inject private var notificationManager: NotificationManager
+    @Inject private var preferenceService: PreferenceService
     
     @Published var school: School?
     @Published var completeUserEvent: Response.KronoxCompleteUserEvent? = nil
