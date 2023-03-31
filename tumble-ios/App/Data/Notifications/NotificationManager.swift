@@ -23,11 +23,13 @@ class NotificationManager: NotificationManagerProtocol {
             case .success:
                 switch type {
                 case .event:
-                    let eventNotification = notification as! EventNotification
-                    self.notificationCenter.add(self.requestEventNotification(for: eventNotification, userOffset: userOffset))
+                    if let eventNotification = notification as? EventNotification {
+                        self.notificationCenter.add(self.requestEventNotification(for: eventNotification, userOffset: userOffset))
+                    }
                 case .booking:
-                    let bookingNotification = notification as! BookingNotification
-                    self.notificationCenter.add(self.requestBookingNotification(for: bookingNotification, userOffset: userOffset))
+                    if let bookingNotification = notification as? BookingNotification {
+                        self.notificationCenter.add(self.requestBookingNotification(for: bookingNotification))
+                    }
                 }
                 
                 AppLogger.shared.info("Successfully set notification with id -> \(notification.id)")
@@ -40,9 +42,9 @@ class NotificationManager: NotificationManagerProtocol {
     }
 
 
-    func cancelNotification(for eventId: String) {
-        notificationCenter.removePendingNotificationRequests(withIdentifiers: [eventId])
-        AppLogger.shared.info("Cancelled notifications with id -> \(eventId)")
+    func cancelNotification(for id: String) {
+        notificationCenter.removePendingNotificationRequests(withIdentifiers: [id])
+        AppLogger.shared.info("Cancelled notifications with id -> \(id)")
     }
     
     func isNotificationScheduled(eventId: String, completion: @escaping (Bool) -> Void) -> Void {
@@ -171,18 +173,14 @@ extension NotificationManager {
     }
     
     fileprivate func requestBookingNotification(
-        for notification: BookingNotification,
-        userOffset: Int) -> UNNotificationRequest {
+        for notification: BookingNotification) -> UNNotificationRequest {
             let content = UNMutableNotificationContent()
             content.title = "Booking confirmation"
             content.subtitle = "A booking needs to be confirmed"
             content.sound = .default
             content.badge = 1
-            let components = dateComponentsAfterSubtractingUserOffset(
-                dateComponents: notification.dateComponents,
-                userOffset: userOffset
-            )
-            let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
+            let trigger = UNCalendarNotificationTrigger(dateMatching: notification.dateComponents, repeats: false)
+            AppLogger.shared.info("Created trigger with date components: \(notification.dateComponents)")
             return UNNotificationRequest(
                 identifier: notification.id,
                 content: content,

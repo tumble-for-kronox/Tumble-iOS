@@ -12,6 +12,8 @@ struct BookResource: View {
     @ObservedObject var parentViewModel: ResourceViewModel
     @Binding var selectedPickerDate: Date
     
+    let updateBookingNotifications: () -> Void
+    
     var body: some View {
         /// List of all available buildings that
         /// allow for booking rooms
@@ -22,7 +24,8 @@ struct BookResource: View {
                     ResourceSelection(
                         parentViewModel: parentViewModel,
                         resource: resource,
-                        selectedPickerDate: selectedPickerDate
+                        selectedPickerDate: selectedPickerDate,
+                        updateBookingNotifications: updateBookingNotifications
                     )
                     .navigationTitle(NSLocalizedString("Rooms", comment: ""))
                     .navigationBarTitleDisplayMode(.inline)
