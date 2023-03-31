@@ -94,6 +94,20 @@ class NotificationManager: NotificationManagerProtocol {
         )
         return notification
     }
+    
+    func notificationsAreAllowed(completion: ((Result<Bool, NotificationError>) -> Void)? = nil) {
+        notificationCenter.getNotificationSettings { settings in
+            switch settings.authorizationStatus {
+            case .authorized:
+                completion?(.success(true))
+            case .denied:
+                completion?(.failure(.internal(reason: "Notifications denied")))
+            default:
+                completion?(.failure(.internal(reason: "Notifications not allowed")))
+            }
+        }
+    }
+    
 }
 
 
@@ -149,36 +163,6 @@ extension NotificationManager {
         let calendarDateFromComponents = Calendar(identifier: .gregorian).date(from: dateComponents)
         let subtractUserOffset = Calendar.current.date(byAdding: .minute, value: -userOffset, to: calendarDateFromComponents!)
         return Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: subtractUserOffset!)
-    }
-    
-    fileprivate func notificationsAreAllowed(completion: ((Result<Bool, NotificationError>) -> Void)? = nil) {
-        notificationCenter.getNotificationSettings { settings in
-            switch settings.authorizationStatus {
-            case .authorized:
-                completion?(.success(true))
-            default:
-                self.requestAuthorization { result in
-                    switch result {
-                    case .success:
-                        completion?(.success(true))
-                    case .failure(let error):
-                        completion?(.failure(error))
-                        AppLogger.shared.info("\(error)")
-                    }
-                }
-            }
-        }
-    }
-    
-    fileprivate func requestAuthorization(completion: ((Result<Bool, NotificationError>) -> Void)? = nil) {
-        AppLogger.shared.info("Requesting authorization")
-        notificationCenter.requestAuthorization(options: authorizationOptions) { success, error in
-            if success {
-                completion?(.success(true))
-            } else {
-                completion?(.failure(.internal(reason: "Notifications were not allowed by user")))
-            }
-        }
     }
     
 }

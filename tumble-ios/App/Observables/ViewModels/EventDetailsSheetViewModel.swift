@@ -24,6 +24,7 @@ import SwiftUI
     @Published var isNotificationSetForEvent: Bool = false
     @Published var isNotificationSetForCourse: Bool = false
     @Published var notificationOffset: Int = 60
+    @Published var notificationsAllowed: Bool = false
     
     
     init(event: Response.Event, color: Color) {
@@ -32,6 +33,11 @@ import SwiftUI
         self.checkNotificationIsSetForEvent()
         self.checkNotificationIsSetForCourse()
         self.notificationOffset = preferenceService.getNotificationOffset()
+        self.userAllowedNotifications(completion: { value in
+            DispatchQueue.main.async {
+                self.notificationsAllowed = value
+            }
+        })
     }
     
     func replaceColor() -> Void {
@@ -109,13 +115,21 @@ import SwiftUI
                             self.isNotificationSetForCourse = true
                             self.isNotificationSetForEvent = true
                         }
-                    } else {
-                        // TODO: Handle error in view
                     }
                 }
             case .failure(let failure):
                 AppLogger.shared.info("\(failure)")
-                // TODO: Handle error in view
+            }
+        })
+    }
+    
+    func userAllowedNotifications(completion: @escaping (Bool) -> Void) -> Void {
+        notificationManager.notificationsAreAllowed(completion: { result in
+            switch result {
+            case .success:
+                completion(true)
+            case .failure:
+                completion(false)
             }
         })
     }
@@ -126,39 +140,46 @@ import SwiftUI
 extension EventDetailsSheetViewModel {
     
     // Apply scheduleNotifaction for each event under specific course id
-    fileprivate func applyNotificationForScheduleEventsInCourse(schedules: [ScheduleStoreModel], completion: @escaping (Bool) -> Void)
-            -> Void {
-                
+    fileprivate func applyNotificationForScheduleEventsInCourse(
+        schedules: [ScheduleStoreModel], completion: @escaping (Bool) -> Void
+    ) {
         let events = schedules
             .flatMap { $0.days }
             .flatMap { $0.events }
             .filter { !($0.dateComponents!.hasDatePassed()) }
             .filter { $0.course.id == self.event.course.id }
 
-                events.forEach { event in
-                    let notification = EventNotification(
-                        id: event.id,
-                        color: color.toHex() ?? "#FFFFFF",
-                        dateComponents: event.dateComponents!,
-                        categoryIdentifier: event.course.id, content: event.toDictionary())
-                    // Sets notifications for course. If events already have notifications set for them without a categoryIdentifier,
-                    // they will be reset in order to be able to remove course notifications on a categoryIdentifier basis
-                    self.notificationManager.scheduleNotification(
-                        for: notification,
-                        type: .event,
-                        userOffset: self.notificationOffset) { result in
-                        switch result {
-                        case .success(let success):
-                            AppLogger.shared.info("Scheduled \(success) notifications")
-                        case .failure(let failure):
-                            AppLogger.shared.info("Failed to schedule notifications -> \(failure)")
-                            completion(false)
-                        }
-                    }
-                    AppLogger.shared.info("Set notification for \(event.title)")
-                    completion(true)
+        var couldSetNotifications = true
+        
+        for event in events {
+            let notification = EventNotification(
+                id: event.id,
+                color: color.toHex() ?? "#FFFFFF",
+                dateComponents: event.dateComponents!,
+                categoryIdentifier: event.course.id,
+                content: event.toDictionary()
+            )
+
+            self.notificationManager.scheduleNotification(
+                for: notification,
+                type: .event,
+                userOffset: self.notificationOffset
+            ) { result in
+                switch result {
+                case .success(let success):
+                    AppLogger.shared.info("Scheduled \(success) notifications")
+                case .failure(let failure):
+                    AppLogger.shared.info("Failed to schedule notifications for course -> \(failure)")
+                    couldSetNotifications = false
+                    return
                 }
+            }
+            if !couldSetNotifications { break }
+            AppLogger.shared.info("Set notification for \(event.title)")
+        }
+        completion(couldSetNotifications ? true : false)
     }
+
     
     fileprivate func checkNotificationIsSetForCourse() -> Void {
         notificationManager.isNotificationScheduled(categoryIdentifier: event.course.id) { result in

@@ -33,7 +33,7 @@ struct Root: View {
         .preferredColorScheme(getThemeColorScheme())
         .edgesIgnoringSafeArea(.all)
         .ignoresSafeArea(.keyboard)
-        .JMModal(showModal: $viewModel.showNotificationsPermission, for: [.notification])
+        .JMAlert(showModal: $viewModel.showNotificationsPermission, for: [.notification])
     }
     
     func setUserOnBoarded() -> Void {

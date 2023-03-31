@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import PermissionsSwiftUICamera
 import PermissionsSwiftUINotification
 
 typealias UpdateUserOnBoarded = () -> Void
