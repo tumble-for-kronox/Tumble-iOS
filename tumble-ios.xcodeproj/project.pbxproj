@@ -146,6 +146,7 @@
 		D47A1AF729C00C0E004F03DB /* HomePageOptionStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47A1AF629C00C0E004F03DB /* HomePageOptionStyle.swift */; };
 		D47A450D29D742FB008626E6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D47A450C29D742FB008626E6 /* GoogleService-Info.plist */; };
 		D47A451029D74929008626E6 /* AppUsage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47A450F29D74929008626E6 /* AppUsage.swift */; };
+		D47A451529D74CFB008626E6 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D47A451429D74CFB008626E6 /* Preview Assets.xcassets */; };
 		D481F15729CB820D0088C28E /* AvailabilitiesExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D481F15629CB820D0088C28E /* AvailabilitiesExtension.swift */; };
 		D481F15929CB84F10088C28E /* ResourceSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D481F15829CB84F10088C28E /* ResourceSelection.swift */; };
 		D48CC59629C7BB160028179A /* HomePageEventButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48CC59529C7BB160028179A /* HomePageEventButton.swift */; };
@@ -371,6 +372,7 @@
 		D47A1AF629C00C0E004F03DB /* HomePageOptionStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageOptionStyle.swift; sourceTree = "<group>"; };
 		D47A450C29D742FB008626E6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D47A450F29D74929008626E6 /* AppUsage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUsage.swift; sourceTree = "<group>"; };
+		D47A451429D74CFB008626E6 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		D481F15629CB820D0088C28E /* AvailabilitiesExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvailabilitiesExtension.swift; sourceTree = "<group>"; };
 		D481F15829CB84F10088C28E /* ResourceSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceSelection.swift; sourceTree = "<group>"; };
 		D48CC59529C7BB160028179A /* HomePageEventButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageEventButton.swift; sourceTree = "<group>"; };
@@ -1006,9 +1008,9 @@
 		D4722147292454560063BDB7 /* tumble-ios */ = {
 			isa = PBXGroup;
 			children = (
-				D4CD0F0729D5DC9D00AB5FD0 /* Localizable.strings */,
+				D47A451229D74CAA008626E6 /* Preview Content */,
+				D47A451129D74C68008626E6 /* Assets */,
 				D47A450C29D742FB008626E6 /* GoogleService-Info.plist */,
-				D472214C292454570063BDB7 /* Assets.xcassets */,
 				D473870229C895510035CD4C /* tumble-ios.entitlements */,
 				D4D4DD212927CFFA0083BB7F /* Info.plist */,
 				D47221582924548A0063BDB7 /* App */,
@@ -1086,6 +1088,23 @@
 				D47A450F29D74929008626E6 /* AppUsage.swift */,
 			);
 			path = Usage;
+			sourceTree = "<group>";
+		};
+		D47A451129D74C68008626E6 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				D472214C292454570063BDB7 /* Assets.xcassets */,
+				D4CD0F0729D5DC9D00AB5FD0 /* Localizable.strings */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
+		D47A451229D74CAA008626E6 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				D47A451429D74CFB008626E6 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
 			sourceTree = "<group>";
 		};
 		D48CC59D29C7DB5C0028179A /* Buttons */ = {
@@ -1509,6 +1528,7 @@
 			files = (
 				D4CD0F0529D5DC9D00AB5FD0 /* Localizable.strings in Resources */,
 				D4BAE61929246AA200143717 /* schools.json in Resources */,
+				D47A451529D74CFB008626E6 /* Preview Assets.xcassets in Resources */,
 				D472214D292454570063BDB7 /* Assets.xcassets in Resources */,
 				D47A450D29D742FB008626E6 /* GoogleService-Info.plist in Resources */,
 			);
