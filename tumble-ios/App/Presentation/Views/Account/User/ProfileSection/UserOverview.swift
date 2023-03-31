@@ -53,9 +53,6 @@ struct UserOverview: View {
                 collapsedHeader: $collapsedHeader
             )
         }
-        .onAppear {
-            getResourcesAndEvents()
-        }
         .background(Color(UIColor.systemBackground))
         .toastView(toast: $toast)
     }

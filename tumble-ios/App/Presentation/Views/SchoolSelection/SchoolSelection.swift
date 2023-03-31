@@ -12,6 +12,7 @@ typealias OnSelectSchool = (School) -> Void
 struct SchoolSelection: View {
     
     let onSelectSchool: OnSelectSchool
+    let schools: [School]
     
     var body: some View {
         List {
@@ -19,11 +20,5 @@ struct SchoolSelection: View {
                 SchoolRow(school: school, onSelectSchool: onSelectSchool)
             }
         }
-    }
-}
-
-struct SchoolSelectionView_Previews: PreviewProvider {
-    static var previews: some View {
-        SchoolSelection(onSelectSchool: {school in })
     }
 }

@@ -37,7 +37,8 @@ struct Settings: View {
                     })
                 }
                 Section {
-                    NavigationLink(destination: AnyView(SchoolSelectionSettings(onChangeSchool: onChangeSchool)), label: {
+                    NavigationLink(destination: AnyView(
+                        SchoolSelectionSettings(onChangeSchool: onChangeSchool, schools: viewModel.schools)), label: {
                         SettingsNavLink(title: NSLocalizedString("School", comment: ""), current: viewModel.universityName)
                     })
                     NavigationLink(destination: AnyView(

@@ -10,21 +10,25 @@ import SwiftUI
 
 @MainActor final class SettingsViewModel: ObservableObject {
     
-    @Inject private var preferenceService: PreferenceService
-    @Inject private var scheduleService: ScheduleService
-    @Inject private var courseColorService: CourseColorService
-    @Inject private var notificationManager: NotificationManager
-    @Inject private var userController: UserController
+    @Inject var preferenceService: PreferenceService
+    @Inject var scheduleService: ScheduleService
+    @Inject var courseColorService: CourseColorService
+    @Inject var notificationManager: NotificationManager
+    @Inject var userController: UserController
+    @Inject var schoolManager: SchoolManager
     
     @Published var universityImage: Image?
     @Published var universityName: String?
     @Published var bookmarks: [Bookmark]?
     @Published var presentSidebarSheet: Bool = false
     
+    var schools: [School] {
+        return schoolManager.getSchools()
+    }
     
     init() {
-        self.universityImage = self.preferenceService.getUniversityImage()
-        self.universityName = self.preferenceService.getUniversityName()
+        self.universityImage = self.preferenceService.getUniversityImage(schools: schools)
+        self.universityName = self.preferenceService.getUniversityName(schools: schools)
         self.bookmarks = preferenceService.getBookmarks() ?? []
     }
     
@@ -33,8 +37,9 @@ import SwiftUI
     }
     
     func logOut() -> Void {
-        userController.logOut(completion: { success in
+        userController.logOut(completion: { [unowned self] success in
             if success {
+                self.userController.authStatus = .unAuthorized
                 AppLogger.shared.debug("Logged out")
                 AppController.shared.toast = Toast(
                     type: .success,
@@ -51,8 +56,8 @@ import SwiftUI
     }
     
     func updateViewLocals() -> Void {
-        self.universityImage = self.preferenceService.getUniversityImage()
-        self.universityName = self.preferenceService.getUniversityName()
+        self.universityImage = self.preferenceService.getUniversityImage(schools: schools)
+        self.universityName = self.preferenceService.getUniversityName(schools: schools)
         self.updateBookmarks()
     }
     
@@ -159,28 +164,3 @@ import SwiftUI
     
 }
 
-extension SettingsViewModel {
-    
-    fileprivate func loadSchedules(completion: @escaping ([ScheduleStoreModel]) -> Void) -> Void {
-        self.scheduleService.load(completion: {result in
-            switch result {
-            case .failure(_):
-                return
-            case .success(let bookmarks):
-                DispatchQueue.main.async {
-                    completion(bookmarks)
-                }
-            }
-        })
-    }
-    
-    fileprivate func missingIDs(scheduleModels: [ScheduleStoreModel], bookmarks: [Bookmark]) -> [String] {
-        let scheduleIDs = Set(scheduleModels.map { $0.id })
-        let bookmarkIDs = Set(bookmarks.map { $0.id })
-        return Array(bookmarkIDs.subtracting(scheduleIDs))
-    }
-
-    fileprivate func removeMissingIDs(bookmarks: [Bookmark], missingIDs: [String]) -> [Bookmark] {
-        return bookmarks.filter { !missingIDs.contains($0.id) }
-    }
-}

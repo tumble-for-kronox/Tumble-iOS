@@ -7,11 +7,6 @@
 
 import Foundation
 
-enum RootViewStatus {
-    case onboarding
-    case app
-}
-
 @MainActor final class RootViewModel: ObservableObject {
     
     @Inject private var authManager: AuthManager

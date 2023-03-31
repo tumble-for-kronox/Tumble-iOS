@@ -1,28 +1,5 @@
 import Foundation
 
-enum AccountPageViewStatus {
-    case loading
-    case error
-    case initial
-}
-
-enum PageState {
-    case loading
-    case loaded
-    case error
-}
-
-struct ResourceDetailSheetModel: Identifiable {
-    var id: UUID = UUID()
-    let resource: Response.KronoxUserBookingElement
-}
-
-struct ExamDetailSheetModel: Identifiable {
-    var id: UUID = UUID()
-    let event: Response.AvailableKronoxUserEvent
-}
-
-
 /// ViewModel for the account page of the app.
 /// It handles the signing in of users, registering and unregistering
 /// for KronoX events, and booking and unbooking of resources.
@@ -30,17 +7,18 @@ struct ExamDetailSheetModel: Identifiable {
     
     let viewModelFactory: ViewModelFactory = ViewModelFactory.shared
     
-    @Inject private var userController: UserController
-    @Inject private var networkManager: KronoxManager
-    @Inject private var notificationManager: NotificationManager
-    @Inject private var preferenceService: PreferenceService
+    @Inject var userController: UserController
+    @Inject var networkManager: KronoxManager
+    @Inject var notificationManager: NotificationManager
+    @Inject var preferenceService: PreferenceService
+    @Inject var schoolManager: SchoolManager
     
     @Published var school: School?
-    @Published var status: AccountPageViewStatus = .initial
+    @Published var status: AccountViewStatus = .initial
     @Published var completeUserEvent: Response.KronoxCompleteUserEvent? = nil
     @Published var userBookings: Response.KronoxUserBookings? = nil
-    @Published var registeredEventSectionState: PageState = .loading
-    @Published var bookingSectionState: PageState = .loading
+    @Published var registeredEventSectionState: GenericPageStatus = .loading
+    @Published var bookingSectionState: GenericPageStatus = .loading
     @Published var error: Response.ErrorMessage? = nil
     @Published var resourceDetailsSheetModel: ResourceDetailSheetModel? = nil
     @Published var examDetailSheetModel: ExamDetailSheetModel? = nil
@@ -67,7 +45,7 @@ struct ExamDetailSheetModel: Identifiable {
     
     init() {
         self.resourceViewModel = viewModelFactory.makeViewModelResource()
-        self.school = preferenceService.getDefaultSchool()
+        self.school = preferenceService.getDefaultSchoolName(schools: schoolManager.getSchools())
         if userController.autoSignup {
             self.registerAutoSignup(completion: { result in
                 switch result {
@@ -84,7 +62,7 @@ struct ExamDetailSheetModel: Identifiable {
     }
     
     func updateViewLocals() -> Void {
-        self.school = preferenceService.getDefaultSchool()
+        self.school = preferenceService.getDefaultSchoolName(schools: schoolManager.getSchools())
     }
 
     func removeUserBooking(where id: String) -> Void {
@@ -295,112 +273,4 @@ struct ExamDetailSheetModel: Identifiable {
                 }
             })
     }
-}
-
-
-extension AccountViewModel {
-    
-    fileprivate func scheduleBookingNotifications(for bookings: Response.KronoxUserBookings) -> Void {
-        for booking in bookings {
-            if let dateComponents = booking.dateComponentsConfirmation {
-                let notification = BookingNotification(
-                    id: booking.id,
-                    dateComponents: dateComponents
-                )
-                self.notificationManager.scheduleNotification(
-                    for: notification,
-                    type: .booking,
-                    userOffset: self.preferenceService.getNotificationOffset(),
-                    completion: { result in
-                        switch result {
-                        case .success(let success):
-                            AppLogger.shared.debug("Scheduled \(success) notification")
-                        case .failure(let failure):
-                            AppLogger.shared.debug("Failed : \(failure)")
-                        }
-                    })
-            } else {
-                AppLogger.shared.critical("Failed to retrieve date components for booking")
-            }
-        }
-    }
-    
-    fileprivate func registerAutoSignup(
-        tries: Int = 0,
-        completion: @escaping (Result<Void, Error>) -> Void
-    ) {
-        AppLogger.shared.debug("Automatically signing up for exams")
-        authenticateAndExecute(
-            school: school,
-            refreshToken: userController.refreshToken,
-            execute: { [unowned self] result in
-                switch result {
-                case .success((let schoolId, let refreshToken)):
-                    let request = Endpoint.registerAllEvents(schoolId: String(schoolId))
-                    let _ = networkManager.put(request, refreshToken: refreshToken, body: Request.Empty(),
-                       then: { (result: Result<Response.KronoxEventRegistration?, Response.ErrorMessage>) in
-                        DispatchQueue.main.async {
-                            switch result {
-                            case .success(let eventRegistrations):
-                                if let eventRegistrations = eventRegistrations {
-                                    AppLogger.shared.debug("Successful registrations: \(String(describing: eventRegistrations.successfulRegistrations?.count))")
-                                    AppLogger.shared.debug("Failed registrations: \(String(describing: eventRegistrations.failedRegistrations?.count))")
-                                    completion(.success(()))
-                                }
-                            case .failure(let error):
-                                AppLogger.shared.critical("Failed to automatically sign up for exams: \(error)")
-                                completion(.failure(.generic(reason: "\(error)")))
-                            }
-                        }
-                    })
-                case .failure(let error):
-                    AppLogger.shared.critical("Could not log in to register for available events")
-                    completion(.failure(.generic(reason: "\(error)")))
-                }
-            })
-    }
-    
-    /// Wrapper function that is meant to be used on functions
-    /// that require authentication to be active before processing
-    fileprivate func authenticateAndExecute(
-        tries: Int = 0,
-        school: School?,
-        refreshToken: Token?,
-        execute: @escaping (Result<(Int, String), Error>) -> Void
-    ) {
-        guard let school = school,
-              let refreshToken = refreshToken,
-              !refreshToken.isExpired() else {
-            if tries < NetworkConstants.MAX_CONSECUTIVE_ATTEMPTS {
-                AppLogger.shared.debug("Attempting auto login ...")
-                userController.autoLogin { [unowned self] in
-                    self.authenticateAndExecute(
-                        tries: tries + 1,
-                        school: school,
-                        refreshToken: refreshToken,
-                        execute: execute
-                    )
-                }
-            } else {
-                execute(.failure(.internal(reason: "Could not authenticate user")))
-            }
-            return
-        }
-        execute(.success((school.id, refreshToken.value)))
-    }
-    
-    fileprivate func cancelDataTaskIfTabChanged(dataTask: URLSessionDataTask?) {
-        let currentSelectedTab = AppController.shared.selectedAppTab
-        DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + .seconds(1)) {
-            if AppController.shared.selectedAppTab != currentSelectedTab {
-                DispatchQueue.main.async {
-                    // selected app tab has changed, cancel the dataTask
-                    AppLogger.shared.debug("Cancelling task due to tab change")
-                    dataTask?.cancel()
-                }
-            }
-        }
-    }
-
-
 }

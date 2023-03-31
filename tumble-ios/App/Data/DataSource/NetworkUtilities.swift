@@ -7,17 +7,9 @@
 
 import Foundation
 
-extension JSONEncoder {
-    static let shared: JSONEncoder = JSONEncoder()
-}
-
-extension JSONDecoder {
-    static let shared: JSONDecoder = JSONDecoder()
-}
-
-struct URLRequestUtils {
+struct NetworkUtilities {
     
-    static let shared = URLRequestUtils()
+    static let shared = NetworkUtilities()
     
     /// Creates a URLRequest with necessary headers and body
     /// based on method type

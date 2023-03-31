@@ -13,7 +13,7 @@ class KronoxManager: KronoxManagerProtocol {
     private let serialQueue = OperationQueue()
     private let encoder = JSONEncoder.shared
     private let decoder = JSONDecoder.shared
-    private let urlRequestUtils = URLRequestUtils.shared
+    private let urlRequestUtils = NetworkUtilities.shared
     private let session: URLSession
     
     init() {

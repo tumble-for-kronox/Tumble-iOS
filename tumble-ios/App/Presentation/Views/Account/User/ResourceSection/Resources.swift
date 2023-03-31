@@ -85,6 +85,9 @@ struct Resources: View {
                 })
             }
         }
+        .onAppear {
+            getResourcesAndEvents()
+        }
         .coordinateSpace(name: scrollSpace)
         .onPreferenceChange(ResourcesScrollViewOffsetPreferenceKey.self, perform: handleScroll)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
