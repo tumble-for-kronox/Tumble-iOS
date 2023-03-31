@@ -25,4 +25,6 @@ protocol NotificationManagerProtocol {
     
     func isNotificationScheduled(eventId: String, completion: @escaping (Bool) -> Void) -> Void
     
+    func rescheduleEventNotifications(previousOffset: Int, userOffset: Int) -> Void
+    
 }
