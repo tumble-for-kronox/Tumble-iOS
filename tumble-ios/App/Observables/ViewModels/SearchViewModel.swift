@@ -119,7 +119,7 @@ import SwiftUI
                     switch error.statusCode {
                     case 204:
                         DispatchQueue.main.async {
-                            self.errorMessageSearch = NSLocalizedString("No schedules found", comment: "")
+                            self.errorMessageSearch = NSLocalizedString("There are no schedules that match your search", comment: "")
                             self.status = SearchStatus.error
                         }
                     default:
