@@ -13,9 +13,9 @@ struct HomePageNewsSection: View {
     
     var body: some View {
         VStack (alignment: .leading) {
-            HomePageSectionDivider(onTapSeeAll: {
-                // Open sheet with all news items
-            }, title: NSLocalizedString("News", comment: ""), contentCount: parentViewModel.news?.count ?? 0)
+            HomePageSectionDivider(
+                title: NSLocalizedString("News", comment: ""),
+                contentCount: parentViewModel.news?.count ?? 0)
             switch parentViewModel.newsSectionStatus {
             case .loading:
                 VStack {

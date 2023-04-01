@@ -1134,8 +1134,8 @@
 			isa = PBXGroup;
 			children = (
 				D4938BAD29D762DE00029F88 /* Preview Content */,
-				D47221582924548A0063BDB7 /* App */,
 				D47A451129D74C68008626E6 /* Assets */,
+				D47221582924548A0063BDB7 /* App */,
 				D4D4DD212927CFFA0083BB7F /* Info.plist */,
 				D414730329D8539F00050BFF /* GoogleService-Info.plist */,
 				D473870229C895510035CD4C /* tumble-ios.entitlements */,

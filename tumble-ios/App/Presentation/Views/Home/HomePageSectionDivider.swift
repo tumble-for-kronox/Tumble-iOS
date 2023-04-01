@@ -9,9 +9,15 @@ import SwiftUI
 
 struct HomePageSectionDivider: View {
     
-    let onTapSeeAll: () -> Void
+    let onTapSeeAll: (() -> Void)?
     let title: String
     let contentCount: Int
+    
+    init(onTapSeeAll: (() -> Void)? = nil, title: String, contentCount: Int) {
+        self.onTapSeeAll = onTapSeeAll
+        self.title = title
+        self.contentCount = contentCount
+    }
     
     var body: some View {
         HStack {
@@ -23,13 +29,14 @@ struct HomePageSectionDivider: View {
                 .font(.system(size: 16))
                 .foregroundColor(.onBackground.opacity(0.5))
             Spacer()
-            Button(action: onTapSeeAll, label: {
-                Text(NSLocalizedString("See all", comment: ""))
-                    .font(.system(size: 16, weight: .semibold))
-                    .foregroundColor(.primary)
-            })
-            .buttonStyle(HomePageSeeAllStyle())
-            
+            if let onTapSeeAll = onTapSeeAll {
+                Button(action: onTapSeeAll, label: {
+                    Text(NSLocalizedString("See all", comment: ""))
+                        .font(.system(size: 16, weight: .semibold))
+                        .foregroundColor(.primary)
+                })
+                .buttonStyle(HomePageSeeAllStyle())
+            }
         }
         .padding(.bottom, 20)
         .padding(.top)
