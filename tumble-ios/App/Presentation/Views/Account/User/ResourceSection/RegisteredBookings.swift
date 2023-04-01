@@ -10,7 +10,7 @@ import SwiftUI
 struct RegisteredBookings: View {
     
     let onClickResource: (Response.KronoxUserBookingElement) -> Void
-    @Binding var state: PageState
+    @Binding var state: GenericPageStatus
     let bookings: Response.KronoxUserBookings?
     
     var body: some View {

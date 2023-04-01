@@ -37,7 +37,7 @@ protocol PreferenceServiceProtocol {
     
     func getDefaultViewType() -> BookmarksViewType
     
-    func getDefaultSchool() -> School?
+    func getDefaultSchoolName(schools: [School]) -> School?
     
     func isKeyPresentInUserDefaults(key: String) -> Bool
 }

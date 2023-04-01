@@ -37,7 +37,8 @@ struct Settings: View {
                     })
                 }
                 Section {
-                    NavigationLink(destination: AnyView(SchoolSelectionSettings(onChangeSchool: onChangeSchool)), label: {
+                    NavigationLink(destination: AnyView(
+                        SchoolSelectionSettings(onChangeSchool: onChangeSchool, schools: viewModel.schools)), label: {
                         SettingsNavLink(title: NSLocalizedString("School", comment: ""), current: viewModel.universityName)
                     })
                     NavigationLink(destination: AnyView(
@@ -60,7 +61,7 @@ struct Settings: View {
                         SettingsNavLink(title: NSLocalizedString("How to use the app", comment: ""))
                     })
                 }
-                LogInOutButton(parentViewModel: viewModel)
+                LogInOutButton(parentViewModel: viewModel) // Might be a nicer way to do this
             }
         }
         .navigationTitle(NSLocalizedString("Settings", comment: ""))

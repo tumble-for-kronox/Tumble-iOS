@@ -130,15 +130,6 @@ class NotificationManager: NotificationManagerProtocol {
                 self.notificationCenter.add(request)
             }
             AppLogger.shared.debug("Rescheduled \(modifiedRequests.count) notifications")
-            notificationCenter.getPendingNotificationRequests { requests in
-                let eventRequests = requests.filter { $0.content.userInfo[NotificationContentKey.event.rawValue] != nil }
-                for request in eventRequests {
-                    let trigger = request.trigger as! UNCalendarNotificationTrigger
-                    let triggerDate = trigger.nextTriggerDate()!
-                    print("Notification \(request.identifier) scheduled for \(triggerDate)")
-                }
-            }
-
         }
     }
 }

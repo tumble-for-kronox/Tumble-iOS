@@ -1,0 +1,238 @@
+//
+//  AuthManagerExtension.swift
+//  tumble-ios
+//
+//  Created by Adis Veletanlic on 2023-04-01.
+//
+
+import Foundation
+
+extension AuthManager {
+    
+    func clearTokensAndKeyChain(of tokensToDelete: [String], completionHandler: ((Result<Int, Error>) -> Void)? = nil) {
+        refreshToken = nil
+        clearKeyChain(of: tokensToDelete, completionHandler: completionHandler)
+    }
+    
+    
+    func clearKeyChain(of tokensToDelete: [String], completionHandler: ((Result<Int, Error>) -> Void)?) {
+
+        let tokensToDelete = [TokenType.refreshToken.rawValue, TokenType.sessionToken.rawValue]
+
+        for token in tokensToDelete {
+            self.keychainManager.deleteKeyChain(for: token, account: "Tumble for Kronox") { result in
+                switch result {
+                case .success:
+                    AppLogger.shared.debug("Successfully cleared keychain of \(token)")
+                case .failure(let failure):
+                    AppLogger.shared.critical("Failed to clear keychain of \(token) -> \(failure.localizedDescription)")
+                    completionHandler?(.failure(.internal(reason: "Failed to modify keychain for value '\(token)'")))
+                    return
+                }
+            }
+        }
+
+        completionHandler?(.success(tokensToDelete.count))
+    }
+
+    
+    func processAutoLoginWithKeyChainCredentials(
+        completionHandler: @escaping (Result<TumbleUser, Error>) -> Void) -> Void {
+            if let schoolId = self.getDefaultSchool(), let user = self.user {
+                let userRequest = Request.KronoxUserLogin(username: user.username, password: user.password)
+                AppLogger.shared.debug("Running login with keychain credentials for user: \(userRequest.username)", source: "AuthManager")
+                let urlRequest = urlRequestUtils.createUrlRequest(
+                    method: .post,
+                    endpoint: .login(schoolId: String(schoolId)),
+                    body: userRequest
+                )
+                if let urlRequest = urlRequest {
+                    urlSession.dataTask(with: urlRequest, completionHandler: { [unowned self] data, response, error in
+                        self.handleAuthResponse(
+                            data: data,
+                            response: response,
+                            error: error as? Error,
+                            completionHandler: completionHandler)
+                    }).resume()
+                } else {
+                    AppLogger.shared.critical("Could not create URLRequest object")
+                    completionHandler(.failure(.generic(reason: "Failed to instantiate URLRequest object")))
+                }
+            } else {
+                AppLogger.shared.critical("Missing school/keychain user ...")
+                completionHandler(.failure(.generic(reason: "No school selected or no user available in KeyChain")))
+            }
+    }
+    
+    /// Function to log in user with credentials passed
+    /// from account page when entered credentials. On successful response,
+    /// the user is stored securely in the keychain as TumbleUser
+    func processLogin(
+        user: Request.KronoxUserLogin,
+        completionHandler: @escaping (Result<TumbleUser, Error>) -> Void) {
+            if let schoolId = self.getDefaultSchool() {
+                let urlRequest = urlRequestUtils.createUrlRequest(
+                    method: .post,
+                    endpoint: .login(schoolId: String(schoolId)),
+                    body: user
+                )
+                if let urlRequest = urlRequest {
+                    urlSession.dataTask(with: urlRequest, completionHandler: { [unowned self] data, response, error in
+                        self.handleAuthResponse(
+                            password: user.password,
+                            data: data,
+                            response: response,
+                            error: error as? Error,
+                            completionHandler: completionHandler)
+                    }).resume()
+                }
+            } else {
+                completionHandler(.failure(.generic(reason: "No school selected")))
+            }
+    }
+    
+    func processAutoLogin(completionHandler: @escaping (Result<TumbleUser, Error>) -> Void) -> Void {
+        // If there is a school selected and an available refresh token
+        if let schoolId = self.getDefaultSchool(), let token = self.refreshToken {
+            let urlRequest = urlRequestUtils.createUrlRequest(
+                method: .get,
+                endpoint: .users(schoolId: String(schoolId)),
+                refreshToken: token.value
+            )
+            if let urlRequest = urlRequest {
+                urlSession.dataTask(with: urlRequest, completionHandler: { [unowned self] data, response, error in
+                    self.handleAuthResponse(
+                        data: data,
+                        response: response,
+                        error: error as? Error,
+                        completionHandler: { [unowned self](result: Result<TumbleUser, Error>) in
+                        switch result {
+                        case .success(let user):
+                            completionHandler(.success(user))
+                            break
+                        case .failure(let failure):
+                            AppLogger.shared.critical("Missing refresh token or is expired -> \(failure)")
+                            self.processAutoLoginWithKeyChainCredentials(completionHandler: completionHandler)
+                        }
+                    })
+                }).resume()
+            }
+        } else {
+            AppLogger.shared.debug("Missing school/token ... Attempting login with keychain credentials instead", source: "AuthManager")
+            self.processAutoLoginWithKeyChainCredentials(completionHandler: completionHandler)
+        }
+    }
+    
+    func handleAuthResponse(
+        password: String? = nil,
+        data: Data?,
+        response: URLResponse?,
+        error: Error?,
+        completionHandler: @escaping (Result<TumbleUser, Error>) -> Void) {
+            if let data = data, let result = try? self.decoder.decode(Response.KronoxUser.self, from: data) {
+                AppLogger.shared.debug("Retrieved new refresh token: \(result.refreshToken)")
+                self.refreshToken = Token(value: result.refreshToken, createdDate: Date.now)
+                // Replace old user with new user if
+                // the call instance contains a new password.
+                // Completion always returns instance of TumbleUser
+                if let password = password {
+                    AppLogger.shared.debug("Creating new user")
+                    let newUser = TumbleUser(username: result.username, password: password, name: result.name)
+                    AppLogger.shared.debug("Registering new user \(result.username)")
+                    self.user = newUser
+                    completionHandler(.success(newUser))
+                    return
+                } else if let user = self.user {
+                    completionHandler(.success(user))
+                    return
+                }
+                
+            } else if let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode > 299 {
+                // In case we got an error while using refresh token, we want to clear token storage - there's no way
+                // to recover from this
+                clearTokensAndKeyChain(of: [TokenType.refreshToken.rawValue])
+                completionHandler(.failure(.generic(reason: "Could not retrieve any tokens")))
+                return
+                
+            } else {
+                // Any other error from NSURLErrorDomain (e.g internet offline) - we won't clear token storage
+                completionHandler(.failure(.generic(reason: error?.localizedDescription ?? "Service unavailable")))
+            }
+    }
+    
+    func getDefaultSchool() -> Int? {
+        let id: Int = UserDefaults.standard.object(forKey: StoreKey.school.rawValue) as? Int ?? -1
+        if id == -1 {
+            return nil
+        }
+        return id
+    }
+    
+    func getToken(tokenType: TokenType) -> Token? {
+        if let data = self.keychainManager.readKeyChain(for: tokenType.rawValue, account: "Tumble for Kronox") {
+            do {
+                return try decoder.decode(Token.self, from: data)
+            } catch {
+                return nil
+            }
+        }
+        return nil
+    }
+    
+    func getUser() -> TumbleUser? {
+        do {
+            if let data = self.keychainManager.readKeyChain(for: "tumble-user", account: "Tumble for Kronox") {
+                let user = try decoder.decode(TumbleUser.self, from: data)
+                return TumbleUser(username: user.username, password: user.password, name: user.name)
+            }
+            return nil
+        } catch {
+            AppLogger.shared.debug("No available user to decode")
+            return nil
+        }
+    }
+    
+    func setUser(newValue: TumbleUser?) -> Void {
+        do {
+            let data = try encoder.encode(newValue)
+            self.keychainManager.saveKeyChain(data, for: "tumble-user", account: "Tumble for Kronox", completion: { result in
+                switch result {
+                case .success:
+                    AppLogger.shared.debug("Updated user in keychain")
+                case .failure:
+                    AppLogger.shared.critical("Failed to update user in keychain")
+                }
+            })
+        } catch {
+            AppLogger.shared.critical("Encoding error")
+        }
+    }
+    
+    func setToken(newValue: Token?, tokenType: TokenType) -> Void {
+        if newValue != nil {
+            do {
+                let storedData = try encoder.encode(newValue)
+                self.keychainManager.saveKeyChain(storedData, for: tokenType.rawValue, account: "Tumble for Kronox") { result in
+                    switch result {
+                    case .success(_):
+                        AppLogger.shared.debug("Successfully stored \(tokenType.rawValue)")
+                    case .failure(_):
+                        AppLogger.shared.critical("Failed to store \(tokenType.rawValue)")
+                    }
+                }
+            } catch {
+                AppLogger.shared.critical("Failed to store \(tokenType.rawValue) object")
+            }
+            
+        } else {
+            self.keychainManager.deleteKeyChain(for: tokenType.rawValue, account: "Tumble for Kronox", completion: { result in
+                switch result {
+                case .success(_):
+                    AppLogger.shared.debug("Successfully deleted \(tokenType.rawValue)")
+                case .failure(_):
+                    AppLogger.shared.critical("Failed to delete \(tokenType.rawValue)")
+                }
+            })
+        }
+    }
+}

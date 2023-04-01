@@ -11,18 +11,11 @@ struct LogInOutButton: View {
     
     @Environment(\.dismiss) var dismiss
     @ObservedObject var parentViewModel: SettingsViewModel
-    @State private var loggedIn: Bool
-    
-    init(parentViewModel: SettingsViewModel) {
-        self.parentViewModel = parentViewModel
-        self._loggedIn = State(initialValue: parentViewModel.userAuthenticatedAndSignedIn())
-    }
     
     var body: some View {
         Button(action: {
-            if loggedIn {
+            if parentViewModel.userController.authStatus == .authorized {
                 parentViewModel.logOut()
-                self.loggedIn = false
             } else {
                 AppController.shared.selectedAppTab = .account
                 dismiss()
@@ -30,7 +23,7 @@ struct LogInOutButton: View {
         }, label: {
             HStack {
                 Spacer()
-                if loggedIn {
+                if parentViewModel.userController.authStatus == .authorized {
                     Text(NSLocalizedString("Log out", comment: ""))
                         .font(.system(size: 17, weight: .medium))
                         .foregroundColor(.primary)

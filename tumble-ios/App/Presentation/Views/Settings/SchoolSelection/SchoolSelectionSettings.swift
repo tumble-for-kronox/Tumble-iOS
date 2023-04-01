@@ -11,17 +11,12 @@ struct SchoolSelectionSettings: View {
     
     @Environment(\.presentationMode) var presentationMode
     let onChangeSchool: (School) -> Void
+    let schools: [School]
     
     var body: some View {
         SchoolSelection(onSelectSchool: { school in
             onChangeSchool(school)
             presentationMode.wrappedValue.dismiss()
-        })
-    }
-}
-
-struct SchoolSelectionSettings_Previews: PreviewProvider {
-    static var previews: some View {
-        SchoolSelectionSettings(onChangeSchool: {_ in})
+        }, schools: schools)
     }
 }
