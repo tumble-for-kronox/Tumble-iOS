@@ -61,7 +61,7 @@ struct Settings: View {
                         SettingsNavLink(title: NSLocalizedString("How to use the app", comment: ""))
                     })
                 }
-                LogInOutButton(parentViewModel: viewModel)
+                LogInOutButton(parentViewModel: viewModel) // Might be a nicer way to do this
             }
         }
         .navigationTitle(NSLocalizedString("Settings", comment: ""))

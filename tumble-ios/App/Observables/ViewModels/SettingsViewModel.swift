@@ -21,6 +21,7 @@ import SwiftUI
     @Published var universityName: String?
     @Published var bookmarks: [Bookmark]?
     @Published var presentSidebarSheet: Bool = false
+    @Published var authenticatedAndSignedIn: Bool = false
     
     var schools: [School] {
         return schoolManager.getSchools()
@@ -30,11 +31,9 @@ import SwiftUI
         self.universityImage = self.preferenceService.getUniversityImage(schools: schools)
         self.universityName = self.preferenceService.getUniversityName(schools: schools)
         self.bookmarks = preferenceService.getBookmarks() ?? []
+        self.authenticatedAndSignedIn = userController.authStatus == .authorized 
     }
     
-    func userAuthenticatedAndSignedIn() -> Bool {
-        return userController.authStatus == .authorized || userController.refreshToken != nil
-    }
     
     func logOut() -> Void {
         userController.logOut(completion: { [unowned self] success in
