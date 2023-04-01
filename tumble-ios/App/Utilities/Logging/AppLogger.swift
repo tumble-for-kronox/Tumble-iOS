@@ -10,5 +10,5 @@ import Logging
 
 /// Basic logger singleton shared globally
 struct AppLogger {
-    static let shared = Logger(label: "com.example.tumble")
+    static let shared = Logger(label: "app.studios.tumble")
 }
