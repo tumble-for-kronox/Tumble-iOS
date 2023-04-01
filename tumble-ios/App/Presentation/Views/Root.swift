@@ -13,11 +13,6 @@ struct Root: View {
     @ObservedObject var viewModel: RootViewModel
     @AppStorage(StoreKey.appearance.rawValue) private var appearance = AppearanceTypes.system.rawValue
     
-    init(viewModel: RootViewModel) {
-        self.viewModel = viewModel
-        UserDefaults.standard.set("sv", forKey: "AppleLanguage")
-    }
-    
     var body: some View {
         ZStack {
             Color(UIColor.systemBackground)
@@ -33,7 +28,6 @@ struct Root: View {
         .preferredColorScheme(getThemeColorScheme())
         .edgesIgnoringSafeArea(.all)
         .ignoresSafeArea(.keyboard)
-        .JMAlert(showModal: $viewModel.showNotificationsPermission, for: [.notification])
     }
     
     func setUserOnBoarded() -> Void {

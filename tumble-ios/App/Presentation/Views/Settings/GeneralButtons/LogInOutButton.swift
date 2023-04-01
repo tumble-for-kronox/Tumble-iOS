@@ -12,11 +12,13 @@ struct LogInOutButton: View {
     @Environment(\.dismiss) var dismiss
     @StateObject var parentViewModel: SettingsViewModel
     
-    @State private var shouldReloadView = false
+    var isAuthorized: Bool {
+        return parentViewModel.userController.authStatus == .authorized
+    }
     
     var body: some View {
         Button(action: {
-            if parentViewModel.userController.authStatus == .authorized {
+            if isAuthorized {
                 parentViewModel.logOut()
             } else {
                 AppController.shared.selectedAppTab = .account
@@ -25,7 +27,7 @@ struct LogInOutButton: View {
         }, label: {
             HStack {
                 Spacer()
-                if parentViewModel.userController.authStatus == .authorized {
+                if isAuthorized {
                     Text(NSLocalizedString("Log out", comment: ""))
                         .font(.system(size: 17, weight: .medium))
                         .foregroundColor(.primary)
@@ -37,9 +39,5 @@ struct LogInOutButton: View {
                 Spacer()
             }
         })
-        .id(shouldReloadView)
-        .onChange(of: parentViewModel.userController.authStatus) { _ in
-            shouldReloadView.toggle()
-        }
     }
 }

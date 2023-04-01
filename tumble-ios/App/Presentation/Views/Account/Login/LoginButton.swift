@@ -24,6 +24,7 @@ struct LoginButton: View {
         .disabled(emptyCredentials())
         .buttonStyle(WideAnimatedButtonStyle())
         .padding(.top, 25)
+        .ignoresSafeArea(.keyboard)
     }
     
     fileprivate func emptyCredentials() -> Bool {

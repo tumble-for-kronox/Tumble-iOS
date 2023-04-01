@@ -16,7 +16,7 @@ struct SearchPage: View {
     let checkForNewSchedules: () -> Void
     
     var body: some View {
-        ZStack {
+        GeometryReader { _ in
             VStack (spacing: 0) {
                 switch viewModel.status {
                     case .initial:
@@ -32,17 +32,14 @@ struct SearchPage: View {
                         Info(title: NSLocalizedString("Schedule is empty", comment: ""), image: nil)
                     }
                 SearchBar(searchBarText: $searchBarText, onSearch: onSearch, onClearSearch: onClearSearch)
-                    
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
-        }
-        .background(Color(UIColor.systemBackground))
-        .sheet(isPresented: $viewModel.presentPreview) {
-            SchedulePreview(
-                parentViewModel: viewModel,
-                courseColors: $viewModel.courseColors,
-                checkForNewSchedules: checkForNewSchedules
-            )
+            .sheet(isPresented: $viewModel.presentPreview) {
+                SchedulePreview(
+                    parentViewModel: viewModel,
+                    courseColors: $viewModel.courseColors,
+                    checkForNewSchedules: checkForNewSchedules
+                )
+            }
         }
     }
     

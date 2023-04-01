@@ -32,12 +32,10 @@ struct AccountLogin: View {
                 LoginSubHeader(schoolName: viewModel.school?.name ?? "")
                 Spacer()
             }
+            .ignoresSafeArea(.keyboard)
             .padding(.horizontal, 15)
             .padding(.top, 20)
-            .background(Color(UIColor.systemBackground))
-            .frame(width: geometry.size.width, height: geometry.size.height) // Set the frame size to match the screen size
         }
-        .ignoresSafeArea(.keyboard)
     }
     
     fileprivate func login() -> Void {

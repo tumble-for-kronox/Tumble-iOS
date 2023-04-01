@@ -22,6 +22,16 @@ class AppDelegate: NSObject, UIApplicationDelegate {
             FirebaseApp.configure()
             Messaging.messaging().delegate = self
             UNUserNotificationCenter.current().delegate = self
+            
+            // Request permission to send remote notifications
+            UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
+                if granted {
+                    DispatchQueue.main.async {
+                        UIApplication.shared.registerForRemoteNotifications()
+                    }
+                }
+            }
+            
             return true
     }
 
