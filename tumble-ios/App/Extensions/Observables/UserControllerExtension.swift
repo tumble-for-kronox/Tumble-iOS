@@ -18,6 +18,7 @@ extension UserController {
                     AppLogger.shared.debug("Successfully deleted \(amount) items from KeyChain")
                     self.user = nil
                     self.authStatus = .unAuthorized
+                    print("Here")
                     completion?(true)
                 case .failure(_):
                     AppLogger.shared.critical("Could not clear user from KeyChain")

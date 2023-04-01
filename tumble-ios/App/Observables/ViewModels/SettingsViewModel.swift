@@ -36,9 +36,8 @@ import SwiftUI
     
     
     func logOut() -> Void {
-        userController.logOut(completion: { [unowned self] success in
+        userController.logOut(completion: { success in
             if success {
-                self.userController.authStatus = .unAuthorized
                 AppLogger.shared.debug("Logged out")
                 AppController.shared.toast = Toast(
                     type: .success,

@@ -10,7 +10,9 @@ import SwiftUI
 struct LogInOutButton: View {
     
     @Environment(\.dismiss) var dismiss
-    @ObservedObject var parentViewModel: SettingsViewModel
+    @StateObject var parentViewModel: SettingsViewModel
+    
+    @State private var shouldReloadView = false
     
     var body: some View {
         Button(action: {
@@ -35,6 +37,9 @@ struct LogInOutButton: View {
                 Spacer()
             }
         })
+        .id(shouldReloadView)
+        .onChange(of: parentViewModel.userController.authStatus) { _ in
+            shouldReloadView.toggle()
+        }
     }
 }
-
