@@ -24,6 +24,9 @@
 		D40E843B2981C85400C2CF2E /* AccountPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40E843A2981C85400C2CF2E /* AccountPage.swift */; };
 		D40E843D2981C8B200C2CF2E /* AccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40E843C2981C8B200C2CF2E /* AccountViewModel.swift */; };
 		D41172B52985DA740082BB4F /* TextFieldExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41172B42985DA740082BB4F /* TextFieldExtensions.swift */; };
+		D41472FD29D832D500050BFF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D41472FC29D832D500050BFF /* Preview Assets.xcassets */; };
+		D414730029D833A400050BFF /* SearchButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41472FF29D833A400050BFF /* SearchButton.swift */; };
+		D414730229D8341E00050BFF /* CloseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D414730129D8341E00050BFF /* CloseButton.swift */; };
 		D416D33529CA2A46009A4FB8 /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D416D33429CA2A46009A4FB8 /* TabBar.swift */; };
 		D416D33729CA2A4F009A4FB8 /* TabBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D416D33629CA2A4F009A4FB8 /* TabBarButton.swift */; };
 		D416D33929CA7C5B009A4FB8 /* CalendarViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D416D33829CA7C5B009A4FB8 /* CalendarViewRepresentable.swift */; };
@@ -144,9 +147,7 @@
 		D476BD2E293A32BF0027CFE8 /* RoundedCornerShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = D476BD2D293A32BF0027CFE8 /* RoundedCornerShape.swift */; };
 		D478452629D64F0F00BDF7A3 /* LanguageTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = D478452529D64F0F00BDF7A3 /* LanguageTypes.swift */; };
 		D47A1AF729C00C0E004F03DB /* HomePageOptionStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47A1AF629C00C0E004F03DB /* HomePageOptionStyle.swift */; };
-		D47A450D29D742FB008626E6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D47A450C29D742FB008626E6 /* GoogleService-Info.plist */; };
 		D47A451029D74929008626E6 /* AppUsage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47A450F29D74929008626E6 /* AppUsage.swift */; };
-		D47A451529D74CFB008626E6 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D47A451429D74CFB008626E6 /* Preview Assets.xcassets */; };
 		D47A451929D75316008626E6 /* LogInOutButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47A451829D75316008626E6 /* LogInOutButton.swift */; };
 		D47A451B29D754B7008626E6 /* AppLanguageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47A451A29D754B7008626E6 /* AppLanguageButton.swift */; };
 		D481F15729CB820D0088C28E /* AvailabilitiesExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D481F15629CB820D0088C28E /* AvailabilitiesExtension.swift */; };
@@ -158,6 +159,7 @@
 		D48CC5A129C7DBF90028179A /* VerboseEventButtonLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48CC5A029C7DBF90028179A /* VerboseEventButtonLabel.swift */; };
 		D48F0D8829367A7F0039CD0F /* CourseColorService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48F0D8729367A7F0039CD0F /* CourseColorService.swift */; };
 		D48F0D8A29367CAF0039CD0F /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48F0D8929367CAF0039CD0F /* Colors.swift */; };
+		D4938BAC29D762AE00029F88 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D4938BAB29D762AD00029F88 /* GoogleService-Info.plist */; };
 		D498290B299D8E3F0017D636 /* Resources.swift in Sources */ = {isa = PBXBuildFile; fileRef = D498290A299D8E3F0017D636 /* Resources.swift */; };
 		D498290D299D910F0017D636 /* RegisteredEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = D498290C299D910F0017D636 /* RegisteredEvents.swift */; };
 		D498290F299D9E7F0017D636 /* RegisteredBookings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D498290E299D9E7F0017D636 /* RegisteredBookings.swift */; };
@@ -252,6 +254,9 @@
 		D40E843A2981C85400C2CF2E /* AccountPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountPage.swift; sourceTree = "<group>"; };
 		D40E843C2981C8B200C2CF2E /* AccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewModel.swift; sourceTree = "<group>"; };
 		D41172B42985DA740082BB4F /* TextFieldExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldExtensions.swift; sourceTree = "<group>"; };
+		D41472FC29D832D500050BFF /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		D41472FF29D833A400050BFF /* SearchButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchButton.swift; sourceTree = "<group>"; };
+		D414730129D8341E00050BFF /* CloseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloseButton.swift; sourceTree = "<group>"; };
 		D416D33429CA2A46009A4FB8 /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
 		D416D33629CA2A4F009A4FB8 /* TabBarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarButton.swift; sourceTree = "<group>"; };
 		D416D33829CA7C5B009A4FB8 /* CalendarViewRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewRepresentable.swift; sourceTree = "<group>"; };
@@ -370,9 +375,7 @@
 		D478452429D64D8800BDF7A3 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D478452529D64F0F00BDF7A3 /* LanguageTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageTypes.swift; sourceTree = "<group>"; };
 		D47A1AF629C00C0E004F03DB /* HomePageOptionStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageOptionStyle.swift; sourceTree = "<group>"; };
-		D47A450C29D742FB008626E6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D47A450F29D74929008626E6 /* AppUsage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUsage.swift; sourceTree = "<group>"; };
-		D47A451429D74CFB008626E6 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		D47A451829D75316008626E6 /* LogInOutButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInOutButton.swift; sourceTree = "<group>"; };
 		D47A451A29D754B7008626E6 /* AppLanguageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLanguageButton.swift; sourceTree = "<group>"; };
 		D47A451C29D75D14008626E6 /* bs-BA */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "bs-BA"; path = "bs-BA.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -385,6 +388,7 @@
 		D48CC5A029C7DBF90028179A /* VerboseEventButtonLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerboseEventButtonLabel.swift; sourceTree = "<group>"; };
 		D48F0D8729367A7F0039CD0F /* CourseColorService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseColorService.swift; sourceTree = "<group>"; };
 		D48F0D8929367CAF0039CD0F /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		D4938BAB29D762AD00029F88 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Documents/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D498290A299D8E3F0017D636 /* Resources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resources.swift; sourceTree = "<group>"; };
 		D498290C299D910F0017D636 /* RegisteredEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisteredEvents.swift; sourceTree = "<group>"; };
 		D498290E299D9E7F0017D636 /* RegisteredBookings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisteredBookings.swift; sourceTree = "<group>"; };
@@ -546,9 +550,9 @@
 		D40D80C829265B85008CA68D /* Search */ = {
 			isa = PBXGroup;
 			children = (
+				D41472FE29D8339200050BFF /* SearchBar */,
 				D476BD28293A31D90027CFE8 /* Preview */,
 				D40D80C929265B98008CA68D /* SearchPage.swift */,
-				D40D80CD29265D49008CA68D /* SearchBar.swift */,
 				D4D4DD022927C7DA0083BB7F /* ProgrammeCard.swift */,
 				D4607644292AC41D00DE9590 /* SearchResults.swift */,
 				D4607646292AE06600DE9590 /* SearchInfo.swift */,
@@ -582,6 +586,16 @@
 				D454DED129D3BAEA005BDAE3 /* Bookmarks */,
 			);
 			path = Settings;
+			sourceTree = "<group>";
+		};
+		D41472FE29D8339200050BFF /* SearchBar */ = {
+			isa = PBXGroup;
+			children = (
+				D40D80CD29265D49008CA68D /* SearchBar.swift */,
+				D41472FF29D833A400050BFF /* SearchButton.swift */,
+				D414730129D8341E00050BFF /* CloseButton.swift */,
+			);
+			path = SearchBar;
 			sourceTree = "<group>";
 		};
 		D416D33329CA29F9009A4FB8 /* TabBar */ = {
@@ -1002,11 +1016,11 @@
 		D4722147292454560063BDB7 /* tumble-ios */ = {
 			isa = PBXGroup;
 			children = (
+				D4938BAD29D762DE00029F88 /* Preview Content */,
 				D47221582924548A0063BDB7 /* App */,
-				D47A451229D74CAA008626E6 /* Preview Content */,
 				D47A451129D74C68008626E6 /* Assets */,
-				D47A450C29D742FB008626E6 /* GoogleService-Info.plist */,
 				D4D4DD212927CFFA0083BB7F /* Info.plist */,
+				D4938BAB29D762AD00029F88 /* GoogleService-Info.plist */,
 				D473870229C895510035CD4C /* tumble-ios.entitlements */,
 			);
 			path = "tumble-ios";
@@ -1093,14 +1107,6 @@
 			path = Assets;
 			sourceTree = "<group>";
 		};
-		D47A451229D74CAA008626E6 /* Preview Content */ = {
-			isa = PBXGroup;
-			children = (
-				D47A451429D74CFB008626E6 /* Preview Assets.xcassets */,
-			);
-			path = "Preview Content";
-			sourceTree = "<group>";
-		};
 		D47A451629D74E5D008626E6 /* ButtonStyles */ = {
 			isa = PBXGroup;
 			children = (
@@ -1152,6 +1158,14 @@
 				D42BAC24298D5EBC0025EAA9 /* Dependencies.swift */,
 			);
 			path = DependencyInjection;
+			sourceTree = "<group>";
+		};
+		D4938BAD29D762DE00029F88 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				D41472FC29D832D500050BFF /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
 			sourceTree = "<group>";
 		};
 		D4982910299DA0400017D636 /* ResourceSection */ = {
@@ -1538,9 +1552,9 @@
 			files = (
 				D4CD0F0529D5DC9D00AB5FD0 /* Localizable.strings in Resources */,
 				D4BAE61929246AA200143717 /* schools.json in Resources */,
-				D47A451529D74CFB008626E6 /* Preview Assets.xcassets in Resources */,
+				D41472FD29D832D500050BFF /* Preview Assets.xcassets in Resources */,
+				D4938BAC29D762AE00029F88 /* GoogleService-Info.plist in Resources */,
 				D472214D292454570063BDB7 /* Assets.xcassets in Resources */,
-				D47A450D29D742FB008626E6 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1675,6 +1689,7 @@
 				D471A90B29C7939E005541FA /* HomePageHeader.swift in Sources */,
 				D476BD2A293A31FD0027CFE8 /* SchedulePreviewList.swift in Sources */,
 				D454DED029D3B953005BDAE3 /* BookmarksSettingsRow.swift in Sources */,
+				D414730229D8341E00050BFF /* CloseButton.swift in Sources */,
 				D46ABF0F29843CF300B059F6 /* PreferenceServiceProtocol.swift in Sources */,
 				D4ABD275298C2EC2002FD8F5 /* PreferenceServiceExtension.swift in Sources */,
 				D4B4B62D29C37C130098D175 /* ProgrammeCardStyle.swift in Sources */,
@@ -1720,6 +1735,7 @@
 				D475627129CE20A700B72008 /* ExamDetailsSheet.swift in Sources */,
 				D41F152B299C699500E13264 /* Events.swift in Sources */,
 				D48CC59F29C7DB6E0028179A /* CompactEventButtonLabel.swift in Sources */,
+				D414730029D833A400050BFF /* SearchButton.swift in Sources */,
 				D49D2500299A9495001D2751 /* UserController.swift in Sources */,
 				D498290B299D8E3F0017D636 /* Resources.swift in Sources */,
 				D4722161292455710063BDB7 /* KronoxManager.swift in Sources */,
@@ -1905,7 +1921,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "tumble-ios/tumble-ios.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -2060,7 +2075,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "tumble-ios/tumble-ios.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -2099,7 +2113,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "tumble-ios/tumble-ios.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;

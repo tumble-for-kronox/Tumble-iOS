@@ -17,35 +17,27 @@ struct SearchBar: View {
     
     var body: some View {
         HStack {
-            Image(systemName: "magnifyingglass")
-                .foregroundColor(.gray)
-                .font(.system(size: 20))
-                .padding(.leading, 5)
+            SearchButton(search: search)
             TextField(NSLocalizedString("Search schedules", comment: ""), text: $searchBarText)
                 .searchBoxText()
                 .onTapGesture {
                     self.animateCloseButtonIntoView()
                 }
-            Button(action: {
-                if (searchBarText.isEmpty) {
-                    hideKeyboard()
-                    self.animateCloseButtonOutOfView()
-                }
-                onClearSearch(searchBarText.isEmpty)
-                searchBarText = ""
-                
-            }) {
-                Image(systemName: "xmark.circle")
-                    .foregroundColor(Color.primary)
-                    .font(.system(size: 20))
-            }
-            .offset(x: closeButtonOffset)
+            CloseButton(
+                onClearSearch: onClearSearch,
+                animateCloseButtonOutOfView: animateCloseButtonOutOfView,
+                closeButtonOffset: $closeButtonOffset,
+                searchBarText: $searchBarText)
         }
         .searchBox()
         .onSubmit {
-            if searchBoxNotEmpty() {
-                onSearch(searchBarText)
-            }
+            search()
+        }
+    }
+    
+    func search() -> Void {
+        if searchBoxNotEmpty() {
+            onSearch(searchBarText)
         }
     }
     
