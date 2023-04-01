@@ -32,6 +32,9 @@ struct HomePage: View {
                 domain: $domain,
                 collapsedHeader: $collapsedHeader
             )
+            if !collapsedHeader {
+                PullToRefreshIndicator()
+            }
             ScrollView (showsIndicators: false) {
                 Refreshable(coordinateSpaceName: scrollSpace, onRefresh: {
                     viewModel.getNews()

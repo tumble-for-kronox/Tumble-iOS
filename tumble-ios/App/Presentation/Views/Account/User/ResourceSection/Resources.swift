@@ -37,6 +37,8 @@ struct Resources: View {
             ScrollViewReader { proxy in
                 Refreshable(coordinateSpaceName: scrollSpace, onRefresh: getResourcesAndEvents)
                 VStack {
+                    PullToRefreshIndicator()
+                    .padding(.bottom, -15)
                     ResourceSectionDivider (title: NSLocalizedString("User options", comment: "")) {
                         Toggle(isOn: $isAutoSignupEnabled) {
                             Text(NSLocalizedString("Automatic exam signup", comment: ""))

@@ -51,6 +51,7 @@
 		D414730229D8341E00050BFF /* CloseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D414730129D8341E00050BFF /* CloseButton.swift */; };
 		D414B22F29D86E7E00EA8F46 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D414B22E29D86E7E00EA8F46 /* GoogleService-Info.plist */; };
 		D414B23229D870B300EA8F46 /* PermissionsSwiftUINotification in Frameworks */ = {isa = PBXBuildFile; productRef = D414B23129D870B300EA8F46 /* PermissionsSwiftUINotification */; };
+		D414B23429D88C1100EA8F46 /* PullToRefreshIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D414B23329D88C1100EA8F46 /* PullToRefreshIndicator.swift */; };
 		D416D33529CA2A46009A4FB8 /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D416D33429CA2A46009A4FB8 /* TabBar.swift */; };
 		D416D33729CA2A4F009A4FB8 /* TabBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D416D33629CA2A4F009A4FB8 /* TabBarButton.swift */; };
 		D416D33929CA7C5B009A4FB8 /* CalendarViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D416D33829CA7C5B009A4FB8 /* CalendarViewRepresentable.swift */; };
@@ -294,6 +295,7 @@
 		D41472FF29D833A400050BFF /* SearchButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchButton.swift; sourceTree = "<group>"; };
 		D414730129D8341E00050BFF /* CloseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloseButton.swift; sourceTree = "<group>"; };
 		D414B22E29D86E7E00EA8F46 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Documents/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		D414B23329D88C1100EA8F46 /* PullToRefreshIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullToRefreshIndicator.swift; sourceTree = "<group>"; };
 		D416D33429CA2A46009A4FB8 /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
 		D416D33629CA2A4F009A4FB8 /* TabBarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarButton.swift; sourceTree = "<group>"; };
 		D416D33829CA7C5B009A4FB8 /* CalendarViewRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewRepresentable.swift; sourceTree = "<group>"; };
@@ -598,6 +600,7 @@
 				D4CF9B2B293572BE00DDB5F0 /* Info.swift */,
 				D46BB117298B21DA00887A24 /* InfoLoading.swift */,
 				D4040EC329D310A800613144 /* Refreshable.swift */,
+				D414B23329D88C1100EA8F46 /* PullToRefreshIndicator.swift */,
 			);
 			path = General;
 			sourceTree = "<group>";
@@ -1678,6 +1681,7 @@
 				D4BAE5F82924636500143717 /* School.swift in Sources */,
 				D430F74729C654A200E30E48 /* BookmarkCalendarDetail.swift in Sources */,
 				D4BAE61C29246AF800143717 /* SchoolRow.swift in Sources */,
+				D414B23429D88C1100EA8F46 /* PullToRefreshIndicator.swift in Sources */,
 				D4A328DE29CD10F300945AF4 /* NetworkUtilities.swift in Sources */,
 				D40D808929247123008CA68D /* Root.swift in Sources */,
 				D4982913299DA07F0017D636 /* ResourceCard.swift in Sources */,
