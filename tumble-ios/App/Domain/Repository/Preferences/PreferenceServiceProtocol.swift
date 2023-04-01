@@ -14,8 +14,6 @@ protocol PreferenceServiceProtocol {
     
     func setUserOnboarded() -> Void
     
-    func setProfileImage(image: UIImage?, forKey key: String) -> Void
-    
     func setOffset(offset: Int) -> Void
     
     func setBookmarks(bookmark: String) -> Void

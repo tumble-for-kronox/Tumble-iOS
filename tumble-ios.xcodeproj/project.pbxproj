@@ -49,7 +49,8 @@
 		D41472FD29D832D500050BFF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D41472FC29D832D500050BFF /* Preview Assets.xcassets */; };
 		D414730029D833A400050BFF /* SearchButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41472FF29D833A400050BFF /* SearchButton.swift */; };
 		D414730229D8341E00050BFF /* CloseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D414730129D8341E00050BFF /* CloseButton.swift */; };
-		D414730429D8539F00050BFF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D414730329D8539F00050BFF /* GoogleService-Info.plist */; };
+		D414B22F29D86E7E00EA8F46 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D414B22E29D86E7E00EA8F46 /* GoogleService-Info.plist */; };
+		D414B23229D870B300EA8F46 /* PermissionsSwiftUINotification in Frameworks */ = {isa = PBXBuildFile; productRef = D414B23129D870B300EA8F46 /* PermissionsSwiftUINotification */; };
 		D416D33529CA2A46009A4FB8 /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D416D33429CA2A46009A4FB8 /* TabBar.swift */; };
 		D416D33729CA2A4F009A4FB8 /* TabBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D416D33629CA2A4F009A4FB8 /* TabBarButton.swift */; };
 		D416D33929CA7C5B009A4FB8 /* CalendarViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D416D33829CA7C5B009A4FB8 /* CalendarViewRepresentable.swift */; };
@@ -104,9 +105,6 @@
 		D4462C3029858A280067DA65 /* TextExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4462C2F29858A280067DA65 /* TextExtensions.swift */; };
 		D4462C3229858A7D0067DA65 /* ImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4462C3129858A7D0067DA65 /* ImageExtensions.swift */; };
 		D448E76429D6E43300C56F93 /* OnBoardingUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D448E76329D6E43300C56F93 /* OnBoardingUITests.swift */; };
-		D448E76E29D6E91E00C56F93 /* CorePermissionsSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = D448E76D29D6E91E00C56F93 /* CorePermissionsSwiftUI */; };
-		D448E77029D6E91E00C56F93 /* PermissionsSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = D448E76F29D6E91E00C56F93 /* PermissionsSwiftUI */; };
-		D448E77229D6E91E00C56F93 /* PermissionsSwiftUINotification in Frameworks */ = {isa = PBXBuildFile; productRef = D448E77129D6E91E00C56F93 /* PermissionsSwiftUINotification */; };
 		D44ABF0729BFE89D00344792 /* SchoolRowStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44ABF0629BFE89D00344792 /* SchoolRowStyle.swift */; };
 		D44FBFEB29CB1CC500CAAD39 /* ResourceDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44FBFEA29CB1CC500CAAD39 /* ResourceDatePicker.swift */; };
 		D45338F629280E8400198411 /* ScheduleExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45338F529280E8400198411 /* ScheduleExtensions.swift */; };
@@ -189,7 +187,6 @@
 		D49B985229CF47700023DF75 /* KeyChainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49B985129CF47700023DF75 /* KeyChainManager.swift */; };
 		D49B985429CF47C60023DF75 /* KeyChainManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49B985329CF47C60023DF75 /* KeyChainManagerProtocol.swift */; };
 		D49D2500299A9495001D2751 /* UserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49D24FF299A9495001D2751 /* UserController.swift */; };
-		D49D2502299AC240001D2751 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49D2501299AC240001D2751 /* ImagePicker.swift */; };
 		D49FCAD629CFCA5400E3CE6E /* ResourceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49FCAD529CFCA5400E3CE6E /* ResourceViewModel.swift */; };
 		D4A328DE29CD10F300945AF4 /* NetworkUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A328DD29CD10F300945AF4 /* NetworkUtilities.swift */; };
 		D4A433B829951F2B00BFEB7A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A433B729951F2B00BFEB7A /* AppDelegate.swift */; };
@@ -215,10 +212,6 @@
 		D4CE2DBD2982E55200B81052 /* NavigationbarSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CE2DBC2982E55200B81052 /* NavigationbarSearch.swift */; };
 		D4CF9B2A2935634800DDB5F0 /* SearchError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CF9B292935634800DDB5F0 /* SearchError.swift */; };
 		D4CF9B2C293572BE00DDB5F0 /* Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CF9B2B293572BE00DDB5F0 /* Info.swift */; };
-		D4D29963299B0D42003B8C65 /* PermissionsSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = D4D29962299B0D42003B8C65 /* PermissionsSwiftUI */; };
-		D4D29965299B0D42003B8C65 /* PermissionsSwiftUICamera in Frameworks */ = {isa = PBXBuildFile; productRef = D4D29964299B0D42003B8C65 /* PermissionsSwiftUICamera */; };
-		D4D29967299B0D42003B8C65 /* PermissionsSwiftUINotification in Frameworks */ = {isa = PBXBuildFile; productRef = D4D29966299B0D42003B8C65 /* PermissionsSwiftUINotification */; };
-		D4D29969299B0D42003B8C65 /* PermissionsSwiftUIPhoto in Frameworks */ = {isa = PBXBuildFile; productRef = D4D29968299B0D42003B8C65 /* PermissionsSwiftUIPhoto */; };
 		D4D4CD17299CE57C00D48180 /* EventCardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D4CD16299CE57C00D48180 /* EventCardButton.swift */; };
 		D4D4CD1A299CE5FF00D48180 /* SectionDivider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D4CD19299CE5FF00D48180 /* SectionDivider.swift */; };
 		D4D4DD032927C7DA0083BB7F /* ProgrammeCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D4DD022927C7DA0083BB7F /* ProgrammeCard.swift */; };
@@ -300,7 +293,7 @@
 		D41472FC29D832D500050BFF /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		D41472FF29D833A400050BFF /* SearchButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchButton.swift; sourceTree = "<group>"; };
 		D414730129D8341E00050BFF /* CloseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloseButton.swift; sourceTree = "<group>"; };
-		D414730329D8539F00050BFF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Documents/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		D414B22E29D86E7E00EA8F46 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Documents/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D416D33429CA2A46009A4FB8 /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
 		D416D33629CA2A4F009A4FB8 /* TabBarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarButton.swift; sourceTree = "<group>"; };
 		D416D33829CA7C5B009A4FB8 /* CalendarViewRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewRepresentable.swift; sourceTree = "<group>"; };
@@ -439,7 +432,6 @@
 		D49B985129CF47700023DF75 /* KeyChainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChainManager.swift; sourceTree = "<group>"; };
 		D49B985329CF47C60023DF75 /* KeyChainManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChainManagerProtocol.swift; sourceTree = "<group>"; };
 		D49D24FF299A9495001D2751 /* UserController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserController.swift; sourceTree = "<group>"; };
-		D49D2501299AC240001D2751 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		D49FCAD529CFCA5400E3CE6E /* ResourceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceViewModel.swift; sourceTree = "<group>"; };
 		D4A328DD29CD10F300945AF4 /* NetworkUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkUtilities.swift; sourceTree = "<group>"; };
 		D4A433B729951F2B00BFEB7A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -500,9 +492,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D448E76E29D6E91E00C56F93 /* CorePermissionsSwiftUI in Frameworks */,
-				D448E77029D6E91E00C56F93 /* PermissionsSwiftUI in Frameworks */,
-				D448E77229D6E91E00C56F93 /* PermissionsSwiftUINotification in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -511,12 +500,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				D473870129C88E4F0035CD4C /* FirebaseMessaging in Frameworks */,
-				D4D29967299B0D42003B8C65 /* PermissionsSwiftUINotification in Frameworks */,
-				D4D29965299B0D42003B8C65 /* PermissionsSwiftUICamera in Frameworks */,
 				D47386FF29C88E4F0035CD4C /* FirebaseAnalytics in Frameworks */,
-				D4D29969299B0D42003B8C65 /* PermissionsSwiftUIPhoto in Frameworks */,
+				D414B23229D870B300EA8F46 /* PermissionsSwiftUINotification in Frameworks */,
 				D4607637292AA8DE00DE9590 /* PopupView in Frameworks */,
-				D4D29963299B0D42003B8C65 /* PermissionsSwiftUI in Frameworks */,
 				D430F74329C615DC00E30E48 /* FSCalendar in Frameworks */,
 				D42BAC1C298D3D590025EAA9 /* Logging in Frameworks */,
 			);
@@ -759,7 +745,6 @@
 				D4644A24298DAA3F00B0BB28 /* Notifications */,
 				D46ABF0729843A4600B059F6 /* DataSource */,
 				D41ADFE5299F8D230074E2C7 /* Constants */,
-				D49D2503299AC25A001D2751 /* Resources */,
 				D41ED546298433AA009DCF8B /* Repository */,
 			);
 			path = Data;
@@ -1137,7 +1122,7 @@
 				D47A451129D74C68008626E6 /* Assets */,
 				D47221582924548A0063BDB7 /* App */,
 				D4D4DD212927CFFA0083BB7F /* Info.plist */,
-				D414730329D8539F00050BFF /* GoogleService-Info.plist */,
+				D414B22E29D86E7E00EA8F46 /* GoogleService-Info.plist */,
 				D473870229C895510035CD4C /* tumble-ios.entitlements */,
 			);
 			path = "tumble-ios";
@@ -1331,14 +1316,6 @@
 				D49D24FF299A9495001D2751 /* UserController.swift */,
 			);
 			path = Controllers;
-			sourceTree = "<group>";
-		};
-		D49D2503299AC25A001D2751 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				D49D2501299AC240001D2751 /* ImagePicker.swift */,
-			);
-			path = Resources;
 			sourceTree = "<group>";
 		};
 		D4A550CD299454E900028BCF /* Storage */ = {
@@ -1571,9 +1548,6 @@
 			);
 			name = "tumble-iosUITests";
 			packageProductDependencies = (
-				D448E76D29D6E91E00C56F93 /* CorePermissionsSwiftUI */,
-				D448E76F29D6E91E00C56F93 /* PermissionsSwiftUI */,
-				D448E77129D6E91E00C56F93 /* PermissionsSwiftUINotification */,
 			);
 			productName = "tumble-iosUITests";
 			productReference = D448E76129D6E43300C56F93 /* tumble-iosUITests.xctest */;
@@ -1595,13 +1569,10 @@
 			packageProductDependencies = (
 				D4607636292AA8DE00DE9590 /* PopupView */,
 				D42BAC1B298D3D590025EAA9 /* Logging */,
-				D4D29962299B0D42003B8C65 /* PermissionsSwiftUI */,
-				D4D29964299B0D42003B8C65 /* PermissionsSwiftUICamera */,
-				D4D29966299B0D42003B8C65 /* PermissionsSwiftUINotification */,
-				D4D29968299B0D42003B8C65 /* PermissionsSwiftUIPhoto */,
 				D430F74229C615DC00E30E48 /* FSCalendar */,
 				D47386FE29C88E4F0035CD4C /* FirebaseAnalytics */,
 				D473870029C88E4F0035CD4C /* FirebaseMessaging */,
+				D414B23129D870B300EA8F46 /* PermissionsSwiftUINotification */,
 			);
 			productName = "tumble-ios";
 			productReference = D4722145292454560063BDB7 /* tumble-ios.app */;
@@ -1643,9 +1614,9 @@
 			packageReferences = (
 				D4607635292AA8DE00DE9590 /* XCRemoteSwiftPackageReference "PopupView" */,
 				D42BAC1A298D3D590025EAA9 /* XCRemoteSwiftPackageReference "swift-log" */,
-				D4D29961299B0D42003B8C65 /* XCRemoteSwiftPackageReference "PermissionsSwiftUI" */,
 				D430F74129C615DC00E30E48 /* XCRemoteSwiftPackageReference "FSCalendar" */,
 				D47386FD29C88E4F0035CD4C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				D414B23029D870B300EA8F46 /* XCRemoteSwiftPackageReference "PermissionsSwiftUI" */,
 			);
 			productRefGroup = D4722146292454560063BDB7 /* Products */;
 			projectDirPath = "";
@@ -1671,7 +1642,7 @@
 			files = (
 				D4CD0F0529D5DC9D00AB5FD0 /* Localizable.strings in Resources */,
 				D4BAE61929246AA200143717 /* schools.json in Resources */,
-				D414730429D8539F00050BFF /* GoogleService-Info.plist in Resources */,
+				D414B22F29D86E7E00EA8F46 /* GoogleService-Info.plist in Resources */,
 				D41472FD29D832D500050BFF /* Preview Assets.xcassets in Resources */,
 				D472214D292454570063BDB7 /* Assets.xcassets in Resources */,
 			);
@@ -1838,7 +1809,6 @@
 				D454203E29BE914800EF0FC9 /* EventDetailsPillStyle.swift in Sources */,
 				D4607653292AF5DA00DE9590 /* DayHeader.swift in Sources */,
 				D430F73E29C60DC500E30E48 /* VerboseButtonStyle.swift in Sources */,
-				D49D2502299AC240001D2751 /* ImagePicker.swift in Sources */,
 				D49FCAD629CFCA5400E3CE6E /* ResourceViewModel.swift in Sources */,
 				D419EDF6299A78C400479DCE /* ResourceSectionDivider.swift in Sources */,
 				D40D80A629252165008CA68D /* ViewExtensions.swift in Sources */,
@@ -2082,16 +2052,16 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 2.1.3;
 				NETWORK_SETTINGS = testing;
-				PRODUCT_BUNDLE_IDENTIFIER = app.studios.tumble;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.tumble;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = "Debug copy";
 		};
@@ -2236,16 +2206,16 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 2.1.3;
 				NETWORK_SETTINGS = testing;
-				PRODUCT_BUNDLE_IDENTIFIER = app.studios.tumble;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.tumble;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -2274,16 +2244,16 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 2.1.3;
 				NETWORK_SETTINGS = production;
-				PRODUCT_BUNDLE_IDENTIFIER = app.studios.tumble;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.tumble;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -2323,6 +2293,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		D414B23029D870B300EA8F46 /* XCRemoteSwiftPackageReference "PermissionsSwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/jevonmao/PermissionsSwiftUI.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		D42BAC1A298D3D590025EAA9 /* XCRemoteSwiftPackageReference "swift-log" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apple/swift-log";
@@ -2355,17 +2333,14 @@
 				minimumVersion = 9.0.0;
 			};
 		};
-		D4D29961299B0D42003B8C65 /* XCRemoteSwiftPackageReference "PermissionsSwiftUI" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/jevonmao/PermissionsSwiftUI.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		D414B23129D870B300EA8F46 /* PermissionsSwiftUINotification */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D414B23029D870B300EA8F46 /* XCRemoteSwiftPackageReference "PermissionsSwiftUI" */;
+			productName = PermissionsSwiftUINotification;
+		};
 		D42BAC1B298D3D590025EAA9 /* Logging */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D42BAC1A298D3D590025EAA9 /* XCRemoteSwiftPackageReference "swift-log" */;
@@ -2375,21 +2350,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D430F74129C615DC00E30E48 /* XCRemoteSwiftPackageReference "FSCalendar" */;
 			productName = FSCalendar;
-		};
-		D448E76D29D6E91E00C56F93 /* CorePermissionsSwiftUI */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D4D29961299B0D42003B8C65 /* XCRemoteSwiftPackageReference "PermissionsSwiftUI" */;
-			productName = CorePermissionsSwiftUI;
-		};
-		D448E76F29D6E91E00C56F93 /* PermissionsSwiftUI */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D4D29961299B0D42003B8C65 /* XCRemoteSwiftPackageReference "PermissionsSwiftUI" */;
-			productName = PermissionsSwiftUI;
-		};
-		D448E77129D6E91E00C56F93 /* PermissionsSwiftUINotification */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D4D29961299B0D42003B8C65 /* XCRemoteSwiftPackageReference "PermissionsSwiftUI" */;
-			productName = PermissionsSwiftUINotification;
 		};
 		D4607636292AA8DE00DE9590 /* PopupView */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -2405,26 +2365,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D47386FD29C88E4F0035CD4C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseMessaging;
-		};
-		D4D29962299B0D42003B8C65 /* PermissionsSwiftUI */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D4D29961299B0D42003B8C65 /* XCRemoteSwiftPackageReference "PermissionsSwiftUI" */;
-			productName = PermissionsSwiftUI;
-		};
-		D4D29964299B0D42003B8C65 /* PermissionsSwiftUICamera */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D4D29961299B0D42003B8C65 /* XCRemoteSwiftPackageReference "PermissionsSwiftUI" */;
-			productName = PermissionsSwiftUICamera;
-		};
-		D4D29966299B0D42003B8C65 /* PermissionsSwiftUINotification */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D4D29961299B0D42003B8C65 /* XCRemoteSwiftPackageReference "PermissionsSwiftUI" */;
-			productName = PermissionsSwiftUINotification;
-		};
-		D4D29968299B0D42003B8C65 /* PermissionsSwiftUIPhoto */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D4D29961299B0D42003B8C65 /* XCRemoteSwiftPackageReference "PermissionsSwiftUI" */;
-			productName = PermissionsSwiftUIPhoto;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
