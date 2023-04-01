@@ -10,7 +10,7 @@ import SwiftUI
 struct RegisteredEvents: View {
     
     let onClickEvent: (Response.AvailableKronoxUserEvent) -> Void
-    @Binding var state: PageState
+    @Binding var state: GenericPageStatus
     let registeredEvents: [Response.AvailableKronoxUserEvent]?
     
     var body: some View {

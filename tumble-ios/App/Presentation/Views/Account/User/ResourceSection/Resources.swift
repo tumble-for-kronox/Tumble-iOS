@@ -25,7 +25,7 @@ struct Resources: View {
         createToast: @escaping (ToastStyle, String, String) -> Void,
         collapsedHeader: Binding<Bool>
     ) {
-        self._isAutoSignupEnabled = State(initialValue: parentViewModel.userController.autoSignup)
+        self._isAutoSignupEnabled = State(initialValue: parentViewModel.autoSignupEnabled)
         self.parentViewModel = parentViewModel
         self.getResourcesAndEvents = getResourcesAndEvents
         self.createToast = createToast
@@ -84,6 +84,9 @@ struct Resources: View {
                                     value: offset)
                 })
             }
+        }
+        .onAppear {
+            getResourcesAndEvents()
         }
         .coordinateSpace(name: scrollSpace)
         .onPreferenceChange(ResourcesScrollViewOffsetPreferenceKey.self, perform: handleScroll)

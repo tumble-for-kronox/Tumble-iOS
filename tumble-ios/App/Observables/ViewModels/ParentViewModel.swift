@@ -20,6 +20,7 @@ import SwiftUI
     @Inject var preferenceService: PreferenceService
     @Inject var notificationManager: NotificationManager
     @Inject var userController: UserController
+    @Inject var schoolManager: SchoolManager
     
     @Published var kronoxUrl: String?
     @Published var canvasUrl: String?
@@ -33,6 +34,9 @@ import SwiftUI
     let searchViewModel: SearchViewModel
     let settingsViewModel: SettingsViewModel
 
+    var schools: [School] {
+        return schoolManager.getSchools()
+    }
     
     init() {
         
@@ -43,22 +47,25 @@ import SwiftUI
         self.searchViewModel = viewModelFactory.makeViewModelSearch()
         self.settingsViewModel = viewModelFactory.makeViewModelSettings()
         
-        self.canvasUrl = preferenceService.getCanvasUrl()
-        self.kronoxUrl = preferenceService.getUniversityKronoxUrl()
-        self.domain = preferenceService.getUniversityDomain()
-        self.universityImage = preferenceService.getUniversityImage()
-        self.universityName = preferenceService.getUniversityName()
+        self.canvasUrl = preferenceService.getCanvasUrl(schools: schools)
+        self.kronoxUrl = preferenceService.getUniversityKronoxUrl(schools: schools)
+        self.domain = preferenceService.getUniversityDomain(schools: schools)
+        self.universityImage = preferenceService.getUniversityImage(schools: schools)
+        self.universityName = preferenceService.getUniversityName(schools: schools)
         
     }
     
+    func logOutUser() -> Void {
+        userController.logOut()
+    }
     
     func updateLocalsAndChildViews() -> Void {
         AppLogger.shared.debug("Updating child views and local university specifics")
-        self.kronoxUrl = preferenceService.getUniversityKronoxUrl()
-        self.canvasUrl = preferenceService.getCanvasUrl()
-        self.domain = preferenceService.getUniversityDomain()
-        self.universityImage = preferenceService.getUniversityImage()
-        self.universityName = preferenceService.getUniversityName()
+        self.kronoxUrl = preferenceService.getUniversityKronoxUrl(schools: schools)
+        self.canvasUrl = preferenceService.getCanvasUrl(schools: schools)
+        self.domain = preferenceService.getUniversityDomain(schools: schools)
+        self.universityImage = preferenceService.getUniversityImage(schools: schools)
+        self.universityName = preferenceService.getUniversityName(schools: schools)
         self.searchViewModel.update()
         self.bookmarksViewModel.updateViewLocals()
         self.settingsViewModel.updateViewLocals()
@@ -83,10 +90,10 @@ import SwiftUI
     func removeSchedule(id: String, completion: @escaping (Bool) -> Void) -> Void {
         scheduleService.remove(scheduleId: id) { result in
             switch result {
-            case .success(_):
+            case .success:
                 AppLogger.shared.debug("Schedule '\(id)' successfully removed")
                 completion(true)
-            case .failure(_):
+            case .failure:
                 AppLogger.shared.critical("Schedule '\(id)' could not be removed")
                 completion(false)
             }
@@ -94,7 +101,7 @@ import SwiftUI
     }
     
     func changeSchool(school: School, closure: @escaping (Bool) -> Void) -> Void {
-        if school == self.preferenceService.getDefaultSchool() {
+        if school.id == self.preferenceService.getDefaultSchool() {
             closure(false)
         } else {
             self.preferenceService.setSchool(id: school.id, closure: { [weak self] in
@@ -113,45 +120,5 @@ import SwiftUI
     
     func getSearchViewModel() -> SearchViewModel {
         return viewModelFactory.makeViewModelSearch()
-    }
-}
-
-
-
-
-extension ParentViewModel {
-    
-    fileprivate func removeAllCourseColors(completion: @escaping () -> Void) -> Void {
-        self.courseColorService.removeAll { result in
-            switch result {
-            case .failure(let error):
-                // TODO: Add error message for user
-                AppLogger.shared.critical("Could not remove course colors: \(error)")
-            case .success:
-                // TODO: Add success message for user
-                AppLogger.shared.debug("Removed all course colors from local storage")
-                completion()
-            }
-        }
-    }
-    
-    
-    fileprivate func removeAllSchedules(completion: @escaping () -> Void) -> Void {
-        scheduleService.removeAll { result in
-            switch result {
-            case .failure(let error):
-                // TODO: Add error message for user
-                AppLogger.shared.critical("Could not remove schedules: \(error)")
-            case .success:
-                // TODO: Add success message for user
-                AppLogger.shared.debug("Removed all schedules from local storage")
-                completion()
-            }
-        }
-    }
-    
-    fileprivate func cancelAllNotifications(completion: @escaping () -> Void) -> Void {
-        notificationManager.cancelNotifications()
-        completion()
     }
 }

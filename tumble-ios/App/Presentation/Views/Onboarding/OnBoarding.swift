@@ -11,6 +11,7 @@ import PermissionsSwiftUINotification
 typealias UpdateUserOnBoarded = () -> Void
 
 struct OnBoarding: View {
+    
     @ObservedObject var viewModel: OnBoardingViewModel
     @State private var viewedTab: Int = 0
     @State private var animateButton: Bool = true
@@ -65,7 +66,9 @@ struct OnBoarding: View {
                     OnBoardingViewBuilder (
                         header: NSLocalizedString("All done", comment: ""),
                         subHeader: NSLocalizedString("Now we'll leave you to it. First, choose your university.", comment: "")) {
-                        SchoolSelection(onSelectSchool: onSelectSchool)
+                        SchoolSelection(
+                            onSelectSchool: onSelectSchool,
+                            schools: viewModel.schools)
                     }.tag(6)
                 }
                 .tabViewStyle(.page)

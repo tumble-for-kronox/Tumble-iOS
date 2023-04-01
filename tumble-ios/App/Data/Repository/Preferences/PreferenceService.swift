@@ -107,12 +107,20 @@ class PreferenceService: PreferenceServiceProtocol {
         return BookmarksViewType.allValues[viewType]
     }
     
-    func getDefaultSchool() -> School? {
+    func getDefaultSchoolName(schools: [School]) -> School? {
         let id: Int = self.getDefault(key: StoreKey.school.rawValue) as? Int ?? -1
         if id == -1 {
             return nil
         }
         return schools.first(where: {$0.id == id})!
+    }
+    
+    func getDefaultSchool() -> Int? {
+        let id: Int = UserDefaults.standard.object(forKey: StoreKey.school.rawValue) as? Int ?? -1
+        if id == -1 {
+            return nil
+        }
+        return id
     }
     
     func getNotificationOffset() -> Int {

@@ -49,7 +49,7 @@ struct AccountLogin: View {
             createToast(
                 .success,
                 NSLocalizedString("Logged in", comment: ""),
-                String(format: NSLocalizedString("Successfully logged in as %@", comment: ""), viewModel.userController.user?.username ?? username)
+                String(format: NSLocalizedString("Successfully logged in as %@", comment: ""), viewModel.username ?? username)
             )
         } else {
             createToast(

@@ -43,7 +43,7 @@ struct HomePageHeader: View {
                     ExternalLinkPill(
                         title: "Ladok",
                         image: "link",
-                        url: URL(string: ladokUrl),
+                        url: URL(string: parentViewModel.ladokUrl),
                         collapsedHeader: $collapsedHeader
                     )
                 }

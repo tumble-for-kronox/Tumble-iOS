@@ -15,21 +15,25 @@ import SwiftUI
     @Inject var scheduleService: ScheduleService
     @Inject var courseColorService: CourseColorService
     @Inject var networkManager: KronoxManager
+    @Inject var schoolManager: SchoolManager
     
     @Published var eventSheet: EventDetailsSheetModel? = nil
-    @Published var bookmarkedEventsSectionStatus: PageState = .loading
-    @Published var newsSectionStatus: PageState = .loading
+    @Published var bookmarkedEventsSectionStatus: GenericPageStatus = .loading
+    @Published var newsSectionStatus: GenericPageStatus = .loading
     @Published var news: Response.NewsItems? = nil
     @Published var eventsForWeek: [Response.Event]? = nil
     @Published var eventsForToday: [Response.Event]? = nil
     @Published var courseColors: CourseAndColorDict? = nil
     
     private let viewModelFactory: ViewModelFactory = ViewModelFactory.shared
-    private let dateFormatter = ISO8601DateFormatter()
     
     init() {
         self.getEventsForWeek()
         self.getNews()
+    }
+    
+    var ladokUrl: String {
+        return schoolManager.getLadokUrl()
     }
     
     func updateViewLocals() -> Void {
@@ -37,12 +41,12 @@ import SwiftUI
     }
     
     func makeCanvasUrl() -> URL? {
-        return URL(string: preferenceService.getCanvasUrl() ?? "")
+        return URL(string: preferenceService.getCanvasUrl(schools: schoolManager.getSchools()) ?? "")
     }
     
     
     func makeUniversityUrl() -> URL? {
-        return URL(string: preferenceService.getUniversityUrl() ?? "")
+        return URL(string: preferenceService.getUniversityUrl(schools: schoolManager.getSchools()) ?? "")
     }
     
     func generateViewModelEventSheet(event: Response.Event, color: Color) -> EventDetailsSheetViewModel {
@@ -99,38 +103,4 @@ import SwiftUI
             }
         }, hiddenBookmarks: hiddenBookmarks)
     }
-}
-
-extension HomeViewModel {
-    
-    fileprivate func filterEventsMatchingToday(events: [Response.Event]) -> [Response.Event] {
-        let now = Date()
-        let calendar = Calendar.current
-        let currentDayOfYear = calendar.ordinality(of: .day, in: .year, for: now) ?? 1
-        let filteredEvents = events.filter { [weak self] event in
-            guard let self = self else { return false }
-            guard let date = self.dateFormatter.date(from: event.from) else { return false }
-            let dayOfYear = calendar.ordinality(of: .day, in: .year, for: date) ?? 1
-            return dayOfYear == currentDayOfYear
-        }
-
-        return filteredEvents
-    }
-    
-    fileprivate func loadCourseColors(completion: @escaping ([String : String]) -> Void) -> Void {
-        self.courseColorService.load { [weak self] result in
-            guard let self = self else { return }
-
-            switch result {
-            case .success(let courseColors):
-                completion(courseColors)
-            case .failure(let failure):
-                DispatchQueue.main.async {
-                    self.bookmarkedEventsSectionStatus = .error
-                }
-                AppLogger.shared.debug("Error occured loading colors -> \(failure.localizedDescription)")
-            }
-        }
-    }
-    
 }

@@ -104,7 +104,7 @@ struct AppParent: View {
                     title: NSLocalizedString("New school", comment: ""),
                     message: String(format: NSLocalizedString("Set %@ to default", comment: ""), school.name))
                 viewModel.updateLocalsAndChildViews()
-                viewModel.userController.logOut()
+                viewModel.logOutUser()
             } else {
                 appController.toast = Toast(
                     type: .info,

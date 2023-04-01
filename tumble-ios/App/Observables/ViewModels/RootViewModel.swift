@@ -7,14 +7,9 @@
 
 import Foundation
 
-enum RootViewStatus {
-    case onboarding
-    case app
-}
-
 @MainActor final class RootViewModel: ObservableObject {
     
-    @Inject var authManager: AuthManager
+    @Inject private var authManager: AuthManager
     
     let viewModelFactory: ViewModelFactory = ViewModelFactory.shared
     

@@ -15,7 +15,7 @@ struct AccountPage: View {
     
     var body: some View {
         VStack (alignment: .center) {
-            if userAuthenticatedAndSignedIn() {
+            if viewModel.userAuthenticatedAndSignedIn() {
                 UserOverview(viewModel: viewModel, schoolName: viewModel.school?.name ?? "", createToast: createToast)
             } else {
                 if viewModel.status == .loading {
@@ -30,10 +30,5 @@ struct AccountPage: View {
         .background(Color(UIColor.systemBackground))
         .padding(.bottom, -10)
     }
-    
-    fileprivate func userAuthenticatedAndSignedIn() -> Bool {
-        return viewModel.userController.authStatus == .authorized || viewModel.userController.refreshToken != nil
-    }
-    
 }
 

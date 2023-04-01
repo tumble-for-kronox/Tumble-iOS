@@ -13,16 +13,17 @@ import Foundation
     @Inject var networkManager: KronoxManager
     @Inject var notificationManager: NotificationManager
     @Inject var preferenceService: PreferenceService
+    @Inject var schoolManager: SchoolManager
     
     @Published var school: School?
     @Published var completeUserEvent: Response.KronoxCompleteUserEvent? = nil
     @Published var allResources: Response.KronoxResources? = nil
-    @Published var resourceBookingPageState: PageState = .loading
-    @Published var eventBookingPageState: PageState = .loading
+    @Published var resourceBookingPageState: GenericPageStatus = .loading
+    @Published var eventBookingPageState: GenericPageStatus = .loading
     @Published var error: Response.ErrorMessage? = nil
     
     init () {
-        self.school = preferenceService.getDefaultSchool()
+        self.school = preferenceService.getDefaultSchoolName(schools: schoolManager.getSchools())
     }
     
     
@@ -236,37 +237,4 @@ import Foundation
                 }
             })
     }
-}
-
-extension ResourceViewModel {
-    
-    /// Wrapper function that is meant to be used on functions
-    /// that require authentication to be active before processing
-    fileprivate func authenticateAndExecute(
-        tries: Int = 0,
-        school: School?,
-        refreshToken: Token?,
-        execute: @escaping (Result<(Int, String), Error>) -> Void
-    ) {
-        guard let school = school,
-              let refreshToken = refreshToken,
-              !refreshToken.isExpired() else {
-            if tries < NetworkConstants.MAX_CONSECUTIVE_ATTEMPTS {
-                AppLogger.shared.debug("Attempting auto login ...")
-                userController.autoLogin { [unowned self] in
-                    self.authenticateAndExecute(
-                        tries: tries + 1,
-                        school: school,
-                        refreshToken: refreshToken,
-                        execute: execute
-                    )
-                }
-            } else {
-                execute(.failure(.internal(reason: "Could not authenticate user")))
-            }
-            return
-        }
-        execute(.success((school.id, refreshToken.value)))
-    }
-    
 }
