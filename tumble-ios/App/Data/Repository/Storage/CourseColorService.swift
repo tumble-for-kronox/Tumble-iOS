@@ -20,7 +20,7 @@ class CourseColorService: ObservableObject, CourseColorServiceProtocol {
             .appendingPathComponent("colors.data")
     }
 
-    func replace(for event: Response.Event, with color: Color, completion: @escaping (Result<Int, Error>)->Void) -> Void {
+    func replace(for event: Response.Event, with color: Color, completion: @escaping (Result<Int, Error>) -> Void) -> Void {
         DispatchQueue.global(qos: .background).async {
             do {
                 let fileURL = try self.fileURL()
@@ -54,7 +54,7 @@ class CourseColorService: ObservableObject, CourseColorServiceProtocol {
         }
     }
     
-    func load(completion: @escaping (Result<CourseAndColorDict, Error>)->Void) {
+    func load(completion: @escaping (Result<CourseAndColorDict, Error>) -> Void) {
         DispatchQueue.global(qos: .background).async {
             do {
                 let fileURL = try self.fileURL()
@@ -77,7 +77,7 @@ class CourseColorService: ObservableObject, CourseColorServiceProtocol {
     }
     
 
-    func save(coursesAndColors: [String : String], completion: @escaping (Result<Int, Error>)->Void) {
+    func save(coursesAndColors: [String : String], completion: @escaping (Result<Int, Error>) -> Void) {
         DispatchQueue.global(qos: .background).async {
             do {
                 let fileURL = try self.fileURL()

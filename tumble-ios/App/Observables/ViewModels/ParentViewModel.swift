@@ -13,7 +13,7 @@ import SwiftUI
 // to update the AppView and its child views through their viewmodels
 @MainActor final class ParentViewModel: ObservableObject {
     
-    let viewModelFactory: ViewModelFactory = ViewModelFactory.shared
+    var viewModelFactory: ViewModelFactory = ViewModelFactory.shared
     
     @Inject var scheduleService: ScheduleService
     @Inject var courseColorService: CourseColorService

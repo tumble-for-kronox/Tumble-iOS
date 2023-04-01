@@ -71,13 +71,6 @@ class PreferenceService: PreferenceServiceProtocol {
         return UserDefaults.standard.object(forKey: key)
     }
     
-    func loadImage(key: String = StoreKey.profileImage.rawValue) -> UIImage? {
-        if let data = UserDefaults.standard.data(forKey: key) {
-            return UIImage(data: data)
-        }
-        return nil
-    }
-    
     func getBookmarks() -> [Bookmark]? {
         let dict: [String : Bool] = UserDefaults.standard.object(forKey: StoreKey.bookmarks.rawValue) as? [String : Bool] ?? [:]
         return dict.map{ Bookmark(toggled: $0.value, id: $0.key) }
@@ -125,5 +118,66 @@ class PreferenceService: PreferenceServiceProtocol {
     
     func isKeyPresentInUserDefaults(key: String) -> Bool {
         return UserDefaults.standard.object(forKey: key) != nil
+    }
+    
+    func getUniversityImage(schools: [School]) -> Image? {
+        guard let school: School = self.getDefaultSchoolName(schools: schools) else { return nil }
+        let schoolImage: Image = schools.first(where: {$0.name == school.name})!.logo
+        return schoolImage
+    }
+    
+    func getUniversityName(schools: [School]) -> String? {
+        guard let school: School = self.getDefaultSchoolName(schools: schools) else { return nil }
+                let schoolName: String = schools.first(where: {$0.name == school.name})!.name
+        return schoolName
+    }
+    
+    func getUniversityUrl(schools: [School]) -> String? {
+        guard let school: School = self.getDefaultSchoolName(schools: schools) else { return nil }
+        let schoolUrl: String = schools.first(where: {$0.name == school.name})!.schoolUrl
+        return schoolUrl
+    }
+    
+    func getCanvasUrl(schools: [School]) -> String? {
+        guard let school: School = self.getDefaultSchoolName(schools: schools) else { return nil }
+        let domain: String = schools.first(where: {$0.name == school.name})!.domain
+        let canvasUrl: String = "https://\(domain).instructure.com"
+        return canvasUrl
+    }
+    
+    func getUniversityKronoxUrl(schools: [School]) -> String? {
+        guard let school: School = self.getDefaultSchoolName(schools: schools) else { return nil }
+        let kronoxUrl: String = schools.first(where: {$0.name == school.name})!.kronoxUrl
+        return kronoxUrl
+    }
+    
+    func getUniversityDomain(schools: [School]) -> String? {
+        guard let school: School = self.getDefaultSchoolName(schools: schools) else { return nil }
+        let domain: String = schools.first(where: {$0.name == school.name})!.domain
+        return domain
+    }
+    
+    func getUniversityColor(schools: [School]) -> Color {
+        let school: School? = self.getDefaultSchoolName(schools: schools)
+        let uniColor: Color
+        
+        switch school?.color {
+            case "blue":
+                uniColor = Color.blue
+            case "orange":
+                uniColor = Color.orange
+            case "green":
+                uniColor = Color.green
+            case "yellow":
+                uniColor = Color.yellow
+            case "brown":
+                uniColor = Color.brown
+            case "red":
+                uniColor = Color.red
+            default:
+                uniColor = Color.black
+            }
+
+            return uniColor
     }
 }

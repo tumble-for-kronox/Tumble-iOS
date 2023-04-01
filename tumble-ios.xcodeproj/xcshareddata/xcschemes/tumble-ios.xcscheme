@@ -39,6 +39,17 @@
                ReferencedContainer = "container:tumble-ios.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "D414B23829D8BB4100EA8F46"
+               BuildableName = "tumble-iosTests.xctest"
+               BlueprintName = "tumble-iosTests"
+               ReferencedContainer = "container:tumble-ios.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction

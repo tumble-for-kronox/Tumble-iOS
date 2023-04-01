@@ -51,6 +51,12 @@
 		D414730229D8341E00050BFF /* CloseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D414730129D8341E00050BFF /* CloseButton.swift */; };
 		D414B22F29D86E7E00EA8F46 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D414B22E29D86E7E00EA8F46 /* GoogleService-Info.plist */; };
 		D414B23429D88C1100EA8F46 /* PullToRefreshIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D414B23329D88C1100EA8F46 /* PullToRefreshIndicator.swift */; };
+		D414B27529D8BE5700EA8F46 /* RootViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D414B27429D8BE5700EA8F46 /* RootViewModelTests.swift */; };
+		D414B27D29D8BE9700EA8F46 /* PopupView in Frameworks */ = {isa = PBXBuildFile; productRef = D414B27C29D8BE9700EA8F46 /* PopupView */; };
+		D414B27F29D8BE9700EA8F46 /* Logging in Frameworks */ = {isa = PBXBuildFile; productRef = D414B27E29D8BE9700EA8F46 /* Logging */; };
+		D414B28129D8BE9700EA8F46 /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = D414B28029D8BE9700EA8F46 /* FSCalendar */; };
+		D414B28329D8BE9700EA8F46 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = D414B28229D8BE9700EA8F46 /* FirebaseMessaging */; };
+		D414B28E29D8C7E500EA8F46 /* MockCourseColorService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D414B28D29D8C7E500EA8F46 /* MockCourseColorService.swift */; };
 		D416D33529CA2A46009A4FB8 /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D416D33429CA2A46009A4FB8 /* TabBar.swift */; };
 		D416D33729CA2A4F009A4FB8 /* TabBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D416D33629CA2A4F009A4FB8 /* TabBarButton.swift */; };
 		D416D33929CA7C5B009A4FB8 /* CalendarViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D416D33829CA7C5B009A4FB8 /* CalendarViewRepresentable.swift */; };
@@ -104,7 +110,6 @@
 		D443962E29CB56040069D66A /* ResourceBookingButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D443962D29CB56040069D66A /* ResourceBookingButtonStyle.swift */; };
 		D4462C3029858A280067DA65 /* TextExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4462C2F29858A280067DA65 /* TextExtensions.swift */; };
 		D4462C3229858A7D0067DA65 /* ImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4462C3129858A7D0067DA65 /* ImageExtensions.swift */; };
-		D448E76429D6E43300C56F93 /* OnBoardingUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D448E76329D6E43300C56F93 /* OnBoardingUITests.swift */; };
 		D44ABF0729BFE89D00344792 /* SchoolRowStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44ABF0629BFE89D00344792 /* SchoolRowStyle.swift */; };
 		D44FBFEB29CB1CC500CAAD39 /* ResourceDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44FBFEA29CB1CC500CAAD39 /* ResourceDatePicker.swift */; };
 		D45338F629280E8400198411 /* ScheduleExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45338F529280E8400198411 /* ScheduleExtensions.swift */; };
@@ -199,7 +204,6 @@
 		D4A550D52994755900028BCF /* BookmarkButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A550D42994755900028BCF /* BookmarkButton.swift */; };
 		D4ABD270298C2E15002FD8F5 /* DayUiModelExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4ABD26F298C2E15002FD8F5 /* DayUiModelExtension.swift */; };
 		D4ABD272298C2E32002FD8F5 /* DayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4ABD271298C2E32002FD8F5 /* DayExtension.swift */; };
-		D4ABD275298C2EC2002FD8F5 /* PreferenceServiceExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4ABD274298C2EC2002FD8F5 /* PreferenceServiceExtension.swift */; };
 		D4B4B62D29C37C130098D175 /* ProgrammeCardStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B4B62C29C37C130098D175 /* ProgrammeCardStyle.swift */; };
 		D4B7F25629CC60EB006E2449 /* RoomContainerCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B7F25529CC60EB006E2449 /* RoomContainerCard.swift */; };
 		D4B7F25829CC6135006E2449 /* BookButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B7F25729CC6135006E2449 /* BookButtonStyle.swift */; };
@@ -241,7 +245,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		D448E76729D6E43300C56F93 /* PBXContainerItemProxy */ = {
+		D414B27629D8BE5700EA8F46 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D472213D292454560063BDB7 /* Project object */;
 			proxyType = 1;
@@ -295,6 +299,9 @@
 		D414730129D8341E00050BFF /* CloseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloseButton.swift; sourceTree = "<group>"; };
 		D414B22E29D86E7E00EA8F46 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Documents/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D414B23329D88C1100EA8F46 /* PullToRefreshIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullToRefreshIndicator.swift; sourceTree = "<group>"; };
+		D414B27229D8BE5700EA8F46 /* tumble-iosTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "tumble-iosTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D414B27429D8BE5700EA8F46 /* RootViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewModelTests.swift; sourceTree = "<group>"; };
+		D414B28D29D8C7E500EA8F46 /* MockCourseColorService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCourseColorService.swift; sourceTree = "<group>"; };
 		D416D33429CA2A46009A4FB8 /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
 		D416D33629CA2A4F009A4FB8 /* TabBarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarButton.swift; sourceTree = "<group>"; };
 		D416D33829CA7C5B009A4FB8 /* CalendarViewRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewRepresentable.swift; sourceTree = "<group>"; };
@@ -346,8 +353,6 @@
 		D443962D29CB56040069D66A /* ResourceBookingButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceBookingButtonStyle.swift; sourceTree = "<group>"; };
 		D4462C2F29858A280067DA65 /* TextExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextExtensions.swift; sourceTree = "<group>"; };
 		D4462C3129858A7D0067DA65 /* ImageExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageExtensions.swift; sourceTree = "<group>"; };
-		D448E76129D6E43300C56F93 /* tumble-iosUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "tumble-iosUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		D448E76329D6E43300C56F93 /* OnBoardingUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingUITests.swift; sourceTree = "<group>"; };
 		D44ABF0629BFE89D00344792 /* SchoolRowStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolRowStyle.swift; sourceTree = "<group>"; };
 		D44FBFEA29CB1CC500CAAD39 /* ResourceDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceDatePicker.swift; sourceTree = "<group>"; };
 		D45338F529280E8400198411 /* ScheduleExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleExtensions.swift; sourceTree = "<group>"; };
@@ -445,7 +450,6 @@
 		D4A550D42994755900028BCF /* BookmarkButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkButton.swift; sourceTree = "<group>"; };
 		D4ABD26F298C2E15002FD8F5 /* DayUiModelExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayUiModelExtension.swift; sourceTree = "<group>"; };
 		D4ABD271298C2E32002FD8F5 /* DayExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayExtension.swift; sourceTree = "<group>"; };
-		D4ABD274298C2EC2002FD8F5 /* PreferenceServiceExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceServiceExtension.swift; sourceTree = "<group>"; };
 		D4B4B62C29C37C130098D175 /* ProgrammeCardStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgrammeCardStyle.swift; sourceTree = "<group>"; };
 		D4B7F25529CC60EB006E2449 /* RoomContainerCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomContainerCard.swift; sourceTree = "<group>"; };
 		D4B7F25729CC6135006E2449 /* BookButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookButtonStyle.swift; sourceTree = "<group>"; };
@@ -489,10 +493,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		D448E75E29D6E43300C56F93 /* Frameworks */ = {
+		D414B26F29D8BE5700EA8F46 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D414B28329D8BE9700EA8F46 /* FirebaseMessaging in Frameworks */,
+				D414B27F29D8BE9700EA8F46 /* Logging in Frameworks */,
+				D414B28129D8BE9700EA8F46 /* FSCalendar in Frameworks */,
+				D414B27D29D8BE9700EA8F46 /* PopupView in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -702,6 +710,23 @@
 			path = SearchBar;
 			sourceTree = "<group>";
 		};
+		D414B27329D8BE5700EA8F46 /* tumble-iosTests */ = {
+			isa = PBXGroup;
+			children = (
+				D414B28C29D8C7D000EA8F46 /* MockClasses */,
+				D414B27429D8BE5700EA8F46 /* RootViewModelTests.swift */,
+			);
+			path = "tumble-iosTests";
+			sourceTree = "<group>";
+		};
+		D414B28C29D8C7D000EA8F46 /* MockClasses */ = {
+			isa = PBXGroup;
+			children = (
+				D414B28D29D8C7E500EA8F46 /* MockCourseColorService.swift */,
+			);
+			path = MockClasses;
+			sourceTree = "<group>";
+		};
 		D416D33329CA29F9009A4FB8 /* TabBar */ = {
 			isa = PBXGroup;
 			children = (
@@ -895,14 +920,6 @@
 				D43419BF2985639D001089A0 /* ColorInstructions.swift */,
 			);
 			path = Usage;
-			sourceTree = "<group>";
-		};
-		D448E76229D6E43300C56F93 /* tumble-iosUITests */ = {
-			isa = PBXGroup;
-			children = (
-				D448E76329D6E43300C56F93 /* OnBoardingUITests.swift */,
-			);
-			path = "tumble-iosUITests";
 			sourceTree = "<group>";
 		};
 		D45338F7292825A400198411 /* Bookmarks */ = {
@@ -1101,7 +1118,7 @@
 			isa = PBXGroup;
 			children = (
 				D4722147292454560063BDB7 /* tumble-ios */,
-				D448E76229D6E43300C56F93 /* tumble-iosUITests */,
+				D414B27329D8BE5700EA8F46 /* tumble-iosTests */,
 				D4722146292454560063BDB7 /* Products */,
 				D4072F4829820944002ADC32 /* Frameworks */,
 			);
@@ -1111,7 +1128,7 @@
 			isa = PBXGroup;
 			children = (
 				D4722145292454560063BDB7 /* tumble-ios.app */,
-				D448E76129D6E43300C56F93 /* tumble-iosUITests.xctest */,
+				D414B27229D8BE5700EA8F46 /* tumble-iosTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1353,7 +1370,6 @@
 		D4ABD273298C2EAF002FD8F5 /* Repository */ = {
 			isa = PBXGroup;
 			children = (
-				D4ABD274298C2EC2002FD8F5 /* PreferenceServiceExtension.swift */,
 				D400F3FF29D79F4C0050622E /* AuthManagerExtension.swift */,
 			);
 			path = Repository;
@@ -1534,25 +1550,32 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		D448E76029D6E43300C56F93 /* tumble-iosUITests */ = {
+		D414B27129D8BE5700EA8F46 /* tumble-iosTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D448E76929D6E43300C56F93 /* Build configuration list for PBXNativeTarget "tumble-iosUITests" */;
+			buildConfigurationList = D414B27829D8BE5700EA8F46 /* Build configuration list for PBXNativeTarget "tumble-iosTests" */;
 			buildPhases = (
-				D448E75D29D6E43300C56F93 /* Sources */,
-				D448E75E29D6E43300C56F93 /* Frameworks */,
-				D448E75F29D6E43300C56F93 /* Resources */,
+				D414B26E29D8BE5700EA8F46 /* Sources */,
+				D414B26F29D8BE5700EA8F46 /* Frameworks */,
+				D414B27029D8BE5700EA8F46 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				D448E76829D6E43300C56F93 /* PBXTargetDependency */,
+				D414B28529D8BEBB00EA8F46 /* PBXTargetDependency */,
+				D414B28729D8BEBB00EA8F46 /* PBXTargetDependency */,
+				D414B28929D8BEBB00EA8F46 /* PBXTargetDependency */,
+				D414B27729D8BE5700EA8F46 /* PBXTargetDependency */,
 			);
-			name = "tumble-iosUITests";
+			name = "tumble-iosTests";
 			packageProductDependencies = (
+				D414B27C29D8BE9700EA8F46 /* PopupView */,
+				D414B27E29D8BE9700EA8F46 /* Logging */,
+				D414B28029D8BE9700EA8F46 /* FSCalendar */,
+				D414B28229D8BE9700EA8F46 /* FirebaseMessaging */,
 			);
-			productName = "tumble-iosUITests";
-			productReference = D448E76129D6E43300C56F93 /* tumble-iosUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
+			productName = "tumble-iosTests";
+			productReference = D414B27229D8BE5700EA8F46 /* tumble-iosTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		D4722144292454560063BDB7 /* tumble-ios */ = {
 			isa = PBXNativeTarget;
@@ -1588,7 +1611,7 @@
 				LastSwiftUpdateCheck = 1420;
 				LastUpgradeCheck = 1420;
 				TargetAttributes = {
-					D448E76029D6E43300C56F93 = {
+					D414B27129D8BE5700EA8F46 = {
 						CreatedOnToolsVersion = 14.2;
 						TestTargetID = D4722144292454560063BDB7;
 					};
@@ -1622,13 +1645,13 @@
 			projectRoot = "";
 			targets = (
 				D4722144292454560063BDB7 /* tumble-ios */,
-				D448E76029D6E43300C56F93 /* tumble-iosUITests */,
+				D414B27129D8BE5700EA8F46 /* tumble-iosTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		D448E75F29D6E43300C56F93 /* Resources */ = {
+		D414B27029D8BE5700EA8F46 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1650,11 +1673,12 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		D448E75D29D6E43300C56F93 /* Sources */ = {
+		D414B26E29D8BE5700EA8F46 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D448E76429D6E43300C56F93 /* OnBoardingUITests.swift in Sources */,
+				D414B27529D8BE5700EA8F46 /* RootViewModelTests.swift in Sources */,
+				D414B28E29D8C7E500EA8F46 /* MockCourseColorService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1793,7 +1817,6 @@
 				D454DED029D3B953005BDAE3 /* BookmarksSettingsRow.swift in Sources */,
 				D414730229D8341E00050BFF /* CloseButton.swift in Sources */,
 				D46ABF0F29843CF300B059F6 /* PreferenceServiceProtocol.swift in Sources */,
-				D4ABD275298C2EC2002FD8F5 /* PreferenceServiceExtension.swift in Sources */,
 				D4B4B62D29C37C130098D175 /* ProgrammeCardStyle.swift in Sources */,
 				D471A90D29C7942D005541FA /* HomePageSectionDivider.swift in Sources */,
 				D400F3FC29D799A30050622E /* SettingsViewModelExtension.swift in Sources */,
@@ -1888,10 +1911,22 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		D448E76829D6E43300C56F93 /* PBXTargetDependency */ = {
+		D414B27729D8BE5700EA8F46 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = D4722144292454560063BDB7 /* tumble-ios */;
-			targetProxy = D448E76729D6E43300C56F93 /* PBXContainerItemProxy */;
+			targetProxy = D414B27629D8BE5700EA8F46 /* PBXContainerItemProxy */;
+		};
+		D414B28529D8BEBB00EA8F46 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = D414B28429D8BEBB00EA8F46 /* PopupView */;
+		};
+		D414B28729D8BEBB00EA8F46 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = D414B28629D8BEBB00EA8F46 /* FSCalendar */;
+		};
+		D414B28929D8BEBB00EA8F46 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = D414B28829D8BEBB00EA8F46 /* FirebaseMessaging */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1912,57 +1947,61 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		D448E76A29D6E43300C56F93 /* Debug */ = {
+		D414B27929D8BE5700EA8F46 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 5QHM3X75YP;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.tumble-iosUITests";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.tumble-iosTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = "tumble-ios";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/tumble-ios.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/tumble-ios";
 			};
 			name = Debug;
 		};
-		D448E76B29D6E43300C56F93 /* Debug copy */ = {
+		D414B27A29D8BE5700EA8F46 /* Debug copy */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 5QHM3X75YP;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.tumble-iosUITests";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.tumble-iosTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = "tumble-ios";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/tumble-ios.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/tumble-ios";
 			};
 			name = "Debug copy";
 		};
-		D448E76C29D6E43300C56F93 /* Release */ = {
+		D414B27B29D8BE5700EA8F46 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 5QHM3X75YP;
+				ENABLE_TESTABILITY = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.tumble-iosUITests";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.tumble-iosTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = "tumble-ios";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/tumble-ios.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/tumble-ios";
 			};
 			name = Release;
 		};
@@ -2038,6 +2077,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"tumble-ios/Preview Content\"";
 				DEVELOPMENT_TEAM = 5QHM3X75YP;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_TESTING_SEARCH_PATHS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "tumble-ios/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Tumble for Kronox";
@@ -2194,6 +2234,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"tumble-ios/Preview Content\"";
 				DEVELOPMENT_TEAM = 5QHM3X75YP;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_TESTING_SEARCH_PATHS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "tumble-ios/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Tumble for Kronox";
@@ -2234,6 +2275,8 @@
 				DEVELOPMENT_ASSET_PATHS = "\"tumble-ios/Preview Content\"";
 				DEVELOPMENT_TEAM = 5QHM3X75YP;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_TESTING_SEARCH_PATHS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "tumble-ios/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Tumble for Kronox";
@@ -2266,12 +2309,12 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		D448E76929D6E43300C56F93 /* Build configuration list for PBXNativeTarget "tumble-iosUITests" */ = {
+		D414B27829D8BE5700EA8F46 /* Build configuration list for PBXNativeTarget "tumble-iosTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				D448E76A29D6E43300C56F93 /* Debug */,
-				D448E76B29D6E43300C56F93 /* Debug copy */,
-				D448E76C29D6E43300C56F93 /* Release */,
+				D414B27929D8BE5700EA8F46 /* Debug */,
+				D414B27A29D8BE5700EA8F46 /* Debug copy */,
+				D414B27B29D8BE5700EA8F46 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
@@ -2334,6 +2377,41 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		D414B27C29D8BE9700EA8F46 /* PopupView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D4607635292AA8DE00DE9590 /* XCRemoteSwiftPackageReference "PopupView" */;
+			productName = PopupView;
+		};
+		D414B27E29D8BE9700EA8F46 /* Logging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D42BAC1A298D3D590025EAA9 /* XCRemoteSwiftPackageReference "swift-log" */;
+			productName = Logging;
+		};
+		D414B28029D8BE9700EA8F46 /* FSCalendar */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D430F74129C615DC00E30E48 /* XCRemoteSwiftPackageReference "FSCalendar" */;
+			productName = FSCalendar;
+		};
+		D414B28229D8BE9700EA8F46 /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D47386FD29C88E4F0035CD4C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
+		};
+		D414B28429D8BEBB00EA8F46 /* PopupView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D4607635292AA8DE00DE9590 /* XCRemoteSwiftPackageReference "PopupView" */;
+			productName = PopupView;
+		};
+		D414B28629D8BEBB00EA8F46 /* FSCalendar */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D430F74129C615DC00E30E48 /* XCRemoteSwiftPackageReference "FSCalendar" */;
+			productName = FSCalendar;
+		};
+		D414B28829D8BEBB00EA8F46 /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D47386FD29C88E4F0035CD4C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
+		};
 		D42BAC1B298D3D590025EAA9 /* Logging */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D42BAC1A298D3D590025EAA9 /* XCRemoteSwiftPackageReference "swift-log" */;

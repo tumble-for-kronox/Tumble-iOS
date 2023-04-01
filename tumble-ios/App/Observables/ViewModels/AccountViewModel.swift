@@ -248,11 +248,12 @@ import Foundation
         authenticateAndExecute(
             school: school,
             refreshToken: userController.refreshToken,
-            execute: { [unowned self] result in
+            execute: { [weak self] result in
+                guard let self else { return }
                 switch result {
                 case .success((let schoolId, let refreshToken)):
                     let request = Endpoint.userBookings(schoolId: String(schoolId))
-                    self.resourceSectionDataTask = networkManager.get(request, refreshToken: refreshToken,
+                    self.resourceSectionDataTask = self.networkManager.get(request, refreshToken: refreshToken,
                        then: { [unowned self] (result: Result<Response.KronoxUserBookings, Response.ErrorMessage>) in
                         switch result {
                         case .success(let bookings):

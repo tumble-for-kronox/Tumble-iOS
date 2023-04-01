@@ -17,10 +17,14 @@ struct Root: View {
             Color(UIColor.systemBackground)
             switch viewModel.currentView {
             case .onboarding:
-                OnBoarding(viewModel: viewModel.onBoardingViewModel, updateUserOnBoarded: setUserOnBoarded)
+                if let onBoardingViewModel = viewModel.onBoardingViewModel {
+                    OnBoarding(viewModel: onBoardingViewModel, updateUserOnBoarded: setUserOnBoarded)
+                }
             case .app:
-                AppParent(viewModel: viewModel.parentViewModel)
-                    .environmentObject(AppController.shared)
+                if let parentViewModel = viewModel.parentViewModel {
+                    AppParent(viewModel: parentViewModel)
+                        .environmentObject(AppController.shared)
+                }
             }
         }
         .colorScheme(getThemeColorScheme())
@@ -30,10 +34,7 @@ struct Root: View {
     }
     
     func setUserOnBoarded() -> Void {
-        self.viewModel.parentViewModel.updateLocalsAndChildViews()
-        withAnimation(.linear(duration: 0.2)) {
-            self.viewModel.currentView = .app
-        }
+        self.viewModel.delegateToAppParent()
     }
     
     private func getThemeColorScheme() -> ColorScheme {
