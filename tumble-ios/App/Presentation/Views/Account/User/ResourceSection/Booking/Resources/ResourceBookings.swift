@@ -41,7 +41,7 @@ struct ResourceBookings: View {
                         case 404:
                             Info(title: NSLocalizedString("No rooms available on weekends", comment: ""), image: "moon.stars")
                         default:
-                            Info(title: NSLocalizedString("Could not contact the server", comment: ""), image: nil)
+                            Info(title: NSLocalizedString("Could not contact the server, try again later", comment: ""), image: nil)
                         }
                     }
                     .frame(

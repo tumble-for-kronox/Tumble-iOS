@@ -44,7 +44,7 @@ struct RegisteredBookings: View {
                         .sectionDividerEmpty()
                 }
             case .error:
-                Text(NSLocalizedString("Could not contact the server", comment: ""))
+                Text(NSLocalizedString("Could not contact the server, try again later", comment: ""))
                     .sectionDividerEmpty()
             }
             Spacer()

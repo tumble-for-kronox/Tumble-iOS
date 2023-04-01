@@ -50,7 +50,6 @@
 		D414730029D833A400050BFF /* SearchButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41472FF29D833A400050BFF /* SearchButton.swift */; };
 		D414730229D8341E00050BFF /* CloseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D414730129D8341E00050BFF /* CloseButton.swift */; };
 		D414B22F29D86E7E00EA8F46 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D414B22E29D86E7E00EA8F46 /* GoogleService-Info.plist */; };
-		D414B23229D870B300EA8F46 /* PermissionsSwiftUINotification in Frameworks */ = {isa = PBXBuildFile; productRef = D414B23129D870B300EA8F46 /* PermissionsSwiftUINotification */; };
 		D414B23429D88C1100EA8F46 /* PullToRefreshIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D414B23329D88C1100EA8F46 /* PullToRefreshIndicator.swift */; };
 		D416D33529CA2A46009A4FB8 /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D416D33429CA2A46009A4FB8 /* TabBar.swift */; };
 		D416D33729CA2A4F009A4FB8 /* TabBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D416D33629CA2A4F009A4FB8 /* TabBarButton.swift */; };
@@ -503,7 +502,6 @@
 			files = (
 				D473870129C88E4F0035CD4C /* FirebaseMessaging in Frameworks */,
 				D47386FF29C88E4F0035CD4C /* FirebaseAnalytics in Frameworks */,
-				D414B23229D870B300EA8F46 /* PermissionsSwiftUINotification in Frameworks */,
 				D4607637292AA8DE00DE9590 /* PopupView in Frameworks */,
 				D430F74329C615DC00E30E48 /* FSCalendar in Frameworks */,
 				D42BAC1C298D3D590025EAA9 /* Logging in Frameworks */,
@@ -1575,7 +1573,6 @@
 				D430F74229C615DC00E30E48 /* FSCalendar */,
 				D47386FE29C88E4F0035CD4C /* FirebaseAnalytics */,
 				D473870029C88E4F0035CD4C /* FirebaseMessaging */,
-				D414B23129D870B300EA8F46 /* PermissionsSwiftUINotification */,
 			);
 			productName = "tumble-ios";
 			productReference = D4722145292454560063BDB7 /* tumble-ios.app */;
@@ -1619,7 +1616,6 @@
 				D42BAC1A298D3D590025EAA9 /* XCRemoteSwiftPackageReference "swift-log" */,
 				D430F74129C615DC00E30E48 /* XCRemoteSwiftPackageReference "FSCalendar" */,
 				D47386FD29C88E4F0035CD4C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
-				D414B23029D870B300EA8F46 /* XCRemoteSwiftPackageReference "PermissionsSwiftUI" */,
 			);
 			productRefGroup = D4722146292454560063BDB7 /* Products */;
 			projectDirPath = "";
@@ -2303,14 +2299,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		D414B23029D870B300EA8F46 /* XCRemoteSwiftPackageReference "PermissionsSwiftUI" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/jevonmao/PermissionsSwiftUI.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
-			};
-		};
 		D42BAC1A298D3D590025EAA9 /* XCRemoteSwiftPackageReference "swift-log" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apple/swift-log";
@@ -2346,11 +2334,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		D414B23129D870B300EA8F46 /* PermissionsSwiftUINotification */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D414B23029D870B300EA8F46 /* XCRemoteSwiftPackageReference "PermissionsSwiftUI" */;
-			productName = PermissionsSwiftUINotification;
-		};
 		D42BAC1B298D3D590025EAA9 /* Logging */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D42BAC1A298D3D590025EAA9 /* XCRemoteSwiftPackageReference "swift-log" */;

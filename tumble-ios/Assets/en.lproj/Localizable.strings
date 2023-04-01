@@ -6,6 +6,7 @@
   
 */
 
+"Pull to refresh"="Pull to refresh";
 
 "Monday"="Monday";
 
@@ -175,7 +176,7 @@
 
 "No registered events yet"="No registered events yet";
 
-"Could not contact the server"="Could not contact the server";
+"Could not contact the server, try again later"="Could not contact the server, try again later";
 
 "Booked resource"="Booked resource";
 

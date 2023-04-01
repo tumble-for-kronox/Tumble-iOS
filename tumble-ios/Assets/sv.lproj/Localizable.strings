@@ -6,6 +6,8 @@
   
 */
 
+"Pull to refresh"="Dra för att uppdatera";
+
 "Monday"="Måndag";
 
 "Tuesday"="Tisdag";
@@ -178,7 +180,7 @@
 
 "No registered events yet"="Inga registrerade evenemang ännu";
 
-"Could not contact the server"="Kunde inte kontakta servern";
+"Could not contact the server, try again later"="Kunde inte kontakta servern, försök igen senare";
 
 "Booked resource"="Bokad resurs";
 

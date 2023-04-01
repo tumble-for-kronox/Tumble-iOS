@@ -82,7 +82,7 @@ extension SearchViewModel {
                         case .failure(let error):
                             closure(false)
                             self.schedulePreviewStatus = .error
-                            self.errorMessagePreview = error.message.contains("NSURLErrorDomain") ? "Could not contact the server" : error.message
+                            self.errorMessagePreview = error.message.contains("NSURLErrorDomain") ? "Could not contact the server, try again later" : error.message
                             AppLogger.shared.debug("Encountered error when attempting to load schedule for programme \(programmeId): \(error)")
                         }
                     }

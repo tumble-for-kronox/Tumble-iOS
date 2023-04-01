@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import PermissionsSwiftUINotification
 
 struct Root: View {
     

@@ -6,6 +6,8 @@
   
 */
 
+"Pull to refresh"="Povucite za osvježavanje";
+
 "Monday"="Ponedjeljak";
 
 "Tuesday"="Utorak";
@@ -208,7 +210,7 @@
 
 "No registered events yet"="Još nema registrovanih događaja";
 
-"Could not contact the server"="Nije moguće kontaktirati server";
+"Could not contact the server, try again later"="Nije moguće kontaktirati server, pokušajte ponovo kasnije";
 
 "Booked resource"="Rezervirani resurs";
 

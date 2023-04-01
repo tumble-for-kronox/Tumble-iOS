@@ -6,6 +6,8 @@
   
 */
 
+"Pull to refresh"="Tirare per aggiornare";
+
 "Monday"="Lunedì";
 
 "Tuesday"="Martedì";
@@ -174,7 +176,7 @@
 
 "No registered events yet"="Nessun evento ancora registrato";
 
-"Could not contact the server"="Impossibile contattare il server";
+"Could not contact the server, try again later"="Impossibile contattare il server, riprova più tardi";
 
 "Booked resource"="Risorsa prenotata";
 
