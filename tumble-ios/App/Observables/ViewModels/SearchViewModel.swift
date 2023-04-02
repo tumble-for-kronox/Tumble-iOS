@@ -80,25 +80,19 @@ import SwiftUI
                             guard let self = self else { return }
                             switch result {
                             case .success(let courseColors):
-                                DispatchQueue.main.async {
-                                    // Assign possibly updated course colors
-                                    self.courseColors = courseColors
-                                    self.previewButtonState = .notSaved
-                                    self.schedulePreviewStatus = .loaded
-                                }
+                                // Assign possibly updated course colors
+                                self.courseColors = courseColors
+                                self.previewButtonState = .notSaved
+                                self.schedulePreviewStatus = .loaded
                             case .failure(let failure):
                                 AppLogger.shared.debug("\(failure)")
-                                DispatchQueue.main.async {
-                                    self.schedulePreviewStatus = .error
-                                }
+                                self.schedulePreviewStatus = .error
                             }
                             
                         }
                     }
                 } else {
-                    DispatchQueue.main.async {
-                        self.schedulePreviewStatus = .error
-                    }
+                    self.schedulePreviewStatus = .error
                     return
                 }
             }
@@ -118,15 +112,11 @@ import SwiftUI
                 case .failure(let error):
                     switch error.statusCode {
                     case 204:
-                        DispatchQueue.main.async {
-                            self.errorMessageSearch = NSLocalizedString("There are no schedules that match your search", comment: "")
-                            self.status = SearchStatus.error
-                        }
+                        self.errorMessageSearch = NSLocalizedString("There are no schedules that match your search", comment: "")
+                        self.status = SearchStatus.error
                     default:
-                        DispatchQueue.main.async {
-                            self.errorMessageSearch = NSLocalizedString("Something went wrong", comment: "")
-                            self.status = SearchStatus.error
-                        }
+                        self.errorMessageSearch = NSLocalizedString("Something went wrong", comment: "")
+                        self.status = SearchStatus.error
                     }
                     AppLogger.shared.debug("Encountered error when trying to search for programme \(searchQuery): \(error)")
                 }
@@ -145,26 +135,20 @@ import SwiftUI
     func onBookmark(
         updateButtonState: @escaping () -> Void,
         checkForNewSchedules: @escaping () -> Void) -> Void {
-            DispatchQueue.main.async {
-                self.previewButtonState = .loading
-            }
+            self.previewButtonState = .loading
             // If the schedule isn't already saved in the local database
             if !self.schedulePreviewIsSaved {
                 self.saveSchedule(completion: { [weak self] result in
                     guard let self = self else { return }
                     switch result {
                     case .success:
-                        DispatchQueue.main.async {
-                            self.preferenceService.setBookmarks(bookmark: self.scheduleForPreview!.id)
-                            self.previewButtonState = .saved
-                            updateButtonState()
-                            checkForNewSchedules()
-                        }
+                        self.preferenceService.setBookmarks(bookmark: self.scheduleForPreview!.id)
+                        self.previewButtonState = .saved
+                        updateButtonState()
+                        checkForNewSchedules()
                         return
                     case .failure:
-                        DispatchQueue.main.async {
-                            self.schedulePreviewStatus = .error
-                        }
+                        self.schedulePreviewStatus = .error
                     }
                 })
             }
@@ -172,25 +156,16 @@ import SwiftUI
             else {
                 self.loadSchedules { [weak self] schedules in
                     guard let self = self else { return }
-                    let schedulesToRemove = schedules.filter { $0.id == self.scheduleForPreview?.id }
-                    let events = schedulesToRemove
-                        .flatMap { schedule in schedule.days }
-                        .flatMap { day in day.events }
-                    events.forEach { event in self.notificationManager.cancelNotification(for: event.id) }
-                    self.removeSchedule(completion: { [weak self] result in
-                        guard let self = self else { return }
+                    self.cancelNotifications(for: schedules, with: self.scheduleForPreview?.id)
+                    self.removeSchedule(completion: { result in
                         switch result {
                         case .success:
-                            DispatchQueue.main.async {
-                                self.previewButtonState = .notSaved
-                                updateButtonState()
-                            }
+                            self.previewButtonState = .notSaved
+                            updateButtonState()
                             checkForNewSchedules()
                             return
                         case .failure:
-                            DispatchQueue.main.async {
-                                self.schedulePreviewStatus = .error
-                            }
+                            self.schedulePreviewStatus = .error
                         }
                     })
                 }

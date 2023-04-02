@@ -33,6 +33,7 @@ struct SearchPage: View {
                     }
                 SearchBar(searchBarText: $searchBarText, onSearch: onSearch, onClearSearch: onClearSearch)
             }
+            .background(Color.background)
             .sheet(isPresented: $viewModel.presentPreview) {
                 SchedulePreview(
                     parentViewModel: viewModel,

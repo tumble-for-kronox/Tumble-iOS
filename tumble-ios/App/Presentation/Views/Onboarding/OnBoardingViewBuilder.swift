@@ -35,6 +35,7 @@ struct OnBoardingViewBuilder<Content : View>: View {
             .padding(.top, 30)
             Spacer()
         }
+        .background(Color.background)
         .padding(.top, 5)
     }
 }

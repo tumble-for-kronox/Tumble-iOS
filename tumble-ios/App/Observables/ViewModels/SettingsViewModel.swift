@@ -23,9 +23,7 @@ import SwiftUI
     @Published var presentSidebarSheet: Bool = false
     @Published var authenticatedAndSignedIn: Bool = false
     
-    var schools: [School] {
-        return schoolManager.getSchools()
-    }
+    lazy var schools: [School] = schoolManager.getSchools()
     
     init() {
         self.universityImage = self.preferenceService.getUniversityImage(schools: schools)
@@ -64,22 +62,11 @@ import SwiftUI
             guard let self = self else { return }
             switch result {
             case .success(let schedules):
-                
-                // Get current bookmarks in preferences
-                var bookmarks = self.preferenceService.getBookmarks() ?? []
-                
-                // Find the one's that aren't supposed to be there
-                let missingIds = self.missingIDs(scheduleModels: schedules, bookmarks: bookmarks)
-                
-                // Remove the missing id's
-                bookmarks = self.removeMissingIDs(bookmarks: bookmarks, missingIDs: missingIds)
-                
-                self.preferenceService.setBookmarks(bookmarks: bookmarks)
-                
-                DispatchQueue.main.async {
-                    self.bookmarks = bookmarks
+                self.setNewBookmarks(schedules: schedules) { bookmarks in
+                    DispatchQueue.main.async {
+                        self.bookmarks = bookmarks
+                    }
                 }
-                
             case .failure(let failure):
                 AppLogger.shared.debug("\(failure)")
             }

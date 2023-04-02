@@ -28,6 +28,6 @@ struct Info: View {
               maxHeight: .infinity,
               alignment: .center
             )
-        .background(Color(UIColor.systemBackground))
+        .background(Color.background)
     }
 }

@@ -26,6 +26,7 @@ struct EventDetailsSheet: View {
                 Spacer()
             }
         }
+        .background(Color.background)
         .background(
             ColorPicker(NSLocalizedString("Select course color", comment: ""), selection: $viewModel.color, supportsOpacity: false)
                 .labelsHidden().opacity(0)

@@ -38,8 +38,8 @@ struct AppearanceSettings: View {
     @AppStorage(StoreKey.appearance.rawValue) var appearance: String = AppearanceTypes.system.rawValue
     
     var body: some View {
-        List {
-            Section {
+        CustomList {
+            CustomListGroup {
                 ForEach(AppearanceTypes.allCases) { type in
                     SettingsRadioButton(
                         title: type.displayName,

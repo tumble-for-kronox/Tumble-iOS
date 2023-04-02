@@ -66,6 +66,7 @@ struct ExamDetailsSheet: View {
                 Spacer()
             }
         }
+        .background(Color.background)
         .padding(.horizontal, 15)
     }
 }

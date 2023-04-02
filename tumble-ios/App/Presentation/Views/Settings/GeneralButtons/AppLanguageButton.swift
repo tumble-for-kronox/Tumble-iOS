@@ -28,6 +28,8 @@ struct AppLanguageButton: View {
                     .foregroundColor(.gray.opacity(0.5))
             }
         })
+        .listRowBackground(Color.surface)
+        .padding(.horizontal, 15)
     }
 }
 

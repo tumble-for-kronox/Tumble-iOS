@@ -93,12 +93,9 @@ import SwiftUI
                 AppLogger.shared.debug("Loaded \(events.count) events for the week", source: "HomePageViewModel")
                 self.eventsForToday = self.filterEventsMatchingToday(events: events)
                 self.eventsForWeek = events
-                self.loadCourseColors { [weak self] courseColors in
-                    guard let self = self else { return }
-                    DispatchQueue.main.async {
-                        self.courseColors = courseColors
-                        self.bookmarkedEventsSectionStatus = .loaded
-                    }
+                self.loadCourseColors { courseColors in
+                    self.courseColors = courseColors
+                    self.bookmarkedEventsSectionStatus = .loaded
                 }
             }
         }, hiddenBookmarks: hiddenBookmarks)

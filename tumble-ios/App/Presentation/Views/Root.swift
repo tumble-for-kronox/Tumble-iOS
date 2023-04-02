@@ -14,7 +14,6 @@ struct Root: View {
     
     var body: some View {
         ZStack {
-            Color(UIColor.systemBackground)
             switch viewModel.currentView {
             case .onboarding:
                 if let onBoardingViewModel = viewModel.onBoardingViewModel {

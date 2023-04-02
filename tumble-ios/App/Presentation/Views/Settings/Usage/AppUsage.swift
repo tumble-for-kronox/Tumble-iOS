@@ -44,6 +44,7 @@ struct AppUsage: View {
                 ColorInstructions()
             }.tag(5)
         }
+        .background(Color.background)
         .tabViewStyle(.page)
         .indexViewStyle(.page(backgroundDisplayMode: .interactive))
     }

@@ -123,8 +123,6 @@
 		D454DECE29D3B900005BDAE3 /* BookmarksSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D454DECD29D3B900005BDAE3 /* BookmarksSettings.swift */; };
 		D454DED029D3B953005BDAE3 /* BookmarksSettingsRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D454DECF29D3B953005BDAE3 /* BookmarksSettingsRow.swift */; };
 		D454DED529D3BB13005BDAE3 /* NotificationSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D454DED429D3BB13005BDAE3 /* NotificationSettings.swift */; };
-		D455E04729D58B9B00770910 /* SettingsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D455E04629D58B9B00770910 /* SettingsButton.swift */; };
-		D455E04929D58CA600770910 /* SettingsNavLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = D455E04829D58CA600770910 /* SettingsNavLink.swift */; };
 		D455E04B29D58F7D00770910 /* NotificationOffsetSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D455E04A29D58F7D00770910 /* NotificationOffsetSettings.swift */; };
 		D4563E7E2985F96C003261FA /* NetworkSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4563E7D2985F96C003261FA /* NetworkSettings.swift */; };
 		D4563E802985FBFB003261FA /* NetworkExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4563E7F2985FBFB003261FA /* NetworkExtensions.swift */; };
@@ -238,6 +236,11 @@
 		D4EAD3B9298D633B00678DF8 /* KronoxManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EAD3B8298D633B00678DF8 /* KronoxManagerProtocol.swift */; };
 		D4EE5B6C29D50FC0002A1399 /* AppearanceSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EE5B6B29D50FC0002A1399 /* AppearanceSettings.swift */; };
 		D4EE5B6E29D50FD3002A1399 /* SettingsRadioButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EE5B6D29D50FD3002A1399 /* SettingsRadioButton.swift */; };
+		D4EEFB4929DA06A40007A209 /* ToTopButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EEFB4829DA06A40007A209 /* ToTopButton.swift */; };
+		D4EEFB5029DA15440007A209 /* ListRowNavigationItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EEFB4F29DA15440007A209 /* ListRowNavigationItem.swift */; };
+		D4EEFB5429DA177D0007A209 /* CustomList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EEFB5329DA177C0007A209 /* CustomList.swift */; };
+		D4EEFB5629DA1B050007A209 /* ListRowActionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EEFB5529DA1B050007A209 /* ListRowActionItem.swift */; };
+		D4EEFB5829DA1BD10007A209 /* CustomListGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EEFB5729DA1BD10007A209 /* CustomListGroup.swift */; };
 		D4FCD14B2995AD64009D2987 /* UIColorWellExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FCD14A2995AD64009D2987 /* UIColorWellExtension.swift */; };
 		D4FCD14E2995ADFE009D2987 /* UIColorWellHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FCD14D2995ADFE009D2987 /* UIColorWellHelper.swift */; };
 		D4FF4726299156FC0080C898 /* ScheduleStoreObjectExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FF4725299156FC0080C898 /* ScheduleStoreObjectExtension.swift */; };
@@ -365,8 +368,6 @@
 		D454DECD29D3B900005BDAE3 /* BookmarksSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksSettings.swift; sourceTree = "<group>"; };
 		D454DECF29D3B953005BDAE3 /* BookmarksSettingsRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksSettingsRow.swift; sourceTree = "<group>"; };
 		D454DED429D3BB13005BDAE3 /* NotificationSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettings.swift; sourceTree = "<group>"; };
-		D455E04629D58B9B00770910 /* SettingsButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsButton.swift; sourceTree = "<group>"; };
-		D455E04829D58CA600770910 /* SettingsNavLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsNavLink.swift; sourceTree = "<group>"; };
 		D455E04A29D58F7D00770910 /* NotificationOffsetSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationOffsetSettings.swift; sourceTree = "<group>"; };
 		D4563E7D2985F96C003261FA /* NetworkSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkSettings.swift; sourceTree = "<group>"; };
 		D4563E7F2985FBFB003261FA /* NetworkExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkExtensions.swift; sourceTree = "<group>"; };
@@ -485,6 +486,11 @@
 		D4EAD3B8298D633B00678DF8 /* KronoxManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KronoxManagerProtocol.swift; sourceTree = "<group>"; };
 		D4EE5B6B29D50FC0002A1399 /* AppearanceSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceSettings.swift; sourceTree = "<group>"; };
 		D4EE5B6D29D50FD3002A1399 /* SettingsRadioButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRadioButton.swift; sourceTree = "<group>"; };
+		D4EEFB4829DA06A40007A209 /* ToTopButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToTopButton.swift; sourceTree = "<group>"; };
+		D4EEFB4F29DA15440007A209 /* ListRowNavigationItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListRowNavigationItem.swift; sourceTree = "<group>"; };
+		D4EEFB5329DA177C0007A209 /* CustomList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomList.swift; sourceTree = "<group>"; };
+		D4EEFB5529DA1B050007A209 /* ListRowActionItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListRowActionItem.swift; sourceTree = "<group>"; };
+		D4EEFB5729DA1BD10007A209 /* CustomListGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomListGroup.swift; sourceTree = "<group>"; };
 		D4FCD14A2995AD64009D2987 /* UIColorWellExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorWellExtension.swift; sourceTree = "<group>"; };
 		D4FCD14D2995ADFE009D2987 /* UIColorWellHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorWellHelper.swift; sourceTree = "<group>"; };
 		D4FF4725299156FC0080C898 /* ScheduleStoreObjectExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleStoreObjectExtension.swift; sourceTree = "<group>"; };
@@ -685,14 +691,16 @@
 			children = (
 				D47A451729D75306008626E6 /* GeneralButtons */,
 				D454DEC929D35EF5005BDAE3 /* Settings.swift */,
-				D455E04829D58CA600770910 /* SettingsNavLink.swift */,
-				D455E04629D58B9B00770910 /* SettingsButton.swift */,
 				D4EE5B6D29D50FD3002A1399 /* SettingsRadioButton.swift */,
 				D47A450E29D7491B008626E6 /* Usage */,
 				D4EE5B6A29D50FAF002A1399 /* Appearance */,
 				D454DED329D3BB08005BDAE3 /* Notifications */,
 				D454DED229D3BAF6005BDAE3 /* SchoolSelection */,
 				D454DED129D3BAEA005BDAE3 /* Bookmarks */,
+				D4EEFB4F29DA15440007A209 /* ListRowNavigationItem.swift */,
+				D4EEFB5329DA177C0007A209 /* CustomList.swift */,
+				D4EEFB5529DA1B050007A209 /* ListRowActionItem.swift */,
+				D4EEFB5729DA1BD10007A209 /* CustomListGroup.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -1030,6 +1038,7 @@
 				D4607652292AF5DA00DE9590 /* DayHeader.swift */,
 				D45338F8292825B200198411 /* BookmarkCard.swift */,
 				D460764B292AEAEC00DE9590 /* BookmarkListView.swift */,
+				D4EEFB4829DA06A40007A209 /* ToTopButton.swift */,
 			);
 			path = List;
 			sourceTree = "<group>";
@@ -1727,7 +1736,6 @@
 				D41ED53B2983F393009DCF8B /* DateExtensions.swift in Sources */,
 				D4E83EBC299960AD002E5F88 /* UsernameField.swift in Sources */,
 				D4FCD14E2995ADFE009D2987 /* UIColorWellHelper.swift in Sources */,
-				D455E04929D58CA600770910 /* SettingsNavLink.swift in Sources */,
 				D4DDE59129CBBC6A0030607B /* ResourceTimeDropdown.swift in Sources */,
 				D4722149292454560063BDB7 /* tumble_iosApp.swift in Sources */,
 				D441B10D298A8CEC00D22142 /* EventDetailsSheetViewModel.swift in Sources */,
@@ -1735,6 +1743,7 @@
 				D416D33529CA2A46009A4FB8 /* TabBar.swift in Sources */,
 				D43419BE2985628C001089A0 /* NotificationInstructions.swift in Sources */,
 				D4EACB3629CB99540096ADD2 /* ResourceTimeButtonStyle.swift in Sources */,
+				D4EEFB5429DA177D0007A209 /* CustomList.swift in Sources */,
 				D471A90F29C79449005541FA /* HomePageUpcomingEventsSection.swift in Sources */,
 				D4ABD270298C2E15002FD8F5 /* DayUiModelExtension.swift in Sources */,
 				D43419B5298550BE001089A0 /* UsageCard.swift in Sources */,
@@ -1748,6 +1757,7 @@
 				D4ABD272298C2E32002FD8F5 /* DayExtension.swift in Sources */,
 				D46BB112298B0E2800887A24 /* NavigationbarSettings.swift in Sources */,
 				D4607634292AA83F00DE9590 /* AppParent.swift in Sources */,
+				D4EEFB4929DA06A40007A209 /* ToTopButton.swift in Sources */,
 				D4563E802985FBFB003261FA /* NetworkExtensions.swift in Sources */,
 				D4E83ECE2999B041002E5F88 /* UserOverview.swift in Sources */,
 				D400F3D029D793AB0050622E /* RootViewStatus.swift in Sources */,
@@ -1756,6 +1766,7 @@
 				D43419C02985639D001089A0 /* ColorInstructions.swift in Sources */,
 				D454DECE29D3B900005BDAE3 /* BookmarksSettings.swift in Sources */,
 				D4A433BA29952A8A00BFEB7A /* EventExtension.swift in Sources */,
+				D4EEFB5629DA1B050007A209 /* ListRowActionItem.swift in Sources */,
 				D47A451B29D754B7008626E6 /* AppLanguageButton.swift in Sources */,
 				D419EDF4299A662400479DCE /* UserAvatar.swift in Sources */,
 				D460763B292AAD5400DE9590 /* PopupToastView.swift in Sources */,
@@ -1799,7 +1810,6 @@
 				D49B985229CF47700023DF75 /* KeyChainManager.swift in Sources */,
 				D4FCD14B2995AD64009D2987 /* UIColorWellExtension.swift in Sources */,
 				D426E3A6299C39EA00A8D7AE /* EventBookings.swift in Sources */,
-				D455E04729D58B9B00770910 /* SettingsButton.swift in Sources */,
 				D41ADFE7299F8D2E0074E2C7 /* NetworkConstants.swift in Sources */,
 				D400F3EE29D797A80050622E /* TumbleUser.swift in Sources */,
 				D481F15729CB820D0088C28E /* AvailabilitiesExtension.swift in Sources */,
@@ -1833,6 +1843,7 @@
 				D419EDF6299A78C400479DCE /* ResourceSectionDivider.swift in Sources */,
 				D40D80A629252165008CA68D /* ViewExtensions.swift in Sources */,
 				D4EAD3B9298D633B00678DF8 /* KronoxManagerProtocol.swift in Sources */,
+				D4EEFB5029DA15440007A209 /* ListRowNavigationItem.swift in Sources */,
 				D454DECC29D3B1E5005BDAE3 /* SchoolSelectionSettings.swift in Sources */,
 				D454204129BE982000EF0FC9 /* HapticsController.swift in Sources */,
 				D400F3F229D7988D0050622E /* SearchViewModelExtension.swift in Sources */,
@@ -1842,6 +1853,7 @@
 				D49B985429CF47C60023DF75 /* KeyChainManagerProtocol.swift in Sources */,
 				D4CD0EFF29D5B00A00AB5FD0 /* UIApplicationExtension.swift in Sources */,
 				D44ABF0729BFE89D00344792 /* SchoolRowStyle.swift in Sources */,
+				D4EEFB5829DA1BD10007A209 /* CustomListGroup.swift in Sources */,
 				D400F3D629D794010050622E /* BookmarksViewStatus.swift in Sources */,
 				D443962C29CB4D720069D66A /* BookResource.swift in Sources */,
 				D45338FD29297C8B00198411 /* DayUIModel.swift in Sources */,

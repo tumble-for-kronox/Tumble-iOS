@@ -44,14 +44,20 @@ extension BookmarksViewModel {
                 }
             }
         }
-        group.notify(queue: .main) {
+        group.notify(queue: .global(qos: .userInitiated)) {
             let uniqueEvents = updatedBookmarks.removeDuplicateEvents().flatten()
             if uniqueEvents.isEmpty {
                 AppLogger.shared.debug("No schedules needed to or could be be updated")
-                self.scheduleListOfDays = bookmarks.removeDuplicateEvents().flatten()
+                DispatchQueue.main.async { [weak self] in
+                    guard let self else { return }
+                    self.scheduleListOfDays = bookmarks.removeDuplicateEvents().flatten()
+                }
             } else {
                 AppLogger.shared.debug("Amount of updated events: \(uniqueEvents.count)")
-                self.scheduleListOfDays = uniqueEvents
+                DispatchQueue.main.async { [weak self] in
+                    guard let self else { return }
+                    self.scheduleListOfDays = uniqueEvents
+                }
             }
             
             completion()
@@ -134,9 +140,7 @@ extension BookmarksViewModel {
             case .success(let courseColors):
                 completion(courseColors)
             case .failure(let failure):
-                DispatchQueue.main.async {
-                    self.status = .error
-                }
+                self.status = .error
                 AppLogger.shared.debug("Error occured loading colors -> \(failure.localizedDescription)")
             }
         }

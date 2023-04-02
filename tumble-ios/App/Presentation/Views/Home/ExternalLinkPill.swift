@@ -12,6 +12,7 @@ struct ExternalLinkPill: View {
     let title: String
     let image: String
     let url: URL?
+    let color: Color
     
     @Binding var collapsedHeader: Bool
     
@@ -24,14 +25,14 @@ struct ExternalLinkPill: View {
             HStack {
                 Image(systemName: image)
                     .font(.system(size: 14))
-                    .foregroundColor(.onSurface)
+                    .foregroundColor(.onPrimary)
                 if !collapsedHeader {
                     Text(title)
                         .font(.system(size: 15, weight: .semibold))
-                        .foregroundColor(.onSurface)
+                        .foregroundColor(.onPrimary)
                 }
             }
         })
-        .buttonStyle(ExternalLinkPillStyle())
+        .buttonStyle(ExternalLinkPillStyle(color: color))
     }
 }

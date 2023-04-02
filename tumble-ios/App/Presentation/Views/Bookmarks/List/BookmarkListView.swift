@@ -55,22 +55,7 @@ struct BookmarkListView: View {
                 .id("bookmarkScrollView")
             }
             .overlay(
-                Button(action: {
-                    withAnimation(.spring()) {
-                        value.scrollTo("bookmarkScrollView", anchor: .top)
-                    }
-                }, label: {
-                    Image(systemName: "arrow.up")
-                        .font(.system(size: 24, weight: .semibold))
-                        .foregroundColor(Color(UIColor.systemBackground))
-                        .padding(15)
-                        .background(Color.primary)
-                        .clipShape(Rectangle())
-                        .cornerRadius(20)
-                })
-                .buttonStyle(ToTopButtonStyle())
-                .padding()
-                .offset(x: bookmarksListModel.buttonOffsetX)
+                ToTopButton(buttonOffsetX: bookmarksListModel.buttonOffsetX, value: value)
                 ,alignment: .bottomTrailing
             )
         }

@@ -25,14 +25,11 @@ extension HomeViewModel {
     func loadCourseColors(completion: @escaping ([String : String]) -> Void) -> Void {
         self.courseColorService.load { [weak self] result in
             guard let self = self else { return }
-
             switch result {
             case .success(let courseColors):
                 completion(courseColors)
             case .failure(let failure):
-                DispatchQueue.main.async {
-                    self.bookmarkedEventsSectionStatus = .error
-                }
+                self.bookmarkedEventsSectionStatus = .error
                 AppLogger.shared.debug("Error occured loading colors -> \(failure.localizedDescription)")
             }
         }

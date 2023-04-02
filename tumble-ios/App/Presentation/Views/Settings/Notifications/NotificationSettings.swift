@@ -25,28 +25,28 @@ struct NotificationSettings: View {
     }
     
     var body: some View {
-        List {
-            Section {
-                SettingsButton(
-                    onClick: scheduleNotificationsForAllCourses,
+        CustomList {
+            CustomListGroup {
+                ListRowActionItem(
                     title: NSLocalizedString("Set notifications for all events", comment: ""),
-                    image: "bell.badge"
+                    image: "bell.badge",
+                    imageColor: .primary,
+                    action: scheduleNotificationsForAllCourses
                 )
-                SettingsButton(
-                    onClick: clearAllNotifications,
+                Divider()
+                ListRowActionItem(
                     title: NSLocalizedString("Cancel all notifications", comment: ""),
-                    image: "bell.slash"
-                )
+                    image: "bell.slash",
+                    imageColor: .primary,
+                    action: clearAllNotifications)
             }
-            Section {
-                NavigationLink(destination: AnyView(
-                    NotificationOffsetSettings(
+            CustomListGroup {
+                ListRowNavigationItem(
+                    title: NSLocalizedString("Notification offset", comment: ""),
+                    current: offsetDisplayName,
+                    destination: AnyView(NotificationOffsetSettings(
                         offset: $offset,
-                        rescheduleNotifications: rescheduleNotifications)), label: {
-                    SettingsNavLink(
-                        title: NSLocalizedString("Notification offset", comment: ""),
-                        current: offsetDisplayName)
-                })
+                        rescheduleNotifications: rescheduleNotifications)))
             }
         }
     }

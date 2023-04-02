@@ -47,7 +47,7 @@ struct ResourceSelection: View {
                 maxHeight: .infinity,
                 alignment: .top
             )
-            .background(Color(UIColor.systemBackground))
+            .background(Color.background)
             .onAppear {
                 for timeslot in timeslots {
                     if let timeslotId = timeslot.id,

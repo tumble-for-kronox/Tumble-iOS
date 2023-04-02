@@ -22,7 +22,7 @@ struct ResourceDatePicker: View {
         .padding(.horizontal, 15)
         .datePickerStyle(.graphical)
         .accentColor(Color.primary)
-        .background(Color(UIColor.systemBackground))
+        .background(Color.background)
         .environment(\.calendar, Calendar(identifier: .iso8601))
     }
 }

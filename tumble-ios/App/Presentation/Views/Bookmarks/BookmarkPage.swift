@@ -66,7 +66,7 @@ struct BookmarkPage: View {
                 }
             }
         }
-        .background(Color(UIColor.systemBackground))
+        .background(Color.background)
         .padding(.bottom, -10)
         .onAppear {
             UIApplication.shared.applicationIconBadgeNumber = 0

@@ -66,7 +66,7 @@ struct HomePage: View {
         }
         .padding(.horizontal, 16)
         .padding(.top, 20)
-        .background(Color(UIColor.systemBackground))
+        .background(Color.background)
     }
     
     func updateCourseColors() -> Void {

@@ -41,8 +41,6 @@ struct UserOverview: View {
             }
             .padding()
             .frame(maxWidth: .infinity, alignment: .leading)
-            .background(Color(UIColor.systemBackground))
-            .cornerRadius(20, corners: [.bottomLeft, .bottomRight])
             Divider()
                 .foregroundColor(.onBackground)
                 .padding(.horizontal, 15)
@@ -53,7 +51,7 @@ struct UserOverview: View {
                 collapsedHeader: $collapsedHeader
             )
         }
-        .background(Color(UIColor.systemBackground))
+        .background(Color.background)
         .toastView(toast: $toast)
     }
     

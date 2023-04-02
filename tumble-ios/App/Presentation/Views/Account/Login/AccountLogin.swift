@@ -36,6 +36,7 @@ struct AccountLogin: View {
             .padding(.horizontal, 15)
             .padding(.top, 20)
         }
+        .background(Color.background)
     }
     
     fileprivate func login() -> Void {

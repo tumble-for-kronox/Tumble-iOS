@@ -16,34 +16,25 @@ struct HomePageHeader: View {
     var body: some View {
         HStack {
             VStack (alignment: .leading, spacing: 0) {
-                if !collapsedHeader {
-                    Text(getCurrentDate())
-                        .font(.system(size: 30))
-                        .fontWeight(.semibold)
-                        .padding(.bottom, 10)
-                }
                 HStack (alignment: .center, spacing: 10) {
-                    if collapsedHeader {
-                        Text(getCurrentDate(truncate: true))
-                            .font(.system(size: 30))
-                            .fontWeight(.semibold)
-                        Spacer()
-                    }
                     ExternalLinkPill(
                         title: domain?.uppercased() ?? "",
                         image: "link",
                         url: parentViewModel.makeUniversityUrl(),
+                        color: .green,
                         collapsedHeader: $collapsedHeader)
                     ExternalLinkPill(
                         title: "Canvas",
                         image: "link",
                         url: parentViewModel.makeCanvasUrl(),
+                        color: .pink,
                         collapsedHeader: $collapsedHeader
                     )
                     ExternalLinkPill(
                         title: "Ladok",
                         image: "link",
                         url: URL(string: parentViewModel.ladokUrl),
+                        color: .blue,
                         collapsedHeader: $collapsedHeader
                     )
                 }
