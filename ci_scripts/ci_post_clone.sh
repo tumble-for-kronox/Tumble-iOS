@@ -7,7 +7,7 @@
 #
 
 # Define the path to the GoogleService-Info.plist file in your source code
-GOOGLE_PLIST_PATH="GoogleService-Info.plist"
+GOOGLE_PLIST_PATH="../tumble-ios/GoogleService-Info.plist"
 
 # Copy the file to the tumble-ios directory
 cp -r "$GOOGLE_PLIST_PATH" ../tumble-ios/
