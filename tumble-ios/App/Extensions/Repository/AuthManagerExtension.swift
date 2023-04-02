@@ -129,7 +129,8 @@ extension AuthManager {
         response: URLResponse?,
         error: Error?,
         completionHandler: @escaping (Result<TumbleUser, Error>) -> Void) {
-            if let data = data, let result = try? self.decoder.decode(Response.KronoxUser.self, from: data) {
+            let decoder = JSONDecoder()
+            if let data = data, let result = try? decoder.decode(Response.KronoxUser.self, from: data) {
                 AppLogger.shared.debug("Retrieved new refresh token: \(result.refreshToken)")
                 self.refreshToken = Token(value: result.refreshToken, createdDate: Date.now)
                 // Replace old user with new user if
@@ -171,6 +172,7 @@ extension AuthManager {
     func getToken(tokenType: TokenType) -> Token? {
         if let data = self.keychainManager.readKeyChain(for: tokenType.rawValue, account: "Tumble for Kronox") {
             do {
+                let decoder = JSONDecoder()
                 return try decoder.decode(Token.self, from: data)
             } catch {
                 return nil
@@ -182,6 +184,7 @@ extension AuthManager {
     func getUser() -> TumbleUser? {
         do {
             if let data = self.keychainManager.readKeyChain(for: "tumble-user", account: "Tumble for Kronox") {
+                let decoder = JSONDecoder()
                 let user = try decoder.decode(TumbleUser.self, from: data)
                 return TumbleUser(username: user.username, password: user.password, name: user.name)
             }
@@ -194,6 +197,7 @@ extension AuthManager {
     
     func setUser(newValue: TumbleUser?) -> Void {
         do {
+            let encoder = JSONEncoder()
             let data = try encoder.encode(newValue)
             self.keychainManager.saveKeyChain(data, for: "tumble-user", account: "Tumble for Kronox", completion: { result in
                 switch result {
@@ -211,6 +215,7 @@ extension AuthManager {
     func setToken(newValue: Token?, tokenType: TokenType) -> Void {
         if newValue != nil {
             do {
+                let encoder = JSONEncoder()
                 let storedData = try encoder.encode(newValue)
                 self.keychainManager.saveKeyChain(storedData, for: tokenType.rawValue, account: "Tumble for Kronox") { result in
                     switch result {
@@ -227,9 +232,9 @@ extension AuthManager {
         } else {
             self.keychainManager.deleteKeyChain(for: tokenType.rawValue, account: "Tumble for Kronox", completion: { result in
                 switch result {
-                case .success(_):
+                case .success:
                     AppLogger.shared.debug("Successfully deleted \(tokenType.rawValue)")
-                case .failure(_):
+                case .failure:
                     AppLogger.shared.critical("Failed to delete \(tokenType.rawValue)")
                 }
             })

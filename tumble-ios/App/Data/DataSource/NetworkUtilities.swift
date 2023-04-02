@@ -19,6 +19,7 @@ struct NetworkUtilities {
         refreshToken: String? = nil,
         body: Request? = nil) -> URLRequest? {
             
+            let encoder = JSONEncoder()
             var urlRequest = URLRequest(url: endpoint.url)
             urlRequest.httpMethod = method.rawValue
             
@@ -28,7 +29,7 @@ struct NetworkUtilities {
             
             if let body = body {
                 do {
-                    urlRequest.httpBody = try JSONEncoder.shared.encode(body)
+                    urlRequest.httpBody = try encoder.encode(body)
                 } catch {
                     return nil
                 }

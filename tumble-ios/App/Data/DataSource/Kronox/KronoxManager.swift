@@ -11,8 +11,6 @@ import Foundation
 class KronoxManager: KronoxManagerProtocol {
     
     private let serialQueue = OperationQueue()
-    private let encoder = JSONEncoder.shared
-    private let decoder = JSONDecoder.shared
     private let urlRequestUtils = NetworkUtilities.shared
     private let session: URLSession
     
@@ -94,7 +92,7 @@ class KronoxManager: KronoxManagerProtocol {
             urlRequest: URLRequest,
             completion: @escaping (Result<NetworkResponse, Response.ErrorMessage>) -> Void) -> URLSessionDataTask {
         
-        let task = session.dataTask(with: urlRequest) { [unowned self] data, response, error in
+        let task = session.dataTask(with: urlRequest) { data, response, error in
             guard let httpResponse = response as? HTTPURLResponse else {
                 completion(.failure(Response.ErrorMessage(message: "Did not receive valid HTTP response")))
                 return
@@ -105,10 +103,12 @@ class KronoxManager: KronoxManagerProtocol {
                 return
             }
             
+            let decoder = JSONDecoder()
+            
             switch httpResponse.statusCode {
             case 200:
                 do {
-                    let result = try self.decoder.decode(NetworkResponse.self, from: data)
+                    let result = try decoder.decode(NetworkResponse.self, from: data)
                     completion(.success(result))
                 } catch let error {
                     AppLogger.shared.critical("Failed to decode response to object \(NetworkResponse.self). Attempting to parse as empty object since status was 200. Error: \(error)",
@@ -128,7 +128,7 @@ class KronoxManager: KronoxManagerProtocol {
                 }
             case 400:
                 do {
-                    let result = try self.decoder.decode(Response.ErrorMessage.self, from: data)
+                    let result = try decoder.decode(Response.ErrorMessage.self, from: data)
                     completion(.failure(result))
                 } catch {
                     AppLogger.shared.critical("Failed to decode response to object \(Response.ErrorMessage.self)",
