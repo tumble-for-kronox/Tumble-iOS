@@ -55,12 +55,16 @@ extension UserController {
             switch result {
             case .success(let user):
                 AppLogger.shared.debug("Successfully logged in user \(user.username)")
-                self.user = TumbleUser(username: user.username, password: user.password, name: user.name)
-                self.authStatus = .authorized
+                DispatchQueue.main.async {
+                    self.user = TumbleUser(username: user.username, password: user.password, name: user.name)
+                    self.authStatus = .authorized
+                }
                 completion?()
             case .failure(let failure):
                 AppLogger.shared.critical("Failed to log in user -> \(failure.localizedDescription)")
-                self.authStatus = .unAuthorized
+                DispatchQueue.main.async {
+                    self.authStatus = .unAuthorized
+                }
                 completion?()
             }
         })

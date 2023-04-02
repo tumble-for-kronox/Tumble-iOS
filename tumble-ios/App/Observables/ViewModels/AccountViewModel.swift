@@ -58,7 +58,6 @@ import Foundation
         } else {
             AppLogger.shared.debug("User has not enabled auto signup for events")
         }
-        self.checkNotificationsForUserBookings()
     }
     
     func updateViewLocals() -> Void {
@@ -179,6 +178,7 @@ import Foundation
                                 self.bookingSectionState = .loaded
                                 self.userBookings = bookings
                             }
+                            self.checkNotificationsForUserBookings(bookings: bookings)
                         case .failure(let failure):
                             AppLogger.shared.debug("\(failure)")
                             DispatchQueue.main.async {
@@ -243,8 +243,14 @@ import Foundation
         }
     }
     
-    func checkNotificationsForUserBookings() -> Void {
+    func checkNotificationsForUserBookings(bookings: Response.KronoxUserBookings? = nil) -> Void {
         AppLogger.shared.debug("Checking for notifications to set for user booked resources ...")
+        
+        if let userBookings = bookings {
+            self.scheduleBookingNotifications(for: userBookings)
+            return
+        }
+        
         authenticateAndExecute(
             school: school,
             refreshToken: userController.refreshToken,
@@ -254,7 +260,7 @@ import Foundation
                 case .success((let schoolId, let refreshToken)):
                     let request = Endpoint.userBookings(schoolId: String(schoolId))
                     self.resourceSectionDataTask = self.networkManager.get(request, refreshToken: refreshToken,
-                       then: { [unowned self] (result: Result<Response.KronoxUserBookings, Response.ErrorMessage>) in
+                       then: { (result: Result<Response.KronoxUserBookings, Response.ErrorMessage>) in
                         switch result {
                         case .success(let bookings):
                             self.scheduleBookingNotifications(for: bookings)

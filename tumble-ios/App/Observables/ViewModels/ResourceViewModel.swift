@@ -161,9 +161,6 @@ import Foundation
             })
     }
     
-    func createNotificationForBooking(id: String) -> Void {
-        // TODO: Add notification for user to confirm
-    }
     
     func bookResource(
         resourceId: String,

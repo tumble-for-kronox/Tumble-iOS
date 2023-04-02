@@ -63,18 +63,23 @@ class NotificationManager: NotificationManagerProtocol {
 
     
     func cancelNotifications(with categoryIdentifier: String) {
-        notificationCenter.getPendingNotificationRequests { [weak self] (requests) in
+        DispatchQueue.global(qos: .background).async { [weak self] in
             guard let self = self else { return }
-            let requestsWithMatchingCategory = requests.filter { $0.content.categoryIdentifier == categoryIdentifier }
-            let identifiers = requestsWithMatchingCategory.map { $0.identifier }
-            AppLogger.shared.debug("Cancelling notifications with categoryIdentifier -> \(categoryIdentifier)")
-            self.notificationCenter.removePendingNotificationRequests(withIdentifiers: identifiers)
+            self.notificationCenter.getPendingNotificationRequests {  (requests) in
+                let requestsWithMatchingCategory = requests.filter { $0.content.categoryIdentifier == categoryIdentifier }
+                let identifiers = requestsWithMatchingCategory.map { $0.identifier }
+                AppLogger.shared.debug("Cancelling notifications with categoryIdentifier -> \(categoryIdentifier)")
+                self.notificationCenter.removePendingNotificationRequests(withIdentifiers: identifiers)
+            }
         }
     }
     
     func cancelNotifications() -> Void {
-        notificationCenter.removeAllPendingNotificationRequests()
-        AppLogger.shared.debug("Cancelled all notifications for this school")
+        DispatchQueue.global(qos: .background).async { [weak self] in
+            guard let self else { return }
+            self.notificationCenter.removeAllPendingNotificationRequests()
+            AppLogger.shared.debug("Cancelled all notifications for this school")
+        }
     }
     
     func createNotificationFromEvent(event: Response.Event, color: String) -> EventNotification? {

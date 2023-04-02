@@ -20,7 +20,7 @@ class KeyChainManager: KeyChainManagerProtocol {
                     kSecClass: kSecClassGenericPassword,
                     kSecAttrService: service,
                     kSecAttrAccount: account
-                ] as CFDictionary
+            ] as [CFString : Any] as CFDictionary
 
                 let attributes = [
                     kSecValueData: data
@@ -43,7 +43,7 @@ class KeyChainManager: KeyChainManagerProtocol {
                 kSecAttrService: service,
                 kSecAttrAccount: account,
                 kSecClass: kSecClassGenericPassword,
-                ] as CFDictionary
+            ] as [CFString : Any] as CFDictionary
             
             // Delete item from keychain
             SecItemDelete(query)
@@ -57,7 +57,7 @@ class KeyChainManager: KeyChainManagerProtocol {
             kSecAttrAccount: account,
             kSecClass: kSecClassGenericPassword,
             kSecReturnData: true
-        ] as CFDictionary
+        ] as [CFString : Any] as CFDictionary
         
         var result: AnyObject?
         SecItemCopyMatching(query, &result)
@@ -78,7 +78,7 @@ class KeyChainManager: KeyChainManagerProtocol {
                 kSecClass: kSecClassGenericPassword,
                 kSecAttrService: service,
                 kSecAttrAccount: account,
-            ] as CFDictionary
+            ] as [CFString : Any] as CFDictionary
             
             // Add data in query to keychain
             let status = SecItemAdd(query, nil)
