@@ -487,7 +487,6 @@
 		D4EAD3B8298D633B00678DF8 /* KronoxManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KronoxManagerProtocol.swift; sourceTree = "<group>"; };
 		D4EE5B6B29D50FC0002A1399 /* AppearanceSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceSettings.swift; sourceTree = "<group>"; };
 		D4EE5B6D29D50FD3002A1399 /* SettingsRadioButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRadioButton.swift; sourceTree = "<group>"; };
-		D4FBE62C29D98B9100E2E309 /* ci_post_clone.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = ci_post_clone.sh; sourceTree = "<group>"; };
 		D4FCD14A2995AD64009D2987 /* UIColorWellExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorWellExtension.swift; sourceTree = "<group>"; };
 		D4FCD14D2995ADFE009D2987 /* UIColorWellHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorWellHelper.swift; sourceTree = "<group>"; };
 		D4FF4725299156FC0080C898 /* ScheduleStoreObjectExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleStoreObjectExtension.swift; sourceTree = "<group>"; };
@@ -1118,7 +1117,6 @@
 		D472213C292454560063BDB7 = {
 			isa = PBXGroup;
 			children = (
-				D4FBE62B29D98B4E00E2E309 /* ci_scripts */,
 				D4722147292454560063BDB7 /* tumble-ios */,
 				D414B27329D8BE5700EA8F46 /* tumble-iosTests */,
 				D4722146292454560063BDB7 /* Products */,
@@ -1504,14 +1502,6 @@
 				D416D33829CA7C5B009A4FB8 /* CalendarViewRepresentable.swift */,
 			);
 			path = Calendar;
-			sourceTree = "<group>";
-		};
-		D4FBE62B29D98B4E00E2E309 /* ci_scripts */ = {
-			isa = PBXGroup;
-			children = (
-				D4FBE62C29D98B9100E2E309 /* ci_post_clone.sh */,
-			);
-			path = ci_scripts;
 			sourceTree = "<group>";
 		};
 		D4FCD1472995AD30009D2987 /* View */ = {
