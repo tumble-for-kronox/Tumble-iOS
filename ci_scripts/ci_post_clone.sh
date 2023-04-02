@@ -6,11 +6,11 @@
 #  Created by Adis Veletanlic on 4/2/23.
 #  
 
-# Define the local path to the GoogleService-Info.plist file
-LOCAL_PATH="/Users/adisveletanlic/git/tumble-ios/tumble-ios/GoogleService-Info.plist"
+# Define the path to the GoogleService-Info.plist file in your source code
+GOOGLE_PLIST_PATH="../tumble-ios/GoogleService-Info.plist"
 
 # Define the destination path in the Xcode Cloud build environment
-DEST_PATH="$HOME/Library/MobileDevice/Provisioning\ Profiles/"
+DESTINATION_PATH="$HOME/Library/MobileDevice/Provisioning\ Profiles/"
 
 # Copy the file to the build environment
-scp -r "$LOCAL_PATH" "xcode@$CI_RUNNER_IP:$DEST_PATH"
+cp -r "$GOOGLE_PLIST_PATH" "$DESTINATION_PATH"
