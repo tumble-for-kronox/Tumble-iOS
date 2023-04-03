@@ -43,6 +43,9 @@ struct NotificationOffsetSettings: View {
                             }
                         )
                     )
+                    if !(NotificationOffset.allCases.last?.rawValue == type.rawValue) {
+                        Divider()
+                    }
                 }
             }
         }

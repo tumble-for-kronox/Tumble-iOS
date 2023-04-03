@@ -7,35 +7,9 @@
 
 import SwiftUI
 
-enum AppearanceTypes: String, Identifiable {
-    var id: UUID {
-       return UUID()
-    }
-    case system = "Automatic"
-    case light = "Light"
-    case dark = "Dark"
-    
-    var displayName: String {
-        switch self {
-        case .system:
-            return NSLocalizedString("Automatic", comment: "")
-        case .light:
-            return NSLocalizedString("Light", comment: "")
-        case .dark:
-            return NSLocalizedString("Dark", comment: "")
-        }
-    }
-    
-    static func fromRawValue(_ rawValue: String) -> AppearanceTypes? {
-        return allCases.first(where: { $0.rawValue == rawValue })
-    }
-    
-    static var allCases = [system, light, dark]
-}
-
 struct AppearanceSettings: View {
     
-    @AppStorage(StoreKey.appearance.rawValue) var appearance: String = AppearanceTypes.system.rawValue
+    @Binding var appearance: String
     
     var body: some View {
         CustomList {
@@ -52,15 +26,11 @@ struct AppearanceSettings: View {
                             }
                         )
                     )
+                    if !(AppearanceTypes.allCases.last?.rawValue == type.rawValue) {
+                        Divider()
+                    }
                 }
             }
         }
-    }
-    
-}
-
-struct AppearanceSettings_Previews: PreviewProvider {
-    static var previews: some View {
-        AppearanceSettings()
     }
 }

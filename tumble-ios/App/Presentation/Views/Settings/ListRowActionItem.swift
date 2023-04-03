@@ -29,7 +29,10 @@ struct ListRowActionItem: View {
     }
     
     var body: some View {
-        Button(action: action, label: {
+        Button(action: {
+            HapticsController.triggerHapticLight()
+            action()
+        }, label: {
             HStack (spacing: 0) {
                 Text(title)
                     .font(.system(size: 16, weight: .regular))
@@ -43,7 +46,7 @@ struct ListRowActionItem: View {
                 }
                 Image(systemName: image)
                     .font(.system(size: 14, weight: .medium))
-                    .foregroundColor(imageColor.opacity(0.7))
+                    .foregroundColor(imageColor.opacity(0.5))
             }
             .padding(2.5)
         })

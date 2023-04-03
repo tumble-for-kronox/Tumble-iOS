@@ -38,7 +38,7 @@ struct ListRowNavigationItem: View {
                 }
                 Image(systemName: "chevron.right")
                     .font(.system(size: 14, weight: .medium))
-                    .foregroundColor(.gray.opacity(0.5))
+                    .foregroundColor(.onSurface.opacity(0.5))
             }
             .padding(2.5)
         })

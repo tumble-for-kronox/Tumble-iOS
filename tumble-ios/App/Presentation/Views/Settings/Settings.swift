@@ -13,7 +13,6 @@ struct Settings: View {
     @AppStorage(StoreKey.appearance.rawValue) var appearance: String = AppearanceTypes.system.rawValue
     @ObservedObject var viewModel: SettingsViewModel
     let currentLocale = Bundle.main.preferredLocalizations.first
-    
     let removeSchedule: (String) -> Void
     let updateBookmarks: () -> Void
     let onChangeSchool: (School) -> Void
@@ -25,7 +24,7 @@ struct Settings: View {
                     ListRowNavigationItem(
                         title: NSLocalizedString("Appearance", comment: ""),
                         current: NSLocalizedString(appearance, comment: ""),
-                        destination: AnyView(AppearanceSettings()))
+                        destination: AnyView(AppearanceSettings(appearance: $appearance)))
                     Divider()
                     ListRowActionItem(
                         title: NSLocalizedString("App language", comment: ""),

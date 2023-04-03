@@ -171,7 +171,6 @@
 		D47A1AF729C00C0E004F03DB /* HomePageOptionStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47A1AF629C00C0E004F03DB /* HomePageOptionStyle.swift */; };
 		D47A451029D74929008626E6 /* AppUsage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47A450F29D74929008626E6 /* AppUsage.swift */; };
 		D47A451929D75316008626E6 /* LogInOutButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47A451829D75316008626E6 /* LogInOutButton.swift */; };
-		D47A451B29D754B7008626E6 /* AppLanguageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47A451A29D754B7008626E6 /* AppLanguageButton.swift */; };
 		D481F15729CB820D0088C28E /* AvailabilitiesExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D481F15629CB820D0088C28E /* AvailabilitiesExtension.swift */; };
 		D481F15929CB84F10088C28E /* ResourceSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D481F15829CB84F10088C28E /* ResourceSelection.swift */; };
 		D48CC59629C7BB160028179A /* HomePageEventButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48CC59529C7BB160028179A /* HomePageEventButton.swift */; };
@@ -241,6 +240,7 @@
 		D4EEFB5429DA177D0007A209 /* CustomList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EEFB5329DA177C0007A209 /* CustomList.swift */; };
 		D4EEFB5629DA1B050007A209 /* ListRowActionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EEFB5529DA1B050007A209 /* ListRowActionItem.swift */; };
 		D4EEFB5829DA1BD10007A209 /* CustomListGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EEFB5729DA1BD10007A209 /* CustomListGroup.swift */; };
+		D4EEFB5A29DA4E490007A209 /* AppearanceTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EEFB5929DA4E490007A209 /* AppearanceTypes.swift */; };
 		D4FCD14B2995AD64009D2987 /* UIColorWellExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FCD14A2995AD64009D2987 /* UIColorWellExtension.swift */; };
 		D4FCD14E2995ADFE009D2987 /* UIColorWellHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FCD14D2995ADFE009D2987 /* UIColorWellHelper.swift */; };
 		D4FF4726299156FC0080C898 /* ScheduleStoreObjectExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FF4725299156FC0080C898 /* ScheduleStoreObjectExtension.swift */; };
@@ -418,7 +418,6 @@
 		D47A1AF629C00C0E004F03DB /* HomePageOptionStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageOptionStyle.swift; sourceTree = "<group>"; };
 		D47A450F29D74929008626E6 /* AppUsage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUsage.swift; sourceTree = "<group>"; };
 		D47A451829D75316008626E6 /* LogInOutButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInOutButton.swift; sourceTree = "<group>"; };
-		D47A451A29D754B7008626E6 /* AppLanguageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLanguageButton.swift; sourceTree = "<group>"; };
 		D47A451C29D75D14008626E6 /* bs-BA */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "bs-BA"; path = "bs-BA.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		D481F15629CB820D0088C28E /* AvailabilitiesExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvailabilitiesExtension.swift; sourceTree = "<group>"; };
 		D481F15829CB84F10088C28E /* ResourceSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceSelection.swift; sourceTree = "<group>"; };
@@ -491,6 +490,7 @@
 		D4EEFB5329DA177C0007A209 /* CustomList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomList.swift; sourceTree = "<group>"; };
 		D4EEFB5529DA1B050007A209 /* ListRowActionItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListRowActionItem.swift; sourceTree = "<group>"; };
 		D4EEFB5729DA1BD10007A209 /* CustomListGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomListGroup.swift; sourceTree = "<group>"; };
+		D4EEFB5929DA4E490007A209 /* AppearanceTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceTypes.swift; sourceTree = "<group>"; };
 		D4FCD14A2995AD64009D2987 /* UIColorWellExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorWellExtension.swift; sourceTree = "<group>"; };
 		D4FCD14D2995ADFE009D2987 /* UIColorWellHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorWellHelper.swift; sourceTree = "<group>"; };
 		D4FF4725299156FC0080C898 /* ScheduleStoreObjectExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleStoreObjectExtension.swift; sourceTree = "<group>"; };
@@ -559,6 +559,7 @@
 			isa = PBXGroup;
 			children = (
 				D478452529D64F0F00BDF7A3 /* LanguageTypes.swift */,
+				D4EEFB5929DA4E490007A209 /* AppearanceTypes.swift */,
 			);
 			path = Types;
 			sourceTree = "<group>";
@@ -1253,7 +1254,6 @@
 			isa = PBXGroup;
 			children = (
 				D47A451829D75316008626E6 /* LogInOutButton.swift */,
-				D47A451A29D754B7008626E6 /* AppLanguageButton.swift */,
 			);
 			path = GeneralButtons;
 			sourceTree = "<group>";
@@ -1767,7 +1767,6 @@
 				D454DECE29D3B900005BDAE3 /* BookmarksSettings.swift in Sources */,
 				D4A433BA29952A8A00BFEB7A /* EventExtension.swift in Sources */,
 				D4EEFB5629DA1B050007A209 /* ListRowActionItem.swift in Sources */,
-				D47A451B29D754B7008626E6 /* AppLanguageButton.swift in Sources */,
 				D419EDF4299A662400479DCE /* UserAvatar.swift in Sources */,
 				D460763B292AAD5400DE9590 /* PopupToastView.swift in Sources */,
 				D4D4DD032927C7DA0083BB7F /* ProgrammeCard.swift in Sources */,
@@ -1775,6 +1774,7 @@
 				D4EE5B6E29D50FD3002A1399 /* SettingsRadioButton.swift in Sources */,
 				D48CC59C29C7D1E70028179A /* CompactButtonStyle.swift in Sources */,
 				D498290F299D9E7F0017D636 /* RegisteredBookings.swift in Sources */,
+				D4EEFB5A29DA4E490007A209 /* AppearanceTypes.swift in Sources */,
 				D47A451929D75316008626E6 /* LogInOutButton.swift in Sources */,
 				D4294B3429C91CF700007747 /* ArrayExtension.swift in Sources */,
 				D46BB10A298AC31E00887A24 /* DetailsBuilder.swift in Sources */,
