@@ -17,15 +17,16 @@ struct BookmarksSettings: View {
         if let bookmarks = parentViewModel.bookmarks {
             if !bookmarks.isEmpty {
                 let sortedBookmarks = bookmarks.sorted(by: { $0.id < $1.id })
-                List {
-                    ForEach(sortedBookmarks, id: \.id) { bookmark in
+                CustomList {
+                    ForEach(sortedBookmarks.indices, id: \.self) { index in
                         BookmarkSettingsRow(
-                            bookmark: bookmark,
+                            bookmark: sortedBookmarks[index],
                             toggleBookmark: toggleBookmark,
                             deleteBookmark: deleteBookmark
                         )
                     }
                 }
+
             } else {
                 Info(title: NSLocalizedString("No bookmarks yet", comment: ""), image: "bookmark.slash")
             }

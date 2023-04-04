@@ -42,7 +42,7 @@ public enum Response {
     }
 
     // MARK: - Event
-    struct Event: Encodable, Decodable, Equatable, Hashable {
+    struct Event: Encodable, Decodable, Equatable, Hashable, Identifiable {
         
         static func == (lhs: Response.Event, rhs:  Response.Event) -> Bool {
             return lhs.id == rhs.id

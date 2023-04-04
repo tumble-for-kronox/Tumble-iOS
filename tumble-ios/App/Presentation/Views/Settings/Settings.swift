@@ -12,61 +12,81 @@ struct Settings: View {
     
     @AppStorage(StoreKey.appearance.rawValue) var appearance: String = AppearanceTypes.system.rawValue
     @ObservedObject var viewModel: SettingsViewModel
-    
+    let currentLocale = Bundle.main.preferredLocalizations.first
     let removeSchedule: (String) -> Void
     let updateBookmarks: () -> Void
     let onChangeSchool: (School) -> Void
     
     var body: some View {
         VStack {
-            List {
-                Section {
-                    NavigationLink(destination: AnyView(
-                        AppearanceSettings()
-                    ), label: {
-                        SettingsNavLink(title: NSLocalizedString("Appearance", comment: ""), current: AppearanceTypes.fromRawValue(appearance)?.displayName ?? "")
-                    })
-                    AppLanguageButton()
-                    NavigationLink(destination: AnyView(
-                            NotificationSettings(
-                                clearAllNotifications: clearAllNotifications,
-                                scheduleNotificationsForAllCourses: scheduleNotificationsForAllCourses,
-                                rescheduleNotifications: rescheduleNotifications)
-                    ), label: {
-                        SettingsNavLink(title: NSLocalizedString("Notifications", comment: ""))
-                    })
+            CustomList {
+                CustomListGroup {
+                    ListRowNavigationItem(
+                        title: NSLocalizedString("Appearance", comment: ""),
+                        current: NSLocalizedString($appearance.wrappedValue, comment: ""),
+                        destination: AnyView(AppearanceSettings(appearance: $appearance)))
+                    Divider()
+                    ListRowActionItem(
+                        title: NSLocalizedString("App language", comment: ""),
+                        current: currentLocale != nil ? LanguageTypes.fromLocaleName(currentLocale!)?.displayName : nil,
+                        action: {
+                            if let settingsURL = URL(string: UIApplication.openSettingsURLString) {
+                                UIApplication.shared.open(settingsURL)
+                            }
+                        })
+                    Divider()
+                    ListRowNavigationItem(
+                        title: NSLocalizedString("Notifications", comment: ""),
+                        destination: AnyView(NotificationSettings(
+                            clearAllNotifications: clearAllNotifications,
+                            scheduleNotificationsForAllCourses: scheduleNotificationsForAllCourses,
+                            rescheduleNotifications: rescheduleNotifications)))
                 }
-                Section {
-                    NavigationLink(destination: AnyView(
-                        SchoolSelectionSettings(onChangeSchool: onChangeSchool, schools: viewModel.schools)), label: {
-                        SettingsNavLink(title: NSLocalizedString("School", comment: ""), current: viewModel.universityName)
-                    })
-                    NavigationLink(destination: AnyView(
-                        BookmarksSettings(
+                CustomListGroup {
+                    ListRowNavigationItem(
+                        title: NSLocalizedString("School", comment: ""),
+                        current: viewModel.universityName,
+                        destination: AnyView(SchoolSelectionSettings(
+                            onChangeSchool: onChangeSchool,
+                            schools: viewModel.schools)))
+                    Divider()
+                    ListRowNavigationItem(
+                        title: NSLocalizedString("Bookmarks", comment: ""),
+                        destination: AnyView(BookmarksSettings(
                             parentViewModel: viewModel,
                             updateBookmarks: updateBookmarks,
                             removeSchedule: removeSchedule
-                        )), label: {
-                            SettingsNavLink(title: NSLocalizedString("Bookmarks", comment: ""))
-                    })
+                        )))
                 }
-                Section {
-                    SettingsButton(onClick: {
-                        UIApplication.shared.requestReview()
-                    }, title: NSLocalizedString("App review", comment: ""), image: "square.and.arrow.up")
-                    SettingsButton(onClick: {
-                        UIApplication.shared.shareFeedback()
-                    }, title: NSLocalizedString("Share feedback", comment: ""), image: "envelope")
-                    NavigationLink(destination: AnyView(AppUsage()), label: {
-                        SettingsNavLink(title: NSLocalizedString("How to use the app", comment: ""))
-                    })
+                CustomListGroup {
+                    ListRowActionItem(
+                        title: NSLocalizedString("App review", comment: ""),
+                        image: "square.and.arrow.up",
+                        imageColor: .primary,
+                        action: {
+                            UIApplication.shared.requestReview()
+                        })
+                    Divider()
+                    ListRowActionItem(
+                        title: NSLocalizedString("Share feedback", comment: ""),
+                        image: "envelope",
+                        imageColor: .primary,
+                        action: {
+                            UIApplication.shared.shareFeedback()
+                        })
                 }
-                LogInOutButton(parentViewModel: viewModel) // Might be a nicer way to do this
+                CustomListGroup {
+                    LogInOutButton(parentViewModel: viewModel)
+                }
             }
+            .padding(.top, 20)
+            .background(Color.background)
         }
+        .background(Color.background)
         .navigationTitle(NSLocalizedString("Settings", comment: ""))
         .navigationBarTitleDisplayMode(.inline)
     }
+
     
     
     fileprivate func rescheduleNotifications(previousOffset: Int, newOffset: Int) -> Void {

@@ -16,7 +16,7 @@ struct ProgrammeCard: View {
             onOpenProgramme(programme.id)
         }, label: {
             HStack {
-                VStack(alignment:.leading) {
+                VStack(alignment: .leading) {
                     Text(programme.title)
                         .programmeTitle()
                     HStack {
@@ -31,6 +31,7 @@ struct ProgrammeCard: View {
                             .programmeSubTitle()
                     }
                 }
+                Spacer()
             }
         })
         .buttonStyle(ProgrammeCardStyle())

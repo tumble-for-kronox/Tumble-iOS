@@ -93,8 +93,7 @@ struct Resources: View {
         .coordinateSpace(name: scrollSpace)
         .onPreferenceChange(ResourcesScrollViewOffsetPreferenceKey.self, perform: handleScroll)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color(UIColor.systemBackground))
-        .cornerRadius(20, corners: [.topLeft, .topRight])
+        .background(Color.background)
         .sheet(item: $parentViewModel.examDetailSheetModel, content: { examDetails in
             ExamDetailsSheet(
                 event: examDetails.event,

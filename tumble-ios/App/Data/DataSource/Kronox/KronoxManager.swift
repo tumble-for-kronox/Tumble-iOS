@@ -11,8 +11,6 @@ import Foundation
 class KronoxManager: KronoxManagerProtocol {
     
     private let serialQueue = OperationQueue()
-    private let encoder = JSONEncoder.shared
-    private let decoder = JSONDecoder.shared
     private let urlRequestUtils = NetworkUtilities.shared
     private let session: URLSession
     
@@ -94,49 +92,71 @@ class KronoxManager: KronoxManagerProtocol {
             urlRequest: URLRequest,
             completion: @escaping (Result<NetworkResponse, Response.ErrorMessage>) -> Void) -> URLSessionDataTask {
         
-        let task = session.dataTask(with: urlRequest) { [unowned self] data, response, error in
+        let task = session.dataTask(with: urlRequest) { data, response, error in
             guard let httpResponse = response as? HTTPURLResponse else {
-                completion(.failure(Response.ErrorMessage(message: "Did not receive valid HTTP response")))
+                DispatchQueue.main.async {
+                    completion(.failure(Response.ErrorMessage(message: "Did not receive valid HTTP response")))
+                }
                 return
             }
             
             guard let data = data else {
-                completion(.failure(Response.ErrorMessage(message: "Failed to retrieve data", statusCode: httpResponse.statusCode)))
+                DispatchQueue.main.async {
+                    completion(.failure(Response.ErrorMessage(message: "Failed to retrieve data", statusCode: httpResponse.statusCode)))
+                }
                 return
             }
+            
+            let decoder = JSONDecoder()
             
             switch httpResponse.statusCode {
             case 200:
                 do {
-                    let result = try self.decoder.decode(NetworkResponse.self, from: data)
-                    completion(.success(result))
+                    let result = try decoder.decode(NetworkResponse.self, from: data)
+                    DispatchQueue.main.async {
+                        completion(.success(result))
+                    }
                 } catch let error {
                     AppLogger.shared.critical("Failed to decode response to object \(NetworkResponse.self). Attempting to parse as empty object since status was 200. Error: \(error)",
                                               source: "NetworkManager")
                     if let result = Response.Empty() as? NetworkResponse {
-                        completion(.success(result))
+                        DispatchQueue.main.async {
+                            completion(.success(result))
+                        }
                     } else {
-                        completion(.failure(Response.ErrorMessage(message: "Unable to convert empty response object to \(NetworkResponse.self)", statusCode: httpResponse.statusCode)))
+                        DispatchQueue.main.async {
+                            completion(.failure(Response.ErrorMessage(message: "Unable to convert empty response object to \(NetworkResponse.self)", statusCode: httpResponse.statusCode)))
+                        }
                     }
                 }
             case 202:
                 // Return an empty object that conforms to the expected type of NetworkResponse
                 if let result = Response.Empty() as? NetworkResponse {
-                    completion(.success(result))
+                    DispatchQueue.main.async {
+                        completion(.success(result))
+                    }
                 } else {
-                    completion(.failure(Response.ErrorMessage(message: "Unable to convert empty response object to \(NetworkResponse.self)", statusCode: httpResponse.statusCode)))
+                    DispatchQueue.main.async {
+                        completion(.failure(Response.ErrorMessage(message: "Unable to convert empty response object to \(NetworkResponse.self)", statusCode: httpResponse.statusCode)))
+                    }
                 }
             case 400:
                 do {
-                    let result = try self.decoder.decode(Response.ErrorMessage.self, from: data)
-                    completion(.failure(result))
+                    let result = try decoder.decode(Response.ErrorMessage.self, from: data)
+                    DispatchQueue.main.async {
+                        completion(.failure(result))
+                    }
                 } catch {
                     AppLogger.shared.critical("Failed to decode response to object \(Response.ErrorMessage.self)",
                                               source: "NetworkManager")
-                    completion(.failure(Response.ErrorMessage(message: "Unable to convert empty response object to \(NetworkResponse.self)", statusCode: httpResponse.statusCode)))
+                    DispatchQueue.main.async {
+                        completion(.failure(Response.ErrorMessage(message: "Unable to convert empty response object to \(NetworkResponse.self)", statusCode: httpResponse.statusCode)))
+                    }
                 }
             default:
-                completion(.failure(Response.ErrorMessage(message: "Something went wrong", statusCode: httpResponse.statusCode)))
+                DispatchQueue.main.async {
+                    completion(.failure(Response.ErrorMessage(message: "Something went wrong", statusCode: httpResponse.statusCode)))
+                }
             }
         }
         

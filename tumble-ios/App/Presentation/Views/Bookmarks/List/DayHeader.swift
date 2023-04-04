@@ -19,7 +19,8 @@ struct DayHeader: View {
             Rectangle()
                 .fill(Color.onBackground)
                 .offset(x: 7.5)
-                .frame(height: 1.5)
+                .frame(height: 1)
+                .cornerRadius(20)
                 .padding(.trailing, 8)
             Spacer()
         }

@@ -39,6 +39,7 @@ struct SchoolRow: View {
                 Spacer()
             }
         })
+        .buttonStyle(SchoolRowStyle())
     }
 }
 

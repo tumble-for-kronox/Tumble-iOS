@@ -28,25 +28,16 @@ import SwiftUI
     @Published var universityImage: Image?
     @Published var universityName: String?
     
-    let homeViewModel: HomeViewModel
-    let bookmarksViewModel: BookmarksViewModel
-    let accountPageViewModel: AccountViewModel
-    let searchViewModel: SearchViewModel
-    let settingsViewModel: SettingsViewModel
+    lazy var homeViewModel: HomeViewModel = viewModelFactory.makeViewModelHome()
+    lazy var bookmarksViewModel: BookmarksViewModel = viewModelFactory.makeViewModelBookmarks()
+    lazy var accountPageViewModel: AccountViewModel = viewModelFactory.makeViewModelAccount()
+    lazy var searchViewModel: SearchViewModel = viewModelFactory.makeViewModelSearch()
+    lazy var settingsViewModel: SettingsViewModel = viewModelFactory.makeViewModelSettings()
 
-    var schools: [School] {
-        return schoolManager.getSchools()
-    }
+    lazy var schools: [School] = schoolManager.getSchools()
     
     init() {
-        
-        // ViewModels to subviews
-        self.homeViewModel = viewModelFactory.makeViewModelHome()
-        self.bookmarksViewModel = viewModelFactory.makeViewModelBookmarks()
-        self.accountPageViewModel = viewModelFactory.makeViewModelAccount()
-        self.searchViewModel = viewModelFactory.makeViewModelSearch()
-        self.settingsViewModel = viewModelFactory.makeViewModelSettings()
-        
+               
         self.canvasUrl = preferenceService.getCanvasUrl(schools: schools)
         self.kronoxUrl = preferenceService.getUniversityKronoxUrl(schools: schools)
         self.domain = preferenceService.getUniversityDomain(schools: schools)
@@ -100,17 +91,17 @@ import SwiftUI
         }
     }
     
-    func changeSchool(school: School, closure: @escaping (Bool) -> Void) -> Void {
+    func changeSchool(school: School, completion: @escaping (Bool) -> Void) -> Void {
         if school.id == self.preferenceService.getDefaultSchool() {
-            closure(false)
+            completion(false)
         } else {
-            self.preferenceService.setSchool(id: school.id, closure: { [weak self] in
+            self.preferenceService.setSchool(id: school.id, completion: { [weak self] in
                 guard let self = self else { return }
                 self.removeAllSchedules() {
                     self.removeAllCourseColors() {
                         self.preferenceService.setBookmarks(bookmarks: [])
                         self.cancelAllNotifications() {
-                            closure(true)
+                            completion(true)
                         }
                     }
                 }

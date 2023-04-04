@@ -26,14 +26,14 @@ struct ResourceSelection: View {
                     .foregroundColor(.onBackground)
                     .padding(.horizontal, 15)
                     .padding(.vertical, 20)
-                ResourceTimeDropdownMenu(
+                TimeslotDropdown(
                     resource: resource,
                     timeslots: timeslots,
                     selectedIndex: $selectedTimeIndex
                 )
                 Divider()
                     .foregroundColor(.onBackground)
-                ResourceRoomSelection(
+                TimeslotSelection(
                     resourceId: resource.id ?? "",
                     bookResource: bookResource,
                     selectedPickerDate: selectedPickerDate,
@@ -47,7 +47,7 @@ struct ResourceSelection: View {
                 maxHeight: .infinity,
                 alignment: .top
             )
-            .background(Color(UIColor.systemBackground))
+            .background(Color.background)
             .onAppear {
                 for timeslot in timeslots {
                     if let timeslotId = timeslot.id,
@@ -90,13 +90,13 @@ struct ResourceSelection: View {
         resourceId: String,
         date: Date,
         availabilityValue: Response.AvailabilityValue,
-        closure: @escaping (Result<Void, Error>) -> Void
+        completion: @escaping (Result<Void, Error>) -> Void
     ) -> Void {
             parentViewModel.bookResource(
                 resourceId: resourceId,
                 date: date,
                 availabilityValue: availabilityValue,
-                completion: closure
+                completion: completion
             )
         }
     

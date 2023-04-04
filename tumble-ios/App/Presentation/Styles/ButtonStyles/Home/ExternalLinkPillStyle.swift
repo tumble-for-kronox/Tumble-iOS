@@ -9,10 +9,17 @@ import Foundation
 import SwiftUI
 
 struct ExternalLinkPillStyle: ButtonStyle {
+    
+    let color: Color
+    
+    init(color: Color = .surface) {
+        self.color = color
+    }
+    
     func makeBody(configuration: Self.Configuration) -> some View {
         configuration.label
             .padding(.all, 10)
-            .background(Color.surface)
+            .background(color.opacity(0.7))
             .cornerRadius(20)
             .scaleEffect(configuration.isPressed ? 0.9 : 1)
             .animation(.easeOut(duration: 0.2), value: configuration.isPressed)

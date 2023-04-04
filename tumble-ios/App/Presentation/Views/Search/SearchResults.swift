@@ -23,15 +23,23 @@ struct SearchResults: View {
                     .searchResultsField()
                 Spacer()
             }
-            List {
-                ForEach(searchResults, id: \.id) { programme in
-                    ProgrammeCard(
-                        programme: programme,
-                        universityImage: universityImage,
-                        onOpenProgramme: onOpenProgramme
-                    )
+            ScrollView (showsIndicators: false) {
+                LazyVStack {
+                    ForEach(searchResults, id: \.id) { programme in
+                        ProgrammeCard(
+                            programme: programme,
+                            universityImage: universityImage,
+                            onOpenProgramme: onOpenProgramme
+                        )
+                        if !(searchResults.last?.id == programme.id) {
+                            Divider()
+                                .padding(.horizontal, 15)
+                                .padding(.vertical, 15)
+                        }
+                    }
                 }
             }
+            .background(Color.background)
         }
     }
 }

@@ -51,25 +51,20 @@ import SwiftUI
     
     func loadBookmarkedSchedules() {
         self.status = .loading
-        loadSchedules { [weak self] result in
+        self.loadSchedules { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .failure:
                 AppLogger.shared.critical("Could not load schedules from local storage")
-                DispatchQueue.main.async {
-                    self.status = .error
-                }
+                self.status = .error
             case .success(let schedules):
-                let visibleSchedules = self.filterHiddenBookmarks(schedules: schedules)
-                self.loadCourseColors { [weak self] courseColors in
-                    guard let self = self else { return }
+                self.loadCourseColors { courseColors in
                     self.courseColors = courseColors
                     guard !schedules.isEmpty else {
-                        DispatchQueue.main.async {
-                            self.status = .uninitialized
-                        }
+                        self.status = .uninitialized
                         return
                     }
+                    let visibleSchedules = self.filterHiddenBookmarks(schedules: schedules)
                     self.updateSchedulesIfNeeded(schedules: visibleSchedules) {
                         self.updateViewStatus(schedules: visibleSchedules)
                     }
@@ -79,11 +74,9 @@ import SwiftUI
     }
 
     private func loadSchedules(completion: @escaping (Result<[ScheduleStoreModel], Error>) -> Void) {
-        DispatchQueue.main.async {
-            self.scheduleService.load(completion: {result in
-                completion(result)
-            })
-        }
+        self.scheduleService.load(completion: {result in
+            completion(result)
+        })
     }
 
     fileprivate func filterHiddenBookmarks(schedules: [ScheduleStoreModel]) -> [ScheduleStoreModel] {

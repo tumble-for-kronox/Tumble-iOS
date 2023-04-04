@@ -24,12 +24,12 @@ struct BookmarkListView: View {
     var body: some View {
         ScrollViewReader { value in
             ScrollView(.vertical, showsIndicators: false) {
-                LazyVStack {
+                LazyVStack (alignment: .center) {
                     Rectangle().foregroundColor(.clear).frame(height: 1.0)
                     ForEach(days, id: \.id) { day in
                         if !(day.events.isEmpty) {
                             Section(header: DayHeader(day: day), content: {
-                                ForEach(day.events, id: \.id) { event in
+                                ForEach(day.events.sorted(), id: \.id) { event in
                                     BookmarkCard(
                                         onTapCard: onTapCard,
                                         event: event,
@@ -55,22 +55,7 @@ struct BookmarkListView: View {
                 .id("bookmarkScrollView")
             }
             .overlay(
-                Button(action: {
-                    withAnimation(.spring()) {
-                        value.scrollTo("bookmarkScrollView", anchor: .top)
-                    }
-                }, label: {
-                    Image(systemName: "arrow.up")
-                        .font(.system(size: 24, weight: .semibold))
-                        .foregroundColor(Color(UIColor.systemBackground))
-                        .padding(15)
-                        .background(Color.primary)
-                        .clipShape(Rectangle())
-                        .cornerRadius(20)
-                })
-                .buttonStyle(ToTopButtonStyle())
-                .padding()
-                .offset(x: bookmarksListModel.buttonOffsetX)
+                ToTopButton(buttonOffsetX: bookmarksListModel.buttonOffsetX, value: value)
                 ,alignment: .bottomTrailing
             )
         }

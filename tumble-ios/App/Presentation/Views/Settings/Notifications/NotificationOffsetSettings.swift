@@ -27,8 +27,8 @@ struct NotificationOffsetSettings: View {
     let rescheduleNotifications: (Int, Int) -> Void
     
     var body: some View {
-        List {
-            Section {
+        CustomList {
+            CustomListGroup {
                 ForEach(NotificationOffset.allCases) { type in
                     SettingsRadioButton(
                         title: getOffsetDisplayName(offset: type),
@@ -43,6 +43,9 @@ struct NotificationOffsetSettings: View {
                             }
                         )
                     )
+                    if !(NotificationOffset.allCases.last?.rawValue == type.rawValue) {
+                        Divider()
+                    }
                 }
             }
         }

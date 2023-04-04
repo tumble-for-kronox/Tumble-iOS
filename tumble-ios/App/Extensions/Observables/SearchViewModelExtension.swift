@@ -12,7 +12,7 @@ extension SearchViewModel {
     // Checks if a schedule based on its programme Id is already in the
     // local storage. if it is, we set the preview button for favoriting
     // to be either save or remove.
-    func checkSavedSchedule(programmeId: String, closure: @escaping () -> Void) -> Void {
+    func checkSavedSchedule(programmeId: String, completion: @escaping () -> Void) -> Void {
         AppLogger.shared.debug("Checking if schedule is already saved...")
         scheduleService.load(with: programmeId) { [weak self] result in
             guard let self = self else { return }
@@ -25,22 +25,22 @@ extension SearchViewModel {
                 self.schedulePreviewIsSaved = true
                 AppLogger.shared.debug("Schedule is already saved")
             }
-            closure()
+            completion()
         }
     }
     
     
-    func handleFetchedSchedule(schedule: Response.Schedule, closure: @escaping () -> Void) -> Void {
+    func handleFetchedSchedule(schedule: Response.Schedule, completion: @escaping () -> Void) -> Void {
         if schedule.isEmpty() {
-            DispatchQueue.main.async {
-                self.schedulePreviewStatus = .empty
-            }
+            self.schedulePreviewStatus = .empty
         } else {
             self.scheduleForPreview = schedule
             self.scheduleListOfDays = schedule.days.toOrderedDays()
             AppLogger.shared.debug("Set schedule local variables")
         }
-        closure()
+        DispatchQueue.main.async {
+            completion()
+        }
     }
     
     
@@ -49,52 +49,60 @@ extension SearchViewModel {
     // The purpose is to check for new schedules and add them accordingly
     func assignCourseColorsToSavedSchedule(
         courses: [String : String],
-        closure: @escaping ([String : String]) -> Void) -> Void {
-            var availableColors = Set(colors)
-            var courseColors = courses
-            let visitedCourses = self.scheduleListOfDays!.flatMap {
-                $0.events.map {
-                    $0.course.id } }.filter {
-                        !courseColors.keys.contains($0)
-                    }
-            for course in visitedCourses {
-                courseColors[course] = availableColors.popFirst()
+        completion: @escaping ([String : String]) -> Void) -> Void {
+            DispatchQueue.global(qos: .userInitiated).async {
+                var availableColors = Set(colors)
+                var courseColors = courses
+                let visitedCourses = self.scheduleListOfDays!.flatMap {
+                    $0.events.map {
+                        $0.course.id } }.filter {
+                            !courseColors.keys.contains($0)
+                        }
+                for course in visitedCourses {
+                    courseColors[course] = availableColors.popFirst()
+                }
+                self.saveCourseColors(courseColors: courseColors)
+                DispatchQueue.main.async {
+                    completion(courseColors)
+                }
             }
-            self.saveCourseColors(courseColors: courseColors)
-            closure(courseColors)
     }
     
     
     // API Call to fetch a schedule from backend
-    func fetchSchedule(programmeId: String, closure: @escaping (Bool) -> Void) -> Void {
+    func fetchSchedule(programmeId: String, completion: @escaping (Bool) -> Void) -> Void {
         let _ = networkManager.get(
             .schedule(
                 scheduleId: programmeId,
                 schoolId: String(school!.id))) { [weak self] (result: Result<Response.Schedule, Response.ErrorMessage>) in
-                    DispatchQueue.main.async {
-                        guard let self = self else { return }
-                        switch result {
-                        case .success(let result):
-                            AppLogger.shared.debug("Fetched schedule")
-                            self.handleFetchedSchedule(schedule: result) {
-                                closure(true)
-                            }
-                        case .failure(let error):
-                            closure(false)
-                            self.schedulePreviewStatus = .error
-                            self.errorMessagePreview = error.message.contains("NSURLErrorDomain") ? "Could not contact the server, try again later" : error.message
-                            AppLogger.shared.debug("Encountered error when attempting to load schedule for programme \(programmeId): \(error)")
+                    guard let self = self else { return }
+                    switch result {
+                    case .success(let result):
+                        AppLogger.shared.debug("Fetched schedule")
+                        self.handleFetchedSchedule(schedule: result) {
+                            completion(true)
                         }
+                    case .failure(let error):
+                        completion(false)
+                        self.schedulePreviewStatus = .error
+                        self.errorMessagePreview = error.message.contains("NSURLErrorDomain") ? "Could not contact the server, try again later" : error.message
+                        AppLogger.shared.debug("Encountered error when attempting to load schedule for programme \(programmeId): \(error)")
                     }
         }
     }
     
     
-    func assignRandomCourseColors(closure: @escaping (Result<[String : String], Error>) -> Void) -> Void {
-        if let randomCourseColors = self.scheduleForPreview?.assignCoursesRandomColors() {
-            closure(.success(randomCourseColors))
-        } else {
-            closure(.failure(.generic(reason: "Schedule for preview is null")))
+    func assignRandomCourseColors(completion: @escaping (Result<[String : String], Error>) -> Void) -> Void {
+        DispatchQueue.global(qos: .userInitiated).async {
+            if let randomCourseColors = self.scheduleForPreview?.assignCoursesRandomColors() {
+                DispatchQueue.main.async {
+                    completion(.success(randomCourseColors))
+                }
+            } else {
+                DispatchQueue.main.async {
+                    completion(.failure(.generic(reason: "Schedule for preview is null")))
+                }
+            }
         }
     }
     
@@ -142,7 +150,9 @@ extension SearchViewModel {
                 return
             case .failure(let error):
                 AppLogger.shared.debug("Fatal error \(error)")
-                completion(.failure(error))
+                DispatchQueue.main.async {
+                    completion(.failure(error))
+                }
             }
         }
     }
@@ -151,34 +161,46 @@ extension SearchViewModel {
         courseColorService.remove(removeCourses: (self.scheduleForPreview!.courses())) { result in
             if case .failure(let error) = result {
                 AppLogger.shared.debug("Fatal error \(error)")
-                completion(.failure(.generic(reason: error.localizedDescription)))
+                DispatchQueue.main.async {
+                    completion(.failure(.generic(reason: error.localizedDescription)))
+                }
                 return
             } else {
                 AppLogger.shared.debug("Removed course colors")
-                completion(.success(()))
+                DispatchQueue.main.async {
+                    completion(.success(()))
+                }
             }
         }
     }
 
     
     
-    func loadProgrammeCourseColors(closure: @escaping ([String : String]) -> Void) -> Void {
+    func loadProgrammeCourseColors(completion: @escaping ([String : String]) -> Void) -> Void {
         courseColorService.load { result in
-            DispatchQueue.main.async {
-                switch result {
-                case .failure(_):
-                    AppLogger.shared.critical("Could not load course colors for saved schedule")
-                case .success(let courses):
-                    if !courses.isEmpty {
-                        self.assignCourseColorsToSavedSchedule(courses: courses) { newCourseColors in
-                            closure(newCourseColors)
-                        }
+            switch result {
+            case .failure:
+                AppLogger.shared.critical("Could not load course colors for saved schedule")
+            case .success(let courses):
+                if !courses.isEmpty {
+                    self.assignCourseColorsToSavedSchedule(courses: courses) { newCourseColors in
+                        completion(newCourseColors)
                     }
                 }
             }
         }
     }
     
+    func cancelNotifications(for schedules: [ScheduleStoreModel], with id: String?) -> Void {
+        DispatchQueue.global(qos: .background).async { [weak self] in
+            guard let self else { return }
+            let schedulesToRemove = schedules.filter { $0.id == id }
+            let events = schedulesToRemove
+                .flatMap { schedule in schedule.days }
+                .flatMap { day in day.events }
+            events.forEach { event in self.notificationManager.cancelNotification(for: event.id) }
+        }
+    }
     
     func saveCourseColors(courseColors: [String : String]) -> Void {
         self.courseColorService.save(coursesAndColors: courseColors) { courseResult in
@@ -196,21 +218,17 @@ extension SearchViewModel {
         for result in results.items {
             localResults.append(result)
         }
-        DispatchQueue.main.async {
-            self.programmeSearchResults = localResults
-            self.status = .loaded
-        }
+        self.programmeSearchResults = localResults
+        self.status = .loaded
     }
     
     func loadSchedules(completion: @escaping ([ScheduleStoreModel]) -> Void) -> Void {
         self.scheduleService.load(completion: {result in
             switch result {
-            case .failure(_):
+            case .failure:
                 return
             case .success(let bookmarks):
-                DispatchQueue.main.async {
-                    completion(bookmarks)
-                }
+                completion(bookmarks)
             }
         })
     }

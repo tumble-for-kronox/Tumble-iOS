@@ -44,14 +44,20 @@ extension BookmarksViewModel {
                 }
             }
         }
-        group.notify(queue: .main) {
+        group.notify(queue: .global(qos: .userInitiated)) {
             let uniqueEvents = updatedBookmarks.removeDuplicateEvents().flatten()
             if uniqueEvents.isEmpty {
                 AppLogger.shared.debug("No schedules needed to or could be be updated")
-                self.scheduleListOfDays = bookmarks.removeDuplicateEvents().flatten()
+                DispatchQueue.main.async { [weak self] in
+                    guard let self else { return }
+                    self.scheduleListOfDays = bookmarks.removeDuplicateEvents().flatten()
+                }
             } else {
                 AppLogger.shared.debug("Amount of updated events: \(uniqueEvents.count)")
-                self.scheduleListOfDays = uniqueEvents
+                DispatchQueue.main.async { [weak self] in
+                    guard let self else { return }
+                    self.scheduleListOfDays = uniqueEvents
+                }
             }
             
             completion()
@@ -112,14 +118,14 @@ extension BookmarksViewModel {
     }
     
     
-    func saveSchedule(schedule: Response.Schedule, closure: @escaping () -> Void) {
+    func saveSchedule(schedule: Response.Schedule, completion: @escaping () -> Void) {
         self.scheduleService.save(schedule: schedule) { scheduleResult in
             DispatchQueue.main.async {
                 if case .failure(let error) = scheduleResult {
                     self.status = .error
                     fatalError(error.localizedDescription)
                 } else {
-                    closure()
+                    completion()
                 }
             }
         }
@@ -134,9 +140,7 @@ extension BookmarksViewModel {
             case .success(let courseColors):
                 completion(courseColors)
             case .failure(let failure):
-                DispatchQueue.main.async {
-                    self.status = .error
-                }
+                self.status = .error
                 AppLogger.shared.debug("Error occured loading colors -> \(failure.localizedDescription)")
             }
         }
@@ -145,7 +149,7 @@ extension BookmarksViewModel {
     
     func fetchSchedule(
         for scheduleId: String,
-        closure: @escaping (Result<Response.Schedule, Error>) -> Void) {
+        completion: @escaping (Result<Response.Schedule, Error>) -> Void) {
         let _ = networkManager.get(
             .schedule(
                 scheduleId: scheduleId,
@@ -153,9 +157,9 @@ extension BookmarksViewModel {
             switch result {
             case .failure(let error):
                 AppLogger.shared.debug("Encountered error when attempting to update schedule -> \(scheduleId): \(error)")
-                closure(.failure(.generic(reason: "Network request timed out")))
+                completion(.failure(.generic(reason: "Network request timed out")))
             case .success(let schedule):
-                closure(.success(schedule))
+                completion(.success(schedule))
             }
         }
     }

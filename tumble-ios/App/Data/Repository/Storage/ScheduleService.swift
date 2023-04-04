@@ -29,13 +29,14 @@ class ScheduleService: ObservableObject, ScheduleServiceProtocol {
         DispatchQueue.global(qos: .background).async {
             do {
                 let fileURL = try self.fileURL()
+                let decoder = JSONDecoder()
                 guard let file = try? FileHandle(forReadingFrom: fileURL) else {
                         DispatchQueue.main.async {
                             completion(.success([]))
                         }
                         return
                     }
-                let schedules = try JSONDecoder.shared.decode([ScheduleStoreModel].self, from: file.availableData)
+                let schedules = try decoder.decode([ScheduleStoreModel].self, from: file.availableData)
                 DispatchQueue.main.async {
                     completion(.success(schedules))
                 }
@@ -73,13 +74,14 @@ class ScheduleService: ObservableObject, ScheduleServiceProtocol {
         DispatchQueue.global(qos: .background).async {
             do {
                 let fileURL = try self.fileURL()
+                let decoder = JSONDecoder()
                 guard let file = try? FileHandle(forReadingFrom: fileURL) else {
                     DispatchQueue.main.async {
                         completion(.failure(.internal(reason: "Could not load file handle")))
                     }
                     return
                 }
-                let schedules = try JSONDecoder.shared.decode([ScheduleStoreModel].self, from: file.availableData)
+                let schedules = try decoder.decode([ScheduleStoreModel].self, from: file.availableData)
                 if let schedule = schedules.first(where: { $0.id == id }) {
                     DispatchQueue.main.async {
                         completion(.success(schedule))
@@ -102,6 +104,7 @@ class ScheduleService: ObservableObject, ScheduleServiceProtocol {
         DispatchQueue.global(qos: .background).async {
             do {
                 let fileURL = try self.fileURL()
+                let encoder = JSONEncoder()
                 self.load(completion: { (result: Result<[ScheduleStoreModel], Error>) in
                     switch result {
                     case .failure(let error):
@@ -114,7 +117,7 @@ class ScheduleService: ObservableObject, ScheduleServiceProtocol {
                             
                             let newSchedules = self.insertOrReplace(for: schedule, with: schedules)
                             
-                            let data = try JSONEncoder.shared.encode(newSchedules)
+                            let data = try encoder.encode(newSchedules)
                             try data.write(to: fileURL)
                             DispatchQueue.main.async {
                                 AppLogger.shared.debug("Successfully saved schedule \(schedule.id)")
@@ -140,15 +143,17 @@ class ScheduleService: ObservableObject, ScheduleServiceProtocol {
         DispatchQueue.global(qos: .background).async {
             do {
                 let fileURL = try self.fileURL()
+                let decoder = JSONDecoder()
+                let encoder = JSONEncoder()
                 guard let file = try? FileHandle(forReadingFrom: fileURL) else {
                     DispatchQueue.main.async {
                         completion(.success(1))
                     }
                     return
                 }
-                var schedules = try JSONDecoder.shared.decode([ScheduleStoreModel].self, from: file.availableData)
+                var schedules = try decoder.decode([ScheduleStoreModel].self, from: file.availableData)
                 schedules.removeAll()
-                let data = try JSONEncoder.shared.encode(schedules)
+                let data = try encoder.encode(schedules)
                 try data.write(to: fileURL)
                 
                 DispatchQueue.main.async {
@@ -167,17 +172,19 @@ class ScheduleService: ObservableObject, ScheduleServiceProtocol {
         DispatchQueue.global(qos: .background).async {
             do {
                 let fileURL = try self.fileURL()
+                let decoder = JSONDecoder()
+                let encoder = JSONEncoder()
                 guard let file = try? FileHandle(forReadingFrom: fileURL) else {
                         DispatchQueue.main.async {
                             completion(.success(1))
                         }
                         return
                     }
-                var schedules = try JSONDecoder.shared.decode([ScheduleStoreModel].self, from: file.availableData)
+                var schedules = try decoder.decode([ScheduleStoreModel].self, from: file.availableData)
                 
                 schedules.removeAll(where: {$0.id == scheduleId})
                 
-                let data = try JSONEncoder.shared.encode(schedules)
+                let data = try encoder.encode(schedules)
                 try data.write(to: fileURL)
                 
                 DispatchQueue.main.async {
@@ -222,13 +229,14 @@ extension ScheduleService {
             DispatchQueue.global(qos: .background).async {
                 do {
                     let fileURL = try self.fileURL()
+                    let decoder = JSONDecoder()
                     guard let file = try? FileHandle(forReadingFrom: fileURL) else {
                         DispatchQueue.main.async {
                             completion(.success([]))
                         }
                         return
                     }
-                    let schedules = try JSONDecoder.shared.decode([ScheduleStoreModel].self, from: file.availableData)
+                    let schedules = try decoder.decode([ScheduleStoreModel].self, from: file.availableData)
                     let events = schedules
                         .filter { !hiddenBookmarks.contains($0.id) }
                         .flatMap { $0.days }

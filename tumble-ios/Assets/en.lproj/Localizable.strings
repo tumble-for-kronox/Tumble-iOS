@@ -6,8 +6,6 @@
   
 */
 
-"Pull to refresh"="Pull to refresh";
-
 "Monday"="Monday";
 
 "Tuesday"="Tuesday";
@@ -21,6 +19,36 @@
 "Saturday"="Saturday";
 
 "Sunday"="Sunday";
+
+"Logged out"="Logged out";
+
+"You have successfully logged out of your account"="You have successfully logged out of your account";
+
+"Error"="Error";
+
+"Could not log out from your account"="Could not log out from your account";
+
+"There are no schedules that match your search"="There are no schedules that match your search";
+
+"Something went wrong"="Something went wrong";
+
+"Automatic"="Automatic";
+
+"Light"="Light";
+
+"Dark"="Dark";
+
+"English"="English";
+
+"Swedish"="Swedish";
+
+"Italian"="Italian";
+
+"French"="French";
+
+"German"="German";
+
+"Bosnian"="Bosnian";
 
 "Home"="Home";
 
@@ -60,39 +88,23 @@
 
 "Share feedback"="Share feedback";
 
-"How to use the app"="How to use the app";
-
 "Settings"="Settings";
-
-"Scheduled notifications"="Scheduled notifications";
-
-"Scheduled notifications for all available events"="Scheduled notifications for all available events";
 
 "Cancelled notifications"="Cancelled notifications";
 
 "Cancelled all available notifications set for events"="Cancelled all available notifications set for events";
 
-"Error"="Error";
+"Scheduled notifications"="Scheduled notifications";
+
+"Scheduled notifications for all available events"="Scheduled notifications for all available events";
 
 "Failed to set notifications for all available events"="Failed to set notifications for all available events";
 
-"Automatic"="Automatic";
+"Are you sure you want to log out of your account?"="Are you sure you want to log out of your account?";
 
-"Light"="Light";
+"Log out"="Log out";
 
-"Dark"="Dark";
-
-"English"="English";
-
-"Swedish"="Swedish";
-
-"French"="French";
-
-"German"="German";
-
-"Italian"="Italian";
-
-"Bosnian"="Bosnian";
+"Log in"="Log in";
 
 "No bookmarks yet"="No bookmarks yet";
 
@@ -102,7 +114,11 @@
 
 "hours"="Hours";
 
+"Are you sure you want to set notifications for all events?"="Are you sure you want to set notifications for all events?";
+
 "Set notifications for all events"="Set notifications for all events";
+
+"Are you sure you want to cancel all set notifications?"="Are you sure you want to cancel all set notifications?";
 
 "Cancel all notifications"="Cancel all notifications";
 
@@ -110,19 +126,27 @@
 
 "Today's events"="Today's events";
 
+"No events for today"="No events for today";
+
+"Next class"="Next class";
+
+"No upcoming class"="No upcoming class";
+
+"Looks like you don't have anything saved yet"="Looks like you don't have anything saved yet";
+
+"Schedules are bookmarked from the search page, which you can access at the top right of the screen."="Schedules are bookmarked from the search page, which you can access at the top right of the screen.";
+
+"Everything looks good for this week"="Everything looks good for this week";
+
+"Looks like you don't have any classes or exams in the coming week. Yay!"="Looks like you don't have any classes or exams in the coming week. yay!";
+
 "No classes for today"="No classes for today";
-
-"Something went wrong"="Something went wrong";
-
-"News"="News";
-
-"No recent news items"="No recent news items";
-
-"See all"="See all";
 
 "No teachers listed"="No teachers listed";
 
 "Unknown"="Unknown";
+
+"Pull to refresh"="Pull to refresh";
 
 "Search"="Search";
 
@@ -130,13 +154,11 @@
 
 "This is where you find your schedules"="This is where you find your schedules";
 
-"Search schedules"="Search schedules";
-
-"There are no schedules that match your search"="There are no schedules that match your search";
-
 "Looks like something went wrong"="Looks like something went wrong";
 
 "Schedule is empty"="Schedule is empty";
+
+"Search schedules"="Search schedules";
 
 "Remove"="Remove";
 
@@ -220,6 +242,8 @@
 
 "Automatic exam/event signup has been disabled."="Automatic exam/event signup has been disabled.";
 
+"See all"="See all";
+
 "Book more"="Book more";
 
 "Event details"="Event details";
@@ -232,7 +256,7 @@
 
 "No date"="No date";
 
-"%@, from %@ - %@"="%@, from %@ - %@";
+"\(date), from"="\(date), from";
 
 "Available until"="Available until";
 
@@ -249,6 +273,8 @@
 "Confirmation"="Confirmation";
 
 "(missing)"="(missing)";
+
+"%@, from %@ - %@"="%@, from %@ - %@";
 
 "Remove booking"="Remove booking";
 
@@ -300,6 +326,8 @@
 
 "Password"="Password";
 
+"Use your university credentials for %@ to sign in to your KronoX account"="Use your university credentials for %@ to sign in to your kronox account";
+
 "Need help?"="Need help?";
 
 "Logged in"="Logged in";
@@ -310,109 +338,23 @@
 
 "Username/Email address"="Username/email address";
 
-"Log in"="Log in";
-
 "Please log in to continue"="Please log in to continue";
 
-"Saving schedules"="Saving schedules";
+"Save schedules"="Save schedules";
 
-"Signing up for events"="Signing up for events";
+"Search for schedules from the search page and download them locally"="Search for schedules from the search page and download them locally";
 
-"Booking resources"="Booking resources";
+"Set notifications"="Set notifications";
 
-"Setting notifications"="Setting notifications";
+"Get notified before important events and dates"="Get notified before important events and dates";
 
-"Customizing course colors"="Customizing course colors";
+"Be creative"="Be creative";
 
-"Let's get started"="Let's get started";
+"Set custom colors for the courses in your schedules"="Set custom colors for the courses in your schedules";
 
-"We'll walk you through how to use Tumble"="We'll walk you through how to use tumble";
+"Booking"="Booking";
 
-"Here's how to save a schedule"="Here's how to save a schedule";
+"Log in to your Kronox account and book resources and exams"="Log in to your kronox account and book resources and exams";
 
-"Here's how to sign up for an event"="Here's how to sign up for an event";
-
-"Here's how to book a resource"="Here's how to book a resource";
-
-"Here's how to set notifications"="Here's how to set notifications";
-
-"Here's how to modify course colors"="Here's how to modify course colors";
-
-"All done"="All done";
-
-"Now we'll leave you to it. First, choose your university."="Now we'll leave you to it. first, choose your university.";
-
-"Bookmarks page"="Bookmarks page";
-
-"Press the bookmarks tab in the tab bar"="Press the bookmarks tab in the tab bar";
-
-"Click"="Click";
-
-"Click an event card in your schedule"="Click an event card in your schedule";
-
-"Select"="Select";
-
-"Press the 'Color' option in the sheet that appears"="Press the 'color' option in the sheet that appears";
-
-"Apply"="Apply";
-
-"Choose any color from the color palette and apply it"="Choose any color from the color palette and apply it";
-
-"Done"="Done";
-
-"The specific course under the event will have a new color"="The specific course under the event will have a new color";
-
-"Search for a schedule from the search page"="Search for a schedule from the search page";
-
-"Open"="Open";
-
-"Open the schedule you want to view"="Open the schedule you want to view";
-
-"Press the 'bookmark' button on the bottom left "="Press the 'bookmark' button on the bottom left";
-
-"Check it out"="Check it out";
-
-"View your schedule in your preferred schedule view"="View your schedule in your preferred schedule view";
-
-"Account page"="Account page";
-
-"Press the account page tab on the bottom"="Press the account page tab on the bottom";
-
-"Log in with your institution credentials"="Log in with your institution credentials";
-
-"Navigate to the event booking page by pressing 'See all'"="Navigate to the event booking page by pressing 'see all'";
-
-"Choose"="Choose";
-
-"Select an available event to sign up for and press the register button"="Select an available event to sign up for and press the register button";
-
-"Now you've signed up for the specified exam, check your email for confirmation"="Now you've signed up for the specified exam, check your email for confirmation";
-
-"Press the 'Event' or 'Course' notification setting in the sheet that appears"="Press the 'event' or 'course' notification setting in the sheet that appears";
-
-"A notification will be set for the specified event or course"="A notification will be set for the specified event or course";
-
-"Use your university credentials for %@ to sign in to your KronoX account"="Use your university credentials for %@ to sign in to your KronoX account";
-
-"Could not log out from your account"="Could not log out from your account";
-
-"Log in"="Log in";
-
-"Logged out"="Logged out";
-
-"Log out"="Log out";
-
-"You have successfully logged out of your account"="You have successfully logged out of your account";
-
-"Navigate to the resource booking page by pressing 'Book more'"="Navigate to the resource booking page by pressing 'book more'";
-
-"Choose a time to search for available dates and select an opening"="Choose a time to search for available dates and select an opening";
-
-"Building"="Building";
-
-"Select a building on campus to book a room in, then select a room for a specific timeslot"="Select a building on campus to book a room in, then select a room for a specific timeslot";
-
-"Confirm"="Confirm";
-
-"Now confirm your selected booking by pressing the confirm button"="Now confirm your selected booking by pressing the confirm button";
+"Select university"="Select university";
 

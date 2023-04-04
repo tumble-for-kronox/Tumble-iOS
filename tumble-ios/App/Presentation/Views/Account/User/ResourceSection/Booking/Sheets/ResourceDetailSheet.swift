@@ -61,6 +61,7 @@ struct ResourceDetailSheet: View {
                 Spacer()
             }
         }
+        .background(Color.background)
         .padding(.horizontal, 15)
     }
 }

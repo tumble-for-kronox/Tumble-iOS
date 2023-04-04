@@ -17,7 +17,7 @@ struct UserAvatar: View {
             .font(.system(size: collapsedHeader ? 20 : 40, weight: .semibold))
             .foregroundColor(.onPrimary)
             .padding()
-            .background(Circle().fill(Color("PrimaryColor")))
+            .background(Circle().fill(Color.primary))
     }
 }
 

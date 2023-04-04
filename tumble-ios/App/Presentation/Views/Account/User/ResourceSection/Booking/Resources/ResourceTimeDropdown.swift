@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ResourceTimeDropdownMenu: View {
+struct TimeslotDropdown: View {
     
     let resource: Response.KronoxResourceElement
     let timeslots: [Response.TimeSlot]
@@ -64,7 +64,7 @@ struct ResourceTimeDropdownMenu: View {
         .frame(maxWidth: .infinity)
         .padding(.vertical)
         .background(Color.surface)
-        .cornerRadius(20)
+        .cornerRadius(10)
         .padding(.horizontal, 15)
         .padding(.bottom, 15)
         .onTapGesture {

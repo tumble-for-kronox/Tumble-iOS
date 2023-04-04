@@ -25,28 +25,37 @@ struct NotificationSettings: View {
     }
     
     var body: some View {
-        List {
-            Section {
-                SettingsButton(
-                    onClick: scheduleNotificationsForAllCourses,
+        CustomList {
+            CustomListGroup {
+                ListRowActionItem(
+                    settingsDetails: SettingsDetails(
+                        titleKey: NSLocalizedString("Are you sure you want to set notifications for all events?", comment: ""),
+                        name: "Set notifications for all events",
+                        details: ""),
                     title: NSLocalizedString("Set notifications for all events", comment: ""),
-                    image: "bell.badge"
+                    image: "bell.badge",
+                    imageColor: .primary,
+                    action: scheduleNotificationsForAllCourses
                 )
-                SettingsButton(
-                    onClick: clearAllNotifications,
+                Divider()
+                ListRowActionItem(
+                    settingsDetails: SettingsDetails(
+                        titleKey: NSLocalizedString("Are you sure you want to cancel all set notifications?", comment: ""),
+                        name: "Cancel notifications for all events",
+                        details: ""),
                     title: NSLocalizedString("Cancel all notifications", comment: ""),
-                    image: "bell.slash"
-                )
+                    image: "bell.slash",
+                    imageColor: .primary,
+                    action: clearAllNotifications)
             }
-            Section {
-                NavigationLink(destination: AnyView(
-                    NotificationOffsetSettings(
+            .padding(.top, 20)
+            CustomListGroup {
+                ListRowNavigationItem(
+                    title: NSLocalizedString("Notification offset", comment: ""),
+                    current: offsetDisplayName,
+                    destination: AnyView(NotificationOffsetSettings(
                         offset: $offset,
-                        rescheduleNotifications: rescheduleNotifications)), label: {
-                    SettingsNavLink(
-                        title: NSLocalizedString("Notification offset", comment: ""),
-                        current: offsetDisplayName)
-                })
+                        rescheduleNotifications: rescheduleNotifications)))
             }
         }
     }

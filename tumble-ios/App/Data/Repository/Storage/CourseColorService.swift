@@ -24,6 +24,7 @@ class CourseColorService: ObservableObject, CourseColorServiceProtocol {
         DispatchQueue.global(qos: .background).async {
             do {
                 let fileURL = try self.fileURL()
+                let encoder = JSONEncoder()
                 self.load { result in
                     switch result {
                     case .failure(let error):
@@ -34,7 +35,7 @@ class CourseColorService: ObservableObject, CourseColorServiceProtocol {
                         do {
                             var newCourses = courses
                             newCourses[event.course.id] = color.toHex()
-                            let data = try JSONEncoder.shared.encode(newCourses)
+                            let data = try encoder.encode(newCourses)
                             try data.write(to: fileURL)
                             DispatchQueue.main.async {
                                 completion(.success(1))
@@ -58,13 +59,14 @@ class CourseColorService: ObservableObject, CourseColorServiceProtocol {
         DispatchQueue.global(qos: .background).async {
             do {
                 let fileURL = try self.fileURL()
+                let decoder = JSONDecoder()
                 guard let file = try? FileHandle(forReadingFrom: fileURL) else {
                         DispatchQueue.main.async {
                             completion(.success([:]))
                         }
                         return
                     }
-                let courses = try JSONDecoder.shared.decode(CourseAndColorDict.self, from: file.availableData)
+                let courses = try decoder.decode(CourseAndColorDict.self, from: file.availableData)
                 DispatchQueue.main.async {
                     completion(.success(courses))
                 }
@@ -81,6 +83,7 @@ class CourseColorService: ObservableObject, CourseColorServiceProtocol {
         DispatchQueue.global(qos: .background).async {
             do {
                 let fileURL = try self.fileURL()
+                let encoder = JSONEncoder()
                 self.load { result in
                     switch result {
                     case .failure(let error):
@@ -91,7 +94,7 @@ class CourseColorService: ObservableObject, CourseColorServiceProtocol {
                         do {
 
                             let finalCourseColorDict = courses.merging(coursesAndColors) { (_, new) in new }
-                            let data = try JSONEncoder.shared.encode(finalCourseColorDict)
+                            let data = try encoder.encode(finalCourseColorDict)
                             try data.write(to: fileURL)
                             DispatchQueue.main.async {
                                 completion(.success(1))
@@ -115,17 +118,19 @@ class CourseColorService: ObservableObject, CourseColorServiceProtocol {
         DispatchQueue.global(qos: .background).async {
             do {
                 let fileURL = try self.fileURL()
+                let decoder = JSONDecoder()
+                let encoder = JSONEncoder()
                 guard let file = try? FileHandle(forReadingFrom: fileURL) else {
                         DispatchQueue.main.async {
                             completion(.success(1))
                         }
                         return
                     }
-                var courses = try JSONDecoder.shared.decode(CourseAndColorDict.self, from: file.availableData)
+                var courses = try decoder.decode(CourseAndColorDict.self, from: file.availableData)
                 
                 courses.removeAll()
                 
-                let data = try JSONEncoder.shared.encode(courses)
+                let data = try encoder.encode(courses)
                 try data.write(to: fileURL)
                 
                 DispatchQueue.main.async {
@@ -143,19 +148,21 @@ class CourseColorService: ObservableObject, CourseColorServiceProtocol {
         DispatchQueue.global(qos: .background).async {
             do {
                 let fileURL = try self.fileURL()
+                let decoder = JSONDecoder()
+                let encoder = JSONEncoder()
                 guard let file = try? FileHandle(forReadingFrom: fileURL) else {
                         DispatchQueue.main.async {
                             completion(.success(1))
                         }
                         return
                     }
-                var courses = try JSONDecoder.shared.decode(CourseAndColorDict.self, from: file.availableData)
+                var courses = try decoder.decode(CourseAndColorDict.self, from: file.availableData)
                 
                 for courseId in removeCourses {
                     courses.removeValue(forKey: courseId)
                 }
                 
-                let data = try JSONEncoder.shared.encode(courses)
+                let data = try encoder.encode(courses)
                 try data.write(to: fileURL)
                 
                 DispatchQueue.main.async {

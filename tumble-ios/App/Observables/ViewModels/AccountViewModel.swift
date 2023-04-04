@@ -23,7 +23,6 @@ import Foundation
     @Published var resourceDetailsSheetModel: ResourceDetailSheetModel? = nil
     @Published var examDetailSheetModel: ExamDetailSheetModel? = nil
     
-    private let jsonEncoder = JSONEncoder.shared
     private var resourceSectionDataTask: URLSessionDataTask? = nil
     private var eventSectionDataTask: URLSessionDataTask? = nil
     
@@ -41,10 +40,9 @@ import Foundation
     
     /// AccountViewModel is responsible for instantiating
     /// the viewmodel used in its child views it navigates to
-    let resourceViewModel: ResourceViewModel
+    lazy var resourceViewModel: ResourceViewModel = viewModelFactory.makeViewModelResource()
     
     init() {
-        self.resourceViewModel = viewModelFactory.makeViewModelResource()
         self.school = preferenceService.getDefaultSchoolName(schools: schoolManager.getSchools())
         if userController.autoSignup {
             self.registerAutoSignup(completion: { result in

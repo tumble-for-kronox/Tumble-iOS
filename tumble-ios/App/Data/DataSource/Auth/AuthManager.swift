@@ -11,8 +11,6 @@ class AuthManager: AuthManagerProtocol {
     
     private let serialQueue = OperationQueue()
     
-    let encoder = JSONEncoder.shared
-    let decoder = JSONDecoder.shared
     let urlRequestUtils = NetworkUtilities.shared
     let keychainManager = KeyChainManager()
     let urlSession: URLSession

@@ -9,6 +9,33 @@ import SwiftUI
 
 typealias UpdateUserOnBoarded = () -> Void
 
+struct BoardingScreen: Identifiable {
+    var id = UUID().uuidString
+    var image: String
+    var title: String
+    var description: String
+}
+
+var boardingScreens: [BoardingScreen] = [
+    BoardingScreen(
+        image: "GuyPointing",
+        title: NSLocalizedString("Save schedules", comment: ""),
+        description: NSLocalizedString("Search for schedules from the search page and download them locally", comment: "")),
+    BoardingScreen(
+        image: "GuyWithPhone",
+        title: NSLocalizedString("Set notifications", comment: ""),
+        description: NSLocalizedString("Get notified before important events and dates", comment: "")),
+    BoardingScreen(
+        image: "GirlProud",
+        title: NSLocalizedString("Be creative", comment: ""),
+        description: NSLocalizedString("Set custom colors for the courses in your schedules", comment: "")),
+    BoardingScreen(
+        image: "GuyWalking",
+        title: NSLocalizedString("Booking", comment: ""),
+        description: NSLocalizedString("Log in to your Kronox account and book resources and exams", comment: "")),
+]
+
+
 struct OnBoarding: View {
     
     @ObservedObject var viewModel: OnBoardingViewModel
@@ -16,9 +43,7 @@ struct OnBoarding: View {
     @State private var animateButton: Bool = true
     @State private var buttonOffset: CGFloat = 900.0
     let updateUserOnBoarded: UpdateUserOnBoarded
-    
-    let constResetButtonHeight: CGFloat = 900.0
-    let constButtonOffset: CGFloat = 585.0
+    @State var offset: CGFloat = .zero
     
     init(viewModel: OnBoardingViewModel, updateUserOnBoarded: @escaping UpdateUserOnBoarded) {
         UIPageControl.appearance().currentPageIndicatorTintColor = UIColor(Color.primary)
@@ -29,81 +54,95 @@ struct OnBoarding: View {
     }
     
     var body: some View {
-        ZStack {
-            VStack {
-                TabView (selection: $viewedTab) {
-                    OnBoardingViewBuilder (
-                        header: NSLocalizedString("Let's get started", comment: ""),
-                        subHeader: NSLocalizedString("We'll walk you through how to use Tumble", comment: "")) {
-                        AppFeaturesList()
-                    }.tag(0)
-                    OnBoardingViewBuilder (
-                        header: NSLocalizedString("Saving schedules", comment: ""),
-                        subHeader: NSLocalizedString("Here's how to save a schedule", comment: "")) {
-                        BookmarkInstructions()
-                    }.tag(1)
-                    OnBoardingViewBuilder (
-                        header: NSLocalizedString("Signing up for events", comment: ""),
-                        subHeader: NSLocalizedString("Here's how to sign up for an event", comment: "")) {
-                        ExamInstructions()
-                    }.tag(2)
-                    OnBoardingViewBuilder (
-                        header: NSLocalizedString("Booking resources", comment: ""),
-                        subHeader: NSLocalizedString("Here's how to book a resource", comment: "")) {
-                        BookingInstructions()
-                    }.tag(3)
-                    OnBoardingViewBuilder (
-                        header: NSLocalizedString("Setting notifications", comment: ""),
-                        subHeader: NSLocalizedString("Here's how to set notifications", comment: "")) {
-                        NotificationInstructions()
-                    }.tag(4)
-                    OnBoardingViewBuilder (
-                        header: NSLocalizedString("Customizing course colors", comment: ""),
-                        subHeader: NSLocalizedString("Here's how to modify course colors", comment: "")) {
-                        ColorInstructions()
-                    }.tag(5)
-                    OnBoardingViewBuilder (
-                        header: NSLocalizedString("All done", comment: ""),
-                        subHeader: NSLocalizedString("Now we'll leave you to it. First, choose your university.", comment: "")) {
-                        SchoolSelection(
-                            onSelectSchool: onSelectSchool,
-                            schools: viewModel.schools)
-                    }.tag(6)
-                }
-                .tabViewStyle(.page)
-                .indexViewStyle(.page(backgroundDisplayMode: .interactive))
-                .onChange(of: viewedTab, perform: handleAnimation)
-            }
-            SkipButton(onClickSkip: onClickSkip)
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomTrailing)
-                .padding(30)
-                .offset(y: buttonOffset)
-                .onAppear {
-                    withAnimation(.spring()) {
-                        buttonOffset -= constResetButtonHeight
+        OffsetPageTabView(offset: $offset) {
+            HStack {
+                ForEach(boardingScreens) { screen in
+                    VStack(spacing: 15) {
+                        Image(screen.image)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: getRect().width - 100, height: getRect().width - 100)
+                            .offset(y: -150)
+                        VStack(alignment: .leading, spacing: 15) {
+                            Text(screen.title)
+                                .font(.largeTitle.bold())
+                                .foregroundColor(.onPrimary)
+                            Text(screen.description)
+                                .fontWeight(.semibold)
+                                .foregroundColor(.onPrimary)
+                                .padding(.trailing, 90)
+                        }
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding()
+                        .offset(y: -70)
                     }
+                    .frame(width: getRect().width)
+                    .frame(maxHeight: .infinity)
                 }
+            }
+        }
+        .background(
+            RoundedRectangle(cornerRadius: 50)
+                .fill(Color.background)
+                .frame(width: getRect().width - 100, height: getRect().width - 100)
+                .scaleEffect(2)
+                .rotationEffect(.init(degrees: 25))
+                .rotationEffect(.init(degrees: getRotation()))
+                .offset(y: -getRect().width + 20)
+            ,alignment: .leading
+        )
+        .background(
+            Color.primary
+                .animation(.easeInOut, value: getIndex())
+        )
+        .ignoresSafeArea(.container, edges: .all)
+        .overlay(
+            VStack {
+                HStack {
+                    Button {
+                        viewModel.showSchoolSelection = true
+                    } label: {
+                        Text(NSLocalizedString("Select university", comment: ""))
+                            .fontWeight(.semibold)
+                            .foregroundColor(.onBackground)
+                            .padding(.vertical, 20)
+                            .frame(maxWidth: .infinity)
+                            .background(Color.background)
+                            .clipShape(RoundedRectangle(cornerRadius: 12))
+                        
+                    }
+                    .buttonStyle(AnimatedButtonStyle())
+                    Spacer()
+                }
+            }
+            .padding()
+            .padding(.bottom, 20)
+            ,alignment: .bottom
+        )
+        .sheet(isPresented: $viewModel.showSchoolSelection, content: {
+            SchoolSelection(onSelectSchool: onSelectSchool, schools: viewModel.schools)
+        })
+        .onDisappear {
+            viewModel.showSchoolSelection = false
         }
         .zIndex(0)
         .transition(.asymmetric(insertion: .move(edge: .trailing), removal: .move(edge: .leading)))
     }
     
-    func handleAnimation(newValue: Int) {
-        if newValue == 6 {
-            withAnimation (.spring()) {
-                self.buttonOffset += self.constResetButtonHeight
-            }
-        } else if newValue < 6 && self.buttonOffset == self.constResetButtonHeight {
-            withAnimation (.spring()) {
-                self.buttonOffset -= self.constResetButtonHeight
-            }
-        }
+    func getRotation() -> Double {
+        let process = offset / (getRect().width * 4)
+        
+        let rotation = Double(process) * 360
+        
+        return rotation
     }
     
-    func onClickSkip() -> Void {
-        withAnimation(.spring()) {
-            self.viewedTab = 6
-        }
+    func getIndex() -> Int {
+        
+        let process = offset / getRect().width
+        
+        return Int(process)
+        
     }
     
     func onSelectSchool(school: School) -> Void {

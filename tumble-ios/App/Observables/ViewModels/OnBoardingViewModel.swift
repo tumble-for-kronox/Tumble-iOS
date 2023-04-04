@@ -12,11 +12,12 @@ import Foundation
     @Inject private var preferenceService: PreferenceService
     @Inject private var schoolManager: SchoolManager
     
-    var schools: [School] {
-        return schoolManager.getSchools()
-    }
+    @Published var showSchoolSelection: Bool = false
+    
+    lazy var schools: [School] = schoolManager.getSchools()
     
     func onSelectSchool(school: School, updateUserOnBoarded: @escaping UpdateUserOnBoarded) -> Void {
+        showSchoolSelection = false
         preferenceService.setSchool(id: school.id) {
             self.preferenceService.setUserOnboarded()
             updateUserOnBoarded()
