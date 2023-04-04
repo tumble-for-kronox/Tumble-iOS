@@ -24,8 +24,7 @@ extension [DayUiModel] {
     func toOrderedDayUiModels() -> [DayUiModel] {
         return self.compactMap { $0 }.merge().sorted(by: {
             // Ascending order
-            print(isoDateFormatterFract.date(from: $0.isoString)! < isoDateFormatterFract.date(from: $1.isoString)!)
-            return isoDateFormatterFract.date(from: $0.isoString)! < isoDateFormatterFract.date(from: $1.isoString)!
+            isoDateFormatterFract.date(from: $0.isoString)! < isoDateFormatterFract.date(from: $1.isoString)!
         })
     }
     
