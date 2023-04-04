@@ -15,7 +15,7 @@ struct NavigationbarSearch: View {
     
     var body: some View {
         NavigationLink(destination:
-            SearchPage(
+            Search(
                 viewModel: viewModel,
                 universityImage: $universityImage,
                 checkForNewSchedules: checkForNewSchedules

@@ -49,5 +49,6 @@ struct NotificationSettings: View {
                         rescheduleNotifications: rescheduleNotifications)))
             }
         }
+        .padding(.top, 20)
     }
 }

@@ -8,6 +8,19 @@
 import Foundation
 import SwiftUI
 
+struct WeekEventCardModel: Identifiable {
+    var id: UUID = UUID()
+    var offset: CGFloat = 0
+    var event: Response.Event
+}
+
+enum HomeStatus {
+    case available
+    case notAvailable
+    case noBookmarks
+    case loading
+}
+
 @MainActor final class HomeViewModel: ObservableObject {
     
     @Inject var preferenceService: PreferenceService
@@ -18,12 +31,16 @@ import SwiftUI
     @Inject var schoolManager: SchoolManager
     
     @Published var eventSheet: EventDetailsSheetModel? = nil
-    @Published var bookmarkedEventsSectionStatus: GenericPageStatus = .loading
+    @Published var todayEventsSectionStatus: GenericPageStatus = .loading
+    @Published var nextEventSectionStatus: GenericPageStatus = .loading
     @Published var newsSectionStatus: GenericPageStatus = .loading
     @Published var news: Response.NewsItems? = nil
-    @Published var eventsForWeek: [Response.Event]? = nil
-    @Published var eventsForToday: [Response.Event]? = nil
+    @Published var eventsForWeek: [WeekEventCardModel] = []
+    @Published var nextClass: Response.Event? = nil
+    @Published var eventsForToday: [WeekEventCardModel] = []
     @Published var courseColors: CourseAndColorDict? = nil
+    @Published var swipedCards: Int = 0
+    @Published var homeStatus: HomeStatus = .loading
     
     private let viewModelFactory: ViewModelFactory = ViewModelFactory.shared
     
@@ -47,10 +64,6 @@ import SwiftUI
     
     func makeUniversityUrl() -> URL? {
         return URL(string: preferenceService.getUniversityUrl(schools: schoolManager.getSchools()) ?? "")
-    }
-    
-    func generateViewModelEventSheet(event: Response.Event, color: Color) -> EventDetailsSheetViewModel {
-        return viewModelFactory.makeViewModelEventDetailsSheet(event: event, color: color)
     }
     
     func updateCourseColors() -> Void {
@@ -79,7 +92,9 @@ import SwiftUI
     }
     
     func getEventsForWeek() {
-        self.bookmarkedEventsSectionStatus = .loading
+        self.todayEventsSectionStatus = .loading
+        self.nextEventSectionStatus = .loading
+        self.homeStatus = .loading
         let hiddenBookmarks: [String] = self.preferenceService.getHiddenBookmarks()
         AppLogger.shared.debug("Fetching events for the week", source: "HomePageViewModel")
         
@@ -88,16 +103,41 @@ import SwiftUI
             switch result {
             case .failure(let error):
                 AppLogger.shared.critical("Failed to load schedules for the week: \(error.localizedDescription)", source: "HomePageViewModel")
-                self.bookmarkedEventsSectionStatus = .error
+                self.todayEventsSectionStatus = .error
+                self.nextEventSectionStatus = .error
             case .success(let events):
                 AppLogger.shared.debug("Loaded \(events.count) events for the week", source: "HomePageViewModel")
-                self.eventsForToday = self.filterEventsMatchingToday(events: events)
-                self.eventsForWeek = events
+                // If no events are available,
+                // schedule is clear for the week or the user
+                // has nothing saved yet
+                if events.isEmpty {
+                    if let bookmarks = self.preferenceService.getBookmarks() {
+                        if bookmarks.isEmpty {
+                            self.homeStatus = .noBookmarks
+                            return
+                        }
+                    }
+                    self.homeStatus = .notAvailable
+                    return
+                }
+                self.createDayCards(events:
+                    self.filterEventsMatchingToday(events: events)
+                )
+                self.nextClass = self.findNextUpcomingEvent(events: events)
                 self.loadCourseColors { courseColors in
                     self.courseColors = courseColors
-                    self.bookmarkedEventsSectionStatus = .loaded
+                    self.todayEventsSectionStatus = .loaded
+                    self.nextEventSectionStatus = .loaded
+                    self.homeStatus = .available
                 }
             }
         }, hiddenBookmarks: hiddenBookmarks)
+    }
+    
+    func createDayCards(events: [Response.Event]) -> Void {
+        let weekEventCards = events.map {
+            return WeekEventCardModel(event: $0)
+        }
+        self.eventsForToday = weekEventCards.reversed()
     }
 }

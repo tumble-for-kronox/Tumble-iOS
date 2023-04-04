@@ -28,7 +28,7 @@ struct AppParent: View {
                 // Main home page view switcher
                 switch appController.selectedAppTab {
                 case .home:
-                    HomePage(
+                    Home(
                         viewModel: viewModel.homeViewModel,
                         parentViewModel: viewModel,
                         domain: $viewModel.domain,
@@ -37,13 +37,13 @@ struct AppParent: View {
                         selectedAppTab: $appController.selectedAppTab
                     )
                 case .bookmarks:
-                    BookmarkPage(
+                    Bookmarks(
                         viewModel: viewModel.bookmarksViewModel,
                         parentViewModel: viewModel,
                         appController: appController
                     )
                 case .account:
-                    AccountPage(
+                    Account(
                         viewModel: viewModel.accountPageViewModel,
                         createToast: createToast
                     )
@@ -51,14 +51,7 @@ struct AppParent: View {
                 TabBar(selectedAppTab: $appController.selectedAppTab)
             }
             .ignoresSafeArea(.keyboard)
-            .navigationTitle(appController.selectedAppTab.displayName)
-            .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .navigationBarLeading, content: {
-                    Text(getCurrentDate())
-                        .font(.system(size: 16))
-                        .fontWeight(.semibold)
-                })
                 ToolbarItem(placement: .navigationBarTrailing, content: {
                     NavigationbarSearch(
                         viewModel: viewModel.searchViewModel,

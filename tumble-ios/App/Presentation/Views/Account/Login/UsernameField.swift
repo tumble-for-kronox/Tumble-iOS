@@ -23,7 +23,7 @@ struct UsernameField: View {
         }
         .padding(10)
         .overlay(RoundedRectangle(
-            cornerRadius: 20)
+            cornerRadius: 10)
             .stroke(lineWidth: 0.5)
             .foregroundColor(.onBackground.opacity(0.5)
             )

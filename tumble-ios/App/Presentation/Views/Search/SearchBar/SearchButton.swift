@@ -15,7 +15,7 @@ struct SearchButton: View {
         Button(action: search, label: {
             Image(systemName: "magnifyingglass")
                 .foregroundColor(.gray)
-                .font(.system(size: 20))
+                .font(.system(size: 17, weight: .semibold))
                 .padding(.leading, 5)
         })
     }

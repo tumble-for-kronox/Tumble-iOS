@@ -24,12 +24,12 @@ struct BookmarkListView: View {
     var body: some View {
         ScrollViewReader { value in
             ScrollView(.vertical, showsIndicators: false) {
-                LazyVStack {
+                LazyVStack (alignment: .center) {
                     Rectangle().foregroundColor(.clear).frame(height: 1.0)
                     ForEach(days, id: \.id) { day in
                         if !(day.events.isEmpty) {
                             Section(header: DayHeader(day: day), content: {
-                                ForEach(day.events, id: \.id) { event in
+                                ForEach(day.events.sorted(), id: \.id) { event in
                                     BookmarkCard(
                                         onTapCard: onTapCard,
                                         event: event,

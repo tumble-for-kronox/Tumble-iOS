@@ -11,7 +11,7 @@ import Foundation
 enum TabbarTabType: String {
     case home = "house"
     case bookmarks = "bookmark"
-    case account = "person"
+    case account = "graduationcap"
     
     static let allValues = [home, bookmarks, account]
     

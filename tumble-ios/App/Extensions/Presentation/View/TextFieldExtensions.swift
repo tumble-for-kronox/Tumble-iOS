@@ -10,7 +10,7 @@ import SwiftUI
 
 extension TextField {
     func searchBoxText() -> some View {
-        self.font(.system(size: 18, weight: .medium))
+        self.font(.system(size: 17, weight: .regular))
         .padding(.leading, 5)
         .disableAutocorrection(true)
     }

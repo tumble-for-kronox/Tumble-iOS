@@ -72,10 +72,6 @@ struct Settings: View {
                         action: {
                             UIApplication.shared.shareFeedback()
                         })
-                    Divider()
-                    ListRowNavigationItem(
-                        title: NSLocalizedString("How to use the app", comment: ""),
-                        destination: AnyView(AppUsage()))
                 }
                 CustomListGroup {
                     LogInOutButton(parentViewModel: viewModel)

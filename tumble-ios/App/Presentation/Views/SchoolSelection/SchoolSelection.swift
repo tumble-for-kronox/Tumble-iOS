@@ -15,10 +15,14 @@ struct SchoolSelection: View {
     let schools: [School]
     
     var body: some View {
-        List {
-            ForEach(schools, id: \.id) { school in
-                SchoolRow(school: school, onSelectSchool: onSelectSchool)
+        ScrollView (showsIndicators: false) {
+            LazyVStack {
+                ForEach(schools, id: \.id) { school in
+                    SchoolRow(school: school, onSelectSchool: onSelectSchool)
+                }
             }
+            .padding(.top, 20)
         }
+        .background(Color.background)
     }
 }

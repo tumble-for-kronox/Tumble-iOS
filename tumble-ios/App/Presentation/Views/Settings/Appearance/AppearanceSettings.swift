@@ -32,5 +32,6 @@ struct AppearanceSettings: View {
                 }
             }
         }
+        .padding(.top, 20)
     }
 }
