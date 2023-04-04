@@ -10,13 +10,12 @@ import SwiftUI
 struct ResourceBookings: View {
     
     @ObservedObject var viewModel: ResourceViewModel
-    @State private var selectedPickerDate: Date = Date.now
     let updateBookingNotifications: () -> Void
     
     var body: some View {
         VStack {
             ScrollView (showsIndicators: false) {
-                ResourceDatePicker(date: $selectedPickerDate)
+                ResourceDatePicker(date: $viewModel.selectedPickerDate)
                 Divider()
                     .foregroundColor(.onBackground)
                 switch viewModel.resourceBookingPageState {
@@ -31,9 +30,9 @@ struct ResourceBookings: View {
                         alignment: .center
                     )
                 case .loaded:
-                    BookResource(
+                    ResourceLocationsList(
                         parentViewModel: viewModel,
-                        selectedPickerDate: $selectedPickerDate,
+                        selectedPickerDate: $viewModel.selectedPickerDate,
                         updateBookingNotifications: updateBookingNotifications)
                 case .error:
                     VStack {
@@ -60,10 +59,10 @@ struct ResourceBookings: View {
         )
         .background(Color.background)
         .onAppear {
-            viewModel.getAllResourceData(date: selectedPickerDate)
+            viewModel.getAllResourceData(date: viewModel.selectedPickerDate)
         }
-        .onChange(of: selectedPickerDate, perform: { _ in
-            viewModel.getAllResourceData(date: selectedPickerDate)
+        .onChange(of: viewModel.selectedPickerDate, perform: { _ in
+            viewModel.getAllResourceData(date: viewModel.selectedPickerDate)
         })
     }
 }

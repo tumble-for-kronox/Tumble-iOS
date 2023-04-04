@@ -28,7 +28,7 @@ extension SettingsViewModel {
         return Array(bookmarkIDs.subtracting(scheduleIDs))
     }
     
-    func setNewBookmarks(schedules: [ScheduleStoreModel], closure: @escaping ([Bookmark]) -> Void) -> Void {
+    func setNewBookmarks(schedules: [ScheduleStoreModel], completion: @escaping ([Bookmark]) -> Void) -> Void {
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             guard let self else { return }
             // Get current bookmarks in preferences
@@ -43,7 +43,7 @@ extension SettingsViewModel {
             self.preferenceService.setBookmarks(bookmarks: bookmarks)
             
             DispatchQueue.main.async {
-                closure(bookmarks)
+                completion(bookmarks)
             }
         }
     }

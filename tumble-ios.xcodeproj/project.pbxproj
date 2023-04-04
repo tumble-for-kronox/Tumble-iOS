@@ -96,7 +96,7 @@
 		D441B10D298A8CEC00D22142 /* EventDetailsSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D441B10C298A8CEC00D22142 /* EventDetailsSheetViewModel.swift */; };
 		D443962829CB3BEA0069D66A /* UpcomingEventCardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D443962729CB3BEA0069D66A /* UpcomingEventCardButton.swift */; };
 		D443962A29CB40C70069D66A /* ToTopButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D443962929CB40C70069D66A /* ToTopButtonStyle.swift */; };
-		D443962C29CB4D720069D66A /* BookResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D443962B29CB4D720069D66A /* BookResource.swift */; };
+		D443962C29CB4D720069D66A /* ResourceLocationsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D443962B29CB4D720069D66A /* ResourceLocationsList.swift */; };
 		D443962E29CB56040069D66A /* ResourceBookingButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D443962D29CB56040069D66A /* ResourceBookingButtonStyle.swift */; };
 		D4462C3029858A280067DA65 /* TextExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4462C2F29858A280067DA65 /* TextExtensions.swift */; };
 		D4462C3229858A7D0067DA65 /* ImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4462C3129858A7D0067DA65 /* ImageExtensions.swift */; };
@@ -189,7 +189,7 @@
 		D4ABD270298C2E15002FD8F5 /* DayUiModelExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4ABD26F298C2E15002FD8F5 /* DayUiModelExtension.swift */; };
 		D4ABD272298C2E32002FD8F5 /* DayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4ABD271298C2E32002FD8F5 /* DayExtension.swift */; };
 		D4B4B62D29C37C130098D175 /* ProgrammeCardStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B4B62C29C37C130098D175 /* ProgrammeCardStyle.swift */; };
-		D4B7F25629CC60EB006E2449 /* RoomContainerCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B7F25529CC60EB006E2449 /* RoomContainerCard.swift */; };
+		D4B7F25629CC60EB006E2449 /* TimeslotCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B7F25529CC60EB006E2449 /* TimeslotCard.swift */; };
 		D4B7F25829CC6135006E2449 /* BookButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B7F25729CC6135006E2449 /* BookButtonStyle.swift */; };
 		D4BAE5F82924636500143717 /* School.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BAE5F72924636500143717 /* School.swift */; };
 		D4BAE614292466F700143717 /* SchoolManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BAE613292466F700143717 /* SchoolManager.swift */; };
@@ -219,7 +219,7 @@
 		D4E83ECE2999B041002E5F88 /* UserOverview.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E83ECD2999B041002E5F88 /* UserOverview.swift */; };
 		D4E83ED12999B1B1002E5F88 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E83ED02999B1B1002E5F88 /* AuthManager.swift */; };
 		D4EACB3629CB99540096ADD2 /* ResourceTimeButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EACB3529CB99540096ADD2 /* ResourceTimeButtonStyle.swift */; };
-		D4EACB3829CB9E640096ADD2 /* ResourceRoomSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EACB3729CB9E640096ADD2 /* ResourceRoomSelection.swift */; };
+		D4EACB3829CB9E640096ADD2 /* TimeslotSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EACB3729CB9E640096ADD2 /* TimeslotSelection.swift */; };
 		D4EAD3B9298D633B00678DF8 /* KronoxManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EAD3B8298D633B00678DF8 /* KronoxManagerProtocol.swift */; };
 		D4EE5B6C29D50FC0002A1399 /* AppearanceSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EE5B6B29D50FC0002A1399 /* AppearanceSettings.swift */; };
 		D4EE5B6E29D50FD3002A1399 /* SettingsRadioButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EE5B6D29D50FD3002A1399 /* SettingsRadioButton.swift */; };
@@ -329,7 +329,7 @@
 		D441B10C298A8CEC00D22142 /* EventDetailsSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailsSheetViewModel.swift; sourceTree = "<group>"; };
 		D443962729CB3BEA0069D66A /* UpcomingEventCardButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingEventCardButton.swift; sourceTree = "<group>"; };
 		D443962929CB40C70069D66A /* ToTopButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToTopButtonStyle.swift; sourceTree = "<group>"; };
-		D443962B29CB4D720069D66A /* BookResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookResource.swift; sourceTree = "<group>"; };
+		D443962B29CB4D720069D66A /* ResourceLocationsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceLocationsList.swift; sourceTree = "<group>"; };
 		D443962D29CB56040069D66A /* ResourceBookingButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceBookingButtonStyle.swift; sourceTree = "<group>"; };
 		D4462C2F29858A280067DA65 /* TextExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextExtensions.swift; sourceTree = "<group>"; };
 		D4462C3129858A7D0067DA65 /* ImageExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageExtensions.swift; sourceTree = "<group>"; };
@@ -425,7 +425,7 @@
 		D4ABD26F298C2E15002FD8F5 /* DayUiModelExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayUiModelExtension.swift; sourceTree = "<group>"; };
 		D4ABD271298C2E32002FD8F5 /* DayExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayExtension.swift; sourceTree = "<group>"; };
 		D4B4B62C29C37C130098D175 /* ProgrammeCardStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgrammeCardStyle.swift; sourceTree = "<group>"; };
-		D4B7F25529CC60EB006E2449 /* RoomContainerCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomContainerCard.swift; sourceTree = "<group>"; };
+		D4B7F25529CC60EB006E2449 /* TimeslotCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeslotCard.swift; sourceTree = "<group>"; };
 		D4B7F25729CC6135006E2449 /* BookButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookButtonStyle.swift; sourceTree = "<group>"; };
 		D4BAE5F72924636500143717 /* School.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = School.swift; sourceTree = "<group>"; };
 		D4BAE613292466F700143717 /* SchoolManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolManager.swift; sourceTree = "<group>"; };
@@ -457,7 +457,7 @@
 		D4E83ECD2999B041002E5F88 /* UserOverview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserOverview.swift; sourceTree = "<group>"; };
 		D4E83ED02999B1B1002E5F88 /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
 		D4EACB3529CB99540096ADD2 /* ResourceTimeButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceTimeButtonStyle.swift; sourceTree = "<group>"; };
-		D4EACB3729CB9E640096ADD2 /* ResourceRoomSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceRoomSelection.swift; sourceTree = "<group>"; };
+		D4EACB3729CB9E640096ADD2 /* TimeslotSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeslotSelection.swift; sourceTree = "<group>"; };
 		D4EAD3B8298D633B00678DF8 /* KronoxManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KronoxManagerProtocol.swift; sourceTree = "<group>"; };
 		D4EE5B6B29D50FC0002A1399 /* AppearanceSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceSettings.swift; sourceTree = "<group>"; };
 		D4EE5B6D29D50FD3002A1399 /* SettingsRadioButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRadioButton.swift; sourceTree = "<group>"; };
@@ -840,11 +840,11 @@
 			children = (
 				D426E3A3299C39DE00A8D7AE /* ResourceBookings.swift */,
 				D44FBFEA29CB1CC500CAAD39 /* ResourceDatePicker.swift */,
-				D443962B29CB4D720069D66A /* BookResource.swift */,
+				D443962B29CB4D720069D66A /* ResourceLocationsList.swift */,
 				D481F15829CB84F10088C28E /* ResourceSelection.swift */,
-				D4EACB3729CB9E640096ADD2 /* ResourceRoomSelection.swift */,
+				D4EACB3729CB9E640096ADD2 /* TimeslotSelection.swift */,
 				D4DDE59029CBBC6A0030607B /* ResourceTimeDropdown.swift */,
-				D4B7F25529CC60EB006E2449 /* RoomContainerCard.swift */,
+				D4B7F25529CC60EB006E2449 /* TimeslotCard.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -1695,7 +1695,7 @@
 				D4644A23298DA93A00B0BB28 /* NotificationManager.swift in Sources */,
 				D455E04B29D58F7D00770910 /* NotificationOffsetSettings.swift in Sources */,
 				D4A433BE29953AD300BFEB7A /* AppController.swift in Sources */,
-				D4B7F25629CC60EB006E2449 /* RoomContainerCard.swift in Sources */,
+				D4B7F25629CC60EB006E2449 /* TimeslotCard.swift in Sources */,
 				D4ABD272298C2E32002FD8F5 /* DayExtension.swift in Sources */,
 				D46BB112298B0E2800887A24 /* NavigationbarSettings.swift in Sources */,
 				D4607634292AA83F00DE9590 /* AppParent.swift in Sources */,
@@ -1792,7 +1792,7 @@
 				D44ABF0729BFE89D00344792 /* SchoolRowStyle.swift in Sources */,
 				D4EEFB5829DA1BD10007A209 /* CustomListGroup.swift in Sources */,
 				D400F3D629D794010050622E /* BookmarksViewStatus.swift in Sources */,
-				D443962C29CB4D720069D66A /* BookResource.swift in Sources */,
+				D443962C29CB4D720069D66A /* ResourceLocationsList.swift in Sources */,
 				D45338FD29297C8B00198411 /* DayUIModel.swift in Sources */,
 				D46BB10C298ADDF600887A24 /* CustomCorners.swift in Sources */,
 				D4462C3229858A7D0067DA65 /* ImageExtensions.swift in Sources */,
@@ -1803,7 +1803,7 @@
 				D4E83EC12999649E002E5F88 /* LoginSubHeader.swift in Sources */,
 				D416D33929CA7C5B009A4FB8 /* CalendarViewRepresentable.swift in Sources */,
 				D439F8A529DBAA71006332AB /* HomeNoBookmarks.swift in Sources */,
-				D4EACB3829CB9E640096ADD2 /* ResourceRoomSelection.swift in Sources */,
+				D4EACB3829CB9E640096ADD2 /* TimeslotSelection.swift in Sources */,
 				D40D80A929252688008CA68D /* ParentViewModel.swift in Sources */,
 				D4A550CC2994509A00028BCF /* SettingsViewModel.swift in Sources */,
 				D475627129CE20A700B72008 /* ExamDetailsSheet.swift in Sources */,

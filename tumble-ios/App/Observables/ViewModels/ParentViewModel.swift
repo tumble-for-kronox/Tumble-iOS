@@ -91,17 +91,17 @@ import SwiftUI
         }
     }
     
-    func changeSchool(school: School, closure: @escaping (Bool) -> Void) -> Void {
+    func changeSchool(school: School, completion: @escaping (Bool) -> Void) -> Void {
         if school.id == self.preferenceService.getDefaultSchool() {
-            closure(false)
+            completion(false)
         } else {
-            self.preferenceService.setSchool(id: school.id, closure: { [weak self] in
+            self.preferenceService.setSchool(id: school.id, completion: { [weak self] in
                 guard let self = self else { return }
                 self.removeAllSchedules() {
                     self.removeAllCourseColors() {
                         self.preferenceService.setBookmarks(bookmarks: [])
                         self.cancelAllNotifications() {
-                            closure(true)
+                            completion(true)
                         }
                     }
                 }

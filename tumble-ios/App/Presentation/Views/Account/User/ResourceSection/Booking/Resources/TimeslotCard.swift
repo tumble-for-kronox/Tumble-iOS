@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct RoomContainerCard: View {
+struct TimeslotCard: View {
     
     let onBook: () -> Void
     let locationId: String
@@ -56,7 +56,7 @@ struct RoomContainerCard: View {
         .padding()
         .frame(maxWidth: .infinity, maxHeight: 70)
         .background(Color.surface)
-        .cornerRadius(20)
+        .cornerRadius(10)
         .padding(.horizontal, 15)
         .padding(.vertical, 10)
     }

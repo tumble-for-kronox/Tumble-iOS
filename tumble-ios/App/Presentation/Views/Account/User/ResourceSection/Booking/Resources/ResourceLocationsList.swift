@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct BookResource: View {
+struct ResourceLocationsList: View {
     
     @ObservedObject var parentViewModel: ResourceViewModel
     @Binding var selectedPickerDate: Date

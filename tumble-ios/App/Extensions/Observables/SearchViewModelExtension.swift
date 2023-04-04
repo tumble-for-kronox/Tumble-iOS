@@ -12,7 +12,7 @@ extension SearchViewModel {
     // Checks if a schedule based on its programme Id is already in the
     // local storage. if it is, we set the preview button for favoriting
     // to be either save or remove.
-    func checkSavedSchedule(programmeId: String, closure: @escaping () -> Void) -> Void {
+    func checkSavedSchedule(programmeId: String, completion: @escaping () -> Void) -> Void {
         AppLogger.shared.debug("Checking if schedule is already saved...")
         scheduleService.load(with: programmeId) { [weak self] result in
             guard let self = self else { return }
@@ -25,12 +25,12 @@ extension SearchViewModel {
                 self.schedulePreviewIsSaved = true
                 AppLogger.shared.debug("Schedule is already saved")
             }
-            closure()
+            completion()
         }
     }
     
     
-    func handleFetchedSchedule(schedule: Response.Schedule, closure: @escaping () -> Void) -> Void {
+    func handleFetchedSchedule(schedule: Response.Schedule, completion: @escaping () -> Void) -> Void {
         if schedule.isEmpty() {
             self.schedulePreviewStatus = .empty
         } else {
@@ -39,7 +39,7 @@ extension SearchViewModel {
             AppLogger.shared.debug("Set schedule local variables")
         }
         DispatchQueue.main.async {
-            closure()
+            completion()
         }
     }
     
@@ -49,7 +49,7 @@ extension SearchViewModel {
     // The purpose is to check for new schedules and add them accordingly
     func assignCourseColorsToSavedSchedule(
         courses: [String : String],
-        closure: @escaping ([String : String]) -> Void) -> Void {
+        completion: @escaping ([String : String]) -> Void) -> Void {
             DispatchQueue.global(qos: .userInitiated).async {
                 var availableColors = Set(colors)
                 var courseColors = courses
@@ -63,14 +63,14 @@ extension SearchViewModel {
                 }
                 self.saveCourseColors(courseColors: courseColors)
                 DispatchQueue.main.async {
-                    closure(courseColors)
+                    completion(courseColors)
                 }
             }
     }
     
     
     // API Call to fetch a schedule from backend
-    func fetchSchedule(programmeId: String, closure: @escaping (Bool) -> Void) -> Void {
+    func fetchSchedule(programmeId: String, completion: @escaping (Bool) -> Void) -> Void {
         let _ = networkManager.get(
             .schedule(
                 scheduleId: programmeId,
@@ -80,10 +80,10 @@ extension SearchViewModel {
                     case .success(let result):
                         AppLogger.shared.debug("Fetched schedule")
                         self.handleFetchedSchedule(schedule: result) {
-                            closure(true)
+                            completion(true)
                         }
                     case .failure(let error):
-                        closure(false)
+                        completion(false)
                         self.schedulePreviewStatus = .error
                         self.errorMessagePreview = error.message.contains("NSURLErrorDomain") ? "Could not contact the server, try again later" : error.message
                         AppLogger.shared.debug("Encountered error when attempting to load schedule for programme \(programmeId): \(error)")
@@ -92,15 +92,15 @@ extension SearchViewModel {
     }
     
     
-    func assignRandomCourseColors(closure: @escaping (Result<[String : String], Error>) -> Void) -> Void {
+    func assignRandomCourseColors(completion: @escaping (Result<[String : String], Error>) -> Void) -> Void {
         DispatchQueue.global(qos: .userInitiated).async {
             if let randomCourseColors = self.scheduleForPreview?.assignCoursesRandomColors() {
                 DispatchQueue.main.async {
-                    closure(.success(randomCourseColors))
+                    completion(.success(randomCourseColors))
                 }
             } else {
                 DispatchQueue.main.async {
-                    closure(.failure(.generic(reason: "Schedule for preview is null")))
+                    completion(.failure(.generic(reason: "Schedule for preview is null")))
                 }
             }
         }
@@ -176,7 +176,7 @@ extension SearchViewModel {
 
     
     
-    func loadProgrammeCourseColors(closure: @escaping ([String : String]) -> Void) -> Void {
+    func loadProgrammeCourseColors(completion: @escaping ([String : String]) -> Void) -> Void {
         courseColorService.load { result in
             switch result {
             case .failure:
@@ -184,7 +184,7 @@ extension SearchViewModel {
             case .success(let courses):
                 if !courses.isEmpty {
                     self.assignCourseColorsToSavedSchedule(courses: courses) { newCourseColors in
-                        closure(newCourseColors)
+                        completion(newCourseColors)
                     }
                 }
             }

@@ -21,6 +21,9 @@ import Foundation
     @Published var resourceBookingPageState: GenericPageStatus = .loading
     @Published var eventBookingPageState: GenericPageStatus = .loading
     @Published var error: Response.ErrorMessage? = nil
+    @Published var selectedPickerDate: Date = Date.now
+    
+    private var allResourcesDataTask: URLSessionDataTask? = nil
     
     init () {
         self.school = preferenceService.getDefaultSchoolName(schools: schoolManager.getSchools())
@@ -136,7 +139,7 @@ import Foundation
                 switch result {
                 case .success((let schoolId, let refreshToken)):
                     let request = Endpoint.allResources(schoolId: String(schoolId), date: date)
-                    let _ = self.networkManager.get(request, refreshToken: refreshToken,
+                    self.allResourcesDataTask = self.networkManager.get(request, refreshToken: refreshToken,
                     then: { [unowned self] (result: Result<Response.KronoxResources?, Response.ErrorMessage>) in
                         switch result {
                         case .success(let resources):
@@ -157,8 +160,8 @@ import Foundation
                         self.resourceBookingPageState = .error
                     }
                 }
-                
             })
+        cancelDataTaskIfDateChanged(dataTask: allResourcesDataTask, date: self.selectedPickerDate)
     }
     
     

@@ -95,7 +95,7 @@ struct AppParent: View {
     }
     
     fileprivate func onChangeSchool(school: School) -> Void {
-        viewModel.changeSchool(school: school, closure: { success in
+        viewModel.changeSchool(school: school, completion: { success in
             if success {
                 appController.toast = Toast(
                     type: .success,

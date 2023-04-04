@@ -33,7 +33,12 @@ struct TodaysEventsCarousel: View {
                             .cornerRadius(20)
                             .offset(x: getCardOffset(index: index))
                             .rotationEffect(.init(degrees: getCardRotation(index: index)))
-                            .shadow(color: Color.black.opacity(0.1), radius: (index - swipedCards) <= 2 ? 2.5 : 0, x: 5, y: 2.5)
+                            .if(index != eventsForToday.count - 1, transform: { view in
+                                view.shadow(
+                                    color: Color.black.opacity(0.1),
+                                    radius: (index - swipedCards) <= 2 ? 2 : 0, x: 5, y: 2
+                                )
+                            })
                         Spacer()
                     }
                     .frame(height: 160)

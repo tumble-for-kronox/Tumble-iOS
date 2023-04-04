@@ -13,7 +13,7 @@ enum BookingButtonState {
     case available
 }
 
-struct ResourceRoomSelection: View {
+struct TimeslotSelection: View {
     
     let resourceId: String
     let bookResource: (String, Date, Response.AvailabilityValue, @escaping (Result<Void, Error>) -> Void) -> Void
@@ -33,7 +33,7 @@ struct ResourceRoomSelection: View {
             ScrollView (showsIndicators: false) {
                 ForEach(availabilityValues, id: \.self) { availabilityValue in
                     if let locationId = availabilityValue.locationID {
-                        RoomContainerCard(onBook: {
+                        TimeslotCard(onBook: {
                             buttonStateMap[locationId] = .loading
                             bookResource(resourceId, selectedPickerDate, availabilityValue) { result in
                                 handleBookingResponse(locationId: locationId, result: result)

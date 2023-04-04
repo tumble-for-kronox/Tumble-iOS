@@ -18,10 +18,10 @@ class PreferenceService: PreferenceServiceProtocol {
     }
     
     // ----------- SET -----------
-    func setSchool(id: Int, closure: @escaping () -> Void) -> Void {
+    func setSchool(id: Int, completion: @escaping () -> Void) -> Void {
         UserDefaults.standard.set(id, forKey: StoreKey.school.rawValue)
         UserDefaults.standard.synchronize()
-        closure()
+        completion()
     }
     
     func setBookmarks(bookmarks: [Bookmark]) {
