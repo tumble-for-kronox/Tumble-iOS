@@ -40,6 +40,7 @@ struct NotificationSettings: View {
                     imageColor: .primary,
                     action: clearAllNotifications)
             }
+            .padding(.top, 20)
             CustomListGroup {
                 ListRowNavigationItem(
                     title: NSLocalizedString("Notification offset", comment: ""),
@@ -49,6 +50,5 @@ struct NotificationSettings: View {
                         rescheduleNotifications: rescheduleNotifications)))
             }
         }
-        .padding(.top, 20)
     }
 }

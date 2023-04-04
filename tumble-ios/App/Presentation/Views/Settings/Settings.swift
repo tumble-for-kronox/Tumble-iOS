@@ -78,7 +78,7 @@ struct Settings: View {
                 }
             }
             .padding(.top, 20)
-            
+            .background(Color.background)
         }
         .background(Color.background)
         .navigationTitle(NSLocalizedString("Settings", comment: ""))
