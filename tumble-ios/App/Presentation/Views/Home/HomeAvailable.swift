@@ -39,6 +39,7 @@ struct HomeAvailable: View {
                 }
                 .frame(minHeight: 100, alignment: .top)
             }
+            .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.horizontal, 15)
             VStack (alignment: .leading) {
                 HStack {

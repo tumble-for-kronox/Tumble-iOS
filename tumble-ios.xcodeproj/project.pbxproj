@@ -2024,7 +2024,7 @@
 				ENABLE_TESTING_SEARCH_PATHS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "tumble-ios/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "Tumble for Kronox";
+				INFOPLIST_KEY_CFBundleDisplayName = Tumble;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Camera is used for scanning QR codes for room booking functionality in Universities";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "This app will only use photos from your photo library when, and if, you choose to change the profile picture for your account";
@@ -2037,7 +2037,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.0.0;
+				MARKETING_VERSION = 3.1.0;
 				NETWORK_SETTINGS = testing;
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.tumble;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2181,7 +2181,7 @@
 				ENABLE_TESTING_SEARCH_PATHS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "tumble-ios/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "Tumble for Kronox";
+				INFOPLIST_KEY_CFBundleDisplayName = Tumble;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Camera is used for scanning QR codes for room booking functionality in Universities";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "This app will only use photos from your photo library when, and if, you choose to change the profile picture for your account";
@@ -2194,7 +2194,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.0.0;
+				MARKETING_VERSION = 3.1.0;
 				NETWORK_SETTINGS = testing;
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.tumble;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2223,7 +2223,7 @@
 				ENABLE_TESTING_SEARCH_PATHS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "tumble-ios/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "Tumble for Kronox";
+				INFOPLIST_KEY_CFBundleDisplayName = Tumble;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Camera is used for scanning QR codes for room booking functionality in Universities";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "This app will only use photos from your photo library when, and if, you choose to change the profile picture for your account";
@@ -2236,7 +2236,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.0.0;
+				MARKETING_VERSION = 3.1.0;
 				NETWORK_SETTINGS = production;
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.tumble;
 				PRODUCT_NAME = "$(TARGET_NAME)";
