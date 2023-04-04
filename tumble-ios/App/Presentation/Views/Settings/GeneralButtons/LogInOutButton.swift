@@ -12,6 +12,12 @@ struct LogInOutButton: View {
     @Environment(\.dismiss) var dismiss
     @StateObject var parentViewModel: SettingsViewModel
     
+    @State private var isConfirming: Bool = false
+    var settingsDetails: SettingsDetails = SettingsDetails(
+        titleKey: NSLocalizedString("Are you sure you want to log out of your account?", comment: ""),
+        name: "Log out of your account",
+        details: "This action will log you out of your KronoX account")
+    
     var isAuthorized: Bool {
         return parentViewModel.userController.authStatus == .authorized
     }
@@ -19,7 +25,7 @@ struct LogInOutButton: View {
     var body: some View {
         Button(action: {
             if isAuthorized {
-                parentViewModel.logOut()
+                isConfirming = true
             } else {
                 AppController.shared.selectedAppTab = .account
                 dismiss()
@@ -39,5 +45,19 @@ struct LogInOutButton: View {
                 Spacer()
             }
         })
+        .confirmationDialog(
+            NSLocalizedString("Are you sure you want to log out of your account?", comment: ""),
+            isPresented: $isConfirming, presenting: settingsDetails
+        ) { detail in
+            Button {
+                parentViewModel.logOut()
+            } label: {
+                Text(NSLocalizedString(settingsDetails.name, comment: ""))
+                    .foregroundColor(.red)
+            }
+            Button("Cancel", role: .cancel) {
+                isConfirming = false
+            }
+        }
     }
 }

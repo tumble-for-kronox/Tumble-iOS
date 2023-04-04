@@ -23,14 +23,16 @@ struct Settings: View {
                 CustomListGroup {
                     ListRowNavigationItem(
                         title: NSLocalizedString("Appearance", comment: ""),
-                        current: NSLocalizedString(appearance, comment: ""),
+                        current: NSLocalizedString($appearance.wrappedValue, comment: ""),
                         destination: AnyView(AppearanceSettings(appearance: $appearance)))
                     Divider()
                     ListRowActionItem(
                         title: NSLocalizedString("App language", comment: ""),
                         current: currentLocale != nil ? LanguageTypes.fromLocaleName(currentLocale!)?.displayName : nil,
                         action: {
-                            UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
+                            if let settingsURL = URL(string: UIApplication.openSettingsURLString) {
+                                UIApplication.shared.open(settingsURL)
+                            }
                         })
                     Divider()
                     ListRowNavigationItem(

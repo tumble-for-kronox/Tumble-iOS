@@ -12,7 +12,7 @@ struct ListRowNavigationItem: View {
     let title: String
     let current: String?
     let destination: AnyView
-    
+        
     init(
         title: String,
         current: String? = nil,
@@ -22,6 +22,7 @@ struct ListRowNavigationItem: View {
         self.current = current
         self.destination = destination
     }
+    
     
     var body: some View {
         NavigationLink(destination: destination, label: {
