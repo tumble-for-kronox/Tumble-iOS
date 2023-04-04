@@ -42,8 +42,9 @@ struct OnBoarding: View {
     @State private var viewedTab: Int = 0
     @State private var animateButton: Bool = true
     @State private var buttonOffset: CGFloat = 900.0
-    let updateUserOnBoarded: UpdateUserOnBoarded
     @State var offset: CGFloat = .zero
+    
+    let updateUserOnBoarded: UpdateUserOnBoarded
     
     init(viewModel: OnBoardingViewModel, updateUserOnBoarded: @escaping UpdateUserOnBoarded) {
         UIPageControl.appearance().currentPageIndicatorTintColor = UIColor(Color.primary)
@@ -120,7 +121,12 @@ struct OnBoarding: View {
             ,alignment: .bottom
         )
         .sheet(isPresented: $viewModel.showSchoolSelection, content: {
-            SchoolSelection(onSelectSchool: onSelectSchool, schools: viewModel.schools)
+            VStack {
+                DraggingPill()
+                SheetTitle(title: NSLocalizedString("Universities", comment: ""))
+                SchoolSelection(onSelectSchool: onSelectSchool, schools: viewModel.schools)
+            }
+            .background(Color.background)
         })
         .onDisappear {
             viewModel.showSchoolSelection = false

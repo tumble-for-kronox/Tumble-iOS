@@ -17,10 +17,12 @@ struct Home: View {
     @Binding var kronoxUrl: String?
     @Binding var selectedAppTab: TabbarTabType
     
+    @State private var showOverlay: Bool = false
+    
     var body: some View {
         VStack {
             if viewModel.homeStatus != .loading {
-                News(news: viewModel.news)
+                News(news: viewModel.news?.pick(length: 4), showOverlay: $showOverlay)
             }
             VStack (alignment: .leading) {
                 switch viewModel.homeStatus {
@@ -48,6 +50,7 @@ struct Home: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.background)
         .padding(.bottom, -10)
+        .sheet(isPresented: $showOverlay, content: { NewsSheet(news: viewModel.news) })
     }
     
     

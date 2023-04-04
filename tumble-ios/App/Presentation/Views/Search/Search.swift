@@ -35,11 +35,16 @@ struct Search: View {
             }
             .background(Color.background)
             .sheet(isPresented: $viewModel.presentPreview) {
-                SchedulePreview(
-                    parentViewModel: viewModel,
-                    courseColors: $viewModel.courseColors,
-                    checkForNewSchedules: checkForNewSchedules
-                )
+                VStack {
+                    DraggingPill()
+                    SheetTitle(title: "Schedule")
+                    SchedulePreview(
+                        parentViewModel: viewModel,
+                        courseColors: $viewModel.courseColors,
+                        checkForNewSchedules: checkForNewSchedules
+                    )
+                }
+                .background(Color.background)
             }
         }
     }

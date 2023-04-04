@@ -54,7 +54,7 @@ struct SchedulePreviewList: View {
                     }
                     
                 }
-                .padding(7.5)
+                .padding(.horizontal, 7.5)
             }
             VStack (alignment: .leading) {
                 Spacer()

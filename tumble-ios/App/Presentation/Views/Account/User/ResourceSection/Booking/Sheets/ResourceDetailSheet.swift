@@ -17,14 +17,10 @@ struct ResourceDetailSheet: View {
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
-        VStack (alignment: .leading) {
-            HStack {
-                Text(NSLocalizedString("Resource details", comment: ""))
-                    .sheetTitle()
-                Spacer()
-            }
+        VStack {
+            DraggingPill()
+            SheetTitle(title: "Resource details")
             VStack {
-                Divider()
                 DetailsBuilder(title: NSLocalizedString("Location", comment: ""), image: "mappin.and.ellipse", content: {
                     Text(resource.locationID)
                         .font(.system(size: 16))
@@ -46,7 +42,8 @@ struct ResourceDetailSheet: View {
                         .font(.system(size: 16))
                         .foregroundColor(.onSurface)
                 })
-                .if(resource.showConfirmButton, transform: { _ in
+                Spacer()
+                if resource.showConfirmButton {
                     Button(action: {
                         HapticsController.triggerHapticLight()
                         dismiss()
@@ -54,14 +51,14 @@ struct ResourceDetailSheet: View {
                     }, label: {
                         HStack {
                             Text(NSLocalizedString("Confirm booking", comment: ""))
-                                .font(.system(size: 17, weight: .semibold))
+                                .font(.system(size: 16, weight: .semibold))
                                 .foregroundColor(.onPrimary)
                         }
                     })
                     .buttonStyle(WideAnimatedButtonStyle())
                     .padding(.top, 20)
-                })
-                .if(resource.showUnbookButton, transform: { _ in
+                }
+                if resource.showUnbookButton {
                     Button(action: {
                         HapticsController.triggerHapticLight()
                         dismiss()
@@ -69,14 +66,13 @@ struct ResourceDetailSheet: View {
                     }, label: {
                         HStack {
                             Text(NSLocalizedString("Remove booking", comment: ""))
-                                .font(.system(size: 17, weight: .semibold))
+                                .font(.system(size: 16, weight: .semibold))
                                 .foregroundColor(.onPrimary)
                         }
                     })
                     .buttonStyle(WideAnimatedButtonStyle(color: .red))
                     .padding(.top, 20)
-                })
-                Spacer()
+                }
             }
         }
         .background(Color.background)

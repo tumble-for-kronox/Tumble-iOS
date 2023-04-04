@@ -10,21 +10,26 @@ import SwiftUI
 struct News: View {
     
     let news: Response.NewsItems?
+    @Binding var showOverlay: Bool
     
     var body: some View {
         VStack {
-            Button(action: {}, label: {
+            Button(action: {
+                withAnimation(.spring()) {
+                    showOverlay = true
+                }
+            }, label: {
                 HStack (alignment: .center) {
                     Text(
                         String(format: NSLocalizedString("News from us (%@)", comment: ""),
                                news != nil ? String(news!.count) : "0")
                     )
-                    .font(.system(size: 18, weight: .semibold))
-                    .foregroundColor(.onBackground)
+                    .font(.system(size: 16, weight: .semibold))
+                    .foregroundColor(.onPrimary)
                     Spacer()
-                    Image(systemName: "chevron.down")
-                        .font(.system(size: 21, weight: .medium))
-                        .foregroundColor(.onBackground)
+                    Image(systemName: "square.grid.2x2")
+                        .font(.system(size: 18, weight: .medium))
+                        .foregroundColor(.onPrimary)
                 }
                 .frame(maxWidth: .infinity)
             })

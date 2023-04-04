@@ -37,6 +37,6 @@ struct TodaysEvents: View {
             }
             .frame(minHeight: 100, alignment: .top)
         }
-        .frame(maxWidth: .infinity)
+        .frame(maxWidth: .infinity, alignment: .leading)
     }
 }

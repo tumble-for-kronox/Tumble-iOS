@@ -19,9 +19,13 @@ struct SchoolSelection: View {
             LazyVStack {
                 ForEach(schools, id: \.id) { school in
                     SchoolRow(school: school, onSelectSchool: onSelectSchool)
+                    if (schools.last != school) {
+                        Divider()
+                            .padding(.horizontal, 15)
+                            .padding(.vertical, 15)
+                    }
                 }
             }
-            .padding(.top, 20)
         }
         .background(Color.background)
     }

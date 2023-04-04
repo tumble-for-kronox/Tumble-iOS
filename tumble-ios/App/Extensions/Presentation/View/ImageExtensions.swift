@@ -14,6 +14,7 @@ extension Image {
         self
             .font(.system(size: 21, weight: .medium))
             .foregroundColor(isSelected ? .primary : .onSurface.opacity(0.5))
+            .padding(.bottom, 5)
     }
     
     func actionIcon() -> some View {

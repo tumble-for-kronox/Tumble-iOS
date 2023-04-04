@@ -18,7 +18,7 @@ struct WideAnimatedButtonStyle: ButtonStyle {
     
     func makeBody(configuration: Self.Configuration) -> some View {
         configuration.label
-            .padding()
+            .padding(10)
             .frame(maxWidth: .infinity, alignment: .center)
             .background(color)
             .cornerRadius(10)

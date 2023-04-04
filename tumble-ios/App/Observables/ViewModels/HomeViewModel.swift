@@ -80,7 +80,7 @@ enum HomeStatus {
             switch result {
             case .success(let news):
                 DispatchQueue.main.async {
-                    self.news = news.pick(length: 4) // Show 4 latest items
+                    self.news = news
                     self.newsSectionStatus = .loaded
                     print(news.count)
                 }

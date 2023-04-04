@@ -17,7 +17,7 @@ struct LoginButton: View {
         Button(action: login, label: {
             HStack {
                 Text(NSLocalizedString("Log in", comment: ""))
-                    .font(.system(size: 20, weight: .semibold))
+                    .font(.system(size: 16, weight: .semibold))
                     .foregroundColor(.onPrimary)
             }
         })
