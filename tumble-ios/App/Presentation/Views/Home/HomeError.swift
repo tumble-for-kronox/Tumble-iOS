@@ -1,5 +1,5 @@
 //
-//  HomeNoBookmarks.swift
+//  HomeError.swift
 //  tumble-ios
 //
 //  Created by Adis Veletanlic on 2023-04-04.
@@ -7,32 +7,32 @@
 
 import SwiftUI
 
-struct HomeNoBookmarks: View {
+struct HomeError: View {
     var body: some View {
         VStack (alignment: .leading) {
-            VStack (alignment: .leading) {
-                Text(NSLocalizedString("Looks like you don't have anything saved yet", comment: ""))
+            VStack (alignment: .leading, spacing: 20) {
+                Text(NSLocalizedString("Something went wrong", comment: ""))
                     .font(.system(size: 30, weight: .semibold))
                     .foregroundColor(.onBackground)
-                    .padding(.bottom, 20)
                     .padding(.trailing, 10)
-                Text(NSLocalizedString("Schedules are bookmarked from the search page, which you can access at the top right of the screen.", comment: ""))
+                
+                Text(NSLocalizedString("We experienced an issue when trying to find your schedules. Try again later", comment: ""))
                     .font(.system(size: 15, weight: .medium))
                     .foregroundColor(.onBackground)
-                    .padding(.trailing, 30)
+                    .padding(.trailing, 25)
             }
             Spacer()
-            Image("ManWaiting")
+            Image("WomanArmsUp")
                 .resizable()
                 .scaledToFit()
                 .frame(width: getRect().width - 40, height: getRect().width - 80)
+                .padding(.bottom, 20)
         }
-        
     }
 }
 
-struct HomeNoBookmarks_Previews: PreviewProvider {
+struct HomeError_Previews: PreviewProvider {
     static var previews: some View {
-        HomeNoBookmarks()
+        HomeError()
     }
 }

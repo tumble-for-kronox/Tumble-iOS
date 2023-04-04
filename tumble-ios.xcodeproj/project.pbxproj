@@ -117,6 +117,10 @@
 		D455E04B29D58F7D00770910 /* NotificationOffsetSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D455E04A29D58F7D00770910 /* NotificationOffsetSettings.swift */; };
 		D4563E7E2985F96C003261FA /* NetworkSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4563E7D2985F96C003261FA /* NetworkSettings.swift */; };
 		D4563E802985FBFB003261FA /* NetworkExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4563E7F2985FBFB003261FA /* NetworkExtensions.swift */; };
+		D458604E29DC9D6200B77513 /* NextClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D458604D29DC9D6200B77513 /* NextClass.swift */; };
+		D458605029DC9DA000B77513 /* TodaysEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = D458604F29DC9DA000B77513 /* TodaysEvents.swift */; };
+		D458605229DC9FAC00B77513 /* News.swift in Sources */ = {isa = PBXBuildFile; fileRef = D458605129DC9FAC00B77513 /* News.swift */; };
+		D458605429DCAABD00B77513 /* HomeError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D458605329DCAABD00B77513 /* HomeError.swift */; };
 		D45DAB2229DB380E00FCA5AC /* AnimatedButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45DAB2129DB380E00FCA5AC /* AnimatedButtonStyle.swift */; };
 		D45DAB2E29DB4FCA00FCA5AC /* TodaysEventsCarousel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45DAB2D29DB4FCA00FCA5AC /* TodaysEventsCarousel.swift */; };
 		D4607632292AA39400DE9590 /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4607631292AA39400DE9590 /* Types.swift */; };
@@ -350,6 +354,10 @@
 		D455E04A29D58F7D00770910 /* NotificationOffsetSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationOffsetSettings.swift; sourceTree = "<group>"; };
 		D4563E7D2985F96C003261FA /* NetworkSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkSettings.swift; sourceTree = "<group>"; };
 		D4563E7F2985FBFB003261FA /* NetworkExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkExtensions.swift; sourceTree = "<group>"; };
+		D458604D29DC9D6200B77513 /* NextClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextClass.swift; sourceTree = "<group>"; };
+		D458604F29DC9DA000B77513 /* TodaysEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodaysEvents.swift; sourceTree = "<group>"; };
+		D458605129DC9FAC00B77513 /* News.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = News.swift; sourceTree = "<group>"; };
+		D458605329DCAABD00B77513 /* HomeError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeError.swift; sourceTree = "<group>"; };
 		D45DAB2129DB380E00FCA5AC /* AnimatedButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedButtonStyle.swift; sourceTree = "<group>"; };
 		D45DAB2D29DB4FCA00FCA5AC /* TodaysEventsCarousel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodaysEventsCarousel.swift; sourceTree = "<group>"; };
 		D4607631292AA39400DE9590 /* Types.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Types.swift; sourceTree = "<group>"; };
@@ -900,11 +908,12 @@
 		D453390029299F9800198411 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				D458604C29DC9D4300B77513 /* Available */,
 				D4607640292AB18D00DE9590 /* Home.swift */,
-				D45DAB2D29DB4FCA00FCA5AC /* TodaysEventsCarousel.swift */,
-				D439F8A029DBA96B006332AB /* HomeAvailable.swift */,
 				D439F8A229DBAA59006332AB /* HomeNotAvailable.swift */,
 				D439F8A429DBAA71006332AB /* HomeNoBookmarks.swift */,
+				D458605129DC9FAC00B77513 /* News.swift */,
+				D458605329DCAABD00B77513 /* HomeError.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -951,6 +960,17 @@
 				D49B984D29CF461C0023DF75 /* URLSession.swift */,
 			);
 			path = NetworkSettings;
+			sourceTree = "<group>";
+		};
+		D458604C29DC9D4300B77513 /* Available */ = {
+			isa = PBXGroup;
+			children = (
+				D45DAB2D29DB4FCA00FCA5AC /* TodaysEventsCarousel.swift */,
+				D439F8A029DBA96B006332AB /* HomeAvailable.swift */,
+				D458604D29DC9D6200B77513 /* NextClass.swift */,
+				D458604F29DC9DA000B77513 /* TodaysEvents.swift */,
+			);
+			path = Available;
 			sourceTree = "<group>";
 		};
 		D4607638292AAD3100DE9590 /* CustomToast */ = {
@@ -1670,12 +1690,14 @@
 				D40CC161292AFB9F00664776 /* Bookmarks.swift in Sources */,
 				D46081552930053E00FFFB44 /* ScheduleService.swift in Sources */,
 				D40D80CE29265D49008CA68D /* SearchBar.swift in Sources */,
+				D458605429DCAABD00B77513 /* HomeError.swift in Sources */,
 				D400F3D829D794230050622E /* AccountViewStatus.swift in Sources */,
 				D400F3DD29D794840050622E /* ResourceDetailSheetModel.swift in Sources */,
 				D454DED529D3BB13005BDAE3 /* NotificationSettings.swift in Sources */,
 				D400F3D229D793CF0050622E /* SearchStatus.swift in Sources */,
 				D421EAF02993FB660045D438 /* EventDetailsSheetModel.swift in Sources */,
 				D46ABF1229843D3000B059F6 /* StoreKey.swift in Sources */,
+				D458605029DC9DA000B77513 /* TodaysEvents.swift in Sources */,
 				D443962A29CB40C70069D66A /* ToTopButtonStyle.swift in Sources */,
 				D40D80B429252A5A008CA68D /* PreferenceService.swift in Sources */,
 				D41ED53B2983F393009DCF8B /* DateExtensions.swift in Sources */,
@@ -1768,6 +1790,8 @@
 				D4E83ED12999B1B1002E5F88 /* AuthManager.swift in Sources */,
 				D4A550CF299454F700028BCF /* ScheduleStoreModel.swift in Sources */,
 				D4EE5B6C29D50FC0002A1399 /* AppearanceSettings.swift in Sources */,
+				D458604E29DC9D6200B77513 /* NextClass.swift in Sources */,
+				D458605229DC9FAC00B77513 /* News.swift in Sources */,
 				D4040EC429D310A800613144 /* Refreshable.swift in Sources */,
 				D454DECA29D35EF5005BDAE3 /* Settings.swift in Sources */,
 				D4607632292AA39400DE9590 /* Types.swift in Sources */,

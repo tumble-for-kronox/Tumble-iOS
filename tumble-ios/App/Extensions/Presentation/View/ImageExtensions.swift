@@ -12,14 +12,14 @@ extension Image {
     
     func tabBarIcon(isSelected: Bool) -> some View {
         self
-            .font(.system(size: 21))
+            .font(.system(size: 21, weight: .medium))
             .foregroundColor(isSelected ? .primary : .onSurface.opacity(0.5))
     }
     
-    func navBarIcon() -> some View {
+    func actionIcon() -> some View {
         self
-            .font(.system(size: 17))
-            .foregroundColor(.onBackground.opacity(0.8))
+            .font(.system(size: 17, weight: .medium))
+            .foregroundColor(.onBackground)
     }
     
     func featureIcon() -> some View {
