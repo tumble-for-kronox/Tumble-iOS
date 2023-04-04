@@ -16,7 +16,7 @@ struct AppearanceSettings: View {
             CustomListGroup {
                 ForEach(AppearanceTypes.allCases) { type in
                     SettingsRadioButton(
-                        title: type.displayName,
+                        title: NSLocalizedString(type.displayName, comment: ""),
                         isSelected: Binding<Bool>(
                             get: { appearance == type.rawValue },
                             set: { selected in

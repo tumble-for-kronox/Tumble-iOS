@@ -6,8 +6,6 @@
   
 */
 
-"Pull to refresh"="Povucite za osvježavanje";
-
 "Monday"="Ponedjeljak";
 
 "Tuesday"="Utorak";
@@ -30,9 +28,15 @@
 
 "Could not log out from your account"="Ne mogu se odjaviti s vašeg računa";
 
-"No schedules found"="Nema pronađenih rasporeda";
+"There are no schedules that match your search"="Nema rasporeda koji odgovaraju vašoj pretrazi";
 
 "Something went wrong"="Nešto je pošlo po zlu";
+
+"Automatic"="Automatski";
+
+"Light"="Light";
+
+"Dark"="Dark";
 
 "English"="Engleski";
 
@@ -40,11 +44,11 @@
 
 "Italian"="Talijanski";
 
-"Bosnian"="Bosanski";
-
 "French"="Francuski";
 
 "German"="Njemački";
+
+"Bosnian"="Bosanski";
 
 "Home"="Dom";
 
@@ -62,7 +66,7 @@
 
 "School already selected"="Škola je već odabrana";
 
-"You already have '%@' as your default school"="Već imate '%@' kao svoju zadanu školu";
+"You already have '%@' as your default school"="Već imate '%@' kao zadanu školu";
 
 "Removed schedule"="Uklonjen raspored";
 
@@ -74,6 +78,8 @@
 
 "Appearance"="Izgled";
 
+"App language"="Jezik aplikacije";
+
 "Notifications"="Obavještenja";
 
 "School"="Škola";
@@ -81,8 +87,6 @@
 "App review"="Pregled aplikacije";
 
 "Share feedback"="Podijelite povratne informacije";
-
-"How to use the app"="Kako koristiti aplikaciju";
 
 "Settings"="Postavke";
 
@@ -96,41 +100,11 @@
 
 "Failed to set notifications for all available events"="Nije uspjelo postavljanje obavještenja za sve dostupne događaje";
 
+"Are you sure you want to log out of your account?"="Jeste li sigurni da se želite odjaviti sa svog naloga?";
+
 "Log out"="Odjaviti se";
 
 "Log in"="Ulogovati se";
-
-"App language"="Jezik aplikacije";
-
-"Automatic"="Automatski";
-
-"Light"="Light";
-
-"Dark"="Dark";
-
-"Let's get started"="Hajde da počnemo";
-
-"We'll walk you through how to use Tumble"="Provest ćemo vas kroz kako da koristite tumble";
-
-"Saving schedules"="Spremanje rasporeda";
-
-"Here's how to save a schedule"="Evo kako da sačuvate raspored";
-
-"Signing up for events"="Prijava za događaje";
-
-"Here's how to sign up for an event"="Evo kako se prijaviti za događaj";
-
-"Booking resources"="Rezervacija resursa";
-
-"Here's how to book a resource"="Evo kako da rezervišete resurs";
-
-"Setting notifications"="Postavljanje obavještenja";
-
-"Here's how to set notifications"="Evo kako postaviti obavještenja";
-
-"Customizing course colors"="Prilagođavanje boja kursa";
-
-"Here's how to modify course colors"="Evo kako da izmenite boje kursa";
 
 "No bookmarks yet"="Još nema oznaka";
 
@@ -140,7 +114,11 @@
 
 "hours"="Sati";
 
+"Are you sure you want to set notifications for all events?"="Jeste li sigurni da želite postaviti obavještenja za sve događaje?";
+
 "Set notifications for all events"="Postavite obavještenja za sve događaje";
+
+"Are you sure you want to cancel all set notifications?"="Jeste li sigurni da želite otkazati sva postavljena obavještenja?";
 
 "Cancel all notifications"="Otkažite sva obavještenja";
 
@@ -148,17 +126,27 @@
 
 "Today's events"="Današnji događaji";
 
+"No events for today"="Nema događaja za danas";
+
+"Next class"="Sledeći čas";
+
+"No upcoming class"="Nema predstojećeg časa";
+
+"Looks like you don't have anything saved yet"="Izgleda da još nemate ništa sačuvano";
+
+"Schedules are bookmarked from the search page, which you can access at the top right of the screen."="Rasporedi su obeleženi sa stranice za pretragu kojoj možete pristupiti u gornjem desnom uglu ekrana.";
+
+"Everything looks good for this week"="Sve izgleda dobro za ovu sedmicu";
+
+"Looks like you don't have any classes or exams in the coming week. Yay!"="Izgleda da u narednoj sedmici nemate predavanja ili ispite. jej!";
+
 "No classes for today"="Nema nastave za danas";
-
-"News"="Vijesti";
-
-"No recent news items"="Nema nedavnih vijesti";
-
-"See all"="Vidjeti sve";
 
 "No teachers listed"="Nema navedenih nastavnika";
 
 "Unknown"="Nepoznato";
+
+"Pull to refresh"="Povucite za osvježavanje";
 
 "Search"="Traži";
 
@@ -166,11 +154,11 @@
 
 "This is where you find your schedules"="Ovdje ćete naći svoje rasporede";
 
-"Search schedules"="Pretražite rasporede";
-
 "Looks like something went wrong"="Izgleda da je nešto pošlo po zlu";
 
 "Schedule is empty"="Raspored je prazan";
+
+"Search schedules"="Pretražite rasporede";
 
 "Remove"="Ukloni";
 
@@ -253,6 +241,8 @@
 "Automatic exam/event signup has been enabled, but make sure you are always registered for exams through your institution."="Automatska prijava za ispit/događaj je omogućena, ali vodite računa da ste uvijek prijavljeni za ispite preko svoje institucije.";
 
 "Automatic exam/event signup has been disabled."="Automatska prijava na ispit/događaj je onemogućena.";
+
+"See all"="Vidjeti sve";
 
 "Book more"="Rezervišite više";
 
@@ -350,70 +340,21 @@
 
 "Please log in to continue"="Molimo prijavite se da nastavite";
 
-"All done"="Sve završeno";
+"Save schedules"="Sačuvajte rasporede";
 
-"Now we'll leave you to it. First, choose your university."="Sada ćemo vas prepustiti tome. prvo odaberite svoj univerzitet.";
+"Search for schedules from the search page and download them locally"="Potražite rasporede sa stranice za pretraživanje i preuzmite ih lokalno";
 
-"Bookmarks page"="Stranica sa oznakama";
+"Set notifications"="Postavite obavještenja";
 
-"Press the bookmarks tab in the tab bar"="Pritisnite karticu sa oznakama na traci sa karticama";
+"Get notified before important events and dates"="Budite obavješteni prije važnih događaja i datuma";
 
-"Click"="Kliknite";
+"Be creative"="Budi kreativan";
 
-"Click an event card in your schedule"="Kliknite na karticu događaja u svom rasporedu";
+"Set custom colors for the courses in your schedules"="Postavite prilagođene boje za kurseve u svojim rasporedima";
 
-"Select"="Odaberite";
+"Booking"="Rezervacija";
 
-"Press the 'Color' option in the sheet that appears"="Pritisnite opciju 'boja' na listu koji se pojavi";
+"Log in to your Kronox account and book resources and exams"="Prijavite se na svoj kronox nalog i rezervirajte resurse i ispite";
 
-"Apply"="Prijavite se";
+"Select university"="Odaberite univerzitet";
 
-"Choose any color from the color palette and apply it"="Odaberite bilo koju boju iz palete boja i primijenite je";
-
-"Done"="Gotovo";
-
-"The specific course under the event will have a new color"="Specifični kurs u okviru događaja će imati novu boju";
-
-"Search for a schedule from the search page"="Potražite raspored na stranici za pretraživanje";
-
-"Open"="Otvori";
-
-"Open the schedule you want to view"="Otvorite raspored koji želite pogledati";
-
-"Press the 'bookmark' button on the bottom left "="Pritisnite dugme 'bookmark' u donjem levom uglu";
-
-"Check it out"="Provjeri";
-
-"View your schedule in your preferred schedule view"="Pogledajte svoj raspored u željenom prikazu rasporeda";
-
-"Account page"="Stranica računa";
-
-"Press the account page tab on the bottom"="Pritisnite karticu stranice naloga na dnu";
-
-"Log in with your institution credentials"="Prijavite se sa akreditivima svoje institucije";
-
-"Navigate to the event booking page by pressing 'See all'"="Idite na stranicu za rezervaciju događaja pritiskom na 'prikaži sve'";
-
-"Choose"="Izaberi";
-
-"Select an available event to sign up for and press the register button"="Odaberite događaj na koji ćete se prijaviti i pritisnite dugme za registraciju";
-
-"Now you've signed up for the specified exam, check your email for confirmation"="Sada kada ste se prijavili za navedeni ispit, provjerite svoju e-poštu za potvrdu";
-
-"Press the 'Event' or 'Course' notification setting in the sheet that appears"="Pritisnite postavku obavještenja 'događaj' ili 'kurs' na listu koji se pojavi";
-
-"A notification will be set for the specified event or course"="Obavijest će biti postavljena za navedeni događaj ili kurs";
-
-"Login"="Ulogovati se";
-
-"Navigate to the resource booking page by pressing 'Book more'"="Idite na stranicu za rezervaciju resursa pritiskom na 'rezerviraj više'";
-
-"Choose a time to search for available dates and select an opening"="Odaberite vrijeme za traženje dostupnih datuma i odaberite otvaranje";
-
-"Building"="Zgrada";
-
-"Select a building on campus to book a room in, then select a room for a specific timeslot"="Odaberite zgradu u kampusu u kojoj želite rezervirati sobu, a zatim odaberite sobu za određeni vremenski termin";
-
-"Confirm"="Potvrdi";
-
-"Now confirm your selected booking by pressing the confirm button"="Sada potvrdite odabranu rezervaciju pritiskom na dugme za potvrdu";

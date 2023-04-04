@@ -6,8 +6,6 @@
   
 */
 
-"Pull to refresh"="Tirer pour rafraîchir";
-
 "Monday"="Lundi";
 
 "Tuesday"="Mardi";
@@ -22,17 +20,35 @@
 
 "Sunday"="Dimanche";
 
+"Logged out"="Déconnecté";
+
+"You have successfully logged out of your account"="Vous vous êtes déconnecté avec succès de votre compte";
+
+"Error"="Erreur";
+
+"Could not log out from your account"="Impossible de se déconnecter de votre compte";
+
+"There are no schedules that match your search"="Aucun horaire ne correspond à votre recherche";
+
+"Something went wrong"="Quelque chose s'est mal passé";
+
+"Automatic"="Automatique";
+
+"Light"="Lumière";
+
+"Dark"="Sombre";
+
 "English"="Anglais";
 
 "Swedish"="Suédois";
 
 "Italian"="Italien";
 
-"Bosnian"="Bosniaque";
-
 "French"="Français";
 
 "German"="Allemand";
+
+"Bosnian"="Bosniaque";
 
 "Home"="Maison";
 
@@ -72,27 +88,23 @@
 
 "Share feedback"="Partager des commentaires";
 
-"How to use the app"="Comment utiliser l'application";
-
 "Settings"="Paramètres";
-
-"Scheduled notifications"="Notifications planifiées";
-
-"Scheduled notifications for all available events"="Notifications programmées pour tous les événements disponibles";
 
 "Cancelled notifications"="Notifications annulées";
 
 "Cancelled all available notifications set for events"="Annulation de toutes les notifications disponibles définies pour les événements";
 
-"Error"="Erreur";
+"Scheduled notifications"="Notifications planifiées";
+
+"Scheduled notifications for all available events"="Notifications programmées pour tous les événements disponibles";
 
 "Failed to set notifications for all available events"="Échec de la définition des notifications pour tous les événements disponibles";
 
-"Automatic"="Automatique";
+"Are you sure you want to log out of your account?"="Voulez-vous vraiment vous déconnecter de votre compte ?";
 
-"Light"="Lumière";
+"Log out"="Se déconnecter";
 
-"Dark"="Sombre";
+"Log in"="Connexion";
 
 "No bookmarks yet"="Aucun marque-page pour le moment";
 
@@ -102,7 +114,11 @@
 
 "hours"="Heures";
 
+"Are you sure you want to set notifications for all events?"="Voulez-vous vraiment définir des notifications pour tous les événements ?";
+
 "Set notifications for all events"="Définir des notifications pour tous les événements";
+
+"Are you sure you want to cancel all set notifications?"="Voulez-vous vraiment annuler toutes les notifications définies ?";
 
 "Cancel all notifications"="Annuler toutes les notifications";
 
@@ -110,19 +126,27 @@
 
 "Today's events"="Les événements d'aujourd'hui";
 
+"No events for today"="Aucun événement pour aujourd'hui";
+
+"Next class"="Cours suivant";
+
+"No upcoming class"="Aucun cours à venir";
+
+"Looks like you don't have anything saved yet"="Il semble que vous n'ayez encore rien enregistré";
+
+"Schedules are bookmarked from the search page, which you can access at the top right of the screen."="Les horaires sont mis en signet à partir de la page de recherche, à laquelle vous pouvez accéder en haut à droite de l'écran.";
+
+"Everything looks good for this week"="Tout s'annonce bien pour cette semaine";
+
+"Looks like you don't have any classes or exams in the coming week. Yay!"="Il semble que vous n'ayez ni cours ni examen dans la semaine à venir. yay!";
+
 "No classes for today"="Pas de cours pour aujourd'hui";
-
-"Something went wrong"="Quelque chose s'est mal passé";
-
-"News"="Nouvelles";
-
-"No recent news items"="Aucune actualité récente";
-
-"See all"="Voir tout";
 
 "No teachers listed"="Aucun enseignant répertorié";
 
 "Unknown"="Inconnu";
+
+"Pull to refresh"="Tirer pour rafraîchir";
 
 "Search"="Recherche";
 
@@ -130,13 +154,11 @@
 
 "This is where you find your schedules"="C'est ici que vous trouvez vos horaires";
 
-"Search schedules"="Rechercher les horaires";
-
-"There are no schedules that match your search"="Aucun horaire ne correspond à votre recherche";
-
 "Looks like something went wrong"="On dirait que quelque chose s'est mal passé";
 
 "Schedule is empty"="L'horaire est vide";
+
+"Search schedules"="Rechercher les horaires";
 
 "Remove"="Retirer";
 
@@ -220,6 +242,8 @@
 
 "Automatic exam/event signup has been disabled."="L'inscription automatique aux examens/événements a été désactivée.";
 
+"See all"="Voir tout";
+
 "Book more"="Réserver plus";
 
 "Event details"="Détails de l'évènement";
@@ -232,7 +256,7 @@
 
 "No date"="Pas de date";
 
-"%@, from %@ - %@"="%@, du %@ - %@";
+"\(date), from"="\(dater de";
 
 "Available until"="Disponible jusqu'au";
 
@@ -249,6 +273,8 @@
 "Confirmation"="Confirmation";
 
 "(missing)"="(manquant)";
+
+"%@, from %@ - %@"="%@, depuis %@ - %@";
 
 "Remove booking"="Supprimer la réservation";
 
@@ -300,6 +326,8 @@
 
 "Password"="Mot de passe";
 
+"Use your university credentials for %@ to sign in to your KronoX account"="Utilisez vos identifiants universitaires pour %@ pour vous connecter à votre compte kronox";
+
 "Need help?"="Besoin d'aide?";
 
 "Logged in"="Connecté";
@@ -310,110 +338,23 @@
 
 "Username/Email address"="Nom d'utilisateur/adresse e-mail";
 
-"Log in"="Connexion";
-
 "Please log in to continue"="Merci de vous connecter pour continuer";
 
-"Saving schedules"="Enregistrement des horaires";
+"Save schedules"="Enregistrer les horaires";
 
-"Signing up for events"="Inscription aux événements";
+"Search for schedules from the search page and download them locally"="Recherchez des horaires à partir de la page de recherche et téléchargez-les localement";
 
-"Booking resources"="Ressources de réservation";
+"Set notifications"="Définir des notifications";
 
-"Setting notifications"="Réglage des notifications";
+"Get notified before important events and dates"="Soyez averti avant les événements et les dates importantes";
 
-"Customizing course colors"="Personnaliser les couleurs des cours";
+"Be creative"="Sois créatif";
 
-"Let's get started"="Commençons";
+"Set custom colors for the courses in your schedules"="Définissez des couleurs personnalisées pour les cours dans vos horaires";
 
-"We'll walk you through how to use Tumble"="Nous vous expliquerons comment utiliser tumble";
+"Booking"="Réservation";
 
-"Here's how to save a schedule"="Voici comment enregistrer un horaire";
+"Log in to your Kronox account and book resources and exams"="Connectez-vous à votre compte kronox et réservez des ressources et des examens";
 
-"Here's how to sign up for an event"="Voici comment s'inscrire à un événement";
-
-"Here's how to book a resource"="Voici comment réserver une ressource";
-
-"Here's how to set notifications"="Voici comment configurer les notifications";
-
-"Here's how to modify course colors"="Voici comment modifier les couleurs des cours";
-
-"All done"="Terminé";
-
-"Now we'll leave you to it. First, choose your university."="Maintenant, nous vous laissons faire. tout d'abord, choisissez votre université.";
-
-"Bookmarks page"="Page de signets";
-
-"Press the bookmarks tab in the tab bar"="Appuyez sur l'onglet des signets dans la barre d'onglets";
-
-"Click"="Cliquez sur";
-
-"Click an event card in your schedule"="Cliquez sur une carte d'événement dans votre agenda";
-
-"Select"="Sélectionner";
-
-"Press the 'Color' option in the sheet that appears"="Appuyez sur l'option 'couleur' dans la feuille qui apparaît";
-
-"Apply"="Appliquer";
-
-"Choose any color from the color palette and apply it"="Choisissez n'importe quelle couleur dans la palette de couleurs et appliquez-la";
-
-"Done"="Fait";
-
-"The specific course under the event will have a new color"="Le parcours spécifique dans le cadre de l'événement aura une nouvelle couleur";
-
-"Search for a schedule from the search page"="Rechercher un horaire à partir de la page de recherche";
-
-"Open"="Ouvrir";
-
-"Open the schedule you want to view"="Ouvrez le calendrier que vous souhaitez afficher";
-
-"Press the 'bookmark' button on the bottom left "="Appuyez sur le bouton 'signet' en bas à gauche";
-
-"Check it out"="Vérifiez-le";
-
-"View your schedule in your preferred schedule view"="Affichez votre emploi du temps dans votre vue d'emploi du temps préférée";
-
-"Account page"="Compte";
-
-"Press the account page tab on the bottom"="Appuyez sur l'onglet de la page de compte en bas";
-
-"Log in with your institution credentials"="Connectez-vous avec les identifiants de votre établissement";
-
-"Navigate to the event booking page by pressing 'See all'"="Accédez à la page de réservation de l'événement en appuyant sur 'voir tout'";
-
-"Choose"="Choisir";
-
-"Select an available event to sign up for and press the register button"="Sélectionnez un événement disponible auquel vous inscrire et appuyez sur le bouton d'enregistrement";
-
-"Now you've signed up for the specified exam, check your email for confirmation"="Maintenant que vous vous êtes inscrit à l'examen spécifié, vérifiez votre e-mail pour confirmation";
-
-"Press the 'Event' or 'Course' notification setting in the sheet that appears"="Appuyez sur le paramètre de notification 'événement' ou 'cours' dans la feuille qui apparaît";
-
-"A notification will be set for the specified event or course"="Une notification sera définie pour l'événement ou le cours spécifié";
-
-"Use your university credentials for %@ to sign in to your KronoX account"="Utilisez vos identifiants universitaires pour %@ pour vous connecter à votre compte KronoX";
-
-"Could not log out from your account"="Impossible de se déconnecter de votre compte";
-
-"Log in"="S'identifier";
-
-"Logged out"="Déconnecté";
-
-"Log out"="Se déconnecter";
-
-"You have successfully logged out of your account"="Vous avez réussi à vous déconnecter de votre compte";
-
-"Navigate to the resource booking page by pressing 'Book more'"="Accédez à la page de réservation de ressources en appuyant sur 'réserver plus'";
-
-"Choose a time to search for available dates and select an opening"="Choisissez une heure pour rechercher les dates disponibles et sélectionnez une ouverture";
-
-"Building"="Bâtiment";
-
-"Select a building on campus to book a room in, then select a room for a specific timeslot"="Sélectionnez un bâtiment sur le campus pour réserver une chambre, puis sélectionnez une chambre pour un créneau horaire spécifique";
-
-"Confirm"="Confirmer";
-
-"Now confirm your selected booking by pressing the confirm button"="Confirmez maintenant votre réservation sélectionnée en appuyant sur le bouton de confirmation";
-
+"Select university"="Sélectionnez l'université";
 

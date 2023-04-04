@@ -6,8 +6,6 @@
   
 */
 
-"Pull to refresh"="Zum Aktualisieren ziehen";
-
 "Monday"="Montag";
 
 "Tuesday"="Dienstag";
@@ -22,17 +20,35 @@
 
 "Sunday"="Sonntag";
 
+"Logged out"="Abgemeldet";
+
+"You have successfully logged out of your account"="Sie haben sich erfolgreich von ihrem konto abgemeldet";
+
+"Error"="Fehler";
+
+"Could not log out from your account"="Abmeldung von ihrem konto nicht möglich";
+
+"There are no schedules that match your search"="Es gibt keine zeitpläne, die ihrer suche entsprechen";
+
+"Something went wrong"="Etwas ist schief gelaufen";
+
+"Automatic"="Automatisch";
+
+"Light"="Licht";
+
+"Dark"="Dunkel";
+
 "English"="Englisch";
 
 "Swedish"="Schwedisch";
 
 "Italian"="Italienisch";
 
-"Bosnian"="Bosnisch";
-
 "French"="Französisch";
 
 "German"="Deutsch";
+
+"Bosnian"="Bosnisch";
 
 "Home"="Heim";
 
@@ -62,7 +78,7 @@
 
 "Appearance"="Aussehen";
 
-"App language"="App-Sprache";
+"App language"="App-sprache";
 
 "Notifications"="Benachrichtigungen";
 
@@ -72,27 +88,23 @@
 
 "Share feedback"="Feedback teilen";
 
-"How to use the app"="So verwenden sie die app";
-
 "Settings"="Einstellungen";
+
+"Cancelled notifications"="Stornierte benachrichtigungen";
+
+"Cancelled all available notifications set for events"="Alle verfügbaren benachrichtigungen für ereignisse abgebrochen";
 
 "Scheduled notifications"="Geplante benachrichtigungen";
 
 "Scheduled notifications for all available events"="Geplante benachrichtigungen für alle verfügbaren ereignisse";
 
-"Cancelled notifications"="Stornierte benachrichtigungen";
-
-"Cancelled all available notifications set for events"="Alle verfügbaren benachrichtigungen für Ereignisse abgebrochen";
-
-"Error"="Fehler";
-
 "Failed to set notifications for all available events"="Fehler beim festlegen von benachrichtigungen für alle verfügbaren ereignisse";
 
-"Automatic"="Automatisch";
+"Are you sure you want to log out of your account?"="Möchten sie sich wirklich von ihrem konto abmelden?";
 
-"Light"="Licht";
+"Log out"="Ausloggen";
 
-"Dark"="Dunkel";
+"Log in"="Anmeldung";
 
 "No bookmarks yet"="Noch keine lesezeichen";
 
@@ -102,7 +114,11 @@
 
 "hours"="Std.";
 
+"Are you sure you want to set notifications for all events?"="Sind sie sicher, dass sie benachrichtigungen für alle ereignisse festlegen möchten?";
+
 "Set notifications for all events"="Legen sie benachrichtigungen für alle ereignisse fest";
+
+"Are you sure you want to cancel all set notifications?"="Möchten sie wirklich alle eingestellten benachrichtigungen abbrechen?";
 
 "Cancel all notifications"="Alle benachrichtigungen abbrechen";
 
@@ -110,19 +126,27 @@
 
 "Today's events"="Die heutigen ereignisse";
 
+"No events for today"="Keine veranstaltungen für heute";
+
+"Next class"="Nächste klasse";
+
+"No upcoming class"="Keine bevorstehende klasse";
+
+"Looks like you don't have anything saved yet"="Anscheinend hast du noch nichts gespeichert";
+
+"Schedules are bookmarked from the search page, which you can access at the top right of the screen."="Zeitpläne werden von der suchseite aus mit einem lesezeichen versehen, auf die sie oben rechts auf dem bildschirm zugreifen können.";
+
+"Everything looks good for this week"="Alles sieht gut aus für diese woche";
+
+"Looks like you don't have any classes or exams in the coming week. Yay!"="Sieht so aus, als hätten sie in der kommenden woche keine kurse oder prüfungen. yay!";
+
 "No classes for today"="Kein unterricht für heute";
-
-"Something went wrong"="Etwas ist schief gelaufen";
-
-"News"="Nachricht";
-
-"No recent news items"="Keine aktuellen nachrichten";
-
-"See all"="Alles sehen";
 
 "No teachers listed"="Keine lehrer aufgelistet";
 
 "Unknown"="Unbekannt";
+
+"Pull to refresh"="Zum aktualisieren ziehen";
 
 "Search"="Suchen";
 
@@ -130,13 +154,11 @@
 
 "This is where you find your schedules"="Hier finden sie ihre stundenpläne";
 
-"Search schedules"="Suchpläne";
-
-"There are no schedules that match your search"="Es gibt keine Zeitpläne, die Ihrer Suche entsprechen";
-
 "Looks like something went wrong"="Scheint etwas schief gelaufen zu sein";
 
 "Schedule is empty"="Zeitplan ist leer";
+
+"Search schedules"="Suchpläne";
 
 "Remove"="Entfernen";
 
@@ -176,7 +198,7 @@
 
 "No registered events yet"="Noch keine veranstaltungen registriert";
 
-"Could not contact the server, try again later"="Es konnte keine Verbindung zum Server hergestellt werden. Versuchen Sie es später erneut";
+"Could not contact the server, try again later"="Es konnte keine verbindung zum server hergestellt werden. versuchen sie es später erneut";
 
 "Booked resource"="Gebuchte ressource";
 
@@ -220,6 +242,8 @@
 
 "Automatic exam/event signup has been disabled."="Die automatische prüfungs-/veranstaltungsanmeldung wurde deaktiviert.";
 
+"See all"="Alles sehen";
+
 "Book more"="Buchen sie mehr";
 
 "Event details"="Veranstaltungsdetails";
@@ -232,11 +256,11 @@
 
 "No date"="Kein datum";
 
-"%@, from %@ - %@"="%@, von %@ - %@";
+"\(date), from"="\(stammen aus";
 
 "Available until"="Verfügbar bis";
 
-"(no date set)"="(kein datum gesetzt)";
+"(no date set)"="(kein datum festgelegt)";
 
 "Unregister event"="Veranstaltung abmelden";
 
@@ -249,6 +273,8 @@
 "Confirmation"="Bestätigung";
 
 "(missing)"="(fehlen)";
+
+"%@, from %@ - %@"="%@, aus %@ - %@";
 
 "Remove booking"="Buchung entfernen";
 
@@ -300,6 +326,8 @@
 
 "Password"="Passwort";
 
+"Use your university credentials for %@ to sign in to your KronoX account"="Verwenden sie ihre universitätsdaten für %@, um sich bei ihrem kronox-konto anzumelden";
+
 "Need help?"="Brauchen sie hilfe?";
 
 "Logged in"="Eingeloggt";
@@ -310,109 +338,23 @@
 
 "Username/Email address"="Benutzername (e-mail addresse";
 
-"Log in"="Anmeldung";
-
 "Please log in to continue"="Bitte einloggen zum fortfahren";
 
-"Saving schedules"="Zeitpläne speichern";
+"Save schedules"="Zeitpläne speichern";
 
-"Signing up for events"="Anmeldung für veranstaltungen";
+"Search for schedules from the search page and download them locally"="Suchen sie auf der suchseite nach zeitplänen und laden sie sie lokal herunter";
 
-"Booking resources"="Buchungsressourcen";
+"Set notifications"="Benachrichtigungen einstellen";
 
-"Setting notifications"="Benachrichtigungen einstellen";
+"Get notified before important events and dates"="Lassen sie sich vor wichtigen ereignissen und terminen benachrichtigen";
 
-"Customizing course colors"="Kursfarben anpassen";
+"Be creative"="Seien sie kreativ";
 
-"Let's get started"="Lass uns anfangen";
+"Set custom colors for the courses in your schedules"="Legen sie benutzerdefinierte farben für die kurse in ihren stundenplänen fest";
 
-"We'll walk you through how to use Tumble"="Wir führen sie durch die verwendung von tumble";
+"Booking"="Buchung";
 
-"Here's how to save a schedule"="So speichern sie einen zeitplan";
+"Log in to your Kronox account and book resources and exams"="Melden sie sich bei ihrem kronox-konto an und buchen sie ressourcen und prüfungen";
 
-"Here's how to sign up for an event"="So melden sie sich für eine veranstaltung an";
-
-"Here's how to book a resource"="So buchen sie eine ressource";
-
-"Here's how to set notifications"="So stellen sie benachrichtigungen ein";
-
-"Here's how to modify course colors"="So ändern sie kursfarben";
-
-"All done"="Alles erledigt";
-
-"Now we'll leave you to it. First, choose your university."="Jetzt überlassen wir es ihnen. wählen sie zunächst ihre hochschule aus.";
-
-"Bookmarks page"="Lesezeichen-seite";
-
-"Press the bookmarks tab in the tab bar"="Drücken sie die lesezeichen-registerkarte in der registerkartenleiste";
-
-"Click"="Klicken";
-
-"Click an event card in your schedule"="Klicken sie in ihrem zeitplan auf eine ereigniskarte";
-
-"Select"="Wählen";
-
-"Press the 'Color' option in the sheet that appears"="Drücken sie im angezeigten blatt auf die option „farbe“.";
-
-"Apply"="Anwenden";
-
-"Choose any color from the color palette and apply it"="Wählen sie eine beliebige farbe aus der farbpalette und wenden sie sie an";
-
-"Done"="Erledigt";
-
-"The specific course under the event will have a new color"="Der spezifische kurs unter dem event hat eine neue farbe";
-
-"Search for a schedule from the search page"="Suchen sie auf der suchseite nach einem zeitplan";
-
-"Open"="Offen";
-
-"Open the schedule you want to view"="Öffnen sie den zeitplan, den sie anzeigen möchten";
-
-"Press the 'bookmark' button on the bottom left "="Drücken sie unten links auf die schaltfläche „lesezeichen“.";
-
-"Check it out"="Hör zu";
-
-"View your schedule in your preferred schedule view"="Zeigen sie ihren zeitplan in ihrer bevorzugten zeitplanansicht an";
-
-"Account page"="Kontoseite";
-
-"Press the account page tab on the bottom"="Drücken sie unten auf die registerkarte kontoseite";
-
-"Log in with your institution credentials"="Melden sie sich mit ihren institutions-anmeldeinformationen an";
-
-"Navigate to the event booking page by pressing 'See all'"="Navigieren sie zur veranstaltungsbuchungsseite, indem sie auf „alle anzeigen“ klicken.";
-
-"Choose"="Wählen";
-
-"Select an available event to sign up for and press the register button"="Wählen sie eine verfügbare veranstaltung aus, für die sie sich anmelden möchten, und klicken sie auf die schaltfläche „registrieren“.";
-
-"Now you've signed up for the specified exam, check your email for confirmation"="Nachdem sie sich jetzt für die angegebene prüfung angemeldet haben, überprüfen sie ihre e-mail auf bestätigung";
-
-"Press the 'Event' or 'Course' notification setting in the sheet that appears"="Drücken sie auf der angezeigten seite auf die benachrichtigungseinstellung „ereignis“ oder „kurs“.";
-
-"A notification will be set for the specified event or course"="Für die angegebene veranstaltung oder den kurs wird eine benachrichtigung eingerichtet";
-
-"Use your university credentials for %@ to sign in to your KronoX account"="Verwenden Sie Ihre Universitätszugangsdaten für %@, um sich bei Ihrem KronoX-Konto anzumelden";
-
-"Could not log out from your account"="Konnte sich nicht von Ihrem Konto abmelden";
-
-"Log in"="Anmelden";
-
-"Logged out"="Abgemeldet";
-
-"You have successfully logged out of your account"="Sie haben sich erfolgreich von Ihrem Konto abgemeldet";
-
-"Log out"="Ausloggen";
-
-"Navigate to the resource booking page by pressing 'Book more'"="Navigieren sie zur ressourcenbuchungsseite, indem sie auf „mehr buchen“ klicken.";
-
-"Choose a time to search for available dates and select an opening"="Wählen sie eine zeit aus, um nach verfügbaren terminen zu suchen, und wählen sie eine öffnung aus";
-
-"Building"="Gebäude";
-
-"Select a building on campus to book a room in, then select a room for a specific timeslot"="Wählen sie ein gebäude auf dem campus aus, um einen raum zu buchen, und wählen sie dann einen raum für ein bestimmtes zeitfenster aus";
-
-"Confirm"="Bestätigen";
-
-"Now confirm your selected booking by pressing the confirm button"="Bestätigen sie nun ihre ausgewählte buchung durch drücken des bestätigen-buttons";
+"Select university"="Hochschule auswählen";
 

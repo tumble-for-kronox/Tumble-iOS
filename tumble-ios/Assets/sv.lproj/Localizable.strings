@@ -6,8 +6,6 @@
   
 */
 
-"Pull to refresh"="Dra för att uppdatera";
-
 "Monday"="Måndag";
 
 "Tuesday"="Tisdag";
@@ -21,6 +19,36 @@
 "Saturday"="Lördag";
 
 "Sunday"="Söndag";
+
+"Logged out"="Utloggad";
+
+"You have successfully logged out of your account"="Du har loggat ut från ditt konto";
+
+"Error"="Fel";
+
+"Could not log out from your account"="Kunde inte logga ut från ditt konto";
+
+"There are no schedules that match your search"="Det finns inga scheman som matchar din sökning";
+
+"Something went wrong"="Något gick fel";
+
+"Automatic"="Automatisk";
+
+"Light"="Ljus";
+
+"Dark"="Mörk";
+
+"English"="Engelsk";
+
+"Swedish"="Svenska";
+
+"Italian"="Italienska";
+
+"French"="Franska";
+
+"German"="Tysk";
+
+"Bosnian"="Bosniska";
 
 "Home"="Hem";
 
@@ -60,73 +88,65 @@
 
 "Share feedback"="Dela feedback";
 
-"How to use the app"="Hur man använder appen";
-
 "Settings"="Inställningar";
+
+"Cancelled notifications"="Avbrutna aviseringar";
+
+"Cancelled all available notifications set for events"="Avbröt alla tillgängliga aviseringar för händelser";
 
 "Scheduled notifications"="Schemalagda aviseringar";
 
-"Scheduled notifications for all available events"="Schemalagde aviseringar för alla tillgängliga händelser";
-
-"Cancelled notifications"="Avbröt aviseringar";
-
-"Cancelled all available notifications set for events"="Avbröt alla tillgängliga aviseringar för evenemang";
-
-"Error"="Fel";
+"Scheduled notifications for all available events"="Schemalagda aviseringar för alla tillgängliga händelser";
 
 "Failed to set notifications for all available events"="Det gick inte att ställa in aviseringar för alla tillgängliga händelser";
 
-"Automatic"="Automatisk";
+"Are you sure you want to log out of your account?"="Är du säker på att du vill logga ut från ditt konto?";
 
-"Light"="Ljus";
+"Log out"="Logga ut";
 
-"Dark"="Mörk";
-
-"English"="Engelska";
-
-"Swedish"="Svenska";
-
-"French"="Franska";
-
-"German"="Tyska";
-
-"Italian"="Italienska";
-
-"Bosnian"="Bosniska";
-
-"English"="Engelska";
-
-"Swedish"="Svenska";
+"Log in"="Logga in";
 
 "No bookmarks yet"="Inga bokmärken än";
 
-"minutes"="minuter";
+"minutes"="Minuter";
 
-"hour"="timme";
+"hour"="Timme";
 
-"hours"="timmar";
+"hours"="Timmar";
+
+"Are you sure you want to set notifications for all events?"="Är du säker på att du vill ställa in aviseringar för alla händelser?";
 
 "Set notifications for all events"="Ställ in aviseringar för alla händelser";
+
+"Are you sure you want to cancel all set notifications?"="Är du säker på att du vill avbryta alla inställda aviseringar?";
 
 "Cancel all notifications"="Avbryt alla aviseringar";
 
 "Notification offset"="Aviseringsförskjutning";
 
-"Today's events"="Dagens evenemang";
+"Today's events"="Dagens händelser";
+
+"No events for today"="Inga evenemang för idag";
+
+"Next class"="Nästa klass";
+
+"No upcoming class"="Ingen kommande klass";
+
+"Looks like you don't have anything saved yet"="Det verkar som att du inte har sparat något ännu";
+
+"Schedules are bookmarked from the search page, which you can access at the top right of the screen."="Scheman är bokmärkta från söksidan, som du kan komma åt längst upp till höger på skärmen.";
+
+"Everything looks good for this week"="Allt ser bra ut för den här veckan";
+
+"Looks like you don't have any classes or exams in the coming week. Yay!"="Det verkar som att du inte har några lektioner eller prov under den kommande veckan. jippie!";
 
 "No classes for today"="Inga lektioner för idag";
-
-"Something went wrong"="Något gick fel";
-
-"News"="Nyheter";
-
-"No recent news items"="Inga senaste nyheter";
-
-"See all"="Se alla";
 
 "No teachers listed"="Inga lärare listade";
 
 "Unknown"="Okänd";
+
+"Pull to refresh"="Dra för att uppdatera";
 
 "Search"="Sök";
 
@@ -134,15 +154,13 @@
 
 "This is where you find your schedules"="Det är här du hittar dina scheman";
 
-"Search schedules"="Sök scheman";
-
-"There are no schedules that match your search"="Det finns inga scheman som matchar din sökning";
-
 "Looks like something went wrong"="Det verkar som att något gick fel";
 
 "Schedule is empty"="Schemat är tomt";
 
-"Remove"="Ta bort";
+"Search schedules"="Sök scheman";
+
+"Remove"="Avlägsna";
 
 "Bookmark"="Bokmärk";
 
@@ -170,7 +188,7 @@
 
 "Select course color"="Välj kursfärg";
 
-"Event"="Evenemang";
+"Event"="Händelse";
 
 "Color"="Färg";
 
@@ -196,7 +214,7 @@
 
 "User options"="Användaralternativ";
 
-"Automatic exam signup"="Automatisk examensregistrering";
+"Automatic exam signup"="Automatisk tentamensanmälan";
 
 "Your bookings"="Dina bokningar";
 
@@ -212,7 +230,7 @@
 
 "We couldn't unregister you for the specified event"="Vi kunde inte avregistrera dig för den angivna händelsen";
 
-"Unbooked resource"="Avbokad resurs";
+"Unbooked resource"="Obokad resurs";
 
 "You have unbooked the selected resource"="Du har avbokat den valda resursen";
 
@@ -224,7 +242,9 @@
 
 "Automatic exam/event signup has been disabled."="Automatisk examen/eventregistrering har inaktiverats.";
 
-"Book more"="Boka fler";
+"See all"="Se allt";
+
+"Book more"="Boka mer";
 
 "Event details"="Evenemangsdetaljer";
 
@@ -236,7 +256,7 @@
 
 "No date"="Inget datum";
 
-"%@, from %@ - %@"="%@, från %@ - %@";
+"\(date), from"="\(datum från";
 
 "Available until"="Finns till kl";
 
@@ -254,11 +274,13 @@
 
 "(missing)"="(saknas)";
 
+"%@, from %@ - %@"="%@, från %@ - %@";
+
 "Remove booking"="Ta bort bokningen";
 
 "Booked"="Bokad";
 
-"Book"="Boka";
+"Book"="Bok";
 
 "No available timeslots"="Inga tillgängliga tider";
 
@@ -278,7 +300,7 @@
 
 "No rooms available on weekends"="Inga rum tillgängliga på helgerna";
 
-"at"="på";
+"at"="På";
 
 "No date at this time"="Inget datum just nu";
 
@@ -304,7 +326,9 @@
 
 "Password"="Lösenord";
 
-"Need help?"="Behöver du hjälp?";
+"Use your university credentials for %@ to sign in to your KronoX account"="Använd dina universitetsuppgifter för %@ för att logga in på ditt kronox-konto";
+
+"Need help?"="Behövs hjälp?";
 
 "Logged in"="Inloggad";
 
@@ -314,111 +338,23 @@
 
 "Username/Email address"="Användarnamn/e-postadress";
 
-"Log in"="Logga in";
-
 "Please log in to continue"="Var vänlig logga in för att fortsätta";
 
-"Saving schedules"="Spara scheman";
+"Save schedules"="Spara scheman";
 
-"Signing up for events"="Anmälan till evenemang";
+"Search for schedules from the search page and download them locally"="Sök efter scheman från söksidan och ladda ner dem lokalt";
 
-"Booking resources"="Bokningsresurser";
+"Set notifications"="Ställ in aviseringar";
 
-"Setting notifications"="Ställ in aviseringar";
+"Get notified before important events and dates"="Få aviseringar innan viktiga händelser och datum";
 
-"Customizing course colors"="Anpassa kursfärger";
+"Be creative"="Vara kreativ";
 
-"Let's get started"="Låt oss börja";
+"Set custom colors for the courses in your schedules"="Ställ in anpassade färger för kurserna i dina scheman";
 
-"We'll walk you through how to use Tumble"="Vi går igenom hur du använder Tumble";
+"Booking"="Bokning";
 
-"Here's how to save a schedule"="Så här sparar du ett schema";
+"Log in to your Kronox account and book resources and exams"="Logga in på ditt kronox-konto och boka resurser och tentor";
 
-"Here's how to sign up for an event"="Så här anmäler du dig till ett event";
-
-"Here's how to book a resource"="Så här bokar du en resurs";
-
-"Here's how to set notifications"="Så här ställer du in aviseringar";
-
-"Here's how to modify course colors"="Så här ändrar du kursfärgerna";
-
-"All done"="Helt klar";
-
-"Now we'll leave you to it. First, choose your university."="Nu lämnar vi dig till det. Välj först ditt universitet.";
-
-"Bookmarks page"="Bokmärkesfliken";
-
-"Press the bookmarks tab in the tab bar"="Tryck på bokmärkesfliken i navigeringsfältet";
-
-"Click"="Klicka";
-
-"Click an event card in your schedule"="Klicka på ett evenemangskort i ditt schema";
-
-"Select"="Välj";
-
-"Press the 'Color' option in the sheet that appears"="Tryck på alternativet 'Färg' i bladet som visas";
-
-"Apply"="Tillämpa";
-
-"Choose any color from the color palette and apply it"="Välj valfri färg från färgpaletten och applicera den";
-
-"Done"="Klar";
-
-"The specific course under the event will have a new color"="Den specifika kursen under evenemanget kommer att få en ny färg";
-
-"Search for a schedule from the search page"="Sök efter ett schema från söksidan";
-
-"Open"="Öppna";
-
-"Open the schedule you want to view"="Öppna schemat du vill se";
-
-"Press the 'bookmark' button on the bottom left "="Tryck på knappen 'bokmärk' längst ner till vänster";
-
-"Check it out"="Kolla in det";
-
-"View your schedule in your preferred schedule view"="Visa ditt schema i din föredragna schemavy";
-
-"Account page"="Kontofliken";
-
-"Press the account page tab on the bottom"="Tryck på kontofliken i navigeringsfältet";
-
-"Log in with your institution credentials"="Logga in med dina institutionsuppgifter";
-
-"Navigate to the event booking page by pressing 'See all'"="Navigera till evenemangsbokningssidan genom att trycka på 'Se alla'";
-
-"Choose"="Välj";
-
-"Select an available event to sign up for and press the register button"="Välj ett tillgängligt evenemang att anmäla dig till och tryck på registreringsknappen";
-
-"Now you've signed up for the specified exam, check your email for confirmation"="Nu har du registrerat dig för det angivna provet, kontrollera din e-post för bekräftelse";
-
-"Press the 'Event' or 'Course' notification setting in the sheet that appears"="Tryck på aviseringsinställningen 'Evenemang' eller 'Kurs' i bladet som visas";
-
-"A notification will be set for the specified event or course"="En notifikation kommer att ställas in för den angivna händelsen eller flera för kursen";
-
-"Use your university credentials for %@ to sign in to your KronoX account"="Använd dina universitetsuppgifter för %@ för att logga in på ditt KronoX-konto";
-
-"Could not log out from your account"="Det gick inte att logga ut från ditt konto";
-
-"Log in"="Logga in";
-
-"Logged out"="Loggade ut";
-
-"Log out"="Logga ut";
-
-"You have successfully logged out of your account"="Du har loggat ut från ditt konto";
-
-"Log in with your institution credentials"="Logga in med dina institutionsuppgifter";
-
-"Navigate to the resource booking page by pressing 'Book more'"="Navigera till resursbokningssidan genom att trycka på 'Boka fler'";
-
-"Choose a time to search for available dates and select an opening"="Välj en tid för att söka efter tillgängliga datum och välj en öppning";
-
-"Building"="Byggnad";
-
-"Select a building on campus to book a room in, then select a room for a specific timeslot"="Välj en byggnad på campus att boka ett rum i och välj sedan ett rum för en specifik tidslucka";
-
-"Confirm"="Bekräfta";
-
-"Now confirm your selected booking by pressing the confirm button"="Bekräfta nu din valda bokning genom att trycka på bekräftelseknappen";
+"Select university"="Välj universitet";
 
