@@ -105,6 +105,7 @@ struct Resources: View {
             ResourceDetailSheet(
                 resource: resourceDetails.resource,
                 unbookResource: unbookResource,
+                confirmResource: confirmResource,
                 getResourcesAndEvents: getResourcesAndEvents
             )
         })
@@ -160,6 +161,35 @@ struct Resources: View {
                     NSLocalizedString("We couldn't unregister you for the specified event", comment: ""))
             }
         }
+    }
+    
+    fileprivate func confirmResource(resourceId: String, bookingId: String) -> Void {
+        parentViewModel.bookingSectionState = .loading
+        parentViewModel.resourceViewModel.confirmResource(
+            resourceId: resourceId,
+            bookingId: bookingId,
+            completion: { result in
+                switch result {
+                case .success:
+                    AppLogger.shared.debug("Confirmed resource: \(bookingId)")
+                    DispatchQueue.main.async {
+                        parentViewModel.bookingSectionState = .loaded
+                    }
+                    createToast(
+                        .success,
+                        NSLocalizedString("Confirmed resource", comment: ""),
+                        NSLocalizedString("You have confirmed the selected resource", comment: ""))
+                case .failure:
+                    AppLogger.shared.critical("Failed to confirm resource: \(bookingId)")
+                    DispatchQueue.main.async {
+                        parentViewModel.bookingSectionState = .error
+                    }
+                    createToast(
+                        .error,
+                        NSLocalizedString("Error", comment: ""),
+                        NSLocalizedString("We couldn't confirm the specified resource", comment: ""))
+                }
+            })
     }
     
     fileprivate func unbookResource(bookingId: String) -> Void {

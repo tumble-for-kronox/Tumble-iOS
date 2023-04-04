@@ -38,6 +38,11 @@ enum Request {
         let slot: Response.AvailabilityValue
     }
     
+    struct ConfirmKronoxResource: Encodable {
+        let resourceId: String
+        let bookingId: String
+    }
+    
     struct UnbookKronoxResource: Encodable {
         let bookingId: String
         let schoolId: Int

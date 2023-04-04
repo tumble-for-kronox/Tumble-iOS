@@ -51,7 +51,6 @@ struct UserOverview: View {
                 collapsedHeader: $collapsedHeader
             )
         }
-        .padding(.horizontal, 10)
         .background(Color.background)
         .toastView(toast: $toast)
     }
