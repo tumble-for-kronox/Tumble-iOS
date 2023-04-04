@@ -33,7 +33,7 @@ struct AccountLogin: View {
                 Spacer()
             }
             .ignoresSafeArea(.keyboard)
-            .padding(.horizontal, 15)
+            .padding(.horizontal, 25)
             .padding(.top, 10)
         }
         .background(Color.background)
