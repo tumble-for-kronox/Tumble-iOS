@@ -82,7 +82,6 @@ enum HomeStatus {
                 DispatchQueue.main.async {
                     self.news = news
                     self.newsSectionStatus = .loaded
-                    print(news.count)
                 }
             case .failure(let failure):
                 AppLogger.shared.critical("Failed to retrieve news items: \(failure)")

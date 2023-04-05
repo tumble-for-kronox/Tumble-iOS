@@ -124,6 +124,9 @@
 		D458605629DCDEAE00B77513 /* DraggingPill.swift in Sources */ = {isa = PBXBuildFile; fileRef = D458605529DCDEAE00B77513 /* DraggingPill.swift */; };
 		D458605829DCDF1200B77513 /* NewsSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = D458605729DCDF1200B77513 /* NewsSheet.swift */; };
 		D458605B29DCE66100B77513 /* SheetTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D458605A29DCE66100B77513 /* SheetTitle.swift */; };
+		D458605D29DCEFC200B77513 /* RecentNews.swift in Sources */ = {isa = PBXBuildFile; fileRef = D458605C29DCEFC200B77513 /* RecentNews.swift */; };
+		D458605F29DCF01E00B77513 /* AllNews.swift in Sources */ = {isa = PBXBuildFile; fileRef = D458605E29DCF01E00B77513 /* AllNews.swift */; };
+		D458606129DCF22C00B77513 /* NewsItemCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D458606029DCF22C00B77513 /* NewsItemCard.swift */; };
 		D45DAB2229DB380E00FCA5AC /* AnimatedButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45DAB2129DB380E00FCA5AC /* AnimatedButtonStyle.swift */; };
 		D45DAB2E29DB4FCA00FCA5AC /* TodaysEventsCarousel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45DAB2D29DB4FCA00FCA5AC /* TodaysEventsCarousel.swift */; };
 		D4607632292AA39400DE9590 /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4607631292AA39400DE9590 /* Types.swift */; };
@@ -364,6 +367,9 @@
 		D458605529DCDEAE00B77513 /* DraggingPill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DraggingPill.swift; sourceTree = "<group>"; };
 		D458605729DCDF1200B77513 /* NewsSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsSheet.swift; sourceTree = "<group>"; };
 		D458605A29DCE66100B77513 /* SheetTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetTitle.swift; sourceTree = "<group>"; };
+		D458605C29DCEFC200B77513 /* RecentNews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentNews.swift; sourceTree = "<group>"; };
+		D458605E29DCF01E00B77513 /* AllNews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllNews.swift; sourceTree = "<group>"; };
+		D458606029DCF22C00B77513 /* NewsItemCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsItemCard.swift; sourceTree = "<group>"; };
 		D45DAB2129DB380E00FCA5AC /* AnimatedButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedButtonStyle.swift; sourceTree = "<group>"; };
 		D45DAB2D29DB4FCA00FCA5AC /* TodaysEventsCarousel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodaysEventsCarousel.swift; sourceTree = "<group>"; };
 		D4607631292AA39400DE9590 /* Types.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Types.swift; sourceTree = "<group>"; };
@@ -986,6 +992,9 @@
 			children = (
 				D458605129DC9FAC00B77513 /* News.swift */,
 				D458605729DCDF1200B77513 /* NewsSheet.swift */,
+				D458605C29DCEFC200B77513 /* RecentNews.swift */,
+				D458605E29DCF01E00B77513 /* AllNews.swift */,
+				D458606029DCF22C00B77513 /* NewsItemCard.swift */,
 			);
 			path = News;
 			sourceTree = "<group>";
@@ -1737,6 +1746,7 @@
 				D4B7F25629CC60EB006E2449 /* TimeslotCard.swift in Sources */,
 				D4ABD272298C2E32002FD8F5 /* DayExtension.swift in Sources */,
 				D46BB112298B0E2800887A24 /* NavigationbarSettings.swift in Sources */,
+				D458605D29DCEFC200B77513 /* RecentNews.swift in Sources */,
 				D4607634292AA83F00DE9590 /* AppParent.swift in Sources */,
 				D4EEFB4929DA06A40007A209 /* ToTopButton.swift in Sources */,
 				D4563E802985FBFB003261FA /* NetworkExtensions.swift in Sources */,
@@ -1818,6 +1828,7 @@
 				D454203E29BE914800EF0FC9 /* EventDetailsPillStyle.swift in Sources */,
 				D4607653292AF5DA00DE9590 /* DayHeader.swift in Sources */,
 				D430F73E29C60DC500E30E48 /* VerboseButtonStyle.swift in Sources */,
+				D458605F29DCF01E00B77513 /* AllNews.swift in Sources */,
 				D49FCAD629CFCA5400E3CE6E /* ResourceViewModel.swift in Sources */,
 				D419EDF6299A78C400479DCE /* ResourceSectionDivider.swift in Sources */,
 				D40D80A629252165008CA68D /* ViewExtensions.swift in Sources */,
@@ -1845,6 +1856,7 @@
 				D460764C292AEAEC00DE9590 /* BookmarkListView.swift in Sources */,
 				D4E83EC12999649E002E5F88 /* LoginSubHeader.swift in Sources */,
 				D416D33929CA7C5B009A4FB8 /* CalendarViewRepresentable.swift in Sources */,
+				D458606129DCF22C00B77513 /* NewsItemCard.swift in Sources */,
 				D439F8A529DBAA71006332AB /* HomeNoBookmarks.swift in Sources */,
 				D4EACB3829CB9E640096ADD2 /* TimeslotSelection.swift in Sources */,
 				D40D80A929252688008CA68D /* ParentViewModel.swift in Sources */,

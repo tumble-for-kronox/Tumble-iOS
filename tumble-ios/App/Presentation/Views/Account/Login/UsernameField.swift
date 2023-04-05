@@ -19,6 +19,7 @@ struct UsernameField: View {
                 .foregroundColor(.onBackground)
                 .autocapitalization(.none)
                 .disableAutocorrection(true)
+                .keyboardType(.emailAddress)
             Spacer()
         }
         .padding(10)
