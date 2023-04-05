@@ -31,11 +31,6 @@ struct SearchResults: View {
                             universityImage: universityImage,
                             onOpenProgramme: onOpenProgramme
                         )
-                        if !(searchResults.last?.id == programme.id) {
-                            Divider()
-                                .padding(.horizontal, 15)
-                                .padding(.vertical, 15)
-                        }
                     }
                 }
             }
