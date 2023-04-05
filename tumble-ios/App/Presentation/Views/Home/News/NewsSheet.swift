@@ -24,45 +24,47 @@ struct NewsSheet: View {
     }
     
     var body: some View {
-        VStack {
-            DraggingPill()
-            SheetTitle(title: "News")
-            HStack {
-                SearchButton(search: {})
-                TextField(
-                    NSLocalizedString("Search news", comment: ""),
-                    text: $searchText,
-                    onEditingChanged: onEditingChanged
-                )
-                .searchBoxText()
-                CloseButton(
-                    onClearSearch: onClearSearch,
-                    animateCloseButtonOutOfView: animateCloseButtonOutOfView,
-                    closeButtonOffset: $closeButtonOffset,
-                    searchBarText: $searchText)
-            }
-            .searchBox()
-            .onSubmit {
-                hideKeyboard()
-            }
-            if !searching {
-                ScrollView (showsIndicators: false) {
-                    RecentNews(news: news)
-                    AllNews(news: news)
+        NavigationView {
+            VStack {
+                DraggingPill()
+                SheetTitle(title: "News")
+                HStack {
+                    SearchButton(search: {})
+                    TextField(
+                        NSLocalizedString("Search news", comment: ""),
+                        text: $searchText,
+                        onEditingChanged: onEditingChanged
+                    )
+                    .searchBoxText()
+                    CloseButton(
+                        onClearSearch: onClearSearch,
+                        animateCloseButtonOutOfView: animateCloseButtonOutOfView,
+                        closeButtonOffset: $closeButtonOffset,
+                        searchBarText: $searchText)
                 }
-                .padding([.top, .horizontal], 15)
-            } else {
-                ScrollView (showsIndicators: false) {
-                    ForEach(filteredNews, id: \.self) { newsItem in
-                        NewsItemCard(newsItem: newsItem)
+                .searchBox()
+                .onSubmit {
+                    hideKeyboard()
+                }
+                if !searching {
+                    ScrollView (showsIndicators: false) {
+                        RecentNews(news: news)
+                        AllNews(news: news)
                     }
+                    .padding([.top, .horizontal], 15)
+                } else {
+                    ScrollView (showsIndicators: false) {
+                        ForEach(filteredNews, id: \.self) { newsItem in
+                            NewsItemCard(newsItem: newsItem)
+                        }
+                    }
+                    .padding([.top, .horizontal], 15)
                 }
-                .padding([.top, .horizontal], 15)
+                Spacer()
             }
-            Spacer()
+            .frame(maxHeight: .infinity)
+            .background(Color.background)
         }
-        .frame(maxHeight: .infinity)
-        .background(Color.background)
     }
     
     func onEditingChanged(value: Bool) -> Void {
