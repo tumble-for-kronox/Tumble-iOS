@@ -48,7 +48,7 @@
 
 "German"="Allemand";
 
-"Bosnian"="Bosniaque";
+"Bosnian"="Bosnien";
 
 "Home"="Maison";
 
@@ -124,14 +124,6 @@
 
 "Notification offset"="Décalage des notifications";
 
-"Today's events"="Les événements d'aujourd'hui";
-
-"No events for today"="Aucun événement pour aujourd'hui";
-
-"Next class"="Cours suivant";
-
-"No upcoming class"="Aucun cours à venir";
-
 "Looks like you don't have anything saved yet"="Il semble que vous n'ayez encore rien enregistré";
 
 "Schedules are bookmarked from the search page, which you can access at the top right of the screen."="Les horaires sont mis en signet à partir de la page de recherche, à laquelle vous pouvez accéder en haut à droite de l'écran.";
@@ -140,7 +132,33 @@
 
 "Looks like you don't have any classes or exams in the coming week. Yay!"="Il semble que vous n'ayez ni cours ni examen dans la semaine à venir. yay!";
 
+"We experienced an issue when trying to find your schedules. Try again later"="Nous avons rencontré un problème en essayant de trouver vos horaires. réessayez plus tard";
+
+"Today's events"="Les événements d'aujourd'hui";
+
+"No events for today"="Aucun événement pour aujourd'hui";
+
+"Next class"="Cours suivant";
+
+"No upcoming class"="Aucun cours à venir";
+
 "No classes for today"="Pas de cours pour aujourd'hui";
+
+"Other news"="Autres nouvelles";
+
+"No other news"="Pas d'autres nouvelles";
+
+"Details"="Détails";
+
+"Recent news"="Nouvelles récentes";
+
+"No recent news"="Pas de nouvelles récentes";
+
+"News"="Nouvelles";
+
+"Search news"="Rechercher des actualités";
+
+"News from us (%@)"="Nouvelles de nous (%@)";
 
 "No teachers listed"="Aucun enseignant répertorié";
 
@@ -158,11 +176,13 @@
 
 "Schedule is empty"="L'horaire est vide";
 
+"Schedule"="Calendrier";
+
 "Search schedules"="Rechercher les horaires";
 
 "Remove"="Retirer";
 
-"Bookmark"="Signet";
+"Save"="Sauvegarder";
 
 "Schedule seems to be empty"="L'horaire semble vide";
 
@@ -230,6 +250,12 @@
 
 "We couldn't unregister you for the specified event"="Nous n'avons pas pu vous désinscrire pour l'événement spécifié";
 
+"Confirmed resource"="Ressource confirmée";
+
+"You have confirmed the selected resource"="Vous avez confirmé la ressource sélectionnée";
+
+"We couldn't confirm the specified resource"="Nous n'avons pas pu confirmer la ressource spécifiée";
+
 "Unbooked resource"="Ressource non réservée";
 
 "You have unbooked the selected resource"="Vous avez annulé la réservation de la ressource sélectionnée";
@@ -256,7 +282,7 @@
 
 "No date"="Pas de date";
 
-"\(date), from"="\(dater de";
+"%@, from %@ - %@"="%@, de %@ - %@";
 
 "Available until"="Disponible jusqu'au";
 
@@ -276,13 +302,13 @@
 
 "%@, from %@ - %@"="%@, depuis %@ - %@";
 
+"Confirm booking"="Confirmer la réservation";
+
 "Remove booking"="Supprimer la réservation";
 
-"Booked"="Réservé";
-
-"Book"="Réserver";
-
 "No available timeslots"="Pas de plages horaires disponibles";
+
+"Booked"="Réservé";
 
 "Successfully booked resource"="Ressource réservée avec succès";
 
@@ -299,6 +325,8 @@
 "Pick a date"="Choisis une date";
 
 "No rooms available on weekends"="Pas de chambres disponibles le week-end";
+
+"Book"="Livre";
 
 "at"="À";
 
@@ -334,7 +362,7 @@
 
 "Successfully logged in as %@"="Connexion réussie en tant que %@";
 
-"Something went wrong when logging in to your account"="Quelque chose s'est mal passé lors de la connexion à votre compte";
+"Something went wrong when logging in to your account"="Une erreur s'est produite lors de la connexion à votre compte";
 
 "Username/Email address"="Nom d'utilisateur/adresse e-mail";
 
@@ -342,19 +370,20 @@
 
 "Save schedules"="Enregistrer les horaires";
 
-"Search for schedules from the search page and download them locally"="Recherchez des horaires à partir de la page de recherche et téléchargez-les localement";
+"Search for schedules from the search page and download them locally. View them as a list or a in a dedicated calendar."="Recherchez des horaires à partir de la page de recherche et téléchargez-les localement. affichez-les sous forme de liste ou dans un calendrier dédié.";
 
 "Set notifications"="Définir des notifications";
 
-"Get notified before important events and dates"="Soyez averti avant les événements et les dates importantes";
+"Get notified before important events and dates. Just press an event and set notifications for either a course or a single event."="Soyez averti avant les événements et les dates importantes. appuyez simplement sur un événement et définissez des notifications pour un cours ou un événement unique.";
 
 "Be creative"="Sois créatif";
 
-"Set custom colors for the courses in your schedules"="Définissez des couleurs personnalisées pour les cours dans vos horaires";
+"Set custom colors for the courses in your schedules. Just press an event and modify the color to your liking."="Définissez des couleurs personnalisées pour les cours dans vos horaires. appuyez simplement sur un événement et modifiez la couleur à votre guise.";
 
 "Booking"="Réservation";
 
-"Log in to your Kronox account and book resources and exams"="Connectez-vous à votre compte kronox et réservez des ressources et des examens";
+"Log in to your KronoX account and book resources and exams. Booking is easy, and notifications remind you to confirm the bookings you've created."="Connectez-vous à votre compte kronox et réservez des ressources et des examens. la réservation est facile et les notifications vous rappellent de confirmer les réservations que vous avez créées.";
 
 "Select university"="Sélectionnez l'université";
 
+"Universities"="Les universités";

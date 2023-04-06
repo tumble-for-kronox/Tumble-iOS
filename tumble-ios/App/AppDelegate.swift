@@ -54,6 +54,7 @@ extension AppDelegate: MessagingDelegate {
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
 
       let deviceToken: [String: String] = ["token": fcmToken ?? ""]
+        print(deviceToken)
         AppLogger.shared.debug("Device token: \(deviceToken)")
         if deviceToken["token"] != nil {
             Messaging.messaging().subscribe(toTopic: "updates") { error in
@@ -93,15 +94,18 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
         
         let userInfo = response.notification.request.content.userInfo
 
-        if let event = (userInfo[NotificationContentKey.event.rawValue] as! [String : Any]).toEvent() {
-            // Message successully parsed as Event, which means it was a local notification
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                AppController.shared.selectedAppTab = .bookmarks
-                AppController.shared.eventSheet = EventDetailsSheetModel(
-                    event: event,
-                    color: (userInfo[NotificationContentKey.color.rawValue] as! String).toColor())
+        if let userInfo = userInfo[NotificationContentKey.event.rawValue] as? [String : Any] {
+            if let event = userInfo.toEvent() {
+                // Message successully parsed as Event, which means it was a local notification
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    AppController.shared.selectedAppTab = .bookmarks
+                    AppController.shared.eventSheet = EventDetailsSheetModel(
+                        event: event,
+                        color: (userInfo[NotificationContentKey.color.rawValue] as! String).toColor())
+                }
             }
         }
+        
         
         if let messageID = userInfo[gcmMessageIDKey] {
             AppLogger.shared.debug("Message ID from userNotificationCenter didReceive: \(messageID)")

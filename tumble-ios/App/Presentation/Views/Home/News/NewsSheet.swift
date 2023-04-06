@@ -27,7 +27,7 @@ struct NewsSheet: View {
         NavigationView {
             VStack {
                 DraggingPill()
-                SheetTitle(title: "News")
+                SheetTitle(title: NSLocalizedString("News", comment: ""))
                 HStack {
                     SearchButton(search: {})
                     TextField(

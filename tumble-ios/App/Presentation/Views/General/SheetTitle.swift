@@ -14,7 +14,7 @@ struct SheetTitle: View {
     var body: some View {
         HStack {
             Spacer()
-            Text(NSLocalizedString(title, comment: ""))
+            Text(title)
                 .sheetTitle()
             Spacer()
         }

@@ -70,7 +70,7 @@
 
 "Removed schedule"="Uklonjen raspored";
 
-"Successfully removed the schedule '%@' from your bookmarks"="Raspored '%@' uspješno je uklonjen iz vaših oznaka";
+"Successfully removed the schedule '%@' from your bookmarks"="Uspješno je uklonjen raspored '%@' iz vaših oznaka";
 
 "Could not remove schedule"="Nije moguće ukloniti raspored";
 
@@ -90,7 +90,7 @@
 
 "Settings"="Postavke";
 
-"Cancelled notifications"="Obavještenja su otkazana";
+"Cancelled notifications"="Otkazana obavještenja";
 
 "Cancelled all available notifications set for events"="Otkazano je sva dostupna obavještenja postavljena za događaje";
 
@@ -124,6 +124,16 @@
 
 "Notification offset"="Pomak obavještenja";
 
+"Looks like you don't have anything saved yet"="Izgleda da još nemate ništa sačuvano";
+
+"Schedules are bookmarked from the search page, which you can access at the top right of the screen."="Rasporedi su obeleženi sa stranice za pretragu kojoj možete pristupiti u gornjem desnom uglu ekrana.";
+
+"Everything looks good for this week"="Sve izgleda dobro za ovu sedmicu";
+
+"Looks like you don't have any classes or exams in the coming week. Yay!"="Izgleda da nemate nijednu nastavu ili ispite u narednoj sedmici. jej!";
+
+"We experienced an issue when trying to find your schedules. Try again later"="Došlo je do problema prilikom pokušaja pronalaženja vaših rasporeda. pokušajte ponovo kasnije";
+
 "Today's events"="Današnji događaji";
 
 "No events for today"="Nema događaja za danas";
@@ -132,15 +142,23 @@
 
 "No upcoming class"="Nema predstojećeg časa";
 
-"Looks like you don't have anything saved yet"="Izgleda da još nemate ništa sačuvano";
-
-"Schedules are bookmarked from the search page, which you can access at the top right of the screen."="Rasporedi su obeleženi sa stranice za pretragu kojoj možete pristupiti u gornjem desnom uglu ekrana.";
-
-"Everything looks good for this week"="Sve izgleda dobro za ovu sedmicu";
-
-"Looks like you don't have any classes or exams in the coming week. Yay!"="Izgleda da u narednoj sedmici nemate predavanja ili ispite. jej!";
-
 "No classes for today"="Nema nastave za danas";
+
+"Other news"="Ostale vijesti";
+
+"No other news"="Nema drugih vijesti";
+
+"Details"="Detalji";
+
+"Recent news"="Nedavne vijesti";
+
+"No recent news"="Nema nedavnih vijesti";
+
+"News"="Vijesti";
+
+"Search news"="Traži vijesti";
+
+"News from us (%@)"="Vijesti od nas (%@)";
 
 "No teachers listed"="Nema navedenih nastavnika";
 
@@ -158,11 +176,13 @@
 
 "Schedule is empty"="Raspored je prazan";
 
+"Schedule"="Raspored";
+
 "Search schedules"="Pretražite rasporede";
 
 "Remove"="Ukloni";
 
-"Bookmark"="Bookmark";
+"Save"="Sačuvaj";
 
 "Schedule seems to be empty"="Čini se da je raspored prazan";
 
@@ -230,6 +250,12 @@
 
 "We couldn't unregister you for the specified event"="Nismo mogli poništiti vašu registraciju za navedeni događaj";
 
+"Confirmed resource"="Potvrđeni izvor";
+
+"You have confirmed the selected resource"="Potvrdili ste odabrani resurs";
+
+"We couldn't confirm the specified resource"="Nismo mogli potvrditi navedeni resurs";
+
 "Unbooked resource"="Nerezervirani resurs";
 
 "You have unbooked the selected resource"="Poništili ste rezervaciju odabranog resursa";
@@ -256,7 +282,7 @@
 
 "No date"="Nema datuma";
 
-"\(date), from"="\(datum), od";
+"%@, from %@ - %@"="%@, od %@ - %@";
 
 "Available until"="Dostupno do";
 
@@ -276,13 +302,13 @@
 
 "%@, from %@ - %@"="%@, od %@ - %@";
 
+"Confirm booking"="Potvrdite rezervaciju";
+
 "Remove booking"="Ukloni rezervaciju";
 
-"Booked"="Rezervisano";
-
-"Book"="Rezervisati";
-
 "No available timeslots"="Nema dostupnih termina";
+
+"Booked"="Rezervisano";
 
 "Successfully booked resource"="Uspješno rezerviran resurs";
 
@@ -299,6 +325,8 @@
 "Pick a date"="Izaberite datum";
 
 "No rooms available on weekends"="Nema slobodnih soba vikendom";
+
+"Book"="Book";
 
 "at"="At";
 
@@ -342,19 +370,20 @@
 
 "Save schedules"="Sačuvajte rasporede";
 
-"Search for schedules from the search page and download them locally"="Potražite rasporede sa stranice za pretraživanje i preuzmite ih lokalno";
+"Search for schedules from the search page and download them locally. View them as a list or a in a dedicated calendar."="Potražite rasporede sa stranice za pretraživanje i preuzmite ih lokalno. pogledajte ih kao listu ili u posebnom kalendaru.";
 
 "Set notifications"="Postavite obavještenja";
 
-"Get notified before important events and dates"="Budite obavješteni prije važnih događaja i datuma";
+"Get notified before important events and dates. Just press an event and set notifications for either a course or a single event."="Budite obavješteni prije važnih događaja i datuma. samo pritisnite događaj i postavite obavještenja za kurs ili za jedan događaj.";
 
 "Be creative"="Budi kreativan";
 
-"Set custom colors for the courses in your schedules"="Postavite prilagođene boje za kurseve u svojim rasporedima";
+"Set custom colors for the courses in your schedules. Just press an event and modify the color to your liking."="Postavite prilagođene boje za kurseve u svojim rasporedima. samo pritisnite događaj i promijenite boju prema svom ukusu.";
 
 "Booking"="Rezervacija";
 
-"Log in to your Kronox account and book resources and exams"="Prijavite se na svoj kronox nalog i rezervirajte resurse i ispite";
+"Log in to your KronoX account and book resources and exams. Booking is easy, and notifications remind you to confirm the bookings you've created."="Prijavite se na svoj kronox nalog i rezervirajte resurse i ispite. rezervacija je jednostavna, a obavještenja vas podsjećaju da potvrdite rezervacije koje ste kreirali.";
 
 "Select university"="Odaberite univerzitet";
 
+"Universities"="Univerziteti";

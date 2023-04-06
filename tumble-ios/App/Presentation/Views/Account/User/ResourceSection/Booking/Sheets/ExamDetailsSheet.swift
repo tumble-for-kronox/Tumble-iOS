@@ -18,7 +18,7 @@ struct ExamDetailsSheet: View {
     var body: some View {
         VStack {
             DraggingPill()
-            SheetTitle(title: "Event details")
+            SheetTitle(title: NSLocalizedString("Event details", comment: ""))
             VStack {
                 DetailsBuilder(title: NSLocalizedString("Title", comment: ""), image: "a.magnify", content: {
                     Text(event.title ?? NSLocalizedString("No title", comment: ""))
@@ -34,7 +34,7 @@ struct ExamDetailsSheet: View {
                     let date = event.eventStart.toDate() ?? NSLocalizedString("No date", comment: "")
                     let start = event.eventStart.convertToHoursAndMinutes() ?? NSLocalizedString("(no time)", comment: "")
                     let end = event.eventEnd.convertToHoursAndMinutes() ?? NSLocalizedString("(no time)", comment: "")
-                    Text(NSLocalizedString("\(date), from", comment: "") + " \(start) - \(end)")
+                    Text(String(format: NSLocalizedString("%@, from %@ - %@", comment: ""), date, start, end))
                         .font(.system(size: 16))
                         .foregroundColor(.onSurface)
 

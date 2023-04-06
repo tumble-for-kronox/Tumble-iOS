@@ -29,25 +29,15 @@ struct TimeslotCard: View {
                     CustomProgressIndicator(tint: .onPrimary)
                         .padding()
                 case .booked:
-                    HStack {
-                        Image(systemName: "checkmark.circle.fill")
-                            .font(.system(size: 18, weight: .semibold))
-                            .foregroundColor(.onPrimary)
-                        Text(NSLocalizedString("Booked", comment: ""))
-                            .font(.system(size: 18, weight: .semibold))
-                            .foregroundColor(.onPrimary)
-                    }
-                    .padding()
+                    Text(NSLocalizedString("Booked", comment: ""))
+                        .font(.system(size: 18, weight: .semibold))
+                        .foregroundColor(.onPrimary)
+                        .padding()
                 case .available:
-                    HStack {
-                        Image(systemName: "checkmark.circle")
-                            .font(.system(size: 18, weight: .semibold))
-                            .foregroundColor(.onPrimary)
-                        Text(NSLocalizedString("Book", comment: ""))
-                            .font(.system(size: 18, weight: .semibold))
-                            .foregroundColor(.onPrimary)
-                    }
-                    .padding()
+                    Text(NSLocalizedString("Book", comment: ""))
+                        .font(.system(size: 18, weight: .semibold))
+                        .foregroundColor(.onPrimary)
+                        .padding()
                 }
             })
             .disabled(bookingButtonState == .booked)

@@ -19,7 +19,7 @@ struct ResourceDetailSheet: View {
     var body: some View {
         VStack {
             DraggingPill()
-            SheetTitle(title: "Resource details")
+            SheetTitle(title: NSLocalizedString("Resource details", comment: ""))
             VStack {
                 DetailsBuilder(title: NSLocalizedString("Location", comment: ""), image: "mappin.and.ellipse", content: {
                     Text(resource.locationID)

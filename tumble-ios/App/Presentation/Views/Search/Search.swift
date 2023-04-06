@@ -37,7 +37,7 @@ struct Search: View {
             .sheet(isPresented: $viewModel.presentPreview) {
                 VStack {
                     DraggingPill()
-                    SheetTitle(title: "Schedule")
+                    SheetTitle(title: NSLocalizedString("Schedule", comment: ""))
                     SchedulePreview(
                         parentViewModel: viewModel,
                         courseColors: $viewModel.courseColors,
