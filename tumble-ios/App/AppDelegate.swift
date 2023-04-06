@@ -54,7 +54,6 @@ extension AppDelegate: MessagingDelegate {
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
 
       let deviceToken: [String: String] = ["token": fcmToken ?? ""]
-        print(deviceToken)
         AppLogger.shared.debug("Device token: \(deviceToken)")
         if deviceToken["token"] != nil {
             Messaging.messaging().subscribe(toTopic: "updates") { error in
