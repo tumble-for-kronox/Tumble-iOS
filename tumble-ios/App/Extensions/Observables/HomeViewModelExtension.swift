@@ -24,9 +24,7 @@ extension HomeViewModel {
     
     func findNextUpcomingEvent(events: [Response.Event]) -> Response.Event? {
         let now = Date()
-        
         let sortedEvents = events.sorted()
-        
         for event in sortedEvents {
             guard let startDate = isoDateFormatter.date(from: event.from),
                 startDate > now else {
@@ -34,11 +32,8 @@ extension HomeViewModel {
             }
             return event
         }
-        
         return nil
     }
-
-
 
     
     func loadCourseColors(completion: @escaping ([String : String]) -> Void) -> Void {

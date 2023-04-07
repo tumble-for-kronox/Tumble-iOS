@@ -8,20 +8,6 @@
 import Foundation
 import SwiftUI
 
-struct WeekEventCardModel: Identifiable {
-    var id: UUID = UUID()
-    var offset: CGFloat = 0
-    var event: Response.Event
-}
-
-enum HomeStatus {
-    case available
-    case notAvailable
-    case noBookmarks
-    case loading
-    case error
-}
-
 @MainActor final class HomeViewModel: ObservableObject {
     
     @Inject var preferenceService: PreferenceService
@@ -122,6 +108,7 @@ enum HomeStatus {
                     self.homeStatus = .notAvailable
                     return
                 }
+                print(events)
                 self.createDayCards(events:
                     self.filterEventsMatchingToday(events: events)
                 )

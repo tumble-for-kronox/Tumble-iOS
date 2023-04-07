@@ -21,11 +21,15 @@ struct BookmarkListView: View {
     @ObservedObject var appController: AppController
     @State private var bookmarksListModel: BookmarksListModel = BookmarksListModel()
     
+    var scrollSpace: String = "bookmarksRefreshable"
+    
     var body: some View {
         ScrollViewReader { value in
             ScrollView(.vertical, showsIndicators: false) {
+                Refreshable(coordinateSpaceName: scrollSpace, onRefresh: {
+                    print("Refreshed")
+                })
                 LazyVStack (alignment: .center) {
-                    Rectangle().foregroundColor(.clear).frame(height: 1.0)
                     ForEach(days, id: \.id) { day in
                         if !(day.events.isEmpty) {
                             Section(header: DayHeader(day: day), content: {

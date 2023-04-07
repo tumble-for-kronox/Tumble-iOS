@@ -50,11 +50,15 @@ class ScheduleService: ObservableObject, ScheduleServiceProtocol {
     
     func load(
         forCurrentWeek completion: @escaping ((Result<[Response.Event], Error>) -> Void),
-        hiddenBookmarks: [String]) {
+        hiddenBookmarks: [String]
+    ) {
         let calendar = Calendar.current
         let now = Date()
-        guard let weekStartDate = calendar.date(from: calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: now)) else {
+        let currentWeekday = calendar.component(.weekday, from: now)
+        let daysUntilFriday = (6 - currentWeekday + 7) % 7
+        guard let weekStartDate = calendar.date(byAdding: .day, value: daysUntilFriday, to: now) else {
             completion(.failure(.internal(reason: "Could not calculate week start date")))
+            AppLogger.shared.critical("Could not calculate week start date")
             return
         }
         let weekEndDate = calendar.date(byAdding: .day, value: 7, to: weekStartDate)!
@@ -69,6 +73,7 @@ class ScheduleService: ObservableObject, ScheduleServiceProtocol {
             }
         }
     }
+
     
     func load(with id: String, completion: @escaping (Result<ScheduleStoreModel, Error>) -> Void) -> Void {
         DispatchQueue.global(qos: .background).async {

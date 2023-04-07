@@ -21,7 +21,7 @@ struct Home: View {
     
     var body: some View {
         VStack {
-            if viewModel.homeStatus != .loading {
+            if viewModel.newsSectionStatus == .loaded {
                 News(news: viewModel.news?.pick(length: 4), showOverlay: $showOverlay)
             }
             VStack (alignment: .leading) {

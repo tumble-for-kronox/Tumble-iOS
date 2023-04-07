@@ -115,6 +115,18 @@ struct OnBoarding: View {
                     .buttonStyle(AnimatedButtonStyle())
                     Spacer()
                 }
+                HStack(spacing: 8) {
+                    ForEach(boardingScreens.indices, id: \.self) { index in
+                        Circle()
+                            .fill(Color.background)
+                            .opacity(index == getIndex() ? 1 : 0.4)
+                            .frame(width: 8, height: 8)
+                            .scaleEffect(index == getIndex() ? 1.3 : 0.85)
+                            .animation(.easeInOut, value: getIndex())
+                    }
+                }
+                .frame(maxWidth: .infinity)
+                .padding(.top, 5)
             }
             .padding()
             .padding(.bottom, 20)

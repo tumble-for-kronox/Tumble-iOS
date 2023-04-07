@@ -49,7 +49,6 @@ struct Bookmarks: View {
                             courseColors: viewModel.courseColors,
                             appController: appController
                         )
-                        
                     case .calendar:
                         BookmarkCalendarView(
                             days: $viewModel.scheduleListOfDays,
