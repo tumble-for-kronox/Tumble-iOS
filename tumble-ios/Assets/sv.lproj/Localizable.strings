@@ -52,7 +52,7 @@
 
 "Home"="Hem";
 
-"Bookmarks"="Bokmärken";
+"Bookmarks"="Bokmärk";
 
 "Account"="Konto";
 
@@ -124,14 +124,6 @@
 
 "Notification offset"="Aviseringsförskjutning";
 
-"Today's events"="Dagens händelser";
-
-"No events for today"="Inga evenemang för idag";
-
-"Next class"="Nästa lektion";
-
-"No upcoming class"="Ingen kommande klass";
-
 "Looks like you don't have anything saved yet"="Det verkar som att du inte har sparat något ännu";
 
 "Schedules are bookmarked from the search page, which you can access at the top right of the screen."="Scheman är bokmärkta från söksidan, som du kan komma åt längst upp till höger på skärmen.";
@@ -140,7 +132,33 @@
 
 "Looks like you don't have any classes or exams in the coming week. Yay!"="Det verkar som att du inte har några lektioner eller prov under den kommande veckan. jippie!";
 
+"We experienced an issue when trying to find your schedules. Try again later"="Vi upplevde ett problem när vi försökte hitta dina scheman. försök igen senare";
+
+"Today's events"="Dagens händelser";
+
+"No events for today"="Inga evenemang för idag";
+
+"Next class"="Nästa klass";
+
+"No upcoming class"="Ingen kommande klass";
+
 "No classes for today"="Inga lektioner för idag";
+
+"Other news"="Andra nyheter";
+
+"No other news"="Inga andra nyheter";
+
+"Details"="Detaljer";
+
+"Recent news"="Senaste nyheterna";
+
+"No recent news"="Inga senaste nyheter";
+
+"News"="Nyheter";
+
+"Search news"="Sök nyheter";
+
+"News from us (%@)"="Nyheter från oss (%@)";
 
 "No teachers listed"="Inga lärare listade";
 
@@ -158,11 +176,13 @@
 
 "Schedule is empty"="Schemat är tomt";
 
+"Schedule"="Schema";
+
 "Search schedules"="Sök scheman";
 
 "Remove"="Avlägsna";
 
-"Bookmark"="Bokmärk";
+"Save"="Spara";
 
 "Schedule seems to be empty"="Schemat verkar vara tomt";
 
@@ -214,7 +234,7 @@
 
 "User options"="Användaralternativ";
 
-"Automatic exam signup"="Automatisk tentamensanmälan";
+"Automatic exam signup"="Automatisk examensregistrering";
 
 "Your bookings"="Dina bokningar";
 
@@ -229,6 +249,12 @@
 "You have been unregistered from the specified event"="Du har blivit avregistrerad från den angivna händelsen";
 
 "We couldn't unregister you for the specified event"="Vi kunde inte avregistrera dig för den angivna händelsen";
+
+"Confirmed resource"="Bekräftad resurs";
+
+"You have confirmed the selected resource"="Du har bekräftat den valda resursen";
+
+"We couldn't confirm the specified resource"="Vi kunde inte bekräfta den angivna resursen";
 
 "Unbooked resource"="Obokad resurs";
 
@@ -256,7 +282,7 @@
 
 "No date"="Inget datum";
 
-"\(date), from"="\(datum från";
+"%@, from %@ - %@"="%@, från %@ - %@";
 
 "Available until"="Finns till kl";
 
@@ -276,13 +302,13 @@
 
 "%@, from %@ - %@"="%@, från %@ - %@";
 
+"Confirm booking"="Bekräfta bokningen";
+
 "Remove booking"="Ta bort bokningen";
 
-"Booked"="Bokad";
-
-"Book"="Boka";
-
 "No available timeslots"="Inga tillgängliga tider";
+
+"Booked"="Bokad";
 
 "Successfully booked resource"="Resurs har bokats";
 
@@ -299,6 +325,8 @@
 "Pick a date"="Välj ett datum";
 
 "No rooms available on weekends"="Inga rum tillgängliga på helgerna";
+
+"Book"="Bok";
 
 "at"="På";
 
@@ -342,19 +370,20 @@
 
 "Save schedules"="Spara scheman";
 
-"Search for schedules from the search page and download them locally"="Sök efter scheman från söksidan och ladda ner dem lokalt";
+"Search for schedules from the search page and download them locally. View them as a list or a in a dedicated calendar."="Sök efter scheman från söksidan och ladda ner dem lokalt. visa dem som en lista eller i en särskild kalender.";
 
 "Set notifications"="Ställ in aviseringar";
 
-"Get notified before important events and dates"="Få aviseringar innan viktiga händelser och datum";
+"Get notified before important events and dates. Just press an event and set notifications for either a course or a single event."="Få aviseringar innan viktiga händelser och datum. tryck bara på en händelse och ställ in aviseringar för antingen en kurs eller en enskild händelse.";
 
 "Be creative"="Vara kreativ";
 
-"Set custom colors for the courses in your schedules"="Ställ in anpassade färger för kurserna i dina scheman";
+"Set custom colors for the courses in your schedules. Just press an event and modify the color to your liking."="Ställ in anpassade färger för kurserna i dina scheman. tryck bara på en händelse och ändra färgen efter eget tycke.";
 
 "Booking"="Bokning";
 
-"Log in to your Kronox account and book resources and exams"="Logga in på ditt kronox-konto och boka resurser och tentor";
+"Log in to your KronoX account and book resources and exams. Booking is easy, and notifications remind you to confirm the bookings you've created."="Logga in på ditt kronox-konto och boka resurser och tentor. det är enkelt att boka och aviseringar påminner dig om att bekräfta bokningarna du har skapat.";
 
 "Select university"="Välj universitet";
 
+"Universities"="Universitet";

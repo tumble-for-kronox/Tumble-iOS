@@ -124,14 +124,6 @@
 
 "Notification offset"="Notification offset";
 
-"Today's events"="Today's events";
-
-"No events for today"="No events for today";
-
-"Next class"="Next class";
-
-"No upcoming class"="No upcoming class";
-
 "Looks like you don't have anything saved yet"="Looks like you don't have anything saved yet";
 
 "Schedules are bookmarked from the search page, which you can access at the top right of the screen."="Schedules are bookmarked from the search page, which you can access at the top right of the screen.";
@@ -140,7 +132,33 @@
 
 "Looks like you don't have any classes or exams in the coming week. Yay!"="Looks like you don't have any classes or exams in the coming week. yay!";
 
+"We experienced an issue when trying to find your schedules. Try again later"="We experienced an issue when trying to find your schedules. try again later";
+
+"Today's events"="Today's events";
+
+"No events for today"="No events for today";
+
+"Next class"="Next class";
+
+"No upcoming class"="No upcoming class";
+
 "No classes for today"="No classes for today";
+
+"Other news"="Other news";
+
+"No other news"="No other news";
+
+"Details"="Details";
+
+"Recent news"="Recent news";
+
+"No recent news"="No recent news";
+
+"News"="News";
+
+"Search news"="Search news";
+
+"News from us (%@)"="News from us (%@)";
 
 "No teachers listed"="No teachers listed";
 
@@ -158,11 +176,13 @@
 
 "Schedule is empty"="Schedule is empty";
 
+"Schedule"="Schedule";
+
 "Search schedules"="Search schedules";
 
 "Remove"="Remove";
 
-"Bookmark"="Bookmark";
+"Save"="Save";
 
 "Schedule seems to be empty"="Schedule seems to be empty";
 
@@ -230,6 +250,12 @@
 
 "We couldn't unregister you for the specified event"="We couldn't unregister you for the specified event";
 
+"Confirmed resource"="Confirmed resource";
+
+"You have confirmed the selected resource"="You have confirmed the selected resource";
+
+"We couldn't confirm the specified resource"="We couldn't confirm the specified resource";
+
 "Unbooked resource"="Unbooked resource";
 
 "You have unbooked the selected resource"="You have unbooked the selected resource";
@@ -256,7 +282,7 @@
 
 "No date"="No date";
 
-"\(date), from"="\(date), from";
+"%@, from %@ - %@"="%@, from %@ - %@";
 
 "Available until"="Available until";
 
@@ -276,13 +302,13 @@
 
 "%@, from %@ - %@"="%@, from %@ - %@";
 
+"Confirm booking"="Confirm booking";
+
 "Remove booking"="Remove booking";
 
-"Booked"="Booked";
-
-"Book"="Book";
-
 "No available timeslots"="No available timeslots";
+
+"Booked"="Booked";
 
 "Successfully booked resource"="Successfully booked resource";
 
@@ -299,6 +325,8 @@
 "Pick a date"="Pick a date";
 
 "No rooms available on weekends"="No rooms available on weekends";
+
+"Book"="Book";
 
 "at"="At";
 
@@ -342,19 +370,20 @@
 
 "Save schedules"="Save schedules";
 
-"Search for schedules from the search page and download them locally"="Search for schedules from the search page and download them locally";
+"Search for schedules from the search page and download them locally. View them as a list or a in a dedicated calendar."="Search for schedules from the search page and download them locally. view them as a list or a in a dedicated calendar.";
 
 "Set notifications"="Set notifications";
 
-"Get notified before important events and dates"="Get notified before important events and dates";
+"Get notified before important events and dates. Just press an event and set notifications for either a course or a single event."="Get notified before important events and dates. just press an event and set notifications for either a course or a single event.";
 
 "Be creative"="Be creative";
 
-"Set custom colors for the courses in your schedules"="Set custom colors for the courses in your schedules";
+"Set custom colors for the courses in your schedules. Just press an event and modify the color to your liking."="Set custom colors for the courses in your schedules. just press an event and modify the color to your liking.";
 
 "Booking"="Booking";
 
-"Log in to your Kronox account and book resources and exams"="Log in to your kronox account and book resources and exams";
+"Log in to your KronoX account and book resources and exams. Booking is easy, and notifications remind you to confirm the bookings you've created."="Log in to your kronox account and book resources and exams. booking is easy, and notifications remind you to confirm the bookings you've created.";
 
 "Select university"="Select university";
 
+"Universities"="Universities";

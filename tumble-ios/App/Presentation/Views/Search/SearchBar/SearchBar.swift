@@ -10,7 +10,6 @@ import SwiftUI
 struct SearchBar: View {
     @Binding var searchBarText: String
     @State private var closeButtonOffset: CGFloat = 300.0
-    @State private var hasTimeElapsed: Bool = false
     
     let onSearch: (String) -> Void
     let onClearSearch: (Bool) -> Void

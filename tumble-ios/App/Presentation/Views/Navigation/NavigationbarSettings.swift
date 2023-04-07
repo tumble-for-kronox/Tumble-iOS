@@ -25,7 +25,7 @@ struct NavigationbarSettings: View {
             )
            , label: {
             Image(systemName: "gearshape")
-                .navBarIcon()
+                .actionIcon()
         })
     }
 }

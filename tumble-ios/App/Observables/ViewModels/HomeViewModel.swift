@@ -19,6 +19,7 @@ enum HomeStatus {
     case notAvailable
     case noBookmarks
     case loading
+    case error
 }
 
 @MainActor final class HomeViewModel: ObservableObject {
@@ -79,7 +80,7 @@ enum HomeStatus {
             switch result {
             case .success(let news):
                 DispatchQueue.main.async {
-                    self.news = news.pick(length: 4) // Show 4 latest items
+                    self.news = news
                     self.newsSectionStatus = .loaded
                 }
             case .failure(let failure):
@@ -105,6 +106,7 @@ enum HomeStatus {
                 AppLogger.shared.critical("Failed to load schedules for the week: \(error.localizedDescription)", source: "HomePageViewModel")
                 self.todayEventsSectionStatus = .error
                 self.nextEventSectionStatus = .error
+                self.homeStatus = .error
             case .success(let events):
                 AppLogger.shared.debug("Loaded \(events.count) events for the week", source: "HomePageViewModel")
                 // If no events are available,

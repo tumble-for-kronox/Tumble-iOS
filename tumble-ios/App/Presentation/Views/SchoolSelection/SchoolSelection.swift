@@ -21,7 +21,6 @@ struct SchoolSelection: View {
                     SchoolRow(school: school, onSelectSchool: onSelectSchool)
                 }
             }
-            .padding(.top, 20)
         }
         .background(Color.background)
     }

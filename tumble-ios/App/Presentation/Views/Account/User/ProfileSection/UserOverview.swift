@@ -39,7 +39,7 @@ struct UserOverview: View {
                     .padding(10)
                 }
             }
-            .padding()
+            .padding(.horizontal, 15)
             .frame(maxWidth: .infinity, alignment: .leading)
             Divider()
                 .foregroundColor(.onBackground)
@@ -51,7 +51,6 @@ struct UserOverview: View {
                 collapsedHeader: $collapsedHeader
             )
         }
-        .padding(.horizontal, 10)
         .background(Color.background)
         .toastView(toast: $toast)
     }

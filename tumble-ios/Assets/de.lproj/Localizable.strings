@@ -116,21 +116,13 @@
 
 "Are you sure you want to set notifications for all events?"="Sind sie sicher, dass sie benachrichtigungen für alle ereignisse festlegen möchten?";
 
-"Set notifications for all events"="Legen sie benachrichtigungen für alle ereignisse fest";
+"Set notifications for all events"="Benachrichtigungen für alle ereignisse festlegen";
 
 "Are you sure you want to cancel all set notifications?"="Möchten sie wirklich alle eingestellten benachrichtigungen abbrechen?";
 
 "Cancel all notifications"="Alle benachrichtigungen abbrechen";
 
 "Notification offset"="Benachrichtigungs-offset";
-
-"Today's events"="Die heutigen ereignisse";
-
-"No events for today"="Keine veranstaltungen für heute";
-
-"Next class"="Nächste klasse";
-
-"No upcoming class"="Keine bevorstehende klasse";
 
 "Looks like you don't have anything saved yet"="Anscheinend hast du noch nichts gespeichert";
 
@@ -140,7 +132,33 @@
 
 "Looks like you don't have any classes or exams in the coming week. Yay!"="Sieht so aus, als hätten sie in der kommenden woche keine kurse oder prüfungen. yay!";
 
+"We experienced an issue when trying to find your schedules. Try again later"="Bei der suche nach ihren zeitplänen ist ein problem aufgetreten. versuchen sie es später erneut";
+
+"Today's events"="Die heutigen ereignisse";
+
+"No events for today"="Keine veranstaltungen für heute";
+
+"Next class"="Nächste klasse";
+
+"No upcoming class"="Keine bevorstehende klasse";
+
 "No classes for today"="Kein unterricht für heute";
+
+"Other news"="Andere neuigkeiten";
+
+"No other news"="Keine weiteren neuigkeiten";
+
+"Details"="Einzelheiten";
+
+"Recent news"="Neueste nachrichten";
+
+"No recent news"="Keine aktuellen nachrichten";
+
+"News"="Nachricht";
+
+"Search news"="Nachrichten suchen";
+
+"News from us (%@)"="Neuigkeiten von uns (%@)";
 
 "No teachers listed"="Keine lehrer aufgelistet";
 
@@ -158,11 +176,13 @@
 
 "Schedule is empty"="Zeitplan ist leer";
 
+"Schedule"="Zeitplan";
+
 "Search schedules"="Suchpläne";
 
 "Remove"="Entfernen";
 
-"Bookmark"="Lesezeichen";
+"Save"="Speichern";
 
 "Schedule seems to be empty"="Der zeitplan scheint leer zu sein";
 
@@ -230,6 +250,12 @@
 
 "We couldn't unregister you for the specified event"="Wir konnten sie für die angegebene veranstaltung nicht abmelden";
 
+"Confirmed resource"="Bestätigte ressource";
+
+"You have confirmed the selected resource"="Sie haben die ausgewählte ressource bestätigt";
+
+"We couldn't confirm the specified resource"="Wir konnten die angegebene ressource nicht bestätigen";
+
 "Unbooked resource"="Nicht gebuchte ressource";
 
 "You have unbooked the selected resource"="Sie haben die ausgewählte ressource ausgebucht";
@@ -256,7 +282,7 @@
 
 "No date"="Kein datum";
 
-"\(date), from"="\(stammen aus";
+"%@, from %@ - %@"="%@, aus %@ - %@";
 
 "Available until"="Verfügbar bis";
 
@@ -276,13 +302,13 @@
 
 "%@, from %@ - %@"="%@, aus %@ - %@";
 
+"Confirm booking"="Buchung bestätigen";
+
 "Remove booking"="Buchung entfernen";
 
-"Booked"="Gebucht";
-
-"Book"="Buchen";
-
 "No available timeslots"="Keine verfügbaren zeitfenster";
+
+"Booked"="Gebucht";
 
 "Successfully booked resource"="Ressource erfolgreich gebucht";
 
@@ -299,6 +325,8 @@
 "Pick a date"="Suche dir einen termin aus";
 
 "No rooms available on weekends"="Am wochenende sind keine zimmer verfügbar";
+
+"Book"="Buch";
 
 "at"="Bei";
 
@@ -342,19 +370,20 @@
 
 "Save schedules"="Zeitpläne speichern";
 
-"Search for schedules from the search page and download them locally"="Suchen sie auf der suchseite nach zeitplänen und laden sie sie lokal herunter";
+"Search for schedules from the search page and download them locally. View them as a list or a in a dedicated calendar."="Suchen sie auf der suchseite nach zeitplänen und laden sie sie lokal herunter. zeigen sie sie als liste oder in einem speziellen kalender an.";
 
 "Set notifications"="Benachrichtigungen einstellen";
 
-"Get notified before important events and dates"="Lassen sie sich vor wichtigen ereignissen und terminen benachrichtigen";
+"Get notified before important events and dates. Just press an event and set notifications for either a course or a single event."="Lassen sie sich vor wichtigen ereignissen und terminen benachrichtigen. drücken sie einfach auf ein ereignis und legen sie benachrichtigungen entweder für einen kurs oder ein einzelnes ereignis fest.";
 
 "Be creative"="Seien sie kreativ";
 
-"Set custom colors for the courses in your schedules"="Legen sie benutzerdefinierte farben für die kurse in ihren stundenplänen fest";
+"Set custom colors for the courses in your schedules. Just press an event and modify the color to your liking."="Legen sie benutzerdefinierte farben für die kurse in ihren stundenplänen fest. drücken sie einfach auf ein ereignis und ändern sie die farbe nach ihren wünschen.";
 
 "Booking"="Buchung";
 
-"Log in to your Kronox account and book resources and exams"="Melden sie sich bei ihrem kronox-konto an und buchen sie ressourcen und prüfungen";
+"Log in to your KronoX account and book resources and exams. Booking is easy, and notifications remind you to confirm the bookings you've created."="Melden sie sich bei ihrem kronox-konto an und buchen sie ressourcen und prüfungen. die buchung ist einfach und benachrichtigungen erinnern sie daran, die von ihnen erstellten buchungen zu bestätigen.";
 
 "Select university"="Hochschule auswählen";
 
+"Universities"="Universitäten";

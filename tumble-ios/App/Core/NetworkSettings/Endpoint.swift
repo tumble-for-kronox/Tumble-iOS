@@ -25,6 +25,7 @@ enum Endpoint {
     case registerEvent(eventId: String, schoolId: String)
     case unregisterEvent(eventId: String, schoolId: String)
     case bookResource(schoolId: String)
+    case confirmResource(schoolId: String)
     case unbookResource(schoolId: String, bookingId: String)
     case news
     
@@ -108,6 +109,11 @@ enum Endpoint {
             components.queryItems = [
                 URLQueryItem(name: "schoolId", value: schoolId),
                 URLQueryItem(name: "bookingId", value: bookingId)
+            ]
+        case .confirmResource(schoolId: let schoolId):
+            components.path = "/api/resources/confirm"
+            components.queryItems = [
+                URLQueryItem(name: "schoolId", value: schoolId)
             ]
         }
         return components.url!

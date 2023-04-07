@@ -55,6 +55,13 @@ var isoDateFormatterSemi: ISO8601DateFormatter = {
     return formatter
 }()
 
+var dateFormatterUTC: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+    formatter.timeZone = TimeZone(abbreviation: "UTC")
+    return formatter
+}()
+
 var dateFormatterLong: DateFormatter = {
     let dateFormatter = DateFormatter()
     dateFormatter.dateStyle = .long

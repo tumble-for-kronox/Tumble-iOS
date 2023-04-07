@@ -23,7 +23,7 @@ struct NavigationbarSearch: View {
             .navigationBarTitle(NSLocalizedString("Search", comment: ""))
            , label: {
             Image(systemName: "magnifyingglass")
-                .navBarIcon()
+                .actionIcon()
         })
     }
     

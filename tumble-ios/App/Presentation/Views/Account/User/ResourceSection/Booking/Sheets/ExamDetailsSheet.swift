@@ -16,14 +16,10 @@ struct ExamDetailsSheet: View {
     @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
-        VStack (alignment: .leading) {
-            HStack {
-                Text(NSLocalizedString("Event details", comment: ""))
-                    .sheetTitle()
-                Spacer()
-            }
+        VStack {
+            DraggingPill()
+            SheetTitle(title: NSLocalizedString("Event details", comment: ""))
             VStack {
-                Divider()
                 DetailsBuilder(title: NSLocalizedString("Title", comment: ""), image: "a.magnify", content: {
                     Text(event.title ?? NSLocalizedString("No title", comment: ""))
                         .font(.system(size: 16))
@@ -38,7 +34,7 @@ struct ExamDetailsSheet: View {
                     let date = event.eventStart.toDate() ?? NSLocalizedString("No date", comment: "")
                     let start = event.eventStart.convertToHoursAndMinutes() ?? NSLocalizedString("(no time)", comment: "")
                     let end = event.eventEnd.convertToHoursAndMinutes() ?? NSLocalizedString("(no time)", comment: "")
-                    Text(NSLocalizedString("\(date), from", comment: "") + " \(start) - \(end)")
+                    Text(String(format: NSLocalizedString("%@, from %@ - %@", comment: ""), date, start, end))
                         .font(.system(size: 16))
                         .foregroundColor(.onSurface)
 
@@ -48,6 +44,7 @@ struct ExamDetailsSheet: View {
                         .font(.system(size: 16))
                         .foregroundColor(.onSurface)
                 })
+                Spacer()
                 Button(action: {
                     HapticsController.triggerHapticLight()
                     self.presentationMode.wrappedValue.dismiss()
@@ -61,9 +58,8 @@ struct ExamDetailsSheet: View {
                             .foregroundColor(.onPrimary)
                     }
                 })
-                .buttonStyle(WideAnimatedButtonStyle())
+                .buttonStyle(WideAnimatedButtonStyle(color: .red))
                 .padding(.top, 20)
-                Spacer()
             }
         }
         .background(Color.background)

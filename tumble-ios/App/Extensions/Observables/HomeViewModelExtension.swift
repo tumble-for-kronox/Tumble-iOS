@@ -24,27 +24,20 @@ extension HomeViewModel {
     
     func findNextUpcomingEvent(events: [Response.Event]) -> Response.Event? {
         let now = Date()
-        let calendar = Calendar.current
         
-        let sortedEvents = events.sorted { (event1, event2) -> Bool in
-            guard let date1 = isoDateFormatter.date(from: event1.from),
-                  let date2 = isoDateFormatter.date(from: event2.from) else {
-                return false
-            }
-            return date1 < date2
-        }
+        let sortedEvents = events.sorted()
         
         for event in sortedEvents {
             guard let startDate = isoDateFormatter.date(from: event.from),
-                  !calendar.isDate(startDate, inSameDayAs: now) else {
-                continue
+                startDate > now else {
+                    continue
             }
-            
             return event
         }
         
         return nil
     }
+
 
 
     

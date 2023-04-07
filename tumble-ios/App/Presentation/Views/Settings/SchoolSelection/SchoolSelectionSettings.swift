@@ -9,14 +9,14 @@ import SwiftUI
 
 struct SchoolSelectionSettings: View {
     
-    @Environment(\.presentationMode) var presentationMode
+    @Environment(\.dismiss) var dismiss
     let onChangeSchool: (School) -> Void
     let schools: [School]
     
     var body: some View {
         SchoolSelection(onSelectSchool: { school in
             onChangeSchool(school)
-            presentationMode.wrappedValue.dismiss()
+            dismiss()
         }, schools: schools)
     }
 }

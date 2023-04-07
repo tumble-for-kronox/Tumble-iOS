@@ -20,19 +20,19 @@ var boardingScreens: [BoardingScreen] = [
     BoardingScreen(
         image: "GuyPointing",
         title: NSLocalizedString("Save schedules", comment: ""),
-        description: NSLocalizedString("Search for schedules from the search page and download them locally", comment: "")),
+        description: NSLocalizedString("Search for schedules from the search page and download them locally. View them as a list or a in a dedicated calendar.", comment: "")),
     BoardingScreen(
         image: "GuyWithPhone",
         title: NSLocalizedString("Set notifications", comment: ""),
-        description: NSLocalizedString("Get notified before important events and dates", comment: "")),
+        description: NSLocalizedString("Get notified before important events and dates. Just press an event and set notifications for either a course or a single event.", comment: "")),
     BoardingScreen(
         image: "GirlProud",
         title: NSLocalizedString("Be creative", comment: ""),
-        description: NSLocalizedString("Set custom colors for the courses in your schedules", comment: "")),
+        description: NSLocalizedString("Set custom colors for the courses in your schedules. Just press an event and modify the color to your liking.", comment: "")),
     BoardingScreen(
         image: "GuyWalking",
         title: NSLocalizedString("Booking", comment: ""),
-        description: NSLocalizedString("Log in to your Kronox account and book resources and exams", comment: "")),
+        description: NSLocalizedString("Log in to your KronoX account and book resources and exams. Booking is easy, and notifications remind you to confirm the bookings you've created.", comment: "")),
 ]
 
 
@@ -42,8 +42,9 @@ struct OnBoarding: View {
     @State private var viewedTab: Int = 0
     @State private var animateButton: Bool = true
     @State private var buttonOffset: CGFloat = 900.0
-    let updateUserOnBoarded: UpdateUserOnBoarded
     @State var offset: CGFloat = .zero
+    
+    let updateUserOnBoarded: UpdateUserOnBoarded
     
     init(viewModel: OnBoardingViewModel, updateUserOnBoarded: @escaping UpdateUserOnBoarded) {
         UIPageControl.appearance().currentPageIndicatorTintColor = UIColor(Color.primary)
@@ -61,8 +62,8 @@ struct OnBoarding: View {
                         Image(screen.image)
                             .resizable()
                             .scaledToFit()
-                            .frame(width: getRect().width - 100, height: getRect().width - 100)
-                            .offset(y: -150)
+                            .frame(width: getRect().width - 120, height: getRect().width - 120)
+                            .offset(y: -120)
                         VStack(alignment: .leading, spacing: 15) {
                             Text(screen.title)
                                 .font(.largeTitle.bold())
@@ -120,7 +121,12 @@ struct OnBoarding: View {
             ,alignment: .bottom
         )
         .sheet(isPresented: $viewModel.showSchoolSelection, content: {
-            SchoolSelection(onSelectSchool: onSelectSchool, schools: viewModel.schools)
+            VStack {
+                DraggingPill()
+                SheetTitle(title: NSLocalizedString("Universities", comment: ""))
+                SchoolSelection(onSelectSchool: onSelectSchool, schools: viewModel.schools)
+            }
+            .background(Color.background)
         })
         .onDisappear {
             viewModel.showSchoolSelection = false

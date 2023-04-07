@@ -11,19 +11,16 @@ struct ResourceDetailSheet: View {
     
     let resource: Response.KronoxUserBookingElement
     let unbookResource: (String) -> Void
+    let confirmResource: (String, String) -> Void
     let getResourcesAndEvents: () -> Void
     
-    @Environment(\.presentationMode) var presentationMode
+    @Environment(\.dismiss) var dismiss
     
     var body: some View {
-        VStack (alignment: .leading) {
-            HStack {
-                Text(NSLocalizedString("Resource details", comment: ""))
-                    .sheetTitle()
-                Spacer()
-            }
+        VStack {
+            DraggingPill()
+            SheetTitle(title: NSLocalizedString("Resource details", comment: ""))
             VStack {
-                Divider()
                 DetailsBuilder(title: NSLocalizedString("Location", comment: ""), image: "mappin.and.ellipse", content: {
                     Text(resource.locationID)
                         .font(.system(size: 16))
@@ -45,23 +42,50 @@ struct ResourceDetailSheet: View {
                         .font(.system(size: 16))
                         .foregroundColor(.onSurface)
                 })
-                Button(action: {
-                    HapticsController.triggerHapticLight()
-                    self.presentationMode.wrappedValue.dismiss()
-                    unbookResource(resource.id)
-                }, label: {
-                    HStack {
-                        Text(NSLocalizedString("Remove booking", comment: ""))
-                            .font(.system(size: 17, weight: .semibold))
-                            .foregroundColor(.onPrimary)
-                    }
-                })
-                .buttonStyle(WideAnimatedButtonStyle())
-                .padding(.top, 20)
                 Spacer()
+                if resource.showConfirmButton {
+                    Button(action: {
+                        HapticsController.triggerHapticLight()
+                        dismiss()
+                        confirmResource(resource.resourceID, resource.id)
+                    }, label: {
+                        HStack {
+                            Text(NSLocalizedString("Confirm booking", comment: ""))
+                                .font(.system(size: 16, weight: .semibold))
+                                .foregroundColor(.onPrimary)
+                        }
+                    })
+                    .buttonStyle(WideAnimatedButtonStyle())
+                    .padding(.top, 20)
+                }
+                if resource.showUnbookButton {
+                    Button(action: {
+                        HapticsController.triggerHapticLight()
+                        dismiss()
+                        unbookResource(resource.id)
+                    }, label: {
+                        HStack {
+                            Text(NSLocalizedString("Remove booking", comment: ""))
+                                .font(.system(size: 16, weight: .semibold))
+                                .foregroundColor(.onPrimary)
+                        }
+                    })
+                    .buttonStyle(WideAnimatedButtonStyle(color: .red))
+                    .padding(.top, 20)
+                }
             }
         }
         .background(Color.background)
         .padding(.horizontal, 15)
     }
+    
+    func bookingCanBeConfirmed() -> Bool {
+        let currentDate = Date()
+        if let confirmationOpen = dateFormatterUTC.date(from: resource.confirmationOpen),
+           let confirmationClosed = dateFormatterUTC.date(from: resource.confirmationClosed) {
+            return currentDate > confirmationOpen && currentDate < confirmationClosed
+        }
+        return false
+    }
+
 }

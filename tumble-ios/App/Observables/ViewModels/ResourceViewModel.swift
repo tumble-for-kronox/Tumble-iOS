@@ -165,12 +165,57 @@ import Foundation
     }
     
     
+    func confirmResource(
+        resourceId: String,
+        bookingId: String,
+        completion: @escaping (Result<Void, Error>) -> Void
+    ) -> Void {
+        authenticateAndExecute(
+            school: school,
+            refreshToken: userController.refreshToken,
+            execute: { [unowned self] result in
+                switch result {
+                case .success((let schoolId, let refreshToken)):
+                    let requestUrl = Endpoint.confirmResource(
+                        schoolId: String(schoolId)
+                    )
+                    let requestBody = Request.ConfirmKronoxResource(
+                        resourceId: resourceId,
+                        bookingId: bookingId
+                    )
+                    let _ = self.networkManager.put(
+                        requestUrl,
+                        refreshToken: refreshToken,
+                        body: requestBody) {
+                        (result: Result<Response.Empty, Response.ErrorMessage>) in
+                        switch result {
+                        case .success:
+                            AppLogger.shared.debug("Confirmed resource \(resourceId)")
+                            completion(.success(()))
+                        case .failure(let error):
+                            if error.statusCode == 202 {
+                                completion(.success(()))
+                            } else {
+                                AppLogger.shared.critical("Failed to confirm resource: \(error)")
+                                completion(.failure(.internal(reason: "\(error)")))
+                            }
+                        }
+                    }
+                case .failure(let error):
+                    AppLogger.shared.critical("\(error)")
+                    completion(.failure(.internal(reason: "\(error)")))
+                }
+            }
+        )
+    }
+    
+    
     func bookResource(
         resourceId: String,
         date: Date,
         availabilityValue: Response.AvailabilityValue,
         completion: @escaping (Result<Void, Error>) -> Void
-    ) {
+    ) -> Void {
         authenticateAndExecute(
             school: school,
             refreshToken: userController.refreshToken,

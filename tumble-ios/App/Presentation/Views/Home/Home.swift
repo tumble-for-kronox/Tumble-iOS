@@ -17,33 +17,41 @@ struct Home: View {
     @Binding var kronoxUrl: String?
     @Binding var selectedAppTab: TabbarTabType
     
+    @State private var showOverlay: Bool = false
+    
     var body: some View {
-        VStack (alignment: .leading) {
-            switch viewModel.homeStatus {
-            case .noBookmarks:
-                HomeNoBookmarks()
-            case .available:
-                HomeAvailable(
-                    eventsForToday: $viewModel.eventsForToday,
-                    nextClass: $viewModel.nextClass,
-                    swipedCards: $viewModel.swipedCards,
-                    courseColors: $viewModel.courseColors,
-                    todayEventsSectionStatus: $viewModel.todayEventsSectionStatus)
-            case .notAvailable:
-                HomeNotAvailable()
-            case .loading:
-                CustomProgressIndicator()
-                    .frame(alignment: .center)
+        VStack {
+            if viewModel.homeStatus != .loading {
+                News(news: viewModel.news?.pick(length: 4), showOverlay: $showOverlay)
+            }
+            VStack (alignment: .leading) {
+                switch viewModel.homeStatus {
+                case .noBookmarks:
+                    HomeNoBookmarks()
+                case .available:
+                    HomeAvailable(
+                        eventsForToday: $viewModel.eventsForToday,
+                        nextClass: $viewModel.nextClass,
+                        swipedCards: $viewModel.swipedCards,
+                        courseColors: $viewModel.courseColors,
+                        todayEventsSectionStatus: $viewModel.todayEventsSectionStatus)
+                case .notAvailable:
+                    HomeNotAvailable()
+                case .loading:
+                    CustomProgressIndicator()
+                        .frame(alignment: .center)
+                case .error:
+                    HomeError()
+                }
             }
         }
-        .padding(.horizontal, 25)
+        .padding(.horizontal, 30)
         .padding(.top, 10)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.background)
         .padding(.bottom, -10)
-        .frame(maxHeight: .infinity)
+        .sheet(isPresented: $showOverlay, content: { NewsSheet(news: viewModel.news) })
     }
-    
     
     
     func updateCourseColors() -> Void {
@@ -51,12 +59,4 @@ struct Home: View {
         // and also callback to update in BookmarksPageViewModel
         self.parentViewModel.delegateUpdateColorsBookmarks()
     }
-}
-
-fileprivate struct HomeScrollViewOffsetPreferenceKey: PreferenceKey {
-  static var defaultValue = CGFloat.zero
-
-  static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
-    value += nextValue()
-  }
 }

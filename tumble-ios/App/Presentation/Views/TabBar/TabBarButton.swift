@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct TabBarButton: View {
+    var animation: Namespace.ID
     let appTab: TabbarTabType
    
     @Binding var selectedAppTab: TabbarTabType
@@ -16,15 +17,19 @@ struct TabBarButton: View {
         VStack(spacing: 0) {
             Image(systemName: isSelected() ? appTab.rawValue + ".fill" : appTab.rawValue)
                 .tabBarIcon(isSelected: isSelected())
-            Text(appTab.displayName)
-                .font(.system(size: 12, weight: .semibold))
-                .foregroundColor(isSelected() ? .primary : .onSurface.opacity(0.5))
-                .padding(.top, 5)
+            if isSelected() {
+                RoundedRectangle(cornerSize: CGSize(width: 16, height: 8))
+                    .fill(Color.primary)
+                    .matchedGeometryEffect(id: "BOTTOMTAB", in: animation)
+                    .frame(width: 20, height: 4)
+            }
         }
         .frame(maxWidth: .infinity)
         .padding(.top, 10)
         .onTapGesture {
-            self.selectedAppTab = appTab
+            withAnimation(.spring()) {
+                selectedAppTab = appTab
+           }
         }
     }
    

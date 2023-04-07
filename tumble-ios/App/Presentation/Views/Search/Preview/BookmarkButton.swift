@@ -37,7 +37,7 @@ struct BookmarkButton: View {
                         Image(systemName: "bookmark")
                             .font(.system(size: 20))
                             .foregroundColor(.onPrimary)
-                        Text(NSLocalizedString("Bookmark", comment: ""))
+                        Text(NSLocalizedString("Save", comment: ""))
                             .font(.system(size: 20, weight: .semibold))
                             .foregroundColor(.onPrimary)
                     }
