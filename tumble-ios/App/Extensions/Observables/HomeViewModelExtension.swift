@@ -22,17 +22,42 @@ extension HomeViewModel {
         return filteredEvents
     }
     
-    func findNextUpcomingEvent(events: [Response.Event]) -> Response.Event? {
-        let now = Date()
-        let sortedEvents = events.sorted()
-        for event in sortedEvents {
-            guard let startDate = isoDateFormatter.date(from: event.from),
-                startDate > now else {
-                    continue
+    func findNextUpcomingEvent() {
+        scheduleService.load(completion: { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let schedules):
+                let hiddenBookmarks = self.preferenceService.getHiddenBookmarks()
+                let days: [Response.Day] = schedules.filter {!hiddenBookmarks.contains($0.id)}.flatMap { $0.days }
+                let events: [Response.Event] = days.flatMap { $0.events }
+                let sortedEvents = events.sorted()
+                let now = Date()
+
+                // Find the most recent upcoming event that is not today
+                if let nextEvent = sortedEvents.first(where: { isoDateFormatter.date(from: $0.from)! > now }) {
+                    if Calendar.current.isDate(now, inSameDayAs: isoDateFormatter.date(from: nextEvent.from)!) {
+                        // If the next event is today, find the next upcoming event that is not today
+                        if let nextNonTodayEvent = sortedEvents.first(where: {
+                            !Calendar.current.isDate(now, inSameDayAs: isoDateFormatter.date(from: $0.from)!) &&
+                            isoDateFormatter.date(from: $0.from)! > now
+                        }) {
+                            self.nextClass = nextNonTodayEvent
+                        } else {
+                            self.nextClass = nil
+                        }
+                    } else {
+                        // If the next event is not today, set it as the next class
+                        self.nextClass = nextEvent
+                    }
+                } else {
+                    self.nextClass = nil
+                }
+
+            case .failure(let failure):
+                AppLogger.shared.critical("Could not load schedules: \(failure)", file: "HomeViewModelExtension")
+                break
             }
-            return event
-        }
-        return nil
+        })
     }
 
     

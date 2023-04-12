@@ -111,7 +111,7 @@ import SwiftUI
                 self.createDayCards(events:
                     self.filterEventsMatchingToday(events: events)
                 )
-                self.nextClass = self.findNextUpcomingEvent(events: events)
+                self.findNextUpcomingEvent()
                 self.loadCourseColors { courseColors in
                     self.courseColors = courseColors
                     self.todayEventsSectionStatus = .loaded
@@ -128,4 +128,5 @@ import SwiftUI
         }
         self.eventsForToday = weekEventCards.reversed()
     }
+    
 }
