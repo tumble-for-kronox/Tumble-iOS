@@ -23,12 +23,12 @@ struct EventDetailsCard: View {
                     HStack {
                         VStack (alignment: .leading, spacing: 0) {
                             Text(event.course.englishName)
-                                .font(.system(size: 28, weight: .semibold))
+                                .font(.system(size: 20, weight: .semibold))
                                 .foregroundColor(.onSurface)
                                 .fixedSize(horizontal: false, vertical: true)
                                 .padding(.bottom, 7)
                             Text(event.title)
-                                .font(.system(size: 20))
+                                .font(.system(size: 18))
                                 .foregroundColor(.onSurface)
                         }
                         .padding(.bottom, 20)
@@ -60,7 +60,7 @@ struct EventDetailsCard: View {
         .padding(10)
         .background(event.isSpecial ? Color.red.opacity(0.2) : color.opacity(0.2))
         .cornerRadius(20)
-        .padding(.all, 15)
+        .padding([.horizontal, .bottom], 15)
     }
     
     func onSetNotificationEvent() -> Void {

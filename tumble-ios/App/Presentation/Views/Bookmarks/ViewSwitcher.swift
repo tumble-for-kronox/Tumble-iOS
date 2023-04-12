@@ -19,10 +19,10 @@ struct ViewSwitcher: View {
                 HStack {
                     Image(systemName: "list.dash")
                         .font(.system(size: 16, weight: .semibold))
-                        .foregroundColor(.onPrimary)
+                        .foregroundColor(isSelectedViewType(viewType: .list) ? .onPrimary : .onSurface)
                     Text(NSLocalizedString("List", comment: ""))
                         .font(.system(size: 16, weight: .semibold))
-                        .foregroundColor(.onPrimary)
+                        .foregroundColor(isSelectedViewType(viewType: .list) ? .onPrimary : .onSurface)
                 }
             })
             .buttonStyle(PillStyle(color: isSelectedViewType(viewType: .list) ? Color.primary : Color.surface))
@@ -32,10 +32,10 @@ struct ViewSwitcher: View {
                 HStack {
                     Image(systemName: "calendar")
                         .font(.system(size: 16, weight: .semibold))
-                        .foregroundColor(.onPrimary)
+                        .foregroundColor(isSelectedViewType(viewType: .calendar) ? .onPrimary : .onSurface)
                     Text(NSLocalizedString("Calendar", comment: ""))
                         .font(.system(size: 16, weight: .semibold))
-                        .foregroundColor(.onPrimary)
+                        .foregroundColor(isSelectedViewType(viewType: .calendar) ? .onPrimary : .onSurface)
                 }
             })
             .buttonStyle(PillStyle(color: isSelectedViewType(viewType: .calendar) ? Color.primary : Color.surface))
