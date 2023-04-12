@@ -96,9 +96,9 @@
 
 "Cancelled all available notifications set for events"="Avbröt alla tillgängliga aviseringar för händelser";
 
-"Scheduled notifications"="Schemalagda aviseringar";
+"Scheduled notifications"="Schemalade aviseringar";
 
-"Scheduled notifications for all available events"="Schemalagda aviseringar för alla tillgängliga händelser";
+"Scheduled notifications for all available events"="Schemalade aviseringar för alla tillgängliga händelser";
 
 "Failed to set notifications for all available events"="Det gick inte att ställa in aviseringar för alla tillgängliga händelser";
 
@@ -182,7 +182,7 @@
 
 "Search schedules"="Sök scheman";
 
-"Remove"="Avlägsna";
+"Remove"="Ta bort";
 
 "Save"="Spara";
 

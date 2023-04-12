@@ -62,7 +62,7 @@ struct ListRowActionItem: View {
                 }
                 Image(systemName: image)
                     .font(.system(size: 14, weight: .medium))
-                    .foregroundColor(imageColor.opacity(0.5))
+                    .foregroundColor(imageColor == Color.primary ? imageColor : imageColor.opacity(0.5))
             }
             .padding(2.5)
         })

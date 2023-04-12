@@ -50,6 +50,7 @@ struct Bookmarks: View {
                 }
             }
         }
+        .padding(.top, 10)
         .background(Color.background)
         .padding(.bottom, -10)
         .onAppear {

@@ -11,6 +11,7 @@ struct Search: View {
     
     @ObservedObject var viewModel: SearchViewModel
     @State var searchBarText: String = ""
+    @State var disableButton: Bool = false
     
     @Binding var universityImage: Image?
     let checkForNewSchedules: () -> Void
@@ -37,15 +38,34 @@ struct Search: View {
             .sheet(isPresented: $viewModel.presentPreview) {
                 VStack {
                     DraggingPill()
-                    SheetTitle(title: NSLocalizedString("Schedule", comment: ""))
+                    HStack {
+                        Spacer()
+                        BookmarkButton(
+                            bookmark: bookmark,
+                            disableButton: $disableButton,
+                            previewButtonState: $viewModel.previewButtonState)
+                    }
                     SchedulePreview(
                         parentViewModel: viewModel,
-                        courseColors: $viewModel.courseColors,
-                        checkForNewSchedules: checkForNewSchedules
+                        courseColors: $viewModel.courseColors
                     )
                 }
                 .background(Color.background)
+                .onDisappear {
+                    self.viewModel.previewButtonState = .loading
+                }
             }
+        }
+    }
+    
+    func bookmark() -> Void {
+        if viewModel.previewButtonState != .loading {
+            self.disableButton = true
+            self.viewModel.onBookmark(updateButtonState: {
+                DispatchQueue.main.async {
+                    self.disableButton = false
+                }
+            }, checkForNewSchedules: self.checkForNewSchedules)
         }
     }
     

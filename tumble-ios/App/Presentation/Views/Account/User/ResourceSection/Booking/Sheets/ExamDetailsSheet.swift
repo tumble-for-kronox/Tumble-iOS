@@ -45,21 +45,24 @@ struct ExamDetailsSheet: View {
                         .foregroundColor(.onSurface)
                 })
                 Spacer()
-                Button(action: {
-                    HapticsController.triggerHapticLight()
-                    self.presentationMode.wrappedValue.dismiss()
-                    if let id = event.eventId {
-                        unregisterEvent(id)
-                    }
-                }, label: {
-                    HStack {
-                        Text(NSLocalizedString("Unregister event", comment: ""))
-                            .font(.system(size: 17, weight: .semibold))
-                            .foregroundColor(.onPrimary)
-                    }
-                })
-                .buttonStyle(WideAnimatedButtonStyle(color: .red))
-                .padding(.top, 20)
+                if event.lastSignupDate.isValidSignupDate() {
+                    Button(action: {
+                        HapticsController.triggerHapticLight()
+                        self.presentationMode.wrappedValue.dismiss()
+                        if let id = event.eventId {
+                            unregisterEvent(id)
+                        }
+                    }, label: {
+                        HStack {
+                            Text(NSLocalizedString("Unregister event", comment: ""))
+                                .font(.system(size: 17, weight: .semibold))
+                                .foregroundColor(.onPrimary)
+                        }
+                    })
+                    .buttonStyle(WideAnimatedButtonStyle(color: .red))
+                    .padding(.horizontal, 15)
+                    .padding(.top, 20)
+                }
             }
         }
         .background(Color.background)

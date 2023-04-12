@@ -17,6 +17,7 @@ struct ProgrammeCardStyle: ButtonStyle {
             .background(Color.surface)
             .cornerRadius(10)
             .padding(.horizontal, 15)
+            .padding(.vertical, 10)
             .scaleEffect(configuration.isPressed ? 0.9 : 1)
             .animation(.easeOut(duration: 0.2), value: configuration.isPressed)
     }

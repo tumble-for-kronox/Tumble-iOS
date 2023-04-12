@@ -112,7 +112,7 @@ struct TodaysEventsCarousel: View {
     
     func getCardHeight(index: Int) -> CGFloat {
         let height: CGFloat = 160
-        let cardHeight = (index - swipedCards) <= 2 ? CGFloat(index - swipedCards) * 35 : 70
+        let cardHeight = (index - swipedCards) <= 3 ? CGFloat(index - swipedCards) * 35 : 30
         return height - cardHeight
     }
     
@@ -122,7 +122,7 @@ struct TodaysEventsCarousel: View {
     }
     
     func getCardOffset(index: Int) -> CGFloat {
-        return (index - swipedCards) <= 3 ? CGFloat(index - swipedCards) * 20 : 50
+        return (index - swipedCards) <= 3 ? CGFloat(index - swipedCards) * 10 : 0
     }
     
 }

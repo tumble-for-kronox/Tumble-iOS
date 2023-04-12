@@ -11,7 +11,6 @@ struct SchedulePreview: View {
     
     @ObservedObject var parentViewModel: SearchViewModel
     @Binding var courseColors: [String : String]?
-    let checkForNewSchedules: () -> Void
     
     var body: some View {
         VStack {
@@ -21,8 +20,7 @@ struct SchedulePreview: View {
                     SchedulePreviewList(
                         parentViewModel: parentViewModel,
                         courseColors: courseColors!,
-                        days: parentViewModel.scheduleListOfDays!,
-                        checkForNewSchedules: checkForNewSchedules)
+                        days: parentViewModel.scheduleListOfDays!)
                 } else {
                     CustomProgressIndicator()
                 }

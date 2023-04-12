@@ -17,19 +17,11 @@ struct TabBarButton: View {
         VStack(spacing: 0) {
             Image(systemName: isSelected() ? appTab.rawValue + ".fill" : appTab.rawValue)
                 .tabBarIcon(isSelected: isSelected())
-            if isSelected() {
-                RoundedRectangle(cornerSize: CGSize(width: 16, height: 8))
-                    .fill(Color.primary)
-                    .matchedGeometryEffect(id: "BOTTOMTAB", in: animation)
-                    .frame(width: 20, height: 4)
-            }
         }
         .frame(maxWidth: .infinity)
         .padding(.top, 10)
         .onTapGesture {
-            withAnimation(.spring()) {
-                selectedAppTab = appTab
-           }
+            selectedAppTab = appTab
         }
     }
    

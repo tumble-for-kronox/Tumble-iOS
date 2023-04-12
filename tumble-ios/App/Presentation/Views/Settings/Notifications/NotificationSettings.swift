@@ -30,7 +30,7 @@ struct NotificationSettings: View {
                 ListRowActionItem(
                     settingsDetails: SettingsDetails(
                         titleKey: NSLocalizedString("Are you sure you want to set notifications for all events?", comment: ""),
-                        name: "Set notifications for all events",
+                        name: NSLocalizedString("Set notifications for all events", comment: ""),
                         details: ""),
                     title: NSLocalizedString("Set notifications for all events", comment: ""),
                     image: "bell.badge",
@@ -41,7 +41,7 @@ struct NotificationSettings: View {
                 ListRowActionItem(
                     settingsDetails: SettingsDetails(
                         titleKey: NSLocalizedString("Are you sure you want to cancel all set notifications?", comment: ""),
-                        name: "Cancel notifications for all events",
+                        name: NSLocalizedString("Cancel notifications for all events", comment: ""),
                         details: ""),
                     title: NSLocalizedString("Cancel all notifications", comment: ""),
                     image: "bell.slash",

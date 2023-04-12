@@ -19,7 +19,7 @@ extension HomeViewModel {
             return dayOfYear == currentDayOfYear
         }
 
-        return filteredEvents
+        return filteredEvents.sorted().reversed()
     }
     
     func findNextUpcomingEvent() {

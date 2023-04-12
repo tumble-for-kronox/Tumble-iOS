@@ -59,16 +59,19 @@ struct BookmarkListView: View {
                         LazyVStack (alignment: .center) {
                             ForEach(days, id: \.id) { day in
                                 if !(day.events.isEmpty) {
-                                    Section(header: DayHeader(day: day), content: {
-                                        ForEach(day.events.sorted(), id: \.id) { event in
-                                            BookmarkCard(
-                                                onTapCard: onTapCard,
-                                                event: event,
-                                                isLast: event == day.events.last,
-                                                color: courseColors[event.course.id] != nil ?
-                                                courseColors[event.course.id]!.toColor() : .white)
-                                        }
-                                    })
+                                    VStack {
+                                        Section(header: DayHeader(day: day), content: {
+                                            ForEach(day.events.sorted(), id: \.id) { event in
+                                                BookmarkCard(
+                                                    onTapCard: onTapCard,
+                                                    event: event,
+                                                    isLast: event == day.events.last,
+                                                    color: courseColors[event.course.id] != nil ?
+                                                    courseColors[event.course.id]!.toColor() : .white)
+                                            }
+                                        })
+                                    }
+                                    .padding(.top, 25)
                                 }
                             }
                         }

@@ -17,7 +17,7 @@ struct CustomProgressIndicator: View {
     var body: some View {
         ProgressView()
             .progressViewStyle(CircularProgressViewStyle(tint: tint))
-            .scaleEffect(1.5, anchor: .center)
+            .scaleEffect(1, anchor: .center)
     }
 }
 

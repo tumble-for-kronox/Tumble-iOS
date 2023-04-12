@@ -24,6 +24,7 @@ struct Home: View {
             if viewModel.newsSectionStatus == .loaded {
                 News(news: viewModel.news?.pick(length: 4), showOverlay: $showOverlay)
             }
+            Spacer()
             VStack (alignment: .leading) {
                 switch viewModel.homeStatus {
                 case .noBookmarks:
@@ -44,6 +45,7 @@ struct Home: View {
                     HomeError()
                 }
             }
+            Spacer()
         }
         .padding(.horizontal, 30)
         .padding(.top, 10)

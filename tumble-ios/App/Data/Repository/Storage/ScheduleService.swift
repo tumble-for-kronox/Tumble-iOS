@@ -9,13 +9,6 @@ import Foundation
 
 class ScheduleService: ObservableObject, ScheduleServiceProtocol {
     
-    private let dateFormatter: ISO8601DateFormatter = {
-        let formatter = ISO8601DateFormatter()
-        formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
-        return formatter
-    }()
-
-    
     private func fileURL() throws -> URL {
             try FileManager.default.url(for: .documentDirectory,
                in: .userDomainMask,
@@ -43,26 +36,21 @@ class ScheduleService: ObservableObject, ScheduleServiceProtocol {
             } catch {
                 DispatchQueue.main.async {
                     completion(.failure(.internal(reason: "Could not decode schedules stored locally")))
-                    }
                 }
             }
+        }
     }
     
     func load(
         forCurrentWeek completion: @escaping ((Result<[Response.Event], Error>) -> Void),
         hiddenBookmarks: [String]
     ) {
-        let calendar = Calendar.current
-        let now = Date()
-        let currentWeekday = calendar.component(.weekday, from: now)
-        let daysUntilFriday = (6 - currentWeekday + 7) % 7
-        guard let weekStartDate = calendar.date(byAdding: .day, value: daysUntilFriday, to: now) else {
-            completion(.failure(.internal(reason: "Could not calculate week start date")))
-            AppLogger.shared.critical("Could not calculate week start date")
-            return
-        }
-        let weekEndDate = calendar.date(byAdding: .day, value: 7, to: weekStartDate)!
-        let weekDateRange = weekStartDate...weekEndDate
+        let now = Calendar.current.startOfDay(for: Date())
+        let timeZone = TimeZone.current
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = timeZone
+        let weekEndDate = calendar.date(byAdding: .day, value: 7, to: now)!
+        let weekDateRange = now...weekEndDate
         AppLogger.shared.debug("Date range: \(weekDateRange)", source: "ScheduleService")
         load(forWeeksInRange: weekDateRange, hiddenBookmarks: hiddenBookmarks) { result in
             switch result {
@@ -246,7 +234,7 @@ extension ScheduleService {
                         .filter { !hiddenBookmarks.contains($0.id) }
                         .flatMap { $0.days }
                         .filter {
-                            if let eventDate = self.dateFormatter.date(from: $0.isoString) {
+                            if let eventDate = isoDateFormatterFract.date(from: $0.isoString) {
                                 return range.contains(eventDate)
                             }
                             return false

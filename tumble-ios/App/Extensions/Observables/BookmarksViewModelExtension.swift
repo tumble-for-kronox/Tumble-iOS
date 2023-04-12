@@ -25,44 +25,55 @@ extension BookmarksViewModel {
 
     
     func updateSchedules(for bookmarks: [ScheduleStoreModel], completion: @escaping () -> Void) {
-        var updatedBookmarks = [Response.Schedule]()
         let group = DispatchGroup()
+        var updatedBookmarks = [Response.Schedule]()
+        var schedulesToBeUpdated = [ScheduleStoreModel]()
         
         for schedule in bookmarks {
             if needsUpdate(schedule: schedule) {
                 AppLogger.shared.debug("Schedule with id \(schedule.id) needs to be updated")
-                group.enter()
-                updateBookmarkedSchedule(for: schedule.id) { result in
-                    defer { group.leave() }
-                    switch result {
-                    case .success(let fetchedSchedule):
-                        updatedBookmarks.append(fetchedSchedule)
-                        AppLogger.shared.debug("Updated schedule with id -> \(fetchedSchedule.id)")
-                    case .failure(let failure):
-                        AppLogger.shared.debug("\(failure)")
-                    }
-                }
+                schedulesToBeUpdated.append(schedule)
             }
         }
-        group.notify(queue: .global(qos: .userInitiated)) {
-            let uniqueEvents = updatedBookmarks.removeDuplicateEvents().flatten()
-            if uniqueEvents.isEmpty {
-                AppLogger.shared.debug("No schedules needed to or could be be updated")
-                DispatchQueue.main.async { [weak self] in
-                    guard let self else { return }
-                    self.scheduleListOfDays = bookmarks.removeDuplicateEvents().flatten()
+        
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            guard let self else { return }
+            let results = schedulesToBeUpdated.map { schedule -> Result<Response.Schedule, Error> in
+                group.enter()
+                defer { group.leave() }
+                let semaphore = DispatchSemaphore(value: 0)
+                var result: Result<Response.Schedule, Error>?
+                
+                self.updateBookmarkedSchedule(for: schedule.id) { fetchResult in
+                    result = fetchResult
+                    semaphore.signal()
                 }
-            } else {
-                AppLogger.shared.debug("Amount of updated events: \(uniqueEvents.count)")
-                DispatchQueue.main.async { [weak self] in
-                    guard let self else { return }
-                    self.scheduleListOfDays = uniqueEvents
-                }
+                
+                semaphore.wait()
+                return result!
             }
             
-            completion()
+            updatedBookmarks = results.compactMap {
+                if case .success(let fetchedSchedule) = $0 {
+                    return fetchedSchedule
+                }
+                return nil
+            }
+            
+            group.notify(queue: DispatchQueue.main) {
+                let uniqueEvents = updatedBookmarks.removeDuplicateEvents().flatten()
+                if uniqueEvents.isEmpty {
+                    AppLogger.shared.debug("No schedules needed to or could be be updated")
+                    self.scheduleListOfDays = bookmarks.removeDuplicateEvents().flatten()
+                } else {
+                    AppLogger.shared.debug("Amount of updated events: \(uniqueEvents.count)")
+                    self.scheduleListOfDays = uniqueEvents
+                }
+                completion()
+            }
         }
     }
+
 
     // Updates a specific bookmarked schedule based on its lastUpdated attribute
     func updateBookmarkedSchedule(
@@ -135,13 +146,13 @@ extension BookmarksViewModel {
     func loadCourseColors(completion: @escaping ([String : String]) -> Void) -> Void {
         self.courseColorService.load { [weak self] result in
             guard let self = self else { return }
-
             switch result {
             case .success(let courseColors):
                 completion(courseColors)
             case .failure(let failure):
                 self.status = .error
                 AppLogger.shared.debug("Error occured loading colors -> \(failure.localizedDescription)")
+                return
             }
         }
     }

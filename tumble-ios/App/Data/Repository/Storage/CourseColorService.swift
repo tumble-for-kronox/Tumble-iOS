@@ -73,9 +73,9 @@ class CourseColorService: ObservableObject, CourseColorServiceProtocol {
             } catch {
                 DispatchQueue.main.async {
                     completion(.failure(.internal(reason: error.localizedDescription)))
-                    }
                 }
             }
+        }
     }
     
 
