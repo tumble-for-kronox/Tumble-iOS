@@ -29,8 +29,8 @@ struct SchedulePreview: View {
             case .loading:
                 CustomProgressIndicator()
             case .error:
-                if let error = parentViewModel.errorMessagePreview {
-                    Info(title: error, image: nil)
+                if let failure = parentViewModel.errorMessagePreview {
+                    Info(title: failure, image: nil)
                 } else {
                     Info(title: NSLocalizedString("Something went wrong", comment: ""), image: nil)
                 }

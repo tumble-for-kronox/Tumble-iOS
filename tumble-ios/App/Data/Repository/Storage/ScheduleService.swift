@@ -66,8 +66,8 @@ class ScheduleService: ObservableObject, ScheduleServiceProtocol {
         AppLogger.shared.debug("Date range: \(weekDateRange)", source: "ScheduleService")
         load(forWeeksInRange: weekDateRange, hiddenBookmarks: hiddenBookmarks) { result in
             switch result {
-            case .failure(let error):
-                completion(.failure(error))
+            case .failure(let failure):
+                completion(.failure(failure))
             case .success(let events):
                 completion(.success(events))
             }
@@ -112,10 +112,10 @@ class ScheduleService: ObservableObject, ScheduleServiceProtocol {
                 let encoder = JSONEncoder()
                 self.load(completion: { (result: Result<[ScheduleStoreModel], Error>) in
                     switch result {
-                    case .failure(let error):
+                    case .failure(let failure):
                         DispatchQueue.main.async {
                             AppLogger.shared.critical("Failed to save \(schedule.id)")
-                            completion(.failure(error))
+                            completion(.failure(failure))
                         }
                     case .success(let schedules):
                         do {

@@ -59,15 +59,15 @@ extension AccountViewModel {
                                     AppLogger.shared.debug("Failed registrations: \(String(describing: eventRegistrations.failedRegistrations?.count))")
                                     completion(.success(()))
                                 }
-                            case .failure(let error):
-                                AppLogger.shared.critical("Failed to automatically sign up for exams: \(error)")
-                                completion(.failure(.generic(reason: "\(error)")))
+                            case .failure(let failure):
+                                AppLogger.shared.critical("Failed to automatically sign up for exams: \(failure)")
+                                completion(.failure(.generic(reason: "\(failure)")))
                             }
                         }
                     })
-                case .failure(let error):
+                case .failure(let failure):
                     AppLogger.shared.critical("Could not log in to register for available events")
-                    completion(.failure(.generic(reason: "\(error)")))
+                    completion(.failure(.generic(reason: "\(failure)")))
                 }
             })
     }

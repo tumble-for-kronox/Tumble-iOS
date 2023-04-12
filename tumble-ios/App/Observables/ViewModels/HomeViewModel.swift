@@ -88,8 +88,8 @@ import SwiftUI
         scheduleService.load(forCurrentWeek: { [weak self] result in
             guard let self = self else { return }
             switch result {
-            case .failure(let error):
-                AppLogger.shared.critical("Failed to load schedules for the week: \(error.localizedDescription)", source: "HomePageViewModel")
+            case .failure(let failure):
+                AppLogger.shared.critical("Failed to load schedules for the week: \(failure.localizedDescription)", source: "HomePageViewModel")
                 self.todayEventsSectionStatus = .error
                 self.nextEventSectionStatus = .error
                 self.homeStatus = .error
@@ -108,7 +108,6 @@ import SwiftUI
                     self.homeStatus = .notAvailable
                     return
                 }
-                print(events)
                 self.createDayCards(events:
                     self.filterEventsMatchingToday(events: events)
                 )

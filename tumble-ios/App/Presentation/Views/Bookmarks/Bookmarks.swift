@@ -16,22 +16,7 @@ struct Bookmarks: View {
     var body: some View {
         VStack (alignment: .center) {
             VStack {
-                Picker("ViewType", selection: $viewModel.defaultViewType) {
-                    ForEach(viewModel.scheduleViewTypes, id: \.self) {
-                        Text(NSLocalizedString($0.displayName, comment: ""))
-                            .foregroundColor(.onSurface)
-                            .font(.caption)
-                    }
-                }
-                .onChange(of: viewModel.defaultViewType) { defaultViewType in
-                    viewModel.onChangeViewType(viewType: defaultViewType)
-                }
-                .padding(.leading, 10)
-                .padding(.trailing, 10)
-                .padding(.top, 10)
-                .pickerStyle(SegmentedPickerStyle())
-                .foregroundColor(.primary)
-                
+                ViewSwitcher(parentViewModel: viewModel)
                 switch viewModel.status {
                 case .loading:
                     Spacer()
@@ -82,6 +67,7 @@ struct Bookmarks: View {
                 updateCourseColors: updateCourseColors)
         }
     }
+    
     
     func updateCourseColors() -> Void {
         self.parentViewModel.delegateUpdateColorsBookmarks()

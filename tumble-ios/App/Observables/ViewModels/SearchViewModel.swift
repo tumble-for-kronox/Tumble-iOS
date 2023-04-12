@@ -109,8 +109,8 @@ import SwiftUI
                 switch result {
                 case .success(let result):
                     self.parseSearchResults(result)
-                case .failure(let error):
-                    switch error.statusCode {
+                case .failure(let failure):
+                    switch failure.statusCode {
                     case 204:
                         self.errorMessageSearch = NSLocalizedString("There are no schedules that match your search", comment: "")
                         self.status = SearchStatus.error
@@ -118,7 +118,7 @@ import SwiftUI
                         self.errorMessageSearch = NSLocalizedString("Something went wrong", comment: "")
                         self.status = SearchStatus.error
                     }
-                    AppLogger.shared.debug("Encountered error when trying to search for programme \(searchQuery): \(error)")
+                    AppLogger.shared.debug("Encountered error when trying to search for programme \(searchQuery): \(failure)")
                 }
         }
     }

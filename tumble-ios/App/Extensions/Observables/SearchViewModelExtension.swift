@@ -82,11 +82,11 @@ extension SearchViewModel {
                         self.handleFetchedSchedule(schedule: result) {
                             completion(true)
                         }
-                    case .failure(let error):
+                    case .failure(let failure):
                         completion(false)
                         self.schedulePreviewStatus = .error
-                        self.errorMessagePreview = error.message.contains("NSURLErrorDomain") ? "Could not contact the server, try again later" : error.message
-                        AppLogger.shared.debug("Encountered error when attempting to load schedule for programme \(programmeId): \(error)")
+                        self.errorMessagePreview = failure.message.contains("NSURLErrorDomain") ? "Could not contact the server, try again later" : failure.message
+                        AppLogger.shared.debug("Encountered failure when attempting to load schedule for programme \(programmeId): \(failure)")
                     }
         }
     }
@@ -122,9 +122,9 @@ extension SearchViewModel {
                 self.saveCourseColors(courseColors: courseColors)
                 self.schedulePreviewIsSaved = true
                 completion(.success(()))
-            case .failure(let error):
-                AppLogger.shared.debug("Fatal error \(error)")
-                completion(.failure(error))
+            case .failure(let failure):
+                AppLogger.shared.debug("Fatal failure \(failure)")
+                completion(.failure(failure))
             }
         }
     }
@@ -148,10 +148,10 @@ extension SearchViewModel {
                 }
                 self.removeCourseColors(completion: completion)
                 return
-            case .failure(let error):
-                AppLogger.shared.debug("Fatal error \(error)")
+            case .failure(let failure):
+                AppLogger.shared.debug("Fatal failure \(failure)")
                 DispatchQueue.main.async {
-                    completion(.failure(error))
+                    completion(.failure(failure))
                 }
             }
         }
@@ -159,10 +159,10 @@ extension SearchViewModel {
 
     func removeCourseColors(completion: @escaping (Result<Void, Error>) -> Void) -> Void {
         courseColorService.remove(removeCourses: (self.scheduleForPreview!.courses())) { result in
-            if case .failure(let error) = result {
-                AppLogger.shared.debug("Fatal error \(error)")
+            if case .failure(let failure) = result {
+                AppLogger.shared.debug("Fatal failure \(failure)")
                 DispatchQueue.main.async {
-                    completion(.failure(.generic(reason: error.localizedDescription)))
+                    completion(.failure(.generic(reason: failure.localizedDescription)))
                 }
                 return
             } else {
@@ -204,8 +204,8 @@ extension SearchViewModel {
     
     func saveCourseColors(courseColors: [String : String]) -> Void {
         self.courseColorService.save(coursesAndColors: courseColors) { courseResult in
-            if case .failure(let error) = courseResult {
-                fatalError(error.localizedDescription)
+            if case .failure(let failure) = courseResult {
+                fatalError(failure.localizedDescription)
             } else {
                 AppLogger.shared.debug("Successfully saved course colors")
             }

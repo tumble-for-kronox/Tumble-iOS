@@ -57,8 +57,8 @@ import Foundation
                             }
                         }
                     })
-                case .failure(let error):
-                    AppLogger.shared.critical("Failed to get events: \(error)")
+                case .failure(let failure):
+                    AppLogger.shared.critical("Failed to get events: \(failure)")
                     DispatchQueue.main.async {
                         self.eventBookingPageState = .error
                     }
@@ -85,14 +85,14 @@ import Foundation
                             switch result {
                             case .success:
                                 completion(.success(()))
-                            case .failure(let error):
-                                completion(.failure(.internal(reason: "\(error)")))
+                            case .failure(let failure):
+                                completion(.failure(.internal(reason: "\(failure)")))
                             }
                         }
                     })
-                case .failure(let error):
+                case .failure(let failure):
                     DispatchQueue.main.async {
-                        completion(.failure(.internal(reason: "\(error)")))
+                        completion(.failure(.internal(reason: "\(failure)")))
                     }
                 }
             })
@@ -117,14 +117,14 @@ import Foundation
                             switch result {
                             case .success(_):
                                 completion(.success(()))
-                            case .failure(let error):
-                                completion(.failure(.internal(reason: "\(error)")))
+                            case .failure(let failure):
+                                completion(.failure(.internal(reason: "\(failure)")))
                             }
                         }
                     })
-                case .failure(let error):
+                case .failure(let failure):
                     DispatchQueue.main.async {
-                        completion(.failure(.internal(reason: "\(error)")))
+                        completion(.failure(.internal(reason: "\(failure)")))
                     }
                 }
             })
@@ -147,11 +147,11 @@ import Foundation
                                 self.allResources = resources
                                 self.resourceBookingPageState = .loaded
                             }
-                        case .failure(let error):
-                            AppLogger.shared.debug("\(error)")
+                        case .failure(let failure):
+                            AppLogger.shared.debug("\(failure)")
                             DispatchQueue.main.async {
                                 self.resourceBookingPageState = .error
-                                self.error = error
+                                self.error = failure
                             }
                         }
                     })
@@ -192,18 +192,18 @@ import Foundation
                         case .success:
                             AppLogger.shared.debug("Confirmed resource \(resourceId)")
                             completion(.success(()))
-                        case .failure(let error):
-                            if error.statusCode == 202 {
+                        case .failure(let failure):
+                            if failure.statusCode == 202 {
                                 completion(.success(()))
                             } else {
-                                AppLogger.shared.critical("Failed to confirm resource: \(error)")
-                                completion(.failure(.internal(reason: "\(error)")))
+                                AppLogger.shared.critical("Failed to confirm resource: \(failure)")
+                                completion(.failure(.internal(reason: "\(failure)")))
                             }
                         }
                     }
-                case .failure(let error):
-                    AppLogger.shared.critical("\(error)")
-                    completion(.failure(.internal(reason: "\(error)")))
+                case .failure(let failure):
+                    AppLogger.shared.critical("\(failure)")
+                    completion(.failure(.internal(reason: "\(failure)")))
                 }
             }
         )
@@ -239,18 +239,18 @@ import Foundation
                         case .success:
                             AppLogger.shared.debug("Booked resource \(resourceId)")
                             completion(.success(()))
-                        case .failure(let error):
-                            if error.statusCode == 202 {
+                        case .failure(let failure):
+                            if failure.statusCode == 202 {
                                 completion(.success(()))
                             } else {
-                                AppLogger.shared.critical("Failed to book resource: \(error)")
-                                completion(.failure(.internal(reason: "\(error)")))
+                                AppLogger.shared.critical("Failed to book resource: \(failure)")
+                                completion(.failure(.internal(reason: "\(failure)")))
                             }
                         }
                     }
-                case .failure(let error):
-                    AppLogger.shared.critical("\(error)")
-                    completion(.failure(.internal(reason: "\(error)")))
+                case .failure(let failure):
+                    AppLogger.shared.critical("\(failure)")
+                    completion(.failure(.internal(reason: "\(failure)")))
                 }
             }
         )
@@ -271,14 +271,14 @@ import Foundation
                             AppLogger.shared.debug("Unbooked resource")
                             self.notificationManager.cancelNotification(for: bookingId)
                             completion(.success(()))
-                        case .failure(let error):
+                        case .failure(let failure):
                             AppLogger.shared.critical("Failed to unbook resource: \(bookingId)")
-                            completion(.failure(.internal(reason: "\(error)")))
+                            completion(.failure(.internal(reason: "\(failure)")))
                         }
                     }
-                case .failure(let error):
-                    AppLogger.shared.critical("\(error)")
-                    completion(.failure(.internal(reason: "\(error)")))
+                case .failure(let failure):
+                    AppLogger.shared.critical("\(failure)")
+                    completion(.failure(.internal(reason: "\(failure)")))
                 }
             })
     }

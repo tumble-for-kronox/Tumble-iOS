@@ -24,7 +24,7 @@ struct ToTopButton: View {
                 .padding(15)
                 .background(Color.primary)
                 .clipShape(Rectangle())
-                .cornerRadius(20)
+                .cornerRadius(40)
         })
         .buttonStyle(ToTopButtonStyle())
         .padding()

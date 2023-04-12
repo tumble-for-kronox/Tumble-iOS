@@ -165,7 +165,7 @@ extension Text {
     }
     
     func dayHeader() -> some View {
-        self.font(.system(size: 24))
+        self.font(.system(size: 20, weight: .semibold))
             .padding(.trailing, 10)
     }
 

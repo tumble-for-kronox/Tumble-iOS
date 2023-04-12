@@ -43,10 +43,9 @@ extension View {
     }
     
     func searchBox() -> some View {
-        self.padding(15)
+        self.padding(10)
         .background(Color.gray.opacity(0.3))
         .cornerRadius(10)
-        .padding(.bottom, 15)
         .padding(.top, 15)
         .padding(.horizontal, 15)
     }

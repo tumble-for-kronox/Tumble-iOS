@@ -116,8 +116,8 @@ class KronoxManager: KronoxManagerProtocol {
                     DispatchQueue.main.async {
                         completion(.success(result))
                     }
-                } catch let error {
-                    AppLogger.shared.critical("Failed to decode response to object \(NetworkResponse.self). Attempting to parse as empty object since status was 200. Error: \(error)",
+                } catch (let failure) { 
+                    AppLogger.shared.critical("Failed to decode response to object \(NetworkResponse.self). Attempting to parse as empty object since status was 200. Error: \(failure)",
                                               source: "NetworkManager")
                     if let result = Response.Empty() as? NetworkResponse {
                         DispatchQueue.main.async {

@@ -9,10 +9,15 @@ import SwiftUI
 
 struct SearchButton: View {
     
-    let search: () -> Void
+    let search: (() -> Void)?
     
     var body: some View {
-        Button(action: search, label: {
+        Button(action: {
+            if let search = search {
+                search()
+            }
+            hideKeyboard()
+        }, label: {
             Image(systemName: "magnifyingglass")
                 .foregroundColor(.gray)
                 .font(.system(size: 17, weight: .semibold))

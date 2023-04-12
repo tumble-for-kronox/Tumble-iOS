@@ -34,9 +34,9 @@ class NotificationManager: NotificationManagerProtocol {
                 
                 AppLogger.shared.debug("Successfully set notification with id -> \(notification.id)")
                 completion(.success(1))
-            case .failure(let error):
+            case .failure(let failure):
                 AppLogger.shared.critical("Could not set notification. Not allowed")
-                completion(.failure(error))
+                completion(.failure(failure))
             }
         }
     }

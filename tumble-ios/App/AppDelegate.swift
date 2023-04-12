@@ -92,19 +92,18 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
     withCompletionHandler completionHandler: @escaping () -> Void) {
         
         let userInfo = response.notification.request.content.userInfo
-
-        if let userInfo = userInfo[NotificationContentKey.event.rawValue] as? [String : Any] {
-            if let event = userInfo.toEvent() {
+        
+        if let userInfoAsDict = userInfo[NotificationContentKey.event.rawValue] as? [String : Any] {
+            if let event = userInfoAsDict.toEvent(), let hexColor = (userInfo[NotificationContentKey.color.rawValue] as? String) {
                 // Message successully parsed as Event, which means it was a local notification
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     AppController.shared.selectedAppTab = .bookmarks
                     AppController.shared.eventSheet = EventDetailsSheetModel(
                         event: event,
-                        color: (userInfo[NotificationContentKey.color.rawValue] as! String).toColor())
+                        color: hexColor.toColor())
                 }
             }
         }
-        
         
         if let messageID = userInfo[gcmMessageIDKey] {
             AppLogger.shared.debug("Message ID from userNotificationCenter didReceive: \(messageID)")

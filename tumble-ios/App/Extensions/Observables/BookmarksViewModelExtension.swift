@@ -18,7 +18,7 @@ extension BookmarksViewModel {
             to: currentDate)
         if let hours = difference.hour {
             AppLogger.shared.debug("Time in hours since last update for schedule with id \(schedule.id) -> \(hours)")
-            return hours >= 6
+            return hours >= 3
         }
         return true
     }
@@ -38,8 +38,8 @@ extension BookmarksViewModel {
                     case .success(let fetchedSchedule):
                         updatedBookmarks.append(fetchedSchedule)
                         AppLogger.shared.debug("Updated schedule with id -> \(fetchedSchedule.id)")
-                    case .failure(let error):
-                        AppLogger.shared.debug("\(error)")
+                    case .failure(let failure):
+                        AppLogger.shared.debug("\(failure)")
                     }
                 }
             }
@@ -80,9 +80,9 @@ extension BookmarksViewModel {
                         completion(.success(schedule))
                     }
                 }
-            case .failure(let error):
-                AppLogger.shared.debug("\(error)")
-                completion(.failure(.generic(reason: "\(error)")))
+            case .failure(let failure):
+                AppLogger.shared.debug("\(failure)")
+                completion(.failure(.generic(reason: "\(failure)")))
             }
         }
     }
@@ -108,9 +108,9 @@ extension BookmarksViewModel {
     
     func saveCourseColors(courseColors: [String : String]) -> Void {
         self.courseColorService.save(coursesAndColors: courseColors) { courseResult in
-            if case .failure(let error) = courseResult {
+            if case .failure(let failure) = courseResult {
                 self.status = .error
-                fatalError(error.localizedDescription)
+                fatalError(failure.localizedDescription)
             } else {
                 AppLogger.shared.debug("Successfully saved course colors")
             }
@@ -121,9 +121,9 @@ extension BookmarksViewModel {
     func saveSchedule(schedule: Response.Schedule, completion: @escaping () -> Void) {
         self.scheduleService.save(schedule: schedule) { scheduleResult in
             DispatchQueue.main.async {
-                if case .failure(let error) = scheduleResult {
+                if case .failure(let failure) = scheduleResult {
                     self.status = .error
-                    fatalError(error.localizedDescription)
+                    fatalError(failure.localizedDescription)
                 } else {
                     completion()
                 }
@@ -155,8 +155,8 @@ extension BookmarksViewModel {
                 scheduleId: scheduleId,
                 schoolId: String(preferenceService.getDefaultSchool()!))) { (result: Result<Response.Schedule, Response.ErrorMessage>) in
             switch result {
-            case .failure(let error):
-                AppLogger.shared.debug("Encountered error when attempting to update schedule -> \(scheduleId): \(error)")
+            case .failure(let failure):
+                AppLogger.shared.debug("Encountered failure when attempting to update schedule -> \(scheduleId): \(failure)")
                 completion(.failure(.generic(reason: "Network request timed out")))
             case .success(let schedule):
                 completion(.success(schedule))
