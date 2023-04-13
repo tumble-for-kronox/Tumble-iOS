@@ -28,24 +28,12 @@ struct NewsSheet: View {
             VStack {
                 DraggingPill()
                 SheetTitle(title: NSLocalizedString("News", comment: ""))
-                HStack {
-                    SearchButton(search: {})
-                    TextField(
-                        NSLocalizedString("Search news", comment: ""),
-                        text: $searchText,
-                        onEditingChanged: onEditingChanged
-                    )
-                    .searchBoxText()
-                    CloseButton(
-                        onClearSearch: onClearSearch,
-                        animateCloseButtonOutOfView: animateCloseButtonOutOfView,
-                        closeButtonOffset: $closeButtonOffset,
-                        searchBarText: $searchText)
-                }
-                .searchBox()
-                .onSubmit {
-                    hideKeyboard()
-                }
+                SearchField(
+                    search: nil,
+                    title: "Search news",
+                    searchBarText: $searchText,
+                    searching: $searching
+                )
                 if !searching {
                     ScrollView (showsIndicators: false) {
                         RecentNews(news: news)
@@ -67,45 +55,5 @@ struct NewsSheet: View {
         }
     }
     
-    func onEditingChanged(value: Bool) -> Void {
-        if searchText.isEmpty {
-            withAnimation(.easeOut) {
-                searching = value
-                animateCloseButtonIntoView()
-            }
-        } else {
-            hideKeyboard()
-        }
-    }
-    
-    fileprivate func animateCloseButtonOutOfView() -> Void {
-        withAnimation(.spring().delay(0.5)) {
-            closeButtonOffset += 300
-        }
-    }
-    
-    fileprivate func animateCloseButtonIntoView() -> Void {
-        if self.closeButtonOffset == 300.0 {
-            withAnimation(.spring().delay(0.5)) {
-                closeButtonOffset -= 300
-            }
-        }
-    }
-    
-    func onClearSearch(endEditing: Bool) -> Void {
-        if searching {
-            if searchText.isEmpty {
-                withAnimation(.easeInOut) {
-                    searching = false
-                }
-            } else {
-                searchText = ""
-            }
-        } else {
-            withAnimation(.easeInOut) {
-                searching = false
-            }
-        }
-    }
     
 }

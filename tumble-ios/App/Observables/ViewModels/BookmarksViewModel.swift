@@ -106,5 +106,6 @@ import SwiftUI
     func onChangeViewType(viewType: BookmarksViewType) -> Void {
         let viewTypeIndex: Int = scheduleViewTypes.firstIndex(of: viewType)!
         preferenceService.setViewType(viewType: viewTypeIndex)
+        self.defaultViewType = viewType
     }
 }

@@ -214,14 +214,14 @@ import Foundation
                             switch result {
                             case .success(_):
                                 completion(.success(()))
-                            case .failure(let error):
-                                completion(.failure(.internal(reason: "\(error)")))
+                            case .failure(let failure):
+                                completion(.failure(.internal(reason: "\(failure)")))
                             }
                         }
                     })
-                case .failure(let error):
+                case .failure(let failure):
                     DispatchQueue.main.async {
-                        completion(.failure(.internal(reason: "\(error)")))
+                        completion(.failure(.internal(reason: "\(failure)")))
                     }
                 }
             })

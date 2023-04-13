@@ -26,8 +26,7 @@ struct Root: View {
                 }
             }
         }
-        .colorScheme(getThemeColorScheme())
-        .preferredColorScheme(getThemeColorScheme())
+        .preferredColorScheme(getThemeColorScheme(appearance: appearance))
         .edgesIgnoringSafeArea(.all)
         .ignoresSafeArea(.keyboard)
     }
@@ -36,19 +35,5 @@ struct Root: View {
         self.viewModel.delegateToAppParent()
     }
     
-    private func getThemeColorScheme() -> ColorScheme {
-        switch appearance {
-        case AppearanceTypes.dark.rawValue:
-            return .dark
-        case AppearanceTypes.light.rawValue:
-            return .light
-        default:
-            if UITraitCollection.current.userInterfaceStyle == .dark {
-                return .dark
-            } else {
-                return .light
-            }
-        }
-    }
 }
 

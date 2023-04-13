@@ -25,6 +25,7 @@ struct DayHeader: View {
             Spacer()
         }
         .padding(.leading, 10)
+        .padding(.bottom, 7.5)
     }
     
     fileprivate func localizedKey(for inputString: String) -> String {

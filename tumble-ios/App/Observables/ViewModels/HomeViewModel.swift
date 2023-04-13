@@ -8,20 +8,6 @@
 import Foundation
 import SwiftUI
 
-struct WeekEventCardModel: Identifiable {
-    var id: UUID = UUID()
-    var offset: CGFloat = 0
-    var event: Response.Event
-}
-
-enum HomeStatus {
-    case available
-    case notAvailable
-    case noBookmarks
-    case loading
-    case error
-}
-
 @MainActor final class HomeViewModel: ObservableObject {
     
     @Inject var preferenceService: PreferenceService
@@ -102,8 +88,8 @@ enum HomeStatus {
         scheduleService.load(forCurrentWeek: { [weak self] result in
             guard let self = self else { return }
             switch result {
-            case .failure(let error):
-                AppLogger.shared.critical("Failed to load schedules for the week: \(error.localizedDescription)", source: "HomePageViewModel")
+            case .failure(let failure):
+                AppLogger.shared.critical("Failed to load schedules for the week: \(failure.localizedDescription)", source: "HomePageViewModel")
                 self.todayEventsSectionStatus = .error
                 self.nextEventSectionStatus = .error
                 self.homeStatus = .error
@@ -125,7 +111,7 @@ enum HomeStatus {
                 self.createDayCards(events:
                     self.filterEventsMatchingToday(events: events)
                 )
-                self.nextClass = self.findNextUpcomingEvent(events: events)
+                self.findNextUpcomingEvent()
                 self.loadCourseColors { courseColors in
                     self.courseColors = courseColors
                     self.todayEventsSectionStatus = .loaded
@@ -142,4 +128,5 @@ enum HomeStatus {
         }
         self.eventsForToday = weekEventCards.reversed()
     }
+    
 }

@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-struct ExternalLinkPillStyle: ButtonStyle {
+struct PillStyle: ButtonStyle {
     
     let color: Color
     
@@ -18,8 +18,8 @@ struct ExternalLinkPillStyle: ButtonStyle {
     
     func makeBody(configuration: Self.Configuration) -> some View {
         configuration.label
-            .padding(.all, 10)
-            .background(color.opacity(0.7))
+            .padding(10)
+            .background(color)
             .cornerRadius(20)
             .scaleEffect(configuration.isPressed ? 0.9 : 1)
             .animation(.easeOut(duration: 0.2), value: configuration.isPressed)

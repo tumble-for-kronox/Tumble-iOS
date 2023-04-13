@@ -12,9 +12,9 @@ extension ParentViewModel {
     func removeAllCourseColors(completion: @escaping () -> Void) -> Void {
         self.courseColorService.removeAll { result in
             switch result {
-            case .failure(let error):
+            case .failure(let failure):
                 // TODO: Add error message for user
-                AppLogger.shared.critical("Could not remove course colors: \(error)")
+                AppLogger.shared.critical("Could not remove course colors: \(failure)")
             case .success:
                 // TODO: Add success message for user
                 AppLogger.shared.debug("Removed all course colors from local storage")
@@ -27,9 +27,9 @@ extension ParentViewModel {
     func removeAllSchedules(completion: @escaping () -> Void) -> Void {
         scheduleService.removeAll { result in
             switch result {
-            case .failure(let error):
+            case .failure(let failure):
                 // TODO: Add error message for user
-                AppLogger.shared.critical("Could not remove schedules: \(error)")
+                AppLogger.shared.critical("Could not remove schedules: \(failure)")
             case .success:
                 // TODO: Add success message for user
                 AppLogger.shared.debug("Removed all schedules from local storage")

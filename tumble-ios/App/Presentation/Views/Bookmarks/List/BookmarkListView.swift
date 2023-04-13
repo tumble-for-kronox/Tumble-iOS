@@ -20,45 +20,96 @@ struct BookmarkListView: View {
     let courseColors: CourseAndColorDict
     @ObservedObject var appController: AppController
     @State private var bookmarksListModel: BookmarksListModel = BookmarksListModel()
+    @State private var searching: Bool = false
+    @State private var searchText: String = ""
+    @State private var showSearchField: Bool = true
+    
+    var scrollSpace: String = "bookmarksRefreshable"
+    
+    var filteredEvents: [Response.Event] {
+        if searchText.isEmpty {
+            return []
+        } else {
+            var events: [Response.Event] = []
+            for day in days {
+                let filteredDayEvents = day.events.filter { event in
+                    let titleMatches = event.title.localizedCaseInsensitiveContains(searchText)
+                    let courseNameMatches = event.course.englishName.localizedCaseInsensitiveContains(searchText)
+                    return titleMatches || courseNameMatches
+                }
+                events.append(contentsOf: filteredDayEvents)
+            }
+            return events
+        }
+    }
     
     var body: some View {
-        ScrollViewReader { value in
-            ScrollView(.vertical, showsIndicators: false) {
-                LazyVStack (alignment: .center) {
-                    Rectangle().foregroundColor(.clear).frame(height: 1.0)
-                    ForEach(days, id: \.id) { day in
-                        if !(day.events.isEmpty) {
-                            Section(header: DayHeader(day: day), content: {
-                                ForEach(day.events.sorted(), id: \.id) { event in
-                                    BookmarkCard(
-                                        onTapCard: onTapCard,
-                                        event: event,
-                                        isLast: event == day.events.last,
-                                        color: courseColors[event.course.id] != nil ?
-                                        courseColors[event.course.id]!.toColor() : .white)
-                                }
-                            })
-                            .padding(.top)
-                        }
-                    }
-                }
-                .padding(7.5)
-                .overlay(
-                    GeometryReader { proxy -> Color in
-                        DispatchQueue.main.async {
-                            handleScrollOffset(value: proxy.frame(in: .global).minY)
-                            handleButtonAnimation()
-                        }
-                        return Color.clear
-                    }
+        VStack {
+            if showSearchField {
+                SearchField(
+                    search: nil,
+                    title: "Search events",
+                    searchBarText: $searchText,
+                    searching: $searching
                 )
-                .id("bookmarkScrollView")
             }
-            .overlay(
-                ToTopButton(buttonOffsetX: bookmarksListModel.buttonOffsetX, value: value)
-                ,alignment: .bottomTrailing
-            )
+            if !searching {
+                ScrollViewReader { value in
+                    ScrollView(.vertical, showsIndicators: false) {
+                        LazyVStack (alignment: .center) {
+                            ForEach(days, id: \.id) { day in
+                                if !(day.events.isEmpty) {
+                                    VStack {
+                                        Section(header: DayHeader(day: day), content: {
+                                            ForEach(day.events.sorted(), id: \.id) { event in
+                                                BookmarkCard(
+                                                    onTapCard: onTapCard,
+                                                    event: event,
+                                                    isLast: event == day.events.last,
+                                                    color: courseColors[event.course.id] != nil ?
+                                                    courseColors[event.course.id]!.toColor() : .white)
+                                            }
+                                        })
+                                    }
+                                    .padding(.top, 25)
+                                }
+                            }
+                        }
+                        .padding(7.5)
+                        .overlay(
+                            GeometryReader { proxy -> Color in
+                                DispatchQueue.main.async {
+                                    handleScrollOffset(value: proxy.frame(in: .global).minY)
+                                    handleButtonAnimation()
+                                    handleSearchFieldVisibility()
+                                }
+                                return Color.clear
+                            }
+                        )
+                        .id("bookmarkScrollView")
+                    }
+                    .overlay(
+                        ToTopButton(buttonOffsetX: bookmarksListModel.buttonOffsetX, value: value)
+                        ,alignment: .bottomTrailing
+                    )
+                }
+            } else {
+                ScrollView(.vertical, showsIndicators: false) {
+                    LazyVStack (alignment: .center) {
+                        ForEach(filteredEvents, id: \.id) { event in
+                            BookmarkCard(
+                                onTapCard: onTapCard,
+                                event: event,
+                                isLast: true,
+                                color: courseColors[event.course.id] != nil ?
+                                courseColors[event.course.id]!.toColor() : .white)
+                        }
+                    }
+                    .padding(7.5)
+                }
+            }
         }
+        .ignoresSafeArea(.keyboard)
     }
     
     fileprivate func onTapCard(event: Response.Event, color: Color) -> Void {
@@ -77,12 +128,23 @@ struct BookmarkListView: View {
         }
     }
     
+    fileprivate func handleSearchFieldVisibility() -> Void {
+        if -bookmarksListModel.scrollViewOffset > 100 && !searching {
+            withAnimation(.easeInOut) {
+                showSearchField = false
+            }
+        } else if -bookmarksListModel.scrollViewOffset < 100 && !searching {
+            withAnimation(.easeInOut) {
+                showSearchField = true
+            }
+        }
+    }
+    
     fileprivate func handleScrollOffset(value: CGFloat) -> Void {
         if bookmarksListModel.startOffset == 0 {
             bookmarksListModel.startOffset = value
         }
         let offset = value
-        
         bookmarksListModel.scrollViewOffset = offset - bookmarksListModel.startOffset
     }
 }

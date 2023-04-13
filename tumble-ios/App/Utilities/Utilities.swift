@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import SwiftUI
 
 func navigationBarFont() -> UIFont {
     var titleFont = UIFont.preferredFont(forTextStyle: .headline) 
@@ -32,5 +33,17 @@ func getCurrentDate(truncate: Bool = false) -> String {
     return dateString
 }
 
-
-
+func getThemeColorScheme(appearance: String) -> ColorScheme {
+    switch appearance {
+    case AppearanceTypes.dark.rawValue:
+        return .dark
+    case AppearanceTypes.light.rawValue:
+        return .light
+    default:
+        if UITraitCollection.current.userInterfaceStyle == .dark {
+            return .dark
+        } else {
+            return .light
+        }
+    }
+}

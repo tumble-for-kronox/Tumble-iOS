@@ -23,6 +23,6 @@ struct BookmarkCard: View {
             VerboseEventButtonLabel(event: event, color: color)
         })
         .buttonStyle(VerboseButtonStyle())
-        .padding(.bottom, isLast ? 20 : 5)
+        .padding(.bottom, 10)
     }
 }

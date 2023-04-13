@@ -27,9 +27,9 @@ class CourseColorService: ObservableObject, CourseColorServiceProtocol {
                 let encoder = JSONEncoder()
                 self.load { result in
                     switch result {
-                    case .failure(let error):
+                    case .failure(let failure):
                         DispatchQueue.main.async {
-                            completion(.failure(error))
+                            completion(.failure(failure))
                         }
                     case .success(let courses):
                         do {
@@ -73,9 +73,9 @@ class CourseColorService: ObservableObject, CourseColorServiceProtocol {
             } catch {
                 DispatchQueue.main.async {
                     completion(.failure(.internal(reason: error.localizedDescription)))
-                    }
                 }
             }
+        }
     }
     
 
@@ -86,9 +86,9 @@ class CourseColorService: ObservableObject, CourseColorServiceProtocol {
                 let encoder = JSONEncoder()
                 self.load { result in
                     switch result {
-                    case .failure(let error):
+                    case .failure(let failure):
                         DispatchQueue.main.async {
-                            completion(.failure(error))
+                            completion(.failure(failure))
                         }
                     case .success(let courses):
                         do {

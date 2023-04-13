@@ -56,6 +56,7 @@ struct ResourceDetailSheet: View {
                         }
                     })
                     .buttonStyle(WideAnimatedButtonStyle())
+                    .padding(.horizontal, 15)
                     .padding(.top, 20)
                 }
                 if resource.showUnbookButton {
@@ -71,6 +72,7 @@ struct ResourceDetailSheet: View {
                         }
                     })
                     .buttonStyle(WideAnimatedButtonStyle(color: .red))
+                    .padding(.horizontal, 15)
                     .padding(.top, 20)
                 }
             }

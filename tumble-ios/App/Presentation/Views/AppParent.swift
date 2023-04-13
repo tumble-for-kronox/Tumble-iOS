@@ -66,6 +66,8 @@ struct AppParent: View {
                         removeSchedule: removeSchedule)
                 })
             }
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationTitle(NSLocalizedString(appController.selectedAppTab.displayName, comment: ""))
         }
         .tint(.primary)
         .overlay(
