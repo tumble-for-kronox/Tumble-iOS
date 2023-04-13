@@ -12,6 +12,8 @@ typealias CourseAndColorDict = [String : String]
 
 class CourseColorService: ObservableObject, CourseColorServiceProtocol {
     
+    private let serialQueue = DispatchQueue(label: "com.example.CourseColorService", qos: .background)
+    
     private func fileURL() throws -> URL {
         try FileManager.default.url(for: .documentDirectory,
            in: .userDomainMask,
@@ -21,7 +23,7 @@ class CourseColorService: ObservableObject, CourseColorServiceProtocol {
     }
 
     func replace(for event: Response.Event, with color: Color, completion: @escaping (Result<Int, Error>) -> Void) -> Void {
-        DispatchQueue.global(qos: .background).async {
+        serialQueue.async {
             do {
                 let fileURL = try self.fileURL()
                 let encoder = JSONEncoder()
@@ -56,7 +58,7 @@ class CourseColorService: ObservableObject, CourseColorServiceProtocol {
     }
     
     func load(completion: @escaping (Result<CourseAndColorDict, Error>) -> Void) {
-        DispatchQueue.global(qos: .background).async {
+        serialQueue.async {
             do {
                 let fileURL = try self.fileURL()
                 let decoder = JSONDecoder()
@@ -80,7 +82,7 @@ class CourseColorService: ObservableObject, CourseColorServiceProtocol {
     
 
     func save(coursesAndColors: [String : String], completion: @escaping (Result<Int, Error>) -> Void) {
-        DispatchQueue.global(qos: .background).async {
+        serialQueue.async {
             do {
                 let fileURL = try self.fileURL()
                 let encoder = JSONEncoder()
@@ -115,7 +117,7 @@ class CourseColorService: ObservableObject, CourseColorServiceProtocol {
     }
     
     func removeAll(completion: @escaping (Result<Int, Error>) -> Void) {
-        DispatchQueue.global(qos: .background).async {
+        serialQueue.async {
             do {
                 let fileURL = try self.fileURL()
                 let decoder = JSONDecoder()
@@ -145,7 +147,7 @@ class CourseColorService: ObservableObject, CourseColorServiceProtocol {
     }
     
     func remove(removeCourses: [String], completion: @escaping (Result<Int, Error>)->Void) {
-        DispatchQueue.global(qos: .background).async {
+        serialQueue.async {
             do {
                 let fileURL = try self.fileURL()
                 let decoder = JSONDecoder()

@@ -9,6 +9,8 @@ import Foundation
 
 class ScheduleService: ObservableObject, ScheduleServiceProtocol {
     
+    private let serialQueue = DispatchQueue(label: "com.example.ScheduleService", qos: .background)
+    
     private func fileURL() throws -> URL {
             try FileManager.default.url(for: .documentDirectory,
                in: .userDomainMask,
@@ -19,7 +21,7 @@ class ScheduleService: ObservableObject, ScheduleServiceProtocol {
     
     
     func load(completion: @escaping (Result<[ScheduleData], Error>) -> Void) {
-        DispatchQueue.global(qos: .background).async {
+        serialQueue.async {
             do {
                 let fileURL = try self.fileURL()
                 let decoder = JSONDecoder()
@@ -64,7 +66,7 @@ class ScheduleService: ObservableObject, ScheduleServiceProtocol {
 
     
     func load(with id: String, completion: @escaping (Result<ScheduleData, Error>) -> Void) -> Void {
-        DispatchQueue.global(qos: .background).async {
+        serialQueue.async {
             do {
                 let fileURL = try self.fileURL()
                 let decoder = JSONDecoder()
@@ -94,7 +96,7 @@ class ScheduleService: ObservableObject, ScheduleServiceProtocol {
 
 
     func save(schedule: Response.Schedule, completion: @escaping (Result<Int, Error>)->Void) {
-        DispatchQueue.global(qos: .background).async {
+        serialQueue.async {
             do {
                 let fileURL = try self.fileURL()
                 let encoder = JSONEncoder()
@@ -133,7 +135,7 @@ class ScheduleService: ObservableObject, ScheduleServiceProtocol {
     }
     
     func removeAll(completion: @escaping (Result<Int, Error>) -> Void) {
-        DispatchQueue.global(qos: .background).async {
+        serialQueue.async {
             do {
                 let fileURL = try self.fileURL()
                 let decoder = JSONDecoder()
@@ -162,7 +164,7 @@ class ScheduleService: ObservableObject, ScheduleServiceProtocol {
     }
     
     func remove(scheduleId: String, completion: @escaping (Result<Int, Error>)->Void) {
-        DispatchQueue.global(qos: .background).async {
+        serialQueue.async {
             do {
                 let fileURL = try self.fileURL()
                 let decoder = JSONDecoder()
@@ -219,7 +221,7 @@ extension ScheduleService {
         forWeeksInRange range: ClosedRange<Date>,
         hiddenBookmarks: [String],
         completion: @escaping (Result<[Response.Event], Error>) -> Void) {
-            DispatchQueue.global(qos: .background).async {
+            serialQueue.async {
                 do {
                     let fileURL = try self.fileURL()
                     let decoder = JSONDecoder()
