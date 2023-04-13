@@ -76,10 +76,10 @@ struct EventCardButton: View {
                     }, label: {
                         HStack {
                             Image(systemName: eventType.rawValue)
-                                .font(.system(size: 18))
+                                .font(.system(size: 16))
                                 .foregroundColor(.onPrimary)
                             Text(eventType == .unregister ? NSLocalizedString("Unregister", comment: "") : NSLocalizedString("Register", comment: ""))
-                                .font(.system(size: 18, weight: .semibold))
+                                .font(.system(size: 16, weight: .semibold))
                                 .foregroundColor(.onPrimary)
                         }
                         .padding(10)
