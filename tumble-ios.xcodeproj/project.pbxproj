@@ -198,7 +198,7 @@
 		D4A433BC29952BE600BFEB7A /* DictionaryExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A433BB29952BE600BFEB7A /* DictionaryExtension.swift */; };
 		D4A433BE29953AD300BFEB7A /* AppController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A433BD29953AD300BFEB7A /* AppController.swift */; };
 		D4A550CC2994509A00028BCF /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A550CB2994509A00028BCF /* SettingsViewModel.swift */; };
-		D4A550CF299454F700028BCF /* ScheduleStoreModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A550CE299454F700028BCF /* ScheduleStoreModel.swift */; };
+		D4A550CF299454F700028BCF /* ScheduleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A550CE299454F700028BCF /* ScheduleData.swift */; };
 		D4A550D129946B8200028BCF /* Bookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A550D029946B8200028BCF /* Bookmark.swift */; };
 		D4A550D52994755900028BCF /* BookmarkButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A550D42994755900028BCF /* BookmarkButton.swift */; };
 		D4ABD270298C2E15002FD8F5 /* DayUiModelExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4ABD26F298C2E15002FD8F5 /* DayUiModelExtension.swift */; };
@@ -449,7 +449,7 @@
 		D4A433BB29952BE600BFEB7A /* DictionaryExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryExtension.swift; sourceTree = "<group>"; };
 		D4A433BD29953AD300BFEB7A /* AppController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppController.swift; sourceTree = "<group>"; };
 		D4A550CB2994509A00028BCF /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
-		D4A550CE299454F700028BCF /* ScheduleStoreModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleStoreModel.swift; sourceTree = "<group>"; };
+		D4A550CE299454F700028BCF /* ScheduleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleData.swift; sourceTree = "<group>"; };
 		D4A550D029946B8200028BCF /* Bookmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bookmark.swift; sourceTree = "<group>"; };
 		D4A550D42994755900028BCF /* BookmarkButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkButton.swift; sourceTree = "<group>"; };
 		D4ABD26F298C2E15002FD8F5 /* DayUiModelExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayUiModelExtension.swift; sourceTree = "<group>"; };
@@ -1354,7 +1354,7 @@
 		D4A550CD299454E900028BCF /* Storage */ = {
 			isa = PBXGroup;
 			children = (
-				D4A550CE299454F700028BCF /* ScheduleStoreModel.swift */,
+				D4A550CE299454F700028BCF /* ScheduleData.swift */,
 				D400F3ED29D797A80050622E /* TumbleUser.swift */,
 			);
 			path = Storage;
@@ -1834,7 +1834,7 @@
 				D48F0D8A29367CAF0039CD0F /* Colors.swift in Sources */,
 				D400F3E329D795810050622E /* AuthStatus.swift in Sources */,
 				D4E83ED12999B1B1002E5F88 /* AuthManager.swift in Sources */,
-				D4A550CF299454F700028BCF /* ScheduleStoreModel.swift in Sources */,
+				D4A550CF299454F700028BCF /* ScheduleData.swift in Sources */,
 				D4EE5B6C29D50FC0002A1399 /* AppearanceSettings.swift in Sources */,
 				D458604E29DC9D6200B77513 /* NextClass.swift in Sources */,
 				D458605229DC9FAC00B77513 /* News.swift in Sources */,

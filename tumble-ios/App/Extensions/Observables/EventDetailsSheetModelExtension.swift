@@ -11,7 +11,7 @@ extension EventDetailsSheetViewModel {
     
     // Apply scheduleNotifaction for each event under specific course id
     func applyNotificationForScheduleEventsInCourse(
-        schedules: [ScheduleStoreModel], completion: @escaping (Bool) -> Void
+        schedules: [ScheduleData], completion: @escaping (Bool) -> Void
     ) {
         let events = schedules
             .flatMap { $0.days }

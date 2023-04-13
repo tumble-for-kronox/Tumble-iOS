@@ -15,7 +15,7 @@ import SwiftUI
     @Inject var scheduleService: ScheduleService
     @Inject var preferenceService: PreferenceService
     @Inject var courseColorService: CourseColorService
-    @Inject var networkManager: KronoxManager
+    @Inject var kronoxManager: KronoxManager
     @Inject var schoolManager: SchoolManager
     
     @Published var scheduleViewTypes: [BookmarksViewType] = BookmarksViewType.allValues
@@ -51,7 +51,7 @@ import SwiftUI
     
     func loadBookmarkedSchedules() {
         self.status = .loading
-        self.loadSchedules { [weak self] result in
+        self.scheduleService.load { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .failure:
@@ -73,13 +73,7 @@ import SwiftUI
         }
     }
 
-    private func loadSchedules(completion: @escaping (Result<[ScheduleStoreModel], Error>) -> Void) {
-        self.scheduleService.load(completion: {result in
-            completion(result)
-        })
-    }
-
-    fileprivate func filterHiddenBookmarks(schedules: [ScheduleStoreModel]) -> [ScheduleStoreModel] {
+    fileprivate func filterHiddenBookmarks(schedules: [ScheduleData]) -> [ScheduleData] {
         let hiddenBookmarks = self.preferenceService.getHiddenBookmarks()
         return schedules.filter { schedule in
             !hiddenBookmarks.contains { $0 == schedule.id }
@@ -87,11 +81,11 @@ import SwiftUI
     }
 
 
-    private func updateSchedulesIfNeeded(schedules: [ScheduleStoreModel], completion: @escaping () -> Void) {
+    private func updateSchedulesIfNeeded(schedules: [ScheduleData], completion: @escaping () -> Void) {
         updateSchedules(for: schedules, completion: completion)
     }
 
-    private func updateViewStatus(schedules: [ScheduleStoreModel]) {
+    private func updateViewStatus(schedules: [ScheduleData]) {
         DispatchQueue.main.async {
             if schedules.isEmpty {
                 self.status = .hiddenAll

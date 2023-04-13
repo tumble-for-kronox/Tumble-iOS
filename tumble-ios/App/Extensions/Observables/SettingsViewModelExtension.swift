@@ -9,7 +9,7 @@ import Foundation
 
 extension SettingsViewModel {
     
-    func loadSchedules(completion: @escaping ([ScheduleStoreModel]) -> Void) -> Void {
+    func loadSchedules(completion: @escaping ([ScheduleData]) -> Void) -> Void {
         self.scheduleService.load(completion: {result in
             switch result {
             case .failure(_):
@@ -22,13 +22,13 @@ extension SettingsViewModel {
         })
     }
     
-    func missingIDs(scheduleModels: [ScheduleStoreModel], bookmarks: [Bookmark]) -> [String] {
+    func missingIDs(scheduleModels: [ScheduleData], bookmarks: [Bookmark]) -> [String] {
         let scheduleIDs = Set(scheduleModels.map { $0.id })
         let bookmarkIDs = Set(bookmarks.map { $0.id })
         return Array(bookmarkIDs.subtracting(scheduleIDs))
     }
     
-    func setNewBookmarks(schedules: [ScheduleStoreModel], completion: @escaping ([Bookmark]) -> Void) -> Void {
+    func setNewBookmarks(schedules: [ScheduleData], completion: @escaping ([Bookmark]) -> Void) -> Void {
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             guard let self else { return }
             // Get current bookmarks in preferences

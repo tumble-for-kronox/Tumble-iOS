@@ -14,7 +14,7 @@ import SwiftUI
     @Inject var userController: UserController
     @Inject var scheduleService: ScheduleService
     @Inject var courseColorService: CourseColorService
-    @Inject var networkManager: KronoxManager
+    @Inject var kronoxManager: KronoxManager
     @Inject var schoolManager: SchoolManager
     
     @Published var eventSheet: EventDetailsSheetModel? = nil
@@ -61,7 +61,7 @@ import SwiftUI
     
     func getNews() -> Void {
         self.newsSectionStatus = .loading
-        let _ = networkManager.get(.news) { [weak self] (result: Result<Response.NewsItems, Response.ErrorMessage>) in
+        let _ = kronoxManager.get(.news) { [weak self] (result: Result<Response.NewsItems, Response.ErrorMessage>) in
             guard let self = self else { return }
             switch result {
             case .success(let news):

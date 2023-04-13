@@ -18,7 +18,7 @@ class ScheduleService: ObservableObject, ScheduleServiceProtocol {
         }
     
     
-    func load(completion: @escaping (Result<[ScheduleStoreModel], Error>) -> Void) {
+    func load(completion: @escaping (Result<[ScheduleData], Error>) -> Void) {
         DispatchQueue.global(qos: .background).async {
             do {
                 let fileURL = try self.fileURL()
@@ -29,7 +29,7 @@ class ScheduleService: ObservableObject, ScheduleServiceProtocol {
                         }
                         return
                     }
-                let schedules = try decoder.decode([ScheduleStoreModel].self, from: file.availableData)
+                let schedules = try decoder.decode([ScheduleData].self, from: file.availableData)
                 DispatchQueue.main.async {
                     completion(.success(schedules))
                 }
@@ -63,7 +63,7 @@ class ScheduleService: ObservableObject, ScheduleServiceProtocol {
     }
 
     
-    func load(with id: String, completion: @escaping (Result<ScheduleStoreModel, Error>) -> Void) -> Void {
+    func load(with id: String, completion: @escaping (Result<ScheduleData, Error>) -> Void) -> Void {
         DispatchQueue.global(qos: .background).async {
             do {
                 let fileURL = try self.fileURL()
@@ -74,7 +74,7 @@ class ScheduleService: ObservableObject, ScheduleServiceProtocol {
                     }
                     return
                 }
-                let schedules = try decoder.decode([ScheduleStoreModel].self, from: file.availableData)
+                let schedules = try decoder.decode([ScheduleData].self, from: file.availableData)
                 if let schedule = schedules.first(where: { $0.id == id }) {
                     DispatchQueue.main.async {
                         completion(.success(schedule))
@@ -98,7 +98,7 @@ class ScheduleService: ObservableObject, ScheduleServiceProtocol {
             do {
                 let fileURL = try self.fileURL()
                 let encoder = JSONEncoder()
-                self.load(completion: { (result: Result<[ScheduleStoreModel], Error>) in
+                self.load(completion: { (result: Result<[ScheduleData], Error>) in
                     switch result {
                     case .failure(let failure):
                         DispatchQueue.main.async {
@@ -144,7 +144,7 @@ class ScheduleService: ObservableObject, ScheduleServiceProtocol {
                     }
                     return
                 }
-                var schedules = try decoder.decode([ScheduleStoreModel].self, from: file.availableData)
+                var schedules = try decoder.decode([ScheduleData].self, from: file.availableData)
                 schedules.removeAll()
                 let data = try encoder.encode(schedules)
                 try data.write(to: fileURL)
@@ -173,7 +173,7 @@ class ScheduleService: ObservableObject, ScheduleServiceProtocol {
                         }
                         return
                     }
-                var schedules = try decoder.decode([ScheduleStoreModel].self, from: file.availableData)
+                var schedules = try decoder.decode([ScheduleData].self, from: file.availableData)
                 
                 schedules.removeAll(where: {$0.id == scheduleId})
                 
@@ -195,20 +195,20 @@ class ScheduleService: ObservableObject, ScheduleServiceProtocol {
 
 extension ScheduleService {
     
-    fileprivate func insertOrReplace(for schedule: Response.Schedule, with schedules: [ScheduleStoreModel]) -> [ScheduleStoreModel] {
+    fileprivate func insertOrReplace(for schedule: Response.Schedule, with schedules: [ScheduleData]) -> [ScheduleData] {
         let calendar = Calendar(identifier: .gregorian)
         let date = calendar.dateComponents(in: calendar.timeZone, from: Date.now).date
         
-        var newSchedules: [ScheduleStoreModel] = schedules
+        var newSchedules: [ScheduleData] = schedules
         
         if newSchedules.contains(where: { $0.id == schedule.id }) {
             for (index, bookmark) in newSchedules.enumerated() {
                 if schedule.id == bookmark.id {
-                    newSchedules[index] = ScheduleStoreModel(id: schedule.id, cachedAt: schedule.cachedAt, days: schedule.days, lastUpdated: date!)
+                    newSchedules[index] = ScheduleData(id: schedule.id, cachedAt: schedule.cachedAt, days: schedule.days, lastUpdated: date!)
                 }
             }
         } else {
-            newSchedules.append(ScheduleStoreModel(id: schedule.id, cachedAt: schedule.cachedAt, days: schedule.days, lastUpdated: date!))
+            newSchedules.append(ScheduleData(id: schedule.id, cachedAt: schedule.cachedAt, days: schedule.days, lastUpdated: date!))
         }
         return newSchedules
     }
@@ -229,7 +229,7 @@ extension ScheduleService {
                         }
                         return
                     }
-                    let schedules = try decoder.decode([ScheduleStoreModel].self, from: file.availableData)
+                    let schedules = try decoder.decode([ScheduleData].self, from: file.availableData)
                     let events = schedules
                         .filter { !hiddenBookmarks.contains($0.id) }
                         .flatMap { $0.days }

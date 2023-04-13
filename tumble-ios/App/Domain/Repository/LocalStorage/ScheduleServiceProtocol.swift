@@ -9,7 +9,7 @@ import Foundation
 
 protocol ScheduleServiceProtocol {
     
-    func load(completion: @escaping (Result<[ScheduleStoreModel], Error>) -> Void)
+    func load(completion: @escaping (Result<[ScheduleData], Error>) -> Void)
     
     func save(schedule: Response.Schedule, completion: @escaping (Result<Int, Error>) -> Void)
     

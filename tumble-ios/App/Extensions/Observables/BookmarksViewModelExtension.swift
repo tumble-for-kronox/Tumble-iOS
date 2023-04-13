@@ -9,7 +9,7 @@ import Foundation
 
 extension BookmarksViewModel {
     
-    func needsUpdate(schedule: ScheduleStoreModel) -> Bool {
+    func needsUpdate(schedule: ScheduleData) -> Bool {
         let calendar = Calendar(identifier: .gregorian)
         let currentDate = Date()
         let difference = calendar.dateComponents(
@@ -24,10 +24,10 @@ extension BookmarksViewModel {
     }
 
     
-    func updateSchedules(for bookmarks: [ScheduleStoreModel], completion: @escaping () -> Void) {
+    func updateSchedules(for bookmarks: [ScheduleData], completion: @escaping () -> Void) {
         let group = DispatchGroup()
         var updatedBookmarks = [Response.Schedule]()
-        var schedulesToBeUpdated = [ScheduleStoreModel]()
+        var schedulesToBeUpdated = [ScheduleData]()
         
         for schedule in bookmarks {
             if needsUpdate(schedule: schedule) {
@@ -161,7 +161,7 @@ extension BookmarksViewModel {
     func fetchSchedule(
         for scheduleId: String,
         completion: @escaping (Result<Response.Schedule, Error>) -> Void) {
-        let _ = networkManager.get(
+        let _ = kronoxManager.get(
             .schedule(
                 scheduleId: scheduleId,
                 schoolId: String(preferenceService.getDefaultSchool()!))) { (result: Result<Response.Schedule, Response.ErrorMessage>) in
@@ -176,8 +176,8 @@ extension BookmarksViewModel {
     }
     
     func filterBookmarks(
-        schedules: [ScheduleStoreModel],
-        hiddenBookmarks: [String]) -> [ScheduleStoreModel] {
+        schedules: [ScheduleData],
+        hiddenBookmarks: [String]) -> [ScheduleData] {
         return schedules.filter {
             switch $0.id {
             case let id where hiddenBookmarks.contains(id):

@@ -13,7 +13,7 @@ import SwiftUI
 class UserController: ObservableObject {
         
     @Inject var authManager: AuthManager
-    @Inject var networkManager: KronoxManager
+    @Inject var kronoxManager: KronoxManager
     @Inject var preferenceService: PreferenceService
     
     @Published var authStatus: AuthStatus = .unAuthorized

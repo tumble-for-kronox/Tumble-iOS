@@ -49,7 +49,7 @@ extension AccountViewModel {
                 switch result {
                 case .success((let schoolId, let refreshToken)):
                     let request = Endpoint.registerAllEvents(schoolId: String(schoolId))
-                    let _ = networkManager.put(request, refreshToken: refreshToken, body: Request.Empty(),
+                    let _ = kronoxManager.put(request, refreshToken: refreshToken, body: Request.Empty(),
                        then: { (result: Result<Response.KronoxEventRegistration?, Response.ErrorMessage>) in
                         DispatchQueue.main.async {
                             switch result {

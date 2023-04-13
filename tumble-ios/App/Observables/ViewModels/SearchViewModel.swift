@@ -13,7 +13,7 @@ import SwiftUI
     @Inject var courseColorService: CourseColorService
     @Inject var scheduleService: ScheduleService
     @Inject var preferenceService: PreferenceService
-    @Inject var networkManager: KronoxManager
+    @Inject var kronoxManager: KronoxManager
     @Inject var notificationManager: NotificationManager
     @Inject var schoolManager: SchoolManager
     
@@ -102,7 +102,7 @@ import SwiftUI
     
     func onSearchProgrammes(searchQuery: String) -> Void {
         self.status = .loading
-        let _ = networkManager.get(.searchProgramme(
+        let _ = kronoxManager.get(.searchProgramme(
             searchQuery: searchQuery,
             schoolId: String(school!.id))) { [weak self] (result: Result<Response.Search, Response.ErrorMessage>) in
                 guard let self = self else { return }

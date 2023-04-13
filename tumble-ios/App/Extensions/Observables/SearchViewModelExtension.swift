@@ -71,7 +71,7 @@ extension SearchViewModel {
     
     // API Call to fetch a schedule from backend
     func fetchSchedule(programmeId: String, completion: @escaping (Bool) -> Void) -> Void {
-        let _ = networkManager.get(
+        let _ = kronoxManager.get(
             .schedule(
                 scheduleId: programmeId,
                 schoolId: String(school!.id))) { [weak self] (result: Result<Response.Schedule, Response.ErrorMessage>) in
@@ -191,7 +191,7 @@ extension SearchViewModel {
         }
     }
     
-    func cancelNotifications(for schedules: [ScheduleStoreModel], with id: String?) -> Void {
+    func cancelNotifications(for schedules: [ScheduleData], with id: String?) -> Void {
         DispatchQueue.global(qos: .background).async { [weak self] in
             guard let self else { return }
             let schedulesToRemove = schedules.filter { $0.id == id }
@@ -222,7 +222,7 @@ extension SearchViewModel {
         self.status = .loaded
     }
     
-    func loadSchedules(completion: @escaping ([ScheduleStoreModel]) -> Void) -> Void {
+    func loadSchedules(completion: @escaping ([ScheduleData]) -> Void) -> Void {
         self.scheduleService.load(completion: {result in
             switch result {
             case .failure:

@@ -7,8 +7,8 @@
 
 import Foundation
 
-struct ScheduleStoreModel: Codable, Hashable {
-    static func == (lhs: ScheduleStoreModel, rhs: ScheduleStoreModel) -> Bool {
+struct ScheduleData: Codable, Hashable {
+    static func == (lhs: ScheduleData, rhs: ScheduleData) -> Bool {
         return lhs.id == rhs.id
     }
     

@@ -10,7 +10,7 @@ import Foundation
 @MainActor final class ResourceViewModel: ObservableObject {
     
     @Inject var userController: UserController
-    @Inject var networkManager: KronoxManager
+    @Inject var kronoxManager: KronoxManager
     @Inject var notificationManager: NotificationManager
     @Inject var preferenceService: PreferenceService
     @Inject var schoolManager: SchoolManager
@@ -41,7 +41,7 @@ import Foundation
                 switch result {
                 case .success((let schoolId, let refreshToken)):
                     let request = Endpoint.userEvents(schoolId: String(schoolId))
-                    let _ = networkManager.get(request, refreshToken: refreshToken,
+                    let _ = kronoxManager.get(request, refreshToken: refreshToken,
                     then: { [unowned self] (result: Result<Response.KronoxCompleteUserEvent?, Response.ErrorMessage>) in
                         switch result {
                         case .success(let events):
@@ -79,7 +79,7 @@ import Foundation
                 switch result {
                 case .success((let schoolId, let refreshToken)):
                     let request = Endpoint.registerEvent(eventId: eventId, schoolId: String(schoolId))
-                    let _ = networkManager.put(request, refreshToken: refreshToken, body: Request.Empty(),
+                    let _ = kronoxManager.put(request, refreshToken: refreshToken, body: Request.Empty(),
                        then: { (result: Result<Response.Empty, Response.ErrorMessage>) in
                         DispatchQueue.main.async {
                             switch result {
@@ -111,7 +111,7 @@ import Foundation
                 switch result {
                 case .success((let schoolId, let refreshToken)):
                     let request = Endpoint.unregisterEvent(eventId: eventId, schoolId: String(schoolId))
-                    let _ = networkManager.put(request, refreshToken: refreshToken, body: Request.Empty(),
+                    let _ = kronoxManager.put(request, refreshToken: refreshToken, body: Request.Empty(),
                        then: { (result: Result<Response.Empty, Response.ErrorMessage>) in
                         DispatchQueue.main.async {
                             switch result {
@@ -139,7 +139,7 @@ import Foundation
                 switch result {
                 case .success((let schoolId, let refreshToken)):
                     let request = Endpoint.allResources(schoolId: String(schoolId), date: date)
-                    self.allResourcesDataTask = self.networkManager.get(request, refreshToken: refreshToken,
+                    self.allResourcesDataTask = self.kronoxManager.get(request, refreshToken: refreshToken,
                     then: { [unowned self] (result: Result<Response.KronoxResources?, Response.ErrorMessage>) in
                         switch result {
                         case .success(let resources):
@@ -183,7 +183,7 @@ import Foundation
                         resourceId: resourceId,
                         bookingId: bookingId
                     )
-                    let _ = self.networkManager.put(
+                    let _ = self.kronoxManager.put(
                         requestUrl,
                         refreshToken: refreshToken,
                         body: requestBody) {
@@ -230,7 +230,7 @@ import Foundation
                         date: isoDateFormatterFract.string(from: date),
                         slot: availabilityValue
                     )
-                    let _ = self.networkManager.put(
+                    let _ = self.kronoxManager.put(
                         requestUrl,
                         refreshToken: refreshToken,
                         body: requestBody) {
@@ -264,7 +264,7 @@ import Foundation
                 switch result {
                 case .success((let schoolId, let refreshToken)):
                     let requestUrl: Endpoint = .unbookResource(schoolId: String(schoolId), bookingId: bookingId)
-                    let _ = self.networkManager.put(requestUrl, refreshToken: refreshToken, body: Request.Empty()) {
+                    let _ = self.kronoxManager.put(requestUrl, refreshToken: refreshToken, body: Request.Empty()) {
                         (result: Result<Response.Empty, Response.ErrorMessage>) in
                         switch result {
                         case .success:

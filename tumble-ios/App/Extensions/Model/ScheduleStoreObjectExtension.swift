@@ -7,9 +7,9 @@
 
 import Foundation
 
-extension [ScheduleStoreModel] {
+extension [ScheduleData] {
     
-    func removeDuplicateEvents() -> [ScheduleStoreModel] {
+    func removeDuplicateEvents() -> [ScheduleData] {
         var eventIds = Set<String>()
         return self.map { schedule in
             let uniqueDays = schedule.days.map { day in
@@ -18,7 +18,7 @@ extension [ScheduleStoreModel] {
                 }
                 return Response.Day(name: day.name, date: day.date, isoString: day.isoString, weekNumber: day.weekNumber, events: uniqueEvents)
             }
-            return ScheduleStoreModel(id: schedule.id, cachedAt: schedule.cachedAt, days: uniqueDays, lastUpdated: schedule.lastUpdated)
+            return ScheduleData(id: schedule.id, cachedAt: schedule.cachedAt, days: uniqueDays, lastUpdated: schedule.lastUpdated)
         }
     }
     
