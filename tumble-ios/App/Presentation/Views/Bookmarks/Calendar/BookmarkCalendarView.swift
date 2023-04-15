@@ -12,7 +12,7 @@ import FSCalendar
 
 struct BookmarkCalendarView: View {
     
-    @Binding var days: [DayUiModel]
+    let days: [DayUiModel]
     let courseColors: CourseAndColorDict
     @ObservedObject var appController: AppController
     

@@ -18,27 +18,25 @@ struct LogInOutButton: View {
         name: "Log out of your account",
         details: "This action will log you out of your KronoX account")
     
-    var isAuthorized: Bool {
-        return parentViewModel.userController.authStatus == .authorized
-    }
-    
     var body: some View {
         Button(action: {
-            if isAuthorized {
-                isConfirming = true
-            } else {
+            switch parentViewModel.authStatus {
+            case .unAuthorized:
                 AppController.shared.selectedAppTab = .account
                 dismiss()
+            case .authorized:
+                isConfirming = true
             }
         }, label: {
             HStack {
                 Spacer()
-                if isAuthorized {
-                    Text(NSLocalizedString("Log out", comment: ""))
+                switch parentViewModel.authStatus {
+                case .unAuthorized:
+                    Text(NSLocalizedString("Log in", comment: ""))
                         .font(.system(size: 17, weight: .medium))
                         .foregroundColor(.primary)
-                } else {
-                    Text(NSLocalizedString("Log in", comment: ""))
+                case .authorized:
+                    Text(NSLocalizedString("Log out", comment: ""))
                         .font(.system(size: 17, weight: .medium))
                         .foregroundColor(.primary)
                 }

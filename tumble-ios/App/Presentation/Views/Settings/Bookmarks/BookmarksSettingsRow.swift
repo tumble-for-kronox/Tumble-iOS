@@ -22,7 +22,6 @@ struct BookmarkSettingsRow: View {
             })
             .padding(.trailing, 5)
             HStack {
-                
                 Toggle(isOn: $bookmark.toggled) {
                     Text(bookmark.id)
                         .font(.system(size: 16))

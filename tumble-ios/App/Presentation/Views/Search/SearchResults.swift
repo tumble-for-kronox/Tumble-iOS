@@ -14,7 +14,7 @@ struct SearchResults: View {
     let searchResults: [Response.Programme]
     let onOpenProgramme: (String) -> Void
     
-    @Binding var universityImage: Image?
+    let universityImage: Image?
     
     var body: some View {
         VStack {

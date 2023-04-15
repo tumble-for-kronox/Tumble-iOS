@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import Combine
 
 @MainActor final class SettingsViewModel: ObservableObject {
     
@@ -17,21 +18,44 @@ import SwiftUI
     @Inject var userController: UserController
     @Inject var schoolManager: SchoolManager
     
-    @Published var universityImage: Image?
     @Published var universityName: String?
     @Published var bookmarks: [Bookmark]?
+    @Published var schedules: [ScheduleData] = []
+    @Published var courseColors: CourseAndColorDict = [:]
     @Published var presentSidebarSheet: Bool = false
-    @Published var authenticatedAndSignedIn: Bool = false
+    @Published var authStatus: AuthStatus = .unAuthorized
     
     lazy var schools: [School] = schoolManager.getSchools()
+    var cancellables = Set<AnyCancellable>()
     
     init() {
-        self.universityImage = self.preferenceService.getUniversityImage(schools: schools)
-        self.universityName = self.preferenceService.getUniversityName(schools: schools)
-        self.bookmarks = preferenceService.getBookmarks() ?? []
-        self.authenticatedAndSignedIn = userController.authStatus == .authorized 
+        initialisePipelines()
+        loadData()
+        universityName = preferenceService.getUniversityName(schools: schools)
     }
     
+    func initialisePipelines() -> Void {
+        // Set up publisher to update schedules when data stores are updated
+        // Always filter all received schedules through bookmarks
+        preferenceService.$bookmarks
+            .assign(to: \.bookmarks, on: self)
+            .store(in: &cancellables)
+        scheduleService.$schedules
+            .assign(to: \.schedules, on: self)
+            .store(in: &cancellables)
+        courseColorService.$courseColors
+            .assign(to: \.courseColors, on: self)
+            .store(in: &cancellables)
+        userController.$authStatus
+            .assign(to: \.authStatus, on: self)
+            .store(in: &cancellables)
+    }
+    
+    func loadData() -> Void {
+        schedules = scheduleService.getSchedules()
+        bookmarks = preferenceService.getBookmarks()
+        courseColors = courseColorService.getCourseColors()
+    }
     
     func logOut() -> Void {
         userController.logOut(completion: { success in
@@ -51,48 +75,34 @@ import SwiftUI
         })
     }
     
-    func updateViewLocals() -> Void {
-        self.universityImage = self.preferenceService.getUniversityImage(schools: schools)
-        self.universityName = self.preferenceService.getUniversityName(schools: schools)
-        self.updateBookmarks()
-    }
-    
-    func updateBookmarks() -> Void {
-        self.scheduleService.load(completion: { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let schedules):
-                self.setNewBookmarks(schedules: schedules) { bookmarks in
-                    DispatchQueue.main.async {
-                        self.bookmarks = bookmarks
-                    }
-                }
-            case .failure(let failure):
-                AppLogger.shared.debug("\(failure)")
-            }
-            
-        })
-    }
-
-    
     func toggleBookmarkVisibility(for bookmark: String, to value: Bool) -> Void {
         preferenceService.toggleBookmark(bookmark: bookmark, value: value)
     }
     
     func deleteBookmark(id: String) -> Void {
-        var preferenceBookmarks = self.preferenceService.getBookmarks() ?? []
-        preferenceBookmarks.removeAll(where: { $0.id == id })
-        preferenceService.setBookmarks(bookmarks: preferenceBookmarks)
-        self.loadSchedules { schedules in
-            let schedulesToRemove = schedules.filter { $0.id == id }
-            let events = schedulesToRemove
-                .flatMap { schedule in schedule.days }
-                .flatMap { day in day.events }
-            events.forEach { event in self.notificationManager.cancelNotification(for: event.id) }
-        }
-        DispatchQueue.main.async {
-            self.bookmarks = preferenceBookmarks
-        }
+        let oldSchedules = schedules
+        scheduleService.remove(scheduleId: id, completion: { [weak self] result in
+            guard let self else { return }
+            switch result {
+            case .success:
+                // TODO: Show toast
+                self.updateBookmarksRemoveNotifications(for: id, referencing: oldSchedules)
+            case .failure(let failure):
+                AppLogger.shared.error("\(failure)")
+                // Failed to delete schedule
+                // TODO: show toast
+                return
+            }
+        })
+    }
+    
+    private func updateBookmarksRemoveNotifications(for id: String, referencing oldSchedules: [ScheduleData]) -> Void {
+        preferenceService.removeBookmark(id: id)
+        let notificationIdsToRemove = oldSchedules.filter { $0.id == id }
+        let events = notificationIdsToRemove
+            .flatMap { $0.days }
+            .flatMap { $0.events }
+        events.forEach { notificationManager.cancelNotification(for: $0.id) }
     }
     
     func clearAllNotifications() -> Void {
@@ -104,48 +114,60 @@ import SwiftUI
     }
     
     func scheduleNotificationsForAllEvents(completion: @escaping (Result<Void, Error>) -> Void) -> Void {
-        self.scheduleService.load(completion: { [weak self] (result: Result<[ScheduleData], Error>) in
-            guard let self = self else { return }
-            switch result {
-            case .success(let schedules):
-                self.courseColorService.load { (result: Result<CourseAndColorDict, Error>) in
+        if schedules.isEmpty {
+            completion(.failure(.generic(reason: "No schedules saved")))
+            return
+        }
+        let hiddenBookmarks = preferenceService.getHiddenBookmarks()
+        let allEvents = filterHiddenBookmarks(
+            schedules: schedules,
+            hiddenBookmarks: hiddenBookmarks).flatMap { $0.days.flatMap { $0.events } }
+        for event in allEvents {
+            guard let notification = self.notificationManager.createNotificationFromEvent(
+                event: event,
+                color: courseColors[event.course.id] ?? "#FEFEFE"
+            ) else {
+                AppLogger.shared.critical("Could not set notification for event \(event.id)")
+                completion(.failure(.generic(reason: "Failed to set notification continuously")))
+                break
+            }
+            self.notificationManager.scheduleNotification(
+                for: notification, type: .event,
+                userOffset: self.preferenceService.getNotificationOffset(),
+                completion: { (result: Result<Int, NotificationError>) in
                     switch result {
-                    case .success(let courseColorsDict):
-                        let allEvents = schedules.flatMap { $0.days.flatMap { $0.events } }
-                        for event in allEvents {
-                            guard let notification = self.notificationManager.createNotificationFromEvent(
-                                event: event,
-                                color: courseColorsDict[event.course.id] ?? "#FEFEFE"
-                            ) else {
-                                AppLogger.shared.critical("Could not set notification for event \(event.id)")
-                                completion(.failure(.generic(reason: "Failed to set notification continuously")))
-                                break
-                            }
-                            self.notificationManager.scheduleNotification(
-                                for: notification, type: .event,
-                                userOffset: self.preferenceService.getNotificationOffset(),
-                                completion: { (result: Result<Int, NotificationError>) in
-                                    switch result {
-                                    case .success(let success):
-                                        AppLogger.shared.debug("\(success) notification set")
-                                    case .failure(let failure):
-                                        AppLogger.shared.critical("\(failure)")
-                                    }
-                                })
-                        }
-                        completion(.success(()))
+                    case .success(let success):
+                        AppLogger.shared.debug("\(success) notification set")
                     case .failure(let failure):
-                        AppLogger.shared.critical("Colors could not be loaded from local storage: \(failure)")
-                        completion(.failure(.internal(reason: "Failed to load course colors")))
+                        AppLogger.shared.critical("\(failure)")
                     }
-                }
+                })
+        }
+        completion(.success(()))
+    }
+    
+    func changeSchool(schoolId: Int) -> Void {
+        self.userController.logOut()
+        self.preferenceService.setSchool(id: schoolId)
+        self.notificationManager.cancelNotifications()
+        self.universityName = self.preferenceService.getUniversityName(schools: self.schools)
+        scheduleService.removeAll(completion: { [weak self] result in
+            guard let self else { return }
+            switch result {
+            case .success:
+                self.courseColorService.removeAll(completion: { result in
+                    switch result {
+                    case .success:
+                        AppLogger.shared.debug("Removed all stored schedules")
+                    case .failure:
+                        AppLogger.shared.error("Could not remove course colors when changing schools")
+                    }
+                })
             case .failure:
-                AppLogger.shared.critical("Schedules could not be loaded from local storage")
-                completion(.failure(.internal(reason: "Failed to load schedules")))
+                AppLogger.shared.error("Could not remove schedules when changing schools")
             }
         })
     }
-
     
 }
 

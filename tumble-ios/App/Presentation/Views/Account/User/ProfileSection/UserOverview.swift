@@ -11,11 +11,6 @@ struct UserOverview: View {
     
     @ObservedObject var viewModel: AccountViewModel
         
-    @State private var inputImage: UIImage?
-    @State private var showImagePicker: Bool = false
-    
-    let schoolName: String
-    let createToast: (ToastStyle, String, String) -> Void
     @State private var collapsedHeader: Bool = false
     @State private var toast: Toast? = nil
     
@@ -31,7 +26,7 @@ struct UserOverview: View {
                         if !collapsedHeader {
                             Text(username)
                                 .font(.system(size: 16, weight: .regular))
-                            Text(schoolName)
+                            Text(viewModel.schoolName)
                                 .font(.system(size: 16, weight: .regular))
                                 .padding(.top, 10)
                         }

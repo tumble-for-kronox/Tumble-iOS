@@ -13,9 +13,6 @@ struct Settings: View {
     @AppStorage(StoreKey.appearance.rawValue) var appearance: String = AppearanceTypes.system.rawValue
     @ObservedObject var viewModel: SettingsViewModel
     let currentLocale = Bundle.main.preferredLocalizations.first
-    let removeSchedule: (String) -> Void
-    let updateBookmarks: () -> Void
-    let onChangeSchool: (School) -> Void
     
     var body: some View {
         VStack {
@@ -47,15 +44,13 @@ struct Settings: View {
                         title: NSLocalizedString("School", comment: ""),
                         current: viewModel.universityName,
                         destination: AnyView(SchoolSelectionSettings(
-                            onChangeSchool: onChangeSchool,
+                            changeSchool: changeSchool,
                             schools: viewModel.schools)))
                     Divider()
                     ListRowNavigationItem(
                         title: NSLocalizedString("Bookmarks", comment: ""),
                         destination: AnyView(BookmarksSettings(
-                            parentViewModel: viewModel,
-                            updateBookmarks: updateBookmarks,
-                            removeSchedule: removeSchedule
+                            parentViewModel: viewModel
                         )))
                 }
                 CustomListGroup {
@@ -86,8 +81,10 @@ struct Settings: View {
         .navigationTitle(NSLocalizedString("Settings", comment: ""))
         .navigationBarTitleDisplayMode(.inline)
     }
-
     
+    fileprivate func changeSchool(schoolId: Int) -> Void {
+        viewModel.changeSchool(schoolId: schoolId)
+    }
     
     fileprivate func rescheduleNotifications(previousOffset: Int, newOffset: Int) -> Void {
         viewModel.rescheduleNotifications(previousOffset: previousOffset, newOffset: newOffset)

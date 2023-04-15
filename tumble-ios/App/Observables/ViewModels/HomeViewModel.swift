@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import Combine
 
 @MainActor final class HomeViewModel: ObservableObject {
     
@@ -15,118 +16,134 @@ import SwiftUI
     @Inject var scheduleService: ScheduleService
     @Inject var courseColorService: CourseColorService
     @Inject var kronoxManager: KronoxManager
-    @Inject var schoolManager: SchoolManager
     
-    @Published var eventSheet: EventDetailsSheetModel? = nil
-    @Published var todayEventsSectionStatus: GenericPageStatus = .loading
-    @Published var nextEventSectionStatus: GenericPageStatus = .loading
     @Published var newsSectionStatus: GenericPageStatus = .loading
     @Published var news: Response.NewsItems? = nil
-    @Published var eventsForWeek: [WeekEventCardModel] = []
-    @Published var nextClass: Response.Event? = nil
-    @Published var eventsForToday: [WeekEventCardModel] = []
-    @Published var courseColors: CourseAndColorDict? = nil
+    @Published var courseColors: CourseAndColorDict = [:]
     @Published var swipedCards: Int = 0
-    @Published var homeStatus: HomeStatus = .loading
+    @Published var status: HomeStatus = .loading
+    @Published var schedules: [ScheduleData] = []
+    @Published var eventsForToday: [WeekEventCardModel] = []
+    @Published var nextClass: Response.Event? = nil
+    @Published var bookmarks: [Bookmark]? {
+        didSet {
+            loadEvents()
+        }
+    }
     
     private let viewModelFactory: ViewModelFactory = ViewModelFactory.shared
+    private var cancellables = Set<AnyCancellable>()
     
     init() {
-        self.getEventsForWeek()
-        self.getNews()
+        initialisePipelines()
+        getNews()
     }
     
-    var ladokUrl: String {
-        return schoolManager.getLadokUrl()
+    func initialisePipelines() -> Void {
+        // Set up publisher to update schedules when data store is updated
+        scheduleService.$schedules
+            .sink { [weak self] schedules in
+                guard let self else { return }
+                self.schedules = schedules
+                loadEvents()
+            }
+            .store(in: &cancellables)
+        courseColorService.$courseColors
+            .assign(to: \.courseColors, on: self)
+            .store(in: &cancellables)
+        scheduleService.$executionStatus
+            .sink { [weak self] executionStatus in
+                guard let self else { return }
+                self.handleDataExecutionStatus(executionStatus: executionStatus)
+            }
+            .store(in: &cancellables)
+        preferenceService.$bookmarks
+            .assign(to: \.bookmarks, on: self)
+            .store(in: &cancellables)
     }
     
-    func updateViewLocals() -> Void {
-        self.getEventsForWeek()
-    }
-    
-    func makeCanvasUrl() -> URL? {
-        return URL(string: preferenceService.getCanvasUrl(schools: schoolManager.getSchools()) ?? "")
-    }
-    
-    
-    func makeUniversityUrl() -> URL? {
-        return URL(string: preferenceService.getUniversityUrl(schools: schoolManager.getSchools()) ?? "")
-    }
-    
-    func updateCourseColors() -> Void {
-        self.loadCourseColors { courseColors in
-            self.courseColors = courseColors
+    func handleDataExecutionStatus(executionStatus: ExecutionStatus) -> Void {
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            switch executionStatus {
+            case .executing:
+                self.status = .loading
+            case .error:
+                self.status = .error
+            case .available:
+                if schedules.isEmpty {
+                    self.status = .noBookmarks
+                } else {
+                    let hiddenBookmarks = bookmarks?.filter { !$0.toggled }.map { $0.id } ?? []
+                    if filterHiddenBookmarks(schedules: schedules, hiddenBookmarks: hiddenBookmarks).isEmpty {
+                        self.status = .notAvailable
+                    } else {
+                        self.status = .available
+                    }
+                }
+            }
         }
     }
     
     func getNews() -> Void {
-        self.newsSectionStatus = .loading
+        newsSectionStatus = .loading
         let _ = kronoxManager.get(.news) { [weak self] (result: Result<Response.NewsItems, Response.ErrorMessage>) in
             guard let self = self else { return }
             switch result {
             case .success(let news):
-                DispatchQueue.main.async {
-                    self.news = news
-                    self.newsSectionStatus = .loaded
-                }
+                self.news = news
+                self.newsSectionStatus = .loaded
             case .failure(let failure):
                 AppLogger.shared.critical("Failed to retrieve news items: \(failure)")
-                DispatchQueue.main.async {
-                    self.newsSectionStatus = .error
-                }
+                self.newsSectionStatus = .error
             }
         }
     }
     
-    func getEventsForWeek() {
-        self.todayEventsSectionStatus = .loading
-        self.nextEventSectionStatus = .loading
-        self.homeStatus = .loading
-        let hiddenBookmarks: [String] = self.preferenceService.getHiddenBookmarks()
-        AppLogger.shared.debug("Fetching events for the week", source: "HomePageViewModel")
-        
-        scheduleService.load(forCurrentWeek: { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .failure(let failure):
-                AppLogger.shared.critical("Failed to load schedules for the week: \(failure.localizedDescription)", source: "HomePageViewModel")
-                self.todayEventsSectionStatus = .error
-                self.nextEventSectionStatus = .error
-                self.homeStatus = .error
-            case .success(let events):
-                AppLogger.shared.debug("Loaded \(events.count) events for the week", source: "HomePageViewModel")
-                // If no events are available,
-                // schedule is clear for the week or the user
-                // has nothing saved yet
-                if events.isEmpty {
-                    if let bookmarks = self.preferenceService.getBookmarks() {
-                        if bookmarks.isEmpty {
-                            self.homeStatus = .noBookmarks
-                            return
-                        }
-                    }
-                    self.homeStatus = .notAvailable
-                    return
-                }
-                self.createDayCards(events:
-                    self.filterEventsMatchingToday(events: events)
-                )
-                self.findNextUpcomingEvent()
-                self.loadCourseColors { courseColors in
-                    self.courseColors = courseColors
-                    self.todayEventsSectionStatus = .loaded
-                    self.nextEventSectionStatus = .loaded
-                    self.homeStatus = .available
-                }
-            }
-        }, hiddenBookmarks: hiddenBookmarks)
+    func loadEvents() {
+        let eventsForWeek = loadEventsForWeek()
+        nextClass = findNextUpcomingEvent()
+        eventsForToday = createDayCards(events: filterEventsMatchingToday(events: eventsForWeek))
+        if schedules.isEmpty {
+            status = .noBookmarks
+        } else if nextClass == nil && eventsForToday.isEmpty {
+            status = .notAvailable
+        } else {
+            status = .available
+        }
     }
     
-    func createDayCards(events: [Response.Event]) -> Void {
+    func createDayCards(events: [Response.Event]) -> [WeekEventCardModel] {
         let weekEventCards = events.map {
             return WeekEventCardModel(event: $0)
         }
-        self.eventsForToday = weekEventCards.reversed()
+        return weekEventCards.reversed()
+    }
+    
+    func findNextUpcomingEvent() -> Response.Event? {
+        let hiddenBookmarks = bookmarks?.filter { !$0.toggled }.map { $0.id } ?? []
+        let days: [Response.Day] = schedules.filter {!hiddenBookmarks.contains($0.id)}.flatMap { $0.days }
+        let events: [Response.Event] = days.flatMap { $0.events }
+        let sortedEvents = events.sorted()
+        let now = Date()
+        
+        // Find the most recent upcoming event that is not today
+        if let nextEvent = sortedEvents.first(where: { isoDateFormatter.date(from: $0.from)! > now }) {
+            if Calendar.current.isDate(now, inSameDayAs: isoDateFormatter.date(from: nextEvent.from)!) {
+                // If the next event is today, find the next upcoming event that is not today
+                if let nextNonTodayEvent = sortedEvents.first(where: {
+                    !Calendar.current.isDate(now, inSameDayAs: isoDateFormatter.date(from: $0.from)!) &&
+                    isoDateFormatter.date(from: $0.from)! > now
+                }) {
+                    return nextNonTodayEvent
+                } else {
+                    return nil
+                }
+            } else {
+                return nextEvent
+            }
+        }
+        return nil
     }
     
 }

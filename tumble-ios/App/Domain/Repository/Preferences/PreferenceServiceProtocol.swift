@@ -10,15 +10,15 @@ import UIKit
 
 protocol PreferenceServiceProtocol {
     // ----------- SET -----------
-    func setSchool(id: Int, completion: @escaping () -> Void) -> Void
+    func setSchool(id: Int) -> Void
     
     func setUserOnboarded() -> Void
     
     func setOffset(offset: Int) -> Void
     
-    func setBookmarks(bookmark: String) -> Void
+    func addBookmark(id: String) -> Void
     
-    func setBookmarks(bookmarks: [Bookmark]) -> Void
+    func removeBookmark(id: String) -> Void
     
     func setAppearance(appearance: String) -> Void
         
@@ -35,7 +35,7 @@ protocol PreferenceServiceProtocol {
     
     func getDefaultViewType() -> BookmarksViewType
     
-    func getDefaultSchoolName(schools: [School]) -> School?
+    func getDefaultSchoolName(schools: [School]) -> String
     
     func isKeyPresentInUserDefaults(key: String) -> Bool
 }

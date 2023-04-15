@@ -22,56 +22,27 @@ extension HomeViewModel {
         return filteredEvents.sorted().reversed()
     }
     
-    func findNextUpcomingEvent() {
-        scheduleService.load(completion: { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let schedules):
-                let hiddenBookmarks = self.preferenceService.getHiddenBookmarks()
-                let days: [Response.Day] = schedules.filter {!hiddenBookmarks.contains($0.id)}.flatMap { $0.days }
-                let events: [Response.Event] = days.flatMap { $0.events }
-                let sortedEvents = events.sorted()
-                let now = Date()
-
-                // Find the most recent upcoming event that is not today
-                if let nextEvent = sortedEvents.first(where: { isoDateFormatter.date(from: $0.from)! > now }) {
-                    if Calendar.current.isDate(now, inSameDayAs: isoDateFormatter.date(from: nextEvent.from)!) {
-                        // If the next event is today, find the next upcoming event that is not today
-                        if let nextNonTodayEvent = sortedEvents.first(where: {
-                            !Calendar.current.isDate(now, inSameDayAs: isoDateFormatter.date(from: $0.from)!) &&
-                            isoDateFormatter.date(from: $0.from)! > now
-                        }) {
-                            self.nextClass = nextNonTodayEvent
-                        } else {
-                            self.nextClass = nil
-                        }
-                    } else {
-                        // If the next event is not today, set it as the next class
-                        self.nextClass = nextEvent
-                    }
-                } else {
-                    self.nextClass = nil
-                }
-
-            case .failure(let failure):
-                AppLogger.shared.critical("Could not load schedules: \(failure)", file: "HomeViewModelExtension")
-                break
-            }
-        })
-    }
-
     
-    func loadCourseColors(completion: @escaping ([String : String]) -> Void) -> Void {
-        self.courseColorService.load { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let courseColors):
-                completion(courseColors)
-            case .failure(let failure):
-                self.todayEventsSectionStatus = .error
-                AppLogger.shared.debug("Error occured loading colors -> \(failure.localizedDescription)")
+    func loadEventsForWeek() -> [Response.Event] {
+        let now = Calendar.current.startOfDay(for: Date())
+        let timeZone = TimeZone.current
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = timeZone
+        let weekEndDate = calendar.date(byAdding: .day, value: 7, to: now)!
+        let weekDateRange = now...weekEndDate
+        AppLogger.shared.debug("Date range: \(weekDateRange)", source: "ScheduleService")
+        let hiddenBookmarks = bookmarks?.filter { !$0.toggled }.map { $0.id } ?? []
+        let events = schedules
+            .filter { !hiddenBookmarks.contains($0.id) }
+            .flatMap { $0.days }
+            .filter {
+                if let eventDate = isoDateFormatterFract.date(from: $0.isoString) {
+                    return weekDateRange.contains(eventDate)
+                }
+                return false
             }
-        }
+            .flatMap { $0.events }
+        return events
     }
     
 }

@@ -7,7 +7,7 @@
                 "loginRq" : false,
                 "color": "green",
                 "schoolUrl": "https://www.hkr.se/",
-                "domain": "hkr"
+                "domain": "hkr",
         },
         {
                 "id" : 1,

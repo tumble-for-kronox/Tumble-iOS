@@ -10,18 +10,11 @@ import SwiftUI
 struct NavigationbarSettings: View {
     
     @ObservedObject var viewModel: SettingsViewModel
-    let onChangeSchool: (School) -> Void
-    let updateBookmarks: () -> Void
-    let removeSchedule: (String) -> Void
     
     var body: some View {
         NavigationLink(destination:
-                        Settings(
-                            viewModel: viewModel,
-                            removeSchedule: removeSchedule,
-                            updateBookmarks: updateBookmarks,
-                            onChangeSchool: onChangeSchool
-            
+            Settings(
+                viewModel: viewModel
             )
            , label: {
             Image(systemName: "gearshape")

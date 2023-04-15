@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Combine
 
 @MainActor final class ResourceViewModel: ObservableObject {
     
@@ -15,7 +16,6 @@ import Foundation
     @Inject var preferenceService: PreferenceService
     @Inject var schoolManager: SchoolManager
     
-    @Published var school: School?
     @Published var completeUserEvent: Response.KronoxCompleteUserEvent? = nil
     @Published var allResources: Response.KronoxResources? = nil
     @Published var resourceBookingPageState: GenericPageStatus = .loading
@@ -23,19 +23,32 @@ import Foundation
     @Published var error: Response.ErrorMessage? = nil
     @Published var selectedPickerDate: Date = Date.now
     
+    
+    @Published var schoolId: Int = -1
     private var allResourcesDataTask: URLSessionDataTask? = nil
+    private var cancellables = Set<AnyCancellable>()
     
     init () {
-        self.school = preferenceService.getDefaultSchoolName(schools: schoolManager.getSchools())
+        initialisePipelines()
+        loadData()
     }
     
+    func initialisePipelines() -> Void {
+        preferenceService.$schoolId
+            .assign(to: \.schoolId, on: self)
+            .store(in: &cancellables)
+    }
+    
+    func loadData() -> Void {
+        self.schoolId = preferenceService.getDefaultSchool() ?? -1
+    }
     
     func getUserEventsForPage(tries: Int = 0, completion: (() -> Void)? = nil) {
         DispatchQueue.main.async {
             self.eventBookingPageState = .loading
         }
         authenticateAndExecute(
-            school: school,
+            schoolId: schoolId,
             refreshToken: userController.refreshToken,
             execute: { [unowned self] result in
                 switch result {
@@ -73,7 +86,7 @@ import Foundation
     ) {
         self.eventBookingPageState = .loading
         authenticateAndExecute(
-            school: school,
+            schoolId: schoolId,
             refreshToken: userController.refreshToken,
             execute: { [unowned self] result in
                 switch result {
@@ -105,7 +118,7 @@ import Foundation
     ) {
         self.eventBookingPageState = .loading
         authenticateAndExecute(
-            school: school,
+            schoolId: schoolId,
             refreshToken: userController.refreshToken,
             execute: { [unowned self] result in
                 switch result {
@@ -133,7 +146,7 @@ import Foundation
     func getAllResourceData(tries: Int = 0, date: Date) -> Void {
         self.resourceBookingPageState = .loading
         authenticateAndExecute(
-            school: school,
+            schoolId: schoolId,
             refreshToken: userController.refreshToken,
             execute: { [unowned self] result in
                 switch result {
@@ -171,7 +184,7 @@ import Foundation
         completion: @escaping (Result<Void, Error>) -> Void
     ) -> Void {
         authenticateAndExecute(
-            school: school,
+            schoolId: schoolId,
             refreshToken: userController.refreshToken,
             execute: { [unowned self] result in
                 switch result {
@@ -217,7 +230,7 @@ import Foundation
         completion: @escaping (Result<Void, Error>) -> Void
     ) -> Void {
         authenticateAndExecute(
-            school: school,
+            schoolId: schoolId,
             refreshToken: userController.refreshToken,
             execute: { [unowned self] result in
                 switch result {
@@ -258,7 +271,7 @@ import Foundation
     
     func unbookResource(bookingId: String, completion: @escaping (Result<Void, Error>) -> Void) -> Void {
         authenticateAndExecute(
-            school: school,
+            schoolId: schoolId,
             refreshToken: userController.refreshToken,
             execute: { [unowned self] result in
                 switch result {

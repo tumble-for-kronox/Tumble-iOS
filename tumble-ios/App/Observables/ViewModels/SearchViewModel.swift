@@ -7,11 +7,12 @@
 
 import Foundation
 import SwiftUI
+import Combine
 
 @MainActor final class SearchViewModel: ObservableObject {
     
-    @Inject var courseColorService: CourseColorService
-    @Inject var scheduleService: ScheduleService
+    let viewModelFactory: ViewModelFactory = ViewModelFactory.shared
+    
     @Inject var preferenceService: PreferenceService
     @Inject var kronoxManager: KronoxManager
     @Inject var notificationManager: NotificationManager
@@ -19,92 +20,44 @@ import SwiftUI
     
     @Published var status: SearchStatus = .initial
     @Published var programmeSearchResults: [Response.Programme] = []
-    @Published var scheduleForPreview: Response.Schedule? = nil
-    @Published var scheduleListOfDays: [DayUiModel]? = nil
-    @Published var presentPreview: Bool = false
-    @Published var schedulePreviewStatus: SchedulePreviewStatus = .loading
-    @Published var schedulePreviewIsSaved: Bool = false
-    @Published var courseColors: [String : String]? = nil
-    @Published var school: School?
-    @Published var errorMessagePreview: String? = nil
+    @Published var courseColors: CourseAndColorDict? = nil
+    @Published var schoolId: Int = -1
     @Published var errorMessageSearch: String? = nil
-    @Published var previewButtonState: ButtonState = .loading
-    
-    
+    @Published var searchPreviewModel: SearchPreviewModel? = nil
+    @Published var universityImage: Image? = nil
+
+    private var cancellables = Set<AnyCancellable>()
     
     init() {
-        self.school = preferenceService.getDefaultSchoolName(schools: schoolManager.getSchools())
+        initialisePipelines()
+        loadData()
     }
     
-    
-    func update() -> Void {
-        self.presentPreview = false
-        self.status = .initial
-        self.scheduleForPreview = nil
-        self.programmeSearchResults.removeAll()
-        self.courseColors = nil
-        self.school = preferenceService.getDefaultSchoolName(schools: schoolManager.getSchools())
+    func loadData() -> Void {
+        schoolId = preferenceService.getDefaultSchool() ?? -1
+        universityImage = self.schoolManager.getSchools().first(where: { $0.id == schoolId })?.logo ?? nil
     }
     
-    
-    // When user presses a programme card
-    func onOpenProgrammeSchedule(programmeId: String) -> Void {
-
-        // Set sheet view as loading and reset possible old
-        // value for the save button
-        self.schedulePreviewIsSaved = false
-        self.schedulePreviewStatus = .loading
-        self.presentPreview = true
-        self.scheduleForPreview = nil
-        
-        // Check if schedule is already saved, to set flag
-        self.checkSavedSchedule(programmeId: programmeId) {
-            
-            // Always get latest schedule
-            self.fetchSchedule(programmeId: programmeId) { fetchedSchedule in
-                if fetchedSchedule {
-                    // If the schedule is saved just make sure all colors are available
-                    // and loaded into view
-                    if self.schedulePreviewIsSaved {
-                        self.loadProgrammeCourseColors { courseColors in
-                            DispatchQueue.main.async {
-                                self.courseColors = courseColors
-                                self.previewButtonState = .saved
-                                self.schedulePreviewStatus = .loaded
-                            }
-                        }
-                    }
-                    // Otherwise load random course colors
-                    else {
-                        self.assignRandomCourseColors { [weak self] (result: Result<[String : String], Error>) in
-                            guard let self = self else { return }
-                            switch result {
-                            case .success(let courseColors):
-                                // Assign possibly updated course colors
-                                self.courseColors = courseColors
-                                self.previewButtonState = .notSaved
-                                self.schedulePreviewStatus = .loaded
-                            case .failure(let failure):
-                                AppLogger.shared.debug("\(failure)")
-                                self.schedulePreviewStatus = .error
-                            }
-                            
-                        }
-                    }
-                } else {
-                    self.schedulePreviewStatus = .error
-                    return
-                }
+    func initialisePipelines() -> Void {
+        preferenceService.$schoolId
+            .sink { [weak self] schoolId in
+                guard let self else { return }
+                self.schoolId = schoolId
+                self.universityImage = self.schoolManager.getSchools().first(where: { $0.id == schoolId })?.logo ?? nil
+                self.resetSearchResults()
             }
-        }
+            .store(in: &cancellables)
     }
     
+    func createSearchPreviewViewModel(scheduleId: String) -> SearchPreviewViewModel {
+        viewModelFactory.makeViewModelSearchPreview(scheduleId: scheduleId)
+    }
     
     func onSearchProgrammes(searchQuery: String) -> Void {
         self.status = .loading
         let _ = kronoxManager.get(.searchProgramme(
             searchQuery: searchQuery,
-            schoolId: String(school!.id))) { [weak self] (result: Result<Response.Search, Response.ErrorMessage>) in
+            schoolId: String(schoolId))) { [weak self] (result: Result<Response.Search, Response.ErrorMessage>) in
                 guard let self = self else { return }
                 switch result {
                 case .success(let result):
@@ -132,46 +85,10 @@ import SwiftUI
     }
     
     
-    func onBookmark(
-        updateButtonState: @escaping () -> Void,
-        checkForNewSchedules: @escaping () -> Void) -> Void {
-            self.previewButtonState = .loading
-            // If the schedule isn't already saved in the local database
-            if !self.schedulePreviewIsSaved {
-                self.saveSchedule(completion: { [weak self] result in
-                    guard let self = self else { return }
-                    switch result {
-                    case .success:
-                        self.preferenceService.setBookmarks(bookmark: self.scheduleForPreview!.id)
-                        self.previewButtonState = .saved
-                        updateButtonState()
-                        checkForNewSchedules()
-                        return
-                    case .failure:
-                        self.schedulePreviewStatus = .error
-                    }
-                })
-            }
-            // Otherwise we remove (untoggle) the schedule
-            else {
-                self.loadSchedules { [weak self] schedules in
-                    guard let self = self else { return }
-                    self.cancelNotifications(for: schedules, with: self.scheduleForPreview?.id)
-                    self.removeSchedule(completion: { result in
-                        switch result {
-                        case .success:
-                            self.previewButtonState = .notSaved
-                            updateButtonState()
-                            checkForNewSchedules()
-                            return
-                        case .failure:
-                            self.schedulePreviewStatus = .error
-                        }
-                    })
-                }
-            }
+    func parseSearchResults(_ results: Response.Search) -> Void {
+        self.programmeSearchResults = results.items.map { $0 }
+        self.status = .loaded
     }
-
     
     func resetSearchResults() -> Void {
         self.programmeSearchResults = []

@@ -12,7 +12,6 @@ struct TodaysEvents: View {
     let courseColors: CourseAndColorDict?
     @Binding var eventsForToday: [WeekEventCardModel]
     @Binding var swipedCards: Int
-    @Binding var todayEventsSectionStatus: GenericPageStatus
     
     var body: some View {
         VStack (alignment: .leading) {
@@ -25,8 +24,7 @@ struct TodaysEvents: View {
                         TodaysEventsCarousel(
                             courseColors: courseColors,
                             eventsForToday: $eventsForToday,
-                            swipedCards: $swipedCards,
-                            bookmarkedEventsSectionStatus: $todayEventsSectionStatus
+                            swipedCards: $swipedCards
                         )
                     } else {
                         Text(NSLocalizedString("No events for today", comment: ""))

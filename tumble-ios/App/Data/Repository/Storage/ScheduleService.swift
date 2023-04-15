@@ -7,9 +7,23 @@
 
 import Foundation
 
+enum ExecutionStatus {
+    case executing
+    case error
+    case available
+}
+
 class ScheduleService: ObservableObject, ScheduleServiceProtocol {
     
-    private let serialQueue = DispatchQueue(label: "com.example.ScheduleService", qos: .background)
+    private let serialQueue = OperationQueue()
+    @Published public var schedules: [ScheduleData] = []
+    @Published public var executionStatus: ExecutionStatus = .available
+    
+    init() {
+        serialQueue.maxConcurrentOperationCount = 1
+        serialQueue.qualityOfService = .background
+        load(completion: { _ in })
+    }
     
     private func fileURL() throws -> URL {
             try FileManager.default.url(for: .documentDirectory,
@@ -19,75 +33,44 @@ class ScheduleService: ObservableObject, ScheduleServiceProtocol {
                 .appendingPathComponent("schedules.data")
         }
     
+    func getSchedules() -> [ScheduleData] {
+        return schedules
+    }
     
     func load(completion: @escaping (Result<[ScheduleData], Error>) -> Void) {
-        serialQueue.async {
+        serialQueue.addOperation { [weak self] in
+            guard let self else { return }
+            DispatchQueue.main.async {
+                self.executionStatus = .executing
+            }
             do {
                 let fileURL = try self.fileURL()
-                let decoder = JSONDecoder()
-                guard let file = try? FileHandle(forReadingFrom: fileURL) else {
+                let fileCheckResult = checkFile(at: fileURL)
+                switch fileCheckResult {
+                case .failure(let error):
+                    DispatchQueue.main.async {
+                        self.executionStatus = .available
+                        completion(.failure(error))
+                    }
+                case .success:
+                    let decoder = JSONDecoder()
+                    guard let file = try? FileHandle(forReadingFrom: fileURL) else {
                         DispatchQueue.main.async {
-                            completion(.success([]))
+                            self.executionStatus = .error
+                            completion(.failure(.internal(reason: "Could not open document file for reading")))
                         }
                         return
                     }
-                let schedules = try decoder.decode([ScheduleData].self, from: file.availableData)
-                DispatchQueue.main.async {
-                    completion(.success(schedules))
-                }
-            } catch {
-                DispatchQueue.main.async {
-                    completion(.failure(.internal(reason: "Could not decode schedules stored locally")))
-                }
-            }
-        }
-    }
-    
-    func load(
-        forCurrentWeek completion: @escaping ((Result<[Response.Event], Error>) -> Void),
-        hiddenBookmarks: [String]
-    ) {
-        let now = Calendar.current.startOfDay(for: Date())
-        let timeZone = TimeZone.current
-        var calendar = Calendar(identifier: .gregorian)
-        calendar.timeZone = timeZone
-        let weekEndDate = calendar.date(byAdding: .day, value: 7, to: now)!
-        let weekDateRange = now...weekEndDate
-        AppLogger.shared.debug("Date range: \(weekDateRange)", source: "ScheduleService")
-        load(forWeeksInRange: weekDateRange, hiddenBookmarks: hiddenBookmarks) { result in
-            switch result {
-            case .failure(let failure):
-                completion(.failure(failure))
-            case .success(let events):
-                completion(.success(events))
-            }
-        }
-    }
-
-    
-    func load(with id: String, completion: @escaping (Result<ScheduleData, Error>) -> Void) -> Void {
-        serialQueue.async {
-            do {
-                let fileURL = try self.fileURL()
-                let decoder = JSONDecoder()
-                guard let file = try? FileHandle(forReadingFrom: fileURL) else {
+                    let schedules = try decoder.decode([ScheduleData].self, from: file.availableData)
                     DispatchQueue.main.async {
-                        completion(.failure(.internal(reason: "Could not load file handle")))
-                    }
-                    return
-                }
-                let schedules = try decoder.decode([ScheduleData].self, from: file.availableData)
-                if let schedule = schedules.first(where: { $0.id == id }) {
-                    DispatchQueue.main.async {
-                        completion(.success(schedule))
-                    }
-                } else {
-                    DispatchQueue.main.async {
-                        completion(.failure(.internal(reason: "No schedule with specified id found")))
+                        self.schedules = schedules.removeDuplicateEvents()
+                        self.executionStatus = .available
+                        completion(.success(schedules))
                     }
                 }
             } catch {
                 DispatchQueue.main.async {
+                    self.executionStatus = .error
                     completion(.failure(.internal(reason: "Could not decode schedules stored locally")))
                 }
             }
@@ -96,38 +79,35 @@ class ScheduleService: ObservableObject, ScheduleServiceProtocol {
 
 
     func save(schedule: Response.Schedule, completion: @escaping (Result<Int, Error>)->Void) {
-        serialQueue.async {
+        serialQueue.addOperation { [weak self] in
+            guard let self else { return }
+            DispatchQueue.main.async {
+                self.executionStatus = .executing
+            }
             do {
                 let fileURL = try self.fileURL()
                 let encoder = JSONEncoder()
-                self.load(completion: { (result: Result<[ScheduleData], Error>) in
-                    switch result {
-                    case .failure(let failure):
-                        DispatchQueue.main.async {
-                            AppLogger.shared.critical("Failed to save \(schedule.id)")
-                            completion(.failure(failure))
-                        }
-                    case .success(let schedules):
-                        do {
-                            
-                            let newSchedules = self.insertOrReplace(for: schedule, with: schedules)
-                            
-                            let data = try encoder.encode(newSchedules)
-                            try data.write(to: fileURL)
-                            DispatchQueue.main.async {
-                                AppLogger.shared.debug("Successfully saved schedule \(schedule.id)")
-                                completion(.success(1))
-                            }
-                        } catch {
-                            DispatchQueue.main.async {
-                                AppLogger.shared.critical("Failed to save \(schedule.id)")
-                                completion(.failure(.internal(reason: error.localizedDescription)))
-                            }
-                        }
+                do {
+                    let newSchedules = self.insertOrReplace(for: schedule, with: schedules)
+                    let data = try encoder.encode(newSchedules)
+                    try data.write(to: fileURL)
+                    
+                    DispatchQueue.main.async {
+                        self.schedules = newSchedules.removeDuplicateEvents()
+                        AppLogger.shared.debug("Successfully saved schedule \(schedule.id)")
+                        self.executionStatus = .available
+                        completion(.success(1))
                     }
-                })
+                } catch {
+                    DispatchQueue.main.async {
+                        AppLogger.shared.critical("Failed to save \(schedule.id)")
+                        self.executionStatus = .error
+                        completion(.failure(.internal(reason: error.localizedDescription)))
+                    }
+                }
             } catch {
                 DispatchQueue.main.async {
+                    self.executionStatus = .error
                     completion(.failure(.internal(reason: error.localizedDescription)))
                 }
             }
@@ -135,122 +115,116 @@ class ScheduleService: ObservableObject, ScheduleServiceProtocol {
     }
     
     func removeAll(completion: @escaping (Result<Int, Error>) -> Void) {
-        serialQueue.async {
+        serialQueue.addOperation { [weak self] in
+            guard let self else { return }
+            DispatchQueue.main.async {
+                self.executionStatus = .executing
+            }
             do {
                 let fileURL = try self.fileURL()
-                let decoder = JSONDecoder()
-                let encoder = JSONEncoder()
-                guard let file = try? FileHandle(forReadingFrom: fileURL) else {
-                    DispatchQueue.main.async {
-                        completion(.success(1))
+                let fileCheckResult = checkFile(at: fileURL)
+                switch fileCheckResult {
+                case .success:
+                    let decoder = JSONDecoder()
+                    let encoder = JSONEncoder()
+                    guard let file = try? FileHandle(forReadingFrom: fileURL) else {
+                        DispatchQueue.main.async {
+                            self.executionStatus = .error
+                            completion(.failure(.internal(reason: "Failed to load document directory")))
+                        }
+                        return
                     }
-                    return
-                }
-                var schedules = try decoder.decode([ScheduleData].self, from: file.availableData)
-                schedules.removeAll()
-                let data = try encoder.encode(schedules)
-                try data.write(to: fileURL)
-                
-                DispatchQueue.main.async {
-                    AppLogger.shared.debug("Removed all schedules")
-                    completion(.success(schedules.count))
+                    var schedules = try decoder.decode([ScheduleData].self, from: file.availableData)
+                    schedules.removeAll()
+                    let data = try encoder.encode(schedules)
+                    try data.write(to: fileURL)
+                    
+                    DispatchQueue.main.async {
+                        self.schedules = schedules.removeDuplicateEvents()
+                        AppLogger.shared.debug("Removed all schedules")
+                        self.executionStatus = .available
+                        completion(.success(schedules.count))
+                    }
+                case .failure(let failure):
+                    DispatchQueue.main.async {
+                        self.executionStatus = .available
+                        completion(.failure(failure))
+                    }
                 }
             } catch {
                 DispatchQueue.main.async {
+                    self.executionStatus = .error
                     completion(.failure(.internal(reason: error.localizedDescription)))
-                    }
+                }
             }
         }
     }
     
     func remove(scheduleId: String, completion: @escaping (Result<Int, Error>)->Void) {
-        serialQueue.async {
+        serialQueue.addOperation { [weak self] in
+            guard let self else { return }
             do {
                 let fileURL = try self.fileURL()
                 let decoder = JSONDecoder()
                 let encoder = JSONEncoder()
                 guard let file = try? FileHandle(forReadingFrom: fileURL) else {
                         DispatchQueue.main.async {
-                            completion(.success(1))
+                            self.executionStatus = .error
+                            completion(.failure(.internal(reason: "Failed to open document directory")))
                         }
                         return
                     }
                 var schedules = try decoder.decode([ScheduleData].self, from: file.availableData)
-                
                 schedules.removeAll(where: {$0.id == scheduleId})
-                
                 let data = try encoder.encode(schedules)
                 try data.write(to: fileURL)
-                
                 DispatchQueue.main.async {
                     AppLogger.shared.debug("Removed schedule \(scheduleId)")
+                    self.schedules = schedules.removeDuplicateEvents()
+                    self.executionStatus = .available
                     completion(.success(schedules.count))
                 }
             } catch {
                 DispatchQueue.main.async {
+                    self.executionStatus = .error
                     completion(.failure(.internal(reason: error.localizedDescription)))
-                    }
                 }
+            }
         }
     }
 }
 
 extension ScheduleService {
     
-    fileprivate func insertOrReplace(for schedule: Response.Schedule, with schedules: [ScheduleData]) -> [ScheduleData] {
+    fileprivate func insertOrReplace(
+        for schedule: Response.Schedule,
+        with schedules: [ScheduleData]) -> [ScheduleData] {
         let calendar = Calendar(identifier: .gregorian)
         let date = calendar.dateComponents(in: calendar.timeZone, from: Date.now).date
-        
         var newSchedules: [ScheduleData] = schedules
-        
         if newSchedules.contains(where: { $0.id == schedule.id }) {
             for (index, bookmark) in newSchedules.enumerated() {
                 if schedule.id == bookmark.id {
-                    newSchedules[index] = ScheduleData(id: schedule.id, cachedAt: schedule.cachedAt, days: schedule.days, lastUpdated: date!)
+                    newSchedules[index] =
+                        ScheduleData(
+                            id: schedule.id,
+                            cachedAt: schedule.cachedAt,
+                            days: schedule.days,
+                            lastUpdated: date!
+                        )
                 }
             }
         } else {
-            newSchedules.append(ScheduleData(id: schedule.id, cachedAt: schedule.cachedAt, days: schedule.days, lastUpdated: date!))
+            newSchedules.append(
+                ScheduleData(
+                    id: schedule.id,
+                    cachedAt: schedule.cachedAt,
+                    days: schedule.days,
+                    lastUpdated: date!
+                )
+            )
         }
         return newSchedules
     }
-
-    /// Helper function to retrieve events within a specific date range,
-    /// takes into account the users currently hidden bookmarks
-    fileprivate func load(
-        forWeeksInRange range: ClosedRange<Date>,
-        hiddenBookmarks: [String],
-        completion: @escaping (Result<[Response.Event], Error>) -> Void) {
-            serialQueue.async {
-                do {
-                    let fileURL = try self.fileURL()
-                    let decoder = JSONDecoder()
-                    guard let file = try? FileHandle(forReadingFrom: fileURL) else {
-                        DispatchQueue.main.async {
-                            completion(.success([]))
-                        }
-                        return
-                    }
-                    let schedules = try decoder.decode([ScheduleData].self, from: file.availableData)
-                    let events = schedules
-                        .filter { !hiddenBookmarks.contains($0.id) }
-                        .flatMap { $0.days }
-                        .filter {
-                            if let eventDate = isoDateFormatterFract.date(from: $0.isoString) {
-                                return range.contains(eventDate)
-                            }
-                            return false
-                        }
-                        .flatMap { $0.events }
-                    DispatchQueue.main.async {
-                        AppLogger.shared.debug("Retrieved events for range \(range)", source: "ScheduleService")
-                        completion(.success(events))
-                    }
-                } catch {
-                    DispatchQueue.main.async {
-                        completion(.failure(.internal(reason: "Could not decode schedules stored locally")))
-                    }
-                }
-            }
-    }
+    
 }

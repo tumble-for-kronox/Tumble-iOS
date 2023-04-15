@@ -7,27 +7,29 @@
 
 import SwiftUI
 
-struct SchedulePreview: View {
+struct SearchPreview: View {
     
-    @ObservedObject var parentViewModel: SearchViewModel
-    @Binding var courseColors: [String : String]?
+    @ObservedObject var viewModel: SearchPreviewViewModel
     
     var body: some View {
         VStack {
-            switch parentViewModel.schedulePreviewStatus {
+            DraggingPill()
+            HStack {
+                Spacer()
+                BookmarkButton(
+                    bookmark: bookmark,
+                    buttonState: $viewModel.buttonState)
+            }
+            switch viewModel.status {
             case .loaded:
-                if courseColors != nil {
-                    SchedulePreviewList(
-                        parentViewModel: parentViewModel,
-                        courseColors: courseColors!,
-                        days: parentViewModel.scheduleListOfDays!)
-                } else {
-                    CustomProgressIndicator()
-                }
+                SearchPreviewList(
+                    viewModel: viewModel
+                )
             case .loading:
                 CustomProgressIndicator()
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
             case .error:
-                if let failure = parentViewModel.errorMessagePreview {
+                if let failure = viewModel.errorMessage {
                     Info(title: failure, image: nil)
                 } else {
                     Info(title: NSLocalizedString("Something went wrong", comment: ""), image: nil)
@@ -44,6 +46,10 @@ struct SchedulePreview: View {
               alignment: .center
             )
         .background(Color.background)
+    }
+    
+    func bookmark() -> Void {
+        viewModel.bookmark()
     }
 }
 

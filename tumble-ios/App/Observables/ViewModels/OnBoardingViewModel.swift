@@ -16,12 +16,10 @@ import Foundation
     
     lazy var schools: [School] = schoolManager.getSchools()
     
-    func onSelectSchool(school: School, updateUserOnBoarded: @escaping UpdateUserOnBoarded) -> Void {
+    func onSelectSchool(school: School) -> Void {
         showSchoolSelection = false
-        preferenceService.setSchool(id: school.id) {
-            self.preferenceService.setUserOnboarded()
-            updateUserOnBoarded()
-        }
+        preferenceService.setSchool(id: school.id)
+        preferenceService.setUserOnboarded()
     }
     
 }

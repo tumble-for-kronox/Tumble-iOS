@@ -16,11 +16,7 @@ import SwiftUI
     @Inject var courseColorService: CourseColorService
     
     @Published var event: Response.Event
-    @Published var color: Color {
-        didSet {
-            replaceColor()
-        }
-    }
+    @Published var color: Color
     @Published var isNotificationSetForEvent: Bool = false
     @Published var isNotificationSetForCourse: Bool = false
     @Published var notificationOffset: Int = 60

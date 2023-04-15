@@ -12,14 +12,14 @@ struct TodaysEventsCarousel: View {
     let courseColors: CourseAndColorDict
     @Binding var eventsForToday: [WeekEventCardModel]
     @Binding var swipedCards: Int
-    @Binding var bookmarkedEventsSectionStatus: GenericPageStatus
     
     var body: some View {
         ZStack {
-            switch bookmarkedEventsSectionStatus {
-            case .loading:
-                CustomProgressIndicator()
-            case .loaded:
+            if eventsForToday.isEmpty {
+                Text(NSLocalizedString("No events for today", comment: ""))
+                    .font(.system(size: 16))
+                    .foregroundColor(.onBackground)
+            } else {
                 ForEach(eventsForToday.indices.reversed(), id: \.self) { index in
                     let event = eventsForToday[index].event
                     let color = courseColors[event.course.id]?.toColor() ?? .white
@@ -29,7 +29,7 @@ struct TodaysEventsCarousel: View {
                                 width: getCardWidth(index: index),
                                 height: getCardHeight(index: index)
                             )
-                            .background(Color.surface)
+                            .background(event.isSpecial ? Color.red.opacity(0.2) : Color.surface)
                             .cornerRadius(20)
                             .offset(x: getCardOffset(index: index))
                             .rotationEffect(.init(degrees: getCardRotation(index: index)))
@@ -54,8 +54,6 @@ struct TodaysEventsCarousel: View {
                             })
                     )
                 }
-            case .error:
-                Info(title: NSLocalizedString("No classes for today", comment: ""), image: nil)
             }
         }
         HStack {

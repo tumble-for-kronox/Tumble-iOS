@@ -12,16 +12,14 @@ struct HomeAvailable: View {
     @Binding var eventsForToday: [WeekEventCardModel]
     @Binding var nextClass: Response.Event?
     @Binding var swipedCards: Int
-    @Binding var courseColors: CourseAndColorDict?
-    @Binding var todayEventsSectionStatus: GenericPageStatus
+    @Binding var courseColors: CourseAndColorDict
     
     var body: some View {
         VStack {
             TodaysEvents(
                 courseColors: courseColors,
                 eventsForToday: $eventsForToday,
-                swipedCards: $swipedCards,
-                todayEventsSectionStatus: $todayEventsSectionStatus)
+                swipedCards: $swipedCards)
             NextClass(nextClass: nextClass, courseColors: courseColors)
             Spacer()
         }

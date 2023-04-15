@@ -1,4 +1,5 @@
 import Foundation
+import Combine
 
 /// ViewModel for the account page of the app.
 /// It handles the signing in of users, registering and unregistering
@@ -13,8 +14,9 @@ import Foundation
     @Inject var preferenceService: PreferenceService
     @Inject var schoolManager: SchoolManager
     
-    @Published var school: School?
-    @Published var status: AccountViewStatus = .initial
+    @Published var schoolId: Int = -1
+    @Published var schoolName: String = ""
+    @Published var status: AccountViewStatus = .unAuthenticated
     @Published var completeUserEvent: Response.KronoxCompleteUserEvent? = nil
     @Published var userBookings: Response.KronoxUserBookings? = nil
     @Published var registeredEventSectionState: GenericPageStatus = .loading
@@ -41,9 +43,10 @@ import Foundation
     /// AccountViewModel is responsible for instantiating
     /// the viewmodel used in its child views it navigates to
     lazy var resourceViewModel: ResourceViewModel = viewModelFactory.makeViewModelResource()
+    private var cancellables = Set<AnyCancellable>()
     
     init() {
-        self.school = preferenceService.getDefaultSchoolName(schools: schoolManager.getSchools())
+        initialisePipelines()
         if userController.autoSignup {
             self.registerAutoSignup(completion: { result in
                 switch result {
@@ -58,10 +61,30 @@ import Foundation
         }
     }
     
-    func updateViewLocals() -> Void {
-        self.school = preferenceService.getDefaultSchoolName(schools: schoolManager.getSchools())
+    func initialisePipelines() -> Void {
+        userController.$authStatus
+            .sink { [weak self] authStatus in
+                guard let self else { return }
+                switch authStatus {
+                case .authorized:
+                    self.status = .authenticated
+                    self.getUserEventsForSection()
+                    self.getUserBookingsForSection()
+                case .unAuthorized:
+                    self.status = .unAuthenticated
+                }
+            }
+            .store(in: &cancellables)
+        preferenceService.$schoolId
+            .sink { [weak self] schoolId in
+                guard let self else { return }
+                self.schoolId = schoolId
+                self.schoolName = self.schoolManager.getSchools().first(where: { $0.id == schoolId })?.name ?? ""
+            }
+            .store(in: &cancellables)
     }
-
+    
+    
     func removeUserBooking(where id: String) -> Void {
         DispatchQueue.main.async {
             self.userBookings?.removeAll {
@@ -107,15 +130,7 @@ import Foundation
         self.status = .loading
         self.userController.logIn(
             username: username,
-            password: password,
-            completion: { [unowned self] success in
-                DispatchQueue.main.async {
-                    self.status = .initial
-                }
-                self.getUserEventsForSection()
-                self.getUserBookingsForSection()
-                createToast(success)
-            })
+            password: password)
     }
     
     
@@ -125,7 +140,7 @@ import Foundation
             self.registeredEventSectionState = .loading
         }
         authenticateAndExecute(
-            school: school,
+            schoolId: schoolId,
             refreshToken: userController.refreshToken,
             execute: { [unowned self] result in
                 switch result {
@@ -161,7 +176,7 @@ import Foundation
             self.bookingSectionState = .loading
         }
         authenticateAndExecute(
-            school: school,
+            schoolId: schoolId,
             refreshToken: userController.refreshToken,
             execute: { [unowned self] result in
                 switch result {
@@ -202,7 +217,7 @@ import Foundation
         completion: @escaping (Result<Void, Error>) -> Void
     ) {
         authenticateAndExecute(
-            school: school,
+            schoolId: schoolId,
             refreshToken: userController.refreshToken,
             execute: { [unowned self] result in
                 switch result {
@@ -250,7 +265,7 @@ import Foundation
         }
         
         authenticateAndExecute(
-            school: school,
+            schoolId: schoolId,
             refreshToken: userController.refreshToken,
             execute: { [weak self] result in
                 guard let self else { return }

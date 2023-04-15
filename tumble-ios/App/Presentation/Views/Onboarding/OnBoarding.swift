@@ -43,15 +43,12 @@ struct OnBoarding: View {
     @State private var animateButton: Bool = true
     @State private var buttonOffset: CGFloat = 900.0
     @State var offset: CGFloat = .zero
-    
-    let updateUserOnBoarded: UpdateUserOnBoarded
-    
-    init(viewModel: OnBoardingViewModel, updateUserOnBoarded: @escaping UpdateUserOnBoarded) {
+        
+    init(viewModel: OnBoardingViewModel) {
         UIPageControl.appearance().currentPageIndicatorTintColor = UIColor(Color.primary)
         UIPageControl.appearance().pageIndicatorTintColor = UIColor(Color.surface)
     
         self.viewModel = viewModel
-        self.updateUserOnBoarded = updateUserOnBoarded
     }
     
     var body: some View {
@@ -164,6 +161,6 @@ struct OnBoarding: View {
     }
     
     func onSelectSchool(school: School) -> Void {
-        viewModel.onSelectSchool(school: school, updateUserOnBoarded: updateUserOnBoarded)
+        viewModel.onSelectSchool(school: school)
     }
 }

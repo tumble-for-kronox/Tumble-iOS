@@ -17,12 +17,11 @@ struct Root: View {
             switch viewModel.currentView {
             case .onboarding:
                 if let onBoardingViewModel = viewModel.onBoardingViewModel {
-                    OnBoarding(viewModel: onBoardingViewModel, updateUserOnBoarded: setUserOnBoarded)
+                    OnBoarding(viewModel: onBoardingViewModel)
                 }
             case .app:
                 if let parentViewModel = viewModel.parentViewModel {
                     AppParent(viewModel: parentViewModel)
-                        .environmentObject(AppController.shared)
                 }
             }
         }
@@ -30,10 +29,5 @@ struct Root: View {
         .edgesIgnoringSafeArea(.all)
         .ignoresSafeArea(.keyboard)
     }
-    
-    func setUserOnBoarded() -> Void {
-        self.viewModel.delegateToAppParent()
-    }
-    
 }
 

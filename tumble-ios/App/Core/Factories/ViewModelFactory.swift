@@ -28,21 +28,19 @@ class ViewModelFactory {
     
     @MainActor func makeViewModelOnBoarding() -> OnBoardingViewModel { .init() }
     
+    @MainActor func makeViewModelSettings() -> SettingsViewModel { .init() }
+    
     // Special viewmodel important for checking user onboarding in order to change
     // the displayed child view
-    @MainActor func makeViewModelRoot() -> RootViewModel {
-            .init(
-                userNotOnBoarded: !preferenceService.isKeyPresentInUserDefaults(
-                    key: StoreKey.userOnboarded.rawValue
-                )
-            )
-        }
-    // Isolated viewmodel requiring an event and color
+    @MainActor func makeViewModelRoot() -> RootViewModel { .init() }
+    
+    // Viewmodels requiring parameters during creation
     @MainActor func makeViewModelEventDetailsSheet(
         event: Response.Event,
         color: Color) -> EventDetailsSheetViewModel {
             .init(event: event, color: color)
     }
     
-    @MainActor func makeViewModelSettings() -> SettingsViewModel { .init() }
+    @MainActor func makeViewModelSearchPreview(
+        scheduleId: String) -> SearchPreviewViewModel { .init(scheduleId: scheduleId) }
 }

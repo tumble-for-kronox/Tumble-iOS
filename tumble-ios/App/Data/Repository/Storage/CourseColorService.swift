@@ -12,7 +12,16 @@ typealias CourseAndColorDict = [String : String]
 
 class CourseColorService: ObservableObject, CourseColorServiceProtocol {
     
-    private let serialQueue = DispatchQueue(label: "com.example.CourseColorService", qos: .background)
+    private let serialQueue = OperationQueue()
+    @Published public var courseColors: CourseAndColorDict = [:]
+    
+    init() {
+        // Limit amount of concurrent operations to avoid
+        // potentially strange state behavior
+        serialQueue.maxConcurrentOperationCount = 1
+        serialQueue.qualityOfService = .background
+        load(completion: { _ in })
+    }
     
     private func fileURL() throws -> URL {
         try FileManager.default.url(for: .documentDirectory,
@@ -21,32 +30,29 @@ class CourseColorService: ObservableObject, CourseColorServiceProtocol {
            create: false)
             .appendingPathComponent("colors.data")
     }
+    
+    func getCourseColors() -> CourseAndColorDict {
+        return courseColors
+    }
 
     func replace(for event: Response.Event, with color: Color, completion: @escaping (Result<Int, Error>) -> Void) -> Void {
-        serialQueue.async {
+        serialQueue.addOperation { [weak self] in
+            guard let self else { return }
             do {
                 let fileURL = try self.fileURL()
                 let encoder = JSONEncoder()
-                self.load { result in
-                    switch result {
-                    case .failure(let failure):
-                        DispatchQueue.main.async {
-                            completion(.failure(failure))
-                        }
-                    case .success(let courses):
-                        do {
-                            var newCourses = courses
-                            newCourses[event.course.id] = color.toHex()
-                            let data = try encoder.encode(newCourses)
-                            try data.write(to: fileURL)
-                            DispatchQueue.main.async {
-                                completion(.success(1))
-                            }
-                        } catch {
-                            DispatchQueue.main.async {
-                                completion(.failure(.internal(reason: error.localizedDescription)))
-                            }
-                        }
+                do {
+                    var newCourses = courseColors
+                    newCourses[event.course.id] = color.toHex()
+                    let data = try encoder.encode(newCourses)
+                    try data.write(to: fileURL)
+                    DispatchQueue.main.async {
+                        self.courseColors = newCourses
+                        completion(.success(1))
+                    }
+                } catch {
+                    DispatchQueue.main.async {
+                        completion(.failure(.internal(reason: error.localizedDescription)))
                     }
                 }
             } catch {
@@ -58,7 +64,7 @@ class CourseColorService: ObservableObject, CourseColorServiceProtocol {
     }
     
     func load(completion: @escaping (Result<CourseAndColorDict, Error>) -> Void) {
-        serialQueue.async {
+        serialQueue.addOperation {
             do {
                 let fileURL = try self.fileURL()
                 let decoder = JSONDecoder()
@@ -70,6 +76,7 @@ class CourseColorService: ObservableObject, CourseColorServiceProtocol {
                     }
                 let courses = try decoder.decode(CourseAndColorDict.self, from: file.availableData)
                 DispatchQueue.main.async {
+                    self.courseColors = courses
                     completion(.success(courses))
                 }
             } catch {
@@ -82,30 +89,22 @@ class CourseColorService: ObservableObject, CourseColorServiceProtocol {
     
 
     func save(coursesAndColors: [String : String], completion: @escaping (Result<Int, Error>) -> Void) {
-        serialQueue.async {
+        serialQueue.addOperation { [weak self] in
+            guard let self else { return }
             do {
                 let fileURL = try self.fileURL()
                 let encoder = JSONEncoder()
-                self.load { result in
-                    switch result {
-                    case .failure(let failure):
-                        DispatchQueue.main.async {
-                            completion(.failure(failure))
-                        }
-                    case .success(let courses):
-                        do {
-
-                            let finalCourseColorDict = courses.merging(coursesAndColors) { (_, new) in new }
-                            let data = try encoder.encode(finalCourseColorDict)
-                            try data.write(to: fileURL)
-                            DispatchQueue.main.async {
-                                completion(.success(1))
-                            }
-                        } catch {
-                            DispatchQueue.main.async {
-                                completion(.failure(.internal(reason: error.localizedDescription)))
-                            }
-                        }
+                do {
+                    let finalCourseColorDict = self.courseColors.merging(coursesAndColors) { (_, new) in new }
+                    let data = try encoder.encode(finalCourseColorDict)
+                    try data.write(to: fileURL)
+                    DispatchQueue.main.async {
+                        self.courseColors = finalCourseColorDict
+                        completion(.success(1))
+                    }
+                } catch {
+                    DispatchQueue.main.async {
+                        completion(.failure(.internal(reason: error.localizedDescription)))
                     }
                 }
             } catch {
@@ -117,17 +116,17 @@ class CourseColorService: ObservableObject, CourseColorServiceProtocol {
     }
     
     func removeAll(completion: @escaping (Result<Int, Error>) -> Void) {
-        serialQueue.async {
+        serialQueue.addOperation {
             do {
                 let fileURL = try self.fileURL()
                 let decoder = JSONDecoder()
                 let encoder = JSONEncoder()
                 guard let file = try? FileHandle(forReadingFrom: fileURL) else {
-                        DispatchQueue.main.async {
-                            completion(.success(1))
-                        }
-                        return
+                    DispatchQueue.main.async {
+                        completion(.success(1))
                     }
+                    return
+                }
                 var courses = try decoder.decode(CourseAndColorDict.self, from: file.availableData)
                 
                 courses.removeAll()
@@ -136,6 +135,7 @@ class CourseColorService: ObservableObject, CourseColorServiceProtocol {
                 try data.write(to: fileURL)
                 
                 DispatchQueue.main.async {
+                    self.courseColors = courses
                     completion(.success(courses.count))
                 }
             } catch {
@@ -147,7 +147,7 @@ class CourseColorService: ObservableObject, CourseColorServiceProtocol {
     }
     
     func remove(removeCourses: [String], completion: @escaping (Result<Int, Error>)->Void) {
-        serialQueue.async {
+        serialQueue.addOperation {
             do {
                 let fileURL = try self.fileURL()
                 let decoder = JSONDecoder()
@@ -168,6 +168,7 @@ class CourseColorService: ObservableObject, CourseColorServiceProtocol {
                 try data.write(to: fileURL)
                 
                 DispatchQueue.main.async {
+                    self.courseColors = courses
                     completion(.success(courses.count))
                 }
             } catch {

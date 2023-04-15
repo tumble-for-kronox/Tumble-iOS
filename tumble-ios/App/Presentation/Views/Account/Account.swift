@@ -10,19 +10,18 @@ import SwiftUI
 struct Account: View {
     
     @ObservedObject var viewModel: AccountViewModel
-    
-    let createToast: (ToastStyle, String, String) -> Void
-    
+        
     var body: some View {
         VStack (alignment: .center) {
-            if viewModel.userAuthenticatedAndSignedIn() {
-                UserOverview(viewModel: viewModel, schoolName: viewModel.school?.name ?? "", createToast: createToast)
-            } else {
-                if viewModel.status == .loading {
-                    InfoLoading(title: NSLocalizedString("Attempting to log in user", comment: ""))
-                } else if viewModel.status == .initial {
-                    AccountLogin(viewModel: viewModel, createToast: createToast)
-                }
+            switch viewModel.status {
+            case .authenticated:
+                UserOverview(viewModel: viewModel)
+            case .unAuthenticated:
+                AccountLogin(viewModel: viewModel)
+            case .loading:
+                InfoLoading(title: NSLocalizedString("Attempting to log in user", comment: ""))
+            case .error:
+                Info(title: NSLocalizedString("Something went wrong", comment: ""), image: nil)
             }
         }
         .frame(maxHeight: .infinity)
