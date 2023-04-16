@@ -7,7 +7,7 @@
 
 import Foundation
 
-@MainActor final class OnBoardingViewModel: ObservableObject {
+final class OnBoardingViewModel: ObservableObject {
     
     @Inject private var preferenceService: PreferenceService
     @Inject private var schoolManager: SchoolManager

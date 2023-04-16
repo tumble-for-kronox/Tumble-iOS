@@ -36,9 +36,9 @@ struct Bookmarks: View {
                         )
                     case .calendar:
                         BookmarkCalendarView(
-                            days: viewModel.days,
-                            courseColors: viewModel.courseColors,
-                            appController: appController
+                            appController: appController,
+                            days: $viewModel.days,
+                            courseColors: viewModel.courseColors
                         )
                     }
                 case .uninitialized:

@@ -42,10 +42,11 @@ struct Settings: View {
                 CustomListGroup {
                     ListRowNavigationItem(
                         title: NSLocalizedString("School", comment: ""),
-                        current: viewModel.universityName,
+                        current: viewModel.schoolName,
                         destination: AnyView(SchoolSelectionSettings(
                             changeSchool: changeSchool,
                             schools: viewModel.schools)))
+                    .id(viewModel.schoolId)
                     Divider()
                     ListRowNavigationItem(
                         title: NSLocalizedString("Bookmarks", comment: ""),
@@ -92,35 +93,10 @@ struct Settings: View {
     
     fileprivate func clearAllNotifications() -> Void {
         viewModel.clearAllNotifications()
-        AppController.shared.toast = Toast(
-            type: .success,
-            title: NSLocalizedString("Cancelled notifications", comment: ""),
-            message: NSLocalizedString("Cancelled all available notifications set for events", comment: "")
-        )
     }
     
     fileprivate func scheduleNotificationsForAllCourses() -> Void {
-        viewModel.scheduleNotificationsForAllEvents(completion: { result in
-            switch result {
-            case .success:
-                DispatchQueue.main.async {
-                    AppController.shared.toast = Toast(
-                        type: .success,
-                        title: NSLocalizedString("Scheduled notifications", comment: ""),
-                        message: NSLocalizedString("Scheduled notifications for all available events", comment: "")
-                    )
-                }
-            case .failure:
-                DispatchQueue.main.async {
-                    AppController.shared.toast = Toast(
-                        type: .error,
-                        title: NSLocalizedString("Error", comment: ""),
-                        message: NSLocalizedString("Failed to set notifications for all available events", comment: "")
-                    )
-                }
-            }
-        })
-        
+        viewModel.scheduleNotificationsForAllEvents()
     }
     
 }

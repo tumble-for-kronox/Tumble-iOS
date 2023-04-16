@@ -12,7 +12,7 @@ struct SearchPreviewModel: Identifiable {
     let id: String
 }
 
-@MainActor final class SearchPreviewViewModel: ObservableObject {
+final class SearchPreviewViewModel: ObservableObject {
     
     @Published var isSaved = false
     @Published var status: SchedulePreviewStatus = .loading
@@ -37,24 +37,9 @@ struct SearchPreviewModel: Identifiable {
     
     init(scheduleId: String) {
         self.scheduleId = scheduleId
-        initialisePipelines()
+        setUpDataPublishers()
         loadData()
         getSchedule(programmeId: scheduleId)
-    }
-    
-    func initialisePipelines() -> Void {
-        scheduleService.$schedules
-            .assign(to: \.schedules, on: self)
-            .store(in: &cancellables)
-        courseColorService.$courseColors
-            .assign(to: \.courseColors, on: self)
-            .store(in: &cancellables)
-        preferenceService.$bookmarks
-            .assign(to: \.bookmarks, on: self)
-            .store(in: &cancellables)
-        preferenceService.$schoolId
-            .assign(to: \.schoolId, on: self)
-            .store(in: &cancellables)
     }
     
     func loadData() -> Void {
@@ -64,22 +49,50 @@ struct SearchPreviewModel: Identifiable {
         schoolId = preferenceService.getDefaultSchool() ?? -1
     }
     
+    func setUpDataPublishers() -> Void {
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            guard let self else { return }
+            let schedulesSubscription = scheduleService.$schedules
+            let courseColorsSubscription = courseColorService.$courseColors
+            let bookmarksSubscription = preferenceService.$bookmarks
+            let schoolSubscription = preferenceService.$schoolId
+            
+            Publishers.CombineLatest4(
+                schedulesSubscription,
+                courseColorsSubscription,
+                bookmarksSubscription,
+                schoolSubscription
+            )
+            .receive(on: DispatchQueue.main)
+            .sink { schedules, courseColors, bookmarks, schoolId in
+                self.schedules = schedules
+                self.courseColors = courseColors
+                self.bookmarks = bookmarks
+                self.schoolId = schoolId
+            }
+            .store(in: &cancellables)
+        }
+    }
+    
     func getSchedule(programmeId: String) -> Void {
         
-        // Check if schedule is already saved, to set flag
-        isSaved = checkSavedSchedule(programmeId: programmeId)
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            // Check if schedule is already saved, to set flag
+            isSaved = checkSavedSchedule(programmeId: programmeId)
+        }
         // Always get latest schedule
-        self.fetchSchedule(programmeId: programmeId) { [weak self] result in
+        fetchSchedule(programmeId: programmeId) { [weak self] result in
             guard let self else { return }
             switch result {
             case .success(let fetchedSchedule):
                 if (schedules.map { $0.id }).contains(fetchedSchedule.id) {
-                    self.isSaved = true
-                    self.buttonState = .saved
-                    self.schedule = fetchedSchedule
+                    isSaved = true
+                    buttonState = .saved
+                    schedule = fetchedSchedule
                     let courses = fetchedSchedule.courses()
-                    self.courseColorsForPreview = courseColors.filter { courses.contains($0.key) }
-                    self.status = .loaded
+                    courseColorsForPreview = courseColors.filter { courses.contains($0.key) }
+                    status = .loaded
                 } else {
                     self.assignRandomCourseColors(
                         schedule: fetchedSchedule
@@ -99,8 +112,8 @@ struct SearchPreviewModel: Identifiable {
                     }
                 }
             case .failure(let failure):
-                self.status = .error
-                self.errorMessage = failure.message.contains("NSURLErrorDomain") ? "Could not contact the server, try again later" : failure.message
+                status = .error
+                errorMessage = failure.message.contains("NSURLErrorDomain") ? "Could not contact the server, try again later" : failure.message
             }
         }
     }
@@ -125,15 +138,17 @@ struct SearchPreviewModel: Identifiable {
     }
     
     func bookmark() -> Void {
-            self.buttonState = .loading
+        buttonState = .loading
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            guard let self else { return }
             // If the schedule isn't already saved in the local database
-            if !self.isSaved {
-                scheduleService.save(schedule: schedule!, completion: { [weak self] result in
-                    guard let self = self else { return }
+            if !isSaved {
+                scheduleService.save(schedule: schedule!, completion: { result in
                     switch result {
                     case .success:
                         self.preferenceService.addBookmark(id: self.schedule!.id)
-                        self.courseColorService.save(coursesAndColors: courseColorsForPreview, completion: { result in
+                        self.courseColorService.save(
+                            coursesAndColors: self.courseColorsForPreview, completion: { result in
                             switch result {
                             case .success:
                                 self.buttonState = .saved
@@ -144,7 +159,6 @@ struct SearchPreviewModel: Identifiable {
                                 self.status = .error
                             }
                         })
-                        
                     case .failure:
                         self.status = .error
                     }
@@ -152,7 +166,7 @@ struct SearchPreviewModel: Identifiable {
             }
             // Otherwise we remove (untoggle) the schedule
             else {
-                self.cancelNotifications(for: schedules, with: schedule?.id)
+                cancelNotifications(for: schedules, with: schedule?.id)
                 scheduleService.remove(scheduleId: schedule!.id, completion: { [weak self] result in
                     guard let self else { return }
                     switch result {
@@ -180,6 +194,7 @@ struct SearchPreviewModel: Identifiable {
                     }
                 })
             }
+        }
     }
     
 }

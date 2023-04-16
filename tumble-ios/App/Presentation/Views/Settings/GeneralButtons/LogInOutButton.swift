@@ -10,7 +10,7 @@ import SwiftUI
 struct LogInOutButton: View {
     
     @Environment(\.dismiss) var dismiss
-    @StateObject var parentViewModel: SettingsViewModel
+    @ObservedObject var parentViewModel: SettingsViewModel
     
     @State private var isConfirming: Bool = false
     var settingsDetails: SettingsDetails = SettingsDetails(

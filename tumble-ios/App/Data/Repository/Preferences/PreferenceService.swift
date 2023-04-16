@@ -47,7 +47,6 @@ class PreferenceService: PreferenceServiceProtocol {
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
             self.bookmarks = newBookmarks
-            print("Bookmarks: \(newBookmarks.map { $0.id })")
         }
     }
     
@@ -63,8 +62,16 @@ class PreferenceService: PreferenceServiceProtocol {
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
             self.bookmarks = newBookmarks
-            print("Bookmarks: \(newBookmarks.map { $0.id })")
         }
+    }
+    
+    func removeAllBookmarks() {
+        UserDefaults.standard.removeObject(forKey: StoreKey.bookmarks.rawValue)
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            self.bookmarks = []
+        }
+        UserDefaults.standard.synchronize()
     }
     
     func setUserOnboarded() -> Void {

@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-@MainActor final class ResourceViewModel: ObservableObject {
+final class ResourceViewModel: ObservableObject {
     
     @Inject var userController: UserController
     @Inject var kronoxManager: KronoxManager
@@ -30,32 +30,32 @@ import Combine
     
     init () {
         initialisePipelines()
-        loadData()
     }
     
     func initialisePipelines() -> Void {
-        preferenceService.$schoolId
-            .assign(to: \.schoolId, on: self)
-            .store(in: &cancellables)
-    }
-    
-    func loadData() -> Void {
-        self.schoolId = preferenceService.getDefaultSchool() ?? -1
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            guard let self else { return }
+            preferenceService.$schoolId
+                .assign(to: \.schoolId, on: self)
+                .store(in: &cancellables)
+        }
     }
     
     func getUserEventsForPage(tries: Int = 0, completion: (() -> Void)? = nil) {
-        DispatchQueue.main.async {
-            self.eventBookingPageState = .loading
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            eventBookingPageState = .loading
         }
-        authenticateAndExecute(
+        userController.authenticateAndExecute(
             schoolId: schoolId,
             refreshToken: userController.refreshToken,
-            execute: { [unowned self] result in
+            execute: { [weak self] result in
+                guard let self else { return }
                 switch result {
                 case .success((let schoolId, let refreshToken)):
                     let request = Endpoint.userEvents(schoolId: String(schoolId))
                     let _ = kronoxManager.get(request, refreshToken: refreshToken,
-                    then: { [unowned self] (result: Result<Response.KronoxCompleteUserEvent?, Response.ErrorMessage>) in
+                    then: { (result: Result<Response.KronoxCompleteUserEvent?, Response.ErrorMessage>) in
                         switch result {
                         case .success(let events):
                             AppLogger.shared.debug("Successfully loaded events")
@@ -84,11 +84,15 @@ import Combine
         eventId: String,
         completion: @escaping (Result<Void, Error>) -> Void
     ) {
-        self.eventBookingPageState = .loading
-        authenticateAndExecute(
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            eventBookingPageState = .loading
+        }
+        userController.authenticateAndExecute(
             schoolId: schoolId,
             refreshToken: userController.refreshToken,
-            execute: { [unowned self] result in
+            execute: { [weak self] result in
+                guard let self else { return }
                 switch result {
                 case .success((let schoolId, let refreshToken)):
                     let request = Endpoint.registerEvent(eventId: eventId, schoolId: String(schoolId))
@@ -116,11 +120,15 @@ import Combine
         eventId: String,
         completion: @escaping (Result<Void, Error>) -> Void
     ) {
-        self.eventBookingPageState = .loading
-        authenticateAndExecute(
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            eventBookingPageState = .loading
+        }
+        userController.authenticateAndExecute(
             schoolId: schoolId,
             refreshToken: userController.refreshToken,
-            execute: { [unowned self] result in
+            execute: { [weak self] result in
+                guard let self else { return }
                 switch result {
                 case .success((let schoolId, let refreshToken)):
                     let request = Endpoint.unregisterEvent(eventId: eventId, schoolId: String(schoolId))
@@ -144,16 +152,20 @@ import Combine
     }
     
     func getAllResourceData(tries: Int = 0, date: Date) -> Void {
-        self.resourceBookingPageState = .loading
-        authenticateAndExecute(
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            resourceBookingPageState = .loading
+        }
+        userController.authenticateAndExecute(
             schoolId: schoolId,
             refreshToken: userController.refreshToken,
-            execute: { [unowned self] result in
+            execute: { [weak self] result in
+                guard let self else { return }
                 switch result {
                 case .success((let schoolId, let refreshToken)):
                     let request = Endpoint.allResources(schoolId: String(schoolId), date: date)
                     self.allResourcesDataTask = self.kronoxManager.get(request, refreshToken: refreshToken,
-                    then: { [unowned self] (result: Result<Response.KronoxResources?, Response.ErrorMessage>) in
+                    then: { (result: Result<Response.KronoxResources?, Response.ErrorMessage>) in
                         switch result {
                         case .success(let resources):
                             DispatchQueue.main.async {
@@ -183,10 +195,11 @@ import Combine
         bookingId: String,
         completion: @escaping (Result<Void, Error>) -> Void
     ) -> Void {
-        authenticateAndExecute(
+        userController.authenticateAndExecute(
             schoolId: schoolId,
             refreshToken: userController.refreshToken,
-            execute: { [unowned self] result in
+            execute: { [weak self] result in
+                guard let self else { return }
                 switch result {
                 case .success((let schoolId, let refreshToken)):
                     let requestUrl = Endpoint.confirmResource(
@@ -196,7 +209,7 @@ import Combine
                         resourceId: resourceId,
                         bookingId: bookingId
                     )
-                    let _ = self.kronoxManager.put(
+                    let _ = kronoxManager.put(
                         requestUrl,
                         refreshToken: refreshToken,
                         body: requestBody) {
@@ -229,10 +242,11 @@ import Combine
         availabilityValue: Response.AvailabilityValue,
         completion: @escaping (Result<Void, Error>) -> Void
     ) -> Void {
-        authenticateAndExecute(
+        userController.authenticateAndExecute(
             schoolId: schoolId,
             refreshToken: userController.refreshToken,
-            execute: { [unowned self] result in
+            execute: { [weak self] result in
+                guard let self else { return }
                 switch result {
                 case .success((let schoolId, let refreshToken)):
                     let requestUrl = Endpoint.bookResource(
@@ -243,7 +257,7 @@ import Combine
                         date: isoDateFormatterFract.string(from: date),
                         slot: availabilityValue
                     )
-                    let _ = self.kronoxManager.put(
+                    let _ = kronoxManager.put(
                         requestUrl,
                         refreshToken: refreshToken,
                         body: requestBody) {
@@ -270,14 +284,15 @@ import Combine
     }
     
     func unbookResource(bookingId: String, completion: @escaping (Result<Void, Error>) -> Void) -> Void {
-        authenticateAndExecute(
+        userController.authenticateAndExecute(
             schoolId: schoolId,
             refreshToken: userController.refreshToken,
-            execute: { [unowned self] result in
+            execute: { [weak self] result in
+                guard let self else { return }
                 switch result {
                 case .success((let schoolId, let refreshToken)):
                     let requestUrl: Endpoint = .unbookResource(schoolId: String(schoolId), bookingId: bookingId)
-                    let _ = self.kronoxManager.put(requestUrl, refreshToken: refreshToken, body: Request.Empty()) {
+                    let _ = kronoxManager.put(requestUrl, refreshToken: refreshToken, body: Request.Empty()) {
                         (result: Result<Response.Empty, Response.ErrorMessage>) in
                         switch result {
                         case .success:

@@ -126,16 +126,4 @@ extension BookmarksViewModel {
         }
     }
     
-    func filterBookmarks(
-        schedules: [ScheduleData],
-        hiddenBookmarks: [String]) -> [ScheduleData] {
-        return schedules.filter {
-            switch $0.id {
-            case let id where hiddenBookmarks.contains(id):
-                return false
-            default:
-                return true
-            }
-        }
-    }
 }

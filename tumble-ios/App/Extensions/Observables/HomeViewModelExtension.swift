@@ -18,7 +18,6 @@ extension HomeViewModel {
             let dayOfYear = calendar.ordinality(of: .day, in: .year, for: date) ?? 1
             return dayOfYear == currentDayOfYear
         }
-
         return filteredEvents.sorted().reversed()
     }
     

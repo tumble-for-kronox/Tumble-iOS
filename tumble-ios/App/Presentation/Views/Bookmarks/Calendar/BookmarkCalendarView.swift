@@ -6,19 +6,18 @@
 //
 
 import Foundation
-import UIKit
 import SwiftUI
 import FSCalendar
 
 struct BookmarkCalendarView: View {
-    
-    let days: [DayUiModel]
-    let courseColors: CourseAndColorDict
+
     @ObservedObject var appController: AppController
     
     @State private var displayedDayEvents: [Response.Event] = [Response.Event]()
     @State private var selectedDate: Date = Date()
-
+    
+    @Binding var days: [DayUiModel]
+    let courseColors: CourseAndColorDict
     
     var body: some View {
         ScrollView (showsIndicators: false) {
@@ -60,6 +59,7 @@ struct BookmarkCalendarView: View {
                 }
             }
         }
+        .id(days)
     }
     
     private func onTapDetail(event: Response.Event, color: Color) -> Void {

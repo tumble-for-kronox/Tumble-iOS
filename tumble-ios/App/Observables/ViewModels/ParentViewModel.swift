@@ -10,7 +10,7 @@ import SwiftUI
 
 
 // Parent/Container for other viewmodels
-@MainActor final class ParentViewModel: ObservableObject {
+final class ParentViewModel: ObservableObject {
     
     var viewModelFactory: ViewModelFactory = ViewModelFactory.shared
     

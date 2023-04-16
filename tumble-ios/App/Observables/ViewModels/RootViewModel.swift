@@ -1,5 +1,5 @@
 //
-//  TabSwitcherView-ViewModel.swift
+//  RootViewModel.swift
 //  tumble-ios
 //
 //  Created by Adis Veletanlic on 11/20/22.
@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 import Combine
 
-@MainActor final class RootViewModel: ObservableObject {
+final class RootViewModel: ObservableObject {
     
     @Inject private var authManager: AuthManager
     @Inject private var preferenceService: PreferenceService
@@ -23,10 +23,11 @@ import Combine
     
     private var userOnBoardingSubscription: AnyCancellable?
     
-    init() { initialisePipelines() }
+    init() { setUpDataPublishers() }
     
-    func initialisePipelines() -> Void {
+    func setUpDataPublishers() -> Void {
         userOnBoardingSubscription = preferenceService.$userOnBoarded
+            .receive(on: DispatchQueue.main)
             .sink { [weak self] userOnBoarded in
                 guard let self = self else { return }
                 if userOnBoarded {
@@ -38,5 +39,13 @@ import Combine
                     self.currentView = .onboarding
                 }
             }
+    }
+    
+    func cancelSubscriptions() {
+        userOnBoardingSubscription?.cancel()
+    }
+    
+    deinit {
+        cancelSubscriptions()
     }
 }

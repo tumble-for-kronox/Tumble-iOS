@@ -7,8 +7,9 @@
 
 import Foundation
 import SwiftUI
+import Combine
 
-@MainActor final class EventDetailsSheetViewModel: ObservableObject {
+final class EventDetailsSheetViewModel: ObservableObject {
     
     @Inject var notificationManager: NotificationManager
     @Inject var preferenceService: PreferenceService
@@ -21,19 +22,28 @@ import SwiftUI
     @Published var isNotificationSetForCourse: Bool = false
     @Published var notificationOffset: Int = 60
     @Published var notificationsAllowed: Bool = false
+    @Published var schedules: [ScheduleData] = []
     
+    private var cancellables = Set<AnyCancellable>()
     
     init(event: Response.Event, color: Color) {
         self.event = event
         self.color = color
-        self.checkNotificationIsSetForEvent()
-        self.checkNotificationIsSetForCourse()
-        self.notificationOffset = preferenceService.getNotificationOffset()
-        self.userAllowedNotifications(completion: { value in
-            DispatchQueue.main.async {
+        checkNotificationIsSetForEvent()
+        checkNotificationIsSetForCourse()
+        notificationOffset = preferenceService.getNotificationOffset()
+        userAllowedNotifications(completion: { value in
+            DispatchQueue.main.async { [weak self] in
+                guard let self else { return }
                 self.notificationsAllowed = value
             }
         })
+    }
+    
+    func setUpDataPublishers() -> Void {
+        scheduleService.$schedules
+            .assign(to: \.schedules, on: self)
+            .store(in: &cancellables)
     }
     
     func replaceColor() -> Void {
@@ -49,74 +59,85 @@ import SwiftUI
     }
     
     func setEventSheetView(event: Response.Event, color: Color) -> Void {
-        self.event = event
-        self.color = color
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            self.event = event
+            self.color = color
+        }
     }
     
     
     func cancelNotificationForEvent() -> Void {
-        notificationManager.cancelNotification(for: event.id)
-        self.isNotificationSetForEvent = false
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            isNotificationSetForEvent = false
+        }
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            guard let self else { return }
+            notificationManager.cancelNotification(for: event.id)
+        }
     }
     
     
     func cancelNotificationsForCourse() -> Void {
-        notificationManager.cancelNotifications(with: event.course.id)
-        self.isNotificationSetForCourse = false
-        self.isNotificationSetForEvent = false
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            isNotificationSetForCourse = false
+            isNotificationSetForEvent = false
+        }
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            guard let self else { return }
+            notificationManager.cancelNotifications(with: event.course.id)
+        }
     }
     
     
     func scheduleNotificationForEvent() -> Void {
-        let userOffset: Int = self.preferenceService.getNotificationOffset()
-        
-        // Create notification for event without categoryIdentifier,
-        // since it does not need to be set for the entire course
-        let notification = EventNotification(
-            id: self.event.id,
-            color: self.color.toHex() ?? "#FFFFFF",
-            dateComponents: self.event.dateComponents!,
-            categoryIdentifier: nil,
-            content: self.event.toDictionary())
-        
-        self.notificationManager.scheduleNotification(
-            for: notification,
-            type: .event,
-            userOffset: userOffset,
-            completion: { [weak self] result in
-                guard let self = self else { return }
-                switch result {
-                case .success(_):
-                    DispatchQueue.main.async {
-                        self.isNotificationSetForEvent = true
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            guard let self else { return }
+            let userOffset: Int = self.preferenceService.getNotificationOffset()
+            
+            // Create notification for event without categoryIdentifier,
+            // since it does not need to be set for the entire course
+            let notification = EventNotification(
+                id: self.event.id,
+                color: self.color.toHex() ?? "#FFFFFF",
+                dateComponents: self.event.dateComponents!,
+                categoryIdentifier: nil,
+                content: self.event.toDictionary())
+            
+            notificationManager.scheduleNotification(
+                for: notification,
+                type: .event,
+                userOffset: userOffset,
+                completion: { result in
+                    switch result {
+                    case .success(_):
+                        DispatchQueue.main.async {
+                            self.isNotificationSetForEvent = true
+                        }
+                    case .failure(let failure):
+                        AppLogger.shared.critical("Failed to schedule notifications -> \(failure)")
+                        // TODO: Handle error in view
                     }
-                case .failure(let failure):
-                    AppLogger.shared.critical("Failed to schedule notifications -> \(failure)")
-                    // TODO: Handle error in view
-                }
-        })
+            })
+        }
     }
 
     
     
     func scheduleNotificationsForCourse() -> Void {
-        scheduleService.load(completion: { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let success):
-                let schedules = success
-                self.applyNotificationForScheduleEventsInCourse(schedules: schedules) { success in
-                    if success {
-                        DispatchQueue.main.async {
-                            self.isNotificationSetForCourse = true
-                            self.isNotificationSetForEvent = true
-                        }
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            guard let self else { return }
+            applyNotificationForScheduleEventsInCourse(schedules: schedules) { success in
+                if success {
+                    DispatchQueue.main.async {
+                        self.isNotificationSetForCourse = true
+                        self.isNotificationSetForEvent = true
                     }
                 }
-            case .failure(let failure):
-                AppLogger.shared.debug("\(failure)")
             }
-        })
+        }
     }
     
     func userAllowedNotifications(completion: @escaping (Bool) -> Void) -> Void {

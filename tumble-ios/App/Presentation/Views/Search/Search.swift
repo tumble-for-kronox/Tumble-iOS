@@ -45,7 +45,7 @@ struct Search: View {
     }
     
     func onClearSearch(endEditing: Bool) -> Void {
-        viewModel.onClearSearch(endEditing: endEditing)
+        viewModel.clearSearchResults(endEditing: endEditing)
     }
     
     func onOpenProgramme(programmeId: String) -> Void {

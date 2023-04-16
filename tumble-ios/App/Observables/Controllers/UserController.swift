@@ -43,5 +43,32 @@ class UserController: ObservableObject {
         get { preferenceService.getDefault(key: StoreKey.autoSignup.rawValue) as? Bool ?? false }
         set { preferenceService.setAutoSignup(autoSignup: newValue) }
     }
+    
+    func authenticateAndExecute(
+        tries: Int = 0,
+        schoolId: Int,
+        refreshToken: Token?,
+        execute: @escaping (Result<(Int, String), Error>) -> Void
+    ) {
+        
+        guard let refreshToken = refreshToken,
+              !refreshToken.isExpired() else {
+            if tries < NetworkConstants.MAX_CONSECUTIVE_ATTEMPTS && authStatus == .authorized {
+                AppLogger.shared.debug("Attempting auto login ...")
+                autoLogin { [unowned self] in
+                    self.authenticateAndExecute(
+                        tries: tries + 1,
+                        schoolId: schoolId,
+                        refreshToken: refreshToken,
+                        execute: execute
+                    )
+                }
+            } else {
+                execute(.failure(.internal(reason: "Could not authenticate user")))
+            }
+            return
+        }
+        execute(.success((schoolId, refreshToken.value)))
+    }
 
 }

@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 import Combine
 
-@MainActor final class BookmarksViewModel: ObservableObject {
+final class BookmarksViewModel: ObservableObject {
     
     let viewModelFactory: ViewModelFactory = ViewModelFactory()
     let scheduleViewTypes: [BookmarksViewType] = BookmarksViewType.allValues
@@ -29,86 +29,81 @@ import Combine
     @Published var eventSheet: EventDetailsSheetModel? = nil
     
     private var cancellables = Set<AnyCancellable>()
+    private var hiddenBookmarks: [String] {
+        return bookmarks?.filter { !$0.toggled }.map { $0.id } ?? []
+    }
     
     init () {
-        initialisePipelines()
+        setUpDataPublishers()
         defaultViewType = preferenceService.getDefaultViewType()
     }
     
-    func initialisePipelines() -> Void {
-        // Set up publisher to update schedules when data stores are updated
-        scheduleService.$schedules
-            .assign(to: \.schedules, on: self)
-            .store(in: &cancellables)
-        courseColorService.$courseColors
-            .assign(to: \.courseColors, on: self)
-            .store(in: &cancellables)
-        scheduleService.$executionStatus
-            .sink { [weak self] executionStatus in
-                guard let self else { return }
-                self.handleDataExecutionStatus(executionStatus: executionStatus)
-            }
-            .store(in: &cancellables)
-        preferenceService.$bookmarks
-            .sink { [weak self] newBookmarks in
-                guard let self else { return }
-                self.handleNewBookmarks(newBookmarks: newBookmarks)
-            }
-            .store(in: &cancellables)
+    func setUpDataPublishers() -> Void {
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            guard let self else { return }
+            // Set up publisher to update schedules when data stores are updated
+            let schedulesPublisher = scheduleService.$schedules
+            let courseColorsPublisher = courseColorService.$courseColors
+            let executionStatusPublisher = scheduleService.$executionStatus
+            let bookmarksPublisher = preferenceService.$bookmarks
+
+            Publishers.CombineLatest4(schedulesPublisher, courseColorsPublisher, executionStatusPublisher, bookmarksPublisher)
+                .receive(on: DispatchQueue.main)
+                .sink { schedules, courseColors, executionStatus, bookmarks in
+                    
+                    // Update view model properties with the processed data
+                    self.schedules = schedules
+                    self.courseColors = courseColors
+                    self.handleDataExecutionStatus(executionStatus: executionStatus)
+                    self.handleNewBookmarks(newBookmarks: bookmarks)
+                }
+                .store(in: &cancellables)
+        }
     }
+
     
     // If bookmarks in preferences are modified in app
     func handleNewBookmarks(newBookmarks: [Bookmark]?) -> Void {
-        self.status = .loading
+        status = .loading
         self.bookmarks = newBookmarks
-        // Always update view of days
-        defer {
-            let hiddenBookmarks = newBookmarks?.filter { !$0.toggled } ?? []
+        switch newBookmarks {
+        case .none:
+            status = .uninitialized
+        case .some(let bookmarks) where bookmarks.isEmpty:
+            status = .uninitialized
+        case .some(let bookmarks) where bookmarks.filter({ $0.toggled }).isEmpty:
+            status = .hiddenAll
+        case .some:
             days = (filterHiddenBookmarks(
                 schedules: schedules,
-                hiddenBookmarks: hiddenBookmarks.map { $0.id })
+                hiddenBookmarks: hiddenBookmarks)
             ).flatten().toOrderedDayUiModels()
-        }
-        if let newBookmarks = newBookmarks {
-            if newBookmarks.isEmpty {
-                self.status = .uninitialized
-                return
-            }
-            // If new bookmarks where toggled value is true is empty,
-            // the user has hidden all their schedules
-            if (newBookmarks.filter { $0.toggled }).isEmpty {
-                self.status = .hiddenAll
-            } else {
-                self.status = .loaded
-            }
-        } else {
-            self.status = .uninitialized
+            status = .loaded
         }
     }
+
     
     // If schedule service is modified in app
     func handleDataExecutionStatus(executionStatus: ExecutionStatus) -> Void {
-        DispatchQueue.main.async { [weak self] in
-            guard let self else { return }
-            switch executionStatus {
-            case .executing:
-                self.status = .loading
-            case .error:
-                self.status = .error
-            case .available:
-                if schedules.isEmpty {
-                    self.status = .uninitialized
-                } else {
-                    let hiddenBookmarks = bookmarks?.filter { !$0.toggled }.map { $0.id } ?? []
-                    if filterHiddenBookmarks(schedules: schedules, hiddenBookmarks: hiddenBookmarks).isEmpty {
-                        self.status = .hiddenAll
-                    } else {
-                        self.status = .loaded
-                    }
-                }
+        switch executionStatus {
+        case .executing:
+            status = .loading
+        case .error:
+            status = .error
+        case .available:
+            guard !schedules.isEmpty else {
+                status = .uninitialized
+                return
+            }
+            let hiddenBookmarks = bookmarks?.filter { !$0.toggled }.map { $0.id } ?? []
+            if filterHiddenBookmarks(schedules: schedules, hiddenBookmarks: hiddenBookmarks).isEmpty {
+                status = .hiddenAll
+            } else {
+                status = .loaded
             }
         }
     }
+
     
     func createViewModelEventSheet(event: Response.Event, color: Color) -> EventDetailsSheetViewModel {
         return viewModelFactory.makeViewModelEventDetailsSheet(event: event, color: color)

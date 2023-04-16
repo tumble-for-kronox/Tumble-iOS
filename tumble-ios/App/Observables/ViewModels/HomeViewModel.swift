@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 import Combine
 
-@MainActor final class HomeViewModel: ObservableObject {
+final class HomeViewModel: ObservableObject {
     
     @Inject var preferenceService: PreferenceService
     @Inject var userController: UserController
@@ -33,54 +33,58 @@ import Combine
     
     private let viewModelFactory: ViewModelFactory = ViewModelFactory.shared
     private var cancellables = Set<AnyCancellable>()
+    private var hiddenBookmarks: [String] {
+        return bookmarks?.filter { !$0.toggled }.map { $0.id } ?? []
+    }
     
     init() {
-        initialisePipelines()
+        setUpDataPublishers()
         getNews()
     }
     
-    func initialisePipelines() -> Void {
-        // Set up publisher to update schedules when data store is updated
-        scheduleService.$schedules
-            .sink { [weak self] schedules in
-                guard let self else { return }
+    func setUpDataPublishers() -> Void {
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            guard let self else { return }
+            let schedulesPublisher = scheduleService.$schedules
+            let courseColorsPublisher = courseColorService.$courseColors
+            let executionStatusPublisher = scheduleService.$executionStatus
+            let bookmarksPublisher = preferenceService.$bookmarks
+            
+            Publishers.CombineLatest4(
+                schedulesPublisher,
+                courseColorsPublisher,
+                executionStatusPublisher,
+                bookmarksPublisher
+            )
+            .receive(on: DispatchQueue.main)
+            .sink { schedules, courseColors, executionStatus, bookmarks in
+                
+                // Update view model properties with the processed data
                 self.schedules = schedules
-                loadEvents()
-            }
-            .store(in: &cancellables)
-        courseColorService.$courseColors
-            .assign(to: \.courseColors, on: self)
-            .store(in: &cancellables)
-        scheduleService.$executionStatus
-            .sink { [weak self] executionStatus in
-                guard let self else { return }
+                self.courseColors = courseColors
+                self.bookmarks = bookmarks
                 self.handleDataExecutionStatus(executionStatus: executionStatus)
             }
             .store(in: &cancellables)
-        preferenceService.$bookmarks
-            .assign(to: \.bookmarks, on: self)
-            .store(in: &cancellables)
+        }
     }
     
     func handleDataExecutionStatus(executionStatus: ExecutionStatus) -> Void {
-        DispatchQueue.main.async { [weak self] in
-            guard let self else { return }
-            switch executionStatus {
-            case .executing:
-                self.status = .loading
-            case .error:
-                self.status = .error
-            case .available:
-                if schedules.isEmpty {
-                    self.status = .noBookmarks
-                } else {
-                    let hiddenBookmarks = bookmarks?.filter { !$0.toggled }.map { $0.id } ?? []
-                    if filterHiddenBookmarks(schedules: schedules, hiddenBookmarks: hiddenBookmarks).isEmpty {
-                        self.status = .notAvailable
-                    } else {
-                        self.status = .available
-                    }
-                }
+        switch executionStatus {
+        case .executing:
+            status = .loading
+        case .error:
+            status = .error
+        case .available:
+            guard !schedules.isEmpty else {
+                status = .noBookmarks
+                return
+            }
+            let hiddenBookmarks = bookmarks?.filter { !$0.toggled }.map { $0.id } ?? []
+            if filterHiddenBookmarks(schedules: schedules, hiddenBookmarks: hiddenBookmarks).isEmpty {
+                status = .notAvailable
+            } else {
+                status = .available
             }
         }
     }
@@ -101,15 +105,21 @@ import Combine
     }
     
     func loadEvents() {
-        let eventsForWeek = loadEventsForWeek()
-        nextClass = findNextUpcomingEvent()
-        eventsForToday = createDayCards(events: filterEventsMatchingToday(events: eventsForWeek))
-        if schedules.isEmpty {
-            status = .noBookmarks
-        } else if nextClass == nil && eventsForToday.isEmpty {
-            status = .notAvailable
-        } else {
-            status = .available
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            guard let self else { return }
+            let eventsForWeek = loadEventsForWeek()
+            let dayCards = createDayCards(events: filterEventsMatchingToday(events: eventsForWeek))
+            DispatchQueue.main.async {
+                self.nextClass = self.findNextUpcomingEvent()
+                self.eventsForToday = dayCards
+                if self.schedules.isEmpty {
+                    self.status = .noBookmarks
+                } else if self.nextClass == nil && self.eventsForToday.isEmpty {
+                    self.status = .notAvailable
+                } else {
+                    self.status = .available
+                }
+            }
         }
     }
     
