@@ -20,7 +20,6 @@
 		D400F3EC29D7976C0050622E /* UserControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D400F3EB29D7976C0050622E /* UserControllerExtension.swift */; };
 		D400F3EE29D797A80050622E /* TumbleUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D400F3ED29D797A80050622E /* TumbleUser.swift */; };
 		D400F3F429D798AB0050622E /* HomeViewModelExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D400F3F329D798AB0050622E /* HomeViewModelExtension.swift */; };
-		D400F3F629D799220050622E /* BookmarksViewModelExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D400F3F529D799220050622E /* BookmarksViewModelExtension.swift */; };
 		D400F3F829D799530050622E /* AccountViewModelExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D400F3F729D799530050622E /* AccountViewModelExtension.swift */; };
 		D400F3FA29D7997F0050622E /* EventDetailsSheetModelExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D400F3F929D7997F0050622E /* EventDetailsSheetModelExtension.swift */; };
 		D400F3FE29D799D50050622E /* ResourceViewModelExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D400F3FD29D799D50050622E /* ResourceViewModelExtension.swift */; };
@@ -272,7 +271,6 @@
 		D400F3EB29D7976C0050622E /* UserControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserControllerExtension.swift; sourceTree = "<group>"; };
 		D400F3ED29D797A80050622E /* TumbleUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TumbleUser.swift; sourceTree = "<group>"; };
 		D400F3F329D798AB0050622E /* HomeViewModelExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModelExtension.swift; sourceTree = "<group>"; };
-		D400F3F529D799220050622E /* BookmarksViewModelExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksViewModelExtension.swift; sourceTree = "<group>"; };
 		D400F3F729D799530050622E /* AccountViewModelExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewModelExtension.swift; sourceTree = "<group>"; };
 		D400F3F929D7997F0050622E /* EventDetailsSheetModelExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailsSheetModelExtension.swift; sourceTree = "<group>"; };
 		D400F3FD29D799D50050622E /* ResourceViewModelExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceViewModelExtension.swift; sourceTree = "<group>"; };
@@ -590,7 +588,6 @@
 			children = (
 				D400F3EB29D7976C0050622E /* UserControllerExtension.swift */,
 				D400F3F329D798AB0050622E /* HomeViewModelExtension.swift */,
-				D400F3F529D799220050622E /* BookmarksViewModelExtension.swift */,
 				D400F3F729D799530050622E /* AccountViewModelExtension.swift */,
 				D400F3F929D7997F0050622E /* EventDetailsSheetModelExtension.swift */,
 				D400F3FD29D799D50050622E /* ResourceViewModelExtension.swift */,
@@ -1878,7 +1875,6 @@
 				D475627129CE20A700B72008 /* ExamDetailsSheet.swift in Sources */,
 				D41F152B299C699500E13264 /* Events.swift in Sources */,
 				D458605829DCDF1200B77513 /* NewsSheet.swift in Sources */,
-				D400F3F629D799220050622E /* BookmarksViewModelExtension.swift in Sources */,
 				D439F8A129DBA96B006332AB /* HomeAvailable.swift in Sources */,
 				D48CC59F29C7DB6E0028179A /* CompactEventButtonLabel.swift in Sources */,
 				D414730029D833A400050BFF /* SearchButton.swift in Sources */,

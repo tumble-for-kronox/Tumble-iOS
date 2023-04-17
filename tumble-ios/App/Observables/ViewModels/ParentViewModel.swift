@@ -54,31 +54,47 @@ final class ParentViewModel: ObservableObject {
     
     func updateBookmarks() -> Void {
         // Get all stored shedule id's from preferences
-        let bookmarks: [Bookmark]? = preferenceService.getBookmarks()
-        let schoolId: Int? = preferenceService.getDefaultSchool()
-        if let bookmarks = bookmarks, let schoolId = schoolId {
-            for bookmark in bookmarks {
-                let scheduleId: String = bookmark.id
-                let currentImageOfSchedule: ScheduleData? = schedules.first(where: { $0.id == scheduleId })
-                guard let currentSchedule = currentImageOfSchedule else { return }
-                let endpoint: Endpoint = .schedule(scheduleId: scheduleId, schoolId: String(schoolId))
-                // Fetch schedule from backend
-                let _ = kronoxManager.get(endpoint, then: {
-                    [weak self] (result: Result<Response.Schedule, Response.ErrorMessage>) in
-                        guard let self else { return }
-                        switch result {
-                        case .success(let fetchedSchedule):
-                            AppLogger.shared.info("Updated schedule with id: \(fetchedSchedule.id)")
-                            self.assignMissingCourseColors(
-                                fetchedSchedule: fetchedSchedule,
-                                currentSchedule: currentSchedule)
-                        case .failure(let failure):
-                            AppLogger.shared.info("Updating could not finish due to network error: \(failure)")
-                        }
-                })
+        DispatchQueue.global(qos: .background).async { [weak self] in
+            guard let self else { return }
+            let bookmarks: [Bookmark]? = preferenceService.getBookmarks()
+            let schoolId: Int? = preferenceService.getDefaultSchool()
+            if let bookmarks = bookmarks, let schoolId = schoolId {
+                for bookmark in bookmarks {
+                    let scheduleId: String = bookmark.id
+                    let currentImageOfSchedule: ScheduleData? = schedules.first(where: { $0.id == scheduleId })
+                    guard let currentSchedule = currentImageOfSchedule else { return }
+                    let endpoint: Endpoint = .schedule(scheduleId: scheduleId, schoolId: String(schoolId))
+                    // Fetch schedule from backend
+                    let _ = kronoxManager.get(endpoint, then: { (result: Result<Response.Schedule, Response.ErrorMessage>) in
+                            switch result {
+                            case .success(let fetchedSchedule):
+                                AppLogger.shared.info("Updated schedule with id: \(fetchedSchedule.id)")
+                                self.saveSchedule(schedule: fetchedSchedule)
+                                self.assignMissingCourseColors(
+                                    fetchedSchedule: fetchedSchedule,
+                                    currentSchedule: currentSchedule)
+                            case .failure(let failure):
+                                AppLogger.shared.info("Updating could not finish due to network error: \(failure)")
+                            }
+                    })
+                }
+            } else {
+                AppLogger.shared.info("No bookmarks or school id available")
             }
-        } else {
-            AppLogger.shared.info("No bookmarks or school id available")
+        }
+    }
+    
+    func saveSchedule(schedule: Response.Schedule) {
+        DispatchQueue.global(qos: .background).async { [weak self] in
+            guard let self else { return }
+            scheduleService.save(schedule: schedule, completion: { result in
+                switch result {
+                case .success:
+                    AppLogger.shared.debug("Saved updated schedule")
+                case .failure:
+                    AppLogger.shared.error("Failed to save updated schedule")
+                }
+            })
         }
     }
     
@@ -87,26 +103,29 @@ final class ParentViewModel: ObservableObject {
     func assignMissingCourseColors(
         fetchedSchedule: Response.Schedule,
         currentSchedule: ScheduleData) -> Void {
-        let coursesForFetchedSchedule: [String] = fetchedSchedule.courses()
-        let coursesForCurrentSchedule: [String] = currentSchedule.courses()
-        let missingCourses = coursesForFetchedSchedule.filter { !coursesForCurrentSchedule.contains($0) }
-        var colors = Set(colors)
-        var courseColors = courseColors
-        for course in missingCourses {
-            courseColors[course] = colors.popFirst()
-        }
-        saveCourseColors(courseColors: courseColors, completion: { [weak self] result in
-            guard let self else { return }
-            switch result {
-            case .success:
-                AppLogger.shared.info("Successfully updated schedule and course colors")
-            case .failure:
-                AppLogger.shared.error("Failed to update schedule and course colors")
-                removeScheduleAndColors(
-                    courseColorsToRemove: coursesForCurrentSchedule,
-                    scheduleIdToRemove: currentSchedule.id)
+            DispatchQueue.global(qos: .background).async { [weak self] in
+                guard let self else { return }
+                let coursesForFetchedSchedule: [String] = fetchedSchedule.courses()
+                let coursesForCurrentSchedule: [String] = currentSchedule.courses()
+                let missingCourses = coursesForFetchedSchedule.filter { !coursesForCurrentSchedule.contains($0) }
+                var colors = Set(colors)
+                var courseColors = courseColors
+                for course in missingCourses {
+                    courseColors[course] = colors.popFirst()
+                }
+                saveCourseColors(courseColors: courseColors, completion: { [weak self] result in
+                    guard let self else { return }
+                    switch result {
+                    case .success:
+                        AppLogger.shared.info("Successfully updated schedule and course colors")
+                    case .failure:
+                        AppLogger.shared.error("Failed to update schedule and course colors")
+                        removeScheduleAndColors(
+                            courseColorsToRemove: coursesForCurrentSchedule,
+                            scheduleIdToRemove: currentSchedule.id)
+                    }
+                })
             }
-        })
     }
     
     // Save course colors of specific schedule
