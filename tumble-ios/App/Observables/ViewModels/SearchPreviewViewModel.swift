@@ -1,5 +1,5 @@
 //
-//  SearchPreviewSheet.swift
+//  SearchPreviewViewModel.swift
 //  tumble-ios
 //
 //  Created by Adis Veletanlic on 4/14/23.
@@ -42,13 +42,6 @@ final class SearchPreviewViewModel: ObservableObject {
         getSchedule(programmeId: scheduleId)
     }
     
-    func loadData() -> Void {
-        schedules = scheduleService.getSchedules()
-        courseColors = courseColorService.getCourseColors()
-        bookmarks = preferenceService.getBookmarks()
-        schoolId = preferenceService.getDefaultSchool() ?? -1
-    }
-    
     func setUpDataPublishers() -> Void {
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             guard let self else { return }
@@ -74,6 +67,13 @@ final class SearchPreviewViewModel: ObservableObject {
         }
     }
     
+    func loadData() -> Void {
+        schoolId = preferenceService.getDefaultSchool() ?? -1
+        schedules = scheduleService.getSchedules()
+        courseColors = courseColorService.getCourseColors()
+        bookmarks = preferenceService.getBookmarks()
+    }
+    
     func getSchedule(programmeId: String) -> Void {
         
         DispatchQueue.main.async { [weak self] in
@@ -86,7 +86,11 @@ final class SearchPreviewViewModel: ObservableObject {
             guard let self else { return }
             switch result {
             case .success(let fetchedSchedule):
-                if (schedules.map { $0.id }).contains(fetchedSchedule.id) {
+                if fetchedSchedule.isScheduleEmpty() {
+                    status = .empty
+                    buttonState = .disabled
+                }
+                else if (schedules.map { $0.id }).contains(fetchedSchedule.id) {
                     isSaved = true
                     buttonState = .saved
                     schedule = fetchedSchedule
@@ -153,7 +157,6 @@ final class SearchPreviewViewModel: ObservableObject {
                             case .success:
                                 self.buttonState = .saved
                                 self.isSaved = true
-                                return
                             case .failure:
                                 self.buttonState = .notSaved
                                 self.status = .error
@@ -180,12 +183,10 @@ final class SearchPreviewViewModel: ObservableObject {
                                     AppLogger.shared.info("Removed schedule \(self.schedule!.id)")
                                     self.buttonState = .notSaved
                                     self.isSaved = false
-                                    return
                                 case .failure:
                                     AppLogger.shared.error("Failed to remove course colors for schedule")
                                     self.buttonState = .saved
                                     self.status = .error
-                                    return
                                 }
                             })
                     case .failure:

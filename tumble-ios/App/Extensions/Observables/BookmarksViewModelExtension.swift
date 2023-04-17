@@ -70,7 +70,7 @@ extension BookmarksViewModel {
         completion: @escaping () -> Void) -> Void {
         var availableColors = Set(colors)
         var courseColors = self.courseColors
-        let newCoursesWithoutColors = schedule.days.flatMap {
+            let newCoursesWithoutColors: [String] = schedule.days.flatMap {
             $0.events.map { $0.course.id } }.filter { !courseColors.keys.contains($0)
             }
         for course in newCoursesWithoutColors {

@@ -12,6 +12,7 @@ enum ButtonState {
     case loading
     case saved
     case notSaved
+    case disabled
 }
 
 struct SearchPreviewList: View {

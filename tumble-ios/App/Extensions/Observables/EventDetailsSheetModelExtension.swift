@@ -13,41 +13,42 @@ extension EventDetailsSheetViewModel {
     func applyNotificationForScheduleEventsInCourse(
         schedules: [ScheduleData], completion: @escaping (Bool) -> Void
     ) {
-        let events = schedules
-            .flatMap { $0.days }
-            .flatMap { $0.events }
-            .filter { !($0.dateComponents!.hasDatePassed()) }
-            .filter { $0.course.id == self.event.course.id }
-
-        var couldSetNotifications = true
-        
-        for event in events {
-            let notification = EventNotification(
-                id: event.id,
-                color: color.toHex() ?? "#FFFFFF",
-                dateComponents: event.dateComponents!,
-                categoryIdentifier: event.course.id,
-                content: event.toDictionary()
-            )
-
-            self.notificationManager.scheduleNotification(
-                for: notification,
-                type: .event,
-                userOffset: self.notificationOffset
-            ) { result in
-                switch result {
-                case .success(let success):
-                    AppLogger.shared.debug("Scheduled \(success) notifications")
-                case .failure(let failure):
-                    AppLogger.shared.critical("Failed to schedule notifications for course -> \(failure)")
-                    couldSetNotifications = false
-                    return
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            guard let self else { return }
+            let events = schedules
+                .flatMap { $0.days }
+                .flatMap { $0.events }
+                .filter { !($0.dateComponents!.hasDatePassed()) }
+                .filter { $0.course.id == self.event.course.id }
+            var couldSetNotifications = true
+            
+            for event in events {
+                let notification = EventNotification(
+                    id: event.id,
+                    color: color.toHex() ?? "#FFFFFF",
+                    dateComponents: event.dateComponents!,
+                    categoryIdentifier: event.course.id,
+                    content: event.toDictionary()
+                )
+                self.notificationManager.scheduleNotification(
+                    for: notification,
+                    type: .event,
+                    userOffset: self.notificationOffset
+                ) { result in
+                    switch result {
+                    case .success(let success):
+                        AppLogger.shared.info("Scheduled \(success) notifications")
+                    case .failure(let failure):
+                        AppLogger.shared.critical("Failed to schedule notifications for course -> \(failure)")
+                        couldSetNotifications = false
+                        return
+                    }
                 }
+                if !couldSetNotifications { break }
+                AppLogger.shared.debug("Set notification for \(event.title)")
             }
-            if !couldSetNotifications { break }
-            AppLogger.shared.debug("Set notification for \(event.title)")
+            completion(couldSetNotifications ? true : false)
         }
-        completion(couldSetNotifications ? true : false)
     }
 
     

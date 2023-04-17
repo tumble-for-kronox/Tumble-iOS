@@ -1,5 +1,5 @@
 //
-//  SchedulePageMainView-ViewModel.swift
+//  BookmarksViewModel.swift
 //  tumble-ios
 //
 //  Created by Adis Veletanlic on 11/21/22.
@@ -54,8 +54,10 @@ final class BookmarksViewModel: ObservableObject {
                     // Update view model properties with the processed data
                     self.schedules = schedules
                     self.courseColors = courseColors
-                    self.handleDataExecutionStatus(executionStatus: executionStatus)
-                    self.handleNewBookmarks(newBookmarks: bookmarks)
+                    DispatchQueue.main.async {
+                        self.handleDataExecutionStatus(executionStatus: executionStatus)
+                        self.handleNewBookmarks(newBookmarks: bookmarks)
+                    }
                 }
                 .store(in: &cancellables)
         }
@@ -63,6 +65,7 @@ final class BookmarksViewModel: ObservableObject {
 
     
     // If bookmarks in preferences are modified in app
+    @MainActor
     func handleNewBookmarks(newBookmarks: [Bookmark]?) -> Void {
         status = .loading
         self.bookmarks = newBookmarks
@@ -84,6 +87,7 @@ final class BookmarksViewModel: ObservableObject {
 
     
     // If schedule service is modified in app
+    @MainActor
     func handleDataExecutionStatus(executionStatus: ExecutionStatus) -> Void {
         switch executionStatus {
         case .executing:
@@ -109,10 +113,10 @@ final class BookmarksViewModel: ObservableObject {
         return viewModelFactory.makeViewModelEventDetailsSheet(event: event, color: color)
     }
     
-    
+    @MainActor
     func onChangeViewType(viewType: BookmarksViewType) -> Void {
         let viewTypeIndex: Int = scheduleViewTypes.firstIndex(of: viewType)!
         preferenceService.setViewType(viewType: viewTypeIndex)
-        self.defaultViewType = viewType
+        defaultViewType = viewType
     }
 }

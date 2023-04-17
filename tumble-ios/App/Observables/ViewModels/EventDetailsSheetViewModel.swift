@@ -1,5 +1,5 @@
 //
-//  EventDetailsView-ViewModel.swift
+//  EventDetailsSheetViewModel.swift
 //  tumble-ios
 //
 //  Created by Adis Veletanlic on 2023-02-01.
@@ -29,6 +29,7 @@ final class EventDetailsSheetViewModel: ObservableObject {
     init(event: Response.Event, color: Color) {
         self.event = event
         self.color = color
+        setUpDataPublishers()
         checkNotificationIsSetForEvent()
         checkNotificationIsSetForCourse()
         notificationOffset = preferenceService.getNotificationOffset()

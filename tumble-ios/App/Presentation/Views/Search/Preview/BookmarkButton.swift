@@ -40,6 +40,8 @@ struct BookmarkButton: View {
                             .font(.system(size: 16, weight: .semibold))
                             .foregroundColor(.onPrimary)
                     }
+                case .disabled:
+                    Text("")
                 }
             }
         }

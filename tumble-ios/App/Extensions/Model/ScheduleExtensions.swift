@@ -43,6 +43,18 @@ extension [Response.Schedule] {
 
 extension Response.Schedule {
     
+    func isScheduleEmpty() -> Bool {
+        for day in self.days {
+            for event in day.events {
+                if !event.title.isEmpty {
+                    return false
+                }
+            }
+        }
+        return true
+    }
+
+    
     // Returns dictionary of random colors for each course in a schedule
     func assignCoursesRandomColors() -> [String : String] {
         var courseColors: [String : String] = [:]

@@ -1,3 +1,10 @@
+//
+//  AccountViewModel.swift
+//  tumble-ios
+//
+//  Created by Adis Veletanlic on 11/27/22.
+//
+
 import Foundation
 import Combine
 
@@ -263,12 +270,10 @@ final class AccountViewModel: ObservableObject {
     
     func checkNotificationsForUserBookings(bookings: Response.KronoxUserBookings? = nil) -> Void {
         AppLogger.shared.debug("Checking for notifications to set for user booked resources ...")
-        
         if let userBookings = bookings {
-            self.scheduleBookingNotifications(for: userBookings)
+            scheduleBookingNotifications(for: userBookings)
             return
         }
-        
         userController.authenticateAndExecute(
             schoolId: schoolId,
             refreshToken: userController.refreshToken,

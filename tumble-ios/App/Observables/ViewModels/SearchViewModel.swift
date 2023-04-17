@@ -40,7 +40,9 @@ final class SearchViewModel: ObservableObject {
                 guard let self = self else { return }
                 self.schoolId = schoolId
                 self.universityImage = self.schoolManager.getSchools().first(where: { $0.id == schoolId })?.logo
-                self.resetSearchResults()
+                DispatchQueue.main.async {
+                    self.resetSearchResults()
+                }
             }
             .store(in: &cancellables)
     }
@@ -78,22 +80,18 @@ final class SearchViewModel: ObservableObject {
         }
     }
     
+    @MainActor
     func resetSearchResults() {
-        DispatchQueue.main.async { [weak self] in
-            guard let self else { return }
-            self.programmeSearchResults = []
-            self.status = .initial
-        }
+        programmeSearchResults = []
+        status = .initial
     }
     
+    @MainActor
     func parseSearchResults(_ results: Response.Search) {
-        DispatchQueue.main.async { [weak self] in
-            guard let self else { return }
-            self.programmeSearchResults = results.items.map { $0 }
-            self.status = .loaded
-        }
+        programmeSearchResults = results.items.map { $0 }
+        status = .loaded
     }
-    
+    @MainActor
     func clearSearchResults(endEditing: Bool) {
         if endEditing {
             resetSearchResults()

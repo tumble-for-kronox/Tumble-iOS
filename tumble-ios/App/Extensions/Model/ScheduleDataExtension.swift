@@ -33,3 +33,11 @@ extension [ScheduleData] {
     }
     
 }
+
+extension ScheduleData {
+    
+    func courses() -> [String] {
+        return Array(Set(self.days.flatMap { $0.events.map { $0.course.id } }))
+    }
+    
+}

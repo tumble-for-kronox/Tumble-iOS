@@ -1,5 +1,5 @@
 //
-//  SidebarViewModel.swift
+//  SettingsViewModel.swift
 //  tumble-ios
 //
 //  Created by Adis Veletanlic on 2023-02-08.
@@ -30,9 +30,7 @@ final class SettingsViewModel: ObservableObject {
     var cancellables = Set<AnyCancellable>()
     
     
-    init() {
-        setUpDataPublishers()
-    }
+    init() { setUpDataPublishers() }
     
     private func setUpDataPublishers() -> Void {
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
@@ -85,7 +83,10 @@ final class SettingsViewModel: ObservableObject {
     }
     
     func toggleBookmarkVisibility(for bookmark: String, to value: Bool) -> Void {
-        preferenceService.toggleBookmark(bookmark: bookmark, value: value)
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            guard let self else { return }
+            preferenceService.toggleBookmark(bookmark: bookmark, value: value)
+        }
     }
     
     func deleteBookmark(id: String) -> Void {
@@ -116,8 +117,12 @@ final class SettingsViewModel: ObservableObject {
         events.forEach { notificationManager.cancelNotification(for: $0.id) }
     }
     
+    @MainActor
     func clearAllNotifications() -> Void {
-        notificationManager.cancelNotifications()
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            guard let self else { return }
+            notificationManager.cancelNotifications()
+        }
         makeToast(
             type: .success,
             title: NSLocalizedString("Cancelled notifications", comment: ""),
@@ -135,6 +140,7 @@ final class SettingsViewModel: ObservableObject {
         }
     }
     
+    @MainActor
     func scheduleNotificationsForAllEvents() {
         guard !schedules.isEmpty else {
             makeToast(
@@ -144,52 +150,53 @@ final class SettingsViewModel: ObservableObject {
             )
             return
         }
-        
-        let hiddenBookmarks = preferenceService.getHiddenBookmarks()
-        let allEvents = filterHiddenBookmarks(
-            schedules: schedules,
-            hiddenBookmarks: hiddenBookmarks
-        )
-        .flatMap { $0.days.flatMap { $0.events } }
-        
-        let totalNotifications = allEvents.count
-        var scheduledNotifications = 0
-        
-        for event in allEvents {
-            guard let notification = notificationManager.createNotificationFromEvent(
-                event: event,
-                color: courseColors[event.course.id] ?? "#FEFEFE"
-            ) else {
-                AppLogger.shared.critical("Could not set notification for event \(event.id)")
-                makeToast(
-                    type: .error,
-                    title: NSLocalizedString("Error", comment: ""),
-                    message: NSLocalizedString("Failed to set notifications for all available events", comment: "")
-                )
-                break
-            }
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            guard let self else { return }
+            let hiddenBookmarks = preferenceService.getHiddenBookmarks()
+            let allEvents = filterHiddenBookmarks(
+                schedules: schedules,
+                hiddenBookmarks: hiddenBookmarks
+            )
+            .flatMap { $0.days.flatMap { $0.events } }
             
-            notificationManager.scheduleNotification(
-                for: notification,
-                type: .event,
-                userOffset: preferenceService.getNotificationOffset()
-            ) { [weak self] result in
-                guard let self else { return }
-                switch result {
-                case .success(let success):
-                    scheduledNotifications += 1
-                    AppLogger.shared.debug("\(success) notification set")
-                    
-                    if scheduledNotifications == totalNotifications {
-                        self.makeToast(
-                            type: .success,
-                            title: NSLocalizedString("Scheduled notifications", comment: ""),
-                            message: NSLocalizedString("Scheduled notifications for all available events", comment: "")
-                        )
+            let totalNotifications = allEvents.count
+            var scheduledNotifications = 0
+            
+            for event in allEvents {
+                guard let notification = notificationManager.createNotificationFromEvent(
+                    event: event,
+                    color: courseColors[event.course.id] ?? "#FEFEFE"
+                ) else {
+                    AppLogger.shared.critical("Could not set notification for event \(event.id)")
+                    makeToast(
+                        type: .error,
+                        title: NSLocalizedString("Error", comment: ""),
+                        message: NSLocalizedString("Failed to set notifications for all available events", comment: "")
+                    )
+                    break
+                }
+                
+                notificationManager.scheduleNotification(
+                    for: notification,
+                    type: .event,
+                    userOffset: preferenceService.getNotificationOffset()
+                ) { [weak self] result in
+                    guard let self else { return }
+                    switch result {
+                    case .success(let success):
+                        scheduledNotifications += 1
+                        AppLogger.shared.debug("\(success) notification set")
+                        
+                        if scheduledNotifications == totalNotifications {
+                            self.makeToast(
+                                type: .success,
+                                title: NSLocalizedString("Scheduled notifications", comment: ""),
+                                message: NSLocalizedString("Scheduled notifications for all available events", comment: "")
+                            )
+                        }
+                    case .failure(let failure):
+                        AppLogger.shared.critical("\(failure)")
                     }
-                    
-                case .failure(let failure):
-                    AppLogger.shared.critical("\(failure)")
                 }
             }
         }

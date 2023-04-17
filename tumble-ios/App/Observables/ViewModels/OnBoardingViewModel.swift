@@ -16,10 +16,14 @@ final class OnBoardingViewModel: ObservableObject {
     
     lazy var schools: [School] = schoolManager.getSchools()
     
+    @MainActor
     func onSelectSchool(school: School) -> Void {
         showSchoolSelection = false
-        preferenceService.setSchool(id: school.id)
-        preferenceService.setUserOnboarded()
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            guard let self else { return }
+            preferenceService.setSchool(id: school.id)
+            preferenceService.setUserOnboarded()
+        }
     }
     
 }

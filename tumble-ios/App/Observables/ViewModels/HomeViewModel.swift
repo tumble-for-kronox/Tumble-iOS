@@ -1,5 +1,5 @@
 //
-//  HomePageView-ViewModel.swift
+//  HomeViewModel.swift
 //  tumble-ios
 //
 //  Created by Adis Veletanlic on 11/20/22.
@@ -63,12 +63,15 @@ final class HomeViewModel: ObservableObject {
                 self.schedules = schedules
                 self.courseColors = courseColors
                 self.bookmarks = bookmarks
-                self.handleDataExecutionStatus(executionStatus: executionStatus)
+                DispatchQueue.main.async {
+                    self.handleDataExecutionStatus(executionStatus: executionStatus)
+                }
             }
             .store(in: &cancellables)
         }
     }
     
+    @MainActor
     func handleDataExecutionStatus(executionStatus: ExecutionStatus) -> Void {
         switch executionStatus {
         case .executing:

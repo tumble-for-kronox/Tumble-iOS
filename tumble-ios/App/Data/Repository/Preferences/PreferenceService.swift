@@ -30,8 +30,8 @@ class PreferenceService: PreferenceServiceProtocol {
     
     // ----------- SET -----------
     func setSchool(id: Int) -> Void {
-        UserDefaults.standard.set(id, forKey: StoreKey.school.rawValue)
         schoolId = id
+        UserDefaults.standard.set(id, forKey: StoreKey.school.rawValue)
         UserDefaults.standard.synchronize()
     }
     
