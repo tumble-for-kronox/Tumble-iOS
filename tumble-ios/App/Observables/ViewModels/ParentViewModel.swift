@@ -28,11 +28,11 @@ final class ParentViewModel: ObservableObject {
     @Published var schedules: [ScheduleData] = []
     @Published var courseColors: CourseAndColorDict = [:]
     
+    private var updatedDuringSession: Bool = false
     private var cancellables = Set<AnyCancellable>()
     
     init () {
         setUpDataPublishers()
-        //updateBookmarks()
     }
     
     func setUpDataPublishers() -> Void {
@@ -42,9 +42,10 @@ final class ParentViewModel: ObservableObject {
             let courseColorsPublisher = courseColorService.$courseColors.receive(on: DispatchQueue.main)
             Publishers.CombineLatest(schedulesPublisher, courseColorsPublisher)
                 .sink { schedules, courseColors in
-                    if self.schedules != schedules {
-                        self.schedules = schedules
-                        self.courseColors = courseColors
+                    let oldSchedules = self.schedules
+                    self.schedules = schedules
+                    self.courseColors = courseColors
+                    if !self.updatedDuringSession && oldSchedules != schedules {
                         self.updateBookmarks()
                     }
                 }
@@ -56,6 +57,7 @@ final class ParentViewModel: ObservableObject {
         // Get all stored shedule id's from preferences
         DispatchQueue.global(qos: .background).async { [weak self] in
             guard let self else { return }
+            defer { self.updatedDuringSession = true } // Always claim update during startup, even if failed
             let bookmarks: [Bookmark]? = preferenceService.getBookmarks()
             let schoolId: Int? = preferenceService.getDefaultSchool()
             if let bookmarks = bookmarks, let schoolId = schoolId {
