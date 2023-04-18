@@ -124,6 +124,12 @@
 
 "Cancel all notifications"="Annuler toutes les notifications";
 
+"No available bookmarks"="Aucun marque-page disponible";
+
+"It looks like there's no available bookmarks"="Il semble qu'il n'y ait pas de favoris disponibles";
+
+"Cancel"="Annuler";
+
 "Notification offset"="Décalage des notifications";
 
 "Looks like you don't have anything saved yet"="Il semble que vous n'ayez encore rien enregistré";

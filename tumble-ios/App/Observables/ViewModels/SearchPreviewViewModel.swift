@@ -22,7 +22,6 @@ final class SearchPreviewViewModel: ObservableObject {
     @Published var errorMessage: String? = nil
     @Published var buttonState: ButtonState = .loading
     @Published var courseColorsForPreview: [String : String] = [:]
-    @ObservedResults(Schedule.self) var schedules
     
     @Inject var preferenceService: PreferenceService
     @Inject var kronoxManager: KronoxManager
@@ -31,28 +30,22 @@ final class SearchPreviewViewModel: ObservableObject {
     
     let scheduleId: String
     var schedule: Response.Schedule? = nil
-    var cancellables = Set<AnyCancellable>()
+    private var cancellables = Set<AnyCancellable>()
     
     init(scheduleId: String) {
         self.scheduleId = scheduleId
         setUpDataPublishers()
         loadData()
-        getSchedule(programmeId: scheduleId)
     }
     
     func setUpDataPublishers() -> Void {
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             guard let self else { return }
-            let bookmarksSubscription = self.preferenceService.$bookmarks
             let schoolSubscription = self.preferenceService.$schoolId
             
-            Publishers.CombineLatest(
-                bookmarksSubscription,
-                schoolSubscription
-            )
+            schoolSubscription
             .receive(on: DispatchQueue.main)
-            .sink { bookmarks, schoolId in
-                self.bookmarks = bookmarks
+            .sink { schoolId in
                 self.schoolId = schoolId
             }
             .store(in: &self.cancellables)
@@ -61,14 +54,13 @@ final class SearchPreviewViewModel: ObservableObject {
     
     func loadData() -> Void {
         schoolId = preferenceService.getDefaultSchool() ?? -1
-        bookmarks = preferenceService.getBookmarks()
     }
     
-    func getSchedule(programmeId: String) -> Void {
+    func getSchedule(programmeId: String, schedules: [Schedule]) -> Void {
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
             // Check if schedule is already saved, to set flag
-            self.isSaved = self.checkSavedSchedule(programmeId: programmeId)
+            self.isSaved = self.checkSavedSchedule(programmeId: programmeId, schedules: schedules)
         }
         // Always get latest schedule
         fetchSchedule(programmeId: programmeId) { [weak self] result in
@@ -79,7 +71,7 @@ final class SearchPreviewViewModel: ObservableObject {
                     self.status = .empty
                     self.buttonState = .disabled
                 }
-                else if (self.schedules.map { $0.scheduleId }).contains(fetchedSchedule.id) {
+                else if (schedules.map { $0.scheduleId }).contains(fetchedSchedule.id) {
                     self.isSaved = true
                     self.buttonState = .saved
                     self.schedule = fetchedSchedule
@@ -139,36 +131,22 @@ final class SearchPreviewViewModel: ObservableObject {
         }
     }
     
-    func bookmark() -> Void {
+    func bookmark(id: String, schedules: [Schedule]) -> Void {
         buttonState = .loading
         // If the schedule isn't already saved in the local database
         if !isSaved {
-            preferenceService.addBookmark(id: scheduleId)
-            $schedules.append(schedule!.toRealmSchedule())
             isSaved = true
             buttonState = .saved
         }
         // Otherwise we remove (untoggle) the schedule
         else {
-            cancelNotifications(for: Array(schedules), with: scheduleId)
-            deleteBookmark(id: scheduleId)
+            let schedulesToRemove = schedules.filter { $0.scheduleId == id }
+            let events = schedulesToRemove
+                .flatMap { schedule in schedule.days }
+                .flatMap { day in day.events }
+            events.forEach { event in self.notificationManager.cancelNotification(for: event.eventId) }
             isSaved = false
             buttonState = .notSaved
-        }
-    }
-    
-    private func deleteBookmark(id: String) {
-        do {
-            let realm = try Realm()
-            guard let scheduleToDelete = realm.objects(Schedule.self).filter("scheduleId = %@", id).first else {
-                AppLogger.shared.error("Schedule with ID \(id) not found")
-                return
-            }
-            try realm.write {
-                realm.delete(scheduleToDelete)
-            }
-        } catch (let error) {
-            AppLogger.shared.debug("Error deleting schedule: \(error)")
         }
     }
     
@@ -190,23 +168,11 @@ extension SearchPreviewViewModel {
     // Checks if a schedule based on its programme Id is already in the
     // local storage. if it is, we set the preview button for favoriting
     // to be either save or remove.
-    func checkSavedSchedule(programmeId: String) -> Bool {
+    func checkSavedSchedule(programmeId: String, schedules: [Schedule]) -> Bool {
         AppLogger.shared.debug("Checking if schedule is already saved...")
         if schedules.map({ $0.scheduleId }).contains(programmeId) {
             return true
         }
         return false
     }
-    
-    func cancelNotifications(for schedules: [Schedule], with id: String?) -> Void {
-        DispatchQueue.global(qos: .background).async { [weak self] in
-            guard let self else { return }
-            let schedulesToRemove = schedules.filter { $0.scheduleId == id }
-            let events = schedulesToRemove
-                .flatMap { schedule in schedule.days }
-                .flatMap { day in day.events }
-            events.forEach { event in self.notificationManager.cancelNotification(for: event.eventId) }
-        }
-    }
-
 }

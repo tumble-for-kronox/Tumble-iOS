@@ -44,7 +44,7 @@ struct SearchField: View {
                 }) {
                     Text(NSLocalizedString("Cancel", comment: ""))
                 }
-                .padding(.trailing, 20)
+                .padding(.trailing, 25)
                 .padding(.top, 5)
             }
         }

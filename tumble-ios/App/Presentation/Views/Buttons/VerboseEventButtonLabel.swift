@@ -70,7 +70,9 @@ struct VerboseEventButtonLabel: View {
             .padding()
             .frame(height: 160, alignment: .leading)
             .frame(maxWidth: .infinity)
+            
             .background(event.isSpecial ? Color.red.opacity(0.2) : Color.surface)
+            .background(Color.surface)
             .cornerRadius(20)
             .padding([.leading, .trailing], 8)
             Spacer()

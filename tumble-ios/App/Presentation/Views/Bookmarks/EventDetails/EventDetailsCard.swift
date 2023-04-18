@@ -6,11 +6,11 @@
 //
 
 import SwiftUI
+import RealmSwift
 
 struct EventDetailsCard: View {
     
     @ObservedObject var parentViewModel: EventDetailsSheetViewModel
-    @State private var bgColor = Color.red
     
     let openColorPicker: () -> Void
     let event: Event
@@ -56,7 +56,7 @@ struct EventDetailsCard: View {
                 Spacer()
             }
         }
-        .frame(minWidth: UIScreen.main.bounds.width - 60)
+        .frame(minWidth: getRect().width - 60)
         .padding(10)
         .background(event.isSpecial ? Color.red.opacity(0.2) : color.opacity(0.2))
         .cornerRadius(20)

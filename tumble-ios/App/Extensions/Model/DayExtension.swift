@@ -18,7 +18,7 @@ extension [Day] {
 }
 
 extension Day {
-    // This function uses the inDateFormatter property to parse the isoString property into a Date object. If the parsing fails, the function
+    // This function uses the isoDateFormatterFract property to parse the isoString property into a Date object. If the parsing fails, the function
     // returns false. Otherwise, it compares the day to the current date using the >= operator.
     // The startOfDay property of Date is used to ignore the time component of the date and only compare the day, month and year.
     func isValidDay() -> Bool {

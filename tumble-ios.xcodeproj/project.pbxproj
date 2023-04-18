@@ -19,7 +19,6 @@
 		D400F3E529D796A00050622E /* DateFormatters.swift in Sources */ = {isa = PBXBuildFile; fileRef = D400F3E429D796A00050622E /* DateFormatters.swift */; };
 		D400F3EC29D7976C0050622E /* UserControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D400F3EB29D7976C0050622E /* UserControllerExtension.swift */; };
 		D400F3EE29D797A80050622E /* TumbleUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D400F3ED29D797A80050622E /* TumbleUser.swift */; };
-		D400F3F429D798AB0050622E /* HomeViewModelExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D400F3F329D798AB0050622E /* HomeViewModelExtension.swift */; };
 		D400F3F829D799530050622E /* AccountViewModelExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D400F3F729D799530050622E /* AccountViewModelExtension.swift */; };
 		D400F3FA29D7997F0050622E /* EventDetailsSheetModelExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D400F3F929D7997F0050622E /* EventDetailsSheetModelExtension.swift */; };
 		D400F3FE29D799D50050622E /* ResourceViewModelExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D400F3FD29D799D50050622E /* ResourceViewModelExtension.swift */; };
@@ -47,7 +46,6 @@
 		D414B22F29D86E7E00EA8F46 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D414B22E29D86E7E00EA8F46 /* GoogleService-Info.plist */; };
 		D414B23429D88C1100EA8F46 /* PullToRefreshIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D414B23329D88C1100EA8F46 /* PullToRefreshIndicator.swift */; };
 		D414B27529D8BE5700EA8F46 /* RootViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D414B27429D8BE5700EA8F46 /* RootViewModelTests.swift */; };
-		D414B27D29D8BE9700EA8F46 /* PopupView in Frameworks */ = {isa = PBXBuildFile; productRef = D414B27C29D8BE9700EA8F46 /* PopupView */; };
 		D414B27F29D8BE9700EA8F46 /* Logging in Frameworks */ = {isa = PBXBuildFile; productRef = D414B27E29D8BE9700EA8F46 /* Logging */; };
 		D414B28129D8BE9700EA8F46 /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = D414B28029D8BE9700EA8F46 /* FSCalendar */; };
 		D414B28329D8BE9700EA8F46 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = D414B28229D8BE9700EA8F46 /* FirebaseMessaging */; };
@@ -133,7 +131,6 @@
 		D45DAB2E29DB4FCA00FCA5AC /* TodaysEventsCarousel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45DAB2D29DB4FCA00FCA5AC /* TodaysEventsCarousel.swift */; };
 		D4607632292AA39400DE9590 /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4607631292AA39400DE9590 /* Types.swift */; };
 		D4607634292AA83F00DE9590 /* AppParent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4607633292AA83F00DE9590 /* AppParent.swift */; };
-		D4607637292AA8DE00DE9590 /* PopupView in Frameworks */ = {isa = PBXBuildFile; productRef = D4607636292AA8DE00DE9590 /* PopupView */; };
 		D460763B292AAD5400DE9590 /* PopupToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460763A292AAD5400DE9590 /* PopupToastView.swift */; };
 		D460763D292AAE7800DE9590 /* RootViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460763C292AAE7800DE9590 /* RootViewModel.swift */; };
 		D4607641292AB18D00DE9590 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4607640292AB18D00DE9590 /* Home.swift */; };
@@ -274,7 +271,6 @@
 		D400F3E429D796A00050622E /* DateFormatters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatters.swift; sourceTree = "<group>"; };
 		D400F3EB29D7976C0050622E /* UserControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserControllerExtension.swift; sourceTree = "<group>"; };
 		D400F3ED29D797A80050622E /* TumbleUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TumbleUser.swift; sourceTree = "<group>"; };
-		D400F3F329D798AB0050622E /* HomeViewModelExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModelExtension.swift; sourceTree = "<group>"; };
 		D400F3F729D799530050622E /* AccountViewModelExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewModelExtension.swift; sourceTree = "<group>"; };
 		D400F3F929D7997F0050622E /* EventDetailsSheetModelExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailsSheetModelExtension.swift; sourceTree = "<group>"; };
 		D400F3FD29D799D50050622E /* ResourceViewModelExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceViewModelExtension.swift; sourceTree = "<group>"; };
@@ -512,7 +508,6 @@
 				D414B28329D8BE9700EA8F46 /* FirebaseMessaging in Frameworks */,
 				D414B27F29D8BE9700EA8F46 /* Logging in Frameworks */,
 				D414B28129D8BE9700EA8F46 /* FSCalendar in Frameworks */,
-				D414B27D29D8BE9700EA8F46 /* PopupView in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -524,7 +519,6 @@
 				D473870129C88E4F0035CD4C /* FirebaseMessaging in Frameworks */,
 				D4FFCC1F29EDA9A700708CC0 /* RealmSwift in Frameworks */,
 				D47386FF29C88E4F0035CD4C /* FirebaseAnalytics in Frameworks */,
-				D4607637292AA8DE00DE9590 /* PopupView in Frameworks */,
 				D430F74329C615DC00E30E48 /* FSCalendar in Frameworks */,
 				D42BAC1C298D3D590025EAA9 /* Logging in Frameworks */,
 			);
@@ -595,7 +589,6 @@
 			isa = PBXGroup;
 			children = (
 				D400F3EB29D7976C0050622E /* UserControllerExtension.swift */,
-				D400F3F329D798AB0050622E /* HomeViewModelExtension.swift */,
 				D400F3F729D799530050622E /* AccountViewModelExtension.swift */,
 				D400F3F929D7997F0050622E /* EventDetailsSheetModelExtension.swift */,
 				D400F3FD29D799D50050622E /* ResourceViewModelExtension.swift */,
@@ -1595,7 +1588,6 @@
 			);
 			name = "tumble-iosTests";
 			packageProductDependencies = (
-				D414B27C29D8BE9700EA8F46 /* PopupView */,
 				D414B27E29D8BE9700EA8F46 /* Logging */,
 				D414B28029D8BE9700EA8F46 /* FSCalendar */,
 				D414B28229D8BE9700EA8F46 /* FirebaseMessaging */,
@@ -1618,7 +1610,6 @@
 			);
 			name = "tumble-ios";
 			packageProductDependencies = (
-				D4607636292AA8DE00DE9590 /* PopupView */,
 				D42BAC1B298D3D590025EAA9 /* Logging */,
 				D430F74229C615DC00E30E48 /* FSCalendar */,
 				D47386FE29C88E4F0035CD4C /* FirebaseAnalytics */,
@@ -1664,7 +1655,6 @@
 			);
 			mainGroup = D472213C292454560063BDB7;
 			packageReferences = (
-				D4607635292AA8DE00DE9590 /* XCRemoteSwiftPackageReference "PopupView" */,
 				D42BAC1A298D3D590025EAA9 /* XCRemoteSwiftPackageReference "swift-log" */,
 				D430F74129C615DC00E30E48 /* XCRemoteSwiftPackageReference "FSCalendar" */,
 				D47386FD29C88E4F0035CD4C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
@@ -1837,7 +1827,6 @@
 				D481F15729CB820D0088C28E /* AvailabilitiesExtension.swift in Sources */,
 				D4E39E322989BBD9004C30DF /* ColorExtensions.swift in Sources */,
 				D41ADFEA299F8D930074E2C7 /* AuthManagerProtocol.swift in Sources */,
-				D400F3F429D798AB0050622E /* HomeViewModelExtension.swift in Sources */,
 				D4D4CD1A299CE5FF00D48180 /* SectionDivider.swift in Sources */,
 				D4B7F25829CC6135006E2449 /* BookButtonStyle.swift in Sources */,
 				D45338F9292825B200198411 /* BookmarkCard.swift in Sources */,
@@ -2420,11 +2409,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		D414B27C29D8BE9700EA8F46 /* PopupView */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D4607635292AA8DE00DE9590 /* XCRemoteSwiftPackageReference "PopupView" */;
-			productName = PopupView;
-		};
 		D414B27E29D8BE9700EA8F46 /* Logging */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D42BAC1A298D3D590025EAA9 /* XCRemoteSwiftPackageReference "swift-log" */;
@@ -2464,11 +2448,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D430F74129C615DC00E30E48 /* XCRemoteSwiftPackageReference "FSCalendar" */;
 			productName = FSCalendar;
-		};
-		D4607636292AA8DE00DE9590 /* PopupView */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D4607635292AA8DE00DE9590 /* XCRemoteSwiftPackageReference "PopupView" */;
-			productName = PopupView;
 		};
 		D47386FE29C88E4F0035CD4C /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;

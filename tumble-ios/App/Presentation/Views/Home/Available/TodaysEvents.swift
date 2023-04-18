@@ -20,8 +20,8 @@ struct TodaysEvents: View {
             VStack {
                 if !eventsForToday.isEmpty {
                     TodaysEventsCarousel(
-                        eventsForToday: $eventsForToday,
-                        swipedCards: $swipedCards
+                        swipedCards: $swipedCards,
+                        weekEventCards: $eventsForToday
                     )
                 } else {
                     Text(NSLocalizedString("No events for today", comment: ""))

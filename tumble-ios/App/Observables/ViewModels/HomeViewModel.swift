@@ -20,34 +20,30 @@ final class HomeViewModel: ObservableObject {
     @Published var news: Response.NewsItems? = nil
     @Published var swipedCards: Int = 0
     @Published var status: HomeStatus = .loading
-    @Published var eventsForToday: [WeekEventCardModel] = []
+    @Published var eventsForToday: [WeekEventCardModel] = [WeekEventCardModel]()
     @Published var nextClass: Event? = nil
-    @Published var bookmarks: [Bookmark]?
-    @ObservedResults(Schedule.self) var schedules
     
     private let viewModelFactory: ViewModelFactory = ViewModelFactory.shared
-    private var cancellables = Set<AnyCancellable>()
-    private var hiddenBookmarks: [String] {
-        return bookmarks?.filter { !$0.toggled }.map { $0.id } ?? []
-    }
+    var schedulesToken: NotificationToken?
     
     init() {
-        setUpDataPublishers()
         getNews()
-    }
-    
-    func setUpDataPublishers() -> Void {
-        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-            guard let self else { return }
-            let bookmarksPublisher = self.preferenceService.$bookmarks
-            bookmarksPublisher
-                .receive(on: DispatchQueue.main)
-                .sink { bookmarks in
-                    self.bookmarks = bookmarks
-                }
-                .store(in: &self.cancellables)
+        let realm = try! Realm()
+        let schedules = realm.objects(Schedule.self)
+        schedulesToken = schedules.observe { [weak self] changes in
+            guard let self = self else { return }
+            switch changes {
+            case .initial(let results), .update(let results, _, _, _):
+                self.status = .loading
+                self.createEventsForToday(schedules: Array(results))
+                self.nextClass = self.findNextUpcomingEvent(schedules: Array(schedules))
+                self.status = .available
+            case .error:
+                self.status = .error
+            }
         }
     }
+    
     
     func getNews() -> Void {
         newsSectionStatus = .loading
@@ -64,15 +60,15 @@ final class HomeViewModel: ObservableObject {
         }
     }
     
-    func createDayCards(events: [Event]) -> [WeekEventCardModel] {
-        let weekEventCards = events.map {
+    func createDayCards(events: [Event]) -> Void {
+        let weekEventCards = filterEventsMatchingToday(events: events).map {
             return WeekEventCardModel(event: $0)
         }
-        return weekEventCards.reversed()
+        self.eventsForToday = weekEventCards.reversed()
     }
     
     func findNextUpcomingEvent(schedules: [Schedule]) -> Event? {
-        let hiddenBookmarks = bookmarks?.filter { !$0.toggled }.map { $0.id } ?? []
+        let hiddenBookmarks = schedules.filter { !$0.toggled }.map { $0.scheduleId }
         let days: [Day] = schedules.filter {!hiddenBookmarks.contains($0.scheduleId)}.flatMap { $0.days }
         let events: [Event] = days.flatMap { $0.events }
         let sortedEvents = events.sorted()
@@ -95,6 +91,45 @@ final class HomeViewModel: ObservableObject {
             }
         }
         return nil
+    }
+    
+    func filterEventsMatchingToday(events: [Event]) -> [Event] {
+        let now = Date()
+        let calendar = Calendar.current
+        let currentDayOfYear = calendar.ordinality(of: .day, in: .year, for: now) ?? 1
+        let filteredEvents = events.filter { event in
+            guard let date = isoDateFormatter.date(from: event.from) else { return false }
+            let dayOfYear = calendar.ordinality(of: .day, in: .year, for: date) ?? 1
+            return dayOfYear == currentDayOfYear
+        }
+        return filteredEvents.sorted().reversed()
+    }
+    
+    func createEventsForToday(schedules: [Schedule]) -> Void {
+        let eventsForToday: [Event] = loadEventsForWeek(schedules: Array(schedules)).sorted().reversed()
+        createDayCards(events: Array(eventsForToday))
+    }
+    
+    
+    func loadEventsForWeek(schedules: [Schedule]) -> [Event] {
+        let now = Calendar.current.startOfDay(for: Date())
+        let timeZone = TimeZone.current
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = timeZone
+        let weekEndDate = calendar.date(byAdding: .day, value: 7, to: now)!
+        let weekDateRange = now...weekEndDate
+        AppLogger.shared.debug("Date range: \(weekDateRange)", source: "ScheduleService")
+        let events = schedules
+            .filter { $0.toggled }
+            .flatMap { $0.days }
+            .filter {
+                if let eventDate = isoDateFormatterFract.date(from: $0.isoString) {
+                    return weekDateRange.contains(eventDate)
+                }
+                return false
+            }
+            .flatMap { $0.events }
+        return events
     }
     
 }

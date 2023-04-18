@@ -6,28 +6,28 @@
 //
 
 import SwiftUI
+import RealmSwift
 
 struct BookmarkSettingsRow: View {
     
-    @ObservedObject var bookmark: Bookmark
-    let toggleBookmark: (String, Bool) -> Void
-    let deleteBookmark: (String) -> Void
+    @ObservedRealmObject var schedule: Schedule
+    let index: Int
+    let onDelete: (IndexSet) -> Void
     
     var body: some View {
         HStack {
-            Button(action: {deleteBookmark(bookmark.id)}, label: {
+            Button(action: {
+                onDelete(IndexSet(arrayLiteral: index))
+            }, label: {
                 Image(systemName: "trash")
                     .font(.system(size: 18))
                     .foregroundColor(.onSurface)
             })
             .padding(.trailing, 5)
             HStack {
-                Toggle(isOn: $bookmark.toggled) {
-                    Text(bookmark.id)
+                Toggle(isOn: $schedule.toggled) {
+                    Text(schedule.scheduleId)
                         .font(.system(size: 16))
-                }
-                .onChange(of: bookmark.toggled) { value in
-                    toggleBookmark(bookmark.id, value)
                 }
             }
             .padding(10)

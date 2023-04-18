@@ -124,6 +124,12 @@
 
 "Cancel all notifications"="Avbryt alla aviseringar";
 
+"No available bookmarks"="Inga tillgängliga bokmärken";
+
+"It looks like there's no available bookmarks"="Det verkar som att det inte finns några tillgängliga bokmärken";
+
+"Cancel"="Avbryt";
+
 "Notification offset"="Aviseringsförskjutning";
 
 "Looks like you don't have anything saved yet"="Det verkar som att du inte har sparat något ännu";

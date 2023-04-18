@@ -13,6 +13,7 @@ class Schedule: Object, Identifiable {
     @Persisted var scheduleId: String
     @Persisted var cachedAt: String
     @Persisted var days: List<Day>
+    @Persisted var toggled: Bool = true // When a schedule is added, default to showing
     
     convenience init(
         scheduleId: String,

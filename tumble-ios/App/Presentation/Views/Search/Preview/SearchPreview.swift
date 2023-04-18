@@ -6,10 +6,14 @@
 //
 
 import SwiftUI
+import RealmSwift
 
 struct SearchPreview: View {
     
     @ObservedObject var viewModel: SearchPreviewViewModel
+    @ObservedResults(Schedule.self) var schedules
+    
+    let programmeId: String
     
     var body: some View {
         VStack {
@@ -46,10 +50,21 @@ struct SearchPreview: View {
               alignment: .center
             )
         .background(Color.background)
+        .onAppear {
+            viewModel.getSchedule(programmeId: programmeId, schedules: Array(schedules))
+        }
     }
     
     func bookmark() -> Void {
-        viewModel.bookmark()
+        if viewModel.isSaved {
+            if let scheduleToRemoveIndex = schedules.firstIndex(where: { $0.scheduleId == viewModel.scheduleId }) {
+                $schedules.remove(atOffsets: IndexSet(arrayLiteral: scheduleToRemoveIndex))
+            }
+        } else {
+            let realmSchedule = viewModel.schedule!.toRealmSchedule()
+            $schedules.append(realmSchedule)
+        }
+        viewModel.bookmark(id: programmeId, schedules: Array(schedules))
     }
 }
 

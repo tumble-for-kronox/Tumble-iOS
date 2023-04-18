@@ -124,6 +124,12 @@
 
 "Cancel all notifications"="Alle benachrichtigungen abbrechen";
 
+"No available bookmarks"="Keine verfügbaren Lesezeichen";
+
+"It looks like there's no available bookmarks"="Anscheinend sind keine Lesezeichen verfügbar";
+
+"Cancel"="Abbrechen";
+
 "Notification offset"="Benachrichtigungs-offset";
 
 "Looks like you don't have anything saved yet"="Anscheinend hast du noch nichts gespeichert";

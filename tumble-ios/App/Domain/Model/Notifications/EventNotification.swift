@@ -10,7 +10,6 @@ import Foundation
 struct EventNotification: LocalNotification {
     
     var id: String
-    let color: String
     let dateComponents: DateComponents
     let categoryIdentifier: String?
     let content: [String : Any]?

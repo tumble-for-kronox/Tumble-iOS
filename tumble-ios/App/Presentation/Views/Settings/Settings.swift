@@ -6,12 +6,13 @@
 //
 
 import SwiftUI
-import StoreKit
+import RealmSwift
 
 struct Settings: View {
     
     @AppStorage(StoreKey.appearance.rawValue) var appearance: String = AppearanceTypes.system.rawValue
     @ObservedObject var viewModel: SettingsViewModel
+    @ObservedResults(Schedule.self) var schedules
     let currentLocale = Bundle.main.preferredLocalizations.first
     
     var body: some View {
@@ -92,11 +93,30 @@ struct Settings: View {
     }
     
     fileprivate func clearAllNotifications() -> Void {
-        viewModel.clearAllNotifications()
+        if schedulesAvailable() {
+            viewModel.clearAllNotifications()
+        }
     }
     
     fileprivate func scheduleNotificationsForAllCourses() -> Void {
-        viewModel.scheduleNotificationsForAllEvents()
+        if schedulesAvailable() {
+            let allEvents = Array(schedules)
+                .filter { $0.toggled }
+                .flatMap { $0.days }
+                .flatMap { $0.events }
+                .filter { !($0.dateComponents!.hasDatePassed()) }
+            viewModel.scheduleNotificationsForAllEvents(allEvents: allEvents)
+        }
+    }
+    
+    func schedulesAvailable() -> Bool {
+        if schedules.isEmpty || schedules.filter({ $0.toggled }).isEmpty {
+            viewModel.makeToast(
+                type: .info,
+                title: NSLocalizedString("No available bookmarks", comment: ""),
+                message: NSLocalizedString("It looks like there's no available bookmarks", comment: ""))
+            return false
+        } else { return true }
     }
     
 }

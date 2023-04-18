@@ -16,10 +16,6 @@ protocol PreferenceServiceProtocol {
     
     func setOffset(offset: Int) -> Void
     
-    func addBookmark(id: String) -> Void
-    
-    func removeBookmark(id: String) -> Void
-    
     func setAppearance(appearance: String) -> Void
         
     func setLang(lang: String) -> Void
@@ -28,8 +24,6 @@ protocol PreferenceServiceProtocol {
     
     func setViewType(viewType: Int) -> Void
         
-    func toggleBookmark(bookmark: String, value: Bool) -> Void
-    
     // ----------- GET -----------
     func getDefault(key: String) -> Any?
     

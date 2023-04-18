@@ -14,7 +14,7 @@ extension Event {
         dictionary["title"] = self.title
         dictionary["from"] = self.from
         dictionary["to"] = self.to
-        dictionary["id"] = self._id
+        dictionary["eventId"] = self.eventId
         dictionary["isSpecial"] = self.isSpecial
         dictionary["lastModified"] = self.lastModified
         
@@ -28,7 +28,7 @@ extension Event {
         for location in self.locations {
             var locationDict: [String: Any] = [:]
             locationDict["name"] = location.name
-            locationDict["id"] = location._id
+            locationDict["locationId"] = location.locationId
             locationDict["building"] = location.building
             locationDict["floor"] = location.floor
             locationDict["maxSeats"] = location.maxSeats // Int
@@ -47,6 +47,12 @@ extension Event {
         dictionary["teachers"] = teachersArray
         
         return dictionary
+    }
+    
+    func isValidEvent() -> Bool {
+        let today = Date()
+        guard let eventStartDate = dateFormatterEvent.date(from: self.from) else { return false }
+        return Calendar.current.startOfDay(for: eventStartDate) >= Calendar.current.startOfDay(for: today)
     }
 }
 

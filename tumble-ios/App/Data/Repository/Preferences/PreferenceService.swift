@@ -10,67 +10,18 @@ import SwiftUI
 
 class PreferenceService: PreferenceServiceProtocol {
     
-    @Published var bookmarks: [Bookmark]?
     @Published var userOnBoarded: Bool = false
     @Published var schoolId: Int = -1
     
     init() {
-        self.bookmarks = self.getBookmarks()
         self.schoolId = self.getDefaultSchool() ?? -1
         self.userOnBoarded = self.isKeyPresentInUserDefaults(key: StoreKey.userOnboarded.rawValue)
-    }
-    
-    func toggleBookmark(bookmark: String, value: Bool) {
-        var bookmarks: [String : Bool] = UserDefaults.standard.object(forKey: StoreKey.bookmarks.rawValue) as? [String : Bool] ?? [:]
-        bookmarks[bookmark] = value
-        UserDefaults.standard.set(bookmarks, forKey: StoreKey.bookmarks.rawValue)
-        self.bookmarks = bookmarks.map { Bookmark(toggled: $0.value, id: $0.key) }
-        UserDefaults.standard.synchronize()
     }
     
     // ----------- SET -----------
     func setSchool(id: Int) -> Void {
         schoolId = id
         UserDefaults.standard.set(id, forKey: StoreKey.school.rawValue)
-        UserDefaults.standard.synchronize()
-    }
-    
-    func addBookmark(id: String) -> Void {
-        var newBookmarks: [Bookmark] = self.bookmarks ?? []
-        newBookmarks.append(Bookmark(toggled: true, id: id))
-        UserDefaults.standard.set(
-            Dictionary(
-                uniqueKeysWithValues: newBookmarks.map { ($0.id, $0.toggled) }),
-            forKey: StoreKey.bookmarks.rawValue
-        )
-        UserDefaults.standard.synchronize()
-        DispatchQueue.main.async { [weak self] in
-            guard let self else { return }
-            self.bookmarks = newBookmarks
-        }
-    }
-    
-    func removeBookmark(id: String) -> Void {
-        var newBookmarks: [Bookmark] = self.bookmarks ?? []
-        newBookmarks.removeAll(where: { $0.id == id })
-        UserDefaults.standard.set(
-            Dictionary(
-                uniqueKeysWithValues: newBookmarks.map { ($0.id, $0.toggled) }),
-            forKey: StoreKey.bookmarks.rawValue
-        )
-        UserDefaults.standard.synchronize()
-        DispatchQueue.main.async { [weak self] in
-            guard let self else { return }
-            self.bookmarks = newBookmarks
-        }
-    }
-    
-    func removeAllBookmarks() {
-        UserDefaults.standard.removeObject(forKey: StoreKey.bookmarks.rawValue)
-        DispatchQueue.main.async { [weak self] in
-            guard let self else { return }
-            self.bookmarks = []
-        }
         UserDefaults.standard.synchronize()
     }
     
@@ -108,20 +59,6 @@ class PreferenceService: PreferenceServiceProtocol {
     // ----------- GET -----------
     func getDefault(key: String) -> Any? {
         return UserDefaults.standard.object(forKey: key)
-    }
-    
-    func getBookmarks() -> [Bookmark]? {
-        let dict: [String : Bool] = UserDefaults.standard.object(forKey: StoreKey.bookmarks.rawValue) as? [String : Bool] ?? [:]
-        let bookmarkedSchedules = dict.map{ Bookmark(toggled: $0.value, id: $0.key) }
-        DispatchQueue.main.async { [weak self] in
-            guard let self else { return }
-            self.bookmarks = bookmarkedSchedules
-        }
-        return bookmarks
-    }
-    
-    func getHiddenBookmarks() -> [String] {
-        return self.getBookmarks()?.filter { $0.toggled == false }.map { $0.id } ?? []
     }
     
     func getDefaultViewType() -> BookmarksViewType {

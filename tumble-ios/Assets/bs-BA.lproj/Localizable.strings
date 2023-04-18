@@ -124,6 +124,12 @@
 
 "Cancel all notifications"="Otkažite sva obavještenja";
 
+"No available bookmarks"="Nema dostupnih oznaka";
+
+"It looks like there's no available bookmarks"="Čini se da nema dostupnih oznaka";
+
+"Cancel"="Otkaži";
+
 "Notification offset"="Pomak obavještenja";
 
 "Looks like you don't have anything saved yet"="Izgleda da još nemate ništa sačuvano";

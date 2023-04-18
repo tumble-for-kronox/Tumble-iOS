@@ -10,7 +10,7 @@ import SwiftUI
 struct HomeAvailable: View {
     
     @Binding var eventsForToday: [WeekEventCardModel]
-    @Binding var nextClass: Event?
+    let nextClass: Event?
     @Binding var swipedCards: Int
     
     var body: some View {

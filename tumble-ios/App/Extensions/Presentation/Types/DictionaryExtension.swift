@@ -14,7 +14,7 @@ extension Dictionary where Key == String, Value == Any {
         guard let title = self["title"] as? String,
             let from = self["from"] as? String,
             let to = self["to"] as? String,
-            let id = self["id"] as? String,
+            let id = self["eventId"] as? String,
             let isSpecial = self["isSpecial"] as? Bool,
             let lastModified = self["lastModified"] as? String,
             let courseDict = self["course"] as? [String: String],
@@ -24,15 +24,15 @@ extension Dictionary where Key == String, Value == Any {
         }
         
         let course = Course(
-            courseId: courseDict["courseId"] ?? "",
+            courseId: courseDict["id"] ?? "",
             swedishName: courseDict["swedishName"] ?? "",
             englishName: courseDict["englishName"] ?? "",
             color: courseDict["color"] ?? "#FFFFFF")
         
-        var locations: [Location] = []
+        let locations: List<Location> = List<Location>()
         for locationDict in locationsArray {
             guard let name = locationDict["name"] as? String,
-                let locationId = locationDict["locationId"] as? String,
+                let locationId = locationDict["id"] as? String,
                 let building = locationDict["building"] as? String,
                 let floor = locationDict["floor"] as? String,
                 let maxSeats = locationDict["maxSeats"] as? Int else {
@@ -46,11 +46,11 @@ extension Dictionary where Key == String, Value == Any {
             locations.append(location)
         }
         
-        var teachers: [Teacher] = []
+        let teachers: List<Teacher> = List<Teacher>()
         for teacherDict in teachersArray {
             guard let firstName = teacherDict["firstName"],
                 let lastName = teacherDict["lastName"],
-                let teacherId = teacherDict["teacherId"] else {
+                let teacherId = teacherDict["id"] else {
                     continue
             }
             
@@ -59,12 +59,13 @@ extension Dictionary where Key == String, Value == Any {
             teachers.append(teacher)
         }
         
-        return Event(eventId: id, title: title,
+        return Event(eventId: id,
+                     title: title,
                      course: course,
                      from: from,
                      to: to,
-                     locations: RealmSwift.List(collection: locations as! RLMCollection),
-                     teachers: RealmSwift.List(collection: teachers as! RLMCollection),
+                     locations: locations,
+                     teachers: teachers,
                      isSpecial: isSpecial,
                      lastModified: lastModified)
     }

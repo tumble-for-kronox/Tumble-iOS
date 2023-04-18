@@ -21,8 +21,7 @@ class Event: Object {
     @Persisted var lastModified: String
     
     var dateComponents: DateComponents? {
-        let formatter = ISO8601DateFormatter()
-        guard let fromDate = formatter.date(from: from) else {
+        guard let fromDate = isoDateFormatter.date(from: from) else {
             return nil
         }
         let calendar = Calendar.current

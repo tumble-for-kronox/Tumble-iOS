@@ -24,7 +24,7 @@ struct BookmarkCalendarView: View {
             CalendarViewRepresentable(
                 selectedDate: $selectedDate,
                 displayedDayEvents: $displayedDayEvents,
-                days: days
+                days: days.filter { $0.isValidDay() } // Only display valid dates
             )
             .frame(height: 400)
             .onAppear {
@@ -64,7 +64,7 @@ struct BookmarkCalendarView: View {
     private func updateDisplayedDayEvents(for date: Date) {
         displayedDayEvents = days.filter { day in
             let dayDate = isoDateFormatterFract.date(from: day.isoString) ?? Date()
-            return Calendar.current.isDate(dayDate, inSameDayAs: date)
+            return Calendar.current.isDate(dayDate, inSameDayAs: date) && day.isValidDay()
         }.flatMap { $0.events }
     }
 

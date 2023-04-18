@@ -22,7 +22,6 @@ final class SettingsViewModel: ObservableObject {
     @Published var authStatus: AuthStatus = .unAuthorized
     @Published var schoolId: Int = -1
     @Published var schoolName: String = ""
-    @ObservedResults(Schedule.self) var schedules
     
     lazy var schools: [School] = schoolManager.getSchools()
     var cancellables = Set<AnyCancellable>()
@@ -33,18 +32,15 @@ final class SettingsViewModel: ObservableObject {
     private func setUpDataPublishers() -> Void {
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             guard let self else { return }
-            let bookmarksPublisher = self.preferenceService.$bookmarks
             let authStatusPublisher = self.userController.$authStatus
             let schoolIdPublisher = self.preferenceService.$schoolId
             
-            Publishers.CombineLatest3(
-                bookmarksPublisher,
+            Publishers.CombineLatest(
                 schoolIdPublisher,
                 authStatusPublisher
             )
             .receive(on: DispatchQueue.main)
-            .sink { bookmarks, schoolId, authStatus in
-                self.bookmarks = bookmarks
+            .sink { schoolId, authStatus in
                 self.authStatus = authStatus
                 self.schoolId = schoolId
                 self.schoolName = self.schoolManager.getSchools().first(where: { $0.id == schoolId })?.name ?? ""
@@ -71,24 +67,7 @@ final class SettingsViewModel: ObservableObject {
         })
     }
     
-    func toggleBookmarkVisibility(for bookmark: String, to value: Bool) -> Void {
-        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-            guard let self else { return }
-            self.preferenceService.toggleBookmark(bookmark: bookmark, value: value)
-        }
-    }
-    
-    
-    func deleteBookmark(id: String) {
-        if let scheduleToDelete = schedules.first(where: { $0.scheduleId == id }) {
-            updateBookmarksRemoveNotifications(for: id, referencing: scheduleToDelete)
-            $schedules.remove(scheduleToDelete)
-        }
-    }
-
-    
     private func updateBookmarksRemoveNotifications(for id: String, referencing oldSchedule: Schedule) -> Void {
-        preferenceService.removeBookmark(id: id)
         let events = oldSchedule.days
             .flatMap { $0.events }
         events.forEach { notificationManager.cancelNotification(for: $0.eventId) }
@@ -117,8 +96,8 @@ final class SettingsViewModel: ObservableObject {
     }
     
     
-    func scheduleNotificationsForAllEvents() {
-        guard !schedules.isEmpty else {
+    func scheduleNotificationsForAllEvents(allEvents: [Event]) {
+        guard !allEvents.isEmpty else {
             makeToast(
                 type: .error,
                 title: NSLocalizedString("Error", comment: ""),
@@ -128,12 +107,6 @@ final class SettingsViewModel: ObservableObject {
         }
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             guard let self else { return }
-            let hiddenBookmarks = self.preferenceService.getHiddenBookmarks()
-            let allEvents = filterHiddenBookmarks(
-                schedules: Array(self.schedules),
-                hiddenBookmarks: hiddenBookmarks
-            )
-            .flatMap { $0.days.flatMap { $0.events } }
             
             let totalNotifications = allEvents.count
             var scheduledNotifications = 0
@@ -201,7 +174,6 @@ final class SettingsViewModel: ObservableObject {
             self.userController.logOut()
             self.preferenceService.setSchool(id: schoolId)
             self.notificationManager.cancelNotifications()
-            self.preferenceService.removeAllBookmarks()
         }
         makeToast(
             type: .success,

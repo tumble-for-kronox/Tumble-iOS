@@ -17,6 +17,7 @@ final class ParentViewModel: ObservableObject {
     
     @Inject var preferenceService: PreferenceService
     @Inject var kronoxManager: KronoxManager
+    @ObservedResults(Schedule.self) var schedules
     
     lazy var homeViewModel: HomeViewModel = viewModelFactory.makeViewModelHome()
     lazy var bookmarksViewModel: BookmarksViewModel = viewModelFactory.makeViewModelBookmarks()
@@ -26,44 +27,56 @@ final class ParentViewModel: ObservableObject {
         
     private var updatedDuringSession: Bool = false
     
+    init() {
+        updateBookmarks()
+    }
     
     func updateBookmarks() -> Void {
-        // Get all stored shedule id's from preferences
-        DispatchQueue.global(qos: .background).async { [weak self] in
-            guard let self else { return }
-            defer { self.updatedDuringSession = true } // Always claim update during startup, even if failed
-            let bookmarks: [Bookmark]? = self.preferenceService.getBookmarks()
-            let schoolId: Int? = self.preferenceService.getDefaultSchool()
-            if let bookmarks = bookmarks, let schoolId = schoolId {
-                for bookmark in bookmarks {
-                    let scheduleId: String = bookmark.id
-                    let endpoint: Endpoint = .schedule(scheduleId: scheduleId, schoolId: String(schoolId))
-                    // Fetch schedule from backend
-                    let _ = self.kronoxManager.get(
-                        endpoint, then: { (result: Result<Response.Schedule, Response.ErrorMessage>) in
-                            switch result {
-                            case .success(let fetchedSchedule):
-                                AppLogger.shared.info("Updated schedule with id: \(fetchedSchedule.id)")
-                                DispatchQueue.main.async {
-                                    self.saveSchedule(schedule: fetchedSchedule)
-                                }
-                            case .failure(let failure):
-                                AppLogger.shared.info("Updating could not finish due to network error: \(failure)")
-                            }
-                    })
+        defer { self.updatedDuringSession = true } // Always claim update during startup, even if failed
+        let schoolId: Int? = preferenceService.getDefaultSchool()
+        
+        if let schoolId = schoolId {
+            for schedule in schedules {
+                let scheduleId: String = schedule.scheduleId
+                let endpoint: Endpoint = .schedule(scheduleId: scheduleId, schoolId: String(schoolId))
+                // Fetch schedule from backend
+                let _ = kronoxManager.get(
+                    endpoint, then: { [weak self] (result: Result<Response.Schedule, Response.ErrorMessage>) in
+                        guard let self else { return }
+                        switch result {
+                        case .success(let fetchedSchedule):
+                            AppLogger.shared.debug("Updated schedule with id: \(fetchedSchedule.id)")
+                            self.updateSchedule(schedule: fetchedSchedule)
+                        case .failure(let failure):
+                            AppLogger.shared.debug("Updating could not finish due to network error: \(failure)")
+                        }
+                })
+            }
+        } else {
+            AppLogger.shared.debug("No bookmarks or school id available")
+        }
+    }
+    
+    func updateSchedule(schedule: Response.Schedule) {
+        let realmSchedule: Schedule = schedule.toRealmSchedule(existingCourseColors: getCourseColors())
+        if let realm = try? Realm() {
+            if let scheduleToUpdate = realm.objects(Schedule.self).first(where: { $0.scheduleId == schedule.id }) {
+                try! realm.write {
+                    scheduleToUpdate.days = realmSchedule.days
+                    scheduleToUpdate.cachedAt = realmSchedule.cachedAt
                 }
-            } else {
-                AppLogger.shared.info("No bookmarks or school id available")
             }
         }
     }
     
-    func saveSchedule(schedule: Response.Schedule) {
-        let realmSchedule: Schedule = schedule.toRealmSchedule()
+    func getCourseColors() -> [String : String] {
         let realm = try! Realm()
-        try? realm.write {
-            realm.add(realmSchedule, update: .modified)
+        let courses = realm.objects(Course.self)
+        var courseColors: [String: String] = [:]
+        for course in courses {
+            courseColors[course.courseId] = course.color
         }
+        return courseColors
     }
 
 }

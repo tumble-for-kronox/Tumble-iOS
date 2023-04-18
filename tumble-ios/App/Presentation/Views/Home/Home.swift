@@ -6,11 +6,13 @@
 //
 
 import SwiftUI
+import RealmSwift
 
 struct Home: View {
     
     @ObservedObject var viewModel: HomeViewModel
     @ObservedObject var parentViewModel: ParentViewModel
+    @ObservedResults(Schedule.self) var schedules
     
     @Binding var selectedAppTab: TabbarTabType
     @State private var showSheet: Bool = false
@@ -22,21 +24,17 @@ struct Home: View {
             }
             Spacer()
             VStack (alignment: .leading) {
-                switch viewModel.status {
-                case .noBookmarks:
+                if schedules.isEmpty {
                     HomeNoBookmarks()
-                case .available:
-                    HomeAvailable(
-                        eventsForToday: $viewModel.eventsForToday,
-                        nextClass: $viewModel.nextClass,
-                        swipedCards: $viewModel.swipedCards)
-                case .notAvailable:
-                    HomeNotAvailable()
-                case .loading:
-                    CustomProgressIndicator()
-                        .frame(alignment: .center)
-                case .error:
-                    HomeError()
+                } else {
+                    if schedules.filter { $0.toggled }.isEmpty {
+                        HomeNotAvailable()
+                    } else {
+                        HomeAvailable(
+                            eventsForToday: $viewModel.eventsForToday,
+                            nextClass: viewModel.nextClass,
+                            swipedCards: $viewModel.swipedCards)
+                    }
                 }
             }
             Spacer()

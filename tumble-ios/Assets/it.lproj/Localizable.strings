@@ -124,6 +124,12 @@
 
 "Cancel all notifications"="Annulla tutte le notifiche";
 
+"No available bookmarks"="Nessun programma disponibile";
+
+"It looks like there's no available bookmarks"="Sembra che non ci sono programmi disponibili";
+
+"Cancel"="Annulla";
+
 "Notification offset"="Offset di notifica";
 
 "Looks like you don't have anything saved yet"="Sembra che tu non abbia ancora salvato nulla";

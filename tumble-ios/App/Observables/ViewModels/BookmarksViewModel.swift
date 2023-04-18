@@ -19,54 +19,26 @@ final class BookmarksViewModel: ObservableObject {
     @Inject var kronoxManager: KronoxManager
     @Inject var schoolManager: SchoolManager
     
-    @Published var status: BookmarksViewStatus = .loading
-    @Published var bookmarks: [Bookmark]?
     @Published var defaultViewType: BookmarksViewType = .list
     @Published var eventSheet: EventDetailsSheetModel? = nil
-    @ObservedResults(Schedule.self) var schedules
+    @Published var days: [Day] = [Day]()
+    @Published var status: BookmarksViewStatus = .loading
     
-    private var cancellables = Set<AnyCancellable>()
-    var hiddenBookmarks: [String] {
-        return bookmarks?.filter { !$0.toggled }.map { $0.id } ?? []
-    }
+    var schedulesToken: NotificationToken? = nil
     
     init () {
-        setUpDataPublishers()
         defaultViewType = preferenceService.getDefaultViewType()
-    }
-    
-    func setUpDataPublishers() -> Void {
-        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-            guard let self else { return }
-            // Set up publisher to update schedules when data stores are updated
-            let bookmarksPublisher = self.preferenceService.$bookmarks
-
-            bookmarksPublisher
-                .receive(on: DispatchQueue.main)
-                .sink { bookmarks in
-                    DispatchQueue.main.async {
-                        self.handleNewBookmarks(newBookmarks: bookmarks)
-                    }
-                }
-                .store(in: &self.cancellables)
-        }
-    }
-
-    
-    // If bookmarks in preferences are modified in app
-    func handleNewBookmarks(newBookmarks: [Bookmark]?) -> Void {
-        status = .loading
-        self.bookmarks = newBookmarks
-        switch newBookmarks {
-        case .none:
-            status = .uninitialized
-        case .some(let bookmarks) where bookmarks.isEmpty:
-            status = .uninitialized
-        case .some(let bookmarks) where bookmarks.filter({ $0.toggled }).isEmpty:
-            status = .hiddenAll
-        case .some:
-            print("Has some: \(newBookmarks?.map { $0.id })")
-            status = .loaded
+        // Observe changes to schedules and update days
+        let realm = try! Realm()
+        let schedules = realm.objects(Schedule.self)
+        schedulesToken = schedules.observe { [weak self] changes in
+            guard let self = self else { return }
+            switch changes {
+            case .initial(let results), .update(let results, _, _, _):
+                self.createDays(schedules: Array(results))
+            case .error:
+                self.status = .error
+            }
         }
     }
     
@@ -78,5 +50,15 @@ final class BookmarksViewModel: ObservableObject {
         let viewTypeIndex: Int = scheduleViewTypes.firstIndex(of: viewType)!
         preferenceService.setViewType(viewType: viewTypeIndex)
         defaultViewType = viewType
+    }
+    
+    func createDays(schedules: [Schedule]) -> Void {
+        let hiddenSchedules = Array(schedules).filter { !$0.toggled }.map { $0.scheduleId }
+        let days = filterHiddenBookmarks(
+            schedules: Array(schedules),
+            hiddenBookmarks: hiddenSchedules)
+        .flattenAndMerge().ordered()
+        self.days = days
+        self.status = .loaded
     }
 }

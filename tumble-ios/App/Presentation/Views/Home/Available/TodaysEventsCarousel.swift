@@ -8,28 +8,27 @@
 import SwiftUI
 
 struct TodaysEventsCarousel: View {
-    
-    @Binding var eventsForToday: [WeekEventCardModel]
     @Binding var swipedCards: Int
+    @Binding var weekEventCards: [WeekEventCardModel]
     
     var body: some View {
         ZStack {
-            if eventsForToday.isEmpty {
+            if weekEventCards.isEmpty {
                 Text(NSLocalizedString("No events for today", comment: ""))
                     .font(.system(size: 16))
                     .foregroundColor(.onBackground)
             } else {
-                ForEach(eventsForToday.indices.reversed(), id: \.self) { index in
-                    let event = eventsForToday[index].event
+                ForEach(weekEventCards.indices.reversed(), id: \.self) { index in
+                    let event = weekEventCards[index].event
                     CarouselCard(
                         event: event,
                         index: index,
-                        eventsForToday: $eventsForToday,
+                        eventsForToday: weekEventCards,
                         swipedCards: $swipedCards
                     )
                     .frame(height: 160)
                     .contentShape(Rectangle())
-                    .offset(x: eventsForToday[index].offset)
+                    .offset(x: weekEventCards[index].offset)
                     .gesture(
                         DragGesture(minimumDistance: 0)
                             .onChanged({ value in
@@ -65,30 +64,30 @@ struct TodaysEventsCarousel: View {
     }
     
     func resetCards() {
-        for index in eventsForToday.indices {
+        for index in weekEventCards.indices {
             withAnimation(.spring()) {
-                eventsForToday[index].offset = 0
+                weekEventCards[index].offset = 0
                 swipedCards = 0
             }
         }
     }
     
     func onChanged(value: DragGesture.Value, index: Int) {
-        if value.translation.width < 0 && eventsForToday.count > 1 {
-            eventsForToday[index].offset = value.translation.width
+        if value.translation.width < 0 && weekEventCards.count > 1 {
+            weekEventCards[index].offset = value.translation.width
         }
     }
     
     func onEnded(value: DragGesture.Value, index: Int) {
         withAnimation {
             if -value.translation.width > getRect().width / 3 {
-                eventsForToday[index].offset = -getRect().width
+                weekEventCards[index].offset = -getRect().width
                 swipedCards += 1
             } else {
-                eventsForToday[index].offset = 0
+                weekEventCards[index].offset = 0
             }
         }
-        if swipedCards == eventsForToday.count {
+        if swipedCards == weekEventCards.count {
             resetCards()
         }
     }
@@ -98,7 +97,7 @@ private struct CarouselCard: View {
     
     let event: Event
     let index: Int
-    @Binding var eventsForToday: [WeekEventCardModel]
+    let eventsForToday: [WeekEventCardModel]
     @Binding var swipedCards: Int
     
     var body: some View {
@@ -108,8 +107,6 @@ private struct CarouselCard: View {
                     width: getCardWidth(index: index),
                     height: getCardHeight(index: index)
                 )
-                .background(event.isSpecial ? Color.red.opacity(0.2) : Color.surface)
-                .cornerRadius(20)
                 .offset(x: getCardOffset(index: index))
                 .rotationEffect(.init(degrees: getCardRotation(index: index)))
                 .if(index != eventsForToday.count - 1, transform: { view in
@@ -136,7 +133,7 @@ private struct CarouselCard: View {
     }
     
     func getCardWidth(index: Int) -> CGFloat {
-        let boxWidth = getRect().width - 60
+        let boxWidth = getRect().width - 35
         return boxWidth
     }
     

@@ -32,7 +32,7 @@ struct Search: View {
         .background(Color.background)
         .sheet(item: $viewModel.searchPreviewModel) { model in
             SearchPreview(
-                viewModel: viewModel.createSearchPreviewViewModel(scheduleId: model.id)
+                viewModel: viewModel.createSearchPreviewViewModel(scheduleId: model.id), programmeId: model.id
             )
             .background(Color.background)
         }
