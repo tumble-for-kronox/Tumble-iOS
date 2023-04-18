@@ -13,7 +13,7 @@ struct EventDetailsCard: View {
     @State private var bgColor = Color.red
     
     let openColorPicker: () -> Void
-    let event: Response.Event
+    let event: Event
     let color: Color
     
     var body: some View {
@@ -22,7 +22,7 @@ struct EventDetailsCard: View {
                 VStack (alignment: .leading) {
                     HStack {
                         VStack (alignment: .leading, spacing: 0) {
-                            Text(event.course.englishName)
+                            Text(event.course?.englishName ?? "")
                                 .font(.system(size: 20, weight: .semibold))
                                 .foregroundColor(.onSurface)
                                 .fixedSize(horizontal: false, vertical: true)

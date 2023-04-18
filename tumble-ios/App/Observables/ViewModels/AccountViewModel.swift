@@ -56,8 +56,8 @@ final class AccountViewModel: ObservableObject {
         setUpDataPublishers()
         DispatchQueue.global(qos: .background).async { [weak self] in
             guard let self else { return }
-            if userController.autoSignup {
-                registerAutoSignup(completion: { _ in })
+            if self.userController.autoSignup {
+                self.registerAutoSignup(completion: { _ in })
             } else {
                 AppLogger.shared.debug("User has not enabled auto signup for events")
             }
@@ -67,8 +67,8 @@ final class AccountViewModel: ObservableObject {
     func setUpDataPublishers() -> Void {
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             guard let self else { return }
-            let authStatusPublisher = userController.$authStatus
-            let schoolIdPublisher = preferenceService.$schoolId
+            let authStatusPublisher = self.userController.$authStatus
+            let schoolIdPublisher = self.preferenceService.$schoolId
             
             Publishers.CombineLatest(authStatusPublisher, schoolIdPublisher)
                 .receive(on: DispatchQueue.main)
@@ -84,7 +84,7 @@ final class AccountViewModel: ObservableObject {
                     self.schoolId = schoolId
                     self.schoolName = self.schoolManager.getSchools().first(where: { $0.id == schoolId })?.name ?? ""
                 }
-                .store(in: &cancellables)
+                .store(in: &self.cancellables)
         }
     }
     
@@ -102,8 +102,8 @@ final class AccountViewModel: ObservableObject {
     func removeUserEvent(where id: String) -> Void {
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             guard let self else { return }
-            if var mutRegisteredEvents = completeUserEvent?.registeredEvents,
-               var mutUnregisteredEvents = completeUserEvent?.unregisteredEvents {
+            if var mutRegisteredEvents = self.completeUserEvent?.registeredEvents,
+               var mutUnregisteredEvents = self.completeUserEvent?.unregisteredEvents {
                 // Find subject in current struct
                 let eventRemoved = mutRegisteredEvents.first {
                     $0.eventId == id
@@ -131,7 +131,7 @@ final class AccountViewModel: ObservableObject {
     func login(username: String, password: String, createToast: @escaping (Bool) -> Void ) -> Void {
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
-            status = .loading
+            self.status = .loading
             DispatchQueue.global(qos: .userInitiated).async {
                 self.userController.logIn(
                     username: username,
@@ -145,7 +145,7 @@ final class AccountViewModel: ObservableObject {
     func getUserEventsForSection(tries: Int = 0) {
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
-            registeredEventSectionState = .loading
+            self.registeredEventSectionState = .loading
         }
         userController.authenticateAndExecute(
             schoolId: schoolId,
@@ -155,7 +155,7 @@ final class AccountViewModel: ObservableObject {
                 switch result {
                 case .success((let schoolId, let refreshToken)):
                     let request = Endpoint.userEvents(schoolId: String(schoolId))
-                    self.eventSectionDataTask = kronoxManager.get(request, refreshToken: refreshToken,
+                    self.eventSectionDataTask = self.kronoxManager.get(request, refreshToken: refreshToken,
                     then: { (result: Result<Response.KronoxCompleteUserEvent?, Response.ErrorMessage>) in
                         switch result {
                         case .success(let events):
@@ -192,7 +192,7 @@ final class AccountViewModel: ObservableObject {
                 switch result {
                 case .success((let schoolId, let refreshToken)):
                     let request = Endpoint.userBookings(schoolId: String(schoolId))
-                    self.resourceSectionDataTask = kronoxManager.get(request, refreshToken: refreshToken,
+                    self.resourceSectionDataTask = self.kronoxManager.get(request, refreshToken: refreshToken,
                        then: { [weak self] (result: Result<Response.KronoxUserBookings, Response.ErrorMessage>) in
                         guard let self = self else { return }
                         switch result {
@@ -234,7 +234,7 @@ final class AccountViewModel: ObservableObject {
                 switch result {
                 case .success((let schoolId, let refreshToken)):
                     let request = Endpoint.unregisterEvent(eventId: eventId, schoolId: String(schoolId))
-                    let _ = kronoxManager.put(request, refreshToken: refreshToken, body: Request.Empty(),
+                    let _ = self.kronoxManager.put(request, refreshToken: refreshToken, body: Request.Empty(),
                        then: { (result: Result<Response.Empty, Response.ErrorMessage>) in
                         DispatchQueue.main.async {
                             switch result {

@@ -9,7 +9,7 @@ import Foundation
 
 extension HomeViewModel {
     
-    func filterEventsMatchingToday(events: [Response.Event]) -> [Response.Event] {
+    func filterEventsMatchingToday(events: [Event]) -> [Event] {
         let now = Date()
         let calendar = Calendar.current
         let currentDayOfYear = calendar.ordinality(of: .day, in: .year, for: now) ?? 1
@@ -22,7 +22,7 @@ extension HomeViewModel {
     }
     
     
-    func loadEventsForWeek() -> [Response.Event] {
+    func loadEventsForWeek() -> [Event] {
         let now = Calendar.current.startOfDay(for: Date())
         let timeZone = TimeZone.current
         var calendar = Calendar(identifier: .gregorian)
@@ -31,8 +31,8 @@ extension HomeViewModel {
         let weekDateRange = now...weekEndDate
         AppLogger.shared.debug("Date range: \(weekDateRange)", source: "ScheduleService")
         let hiddenBookmarks = bookmarks?.filter { !$0.toggled }.map { $0.id } ?? []
-        let events = schedules
-            .filter { !hiddenBookmarks.contains($0.id) }
+        let events = Array(schedules)
+            .filter { !hiddenBookmarks.contains($0.scheduleId) }
             .flatMap { $0.days }
             .filter {
                 if let eventDate = isoDateFormatterFract.date(from: $0.isoString) {

@@ -16,8 +16,7 @@ struct BookmarksListModel {
 
 struct BookmarkListView: View {
     
-    let days: [DayUiModel]
-    let courseColors: CourseAndColorDict
+    let days: [Day]
     @ObservedObject var appController: AppController
     @State private var bookmarksListModel: BookmarksListModel = BookmarksListModel()
     @State private var searching: Bool = false
@@ -26,18 +25,20 @@ struct BookmarkListView: View {
     
     var scrollSpace: String = "bookmarksRefreshable"
     
-    var filteredEvents: [Response.Event] {
+    var filteredEvents: [Event] {
         if searchText.isEmpty {
             return []
         } else {
-            var events: [Response.Event] = []
+            var events: [Event] = []
             for day in days {
-                let filteredDayEvents = day.events.filter { event in
-                    let titleMatches = event.title.localizedCaseInsensitiveContains(searchText)
-                    let courseNameMatches = event.course.englishName.localizedCaseInsensitiveContains(searchText)
-                    return titleMatches || courseNameMatches
+                if day.isValidDay() {
+                    let filteredDayEvents = day.events.filter { event in
+                        let titleMatches = event.title.localizedCaseInsensitiveContains(searchText)
+                        let courseNameMatches = event.course?.englishName.localizedCaseInsensitiveContains(searchText)
+                        return titleMatches || (courseNameMatches != nil)
+                    }
+                    events.append(contentsOf: filteredDayEvents)
                 }
-                events.append(contentsOf: filteredDayEvents)
             }
             return events
         }
@@ -54,66 +55,79 @@ struct BookmarkListView: View {
                 )
             }
             if !searching {
-                ScrollViewReader { value in
-                    ScrollView(.vertical, showsIndicators: false) {
-                        LazyVStack (alignment: .center) {
-                            ForEach(days, id: \.id) { day in
-                                if !(day.events.isEmpty) {
-                                    VStack {
-                                        Section(header: DayHeader(day: day), content: {
-                                            ForEach(day.events.sorted(), id: \.id) { event in
-                                                BookmarkCard(
-                                                    onTapCard: onTapCard,
-                                                    event: event,
-                                                    isLast: event == day.events.last,
-                                                    color: courseColors[event.course.id] != nil ?
-                                                    courseColors[event.course.id]!.toColor() : .white)
-                                            }
-                                        })
-                                    }
-                                    .padding(.top, 25)
-                                }
-                            }
-                        }
-                        .padding(7.5)
-                        .overlay(
-                            GeometryReader { proxy -> Color in
-                                DispatchQueue.main.async {
-                                    handleScrollOffset(value: proxy.frame(in: .global).minY)
-                                    handleButtonAnimation()
-                                    handleSearchFieldVisibility()
-                                }
-                                return Color.clear
-                            }
-                        )
-                        .id("bookmarkScrollView")
-                    }
-                    .overlay(
-                        ToTopButton(buttonOffsetX: bookmarksListModel.buttonOffsetX, value: value)
-                        ,alignment: .bottomTrailing
-                    )
-                }
+                listNotSearching
             } else {
-                ScrollView(.vertical, showsIndicators: false) {
-                    LazyVStack (alignment: .center) {
-                        ForEach(filteredEvents, id: \.id) { event in
-                            BookmarkCard(
-                                onTapCard: onTapCard,
-                                event: event,
-                                isLast: true,
-                                color: courseColors[event.course.id] != nil ?
-                                courseColors[event.course.id]!.toColor() : .white)
-                        }
-                    }
-                    .padding(7.5)
-                }
+                listSearching
             }
         }
         .ignoresSafeArea(.keyboard)
     }
     
-    fileprivate func onTapCard(event: Response.Event, color: Color) -> Void {
-        appController.eventSheet = EventDetailsSheetModel(event: event, color: color)
+    var listNotSearching: some View {
+        ScrollViewReader { value in
+            ScrollView(.vertical, showsIndicators: false) {
+                LazyVStack (alignment: .center) {
+                    listUnfiltered
+                }
+                .padding(7.5)
+                .overlay(
+                    GeometryReader { proxy -> Color in
+                        DispatchQueue.main.async {
+                            handleScrollOffset(value: proxy.frame(in: .global).minY)
+                            handleButtonAnimation()
+                            handleSearchFieldVisibility()
+                        }
+                        return Color.clear
+                    }
+                )
+                .id("bookmarkScrollView")
+            }
+            .overlay(
+                ToTopButton(buttonOffsetX: bookmarksListModel.buttonOffsetX, value: value)
+                ,alignment: .bottomTrailing
+            )
+        }
+    }
+    
+    var listUnfiltered: some View {
+        ForEach(days, id: \._id) { day in
+            if !(day.events.isEmpty) {
+                VStack {
+                    if day.isValidDay() {
+                        VStack {
+                            Section(header: DayHeader(day: day), content: {
+                                ForEach(Array(day.events).sorted(), id: \._id) { event in
+                                    BookmarkCard(
+                                        onTapCard: onTapCard,
+                                        event: event,
+                                        isLast: event == day.events.last)
+                                }
+                            })
+                        }
+                        .padding(.vertical, 15)
+                    }
+                }
+                .padding(.top, 5)
+            }
+        }
+    }
+    
+    var listSearching: some View {
+        ScrollView(.vertical, showsIndicators: false) {
+            LazyVStack (alignment: .center) {
+                ForEach(filteredEvents, id: \._id) { event in
+                    BookmarkCard(
+                        onTapCard: onTapCard,
+                        event: event,
+                        isLast: true)
+                }
+            }
+            .padding(7.5)
+        }
+    }
+    
+    fileprivate func onTapCard(event: Event) -> Void {
+        appController.eventSheet = EventDetailsSheetModel(event: event)
     }
     
     fileprivate func handleButtonAnimation() -> Void {

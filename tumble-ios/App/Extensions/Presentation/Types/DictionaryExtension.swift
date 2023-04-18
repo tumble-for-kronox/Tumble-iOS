@@ -6,9 +6,11 @@
 //
 
 import Foundation
+import RealmSwift
+import Realm
 
 extension Dictionary where Key == String, Value == Any {
-    func toEvent() -> Response.Event? {
+    func toEvent() -> Event? {
         guard let title = self["title"] as? String,
             let from = self["from"] as? String,
             let to = self["to"] as? String,
@@ -21,47 +23,48 @@ extension Dictionary where Key == String, Value == Any {
                 return nil
         }
         
-        let course = Response.Course(id: courseDict["id"] ?? "",
-                                     swedishName: courseDict["swedishName"] ?? "",
-                                     englishName: courseDict["englishName"] ?? "")
+        let course = Course(
+            courseId: courseDict["courseId"] ?? "",
+            swedishName: courseDict["swedishName"] ?? "",
+            englishName: courseDict["englishName"] ?? "",
+            color: courseDict["color"] ?? "#FFFFFF")
         
-        var locations: [Response.Location] = []
+        var locations: [Location] = []
         for locationDict in locationsArray {
             guard let name = locationDict["name"] as? String,
-                let locationId = locationDict["id"] as? String,
+                let locationId = locationDict["locationId"] as? String,
                 let building = locationDict["building"] as? String,
                 let floor = locationDict["floor"] as? String,
                 let maxSeats = locationDict["maxSeats"] as? Int else {
                     continue
             }
             
-            let location = Response.Location(id: locationId, name: name,
+            let location = Location(locationId: locationId, name: name,
                                     building: building,
                                     floor: floor,
                                     maxSeats: maxSeats)
             locations.append(location)
         }
         
-        var teachers: [Response.Teacher] = []
+        var teachers: [Teacher] = []
         for teacherDict in teachersArray {
             guard let firstName = teacherDict["firstName"],
                 let lastName = teacherDict["lastName"],
-                let teacherId = teacherDict["id"] else {
+                let teacherId = teacherDict["teacherId"] else {
                     continue
             }
             
-            let teacher = Response.Teacher(id: teacherId, firstName: firstName,
+            let teacher = Teacher(teacherId: teacherId, firstName: firstName,
                                            lastName: lastName)
             teachers.append(teacher)
         }
         
-        return Response.Event(title: title,
+        return Event(eventId: id, title: title,
                      course: course,
                      from: from,
                      to: to,
-                     locations: locations,
-                     teachers: teachers,
-                     id: id,
+                     locations: RealmSwift.List(collection: locations as! RLMCollection),
+                     teachers: RealmSwift.List(collection: teachers as! RLMCollection),
                      isSpecial: isSpecial,
                      lastModified: lastModified)
     }

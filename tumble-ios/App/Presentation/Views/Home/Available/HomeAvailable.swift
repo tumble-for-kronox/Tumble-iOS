@@ -10,17 +10,15 @@ import SwiftUI
 struct HomeAvailable: View {
     
     @Binding var eventsForToday: [WeekEventCardModel]
-    @Binding var nextClass: Response.Event?
+    @Binding var nextClass: Event?
     @Binding var swipedCards: Int
-    @Binding var courseColors: CourseAndColorDict
     
     var body: some View {
         VStack {
             TodaysEvents(
-                courseColors: courseColors,
                 eventsForToday: $eventsForToday,
                 swipedCards: $swipedCards)
-            NextClass(nextClass: nextClass, courseColors: courseColors)
+            NextClass(nextClass: nextClass)
             Spacer()
         }
         .frame(width: getRect().width - 35)

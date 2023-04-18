@@ -13,12 +13,11 @@ struct CalendarViewRepresentable: UIViewRepresentable {
     typealias UIViewType = FSCalendar
     
     @Binding var selectedDate: Date
-    @Binding var displayedDayEvents: [Response.Event]
+    @Binding var displayedDayEvents: [Event]
     
     let calendar = FSCalendar()
-    let days: [DayUiModel]
-    let courseColors: CourseAndColorDict
-    lazy var eventsByDate: [Date: [Response.Event]] = makeCalendarEvents()
+    let days: [Day]
+    lazy var eventsByDate: [Date: [Event]] = makeCalendarEvents()
     
     func makeUIView(context: Context) -> FSCalendar {
         calendar.delegate = context.coordinator
@@ -70,8 +69,8 @@ struct CalendarViewRepresentable: UIViewRepresentable {
         Coordinator(self)
     }
     
-    func makeCalendarEvents() -> [Date : [Response.Event]] {
-        var dict = [Date: [Response.Event]]()
+    func makeCalendarEvents() -> [Date : [Event]] {
+        var dict = [Date: [Event]]()
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         
@@ -93,7 +92,7 @@ struct CalendarViewRepresentable: UIViewRepresentable {
     class Coordinator: NSObject, FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {
         
         var parent: CalendarViewRepresentable
-        var displayedDayEventsByDate: [Date: [Response.Event]] = [:]
+        var displayedDayEventsByDate: [Date: [Event]] = [:]
         
         init(_ parent: CalendarViewRepresentable) {
             self.parent = parent

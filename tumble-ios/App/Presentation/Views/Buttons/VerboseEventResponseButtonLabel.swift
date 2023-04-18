@@ -1,21 +1,21 @@
 //
-//  VerboseEventButtonLabel.swift
+//  VerboseEventResponseButtonLabel.swift
 //  tumble-ios
 //
-//  Created by Adis Veletanlic on 2023-03-20.
+//  Created by Adis Veletanlic on 2023-04-17.
 //
 
 import SwiftUI
 
-struct VerboseEventButtonLabel: View {
-    
-    let event: Event
+struct VerboseEventResponseButtonLabel: View {
+    let event: Response.Event
+    let color: Color
     
     var body: some View {
         HStack {
             VStack (alignment: .leading, spacing: 20) {
                 VStack (alignment: .leading, spacing: 2) {
-                    Text(event.course?.englishName ?? "")
+                    Text(event.course.englishName)
                         .font(.system(size: 17, weight: .semibold))
                         .foregroundColor(.onSurface)
                     Text(event.title)
@@ -49,7 +49,7 @@ struct VerboseEventButtonLabel: View {
                         Image(systemName: "mappin.and.ellipse")
                             .font(.system(size: 15))
                             .foregroundColor(.onSurface)
-                        Text(event.locations.first?.locationId.capitalized ?? NSLocalizedString("Unknown", comment: ""))
+                        Text(event.locations.first?.id.capitalized ?? NSLocalizedString("Unknown", comment: ""))
                             .font(.system(size: 15, weight: .semibold))
                             .foregroundColor(.onSurface)
                     }
@@ -58,7 +58,7 @@ struct VerboseEventButtonLabel: View {
                        let timeTo = event.to.convertToHoursAndMinutesISOString() {
                         HStack {
                             Circle()
-                                .foregroundColor(event.isSpecial ? Color.red : event.course?.color.toColor())
+                                .foregroundColor(event.isSpecial ? Color.red : color)
                                 .frame(width: 7, height: 7)
                             Text("\(timeFrom) - \(timeTo)")
                                 .font(.system(size: 14, weight: .semibold))
@@ -77,4 +77,3 @@ struct VerboseEventButtonLabel: View {
         }
     }
 }
-

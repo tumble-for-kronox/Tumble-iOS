@@ -10,6 +10,5 @@ import SwiftUI
 
 struct EventDetailsSheetModel: Identifiable {
     var id: UUID = UUID()
-    let event: Response.Event
-    let color: Color
+    let event: Event
 }

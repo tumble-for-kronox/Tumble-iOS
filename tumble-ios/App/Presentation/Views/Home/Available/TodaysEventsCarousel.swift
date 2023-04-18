@@ -9,7 +9,6 @@ import SwiftUI
 
 struct TodaysEventsCarousel: View {
     
-    let courseColors: CourseAndColorDict
     @Binding var eventsForToday: [WeekEventCardModel]
     @Binding var swipedCards: Int
     
@@ -22,25 +21,12 @@ struct TodaysEventsCarousel: View {
             } else {
                 ForEach(eventsForToday.indices.reversed(), id: \.self) { index in
                     let event = eventsForToday[index].event
-                    let color = courseColors[event.course.id]?.toColor() ?? .white
-                    HStack {
-                        VerboseEventButtonLabel(event: event, color: color)
-                            .frame(
-                                width: getCardWidth(index: index),
-                                height: getCardHeight(index: index)
-                            )
-                            .background(event.isSpecial ? Color.red.opacity(0.2) : Color.surface)
-                            .cornerRadius(20)
-                            .offset(x: getCardOffset(index: index))
-                            .rotationEffect(.init(degrees: getCardRotation(index: index)))
-                            .if(index != eventsForToday.count - 1, transform: { view in
-                                view.shadow(
-                                    color: Color.black.opacity(0.1),
-                                    radius: (index - swipedCards) <= 2 ? 2 : 0, x: 5, y: 2
-                                )
-                            })
-                        Spacer()
-                    }
+                    CarouselCard(
+                        event: event,
+                        index: index,
+                        eventsForToday: $eventsForToday,
+                        swipedCards: $swipedCards
+                    )
                     .frame(height: 160)
                     .contentShape(Rectangle())
                     .offset(x: eventsForToday[index].offset)
@@ -56,6 +42,12 @@ struct TodaysEventsCarousel: View {
                 }
             }
         }
+        resetButton
+    }
+        
+    
+    
+    var resetButton: some View {
         HStack {
             Spacer()
             Button(action: resetCards, label: {
@@ -71,7 +63,7 @@ struct TodaysEventsCarousel: View {
         }
         .padding(.top, 10)
     }
-        
+    
     func resetCards() {
         for index in eventsForToday.indices {
             withAnimation(.spring()) {
@@ -79,13 +71,6 @@ struct TodaysEventsCarousel: View {
                 swipedCards = 0
             }
         }
-    }
-    
-    func getCardRotation(index: Int) -> Double {
-        let boxWidth = Double(getRect().width / 3)
-        let offset = Double(eventsForToday[index].offset)
-        let angle: Double = 8
-        return (offset / boxWidth) * angle
     }
     
     func onChanged(value: DragGesture.Value, index: Int) {
@@ -107,6 +92,42 @@ struct TodaysEventsCarousel: View {
             resetCards()
         }
     }
+}
+
+private struct CarouselCard: View {
+    
+    let event: Event
+    let index: Int
+    @Binding var eventsForToday: [WeekEventCardModel]
+    @Binding var swipedCards: Int
+    
+    var body: some View {
+        HStack {
+            VerboseEventButtonLabel(event: event)
+                .frame(
+                    width: getCardWidth(index: index),
+                    height: getCardHeight(index: index)
+                )
+                .background(event.isSpecial ? Color.red.opacity(0.2) : Color.surface)
+                .cornerRadius(20)
+                .offset(x: getCardOffset(index: index))
+                .rotationEffect(.init(degrees: getCardRotation(index: index)))
+                .if(index != eventsForToday.count - 1, transform: { view in
+                    view.shadow(
+                        color: Color.black.opacity(0.1),
+                        radius: (index - swipedCards) <= 2 ? 2 : 0, x: 5, y: 2
+                    )
+                })
+            Spacer()
+        }
+    }
+    
+    func getCardRotation(index: Int) -> Double {
+        let boxWidth = Double(getRect().width / 3)
+        let offset = Double(eventsForToday[index].offset)
+        let angle: Double = 8
+        return (offset / boxWidth) * angle
+    }
     
     func getCardHeight(index: Int) -> CGFloat {
         let height: CGFloat = 160
@@ -122,5 +143,4 @@ struct TodaysEventsCarousel: View {
     func getCardOffset(index: Int) -> CGFloat {
         return (index - swipedCards) <= 3 ? CGFloat(index - swipedCards) * 10 : 0
     }
-    
 }

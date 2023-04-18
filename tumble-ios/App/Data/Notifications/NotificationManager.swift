@@ -82,15 +82,18 @@ class NotificationManager: NotificationManagerProtocol {
         }
     }
     
-    func createNotificationFromEvent(event: Response.Event, color: String) -> EventNotification? {
+    func createNotificationFromEvent(event: Event) -> EventNotification? {
         guard let dateComponents = event.dateComponents else { return nil }
-        let notification = EventNotification(
-            id: event.id,
-            color: color,
-            dateComponents: dateComponents,
-            categoryIdentifier: event.course.id, content: event.toDictionary()
-        )
-        return notification
+        if let course = event.course {
+            let notification = EventNotification(
+                id: event.eventId,
+                color: course.color,
+                dateComponents: dateComponents,
+                categoryIdentifier: course.courseId, content: event.toDictionary()
+            )
+            return notification
+        }
+        return nil
     }
     
     func createNotificationFromBooking(booking: Response.KronoxUserBookingElement) -> BookingNotification? {
@@ -147,7 +150,7 @@ extension NotificationManager {
         userOffset: Int) -> UNNotificationRequest {
             AppLogger.shared.debug("Making notification request for -> \(notification.id)")
             let content = UNMutableNotificationContent()
-            content.title = (notification.content?.toEvent()?.course.englishName)!
+            content.title = (notification.content?.toEvent()?.course?.englishName ?? "")!
             content.subtitle = (notification.content?.toEvent()?.title)!
             // Optional course id
             content.categoryIdentifier = notification.categoryIdentifier ?? ""

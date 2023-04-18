@@ -17,73 +17,36 @@ struct SearchField: View {
     
     var body: some View {
         HStack {
-            SearchButton(search: search)
             TextField(NSLocalizedString(
-                title, comment: ""), text: $searchBarText,
-                      onEditingChanged: onEditingChanged)
+                title, comment: ""), text: $searchBarText)
                 .searchBoxText()
                 .onTapGesture {
-                    self.animateCloseButtonIntoView()
+                    withAnimation(.spring()) {
+                        self.searching = true
+                    }
                 }
-            CloseButton(
-                onClearSearch: onClearSearch,
-                animateCloseButtonOutOfView: animateCloseButtonOutOfView,
-                closeButtonOffset: $closeButtonOffset,
-                searchBarText: $searchBarText)
-        }
-        .searchBox()
-        .onSubmit {
-            if let search = search {
-                search()
-            }
-            hideKeyboard()
-        }
-    }
-    
-    
-    func onClearSearch(endEditing: Bool) -> Void {
-        if searching {
-            if searchBarText.isEmpty {
-                withAnimation(.easeInOut) {
-                    searching = false
+                .onSubmit {
+                    if let search = search {
+                        search()
+                    }
+                    hideKeyboard()
                 }
-            } else {
-                searchBarText = ""
-            }
-        } else {
-            withAnimation(.easeInOut) {
-                searching = false
-            }
-        }
-    }
-    
-    func onEditingChanged(value: Bool) -> Void {
-        if searchBarText.isEmpty {
-            withAnimation(.easeOut) {
-                searching = value
-                animateCloseButtonIntoView()
-            }
-        } else {
-            hideKeyboard()
-        }
-    }
-    
-    fileprivate func animateCloseButtonIntoView() -> Void {
-        if self.closeButtonOffset == 300.0 {
-            withAnimation(.spring().delay(0.5)) {
-                self.closeButtonOffset -= 300
+                .searchBox()
+ 
+            if searching {
+                Button(action: {
+                    withAnimation(.spring()) {
+                        self.searching = false
+                    }
+                    self.searchBarText = ""
+                    hideKeyboard()
+ 
+                }) {
+                    Text(NSLocalizedString("Cancel", comment: ""))
+                }
+                .padding(.trailing, 20)
+                .padding(.top, 5)
             }
         }
     }
-    
-    fileprivate func animateCloseButtonOutOfView() -> Void {
-        withAnimation(.spring().delay(0.5)) {
-            self.closeButtonOffset += 300
-        }
-    }
-    
-    fileprivate func searchBoxNotEmpty() -> Bool {
-        return !searchBarText.trimmingCharacters(in: .whitespaces).isEmpty
-    }
-    
 }

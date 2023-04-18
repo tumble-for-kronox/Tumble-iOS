@@ -31,9 +31,8 @@ class ViewModelFactory {
     func makeViewModelRoot() -> RootViewModel { .init() }
     
     func makeViewModelEventDetailsSheet(
-        event: Response.Event,
-        color: Color) -> EventDetailsSheetViewModel {
-            .init(event: event, color: color)
+        event: Event) -> EventDetailsSheetViewModel {
+            .init(event: event)
     }
     
     func makeViewModelSearchPreview(

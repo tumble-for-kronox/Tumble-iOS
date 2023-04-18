@@ -36,7 +36,7 @@ struct EventDetailsSheet: View {
                     
             )
             .onDisappear(perform: {
-                viewModel.replaceColor()
+                viewModel.updateCourseColor()
                 AppController.shared.eventSheet = nil
             })
         }

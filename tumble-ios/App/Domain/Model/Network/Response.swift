@@ -34,11 +34,14 @@ public enum Response {
         static func == (lhs: Response.Day, rhs: Response.Day) -> Bool {
             return lhs.name == rhs.name && lhs.isoString == rhs.isoString && lhs.weekNumber == rhs.weekNumber
         }
-        
         let name: String
         let date, isoString: String
         let weekNumber: Int
         let events: [Event]
+        
+        var id: UUID {
+            return UUID()
+        }
     }
 
     // MARK: - Event
@@ -57,15 +60,6 @@ public enum Response {
         let isSpecial: Bool
         let lastModified: String
         
-        var dateComponents: DateComponents? {
-            let formatter = ISO8601DateFormatter()
-            guard let fromDate = formatter.date(from: from) else {
-                return nil
-            }
-            let calendar = Calendar.current
-            let components = calendar.dateComponents([.year, .month, .day, .hour, .minute, .second], from: fromDate)
-            return components
-        }
     }
 
     // MARK: - Course

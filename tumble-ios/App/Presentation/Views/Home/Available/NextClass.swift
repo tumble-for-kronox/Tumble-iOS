@@ -9,8 +9,7 @@ import SwiftUI
 
 struct NextClass: View {
     
-    let nextClass: Response.Event?
-    let courseColors: CourseAndColorDict
+    let nextClass: Event?
     
     var body: some View {
         VStack (alignment: .leading) {
@@ -25,8 +24,8 @@ struct NextClass: View {
                     .font(.system(size: 18, weight: .semibold))
                     .foregroundColor(.onBackground)
             }
-            if let nextClass = nextClass {
-                let color: Color = courseColors[(nextClass.course.id)]?.toColor() ?? .white
+            if let nextClass = nextClass, let course = nextClass.course {
+                let color: Color = course.color.toColor()
                 CompactEventButtonLabel(event: nextClass, color: color)
                     .frame(maxWidth: .infinity, minHeight: 100, maxHeight: 100, alignment: .center)
                     .background(color.opacity(0.2))

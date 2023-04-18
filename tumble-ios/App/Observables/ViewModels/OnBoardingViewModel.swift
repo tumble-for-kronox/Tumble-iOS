@@ -21,8 +21,8 @@ final class OnBoardingViewModel: ObservableObject {
         showSchoolSelection = false
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             guard let self else { return }
-            preferenceService.setSchool(id: school.id)
-            preferenceService.setUserOnboarded()
+            self.preferenceService.setSchool(id: school.id)
+            self.preferenceService.setUserOnboarded()
         }
     }
     

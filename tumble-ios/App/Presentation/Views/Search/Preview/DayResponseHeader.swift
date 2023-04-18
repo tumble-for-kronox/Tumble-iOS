@@ -1,15 +1,14 @@
 //
-//  DayHeaderSectionView.swift
+//  DayResponseHeader.swift
 //  tumble-ios
 //
-//  Created by Adis Veletanlic on 11/21/22.
+//  Created by Adis Veletanlic on 2023-04-17.
 //
-
 
 import SwiftUI
 
-struct DayHeader: View {
-    let day: Day
+struct DayResponseHeader: View {
+    let day: Response.Day
     var body: some View {
         HStack (spacing: 0) {
             Text(NSLocalizedString(localizedKey(for: day.name), comment: ""))

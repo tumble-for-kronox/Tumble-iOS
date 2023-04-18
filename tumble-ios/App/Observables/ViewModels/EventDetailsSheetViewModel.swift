@@ -13,23 +13,20 @@ final class EventDetailsSheetViewModel: ObservableObject {
     
     @Inject var notificationManager: NotificationManager
     @Inject var preferenceService: PreferenceService
-    @Inject var scheduleService: ScheduleService
-    @Inject var courseColorService: CourseColorService
     
-    @Published var event: Response.Event
+    @Published var event: Event
     @Published var color: Color
     @Published var isNotificationSetForEvent: Bool = false
     @Published var isNotificationSetForCourse: Bool = false
     @Published var notificationOffset: Int = 60
     @Published var notificationsAllowed: Bool = false
-    @Published var schedules: [ScheduleData] = []
+    @Published var schedules: [Schedule] = []
     
     private var cancellables = Set<AnyCancellable>()
     
-    init(event: Response.Event, color: Color) {
+    init(event: Event) {
         self.event = event
-        self.color = color
-        setUpDataPublishers()
+        self.color = event.course?.color.toColor() ?? .white
         checkNotificationIsSetForEvent()
         checkNotificationIsSetForCourse()
         notificationOffset = preferenceService.getNotificationOffset()
@@ -41,29 +38,14 @@ final class EventDetailsSheetViewModel: ObservableObject {
         })
     }
     
-    func setUpDataPublishers() -> Void {
-        scheduleService.$schedules
-            .assign(to: \.schedules, on: self)
-            .store(in: &cancellables)
+    func updateCourseColor() -> Void {
+        // TODO: Add function to update course colors for a schedule
     }
     
-    func replaceColor() -> Void {
-        courseColorService.replace(for: event, with: color) { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(_):
-                AppLogger.shared.debug("Changed course color for -> \(self.event.course.id) to color -> \(self.color.toHex() ?? "#FFFFFF")")
-            case .failure(let failure):
-                AppLogger.shared.debug("Couldn't change course color -> \(failure)")
-            }
-        }
-    }
-    
-    func setEventSheetView(event: Response.Event, color: Color) -> Void {
+    func setEventSheetView(event: Event, color: Color) -> Void {
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
             self.event = event
-            self.color = color
         }
     }
     
@@ -71,11 +53,11 @@ final class EventDetailsSheetViewModel: ObservableObject {
     func cancelNotificationForEvent() -> Void {
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
-            isNotificationSetForEvent = false
+            self.isNotificationSetForEvent = false
         }
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             guard let self else { return }
-            notificationManager.cancelNotification(for: event.id)
+            self.notificationManager.cancelNotification(for: self.event.eventId)
         }
     }
     
@@ -83,12 +65,14 @@ final class EventDetailsSheetViewModel: ObservableObject {
     func cancelNotificationsForCourse() -> Void {
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
-            isNotificationSetForCourse = false
-            isNotificationSetForEvent = false
+            self.isNotificationSetForCourse = false
+            self.isNotificationSetForEvent = false
         }
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             guard let self else { return }
-            notificationManager.cancelNotifications(with: event.course.id)
+            if let course = self.event.course {
+                self.notificationManager.cancelNotifications(with: course.courseId)
+            }
         }
     }
     
@@ -101,19 +85,19 @@ final class EventDetailsSheetViewModel: ObservableObject {
             // Create notification for event without categoryIdentifier,
             // since it does not need to be set for the entire course
             let notification = EventNotification(
-                id: self.event.id,
+                id: self.event.eventId,
                 color: self.color.toHex() ?? "#FFFFFF",
                 dateComponents: self.event.dateComponents!,
                 categoryIdentifier: nil,
                 content: self.event.toDictionary())
             
-            notificationManager.scheduleNotification(
+            self.notificationManager.scheduleNotification(
                 for: notification,
                 type: .event,
                 userOffset: userOffset,
                 completion: { result in
                     switch result {
-                    case .success(_):
+                    case .success:
                         DispatchQueue.main.async {
                             self.isNotificationSetForEvent = true
                         }
@@ -130,7 +114,7 @@ final class EventDetailsSheetViewModel: ObservableObject {
     func scheduleNotificationsForCourse() -> Void {
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             guard let self else { return }
-            applyNotificationForScheduleEventsInCourse(schedules: schedules) { success in
+            self.applyNotificationForScheduleEventsInCourse(schedules: self.schedules) { success in
                 if success {
                     DispatchQueue.main.async {
                         self.isNotificationSetForCourse = true

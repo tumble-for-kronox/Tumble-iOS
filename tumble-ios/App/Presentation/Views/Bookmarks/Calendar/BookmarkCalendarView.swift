@@ -13,11 +13,10 @@ struct BookmarkCalendarView: View {
 
     @ObservedObject var appController: AppController
     
-    @State private var displayedDayEvents: [Response.Event] = [Response.Event]()
+    @State private var displayedDayEvents: [Event] = [Event]()
     @State private var selectedDate: Date = Date()
     
-    @Binding var days: [DayUiModel]
-    let courseColors: CourseAndColorDict
+    let days: [Day]
     
     var body: some View {
         ScrollView (showsIndicators: false) {
@@ -25,8 +24,7 @@ struct BookmarkCalendarView: View {
             CalendarViewRepresentable(
                 selectedDate: $selectedDate,
                 displayedDayEvents: $displayedDayEvents,
-                days: days,
-                courseColors: courseColors
+                days: days
             )
             .frame(height: 400)
             .onAppear {
@@ -46,12 +44,9 @@ struct BookmarkCalendarView: View {
                 } else {
                     VStack {
                         ForEach(displayedDayEvents.sorted(), id: \.self) { event in
-                            let color = courseColors[event.course.id] != nil ?
-                            courseColors[event.course.id]!.toColor() : .white
                             BookmarkCalendarDetail(
                                 onTapDetail: onTapDetail,
-                                event: event,
-                                color: color
+                                event: event
                             )
                         }
                     }
@@ -62,8 +57,8 @@ struct BookmarkCalendarView: View {
         .id(days)
     }
     
-    private func onTapDetail(event: Response.Event, color: Color) -> Void {
-        appController.eventSheet = EventDetailsSheetModel(event: event, color: color)
+    private func onTapDetail(event: Event) -> Void {
+        appController.eventSheet = EventDetailsSheetModel(event: event)
     }
     
     private func updateDisplayedDayEvents(for date: Date) {

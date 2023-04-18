@@ -9,13 +9,13 @@ import SwiftUI
 
 struct EventDetailsBody: View {
     
-    let event: Response.Event
+    let event: Event
     
     var body: some View {
         VStack (alignment: .leading) {
             VStack  {
                 DetailsBuilder(title: NSLocalizedString("Course", comment: ""), image: "text.book.closed") {
-                    Text(event.course.englishName)
+                    Text(event.course?.englishName ?? "")
                         .font(.system(size: 16))
                         .foregroundColor(.onSurface)
                 }
@@ -51,7 +51,7 @@ struct EventDetailsBody: View {
                 DetailsBuilder(title: NSLocalizedString("Locations", comment: ""), image: "mappin.and.ellipse") {
                     if event.locations.count > 0 {
                         ForEach(event.locations, id: \.self) { location in
-                            Text(location.id.capitalized)
+                            Text(location.locationId.capitalized)
                                 .font(.system(size: 16))
                                 .foregroundColor(.onSurface)
                         }

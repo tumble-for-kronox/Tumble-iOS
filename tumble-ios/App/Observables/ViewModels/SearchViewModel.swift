@@ -20,7 +20,6 @@ final class SearchViewModel: ObservableObject {
     
     @Published var status: SearchStatus = .initial
     @Published var programmeSearchResults: [Response.Programme] = []
-    @Published var courseColors: CourseAndColorDict? = nil
     @Published var schoolId: Int = -1
     @Published var errorMessageSearch: String? = nil
     @Published var searchPreviewModel: SearchPreviewModel? = nil
@@ -54,9 +53,9 @@ final class SearchViewModel: ObservableObject {
     func onSearchProgrammes(searchQuery: String) {
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
-            status = .loading
-            let endpoint = Endpoint.searchProgramme(searchQuery: searchQuery, schoolId: String(schoolId))
-            let _ = kronoxManager.get(endpoint, then: handleSearchResult)
+            self.status = .loading
+            let endpoint = Endpoint.searchProgramme(searchQuery: searchQuery, schoolId: String(self.schoolId))
+            let _ = self.kronoxManager.get(endpoint, then: self.handleSearchResult)
         }
     }
     

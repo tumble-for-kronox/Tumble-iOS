@@ -22,23 +22,9 @@ func navigationBarFont() -> UIFont {
     return titleFont
 }
 
-func scheduleNeedsUpdate(schedule: ScheduleData) -> Bool {
-    let calendar = Calendar(identifier: .gregorian)
-    let currentDate = Date()
-    let difference = calendar.dateComponents(
-        [.day, .hour, .minute, .second],
-        from: schedule.lastUpdated,
-        to: currentDate)
-    if let hours = difference.hour {
-        AppLogger.shared.debug("Time in hours since last update for schedule with id \(schedule.id) -> \(hours)")
-        return hours >= 2
-    }
-    return true
-}
-
-func filterHiddenBookmarks(schedules: [ScheduleData], hiddenBookmarks: [String]) -> [ScheduleData] {
+func filterHiddenBookmarks(schedules: [Schedule], hiddenBookmarks: [String]) -> [Schedule] {
     return schedules.filter { schedule in
-        !hiddenBookmarks.contains { $0 == schedule.id }
+        !hiddenBookmarks.contains { $0 == schedule.scheduleId }
     }
 }
 

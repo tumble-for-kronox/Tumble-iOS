@@ -35,16 +35,16 @@ final class ResourceViewModel: ObservableObject {
     func initialisePipelines() -> Void {
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             guard let self else { return }
-            preferenceService.$schoolId
+            self.preferenceService.$schoolId
                 .assign(to: \.schoolId, on: self)
-                .store(in: &cancellables)
+                .store(in: &self.cancellables)
         }
     }
     
     func getUserEventsForPage(tries: Int = 0, completion: (() -> Void)? = nil) {
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
-            eventBookingPageState = .loading
+            self.eventBookingPageState = .loading
         }
         userController.authenticateAndExecute(
             schoolId: schoolId,
@@ -54,7 +54,7 @@ final class ResourceViewModel: ObservableObject {
                 switch result {
                 case .success((let schoolId, let refreshToken)):
                     let request = Endpoint.userEvents(schoolId: String(schoolId))
-                    let _ = kronoxManager.get(request, refreshToken: refreshToken,
+                    let _ = self.kronoxManager.get(request, refreshToken: refreshToken,
                     then: { (result: Result<Response.KronoxCompleteUserEvent?, Response.ErrorMessage>) in
                         switch result {
                         case .success(let events):
@@ -86,7 +86,7 @@ final class ResourceViewModel: ObservableObject {
     ) {
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
-            eventBookingPageState = .loading
+            self.eventBookingPageState = .loading
         }
         userController.authenticateAndExecute(
             schoolId: schoolId,
@@ -96,7 +96,7 @@ final class ResourceViewModel: ObservableObject {
                 switch result {
                 case .success((let schoolId, let refreshToken)):
                     let request = Endpoint.registerEvent(eventId: eventId, schoolId: String(schoolId))
-                    let _ = kronoxManager.put(request, refreshToken: refreshToken, body: Request.Empty(),
+                    let _ = self.kronoxManager.put(request, refreshToken: refreshToken, body: Request.Empty(),
                        then: { (result: Result<Response.Empty, Response.ErrorMessage>) in
                         DispatchQueue.main.async {
                             switch result {
@@ -122,7 +122,7 @@ final class ResourceViewModel: ObservableObject {
     ) {
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
-            eventBookingPageState = .loading
+            self.eventBookingPageState = .loading
         }
         userController.authenticateAndExecute(
             schoolId: schoolId,
@@ -132,7 +132,7 @@ final class ResourceViewModel: ObservableObject {
                 switch result {
                 case .success((let schoolId, let refreshToken)):
                     let request = Endpoint.unregisterEvent(eventId: eventId, schoolId: String(schoolId))
-                    let _ = kronoxManager.put(request, refreshToken: refreshToken, body: Request.Empty(),
+                    let _ = self.kronoxManager.put(request, refreshToken: refreshToken, body: Request.Empty(),
                        then: { (result: Result<Response.Empty, Response.ErrorMessage>) in
                         DispatchQueue.main.async {
                             switch result {
@@ -154,7 +154,7 @@ final class ResourceViewModel: ObservableObject {
     func getAllResourceData(tries: Int = 0, date: Date) -> Void {
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
-            resourceBookingPageState = .loading
+            self.resourceBookingPageState = .loading
         }
         userController.authenticateAndExecute(
             schoolId: schoolId,
@@ -209,7 +209,7 @@ final class ResourceViewModel: ObservableObject {
                         resourceId: resourceId,
                         bookingId: bookingId
                     )
-                    let _ = kronoxManager.put(
+                    let _ = self.kronoxManager.put(
                         requestUrl,
                         refreshToken: refreshToken,
                         body: requestBody) {
@@ -257,7 +257,7 @@ final class ResourceViewModel: ObservableObject {
                         date: isoDateFormatterFract.string(from: date),
                         slot: availabilityValue
                     )
-                    let _ = kronoxManager.put(
+                    let _ = self.kronoxManager.put(
                         requestUrl,
                         refreshToken: refreshToken,
                         body: requestBody) {
@@ -292,7 +292,10 @@ final class ResourceViewModel: ObservableObject {
                 switch result {
                 case .success((let schoolId, let refreshToken)):
                     let requestUrl: Endpoint = .unbookResource(schoolId: String(schoolId), bookingId: bookingId)
-                    let _ = kronoxManager.put(requestUrl, refreshToken: refreshToken, body: Request.Empty()) {
+                    let _ = self.kronoxManager.put(
+                        requestUrl,
+                        refreshToken: refreshToken,
+                        body: Request.Empty()) {
                         (result: Result<Response.Empty, Response.ErrorMessage>) in
                         switch result {
                         case .success:

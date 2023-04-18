@@ -13,9 +13,7 @@ actor Dependencies {
     init() {
         @Provider var kronoxManager = KronoxManager()
         @Provider var notificationManager = NotificationManager()
-        @Provider var scheduleService = ScheduleService()
         @Provider var preferenceService = PreferenceService()
-        @Provider var courseColorService = CourseColorService()
         @Provider var authManager = AuthManager()
         @Provider var userController = UserController()
         @Provider var schoolManager = SchoolManager()

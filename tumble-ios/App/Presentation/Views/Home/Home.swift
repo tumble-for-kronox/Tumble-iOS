@@ -29,8 +29,7 @@ struct Home: View {
                     HomeAvailable(
                         eventsForToday: $viewModel.eventsForToday,
                         nextClass: $viewModel.nextClass,
-                        swipedCards: $viewModel.swipedCards,
-                        courseColors: $viewModel.courseColors)
+                        swipedCards: $viewModel.swipedCards)
                 case .notAvailable:
                     HomeNotAvailable()
                 case .loading:

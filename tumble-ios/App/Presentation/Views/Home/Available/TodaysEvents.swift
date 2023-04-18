@@ -9,7 +9,6 @@ import SwiftUI
 
 struct TodaysEvents: View {
     
-    let courseColors: CourseAndColorDict?
     @Binding var eventsForToday: [WeekEventCardModel]
     @Binding var swipedCards: Int
     
@@ -19,18 +18,15 @@ struct TodaysEvents: View {
                 .font(.system(size: 18, weight: .semibold))
                 .foregroundColor(.onBackground)
             VStack {
-                if let courseColors = courseColors {
-                    if !eventsForToday.isEmpty {
-                        TodaysEventsCarousel(
-                            courseColors: courseColors,
-                            eventsForToday: $eventsForToday,
-                            swipedCards: $swipedCards
-                        )
-                    } else {
-                        Text(NSLocalizedString("No events for today", comment: ""))
-                            .font(.system(size: 16))
-                            .foregroundColor(.onBackground)
-                    }
+                if !eventsForToday.isEmpty {
+                    TodaysEventsCarousel(
+                        eventsForToday: $eventsForToday,
+                        swipedCards: $swipedCards
+                    )
+                } else {
+                    Text(NSLocalizedString("No events for today", comment: ""))
+                        .font(.system(size: 16))
+                        .foregroundColor(.onBackground)
                 }
             }
             .frame(minHeight: 100, alignment: .top)

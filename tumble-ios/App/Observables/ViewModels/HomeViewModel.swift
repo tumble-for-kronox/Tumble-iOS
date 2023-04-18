@@ -8,28 +8,22 @@
 import Foundation
 import SwiftUI
 import Combine
+import RealmSwift
 
 final class HomeViewModel: ObservableObject {
     
     @Inject var preferenceService: PreferenceService
     @Inject var userController: UserController
-    @Inject var scheduleService: ScheduleService
-    @Inject var courseColorService: CourseColorService
     @Inject var kronoxManager: KronoxManager
     
     @Published var newsSectionStatus: GenericPageStatus = .loading
     @Published var news: Response.NewsItems? = nil
-    @Published var courseColors: CourseAndColorDict = [:]
     @Published var swipedCards: Int = 0
     @Published var status: HomeStatus = .loading
-    @Published var schedules: [ScheduleData] = []
     @Published var eventsForToday: [WeekEventCardModel] = []
-    @Published var nextClass: Response.Event? = nil
-    @Published var bookmarks: [Bookmark]? {
-        didSet {
-            loadEvents()
-        }
-    }
+    @Published var nextClass: Event? = nil
+    @Published var bookmarks: [Bookmark]?
+    @ObservedResults(Schedule.self) var schedules
     
     private let viewModelFactory: ViewModelFactory = ViewModelFactory.shared
     private var cancellables = Set<AnyCancellable>()
@@ -45,50 +39,13 @@ final class HomeViewModel: ObservableObject {
     func setUpDataPublishers() -> Void {
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             guard let self else { return }
-            let schedulesPublisher = scheduleService.$schedules
-            let courseColorsPublisher = courseColorService.$courseColors
-            let executionStatusPublisher = scheduleService.$executionStatus
-            let bookmarksPublisher = preferenceService.$bookmarks
-            
-            Publishers.CombineLatest4(
-                schedulesPublisher,
-                courseColorsPublisher,
-                executionStatusPublisher,
-                bookmarksPublisher
-            )
-            .receive(on: DispatchQueue.main)
-            .sink { schedules, courseColors, executionStatus, bookmarks in
-                
-                // Update view model properties with the processed data
-                self.schedules = schedules
-                self.courseColors = courseColors
-                self.bookmarks = bookmarks
-                DispatchQueue.main.async {
-                    self.handleDataExecutionStatus(executionStatus: executionStatus)
+            let bookmarksPublisher = self.preferenceService.$bookmarks
+            bookmarksPublisher
+                .receive(on: DispatchQueue.main)
+                .sink { bookmarks in
+                    self.bookmarks = bookmarks
                 }
-            }
-            .store(in: &cancellables)
-        }
-    }
-    
-    @MainActor
-    func handleDataExecutionStatus(executionStatus: ExecutionStatus) -> Void {
-        switch executionStatus {
-        case .executing:
-            status = .loading
-        case .error:
-            status = .error
-        case .available:
-            guard !schedules.isEmpty else {
-                status = .noBookmarks
-                return
-            }
-            let hiddenBookmarks = bookmarks?.filter { !$0.toggled }.map { $0.id } ?? []
-            if filterHiddenBookmarks(schedules: schedules, hiddenBookmarks: hiddenBookmarks).isEmpty {
-                status = .notAvailable
-            } else {
-                status = .available
-            }
+                .store(in: &self.cancellables)
         }
     }
     
@@ -107,36 +64,17 @@ final class HomeViewModel: ObservableObject {
         }
     }
     
-    func loadEvents() {
-        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-            guard let self else { return }
-            let eventsForWeek = loadEventsForWeek()
-            let dayCards = createDayCards(events: filterEventsMatchingToday(events: eventsForWeek))
-            DispatchQueue.main.async {
-                self.nextClass = self.findNextUpcomingEvent()
-                self.eventsForToday = dayCards
-                if self.schedules.isEmpty {
-                    self.status = .noBookmarks
-                } else if self.nextClass == nil && self.eventsForToday.isEmpty {
-                    self.status = .notAvailable
-                } else {
-                    self.status = .available
-                }
-            }
-        }
-    }
-    
-    func createDayCards(events: [Response.Event]) -> [WeekEventCardModel] {
+    func createDayCards(events: [Event]) -> [WeekEventCardModel] {
         let weekEventCards = events.map {
             return WeekEventCardModel(event: $0)
         }
         return weekEventCards.reversed()
     }
     
-    func findNextUpcomingEvent() -> Response.Event? {
+    func findNextUpcomingEvent(schedules: [Schedule]) -> Event? {
         let hiddenBookmarks = bookmarks?.filter { !$0.toggled }.map { $0.id } ?? []
-        let days: [Response.Day] = schedules.filter {!hiddenBookmarks.contains($0.id)}.flatMap { $0.days }
-        let events: [Response.Event] = days.flatMap { $0.events }
+        let days: [Day] = schedules.filter {!hiddenBookmarks.contains($0.scheduleId)}.flatMap { $0.days }
+        let events: [Event] = days.flatMap { $0.events }
         let sortedEvents = events.sorted()
         let now = Date()
         

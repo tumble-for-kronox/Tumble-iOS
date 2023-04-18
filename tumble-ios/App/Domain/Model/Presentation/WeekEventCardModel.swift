@@ -10,5 +10,5 @@ import Foundation
 struct WeekEventCardModel: Identifiable {
     var id: UUID = UUID()
     var offset: CGFloat = 0
-    var event: Response.Event
+    var event: Event
 }

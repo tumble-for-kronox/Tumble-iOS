@@ -8,23 +8,21 @@
 import Foundation
 import SwiftUI
 import Combine
+import RealmSwift
 
 final class SettingsViewModel: ObservableObject {
     
     @Inject var preferenceService: PreferenceService
-    @Inject var scheduleService: ScheduleService
-    @Inject var courseColorService: CourseColorService
     @Inject var notificationManager: NotificationManager
     @Inject var userController: UserController
     @Inject var schoolManager: SchoolManager
     
     @Published var bookmarks: [Bookmark]?
-    @Published var schedules: [ScheduleData] = []
-    @Published var courseColors: CourseAndColorDict = [:]
     @Published var presentSidebarSheet: Bool = false
     @Published var authStatus: AuthStatus = .unAuthorized
     @Published var schoolId: Int = -1
     @Published var schoolName: String = ""
+    @ObservedResults(Schedule.self) var schedules
     
     lazy var schools: [School] = schoolManager.getSchools()
     var cancellables = Set<AnyCancellable>()
@@ -35,32 +33,23 @@ final class SettingsViewModel: ObservableObject {
     private func setUpDataPublishers() -> Void {
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             guard let self else { return }
-            let bookmarksPublisher = preferenceService.$bookmarks.receive(on: DispatchQueue.main)
-            let schedulesPublisher = scheduleService.$schedules.receive(on: DispatchQueue.main)
-            let courseColorsPublisher = courseColorService.$courseColors.receive(on: DispatchQueue.main)
-            let authStatusPublisher = userController.$authStatus.receive(on: DispatchQueue.main)
-            let schoolIdPublisher = preferenceService.$schoolId.receive(on: DispatchQueue.main)
+            let bookmarksPublisher = self.preferenceService.$bookmarks
+            let authStatusPublisher = self.userController.$authStatus
+            let schoolIdPublisher = self.preferenceService.$schoolId
             
-            schoolIdPublisher
-                .sink { schoolId in
-                    self.schoolId = schoolId
-                    self.schoolName = self.schoolManager.getSchools().first(where: { $0.id == schoolId })?.name ?? ""
-                }
-                .store(in: &cancellables)
-            
-            Publishers.CombineLatest4(
+            Publishers.CombineLatest3(
                 bookmarksPublisher,
-                schedulesPublisher,
-                courseColorsPublisher,
+                schoolIdPublisher,
                 authStatusPublisher
             )
-            .sink { bookmarks, schedules, courseColors, authStatus in
+            .receive(on: DispatchQueue.main)
+            .sink { bookmarks, schoolId, authStatus in
                 self.bookmarks = bookmarks
-                self.schedules = schedules
-                self.courseColors = courseColors
                 self.authStatus = authStatus
+                self.schoolId = schoolId
+                self.schoolName = self.schoolManager.getSchools().first(where: { $0.id == schoolId })?.name ?? ""
             }
-            .store(in: &cancellables)
+            .store(in: &self.cancellables)
         }
     }
     
@@ -85,43 +74,30 @@ final class SettingsViewModel: ObservableObject {
     func toggleBookmarkVisibility(for bookmark: String, to value: Bool) -> Void {
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             guard let self else { return }
-            preferenceService.toggleBookmark(bookmark: bookmark, value: value)
+            self.preferenceService.toggleBookmark(bookmark: bookmark, value: value)
         }
     }
     
-    func deleteBookmark(id: String) -> Void {
-        let oldSchedules = schedules
-        scheduleService.remove(scheduleId: id, completion: { [weak self] result in
-            guard let self else { return }
-            switch result {
-            case .success:
-                // TODO: Show toast
-                DispatchQueue.global(qos: .userInitiated).async {
-                    self.updateBookmarksRemoveNotifications(for: id, referencing: oldSchedules)
-                }
-            case .failure(let failure):
-                AppLogger.shared.error("\(failure)")
-                // Failed to delete schedule
-                // TODO: show toast
-                return
-            }
-        })
-    }
     
-    private func updateBookmarksRemoveNotifications(for id: String, referencing oldSchedules: [ScheduleData]) -> Void {
+    func deleteBookmark(id: String) {
+        if let scheduleToDelete = schedules.first(where: { $0.scheduleId == id }) {
+            updateBookmarksRemoveNotifications(for: id, referencing: scheduleToDelete)
+            $schedules.remove(scheduleToDelete)
+        }
+    }
+
+    
+    private func updateBookmarksRemoveNotifications(for id: String, referencing oldSchedule: Schedule) -> Void {
         preferenceService.removeBookmark(id: id)
-        let notificationIdsToRemove = oldSchedules.filter { $0.id == id }
-        let events = notificationIdsToRemove
-            .flatMap { $0.days }
+        let events = oldSchedule.days
             .flatMap { $0.events }
-        events.forEach { notificationManager.cancelNotification(for: $0.id) }
+        events.forEach { notificationManager.cancelNotification(for: $0.eventId) }
     }
     
-    @MainActor
     func clearAllNotifications() -> Void {
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             guard let self else { return }
-            notificationManager.cancelNotifications()
+            self.notificationManager.cancelNotifications()
         }
         makeToast(
             type: .success,
@@ -140,7 +116,7 @@ final class SettingsViewModel: ObservableObject {
         }
     }
     
-    @MainActor
+    
     func scheduleNotificationsForAllEvents() {
         guard !schedules.isEmpty else {
             makeToast(
@@ -152,9 +128,9 @@ final class SettingsViewModel: ObservableObject {
         }
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             guard let self else { return }
-            let hiddenBookmarks = preferenceService.getHiddenBookmarks()
+            let hiddenBookmarks = self.preferenceService.getHiddenBookmarks()
             let allEvents = filterHiddenBookmarks(
-                schedules: schedules,
+                schedules: Array(self.schedules),
                 hiddenBookmarks: hiddenBookmarks
             )
             .flatMap { $0.days.flatMap { $0.events } }
@@ -163,12 +139,11 @@ final class SettingsViewModel: ObservableObject {
             var scheduledNotifications = 0
             
             for event in allEvents {
-                guard let notification = notificationManager.createNotificationFromEvent(
-                    event: event,
-                    color: courseColors[event.course.id] ?? "#FEFEFE"
+                guard let notification = self.notificationManager.createNotificationFromEvent(
+                    event: event
                 ) else {
-                    AppLogger.shared.critical("Could not set notification for event \(event.id)")
-                    makeToast(
+                    AppLogger.shared.critical("Could not set notification for event \(event._id)")
+                    self.makeToast(
                         type: .error,
                         title: NSLocalizedString("Error", comment: ""),
                         message: NSLocalizedString("Failed to set notifications for all available events", comment: "")
@@ -176,10 +151,10 @@ final class SettingsViewModel: ObservableObject {
                     break
                 }
                 
-                notificationManager.scheduleNotification(
+                self.notificationManager.scheduleNotification(
                     for: notification,
                     type: .event,
-                    userOffset: preferenceService.getNotificationOffset()
+                    userOffset: self.preferenceService.getNotificationOffset()
                 ) { [weak self] result in
                     guard let self else { return }
                     switch result {
@@ -202,46 +177,39 @@ final class SettingsViewModel: ObservableObject {
         }
     }
     
+    private func deleteAllSchedules() {
+        do {
+            let realm = try Realm()
+            let schedules = realm.objects(Schedule.self)
+            try realm.write {
+                realm.delete(schedules)
+            }
+            
+        } catch (let error) {
+            AppLogger.shared.error("Error deleting schedules: \(error)")
+        }
+    }
+
+    
     func changeSchool(schoolId: Int) -> Void {
         if schoolIsAlreadySelected(schoolId: schoolId) {
             return
         }
+        deleteAllSchedules()
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             guard let self else { return }
-            userController.logOut()
-            preferenceService.setSchool(id: schoolId)
-            notificationManager.cancelNotifications()
-            preferenceService.removeAllBookmarks()
+            self.userController.logOut()
+            self.preferenceService.setSchool(id: schoolId)
+            self.notificationManager.cancelNotifications()
+            self.preferenceService.removeAllBookmarks()
         }
-        scheduleService.removeAll(completion: { [weak self] result in
-            guard let self else { return }
-            switch result {
-            case .success:
-                self.courseColorService.removeAll(completion: { result in
-                    switch result {
-                    case .success:
-                        AppLogger.shared.debug("Removed all stored schedules")
-                        self.makeToast(
-                            type: .success,
-                            title: NSLocalizedString("New school", comment: ""),
-                            message: String(
-                                format: NSLocalizedString("Set %@ to default", comment: ""),
-                                self.schoolName
-                            ))
-                    case .failure:
-                        AppLogger.shared.error("Could not remove course colors when changing schools")
-                        self.makeToast(
-                            type: .success,
-                            title: NSLocalizedString("Error", comment: ""),
-                            message: String(
-                                format: NSLocalizedString("Something went wrong", comment: "")
-                            ))
-                    }
-                })
-            case .failure:
-                AppLogger.shared.error("Could not remove schedules when changing schools")
-            }
-        })
+        makeToast(
+            type: .success,
+            title: NSLocalizedString("New school", comment: ""),
+            message: String(
+                format: NSLocalizedString("Set %@ to default", comment: ""),
+                self.schoolName
+            ))
     }
     
     func makeToast(type: ToastStyle, title: String, message: String) -> Void {

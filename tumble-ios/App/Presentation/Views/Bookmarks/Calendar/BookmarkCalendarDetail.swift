@@ -9,18 +9,19 @@ import SwiftUI
 
 struct BookmarkCalendarDetail: View {
     
-    let onTapDetail: (Response.Event, Color) -> Void
-    let event: Response.Event
-    let color: Color
+    let onTapDetail: (Event) -> Void
+    let event: Event
     
     var body: some View {
         Button(action: {
             HapticsController.triggerHapticLight()
-            onTapDetail(event, color)
+            onTapDetail(event)
         }, label: {
-            CompactEventButtonLabel(event: event, color: event.isSpecial ? .red : color)
+            if let course = event.course {
+                CompactEventButtonLabel(event: event, color: event.isSpecial ? .red : course.color.toColor())
+            }
         })
-        .buttonStyle(CompactButtonStyle(backgroundColor: event.isSpecial ? .red.opacity(0.15) : color.opacity(0.15)))
+        .buttonStyle(CompactButtonStyle(backgroundColor: event.isSpecial ? .red.opacity(0.15) : event.course?.color.toColor().opacity(0.15) ?? .white))
         .padding(.horizontal, 15)
     }
 }

@@ -16,41 +16,33 @@ enum ButtonState {
 }
 
 struct SearchPreviewList: View {
-            
     @ObservedObject var viewModel: SearchPreviewViewModel
     
     var body: some View {
-        ZStack {
-            ScrollView (showsIndicators: false) {
-                LazyVStack (spacing: 0) {
-                    if let days = createDays() {
-                        ForEach(days, id: \.id) { day in
-                            if !(day.events.isEmpty) {
-                                VStack {
-                                    Section(header: DayHeader(day: day), content: {
-                                        ForEach(day.events, id: \.id) { event in
-                                            VerboseEventButtonLabel(
-                                                event: event,
-                                                color: viewModel.courseColorsForPreview[event.course.id]!.toColor()
-                                            )
-                                        }
-                                    })
-                                }
-                                .padding(.bottom, 35)
+        ScrollView(showsIndicators: false) {
+            VStack(spacing: 0) {
+                ForEach(createDays() ?? [], id: \.date) { day in
+                    if !day.events.isEmpty {
+                        VStack {
+                            DayResponseHeader(day: day)
+                            ForEach(day.events, id: \.id) { event in
+                                VerboseEventResponseButtonLabel(
+                                    event: event,
+                                    color: viewModel.courseColorsForPreview[event.course.id]!.toColor()
+                                )
                             }
                         }
+                        .padding(.bottom, 35)
                     }
                 }
-                .padding(.horizontal, 7.5)
             }
+            .padding(.horizontal, 7.5)
         }
     }
     
-    func createDays() -> [DayUiModel]? {
-        if let days = viewModel.schedule?.flatten() {
-            return days.toOrderedDayUiModels()
-        } else {
-            return nil
-        }
+    func createDays() -> [Response.Day]? {
+        return viewModel.schedule?.flatten().ordered()
     }
 }
+
+

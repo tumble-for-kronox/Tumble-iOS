@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CompactEventButtonLabel: View {
     
-    let event: Response.Event
+    let event: Event
     let color: Color
     
     var body: some View {
@@ -47,7 +47,7 @@ struct CompactEventButtonLabel: View {
                     Image(systemName: "mappin.and.ellipse")
                         .font(.system(size: 15))
                         .foregroundColor(.onSurface.opacity(0.7))
-                    Text(event.locations.first?.id.capitalized ?? NSLocalizedString("Unknown", comment: ""))
+                    Text(event.locations.first?.locationId.capitalized ?? NSLocalizedString("Unknown", comment: ""))
                         .font(.system(size: 15))
                         .foregroundColor(.onSurface.opacity(0.7))
                 }

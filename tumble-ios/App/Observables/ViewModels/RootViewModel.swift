@@ -31,11 +31,11 @@ final class RootViewModel: ObservableObject {
             .sink { [weak self] userOnBoarded in
                 guard let self = self else { return }
                 if userOnBoarded {
-                    self.parentViewModel = viewModelFactory.makeViewModelParent()
+                    self.parentViewModel = self.viewModelFactory.makeViewModelParent()
                     self.currentView = .app
                     self.userOnBoardingSubscription?.cancel()
                 } else {
-                    self.onBoardingViewModel = viewModelFactory.makeViewModelOnBoarding()
+                    self.onBoardingViewModel = self.viewModelFactory.makeViewModelOnBoarding()
                     self.currentView = .onboarding
                 }
             }

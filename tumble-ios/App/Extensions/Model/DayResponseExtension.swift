@@ -1,26 +1,22 @@
 //
-//  DayExtension.swift
+//  DayResonseExtension.swift
 //  tumble-ios
 //
-//  Created by Adis Veletanlic on 2023-02-02.
+//  Created by Adis Veletanlic on 2023-04-17.
 //
 
 import Foundation
 
-extension [Day] {
-    func ordered() -> [Day] {
+extension [Response.Day] {
+    func ordered() -> [Response.Day] {
         return self.compactMap { $0 }.sorted(by: {
             // Ascending order
             isoDateFormatterFract.date(from: $0.isoString)! < isoDateFormatterFract.date(from: $1.isoString)!
         })
     }
-
 }
 
-extension Day {
-    // This function uses the inDateFormatter property to parse the isoString property into a Date object. If the parsing fails, the function
-    // returns false. Otherwise, it compares the day to the current date using the >= operator.
-    // The startOfDay property of Date is used to ignore the time component of the date and only compare the day, month and year.
+extension Response.Day {
     func isValidDay() -> Bool {
         isoDateFormatterFract.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
         let dayIsoString: String = self.isoString

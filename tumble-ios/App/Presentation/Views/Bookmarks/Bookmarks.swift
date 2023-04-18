@@ -27,18 +27,17 @@ struct Bookmarks: View {
                     }
                     Spacer()
                 case .loaded:
+                    let days = createDays()
                     switch viewModel.defaultViewType {
                     case .list:
                         BookmarkListView(
-                            days: viewModel.days,
-                            courseColors: viewModel.courseColors,
+                            days: days,
                             appController: appController
                         )
                     case .calendar:
                         BookmarkCalendarView(
                             appController: appController,
-                            days: $viewModel.days,
-                            courseColors: viewModel.courseColors
+                            days: days
                         )
                     }
                 case .uninitialized:
@@ -63,11 +62,16 @@ struct Bookmarks: View {
         .sheet(item: $appController.eventSheet) { (eventSheet: EventDetailsSheetModel) in
             EventDetailsSheet(
                 viewModel: viewModel.createViewModelEventSheet(
-                    event: eventSheet.event,
-                    color: eventSheet.color))
+                    event: eventSheet.event))
         }
     }
     
+    func createDays() -> [Day] {
+        return filterHiddenBookmarks(
+            schedules: Array(viewModel.schedules),
+            hiddenBookmarks: viewModel.hiddenBookmarks)
+        .flatten().ordered()
+    }
     
 }
 
