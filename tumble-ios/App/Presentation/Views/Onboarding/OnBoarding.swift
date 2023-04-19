@@ -97,7 +97,7 @@ struct OnBoarding: View {
             VStack {
                 HStack {
                     Button(action: viewModel.finishOnboarding, label: {
-                        Text(NSLocalizedString("Get started", comment: ""))
+                        Text(NSLocalizedString("Continue", comment: ""))
                             .fontWeight(.semibold)
                             .foregroundColor(.onBackground)
                             .padding(.vertical, 20)

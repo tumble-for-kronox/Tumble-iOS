@@ -27,8 +27,10 @@ final class SearchPreviewViewModel: ObservableObject {
     @Inject var preferenceService: PreferenceService
     @Inject var kronoxManager: KronoxManager
     @Inject var notificationManager: NotificationManager
+    @Inject var schoolManager: SchoolManager
     
     var schedule: Response.Schedule? = nil
+    private lazy var schools: [School] = schoolManager.getSchools()
     
     func getSchedule(
         programmeId: String,
@@ -77,6 +79,10 @@ final class SearchPreviewViewModel: ObservableObject {
                 self.errorMessage = failure.message.contains("NSURLErrorDomain") ? "Could not contact the server, try again later" : failure.message
             }
         }
+    }
+    
+    func scheduleRequiresAuth(schoolId: String) -> Bool {
+        return schools.first(where: { $0.id == Int(schoolId) })?.loginRq ?? false
     }
     
     func getCourseColors() -> [String : String] {

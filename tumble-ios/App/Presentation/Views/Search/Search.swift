@@ -40,6 +40,7 @@ struct Search: View {
                 searching: $searching,
                 disabled: $viewModel.schoolNotSelected
             )
+            .blur(radius: viewModel.schoolNotSelected ? 2.5 : 0)
             .padding(.bottom, 15)
         }
         .background(Color.background)

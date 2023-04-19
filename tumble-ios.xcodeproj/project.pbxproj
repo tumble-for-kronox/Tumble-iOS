@@ -83,7 +83,6 @@
 		D43294E029E0ABAA00842884 /* HomeStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43294DF29E0ABAA00842884 /* HomeStatus.swift */; };
 		D43294E229E0ABC800842884 /* WeekEventCardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43294E129E0ABC800842884 /* WeekEventCardModel.swift */; };
 		D43419A429853F34001089A0 /* OnBoarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43419A329853F34001089A0 /* OnBoarding.swift */; };
-		D43419C2298566DB001089A0 /* SchoolSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43419C1298566DB001089A0 /* SchoolSelection.swift */; };
 		D43419C42985684C001089A0 /* OnBoardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43419C32985684C001089A0 /* OnBoardingViewModel.swift */; };
 		D439F89F29DB8952006332AB /* OffsetPageTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D439F89E29DB8952006332AB /* OffsetPageTabView.swift */; };
 		D439F8A129DBA96B006332AB /* HomeAvailable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D439F8A029DBA96B006332AB /* HomeAvailable.swift */; };
@@ -108,7 +107,6 @@
 		D454203E29BE914800EF0FC9 /* EventDetailsPillStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D454203D29BE914800EF0FC9 /* EventDetailsPillStyle.swift */; };
 		D454204129BE982000EF0FC9 /* HapticsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D454204029BE982000EF0FC9 /* HapticsController.swift */; };
 		D454DECA29D35EF5005BDAE3 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D454DEC929D35EF5005BDAE3 /* Settings.swift */; };
-		D454DECC29D3B1E5005BDAE3 /* SchoolSelectionSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D454DECB29D3B1E5005BDAE3 /* SchoolSelectionSettings.swift */; };
 		D454DECE29D3B900005BDAE3 /* BookmarksSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D454DECD29D3B900005BDAE3 /* BookmarksSettings.swift */; };
 		D454DED029D3B953005BDAE3 /* BookmarksSettingsRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D454DECF29D3B953005BDAE3 /* BookmarksSettingsRow.swift */; };
 		D454DED529D3BB13005BDAE3 /* NotificationSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D454DED429D3BB13005BDAE3 /* NotificationSettings.swift */; };
@@ -196,7 +194,6 @@
 		D4BAE5F82924636500143717 /* School.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BAE5F72924636500143717 /* School.swift */; };
 		D4BAE614292466F700143717 /* SchoolManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BAE613292466F700143717 /* SchoolManager.swift */; };
 		D4BAE61929246AA200143717 /* schools.json in Resources */ = {isa = PBXBuildFile; fileRef = D4BAE61829246AA200143717 /* schools.json */; };
-		D4BAE61C29246AF800143717 /* SchoolRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BAE61B29246AF800143717 /* SchoolRow.swift */; };
 		D4CD0EFF29D5B00A00AB5FD0 /* UIApplicationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CD0EFE29D5B00A00AB5FD0 /* UIApplicationExtension.swift */; };
 		D4CD0F0529D5DC9D00AB5FD0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D4CD0F0729D5DC9D00AB5FD0 /* Localizable.strings */; };
 		D4CE2DBD2982E55200B81052 /* NavigationbarSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CE2DBC2982E55200B81052 /* NavigationbarSearch.swift */; };
@@ -329,7 +326,6 @@
 		D43294DF29E0ABAA00842884 /* HomeStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeStatus.swift; sourceTree = "<group>"; };
 		D43294E129E0ABC800842884 /* WeekEventCardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekEventCardModel.swift; sourceTree = "<group>"; };
 		D43419A329853F34001089A0 /* OnBoarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoarding.swift; sourceTree = "<group>"; };
-		D43419C1298566DB001089A0 /* SchoolSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolSelection.swift; sourceTree = "<group>"; };
 		D43419C32985684C001089A0 /* OnBoardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingViewModel.swift; sourceTree = "<group>"; };
 		D439F89E29DB8952006332AB /* OffsetPageTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffsetPageTabView.swift; sourceTree = "<group>"; };
 		D439F8A029DBA96B006332AB /* HomeAvailable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeAvailable.swift; sourceTree = "<group>"; };
@@ -354,7 +350,6 @@
 		D454203D29BE914800EF0FC9 /* EventDetailsPillStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailsPillStyle.swift; sourceTree = "<group>"; };
 		D454204029BE982000EF0FC9 /* HapticsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticsController.swift; sourceTree = "<group>"; };
 		D454DEC929D35EF5005BDAE3 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
-		D454DECB29D3B1E5005BDAE3 /* SchoolSelectionSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolSelectionSettings.swift; sourceTree = "<group>"; };
 		D454DECD29D3B900005BDAE3 /* BookmarksSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksSettings.swift; sourceTree = "<group>"; };
 		D454DECF29D3B953005BDAE3 /* BookmarksSettingsRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksSettingsRow.swift; sourceTree = "<group>"; };
 		D454DED429D3BB13005BDAE3 /* NotificationSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettings.swift; sourceTree = "<group>"; };
@@ -446,7 +441,6 @@
 		D4BAE5F72924636500143717 /* School.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = School.swift; sourceTree = "<group>"; };
 		D4BAE613292466F700143717 /* SchoolManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolManager.swift; sourceTree = "<group>"; };
 		D4BAE61829246AA200143717 /* schools.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = schools.json; sourceTree = "<group>"; };
-		D4BAE61B29246AF800143717 /* SchoolRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolRow.swift; sourceTree = "<group>"; };
 		D4CD0EFE29D5B00A00AB5FD0 /* UIApplicationExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplicationExtension.swift; sourceTree = "<group>"; };
 		D4CD0F0629D5DC9D00AB5FD0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; wrapsLines = 1; };
 		D4CD0F0829D5DCA300AB5FD0 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -689,13 +683,11 @@
 		D41172C02985EB2C0082BB4F /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				D423F6A729EFD3A800C04123 /* GitHub */,
 				D47A451729D75306008626E6 /* GeneralButtons */,
 				D454DEC929D35EF5005BDAE3 /* Settings.swift */,
 				D4EE5B6D29D50FD3002A1399 /* SettingsRadioButton.swift */,
 				D4EE5B6A29D50FAF002A1399 /* Appearance */,
 				D454DED329D3BB08005BDAE3 /* Notifications */,
-				D454DED229D3BAF6005BDAE3 /* SchoolSelection */,
 				D454DED129D3BAEA005BDAE3 /* Bookmarks */,
 				D4EEFB4F29DA15440007A209 /* ListRowNavigationItem.swift */,
 				D4EEFB5329DA177C0007A209 /* CustomList.swift */,
@@ -873,13 +865,6 @@
 			path = Navigation;
 			sourceTree = "<group>";
 		};
-		D423F6A729EFD3A800C04123 /* GitHub */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = GitHub;
-			sourceTree = "<group>";
-		};
 		D426E3A2299C39D000A8D7AE /* Booking */ = {
 			isa = PBXGroup;
 			children = (
@@ -948,14 +933,6 @@
 				D454DECF29D3B953005BDAE3 /* BookmarksSettingsRow.swift */,
 			);
 			path = Bookmarks;
-			sourceTree = "<group>";
-		};
-		D454DED229D3BAF6005BDAE3 /* SchoolSelection */ = {
-			isa = PBXGroup;
-			children = (
-				D454DECB29D3B1E5005BDAE3 /* SchoolSelectionSettings.swift */,
-			);
-			path = SchoolSelection;
 			sourceTree = "<group>";
 		};
 		D454DED329D3BB08005BDAE3 /* Notifications */ = {
@@ -1170,7 +1147,6 @@
 				D48CC59D29C7DB5C0028179A /* Buttons */,
 				D421EAEE2993F7F50045D438 /* Navigation */,
 				D43419A229853EAF001089A0 /* Onboarding */,
-				D4BAE61A29246AE800143717 /* SchoolSelection */,
 				D41172C02985EB2C0082BB4F /* Settings */,
 				D40E84392981C84700C2CF2E /* Account */,
 				D453390029299F9800198411 /* Home */,
@@ -1390,15 +1366,6 @@
 				D443962929CB40C70069D66A /* ToTopButtonStyle.swift */,
 			);
 			path = Bookmarks;
-			sourceTree = "<group>";
-		};
-		D4BAE61A29246AE800143717 /* SchoolSelection */ = {
-			isa = PBXGroup;
-			children = (
-				D43419C1298566DB001089A0 /* SchoolSelection.swift */,
-				D4BAE61B29246AF800143717 /* SchoolRow.swift */,
-			);
-			path = SchoolSelection;
 			sourceTree = "<group>";
 		};
 		D4E39E352989CE1D004C30DF /* Utilities */ = {
@@ -1711,7 +1678,6 @@
 				D4BAE5F82924636500143717 /* School.swift in Sources */,
 				D439F8A329DBAA59006332AB /* HomeNotAvailable.swift in Sources */,
 				D430F74729C654A200E30E48 /* BookmarkCalendarDetail.swift in Sources */,
-				D4BAE61C29246AF800143717 /* SchoolRow.swift in Sources */,
 				D414B23429D88C1100EA8F46 /* PullToRefreshIndicator.swift in Sources */,
 				D4A328DE29CD10F300945AF4 /* NetworkUtilities.swift in Sources */,
 				D40D808929247123008CA68D /* Root.swift in Sources */,
@@ -1844,7 +1810,6 @@
 				D4EAD3B9298D633B00678DF8 /* KronoxManagerProtocol.swift in Sources */,
 				D45DAB2E29DB4FCA00FCA5AC /* TodaysEventsCarousel.swift in Sources */,
 				D4EEFB5029DA15440007A209 /* ListRowNavigationItem.swift in Sources */,
-				D454DECC29D3B1E5005BDAE3 /* SchoolSelectionSettings.swift in Sources */,
 				D458606329DCF72300B77513 /* NewsItemDetails.swift in Sources */,
 				D454204129BE982000EF0FC9 /* HapticsController.swift in Sources */,
 				D43294E029E0ABAA00842884 /* HomeStatus.swift in Sources */,
@@ -1911,7 +1876,6 @@
 				D4607641292AB18D00DE9590 /* Home.swift in Sources */,
 				D4644A2D298DE35F00B0BB28 /* DateComponentsExtension.swift in Sources */,
 				D45DAB2229DB380E00FCA5AC /* AnimatedButtonStyle.swift in Sources */,
-				D43419C2298566DB001089A0 /* SchoolSelection.swift in Sources */,
 				D4E39E3E2989D79B004C30DF /* EventDetailsPill.swift in Sources */,
 				D41ED54E298434C1009DCF8B /* Nullable.swift in Sources */,
 				D43419A429853F34001089A0 /* OnBoarding.swift in Sources */,

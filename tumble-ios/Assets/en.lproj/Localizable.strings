@@ -6,6 +6,8 @@
   
 */
 
+"Continue"="Continue";
+
 "Search events" = "Search events";
 
 "Tumble on GitHub"="Tumble on GitHub";
@@ -33,6 +35,14 @@
 "Could not log out from your account"="Could not log out from your account";
 
 "There are no schedules that match your search"="There are no schedules that match your search";
+
+"Important: "="Important: ";
+
+"Choose a university to begin your search"="Choose a university to begin your search";
+
+"Information"="Information";
+
+"This university requires you to log in to their institution before you can see some of their schedules"="This university requires you to log in to their institution before you can see some of their schedules";
 
 "Something went wrong"="Something went wrong";
 

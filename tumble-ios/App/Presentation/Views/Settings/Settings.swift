@@ -32,22 +32,14 @@ struct Settings: View {
                                 UIApplication.shared.open(settingsURL)
                             }
                         })
-                    Divider()
+                }
+                CustomListGroup {
                     ListRowNavigationItem(
                         title: NSLocalizedString("Notifications", comment: ""),
                         destination: AnyView(NotificationSettings(
                             clearAllNotifications: clearAllNotifications,
                             scheduleNotificationsForAllCourses: scheduleNotificationsForAllCourses,
                             rescheduleNotifications: rescheduleNotifications)))
-                }
-                CustomListGroup {
-                    ListRowNavigationItem(
-                        title: NSLocalizedString("School", comment: ""),
-                        current: viewModel.schoolName,
-                        destination: AnyView(SchoolSelectionSettings(
-                            changeSchool: changeSchool,
-                            schools: viewModel.schools)))
-                    .id(viewModel.authSchoolId)
                     Divider()
                     ListRowNavigationItem(
                         title: NSLocalizedString("Bookmarks", comment: ""),

@@ -43,7 +43,7 @@ extension [Response.Schedule] {
 
 extension Response.Schedule {
     
-    func toRealmSchedule(existingCourseColors: [String : String] = [:]) -> Schedule {
+    func toRealmSchedule(scheduleRequiresAuth: Bool, schoolId: String, existingCourseColors: [String : String] = [:]) -> Schedule {
         let realmDays = RealmSwift.List<Day>()
         var colors = Set(colors)
         var visitedColors: [String: String] = existingCourseColors
@@ -75,7 +75,13 @@ extension Response.Schedule {
             let realmDay = Day(name: responseDay.name, date: responseDay.date, isoString: responseDay.isoString, weekNumber: responseDay.weekNumber, events: realmEvents)
             realmDays.append(realmDay)
         }
-        let realmSchedule = Schedule(scheduleId: self.id, cachedAt: self.cachedAt, days: realmDays)
+        let realmSchedule = Schedule(
+            scheduleId: self.id,
+            cachedAt: self.cachedAt,
+            days: realmDays,
+            schoolId: schoolId,
+            requiresAuth: scheduleRequiresAuth
+        )
         return realmSchedule
     }
 

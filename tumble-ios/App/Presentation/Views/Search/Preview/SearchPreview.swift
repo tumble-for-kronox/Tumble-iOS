@@ -68,7 +68,8 @@ struct SearchPreview: View {
                 $schedules.remove(atOffsets: IndexSet(arrayLiteral: scheduleToRemoveIndex))
             }
         } else {
-            let realmSchedule = viewModel.schedule!.toRealmSchedule()
+            let scheduleRequiresAuth = viewModel.scheduleRequiresAuth(schoolId: schoolId)
+            let realmSchedule = viewModel.schedule!.toRealmSchedule(scheduleRequiresAuth: scheduleRequiresAuth, schoolId: schoolId)
             $schedules.append(realmSchedule)
         }
         viewModel.bookmark(id: programmeId, schedules: Array(schedules))

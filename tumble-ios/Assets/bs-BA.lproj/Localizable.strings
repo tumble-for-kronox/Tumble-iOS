@@ -6,6 +6,8 @@
   
 */
 
+"Continue"="Nastavi";
+
 "Search events"="Traži događaje";
 
 "Tumble on GitHub"="Tumble na GitHubu";
@@ -33,6 +35,14 @@
 "Could not log out from your account"="Ne mogu se odjaviti s vašeg računa";
 
 "There are no schedules that match your search"="Nema rasporeda koji odgovaraju vašoj pretrazi";
+
+"Important: "="Bitno: ";
+
+"Choose a university to begin your search"="Odaberite univerzitet da započnete pretragu";
+
+"Information"="Informacija";
+
+"This university requires you to log in to their institution before you can see some of their schedules"="Ovaj univerzitet zahtijeva da se prijavite na njihovu instituciju prije nego što možete vidjeti neke od njegovih rasporeda";
 
 "Something went wrong"="Nešto je pošlo po zlu";
 
