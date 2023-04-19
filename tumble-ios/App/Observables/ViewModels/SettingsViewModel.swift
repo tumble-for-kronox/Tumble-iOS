@@ -20,7 +20,7 @@ final class SettingsViewModel: ObservableObject {
     @Published var bookmarks: [Bookmark]?
     @Published var presentSidebarSheet: Bool = false
     @Published var authStatus: AuthStatus = .unAuthorized
-    @Published var schoolId: Int = -1
+    @Published var authSchoolId: Int = -1
     @Published var schoolName: String = ""
     
     lazy var schools: [School] = schoolManager.getSchools()
@@ -33,7 +33,7 @@ final class SettingsViewModel: ObservableObject {
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             guard let self else { return }
             let authStatusPublisher = self.userController.$authStatus
-            let schoolIdPublisher = self.preferenceService.$schoolId
+            let schoolIdPublisher = self.preferenceService.$authSchoolId
             
             Publishers.CombineLatest(
                 schoolIdPublisher,
@@ -42,7 +42,7 @@ final class SettingsViewModel: ObservableObject {
             .receive(on: DispatchQueue.main)
             .sink { schoolId, authStatus in
                 self.authStatus = authStatus
-                self.schoolId = schoolId
+                self.authSchoolId = schoolId
                 self.schoolName = self.schoolManager.getSchools().first(where: { $0.id == schoolId })?.name ?? ""
             }
             .store(in: &self.cancellables)
@@ -170,7 +170,7 @@ final class SettingsViewModel: ObservableObject {
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             guard let self else { return }
             self.userController.logOut()
-            self.preferenceService.setSchool(id: schoolId)
+            self.preferenceService.setAuthSchool(id: schoolId)
             self.notificationManager.cancelNotifications()
         }
         makeToast(
@@ -192,7 +192,7 @@ final class SettingsViewModel: ObservableObject {
     }
     
     private func schoolIsAlreadySelected(schoolId: Int) -> Bool {
-        if schoolId == self.schoolId {
+        if schoolId == self.authSchoolId {
             makeToast(
                 type: .info,
                 title: NSLocalizedString("School already selected", comment: ""),

@@ -21,7 +21,7 @@ final class AccountViewModel: ObservableObject {
     @Inject var preferenceService: PreferenceService
     @Inject var schoolManager: SchoolManager
     
-    @Published var schoolId: Int = -1
+    @Published var authSchoolId: Int = -1
     @Published var schoolName: String = ""
     @Published var status: AccountViewStatus = .unAuthenticated
     @Published var completeUserEvent: Response.KronoxCompleteUserEvent? = nil
@@ -68,7 +68,7 @@ final class AccountViewModel: ObservableObject {
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             guard let self else { return }
             let authStatusPublisher = self.userController.$authStatus
-            let schoolIdPublisher = self.preferenceService.$schoolId
+            let schoolIdPublisher = self.preferenceService.$authSchoolId
             
             Publishers.CombineLatest(authStatusPublisher, schoolIdPublisher)
                 .receive(on: DispatchQueue.main)
@@ -81,7 +81,7 @@ final class AccountViewModel: ObservableObject {
                     case .unAuthorized:
                         self.status = .unAuthenticated
                     }
-                    self.schoolId = schoolId
+                    self.authSchoolId = schoolId
                     self.schoolName = self.schoolManager.getSchools().first(where: { $0.id == schoolId })?.name ?? ""
                 }
                 .store(in: &self.cancellables)
@@ -148,7 +148,7 @@ final class AccountViewModel: ObservableObject {
             self.registeredEventSectionState = .loading
         }
         userController.authenticateAndExecute(
-            schoolId: schoolId,
+            schoolId: authSchoolId,
             refreshToken: userController.refreshToken,
             execute: { [weak self] result in
                 guard let self else { return }
@@ -185,7 +185,7 @@ final class AccountViewModel: ObservableObject {
             self.bookingSectionState = .loading
         }
         userController.authenticateAndExecute(
-            schoolId: schoolId,
+            schoolId: authSchoolId,
             refreshToken: userController.refreshToken,
             execute: { [weak self] result in
                 guard let self else { return }
@@ -227,7 +227,7 @@ final class AccountViewModel: ObservableObject {
         completion: @escaping (Result<Void, Error>) -> Void
     ) {
         userController.authenticateAndExecute(
-            schoolId: schoolId,
+            schoolId: authSchoolId,
             refreshToken: userController.refreshToken,
             execute: { [weak self] result in
                 guard let self else { return }
@@ -275,7 +275,7 @@ final class AccountViewModel: ObservableObject {
             return
         }
         userController.authenticateAndExecute(
-            schoolId: schoolId,
+            schoolId: authSchoolId,
             refreshToken: userController.refreshToken,
             execute: { [weak self] result in
                 guard let self else { return }

@@ -42,9 +42,11 @@ struct BookmarkListView: View {
             if showSearchField {
                 SearchField(
                     search: nil,
+                    clearSearch: nil,
                     title: "Search events",
                     searchBarText: $searchText,
-                    searching: $searching
+                    searching: $searching,
+                    disabled: .constant(false)
                 )
             }
             if !searching {

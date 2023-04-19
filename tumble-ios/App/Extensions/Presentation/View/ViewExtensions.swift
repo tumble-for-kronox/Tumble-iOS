@@ -18,6 +18,9 @@ extension View {
         }
     }
     
+    func erasedToAnyView() -> AnyView {
+        AnyView(self)
+    }
     
     func toastView(toast: Binding<Toast?>) -> some View {
         self.modifier(ToastModifier(toast: toast))

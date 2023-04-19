@@ -47,7 +47,7 @@ struct Settings: View {
                         destination: AnyView(SchoolSelectionSettings(
                             changeSchool: changeSchool,
                             schools: viewModel.schools)))
-                    .id(viewModel.schoolId)
+                    .id(viewModel.authSchoolId)
                     Divider()
                     ListRowNavigationItem(
                         title: NSLocalizedString("Bookmarks", comment: ""),

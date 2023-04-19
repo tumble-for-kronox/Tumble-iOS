@@ -10,9 +10,11 @@ import SwiftUI
 struct SearchField: View {
     
     let search: (() -> Void)?
+    let clearSearch: (() -> Void)?
     let title: String
     @Binding var searchBarText: String
     @Binding var searching: Bool
+    @Binding var disabled: Bool
     @State private var closeButtonOffset: CGFloat = 300.0
     
     var body: some View {
@@ -25,6 +27,7 @@ struct SearchField: View {
                         self.searching = true
                     }
                 }
+                .disabled(disabled)
                 .onSubmit {
                     if let search = search {
                         search()
@@ -32,15 +35,16 @@ struct SearchField: View {
                     hideKeyboard()
                 }
                 .searchBox()
- 
             if searching {
                 Button(action: {
                     withAnimation(.spring()) {
                         self.searching = false
                     }
+                    if let clearSearch = clearSearch {
+                        clearSearch()
+                    }
                     self.searchBarText = ""
                     hideKeyboard()
- 
                 }) {
                     Text(NSLocalizedString("Cancel", comment: ""))
                 }

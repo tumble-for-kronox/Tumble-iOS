@@ -11,16 +11,16 @@ import SwiftUI
 class PreferenceService: PreferenceServiceProtocol {
     
     @Published var userOnBoarded: Bool = false
-    @Published var schoolId: Int = -1
+    @Published var authSchoolId: Int = -1
     
     init() {
-        self.schoolId = self.getDefaultSchool() ?? -1
+        self.authSchoolId = self.getDefaultAuthSchool() ?? -1
         self.userOnBoarded = self.isKeyPresentInUserDefaults(key: StoreKey.userOnboarded.rawValue)
     }
     
     // ----------- SET -----------
-    func setSchool(id: Int) -> Void {
-        schoolId = id
+    func setAuthSchool(id: Int) -> Void {
+        authSchoolId = id
         UserDefaults.standard.set(id, forKey: StoreKey.school.rawValue)
         UserDefaults.standard.synchronize()
     }
@@ -72,11 +72,11 @@ class PreferenceService: PreferenceServiceProtocol {
         return BookmarksViewType.allValues[viewType]
     }
     
-    func getDefaultSchoolName(schools: [School]) -> String {
-        return schools.first(where: {$0.id == schoolId})!.name
+    func getDefaultAuthSchoolName(schools: [School]) -> String {
+        return schools.first(where: {$0.id == authSchoolId})!.name
     }
     
-    func getDefaultSchool() -> Int? {
+    func getDefaultAuthSchool() -> Int? {
         let id: Int = UserDefaults.standard.object(forKey: StoreKey.school.rawValue) as? Int ?? -1
         if id == -1 {
             return nil
@@ -98,12 +98,12 @@ class PreferenceService: PreferenceServiceProtocol {
     }
     
     func getUniversityName(schools: [School]) -> String {
-        let schoolName: String = schools.first(where: {$0.id == schoolId})!.name
+        let schoolName: String = schools.first(where: {$0.id == authSchoolId})!.name
         return schoolName
     }
     
     func getUniversityColor(schools: [School]) -> Color {
-        let school: School? = schools.first(where: { $0.id == schoolId })
+        let school: School? = schools.first(where: { $0.id == authSchoolId })
         let uniColor: Color
         
         switch school?.color {

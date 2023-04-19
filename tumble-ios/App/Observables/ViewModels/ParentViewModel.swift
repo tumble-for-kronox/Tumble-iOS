@@ -33,7 +33,7 @@ final class ParentViewModel: ObservableObject {
     
     func updateBookmarks() -> Void {
         defer { self.updatedDuringSession = true } // Always claim update during startup, even if failed
-        let schoolId: Int? = preferenceService.getDefaultSchool()
+        let schoolId: Int? = preferenceService.getDefaultAuthSchool()
         
         if let schoolId = schoolId {
             for schedule in schedules {

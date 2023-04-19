@@ -10,7 +10,7 @@ import UIKit
 
 protocol PreferenceServiceProtocol {
     // ----------- SET -----------
-    func setSchool(id: Int) -> Void
+    func setAuthSchool(id: Int) -> Void
     
     func setUserOnboarded() -> Void
     
@@ -29,7 +29,7 @@ protocol PreferenceServiceProtocol {
     
     func getDefaultViewType() -> BookmarksViewType
     
-    func getDefaultSchoolName(schools: [School]) -> String
+    func getDefaultAuthSchoolName(schools: [School]) -> String
     
     func isKeyPresentInUserDefaults(key: String) -> Bool
 }

@@ -103,7 +103,6 @@ extension Text {
             .foregroundColor(.onBackground)
             .padding(.bottom, 25)
             .padding([.leading, .trailing], 15)
-            .multilineTextAlignment(.center)
     }
     
     func programmeTitle() -> some View {

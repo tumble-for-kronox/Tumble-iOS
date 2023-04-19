@@ -24,7 +24,7 @@ final class ResourceViewModel: ObservableObject {
     @Published var selectedPickerDate: Date = Date.now
     
     
-    @Published var schoolId: Int = -1
+    @Published var authSchoolId: Int = -1
     private var allResourcesDataTask: URLSessionDataTask? = nil
     private var cancellables = Set<AnyCancellable>()
     
@@ -35,8 +35,8 @@ final class ResourceViewModel: ObservableObject {
     func initialisePipelines() -> Void {
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             guard let self else { return }
-            self.preferenceService.$schoolId
-                .assign(to: \.schoolId, on: self)
+            self.preferenceService.$authSchoolId
+                .assign(to: \.authSchoolId, on: self)
                 .store(in: &self.cancellables)
         }
     }
@@ -47,7 +47,7 @@ final class ResourceViewModel: ObservableObject {
             self.eventBookingPageState = .loading
         }
         userController.authenticateAndExecute(
-            schoolId: schoolId,
+            schoolId: authSchoolId,
             refreshToken: userController.refreshToken,
             execute: { [weak self] result in
                 guard let self else { return }
@@ -89,7 +89,7 @@ final class ResourceViewModel: ObservableObject {
             self.eventBookingPageState = .loading
         }
         userController.authenticateAndExecute(
-            schoolId: schoolId,
+            schoolId: authSchoolId,
             refreshToken: userController.refreshToken,
             execute: { [weak self] result in
                 guard let self else { return }
@@ -125,7 +125,7 @@ final class ResourceViewModel: ObservableObject {
             self.eventBookingPageState = .loading
         }
         userController.authenticateAndExecute(
-            schoolId: schoolId,
+            schoolId: authSchoolId,
             refreshToken: userController.refreshToken,
             execute: { [weak self] result in
                 guard let self else { return }
@@ -157,7 +157,7 @@ final class ResourceViewModel: ObservableObject {
             self.resourceBookingPageState = .loading
         }
         userController.authenticateAndExecute(
-            schoolId: schoolId,
+            schoolId: authSchoolId,
             refreshToken: userController.refreshToken,
             execute: { [weak self] result in
                 guard let self else { return }
@@ -196,7 +196,7 @@ final class ResourceViewModel: ObservableObject {
         completion: @escaping (Result<Void, Error>) -> Void
     ) -> Void {
         userController.authenticateAndExecute(
-            schoolId: schoolId,
+            schoolId: authSchoolId,
             refreshToken: userController.refreshToken,
             execute: { [weak self] result in
                 guard let self else { return }
@@ -243,7 +243,7 @@ final class ResourceViewModel: ObservableObject {
         completion: @escaping (Result<Void, Error>) -> Void
     ) -> Void {
         userController.authenticateAndExecute(
-            schoolId: schoolId,
+            schoolId: authSchoolId,
             refreshToken: userController.refreshToken,
             execute: { [weak self] result in
                 guard let self else { return }
@@ -285,7 +285,7 @@ final class ResourceViewModel: ObservableObject {
     
     func unbookResource(bookingId: String, completion: @escaping (Result<Void, Error>) -> Void) -> Void {
         userController.authenticateAndExecute(
-            schoolId: schoolId,
+            schoolId: authSchoolId,
             refreshToken: userController.refreshToken,
             execute: { [weak self] result in
                 guard let self else { return }
