@@ -19,7 +19,8 @@ class UserController: ObservableObject {
     @Published var authStatus: AuthStatus = .unAuthorized
     
     init() {
-        autoLogin(completion: {
+        let authSchoolId = preferenceService.getDefaultAuthSchool() ?? -1
+        autoLogin(authSchoolId: authSchoolId, completion: {
             DispatchQueue.main.async {
                 if self.user != nil {
                     self.authStatus = .authorized
@@ -46,7 +47,7 @@ class UserController: ObservableObject {
     
     func authenticateAndExecute(
         tries: Int = 0,
-        schoolId: Int,
+        authSchoolId: Int,
         refreshToken: Token?,
         execute: @escaping (Result<(Int, String), Error>) -> Void
     ) {
@@ -55,10 +56,10 @@ class UserController: ObservableObject {
               !refreshToken.isExpired() else {
             if tries < NetworkConstants.MAX_CONSECUTIVE_ATTEMPTS && authStatus == .authorized {
                 AppLogger.shared.debug("Attempting auto login ...")
-                autoLogin { [unowned self] in
+                autoLogin(authSchoolId: authSchoolId) { [unowned self] in
                     self.authenticateAndExecute(
                         tries: tries + 1,
-                        schoolId: schoolId,
+                        authSchoolId: authSchoolId,
                         refreshToken: refreshToken,
                         execute: execute
                     )
@@ -68,7 +69,7 @@ class UserController: ObservableObject {
             }
             return
         }
-        execute(.success((schoolId, refreshToken.value)))
+        execute(.success((authSchoolId, refreshToken.value)))
     }
 
 }

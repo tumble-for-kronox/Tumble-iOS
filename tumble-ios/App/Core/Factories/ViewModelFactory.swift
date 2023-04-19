@@ -35,6 +35,5 @@ class ViewModelFactory {
             .init(event: event)
     }
     
-    func makeViewModelSearchPreview(
-        scheduleId: String) -> SearchPreviewViewModel { .init(scheduleId: scheduleId) }
+    func makeViewModelSearchPreview() -> SearchPreviewViewModel { .init() }
 }

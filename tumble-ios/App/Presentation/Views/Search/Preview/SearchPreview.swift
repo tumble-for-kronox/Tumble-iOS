@@ -14,6 +14,7 @@ struct SearchPreview: View {
     @ObservedResults(Schedule.self) var schedules
     
     let programmeId: String
+    let schoolId: String
     
     var body: some View {
         VStack {
@@ -53,17 +54,22 @@ struct SearchPreview: View {
             )
         .background(Color.background)
         .onAppear {
-            viewModel.getSchedule(programmeId: programmeId, schedules: Array(schedules))
+            viewModel.getSchedule(
+                programmeId: programmeId,
+                schoolId: schoolId,
+                schedules: Array(schedules)
+            )
         }
     }
     
     func bookmark() -> Void {
         if viewModel.isSaved {
-            if let scheduleToRemoveIndex = schedules.firstIndex(where: { $0.scheduleId == viewModel.scheduleId }) {
+            if let scheduleToRemoveIndex = schedules.firstIndex(where: { $0.scheduleId == programmeId }) {
                 $schedules.remove(atOffsets: IndexSet(arrayLiteral: scheduleToRemoveIndex))
             }
         } else {
-            let realmSchedule = viewModel.schedule!.toRealmSchedule()
+            let scheduleRequiresAuth = viewModel.scheduleRequiresAuth(schoolId: schoolId)
+            let realmSchedule = viewModel.schedule!.toRealmSchedule(scheduleRequiresAuth: scheduleRequiresAuth, schoolId: schoolId)
             $schedules.append(realmSchedule)
         }
         viewModel.bookmark(id: programmeId, schedules: Array(schedules))

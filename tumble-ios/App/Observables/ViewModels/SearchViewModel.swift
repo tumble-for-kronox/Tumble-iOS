@@ -20,41 +20,24 @@ final class SearchViewModel: ObservableObject {
     
     @Published var status: SearchStatus = .initial
     @Published var programmeSearchResults: [Response.Programme] = []
-    @Published var schoolId: Int = -1
     @Published var errorMessageSearch: String? = nil
     @Published var searchPreviewModel: SearchPreviewModel? = nil
-    @Published var universityImage: Image?
+    @Published var schoolNotSelected: Bool = true
+    @Published var selectedSchool: School? = nil
+    @Published var universityImage: Image? = nil
     
     private var cancellables = Set<AnyCancellable>()
+    lazy var schools: [School] = schoolManager.getSchools()
     
-    init() {
-        initialisePipelines()
-        universityImage = self.schoolManager.getSchools().first(where: { $0.id == schoolId })?.logo
+    func createSearchPreviewViewModel() -> SearchPreviewViewModel {
+        viewModelFactory.makeViewModelSearchPreview()
     }
     
-    func initialisePipelines() {
-        preferenceService.$schoolId
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] schoolId in
-                guard let self = self else { return }
-                self.schoolId = schoolId
-                self.universityImage = self.schoolManager.getSchools().first(where: { $0.id == schoolId })?.logo
-                DispatchQueue.main.async {
-                    self.resetSearchResults()
-                }
-            }
-            .store(in: &cancellables)
-    }
-    
-    func createSearchPreviewViewModel(scheduleId: String) -> SearchPreviewViewModel {
-        viewModelFactory.makeViewModelSearchPreview(scheduleId: scheduleId)
-    }
-    
-    func onSearchProgrammes(searchQuery: String) {
+    func onSearchProgrammes(searchQuery: String, selectedSchoolId: Int) {
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
             self.status = .loading
-            let endpoint = Endpoint.searchProgramme(searchQuery: searchQuery, schoolId: String(self.schoolId))
+            let endpoint = Endpoint.searchProgramme(searchQuery: searchQuery, schoolId: String(selectedSchoolId))
             let _ = self.kronoxManager.get(endpoint, then: self.handleSearchResult)
         }
     }
@@ -89,11 +72,5 @@ final class SearchViewModel: ObservableObject {
     func parseSearchResults(_ results: Response.Search) {
         programmeSearchResults = results.items.map { $0 }
         status = .loaded
-    }
-    @MainActor
-    func clearSearchResults(endEditing: Bool) {
-        if endEditing {
-            resetSearchResults()
-        }
     }
 }

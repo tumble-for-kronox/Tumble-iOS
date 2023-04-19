@@ -6,6 +6,8 @@
   
 */
 
+"Continue"="Fortsetzen";
+
 "Search events" = "Ereignisse suchen";
 
 "Tumble on GitHub"="Tumble auf GitHub";
@@ -33,6 +35,14 @@
 "Could not log out from your account"="Abmeldung von ihrem konto nicht möglich";
 
 "There are no schedules that match your search"="Es gibt keine zeitpläne, die ihrer suche entsprechen";
+
+"Important: "="Wichtig: ";
+
+"Choose a university to begin your search"="Wählen Sie eine Universität aus, um Ihre Suche zu beginnen";
+
+"Information"="Information";
+
+"This university requires you to log in to their institution before you can see some of their schedules"="Diese Universität verlangt, dass Sie sich bei ihrer Institution anmelden, bevor Sie einige ihrer Zeitpläne sehen können";
 
 "Something went wrong"="Etwas ist schief gelaufen";
 

@@ -10,7 +10,9 @@ import Combine
 import RealmSwift
 
 struct SearchPreviewModel: Identifiable {
-    let id: String
+    let id: UUID = UUID()
+    let scheduleId: String
+    let schoolId: String
 }
 
 final class SearchPreviewViewModel: ObservableObject {
@@ -18,7 +20,6 @@ final class SearchPreviewViewModel: ObservableObject {
     @Published var isSaved = false
     @Published var status: SchedulePreviewStatus = .loading
     @Published var bookmarks: [Bookmark]?
-    @Published var schoolId: Int = -1
     @Published var errorMessage: String? = nil
     @Published var buttonState: ButtonState = .loading
     @Published var courseColorsForPreview: [String : String] = [:]
@@ -26,44 +27,22 @@ final class SearchPreviewViewModel: ObservableObject {
     @Inject var preferenceService: PreferenceService
     @Inject var kronoxManager: KronoxManager
     @Inject var notificationManager: NotificationManager
+    @Inject var schoolManager: SchoolManager
     
-    
-    let scheduleId: String
     var schedule: Response.Schedule? = nil
-    private var cancellables = Set<AnyCancellable>()
+    private lazy var schools: [School] = schoolManager.getSchools()
     
-    init(scheduleId: String) {
-        self.scheduleId = scheduleId
-        setUpDataPublishers()
-        loadData()
-    }
-    
-    func setUpDataPublishers() -> Void {
-        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-            guard let self else { return }
-            let schoolSubscription = self.preferenceService.$schoolId
-            
-            schoolSubscription
-            .receive(on: DispatchQueue.main)
-            .sink { schoolId in
-                self.schoolId = schoolId
-            }
-            .store(in: &self.cancellables)
-        }
-    }
-    
-    func loadData() -> Void {
-        schoolId = preferenceService.getDefaultSchool() ?? -1
-    }
-    
-    func getSchedule(programmeId: String, schedules: [Schedule]) -> Void {
+    func getSchedule(
+        programmeId: String,
+        schoolId: String,
+        schedules: [Schedule]) -> Void {
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
             // Check if schedule is already saved, to set flag
             self.isSaved = self.checkSavedSchedule(programmeId: programmeId, schedules: schedules)
         }
         // Always get latest schedule
-        fetchSchedule(programmeId: programmeId) { [weak self] result in
+        fetchSchedule(programmeId: programmeId, schoolId: schoolId) { [weak self] result in
             guard let self else { return }
             switch result {
             case .success(let fetchedSchedule):
@@ -102,6 +81,10 @@ final class SearchPreviewViewModel: ObservableObject {
         }
     }
     
+    func scheduleRequiresAuth(schoolId: String) -> Bool {
+        return schools.first(where: { $0.id == Int(schoolId) })?.loginRq ?? false
+    }
+    
     func getCourseColors() -> [String : String] {
         let realm = try! Realm()
         let courses = realm.objects(Course.self)
@@ -116,11 +99,12 @@ final class SearchPreviewViewModel: ObservableObject {
     // API Call to fetch a schedule from backend
     func fetchSchedule(
         programmeId: String,
+        schoolId: String,
         completion: @escaping (Result<Response.Schedule, Response.ErrorMessage>) -> Void) -> Void {
         let _ = kronoxManager.get(
             .schedule(
                 scheduleId: programmeId,
-                schoolId: String(schoolId))) {
+                schoolId: schoolId)) {
                     (result: Result<Response.Schedule, Response.ErrorMessage>) in
                     switch result {
                     case .success(let schedule):

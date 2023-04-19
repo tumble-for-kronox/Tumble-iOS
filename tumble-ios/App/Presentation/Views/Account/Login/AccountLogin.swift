@@ -19,17 +19,59 @@ struct AccountLogin: View {
     @State private var username: String = ""
     @State private var password: String = ""
     @State private var visiblePassword: Bool = false
+    @State private var selectedSchool: School? = nil
+    @State private var blurSelection: Bool = true
         
     var body: some View {
         GeometryReader { geometry in
             VStack (spacing: 30) {
                 LoginHeader()
                 VStack {
-                    UsernameField(username: $username)
-                    PasswordField(password: $password, visiblePassword: $visiblePassword)
+                    HStack {
+                        Spacer()
+                        Menu {
+                            ForEach(viewModel.schoolManager.getSchools(), id: \.self) { school in
+                                Button(action: {
+                                    selectedSchool = school
+                                    setSchoolForAuth()
+                                    withAnimation(.easeIn) {
+                                        blurSelection = false
+                                    }
+                                }, label: {
+                                    HStack {
+                                        Text(school.name)
+                                            .font(.system(size: 12, weight: .semibold))
+                                            .foregroundColor(.onBackground)
+                                        if school == selectedSchool {
+                                            Image(systemName: "checkmark")
+                                                .font(.system(size: 14, weight: .semibold))
+                                                .foregroundColor(.onBackground)
+                                        }
+                                    }
+                                })
+                            }
+                        } label: {
+                            HStack {
+                                Image(systemName: "plus")
+                                    .font(.system(size: 14, weight: .semibold))
+                                    .foregroundColor(.primary)
+                                Text(selectedSchool?.name ?? NSLocalizedString("Select university", comment: ""))
+                                    .font(.system(size: 16, weight: .semibold))
+                            }
+                        }
+                    }
+                    .frame(maxWidth: .infinity)
+                    .padding(.bottom, 20)
+                    VStack {
+                        UsernameField(username: $username)
+                        PasswordField(password: $password, visiblePassword: $visiblePassword)
+                    }
+                    .disabled(blurSelection)
+                    .blur(radius: blurSelection ? 2.5 : 0)
                 }
                 LoginButton(login: login, username: $username, password: $password)
-                LoginSubHeader(schoolName: viewModel.schoolName)
+                    .disabled(blurSelection)
+                    .blur(radius: blurSelection ? 2.5 : 0)
                 Spacer()
             }
             .ignoresSafeArea(.keyboard)
@@ -40,7 +82,19 @@ struct AccountLogin: View {
     }
     
     fileprivate func login() -> Void {
-        viewModel.login(username: username, password: password, createToast: createToast)
+        if let selectedSchool = selectedSchool {
+            viewModel.login(
+                authSchoolId: selectedSchool.id,
+                username: username,
+                password: password,
+                createToast: createToast)
+        }
+    }
+    
+    fileprivate func setSchoolForAuth() -> Void {
+        if let selectedSchool = selectedSchool {
+            viewModel.setDefaultAuthSchool(schoolId: selectedSchool.id)
+        }
     }
     
     fileprivate func createToast(success: Bool) -> Void {

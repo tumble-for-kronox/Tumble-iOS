@@ -30,9 +30,11 @@ struct NewsSheet: View {
                 SheetTitle(title: NSLocalizedString("News", comment: ""))
                 SearchField(
                     search: nil,
+                    clearSearch: nil,
                     title: "Search news",
                     searchBarText: $searchText,
-                    searching: $searching
+                    searching: $searching,
+                    disabled: .constant(false)
                 )
                 if !searching {
                     ScrollView (showsIndicators: false) {

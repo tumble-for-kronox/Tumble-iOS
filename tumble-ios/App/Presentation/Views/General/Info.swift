@@ -20,6 +20,7 @@ struct Info: View {
             }
             Text(title)
                 .info()
+                .multilineTextAlignment(.center)
         }
         .frame(
               minWidth: 0,

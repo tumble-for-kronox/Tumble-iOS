@@ -11,43 +11,72 @@ struct Search: View {
     
     @ObservedObject var viewModel: SearchViewModel
     @State var searchBarText: String = ""
+    @State private var searching: Bool = false
         
     var body: some View {
         VStack (spacing: 0) {
             switch viewModel.status {
                 case .initial:
-                    SearchInfo()
+                SearchInfo(schools: viewModel.schools, selectedSchool: $viewModel.selectedSchool)
                 case .loading:
                     CustomProgressIndicator()
                         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
                 case .loaded:
-                SearchResults(searchText: searchBarText, numberOfSearchResults: viewModel.programmeSearchResults.count, searchResults: viewModel.programmeSearchResults, onOpenProgramme: onOpenProgramme, universityImage: viewModel.universityImage)
+                SearchResults(
+                    searchText: searchBarText,
+                    numberOfSearchResults: viewModel.programmeSearchResults.count,
+                    searchResults: viewModel.programmeSearchResults,
+                    onOpenProgramme: openProgramme, universityImage: viewModel.universityImage)
                 case .error:
                     Info(title: viewModel.errorMessageSearch ?? NSLocalizedString("Something went wrong", comment: ""), image: nil)
                 case .empty:
                     Info(title: NSLocalizedString("Schedule is empty", comment: ""), image: nil)
                 }
-            SearchBar(searchBarText: $searchBarText, onSearch: onSearch, onClearSearch: onClearSearch)
+            SearchField(
+                search: search,
+                clearSearch: clearSearch,
+                title: "Search schedules",
+                searchBarText: $searchBarText,
+                searching: $searching,
+                disabled: $viewModel.schoolNotSelected
+            )
+            .blur(radius: viewModel.schoolNotSelected ? 2.5 : 0)
+            .padding(.bottom, 15)
         }
         .background(Color.background)
+        .onChange(of: viewModel.selectedSchool) { _ in
+            viewModel.schoolNotSelected.toggle()
+        }
         .sheet(item: $viewModel.searchPreviewModel) { model in
             SearchPreview(
-                viewModel: viewModel.createSearchPreviewViewModel(scheduleId: model.id), programmeId: model.id
+                viewModel: viewModel.createSearchPreviewViewModel(),
+                programmeId: model.scheduleId,
+                schoolId: model.schoolId
             )
             .background(Color.background)
         }
     }
-    
-    func onSearch(query: String) -> Void {
-        viewModel.onSearchProgrammes(searchQuery: query)
+
+    fileprivate func searchBoxNotEmpty() -> Bool {
+        return !searchBarText.trimmingCharacters(in: .whitespaces).isEmpty
     }
     
-    func onClearSearch(endEditing: Bool) -> Void {
-        viewModel.clearSearchResults(endEditing: endEditing)
+    func search() -> Void {
+        if let selectedSchool = viewModel.selectedSchool, searchBoxNotEmpty() {
+            viewModel.universityImage = selectedSchool.logo
+            viewModel.onSearchProgrammes(searchQuery: searchBarText, selectedSchoolId: selectedSchool.id)
+        }
     }
     
-    func onOpenProgramme(programmeId: String) -> Void {
-        viewModel.searchPreviewModel = SearchPreviewModel(id: programmeId)
+    func clearSearch() -> Void {
+        viewModel.resetSearchResults()
+    }
+    
+    func openProgramme(programmeId: String) -> Void {
+        if let selectedSchoolId = viewModel.selectedSchool?.id {
+            viewModel.searchPreviewModel = SearchPreviewModel(
+                scheduleId: programmeId, schoolId: String(selectedSchoolId))
+        }
     }
     
 }

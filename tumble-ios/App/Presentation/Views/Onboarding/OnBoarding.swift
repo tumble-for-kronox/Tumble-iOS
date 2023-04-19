@@ -47,7 +47,6 @@ struct OnBoarding: View {
     init(viewModel: OnBoardingViewModel) {
         UIPageControl.appearance().currentPageIndicatorTintColor = UIColor(Color.primary)
         UIPageControl.appearance().pageIndicatorTintColor = UIColor(Color.surface)
-    
         self.viewModel = viewModel
     }
     
@@ -97,18 +96,15 @@ struct OnBoarding: View {
         .overlay(
             VStack {
                 HStack {
-                    Button {
-                        viewModel.showSchoolSelection = true
-                    } label: {
-                        Text(NSLocalizedString("Select university", comment: ""))
+                    Button(action: viewModel.finishOnboarding, label: {
+                        Text(NSLocalizedString("Continue", comment: ""))
                             .fontWeight(.semibold)
                             .foregroundColor(.onBackground)
                             .padding(.vertical, 20)
                             .frame(maxWidth: .infinity)
                             .background(Color.background)
                             .clipShape(RoundedRectangle(cornerRadius: 12))
-                        
-                    }
+                    })
                     .buttonStyle(AnimatedButtonStyle())
                     Spacer()
                 }
@@ -129,38 +125,18 @@ struct OnBoarding: View {
             .padding(.bottom, 20)
             ,alignment: .bottom
         )
-        .sheet(isPresented: $viewModel.showSchoolSelection, content: {
-            VStack {
-                DraggingPill()
-                SheetTitle(title: NSLocalizedString("Universities", comment: ""))
-                SchoolSelection(onSelectSchool: onSelectSchool, schools: viewModel.schools)
-            }
-            .background(Color.background)
-        })
-        .onDisappear {
-            viewModel.showSchoolSelection = false
-        }
         .zIndex(0)
         .transition(.asymmetric(insertion: .move(edge: .trailing), removal: .move(edge: .leading)))
     }
     
     func getRotation() -> Double {
         let process = offset / (getRect().width * 4)
-        
         let rotation = Double(process) * 360
-        
         return rotation
     }
     
     func getIndex() -> Int {
-        
         let process = offset / getRect().width
-        
         return Int(process)
-        
-    }
-    
-    func onSelectSchool(school: School) -> Void {
-        viewModel.onSelectSchool(school: school)
     }
 }

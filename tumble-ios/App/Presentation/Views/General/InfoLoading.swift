@@ -15,6 +15,7 @@ struct InfoLoading: View {
                 .padding(.bottom, 15)
             Text(title)
                 .info()
+                .multilineTextAlignment(.center)
         }
         .frame(
               minWidth: 0,

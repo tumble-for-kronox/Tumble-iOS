@@ -8,9 +8,7 @@
 import SwiftUI
 
 struct TabBarButton: View {
-    var animation: Namespace.ID
     let appTab: TabbarTabType
-   
     @Binding var selectedAppTab: TabbarTabType
    
     var body: some View {

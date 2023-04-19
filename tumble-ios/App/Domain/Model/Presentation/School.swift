@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-struct School: Hashable, Codable, Identifiable {
+struct School: Hashable, Codable, Identifiable, Equatable {
     let id: Int
     let kronoxUrl: String
     let name: String

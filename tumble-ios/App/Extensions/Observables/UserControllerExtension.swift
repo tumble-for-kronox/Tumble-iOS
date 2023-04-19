@@ -28,9 +28,15 @@ extension UserController {
     }
 
     
-    func logIn(username: String, password: String, completion: ((Bool) -> Void)? = nil) {
+    func logIn(
+        authSchoolId: Int,
+        username: String,
+        password: String,
+        completion: ((Bool) -> Void)? = nil) {
         let user = Request.KronoxUserLogin(username: username, password: password)
-        self.authManager.loginUser(user: user, completionHandler: { [weak self] result in
+            self.authManager.loginUser(
+                authSchoolId: authSchoolId,
+                user: user, completionHandler: { [weak self] result in
             guard let self = self else { return }
             DispatchQueue.main.async {
                 switch result {
@@ -49,9 +55,10 @@ extension UserController {
     }
     
     
-    func autoLogin(completion: (() -> Void)? = nil) {
+    func autoLogin(authSchoolId: Int, completion: (() -> Void)? = nil) {
         AppLogger.shared.debug("Attempting auto login for user", source: "UserController")
-        self.authManager.autoLoginUser(completionHandler: { [unowned self] result in
+        self.authManager.autoLoginUser(
+            authSchoolId: authSchoolId, completionHandler: { [unowned self] result in
             switch result {
             case .success(let user):
                 AppLogger.shared.debug("Successfully logged in user \(user.username)")

@@ -30,14 +30,14 @@ struct TimeslotCard: View {
                         .padding()
                 case .booked:
                     Text(NSLocalizedString("Booked", comment: ""))
-                        .font(.system(size: 18, weight: .semibold))
+                        .font(.system(size: 16, weight: .semibold))
                         .foregroundColor(.onPrimary)
-                        .padding()
+                        .padding(7.5)
                 case .available:
                     Text(NSLocalizedString("Book", comment: ""))
-                        .font(.system(size: 18, weight: .semibold))
+                        .font(.system(size: 16, weight: .semibold))
                         .foregroundColor(.onPrimary)
-                        .padding()
+                        .padding(7.5)
                 }
             })
             .disabled(bookingButtonState == .booked)

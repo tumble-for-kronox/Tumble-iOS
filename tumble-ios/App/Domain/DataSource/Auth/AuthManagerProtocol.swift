@@ -9,9 +9,14 @@ import Foundation
 
 protocol AuthManagerProtocol {
     
-    func autoLoginUser(completionHandler: @escaping (Result<TumbleUser, Error>) -> Void) -> Void
+    func autoLoginUser(
+        authSchoolId: Int,
+        completionHandler: @escaping (Result<TumbleUser, Error>) -> Void) -> Void
     
-    func loginUser(user: Request.KronoxUserLogin, completionHandler: @escaping (Result<TumbleUser, Error>) -> Void)
+    func loginUser(
+        authSchoolId: Int,
+        user: Request.KronoxUserLogin,
+        completionHandler: @escaping (Result<TumbleUser, Error>) -> Void)
     
     func logOutUser(completionHandler: ((Result<Int, Error>) -> Void)?)
 }

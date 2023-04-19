@@ -9,13 +9,12 @@ import SwiftUI
 
 struct TabBar: View {
     @Binding var selectedAppTab: TabbarTabType
-    @Namespace var animation
         
     var body: some View {
         HStack (spacing: 0) {
-            TabBarButton(animation: animation, appTab: .home, selectedAppTab: $selectedAppTab)
-            TabBarButton(animation: animation, appTab: .bookmarks, selectedAppTab: $selectedAppTab)
-            TabBarButton(animation: animation, appTab: .account, selectedAppTab: $selectedAppTab)
+            TabBarButton(appTab: .home, selectedAppTab: $selectedAppTab)
+            TabBarButton(appTab: .bookmarks, selectedAppTab: $selectedAppTab)
+            TabBarButton(appTab: .account, selectedAppTab: $selectedAppTab)
         }
         .frame(maxHeight: 25)
         .padding()

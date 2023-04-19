@@ -37,13 +37,14 @@ extension AuthManager {
 
     
     func processAutoLoginWithKeyChainCredentials(
+        authSchoolId: Int,
         completionHandler: @escaping (Result<TumbleUser, Error>) -> Void) -> Void {
-            if let schoolId = self.getDefaultSchool(), let user = self.user {
+            if let user = self.user {
                 let userRequest = Request.KronoxUserLogin(username: user.username, password: user.password)
                 AppLogger.shared.debug("Running login with keychain credentials for user: \(userRequest.username)", source: "AuthManager")
                 let urlRequest = urlRequestUtils.createUrlRequest(
                     method: .post,
-                    endpoint: .login(schoolId: String(schoolId)),
+                    endpoint: .login(schoolId: String(authSchoolId)),
                     body: userRequest
                 )
                 if let urlRequest = urlRequest {
@@ -68,35 +69,34 @@ extension AuthManager {
     /// from account page when entered credentials. On successful response,
     /// the user is stored securely in the keychain as TumbleUser
     func processLogin(
+        authSchoolId: Int,
         user: Request.KronoxUserLogin,
         completionHandler: @escaping (Result<TumbleUser, Error>) -> Void) {
-            if let schoolId = self.getDefaultSchool() {
-                let urlRequest = urlRequestUtils.createUrlRequest(
-                    method: .post,
-                    endpoint: .login(schoolId: String(schoolId)),
-                    body: user
-                )
-                if let urlRequest = urlRequest {
-                    urlSession.dataTask(with: urlRequest, completionHandler: { [unowned self] data, response, error in
-                        self.handleAuthResponse(
-                            password: user.password,
-                            data: data,
-                            response: response,
-                            error: error as? Error,
-                            completionHandler: completionHandler)
-                    }).resume()
-                }
-            } else {
-                completionHandler(.failure(.generic(reason: "No school selected")))
+            let urlRequest = urlRequestUtils.createUrlRequest(
+                method: .post,
+                endpoint: .login(schoolId: String(authSchoolId)),
+                body: user
+            )
+            if let urlRequest = urlRequest {
+                urlSession.dataTask(with: urlRequest, completionHandler: { [unowned self] data, response, error in
+                    self.handleAuthResponse(
+                        password: user.password,
+                        data: data,
+                        response: response,
+                        error: error as? Error,
+                        completionHandler: completionHandler)
+                }).resume()
             }
     }
     
-    func processAutoLogin(completionHandler: @escaping (Result<TumbleUser, Error>) -> Void) -> Void {
+    func processAutoLogin(
+        authSchoolId: Int,
+        completionHandler: @escaping (Result<TumbleUser, Error>) -> Void) -> Void {
         // If there is a school selected and an available refresh token
-        if let schoolId = self.getDefaultSchool(), let token = self.refreshToken {
+        if let token = self.refreshToken {
             let urlRequest = urlRequestUtils.createUrlRequest(
                 method: .get,
-                endpoint: .users(schoolId: String(schoolId)),
+                endpoint: .users(schoolId: String(authSchoolId)),
                 refreshToken: token.value
             )
             if let urlRequest = urlRequest {
@@ -112,14 +112,14 @@ extension AuthManager {
                             break
                         case .failure(let failure):
                             AppLogger.shared.critical("Missing refresh token or is expired -> \(failure)")
-                            self.processAutoLoginWithKeyChainCredentials(completionHandler: completionHandler)
+                            self.processAutoLoginWithKeyChainCredentials(authSchoolId: authSchoolId, completionHandler: completionHandler)
                         }
                     })
                 }).resume()
             }
         } else {
             AppLogger.shared.debug("Missing school/token ... Attempting login with keychain credentials instead", source: "AuthManager")
-            self.processAutoLoginWithKeyChainCredentials(completionHandler: completionHandler)
+            self.processAutoLoginWithKeyChainCredentials(authSchoolId: authSchoolId, completionHandler: completionHandler)
         }
     }
     
@@ -159,14 +159,6 @@ extension AuthManager {
                 // Any other error from NSURLErrorDomain (e.g internet offline) - we won't clear token storage
                 completionHandler(.failure(.generic(reason: error?.localizedDescription ?? "Service unavailable")))
             }
-    }
-    
-    func getDefaultSchool() -> Int? {
-        let id: Int = UserDefaults.standard.object(forKey: StoreKey.school.rawValue) as? Int ?? -1
-        if id == -1 {
-            return nil
-        }
-        return id
     }
     
     func getToken(tokenType: TokenType) -> Token? {

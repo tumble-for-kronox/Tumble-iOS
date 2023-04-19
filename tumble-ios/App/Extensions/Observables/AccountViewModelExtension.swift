@@ -43,7 +43,7 @@ extension AccountViewModel {
     ) {
         AppLogger.shared.debug("Automatically signing up for exams")
         userController.authenticateAndExecute(
-            schoolId: schoolId,
+            authSchoolId: authSchoolId,
             refreshToken: userController.refreshToken,
             execute: { [unowned self] result in
                 switch result {
