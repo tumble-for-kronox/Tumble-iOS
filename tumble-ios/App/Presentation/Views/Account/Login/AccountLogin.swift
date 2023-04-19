@@ -14,12 +14,12 @@ enum focusedField {
 struct AccountLogin: View {
     
     @ObservedObject var viewModel: AccountViewModel
+    @ObservedObject var appController: AppController = AppController.shared
+    
     @State private var username: String = ""
     @State private var password: String = ""
     @State private var visiblePassword: Bool = false
-    
-    let createToast: (ToastStyle, String, String) -> Void
-    
+        
     var body: some View {
         GeometryReader { geometry in
             VStack (spacing: 30) {
@@ -29,7 +29,7 @@ struct AccountLogin: View {
                     PasswordField(password: $password, visiblePassword: $visiblePassword)
                 }
                 LoginButton(login: login, username: $username, password: $password)
-                LoginSubHeader(schoolName: viewModel.school?.name ?? "")
+                LoginSubHeader(schoolName: viewModel.schoolName)
                 Spacer()
             }
             .ignoresSafeArea(.keyboard)
@@ -45,16 +45,16 @@ struct AccountLogin: View {
     
     fileprivate func createToast(success: Bool) -> Void {
         if success {
-            createToast(
-                .success,
-                NSLocalizedString("Logged in", comment: ""),
-                String(format: NSLocalizedString("Successfully logged in as %@", comment: ""), viewModel.username ?? username)
+            appController.toast = Toast(
+                type: .success,
+                title: NSLocalizedString("Logged in", comment: ""),
+                message: String(format: NSLocalizedString("Successfully logged in as %@", comment: ""), viewModel.username ?? username)
             )
         } else {
-            createToast(
-                .error,
-                NSLocalizedString("Error", comment: ""),
-                NSLocalizedString("Something went wrong when logging in to your account", comment: "")
+            appController.toast = Toast(
+                type: .error,
+                title: NSLocalizedString("Error", comment: ""),
+                message: NSLocalizedString("Something went wrong when logging in to your account", comment: "")
             )
         }
     }

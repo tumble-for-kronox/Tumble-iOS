@@ -10,16 +10,10 @@ import SwiftUI
 struct NavigationbarSearch: View {
     
     @ObservedObject var viewModel: SearchViewModel
-    let checkForNewSchedules: () -> Void
-    @Binding var universityImage: Image?
     
     var body: some View {
         NavigationLink(destination:
-            Search(
-                viewModel: viewModel,
-                universityImage: $universityImage,
-                checkForNewSchedules: checkForNewSchedules
-            )
+            Search(viewModel: viewModel)
             .navigationBarTitle(NSLocalizedString("Search", comment: ""))
            , label: {
             Image(systemName: "magnifyingglass")

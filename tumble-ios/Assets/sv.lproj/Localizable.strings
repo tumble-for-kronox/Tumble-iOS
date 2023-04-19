@@ -64,15 +64,15 @@
 
 "New school"="Ny skola";
 
-"Set %@ to default"="Ställ in %@ till standard";
+"Set %@ to default"="Ställde in %@ till standard";
 
 "School already selected"="Skolan är redan vald";
 
 "You already have '%@' as your default school"="Du har redan '%@' som standardskola";
 
-"Removed schedule"="Borttaget schema";
+"Removed schedule"="Tog bort schema";
 
-"Successfully removed the schedule '%@' from your bookmarks"="Har tagit bort schemat '%@' från dina bokmärken";
+"Successfully removed the schedule '%@' from your bookmarks"="Tog bort schemat '%@' från dina bokmärken";
 
 "Could not remove schedule"="Det gick inte att ta bort schemat";
 
@@ -110,6 +110,8 @@
 
 "No bookmarks yet"="Inga bokmärken än";
 
+"No events match your search"="Inga händelser matchar din sökning";
+
 "minutes"="Minuter";
 
 "hour"="Timme";
@@ -123,6 +125,12 @@
 "Are you sure you want to cancel all set notifications?"="Är du säker på att du vill avbryta alla inställda aviseringar?";
 
 "Cancel all notifications"="Avbryt alla aviseringar";
+
+"No available bookmarks"="Inga tillgängliga bokmärken";
+
+"It looks like there's no available bookmarks"="Det verkar som att det inte finns några tillgängliga bokmärken";
+
+"Cancel"="Avbryt";
 
 "Notification offset"="Aviseringsförskjutning";
 
@@ -258,7 +266,7 @@
 
 "We couldn't confirm the specified resource"="Vi kunde inte bekräfta den angivna resursen";
 
-"Unbooked resource"="Obokad resurs";
+"Unbooked resource"="Avbokade resursen";
 
 "You have unbooked the selected resource"="Du har avbokat den valda resursen";
 
@@ -328,7 +336,7 @@
 
 "No rooms available on weekends"="Inga rum tillgängliga på helgerna";
 
-"Book"="Bok";
+"Book"="Boka";
 
 "at"="På";
 

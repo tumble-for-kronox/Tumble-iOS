@@ -1,5 +1,5 @@
 //
-//  EventDetailsView-ViewModel.swift
+//  EventDetailsSheetViewModel.swift
 //  tumble-ios
 //
 //  Created by Adis Veletanlic on 2023-02-01.
@@ -7,78 +7,62 @@
 
 import Foundation
 import SwiftUI
+import Combine
+import RealmSwift
 
-@MainActor final class EventDetailsSheetViewModel: ObservableObject {
+final class EventDetailsSheetViewModel: ObservableObject {
     
     @Inject var notificationManager: NotificationManager
     @Inject var preferenceService: PreferenceService
-    @Inject var scheduleService: ScheduleService
-    @Inject var courseColorService: CourseColorService
     
-    @Published var event: Response.Event
-    @Published var color: Color {
-        didSet {
-            replaceColor()
-        }
-    }
+    @Published var event: Event
+    @Published var color: Color
     @Published var isNotificationSetForEvent: Bool = false
     @Published var isNotificationSetForCourse: Bool = false
     @Published var notificationOffset: Int = 60
     @Published var notificationsAllowed: Bool = false
-    
-    
-    init(event: Response.Event, color: Color) {
+        
+    init(event: Event) {
         self.event = event
-        self.color = color
-        self.checkNotificationIsSetForEvent()
-        self.checkNotificationIsSetForCourse()
-        self.notificationOffset = preferenceService.getNotificationOffset()
-        self.userAllowedNotifications(completion: { value in
-            DispatchQueue.main.async {
+        self.color = event.course?.color.toColor() ?? .white
+        checkNotificationIsSetForEvent()
+        checkNotificationIsSetForCourse()
+        notificationOffset = preferenceService.getNotificationOffset()
+        userAllowedNotifications(completion: { value in
+            DispatchQueue.main.async { [weak self] in
+                guard let self else { return }
                 self.notificationsAllowed = value
             }
         })
     }
     
-    func replaceColor() -> Void {
-        courseColorService.replace(for: event, with: color) { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(_):
-                AppLogger.shared.debug("Changed course color for -> \(self.event.course.id) to color -> \(self.color.toHex() ?? "#FFFFFF")")
-            case .failure(let failure):
-                AppLogger.shared.debug("Couldn't change course color -> \(failure)")
-            }
+    @MainActor func setEventSheetView(event: Event, color: Color) -> Void {
+        self.event = event
+    }
+    
+    
+    @MainActor func cancelNotificationForEvent() -> Void {
+        self.isNotificationSetForEvent = false
+        self.notificationManager.cancelNotification(for: self.event.eventId)
+    }
+    
+    
+    @MainActor func cancelNotificationsForCourse() -> Void {
+        self.isNotificationSetForCourse = false
+        self.isNotificationSetForEvent = false
+        if let course = self.event.course {
+            self.notificationManager.cancelNotifications(with: course.courseId)
         }
     }
     
-    func setEventSheetView(event: Response.Event, color: Color) -> Void {
-        self.event = event
-        self.color = color
-    }
     
-    
-    func cancelNotificationForEvent() -> Void {
-        notificationManager.cancelNotification(for: event.id)
-        self.isNotificationSetForEvent = false
-    }
-    
-    
-    func cancelNotificationsForCourse() -> Void {
-        notificationManager.cancelNotifications(with: event.course.id)
-        self.isNotificationSetForCourse = false
-        self.isNotificationSetForEvent = false
-    }
-    
-    
-    func scheduleNotificationForEvent() -> Void {
+    @MainActor func scheduleNotificationForEvent() -> Void {
         let userOffset: Int = self.preferenceService.getNotificationOffset()
         
         // Create notification for event without categoryIdentifier,
         // since it does not need to be set for the entire course
         let notification = EventNotification(
-            id: self.event.id,
-            color: self.color.toHex() ?? "#FFFFFF",
+            id: self.event.eventId,
             dateComponents: self.event.dateComponents!,
             categoryIdentifier: nil,
             content: self.event.toDictionary())
@@ -87,10 +71,9 @@ import SwiftUI
             for: notification,
             type: .event,
             userOffset: userOffset,
-            completion: { [weak self] result in
-                guard let self = self else { return }
+            completion: { result in
                 switch result {
-                case .success(_):
+                case .success:
                     DispatchQueue.main.async {
                         self.isNotificationSetForEvent = true
                     }
@@ -101,26 +84,43 @@ import SwiftUI
         })
     }
 
-    
-    
-    func scheduleNotificationsForCourse() -> Void {
-        scheduleService.load(completion: { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let success):
-                let schedules = success
-                self.applyNotificationForScheduleEventsInCourse(schedules: schedules) { success in
-                    if success {
-                        DispatchQueue.main.async {
-                            self.isNotificationSetForCourse = true
-                            self.isNotificationSetForEvent = true
-                        }
+    @MainActor func updateCourseColor() {
+        guard let colorToSet = color.toHex(),
+              let realm = try? Realm(),
+              let eventCourseID = self.event.course?.courseId else {
+            return
+        }
+        
+        try! realm.write {
+            let schedules = realm.objects(Schedule.self)
+            for schedule in schedules {
+                let eventsToUpdate = schedule.days
+                    .flatMap { $0.events.filter { $0.course?.courseId == eventCourseID } }
+                for event in eventsToUpdate {
+                    if let courseToUpdate = event.course,
+                       courseToUpdate.color != colorToSet {
+                        courseToUpdate.color = colorToSet
                     }
                 }
-            case .failure(let failure):
-                AppLogger.shared.debug("\(failure)")
             }
-        })
+        }
+    }
+
+    
+    @MainActor func scheduleNotificationsForCourse() -> Void {
+        let realm = try! Realm()
+        let schedules = realm.objects(Schedule.self)
+        let events = Array(schedules)
+            .flatMap { $0.days }
+            .flatMap { $0.events }
+            .filter { !($0.dateComponents!.hasDatePassed()) }
+            .filter { $0.course?.courseId == event.course?.courseId }
+        applyNotificationForScheduleEventsInCourse(events: events) { success in
+            if success {
+                self.isNotificationSetForCourse = true
+                self.isNotificationSetForEvent = true
+            }
+        }
     }
     
     func userAllowedNotifications(completion: @escaping (Bool) -> Void) -> Void {

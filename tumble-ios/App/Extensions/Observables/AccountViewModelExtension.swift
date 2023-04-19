@@ -42,14 +42,14 @@ extension AccountViewModel {
         completion: @escaping (Result<Void, Error>) -> Void
     ) {
         AppLogger.shared.debug("Automatically signing up for exams")
-        authenticateAndExecute(
-            school: school,
+        userController.authenticateAndExecute(
+            schoolId: schoolId,
             refreshToken: userController.refreshToken,
             execute: { [unowned self] result in
                 switch result {
                 case .success((let schoolId, let refreshToken)):
                     let request = Endpoint.registerAllEvents(schoolId: String(schoolId))
-                    let _ = networkManager.put(request, refreshToken: refreshToken, body: Request.Empty(),
+                    let _ = kronoxManager.put(request, refreshToken: refreshToken, body: Request.Empty(),
                        then: { (result: Result<Response.KronoxEventRegistration?, Response.ErrorMessage>) in
                         DispatchQueue.main.async {
                             switch result {
@@ -70,36 +70,6 @@ extension AccountViewModel {
                     completion(.failure(.generic(reason: "\(failure)")))
                 }
             })
-    }
-    
-    /// Wrapper function that is meant to be used on functions
-    /// that require authentication to be active before processing
-    func authenticateAndExecute(
-        tries: Int = 0,
-        school: School?,
-        refreshToken: Token?,
-        execute: @escaping (Result<(Int, String), Error>) -> Void
-    ) {
-        
-        guard let school = school,
-              let refreshToken = refreshToken,
-              !refreshToken.isExpired() else {
-            if tries < NetworkConstants.MAX_CONSECUTIVE_ATTEMPTS && userController.authStatus == .authorized {
-                AppLogger.shared.debug("Attempting auto login ...")
-                userController.autoLogin { [unowned self] in
-                    self.authenticateAndExecute(
-                        tries: tries + 1,
-                        school: school,
-                        refreshToken: refreshToken,
-                        execute: execute
-                    )
-                }
-            } else {
-                execute(.failure(.internal(reason: "Could not authenticate user")))
-            }
-            return
-        }
-        execute(.success((school.id, refreshToken.value)))
     }
     
     func cancelDataTaskIfTabChanged(dataTask: URLSessionDataTask?) {

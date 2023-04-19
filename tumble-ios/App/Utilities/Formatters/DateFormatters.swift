@@ -66,6 +66,11 @@ var isoDateFormatter: ISO8601DateFormatter = {
     return formatter
 }()
 
+var isoDateFormatterResourceDate: ISO8601DateFormatter = {
+    let formatter = ISO8601DateFormatter()
+    return formatter
+}()
+
 var isoDateFormatterSemi: ISO8601DateFormatter = {
     let formatter = ISO8601DateFormatter()
     let timeZone = TimeZone.current

@@ -18,13 +18,15 @@ class NotificationManager: NotificationManagerProtocol {
         type: NotificationType,
         userOffset: Int,
         completion: @escaping (Result<Int, NotificationError>) -> Void) {
-        notificationsAreAllowed { result in
+        notificationsAreAllowed { [weak self] result in
+            guard let self else { return }
             switch result {
             case .success:
                 switch type {
                 case .event:
                     if let eventNotification = notification as? EventNotification {
-                        self.notificationCenter.add(self.requestEventNotification(for: eventNotification, userOffset: userOffset))
+                        let request = self.requestEventNotification(for: eventNotification, userOffset: userOffset)
+                        self.notificationCenter.add(request)
                     }
                 case .booking:
                     if let bookingNotification = notification as? BookingNotification {
@@ -82,15 +84,17 @@ class NotificationManager: NotificationManagerProtocol {
         }
     }
     
-    func createNotificationFromEvent(event: Response.Event, color: String) -> EventNotification? {
+    func createNotificationFromEvent(event: Event) -> EventNotification? {
         guard let dateComponents = event.dateComponents else { return nil }
-        let notification = EventNotification(
-            id: event.id,
-            color: color,
-            dateComponents: dateComponents,
-            categoryIdentifier: event.course.id, content: event.toDictionary()
-        )
-        return notification
+        if let course = event.course {
+            let notification = EventNotification(
+                id: event.eventId,
+                dateComponents: dateComponents,
+                categoryIdentifier: course.courseId, content: event.toDictionary()
+            )
+            return notification
+        }
+        return nil
     }
     
     func createNotificationFromBooking(booking: Response.KronoxUserBookingElement) -> BookingNotification? {
@@ -147,14 +151,14 @@ extension NotificationManager {
         userOffset: Int) -> UNNotificationRequest {
             AppLogger.shared.debug("Making notification request for -> \(notification.id)")
             let content = UNMutableNotificationContent()
-            content.title = (notification.content?.toEvent()?.course.englishName)!
-            content.subtitle = (notification.content?.toEvent()?.title)!
+            let event = notification.content?.toEvent()
+            content.title = (event?.course?.englishName ?? "")!
+            content.subtitle = (event?.title)!
             // Optional course id
             content.categoryIdentifier = notification.categoryIdentifier ?? ""
             content.sound = .default
             content.badge = 1
             content.userInfo[NotificationContentKey.event.rawValue] = notification.content
-            content.userInfo[NotificationContentKey.color.rawValue] = notification.color
             
             let components = dateComponentsAfterSubtractingUserOffset(
                 dateComponents: notification.dateComponents,

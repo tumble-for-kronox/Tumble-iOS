@@ -9,8 +9,7 @@ import SwiftUI
 
 struct NextClass: View {
     
-    let nextClass: Response.Event?
-    let courseColors: CourseAndColorDict?
+    let nextClass: Event?
     
     var body: some View {
         VStack (alignment: .leading) {
@@ -25,14 +24,13 @@ struct NextClass: View {
                     .font(.system(size: 18, weight: .semibold))
                     .foregroundColor(.onBackground)
             }
-            if let courseColors = courseColors, let nextClass = nextClass {
-                if let color = courseColors[(nextClass.course.id)] {
-                    CompactEventButtonLabel(event: nextClass, color: color.toColor())
-                        .frame(maxWidth: .infinity, minHeight: 100, maxHeight: 100, alignment: .center)
-                        .background(color.toColor().opacity(0.2))
-                        .cornerRadius(20)
-                        .padding(.bottom, 10)
-                }
+            if let nextClass = nextClass, let course = nextClass.course {
+                let color: Color = course.color.toColor()
+                CompactEventButtonLabel(event: nextClass, color: color)
+                    .frame(maxWidth: .infinity, minHeight: 100, maxHeight: 100, alignment: .center)
+                    .background(color.opacity(0.2))
+                    .cornerRadius(20)
+                    .padding(.bottom, 10)
             } else {
                 Text(NSLocalizedString("No upcoming class", comment: ""))
                     .font(.system(size: 16))

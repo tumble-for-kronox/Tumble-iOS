@@ -22,6 +22,11 @@ func navigationBarFont() -> UIFont {
     return titleFont
 }
 
+func filterHiddenBookmarks(schedules: [Schedule], hiddenBookmarks: [String]) -> [Schedule] {
+    return schedules.filter { schedule in
+        !hiddenBookmarks.contains { $0 == schedule.scheduleId }
+    }
+}
 
 func getCurrentDate(truncate: Bool = false) -> String {
     let currentDate = Date()

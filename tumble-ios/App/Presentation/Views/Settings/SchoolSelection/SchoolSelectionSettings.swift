@@ -10,12 +10,12 @@ import SwiftUI
 struct SchoolSelectionSettings: View {
     
     @Environment(\.dismiss) var dismiss
-    let onChangeSchool: (School) -> Void
+    let changeSchool: (Int) -> Void
     let schools: [School]
     
     var body: some View {
         SchoolSelection(onSelectSchool: { school in
-            onChangeSchool(school)
+            changeSchool(school.id)
             dismiss()
         }, schools: schools)
     }

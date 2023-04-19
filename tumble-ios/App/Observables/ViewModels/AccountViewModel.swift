@@ -1,20 +1,29 @@
+//
+//  AccountViewModel.swift
+//  tumble-ios
+//
+//  Created by Adis Veletanlic on 11/27/22.
+//
+
 import Foundation
+import Combine
 
 /// ViewModel for the account page of the app.
 /// It handles the signing in of users, registering and unregistering
 /// for KronoX events, and booking and unbooking of resources.
-@MainActor final class AccountViewModel: ObservableObject {
+final class AccountViewModel: ObservableObject {
     
     let viewModelFactory: ViewModelFactory = ViewModelFactory.shared
     
     @Inject var userController: UserController
-    @Inject var networkManager: KronoxManager
+    @Inject var kronoxManager: KronoxManager
     @Inject var notificationManager: NotificationManager
     @Inject var preferenceService: PreferenceService
     @Inject var schoolManager: SchoolManager
     
-    @Published var school: School?
-    @Published var status: AccountViewStatus = .initial
+    @Published var schoolId: Int = -1
+    @Published var schoolName: String = ""
+    @Published var status: AccountViewStatus = .unAuthenticated
     @Published var completeUserEvent: Response.KronoxCompleteUserEvent? = nil
     @Published var userBookings: Response.KronoxUserBookings? = nil
     @Published var registeredEventSectionState: GenericPageStatus = .loading
@@ -41,98 +50,113 @@ import Foundation
     /// AccountViewModel is responsible for instantiating
     /// the viewmodel used in its child views it navigates to
     lazy var resourceViewModel: ResourceViewModel = viewModelFactory.makeViewModelResource()
+    private var cancellables = Set<AnyCancellable>()
     
     init() {
-        self.school = preferenceService.getDefaultSchoolName(schools: schoolManager.getSchools())
-        if userController.autoSignup {
-            self.registerAutoSignup(completion: { result in
-                switch result {
-                case .success:
-                    break
-                case .failure:
-                    break
-                }
-            })
-        } else {
-            AppLogger.shared.debug("User has not enabled auto signup for events")
-        }
-    }
-    
-    func updateViewLocals() -> Void {
-        self.school = preferenceService.getDefaultSchoolName(schools: schoolManager.getSchools())
-    }
-
-    func removeUserBooking(where id: String) -> Void {
-        DispatchQueue.main.async {
-            self.userBookings?.removeAll {
-                $0.id == id
+        setUpDataPublishers()
+        DispatchQueue.global(qos: .background).async { [weak self] in
+            guard let self else { return }
+            if self.userController.autoSignup {
+                self.registerAutoSignup(completion: { _ in })
+            } else {
+                AppLogger.shared.debug("User has not enabled auto signup for events")
             }
         }
     }
     
-    func userAuthenticatedAndSignedIn() -> Bool {
-        return userController.authStatus == .authorized || userController.refreshToken != nil
+    func setUpDataPublishers() -> Void {
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            guard let self else { return }
+            let authStatusPublisher = self.userController.$authStatus
+            let schoolIdPublisher = self.preferenceService.$schoolId
+            
+            Publishers.CombineLatest(authStatusPublisher, schoolIdPublisher)
+                .receive(on: DispatchQueue.main)
+                .sink { authStatus, schoolId in
+                    switch authStatus {
+                    case .authorized:
+                        self.status = .authenticated
+                        self.getUserEventsForSection()
+                        self.getUserBookingsForSection()
+                    case .unAuthorized:
+                        self.status = .unAuthenticated
+                    }
+                    self.schoolId = schoolId
+                    self.schoolName = self.schoolManager.getSchools().first(where: { $0.id == schoolId })?.name ?? ""
+                }
+                .store(in: &self.cancellables)
+        }
+    }
+    
+    
+    func removeUserBooking(where id: String) -> Void {
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            self.userBookings?.removeAll { $0.id == id }
+        }
     }
     
     /// This is a caching approach to avoid a network call after user
     /// unregisters for an event in account page, and instead modify it in place,
     /// since network errors can occur.
     func removeUserEvent(where id: String) -> Void {
-        if var mutRegisteredEvents = completeUserEvent?.registeredEvents,
-           var mutUnregisteredEvents = completeUserEvent?.unregisteredEvents {
-            // Find subject in current struct
-            let eventRemoved = mutRegisteredEvents.first {
-                $0.eventId == id
-            }
-            // Add to new array
-            if let eventRemoved = eventRemoved {
-                mutUnregisteredEvents.append(eventRemoved)
-            }
-            mutRegisteredEvents.removeAll {
-                $0.eventId == id
-            }
-            DispatchQueue.main.async {
-                // Rebuild user events
-                self.completeUserEvent = Response.KronoxCompleteUserEvent(
-                    upcomingEvents: self.completeUserEvent?.upcomingEvents,
-                    registeredEvents: mutRegisteredEvents, // Insert modified events
-                    availableEvents: self.completeUserEvent?.availableEvents,
-                    unregisteredEvents: mutUnregisteredEvents
-                )
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            guard let self else { return }
+            if var mutRegisteredEvents = self.completeUserEvent?.registeredEvents,
+               var mutUnregisteredEvents = self.completeUserEvent?.unregisteredEvents {
+                // Find subject in current struct
+                let eventRemoved = mutRegisteredEvents.first {
+                    $0.eventId == id
+                }
+                // Add to new array
+                if let eventRemoved = eventRemoved {
+                    mutUnregisteredEvents.append(eventRemoved)
+                }
+                mutRegisteredEvents.removeAll {
+                    $0.eventId == id
+                }
+                DispatchQueue.main.async {
+                    // Rebuild user events
+                    self.completeUserEvent = Response.KronoxCompleteUserEvent(
+                        upcomingEvents: self.completeUserEvent?.upcomingEvents,
+                        registeredEvents: mutRegisteredEvents, // Insert modified events
+                        availableEvents: self.completeUserEvent?.availableEvents,
+                        unregisteredEvents: mutUnregisteredEvents
+                    )
+                }
             }
         }
     }
     
     func login(username: String, password: String, createToast: @escaping (Bool) -> Void ) -> Void {
-        self.status = .loading
-        self.userController.logIn(
-            username: username,
-            password: password,
-            completion: { [unowned self] success in
-                DispatchQueue.main.async {
-                    self.status = .initial
-                }
-                self.getUserEventsForSection()
-                self.getUserBookingsForSection()
-                createToast(success)
-            })
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            self.status = .loading
+            DispatchQueue.global(qos: .userInitiated).async {
+                self.userController.logIn(
+                    username: username,
+                    password: password)
+            }
+        }
     }
     
     
     /// Retrieve user events for resource section
     func getUserEventsForSection(tries: Int = 0) {
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
             self.registeredEventSectionState = .loading
         }
-        authenticateAndExecute(
-            school: school,
+        userController.authenticateAndExecute(
+            schoolId: schoolId,
             refreshToken: userController.refreshToken,
-            execute: { [unowned self] result in
+            execute: { [weak self] result in
+                guard let self else { return }
                 switch result {
                 case .success((let schoolId, let refreshToken)):
                     let request = Endpoint.userEvents(schoolId: String(schoolId))
-                    self.eventSectionDataTask = networkManager.get(request, refreshToken: refreshToken,
-                    then: { [unowned self] (result: Result<Response.KronoxCompleteUserEvent?, Response.ErrorMessage>) in
+                    self.eventSectionDataTask = self.kronoxManager.get(request, refreshToken: refreshToken,
+                    then: { (result: Result<Response.KronoxCompleteUserEvent?, Response.ErrorMessage>) in
                         switch result {
                         case .success(let events):
                             DispatchQueue.main.async {
@@ -160,14 +184,15 @@ import Foundation
         DispatchQueue.main.async {
             self.bookingSectionState = .loading
         }
-        authenticateAndExecute(
-            school: school,
+        userController.authenticateAndExecute(
+            schoolId: schoolId,
             refreshToken: userController.refreshToken,
-            execute: { [unowned self] result in
+            execute: { [weak self] result in
+                guard let self else { return }
                 switch result {
                 case .success((let schoolId, let refreshToken)):
                     let request = Endpoint.userBookings(schoolId: String(schoolId))
-                    self.resourceSectionDataTask = networkManager.get(request, refreshToken: refreshToken,
+                    self.resourceSectionDataTask = self.kronoxManager.get(request, refreshToken: refreshToken,
                        then: { [weak self] (result: Result<Response.KronoxUserBookings, Response.ErrorMessage>) in
                         guard let self = self else { return }
                         switch result {
@@ -201,14 +226,15 @@ import Foundation
         eventId: String,
         completion: @escaping (Result<Void, Error>) -> Void
     ) {
-        authenticateAndExecute(
-            school: school,
+        userController.authenticateAndExecute(
+            schoolId: schoolId,
             refreshToken: userController.refreshToken,
-            execute: { [unowned self] result in
+            execute: { [weak self] result in
+                guard let self else { return }
                 switch result {
                 case .success((let schoolId, let refreshToken)):
                     let request = Endpoint.unregisterEvent(eventId: eventId, schoolId: String(schoolId))
-                    let _ = networkManager.put(request, refreshToken: refreshToken, body: Request.Empty(),
+                    let _ = self.kronoxManager.put(request, refreshToken: refreshToken, body: Request.Empty(),
                        then: { (result: Result<Response.Empty, Response.ErrorMessage>) in
                         DispatchQueue.main.async {
                             switch result {
@@ -230,7 +256,8 @@ import Foundation
     func toggleAutoSignup(value: Bool) {
         userController.autoSignup = value
         if value {
-            registerAutoSignup(completion: { [unowned self] result in
+            registerAutoSignup(completion: { [weak self] result in
+                guard let self else { return }
                 switch result {
                 case .success:
                     self.getUserEventsForSection()
@@ -243,21 +270,19 @@ import Foundation
     
     func checkNotificationsForUserBookings(bookings: Response.KronoxUserBookings? = nil) -> Void {
         AppLogger.shared.debug("Checking for notifications to set for user booked resources ...")
-        
         if let userBookings = bookings {
-            self.scheduleBookingNotifications(for: userBookings)
+            scheduleBookingNotifications(for: userBookings)
             return
         }
-        
-        authenticateAndExecute(
-            school: school,
+        userController.authenticateAndExecute(
+            schoolId: schoolId,
             refreshToken: userController.refreshToken,
             execute: { [weak self] result in
                 guard let self else { return }
                 switch result {
                 case .success((let schoolId, let refreshToken)):
                     let request = Endpoint.userBookings(schoolId: String(schoolId))
-                    self.resourceSectionDataTask = self.networkManager.get(request, refreshToken: refreshToken,
+                    self.resourceSectionDataTask = self.kronoxManager.get(request, refreshToken: refreshToken,
                        then: { (result: Result<Response.KronoxUserBookings, Response.ErrorMessage>) in
                         switch result {
                         case .success(let bookings):

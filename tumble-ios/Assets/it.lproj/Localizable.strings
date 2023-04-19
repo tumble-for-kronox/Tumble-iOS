@@ -110,6 +110,8 @@
 
 "No bookmarks yet"="Nessun salvato ancora";
 
+"No events match your search"="Nessun evento corrisponde alla tua ricerca";
+
 "minutes"="Minuti";
 
 "hour"="Ora";
@@ -123,6 +125,12 @@
 "Are you sure you want to cancel all set notifications?"="Sei sicuro di voler cancellare tutte le notifiche impostate?";
 
 "Cancel all notifications"="Annulla tutte le notifiche";
+
+"No available bookmarks"="Nessun programma disponibile";
+
+"It looks like there's no available bookmarks"="Sembra che non ci sono programmi disponibili";
+
+"Cancel"="Annulla";
 
 "Notification offset"="Offset di notifica";
 

@@ -6,14 +6,14 @@
 //
 
 import SwiftUI
+import RealmSwift
 
 struct EventDetailsCard: View {
     
     @ObservedObject var parentViewModel: EventDetailsSheetViewModel
-    @State private var bgColor = Color.red
     
     let openColorPicker: () -> Void
-    let event: Response.Event
+    let event: Event
     let color: Color
     
     var body: some View {
@@ -22,7 +22,7 @@ struct EventDetailsCard: View {
                 VStack (alignment: .leading) {
                     HStack {
                         VStack (alignment: .leading, spacing: 0) {
-                            Text(event.course.englishName)
+                            Text(event.course?.englishName ?? "")
                                 .font(.system(size: 20, weight: .semibold))
                                 .foregroundColor(.onSurface)
                                 .fixedSize(horizontal: false, vertical: true)
@@ -56,7 +56,7 @@ struct EventDetailsCard: View {
                 Spacer()
             }
         }
-        .frame(minWidth: UIScreen.main.bounds.width - 60)
+        .frame(minWidth: getRect().width - 60)
         .padding(10)
         .background(event.isSpecial ? Color.red.opacity(0.2) : color.opacity(0.2))
         .cornerRadius(20)

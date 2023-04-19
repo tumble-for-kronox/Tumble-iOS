@@ -11,8 +11,7 @@ struct BookmarkButton: View {
     
     let bookmark: () -> Void
     
-    @Binding var disableButton: Bool
-    @Binding var previewButtonState: ButtonState
+    @Binding var buttonState: ButtonState
     
     var body: some View {
         Button(action: {
@@ -20,7 +19,7 @@ struct BookmarkButton: View {
             bookmark()
         }) {
             HStack {
-                switch previewButtonState {
+                switch buttonState {
                 case .loading:
                     CustomProgressIndicator(tint: .onPrimary)
                 case .saved:
@@ -41,6 +40,8 @@ struct BookmarkButton: View {
                             .font(.system(size: 16, weight: .semibold))
                             .foregroundColor(.onPrimary)
                     }
+                case .disabled:
+                    Text("")
                 }
             }
         }

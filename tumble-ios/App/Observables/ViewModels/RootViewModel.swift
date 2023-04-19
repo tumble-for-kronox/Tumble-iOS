@@ -1,5 +1,5 @@
 //
-//  TabSwitcherView-ViewModel.swift
+//  RootViewModel.swift
 //  tumble-ios
 //
 //  Created by Adis Veletanlic on 11/20/22.
@@ -7,35 +7,45 @@
 
 import Foundation
 import SwiftUI
+import Combine
 
-@MainActor final class RootViewModel: ObservableObject {
+final class RootViewModel: ObservableObject {
     
     @Inject private var authManager: AuthManager
+    @Inject private var preferenceService: PreferenceService
     
     var viewModelFactory: ViewModelFactory = ViewModelFactory.shared
     
-    @Published var currentView: RootViewStatus
+    @Published var currentView: RootViewStatus = .onboarding
+    @Published var userOnBoarded: Bool = false
     var parentViewModel: ParentViewModel? = nil
     var onBoardingViewModel: OnBoardingViewModel? = nil
     
+    private var userOnBoardingSubscription: AnyCancellable?
     
-    init (userNotOnBoarded: Bool) {
-        if userNotOnBoarded {
-            self.onBoardingViewModel = viewModelFactory.makeViewModelOnBoarding()
-            self.currentView = .onboarding
-        } else {
-            self.parentViewModel = viewModelFactory.makeViewModelParent()
-            self.currentView = .app
-        }
+    init() { setUpDataPublishers() }
+    
+    func setUpDataPublishers() -> Void {
+        userOnBoardingSubscription = preferenceService.$userOnBoarded
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] userOnBoarded in
+                guard let self = self else { return }
+                if userOnBoarded {
+                    self.parentViewModel = self.viewModelFactory.makeViewModelParent()
+                    self.currentView = .app
+                    self.userOnBoardingSubscription?.cancel()
+                } else {
+                    self.onBoardingViewModel = self.viewModelFactory.makeViewModelOnBoarding()
+                    self.currentView = .onboarding
+                }
+            }
     }
     
-    func delegateToAppParent() -> Void {
-        self.parentViewModel = viewModelFactory.makeViewModelParent()
-        if let parentViewModel = self.parentViewModel {
-            parentViewModel.updateLocalsAndChildViews()
-        }
-        withAnimation(.linear(duration: 0.2)) {
-            self.currentView = .app
-        }
+    func cancelSubscriptions() {
+        userOnBoardingSubscription?.cancel()
+    }
+    
+    deinit {
+        cancelSubscriptions()
     }
 }

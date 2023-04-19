@@ -7,7 +7,7 @@
 
 import Foundation
 
-@MainActor final class OnBoardingViewModel: ObservableObject {
+final class OnBoardingViewModel: ObservableObject {
     
     @Inject private var preferenceService: PreferenceService
     @Inject private var schoolManager: SchoolManager
@@ -16,11 +16,13 @@ import Foundation
     
     lazy var schools: [School] = schoolManager.getSchools()
     
-    func onSelectSchool(school: School, updateUserOnBoarded: @escaping UpdateUserOnBoarded) -> Void {
+    @MainActor
+    func onSelectSchool(school: School) -> Void {
         showSchoolSelection = false
-        preferenceService.setSchool(id: school.id) {
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            guard let self else { return }
+            self.preferenceService.setSchool(id: school.id)
             self.preferenceService.setUserOnboarded()
-            updateUserOnBoarded()
         }
     }
     

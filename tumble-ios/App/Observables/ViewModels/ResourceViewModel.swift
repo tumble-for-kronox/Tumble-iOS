@@ -6,16 +6,16 @@
 //
 
 import Foundation
+import Combine
 
-@MainActor final class ResourceViewModel: ObservableObject {
+final class ResourceViewModel: ObservableObject {
     
     @Inject var userController: UserController
-    @Inject var networkManager: KronoxManager
+    @Inject var kronoxManager: KronoxManager
     @Inject var notificationManager: NotificationManager
     @Inject var preferenceService: PreferenceService
     @Inject var schoolManager: SchoolManager
     
-    @Published var school: School?
     @Published var completeUserEvent: Response.KronoxCompleteUserEvent? = nil
     @Published var allResources: Response.KronoxResources? = nil
     @Published var resourceBookingPageState: GenericPageStatus = .loading
@@ -23,26 +23,39 @@ import Foundation
     @Published var error: Response.ErrorMessage? = nil
     @Published var selectedPickerDate: Date = Date.now
     
+    
+    @Published var schoolId: Int = -1
     private var allResourcesDataTask: URLSessionDataTask? = nil
+    private var cancellables = Set<AnyCancellable>()
     
     init () {
-        self.school = preferenceService.getDefaultSchoolName(schools: schoolManager.getSchools())
+        initialisePipelines()
     }
     
+    func initialisePipelines() -> Void {
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            guard let self else { return }
+            self.preferenceService.$schoolId
+                .assign(to: \.schoolId, on: self)
+                .store(in: &self.cancellables)
+        }
+    }
     
     func getUserEventsForPage(tries: Int = 0, completion: (() -> Void)? = nil) {
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
             self.eventBookingPageState = .loading
         }
-        authenticateAndExecute(
-            school: school,
+        userController.authenticateAndExecute(
+            schoolId: schoolId,
             refreshToken: userController.refreshToken,
-            execute: { [unowned self] result in
+            execute: { [weak self] result in
+                guard let self else { return }
                 switch result {
                 case .success((let schoolId, let refreshToken)):
                     let request = Endpoint.userEvents(schoolId: String(schoolId))
-                    let _ = networkManager.get(request, refreshToken: refreshToken,
-                    then: { [unowned self] (result: Result<Response.KronoxCompleteUserEvent?, Response.ErrorMessage>) in
+                    let _ = self.kronoxManager.get(request, refreshToken: refreshToken,
+                    then: { (result: Result<Response.KronoxCompleteUserEvent?, Response.ErrorMessage>) in
                         switch result {
                         case .success(let events):
                             AppLogger.shared.debug("Successfully loaded events")
@@ -71,15 +84,19 @@ import Foundation
         eventId: String,
         completion: @escaping (Result<Void, Error>) -> Void
     ) {
-        self.eventBookingPageState = .loading
-        authenticateAndExecute(
-            school: school,
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            self.eventBookingPageState = .loading
+        }
+        userController.authenticateAndExecute(
+            schoolId: schoolId,
             refreshToken: userController.refreshToken,
-            execute: { [unowned self] result in
+            execute: { [weak self] result in
+                guard let self else { return }
                 switch result {
                 case .success((let schoolId, let refreshToken)):
                     let request = Endpoint.registerEvent(eventId: eventId, schoolId: String(schoolId))
-                    let _ = networkManager.put(request, refreshToken: refreshToken, body: Request.Empty(),
+                    let _ = self.kronoxManager.put(request, refreshToken: refreshToken, body: Request.Empty(),
                        then: { (result: Result<Response.Empty, Response.ErrorMessage>) in
                         DispatchQueue.main.async {
                             switch result {
@@ -103,15 +120,19 @@ import Foundation
         eventId: String,
         completion: @escaping (Result<Void, Error>) -> Void
     ) {
-        self.eventBookingPageState = .loading
-        authenticateAndExecute(
-            school: school,
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            self.eventBookingPageState = .loading
+        }
+        userController.authenticateAndExecute(
+            schoolId: schoolId,
             refreshToken: userController.refreshToken,
-            execute: { [unowned self] result in
+            execute: { [weak self] result in
+                guard let self else { return }
                 switch result {
                 case .success((let schoolId, let refreshToken)):
                     let request = Endpoint.unregisterEvent(eventId: eventId, schoolId: String(schoolId))
-                    let _ = networkManager.put(request, refreshToken: refreshToken, body: Request.Empty(),
+                    let _ = self.kronoxManager.put(request, refreshToken: refreshToken, body: Request.Empty(),
                        then: { (result: Result<Response.Empty, Response.ErrorMessage>) in
                         DispatchQueue.main.async {
                             switch result {
@@ -131,16 +152,20 @@ import Foundation
     }
     
     func getAllResourceData(tries: Int = 0, date: Date) -> Void {
-        self.resourceBookingPageState = .loading
-        authenticateAndExecute(
-            school: school,
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            self.resourceBookingPageState = .loading
+        }
+        userController.authenticateAndExecute(
+            schoolId: schoolId,
             refreshToken: userController.refreshToken,
-            execute: { [unowned self] result in
+            execute: { [weak self] result in
+                guard let self else { return }
                 switch result {
                 case .success((let schoolId, let refreshToken)):
                     let request = Endpoint.allResources(schoolId: String(schoolId), date: date)
-                    self.allResourcesDataTask = self.networkManager.get(request, refreshToken: refreshToken,
-                    then: { [unowned self] (result: Result<Response.KronoxResources?, Response.ErrorMessage>) in
+                    self.allResourcesDataTask = self.kronoxManager.get(request, refreshToken: refreshToken,
+                    then: { (result: Result<Response.KronoxResources?, Response.ErrorMessage>) in
                         switch result {
                         case .success(let resources):
                             DispatchQueue.main.async {
@@ -170,10 +195,11 @@ import Foundation
         bookingId: String,
         completion: @escaping (Result<Void, Error>) -> Void
     ) -> Void {
-        authenticateAndExecute(
-            school: school,
+        userController.authenticateAndExecute(
+            schoolId: schoolId,
             refreshToken: userController.refreshToken,
-            execute: { [unowned self] result in
+            execute: { [weak self] result in
+                guard let self else { return }
                 switch result {
                 case .success((let schoolId, let refreshToken)):
                     let requestUrl = Endpoint.confirmResource(
@@ -183,7 +209,7 @@ import Foundation
                         resourceId: resourceId,
                         bookingId: bookingId
                     )
-                    let _ = self.networkManager.put(
+                    let _ = self.kronoxManager.put(
                         requestUrl,
                         refreshToken: refreshToken,
                         body: requestBody) {
@@ -216,10 +242,11 @@ import Foundation
         availabilityValue: Response.AvailabilityValue,
         completion: @escaping (Result<Void, Error>) -> Void
     ) -> Void {
-        authenticateAndExecute(
-            school: school,
+        userController.authenticateAndExecute(
+            schoolId: schoolId,
             refreshToken: userController.refreshToken,
-            execute: { [unowned self] result in
+            execute: { [weak self] result in
+                guard let self else { return }
                 switch result {
                 case .success((let schoolId, let refreshToken)):
                     let requestUrl = Endpoint.bookResource(
@@ -230,7 +257,7 @@ import Foundation
                         date: isoDateFormatterFract.string(from: date),
                         slot: availabilityValue
                     )
-                    let _ = self.networkManager.put(
+                    let _ = self.kronoxManager.put(
                         requestUrl,
                         refreshToken: refreshToken,
                         body: requestBody) {
@@ -257,14 +284,18 @@ import Foundation
     }
     
     func unbookResource(bookingId: String, completion: @escaping (Result<Void, Error>) -> Void) -> Void {
-        authenticateAndExecute(
-            school: school,
+        userController.authenticateAndExecute(
+            schoolId: schoolId,
             refreshToken: userController.refreshToken,
-            execute: { [unowned self] result in
+            execute: { [weak self] result in
+                guard let self else { return }
                 switch result {
                 case .success((let schoolId, let refreshToken)):
                     let requestUrl: Endpoint = .unbookResource(schoolId: String(schoolId), bookingId: bookingId)
-                    let _ = self.networkManager.put(requestUrl, refreshToken: refreshToken, body: Request.Empty()) {
+                    let _ = self.kronoxManager.put(
+                        requestUrl,
+                        refreshToken: refreshToken,
+                        body: Request.Empty()) {
                         (result: Result<Response.Empty, Response.ErrorMessage>) in
                         switch result {
                         case .success:

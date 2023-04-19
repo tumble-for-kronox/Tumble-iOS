@@ -6,13 +6,15 @@
 //
 
 import Foundation
+import RealmSwift
+import Realm
 
 extension Dictionary where Key == String, Value == Any {
-    func toEvent() -> Response.Event? {
+    func toEvent() -> Event? {
         guard let title = self["title"] as? String,
             let from = self["from"] as? String,
             let to = self["to"] as? String,
-            let id = self["id"] as? String,
+            let id = self["eventId"] as? String,
             let isSpecial = self["isSpecial"] as? Bool,
             let lastModified = self["lastModified"] as? String,
             let courseDict = self["course"] as? [String: String],
@@ -21,11 +23,13 @@ extension Dictionary where Key == String, Value == Any {
                 return nil
         }
         
-        let course = Response.Course(id: courseDict["id"] ?? "",
-                                     swedishName: courseDict["swedishName"] ?? "",
-                                     englishName: courseDict["englishName"] ?? "")
+        let course = Course(
+            courseId: courseDict["id"] ?? "",
+            swedishName: courseDict["swedishName"] ?? "",
+            englishName: courseDict["englishName"] ?? "",
+            color: courseDict["color"] ?? "#FFFFFF")
         
-        var locations: [Response.Location] = []
+        let locations: List<Location> = List<Location>()
         for locationDict in locationsArray {
             guard let name = locationDict["name"] as? String,
                 let locationId = locationDict["id"] as? String,
@@ -35,14 +39,14 @@ extension Dictionary where Key == String, Value == Any {
                     continue
             }
             
-            let location = Response.Location(id: locationId, name: name,
+            let location = Location(locationId: locationId, name: name,
                                     building: building,
                                     floor: floor,
                                     maxSeats: maxSeats)
             locations.append(location)
         }
         
-        var teachers: [Response.Teacher] = []
+        let teachers: List<Teacher> = List<Teacher>()
         for teacherDict in teachersArray {
             guard let firstName = teacherDict["firstName"],
                 let lastName = teacherDict["lastName"],
@@ -50,18 +54,18 @@ extension Dictionary where Key == String, Value == Any {
                     continue
             }
             
-            let teacher = Response.Teacher(id: teacherId, firstName: firstName,
+            let teacher = Teacher(teacherId: teacherId, firstName: firstName,
                                            lastName: lastName)
             teachers.append(teacher)
         }
         
-        return Response.Event(title: title,
+        return Event(eventId: id,
+                     title: title,
                      course: course,
                      from: from,
                      to: to,
                      locations: locations,
                      teachers: teachers,
-                     id: id,
                      isSpecial: isSpecial,
                      lastModified: lastModified)
     }

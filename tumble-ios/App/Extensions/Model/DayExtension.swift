@@ -7,27 +7,18 @@
 
 import Foundation
 
-extension [Response.Day] {
-    func toUiModel() -> [DayUiModel] {
-        return self.map { day in
-            return DayUiModel(name: day.name, date: day.date, isoString: day.isoString, weekNumber: day.weekNumber, events: day.events)
-        }
-    }
-
-    // Used in ScheduleMainPageView when loading a schedule
-    // from the local database and converting into a list of UI models
-    func toOrderedDays() -> [DayUiModel] {
-        isoDateFormatterFract.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
-                var days: [DayUiModel] = []
-                days.append(contentsOf: self.reduce(into: []) {
-                    if $1.isValidDay() {$0.append($1)}}.toUiModel())
-                return days.toOrderedDayUiModels()
+extension [Day] {
+    func ordered() -> [Day] {
+        return self.compactMap { $0 }.sorted(by: {
+            // Ascending order
+            isoDateFormatterFract.date(from: $0.isoString)! < isoDateFormatterFract.date(from: $1.isoString)!
+        })
     }
 
 }
 
-extension Response.Day {
-    // This function uses the inDateFormatter property to parse the isoString property into a Date object. If the parsing fails, the function
+extension Day {
+    // This function uses the isoDateFormatterFract property to parse the isoString property into a Date object. If the parsing fails, the function
     // returns false. Otherwise, it compares the day to the current date using the >= operator.
     // The startOfDay property of Date is used to ignore the time component of the date and only compare the day, month and year.
     func isValidDay() -> Bool {

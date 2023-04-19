@@ -110,6 +110,8 @@
 
 "No bookmarks yet"="Noch keine lesezeichen";
 
+"No events match your search"="Keine ereignisse entsprechen Ihrer suche";
+
 "minutes"="Protokoll";
 
 "hour"="Stunde";
@@ -123,6 +125,12 @@
 "Are you sure you want to cancel all set notifications?"="Möchten sie wirklich alle eingestellten benachrichtigungen abbrechen?";
 
 "Cancel all notifications"="Alle benachrichtigungen abbrechen";
+
+"No available bookmarks"="Keine verfügbaren Lesezeichen";
+
+"It looks like there's no available bookmarks"="Anscheinend sind keine Lesezeichen verfügbar";
+
+"Cancel"="Abbrechen";
 
 "Notification offset"="Benachrichtigungs-offset";
 

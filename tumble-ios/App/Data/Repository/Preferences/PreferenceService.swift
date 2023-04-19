@@ -10,39 +10,29 @@ import SwiftUI
 
 class PreferenceService: PreferenceServiceProtocol {
     
-    func toggleBookmark(bookmark: String, value: Bool) {
-        var bookmarks: [String : Bool] = UserDefaults.standard.object(forKey: StoreKey.bookmarks.rawValue) as? [String : Bool] ?? [:]
-        bookmarks[bookmark] = value
-        UserDefaults.standard.set(bookmarks, forKey: StoreKey.bookmarks.rawValue)
-        UserDefaults.standard.synchronize()
+    @Published var userOnBoarded: Bool = false
+    @Published var schoolId: Int = -1
+    
+    init() {
+        self.schoolId = self.getDefaultSchool() ?? -1
+        self.userOnBoarded = self.isKeyPresentInUserDefaults(key: StoreKey.userOnboarded.rawValue)
     }
     
     // ----------- SET -----------
-    func setSchool(id: Int, completion: @escaping () -> Void) -> Void {
+    func setSchool(id: Int) -> Void {
+        schoolId = id
         UserDefaults.standard.set(id, forKey: StoreKey.school.rawValue)
-        UserDefaults.standard.synchronize()
-        completion()
-    }
-    
-    func setBookmarks(bookmarks: [Bookmark]) {
-        UserDefaults.standard.set(Dictionary(uniqueKeysWithValues: bookmarks.map { ($0.id, $0.toggled) }), forKey: StoreKey.bookmarks.rawValue)
         UserDefaults.standard.synchronize()
     }
     
     func setUserOnboarded() -> Void {
         UserDefaults.standard.set(true, forKey: StoreKey.userOnboarded.rawValue)
+        userOnBoarded = true
         UserDefaults.standard.synchronize()
     }
     
     func setOffset(offset: Int) -> Void {
         UserDefaults.standard.set(offset, forKey: StoreKey.notificationOffset.rawValue)
-        UserDefaults.standard.synchronize()
-    }
-    
-    func setBookmarks(bookmark: String) -> Void {
-        var bookmarks: [String : Bool] = UserDefaults.standard.object(forKey: StoreKey.bookmarks.rawValue) as? [String : Bool] ?? [:]
-        bookmarks[bookmark] = true
-        UserDefaults.standard.set(bookmarks, forKey: StoreKey.bookmarks.rawValue)
         UserDefaults.standard.synchronize()
     }
     
@@ -71,15 +61,6 @@ class PreferenceService: PreferenceServiceProtocol {
         return UserDefaults.standard.object(forKey: key)
     }
     
-    func getBookmarks() -> [Bookmark]? {
-        let dict: [String : Bool] = UserDefaults.standard.object(forKey: StoreKey.bookmarks.rawValue) as? [String : Bool] ?? [:]
-        return dict.map{ Bookmark(toggled: $0.value, id: $0.key) }
-    }
-    
-    func getHiddenBookmarks() -> [String] {
-        return self.getBookmarks()?.filter { $0.toggled == false }.map { $0.id } ?? []
-    }
-    
     func getDefaultViewType() -> BookmarksViewType {
         let hasView: Bool = self.isKeyPresentInUserDefaults(key: StoreKey.viewType.rawValue)
         if !(hasView) {
@@ -91,12 +72,8 @@ class PreferenceService: PreferenceServiceProtocol {
         return BookmarksViewType.allValues[viewType]
     }
     
-    func getDefaultSchoolName(schools: [School]) -> School? {
-        let id: Int = self.getDefault(key: StoreKey.school.rawValue) as? Int ?? -1
-        if id == -1 {
-            return nil
-        }
-        return schools.first(where: {$0.id == id})!
+    func getDefaultSchoolName(schools: [School]) -> String {
+        return schools.first(where: {$0.id == schoolId})!.name
     }
     
     func getDefaultSchool() -> Int? {
@@ -120,45 +97,13 @@ class PreferenceService: PreferenceServiceProtocol {
         return UserDefaults.standard.object(forKey: key) != nil
     }
     
-    func getUniversityImage(schools: [School]) -> Image? {
-        guard let school: School = self.getDefaultSchoolName(schools: schools) else { return nil }
-        let schoolImage: Image = schools.first(where: {$0.name == school.name})!.logo
-        return schoolImage
-    }
-    
-    func getUniversityName(schools: [School]) -> String? {
-        guard let school: School = self.getDefaultSchoolName(schools: schools) else { return nil }
-                let schoolName: String = schools.first(where: {$0.name == school.name})!.name
+    func getUniversityName(schools: [School]) -> String {
+        let schoolName: String = schools.first(where: {$0.id == schoolId})!.name
         return schoolName
     }
     
-    func getUniversityUrl(schools: [School]) -> String? {
-        guard let school: School = self.getDefaultSchoolName(schools: schools) else { return nil }
-        let schoolUrl: String = schools.first(where: {$0.name == school.name})!.schoolUrl
-        return schoolUrl
-    }
-    
-    func getCanvasUrl(schools: [School]) -> String? {
-        guard let school: School = self.getDefaultSchoolName(schools: schools) else { return nil }
-        let domain: String = schools.first(where: {$0.name == school.name})!.domain
-        let canvasUrl: String = "https://\(domain).instructure.com"
-        return canvasUrl
-    }
-    
-    func getUniversityKronoxUrl(schools: [School]) -> String? {
-        guard let school: School = self.getDefaultSchoolName(schools: schools) else { return nil }
-        let kronoxUrl: String = schools.first(where: {$0.name == school.name})!.kronoxUrl
-        return kronoxUrl
-    }
-    
-    func getUniversityDomain(schools: [School]) -> String? {
-        guard let school: School = self.getDefaultSchoolName(schools: schools) else { return nil }
-        let domain: String = schools.first(where: {$0.name == school.name})!.domain
-        return domain
-    }
-    
     func getUniversityColor(schools: [School]) -> Color {
-        let school: School? = self.getDefaultSchoolName(schools: schools)
+        let school: School? = schools.first(where: { $0.id == schoolId })
         let uniColor: Color
         
         switch school?.color {

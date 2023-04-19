@@ -47,6 +47,7 @@ extension View {
         .background(Color.gray.opacity(0.3))
         .cornerRadius(10)
         .padding(.top, 15)
+        .padding(.bottom, 10)
         .padding(.horizontal, 15)
     }
     
@@ -60,4 +61,5 @@ extension View {
             .foregroundColor(.onBackground)
             .padding(.top, 5)
     }
+    
 }

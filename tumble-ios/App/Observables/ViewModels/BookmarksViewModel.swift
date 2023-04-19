@@ -1,5 +1,5 @@
 //
-//  SchedulePageMainView-ViewModel.swift
+//  BookmarksViewModel.swift
 //  tumble-ios
 //
 //  Created by Adis Veletanlic on 11/21/22.
@@ -7,105 +7,58 @@
 
 import Foundation
 import SwiftUI
+import Combine
+import RealmSwift
 
-@MainActor final class BookmarksViewModel: ObservableObject {
+final class BookmarksViewModel: ObservableObject {
     
     let viewModelFactory: ViewModelFactory = ViewModelFactory()
+    let scheduleViewTypes: [BookmarksViewType] = BookmarksViewType.allValues
     
-    @Inject var scheduleService: ScheduleService
     @Inject var preferenceService: PreferenceService
-    @Inject var courseColorService: CourseColorService
-    @Inject var networkManager: KronoxManager
+    @Inject var kronoxManager: KronoxManager
     @Inject var schoolManager: SchoolManager
     
-    @Published var scheduleViewTypes: [BookmarksViewType] = BookmarksViewType.allValues
-    @Published var status: BookmarksViewStatus = .loading
-    @Published var scheduleListOfDays: [DayUiModel] = []
-    @Published var courseColors: [String : String] = [:]
     @Published var defaultViewType: BookmarksViewType = .list
-    @Published var school: School?
     @Published var eventSheet: EventDetailsSheetModel? = nil
+    @Published var days: [Day] = [Day]()
+    @Published var status: BookmarksViewStatus = .loading
     
+    var schedulesToken: NotificationToken? = nil
     
     init () {
-        self.loadBookmarkedSchedules()
-        self.defaultViewType = preferenceService.getDefaultViewType()
-        self.school = preferenceService.getDefaultSchoolName(schools: schoolManager.getSchools())
-    }
-    
-    
-    func generateViewModelEventSheet(event: Response.Event, color: Color) -> EventDetailsSheetViewModel {
-        return viewModelFactory.makeViewModelEventDetailsSheet(event: event, color: color)
-    }
-    
-    
-    func updateViewLocals() -> Void {
-        self.school = preferenceService.getDefaultSchoolName(schools: schoolManager.getSchools())
-    }
-    
-    func updateCourseColors() -> Void {
-        self.loadCourseColors() { courseColors in
-            self.courseColors = courseColors
-        }
-    }
-    
-    func loadBookmarkedSchedules() {
-        self.status = .loading
-        self.loadSchedules { [weak self] result in
+        defaultViewType = preferenceService.getDefaultViewType()
+        // Observe changes to schedules and update days
+        let realm = try! Realm()
+        let schedules = realm.objects(Schedule.self)
+        schedulesToken = schedules.observe { [weak self] changes in
             guard let self = self else { return }
-            switch result {
-            case .failure:
-                AppLogger.shared.critical("Could not load schedules from local storage")
+            switch changes {
+            case .initial(let results), .update(let results, _, _, _):
+                self.createDays(schedules: Array(results))
+            case .error:
                 self.status = .error
-            case .success(let schedules):
-                self.loadCourseColors { courseColors in
-                    self.courseColors = courseColors
-                    guard !schedules.isEmpty else {
-                        self.status = .uninitialized
-                        return
-                    }
-                    let visibleSchedules = self.filterHiddenBookmarks(schedules: schedules)
-                    self.updateSchedulesIfNeeded(schedules: visibleSchedules) {
-                        self.updateViewStatus(schedules: visibleSchedules)
-                    }
-                }
             }
         }
     }
-
-    private func loadSchedules(completion: @escaping (Result<[ScheduleStoreModel], Error>) -> Void) {
-        self.scheduleService.load(completion: {result in
-            completion(result)
-        })
-    }
-
-    fileprivate func filterHiddenBookmarks(schedules: [ScheduleStoreModel]) -> [ScheduleStoreModel] {
-        let hiddenBookmarks = self.preferenceService.getHiddenBookmarks()
-        return schedules.filter { schedule in
-            !hiddenBookmarks.contains { $0 == schedule.id }
-        }
-    }
-
-
-    private func updateSchedulesIfNeeded(schedules: [ScheduleStoreModel], completion: @escaping () -> Void) {
-        updateSchedules(for: schedules, completion: completion)
-    }
-
-    private func updateViewStatus(schedules: [ScheduleStoreModel]) {
-        DispatchQueue.main.async {
-            if schedules.isEmpty {
-                self.status = .hiddenAll
-            } else {
-                self.status = .loaded
-            }
-        }
-    }
-
     
+    func createViewModelEventSheet(event: Event) -> EventDetailsSheetViewModel {
+        return viewModelFactory.makeViewModelEventDetailsSheet(event: event)
+    }
     
     func onChangeViewType(viewType: BookmarksViewType) -> Void {
         let viewTypeIndex: Int = scheduleViewTypes.firstIndex(of: viewType)!
         preferenceService.setViewType(viewType: viewTypeIndex)
-        self.defaultViewType = viewType
+        defaultViewType = viewType
+    }
+    
+    func createDays(schedules: [Schedule]) -> Void {
+        let hiddenSchedules = Array(schedules).filter { !$0.toggled }.map { $0.scheduleId }
+        let days = filterHiddenBookmarks(
+            schedules: Array(schedules),
+            hiddenBookmarks: hiddenSchedules)
+        .flattenAndMerge().ordered()
+        self.days = days
+        self.status = .loaded
     }
 }

@@ -1,5 +1,5 @@
 //
-//  SidebarViewModel.swift
+//  SettingsViewModel.swift
 //  tumble-ios
 //
 //  Created by Adis Veletanlic on 2023-02-08.
@@ -7,31 +7,47 @@
 
 import Foundation
 import SwiftUI
+import Combine
+import RealmSwift
 
-@MainActor final class SettingsViewModel: ObservableObject {
+final class SettingsViewModel: ObservableObject {
     
     @Inject var preferenceService: PreferenceService
-    @Inject var scheduleService: ScheduleService
-    @Inject var courseColorService: CourseColorService
     @Inject var notificationManager: NotificationManager
     @Inject var userController: UserController
     @Inject var schoolManager: SchoolManager
     
-    @Published var universityImage: Image?
-    @Published var universityName: String?
     @Published var bookmarks: [Bookmark]?
     @Published var presentSidebarSheet: Bool = false
-    @Published var authenticatedAndSignedIn: Bool = false
+    @Published var authStatus: AuthStatus = .unAuthorized
+    @Published var schoolId: Int = -1
+    @Published var schoolName: String = ""
     
     lazy var schools: [School] = schoolManager.getSchools()
+    var cancellables = Set<AnyCancellable>()
     
-    init() {
-        self.universityImage = self.preferenceService.getUniversityImage(schools: schools)
-        self.universityName = self.preferenceService.getUniversityName(schools: schools)
-        self.bookmarks = preferenceService.getBookmarks() ?? []
-        self.authenticatedAndSignedIn = userController.authStatus == .authorized 
+    
+    init() { setUpDataPublishers() }
+    
+    private func setUpDataPublishers() -> Void {
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            guard let self else { return }
+            let authStatusPublisher = self.userController.$authStatus
+            let schoolIdPublisher = self.preferenceService.$schoolId
+            
+            Publishers.CombineLatest(
+                schoolIdPublisher,
+                authStatusPublisher
+            )
+            .receive(on: DispatchQueue.main)
+            .sink { schoolId, authStatus in
+                self.authStatus = authStatus
+                self.schoolId = schoolId
+                self.schoolName = self.schoolManager.getSchools().first(where: { $0.id == schoolId })?.name ?? ""
+            }
+            .store(in: &self.cancellables)
+        }
     }
-    
     
     func logOut() -> Void {
         userController.logOut(completion: { success in
@@ -51,101 +67,143 @@ import SwiftUI
         })
     }
     
-    func updateViewLocals() -> Void {
-        self.universityImage = self.preferenceService.getUniversityImage(schools: schools)
-        self.universityName = self.preferenceService.getUniversityName(schools: schools)
-        self.updateBookmarks()
-    }
-    
-    func updateBookmarks() -> Void {
-        self.scheduleService.load(completion: { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let schedules):
-                self.setNewBookmarks(schedules: schedules) { bookmarks in
-                    DispatchQueue.main.async {
-                        self.bookmarks = bookmarks
-                    }
-                }
-            case .failure(let failure):
-                AppLogger.shared.debug("\(failure)")
-            }
-            
-        })
-    }
-
-    
-    func toggleBookmarkVisibility(for bookmark: String, to value: Bool) -> Void {
-        preferenceService.toggleBookmark(bookmark: bookmark, value: value)
-    }
-    
-    func deleteBookmark(id: String) -> Void {
-        var preferenceBookmarks = self.preferenceService.getBookmarks() ?? []
-        preferenceBookmarks.removeAll(where: { $0.id == id })
-        preferenceService.setBookmarks(bookmarks: preferenceBookmarks)
-        self.loadSchedules { schedules in
-            let schedulesToRemove = schedules.filter { $0.id == id }
-            let events = schedulesToRemove
-                .flatMap { schedule in schedule.days }
-                .flatMap { day in day.events }
-            events.forEach { event in self.notificationManager.cancelNotification(for: event.id) }
-        }
-        DispatchQueue.main.async {
-            self.bookmarks = preferenceBookmarks
-        }
+    func removeNotificationsFor(for id: String, referencing events: [Event]) -> Void {
+        events.forEach { notificationManager.cancelNotification(for: $0.eventId) }
     }
     
     func clearAllNotifications() -> Void {
-        self.notificationManager.cancelNotifications()
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            guard let self else { return }
+            self.notificationManager.cancelNotifications()
+        }
+        makeToast(
+            type: .success,
+            title: NSLocalizedString("Cancelled notifications", comment: ""),
+            message: NSLocalizedString("Cancelled all available notifications set for events", comment: "")
+        )
     }
     
     func rescheduleNotifications(previousOffset: Int, newOffset: Int) -> Void {
-        notificationManager.rescheduleEventNotifications(previousOffset: previousOffset, userOffset: newOffset)
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            guard let self else { return }
+            self.notificationManager.rescheduleEventNotifications(
+                previousOffset: previousOffset,
+                userOffset: newOffset
+            )
+        }
     }
     
-    func scheduleNotificationsForAllEvents(completion: @escaping (Result<Void, Error>) -> Void) -> Void {
-        self.scheduleService.load(completion: { [weak self] (result: Result<[ScheduleStoreModel], Error>) in
-            guard let self = self else { return }
-            switch result {
-            case .success(let schedules):
-                self.courseColorService.load { (result: Result<CourseAndColorDict, Error>) in
+    
+    func scheduleNotificationsForAllEvents(allEvents: [Event]) {
+        guard !allEvents.isEmpty else {
+            makeToast(
+                type: .error,
+                title: NSLocalizedString("Error", comment: ""),
+                message: NSLocalizedString("Failed to set notifications for all available events", comment: "")
+            )
+            return
+        }
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            guard let self else { return }
+            
+            let totalNotifications = allEvents.count
+            var scheduledNotifications = 0
+            
+            for event in allEvents {
+                guard let notification = self.notificationManager.createNotificationFromEvent(
+                    event: event
+                ) else {
+                    AppLogger.shared.critical("Could not set notification for event \(event._id)")
+                    self.makeToast(
+                        type: .error,
+                        title: NSLocalizedString("Error", comment: ""),
+                        message: NSLocalizedString("Failed to set notifications for all available events", comment: "")
+                    )
+                    break
+                }
+                
+                self.notificationManager.scheduleNotification(
+                    for: notification,
+                    type: .event,
+                    userOffset: self.preferenceService.getNotificationOffset()
+                ) { [weak self] result in
+                    guard let self else { return }
                     switch result {
-                    case .success(let courseColorsDict):
-                        let allEvents = schedules.flatMap { $0.days.flatMap { $0.events } }
-                        for event in allEvents {
-                            guard let notification = self.notificationManager.createNotificationFromEvent(
-                                event: event,
-                                color: courseColorsDict[event.course.id] ?? "#FEFEFE"
-                            ) else {
-                                AppLogger.shared.critical("Could not set notification for event \(event.id)")
-                                completion(.failure(.generic(reason: "Failed to set notification continuously")))
-                                break
-                            }
-                            self.notificationManager.scheduleNotification(
-                                for: notification, type: .event,
-                                userOffset: self.preferenceService.getNotificationOffset(),
-                                completion: { (result: Result<Int, NotificationError>) in
-                                    switch result {
-                                    case .success(let success):
-                                        AppLogger.shared.debug("\(success) notification set")
-                                    case .failure(let failure):
-                                        AppLogger.shared.critical("\(failure)")
-                                    }
-                                })
+                    case .success(let success):
+                        scheduledNotifications += 1
+                        AppLogger.shared.debug("\(success) notification set")
+                        
+                        if scheduledNotifications == totalNotifications {
+                            self.makeToast(
+                                type: .success,
+                                title: NSLocalizedString("Scheduled notifications", comment: ""),
+                                message: NSLocalizedString("Scheduled notifications for all available events", comment: "")
+                            )
                         }
-                        completion(.success(()))
                     case .failure(let failure):
-                        AppLogger.shared.critical("Colors could not be loaded from local storage: \(failure)")
-                        completion(.failure(.internal(reason: "Failed to load course colors")))
+                        AppLogger.shared.critical("\(failure)")
                     }
                 }
-            case .failure:
-                AppLogger.shared.critical("Schedules could not be loaded from local storage")
-                completion(.failure(.internal(reason: "Failed to load schedules")))
             }
-        })
+        }
+    }
+    
+    private func deleteAllSchedules() {
+        do {
+            let realm = try Realm()
+            let schedules = realm.objects(Schedule.self)
+            try realm.write {
+                realm.delete(schedules)
+            }
+            
+        } catch (let error) {
+            AppLogger.shared.error("Error deleting schedules: \(error)")
+        }
     }
 
+    
+    func changeSchool(schoolId: Int) -> Void {
+        if schoolIsAlreadySelected(schoolId: schoolId) {
+            return
+        }
+        deleteAllSchedules()
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            guard let self else { return }
+            self.userController.logOut()
+            self.preferenceService.setSchool(id: schoolId)
+            self.notificationManager.cancelNotifications()
+        }
+        makeToast(
+            type: .success,
+            title: NSLocalizedString("New school", comment: ""),
+            message: String(
+                format: NSLocalizedString("Set %@ to default", comment: ""),
+                self.schoolName
+            ))
+    }
+    
+    func makeToast(type: ToastStyle, title: String, message: String) -> Void {
+        DispatchQueue.main.async {
+            AppController.shared.toast = Toast(
+                type: type,
+                title: title,
+                message: message)
+        }
+    }
+    
+    private func schoolIsAlreadySelected(schoolId: Int) -> Bool {
+        if schoolId == self.schoolId {
+            makeToast(
+                type: .info,
+                title: NSLocalizedString("School already selected", comment: ""),
+                message: String(
+                    format: NSLocalizedString("You already have '%@' as your default school", comment: ""),
+                    schoolName
+                ))
+            return true
+        }
+        return false
+    }
     
 }
 

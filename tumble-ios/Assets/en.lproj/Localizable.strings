@@ -110,6 +110,8 @@
 
 "No bookmarks yet"="No bookmarks yet";
 
+"No events match your search"="No events match your search";
+
 "minutes"="Minutes";
 
 "hour"="Hour";
@@ -123,6 +125,12 @@
 "Are you sure you want to cancel all set notifications?"="Are you sure you want to cancel all set notifications?";
 
 "Cancel all notifications"="Cancel all notifications";
+
+"Cancel"="Cancel";
+
+"No available bookmarks"="No available bookmarks";
+
+"It looks like there's no available bookmarks"="It looks like there's no available bookmarks";
 
 "Notification offset"="Notification offset";
 

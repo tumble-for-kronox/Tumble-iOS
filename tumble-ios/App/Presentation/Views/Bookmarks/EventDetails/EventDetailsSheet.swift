@@ -12,9 +12,7 @@ struct EventDetailsSheet: View {
     @AppStorage(StoreKey.appearance.rawValue) private var appearance = AppearanceTypes.system.rawValue
     @ObservedObject var viewModel: EventDetailsSheetViewModel
     @State var presentColorPicker: Bool = false
-    
-    let updateCourseColors: () -> Void
-    
+        
     var body: some View {
         VStack {
             DraggingPill()
@@ -38,7 +36,7 @@ struct EventDetailsSheet: View {
                     
             )
             .onDisappear(perform: {
-                updateCourseColors()
+                viewModel.updateCourseColor()
                 AppController.shared.eventSheet = nil
             })
         }

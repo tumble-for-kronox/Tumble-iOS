@@ -110,6 +110,8 @@
 
 "No bookmarks yet"="Još nema oznaka";
 
+"No events match your search"="Nema događaja koji odgovaraju vašem pretraživanju";
+
 "minutes"="Minuta";
 
 "hour"="Sat";
@@ -123,6 +125,12 @@
 "Are you sure you want to cancel all set notifications?"="Jeste li sigurni da želite otkazati sva postavljena obavještenja?";
 
 "Cancel all notifications"="Otkažite sva obavještenja";
+
+"No available bookmarks"="Nema dostupnih oznaka";
+
+"It looks like there's no available bookmarks"="Čini se da nema dostupnih oznaka";
+
+"Cancel"="Otkaži";
 
 "Notification offset"="Pomak obavještenja";
 

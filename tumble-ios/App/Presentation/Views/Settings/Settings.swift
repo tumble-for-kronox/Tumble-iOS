@@ -6,16 +6,14 @@
 //
 
 import SwiftUI
-import StoreKit
+import RealmSwift
 
 struct Settings: View {
     
     @AppStorage(StoreKey.appearance.rawValue) var appearance: String = AppearanceTypes.system.rawValue
     @ObservedObject var viewModel: SettingsViewModel
+    @ObservedResults(Schedule.self) var schedules
     let currentLocale = Bundle.main.preferredLocalizations.first
-    let removeSchedule: (String) -> Void
-    let updateBookmarks: () -> Void
-    let onChangeSchool: (School) -> Void
     
     var body: some View {
         VStack {
@@ -45,17 +43,16 @@ struct Settings: View {
                 CustomListGroup {
                     ListRowNavigationItem(
                         title: NSLocalizedString("School", comment: ""),
-                        current: viewModel.universityName,
+                        current: viewModel.schoolName,
                         destination: AnyView(SchoolSelectionSettings(
-                            onChangeSchool: onChangeSchool,
+                            changeSchool: changeSchool,
                             schools: viewModel.schools)))
+                    .id(viewModel.schoolId)
                     Divider()
                     ListRowNavigationItem(
                         title: NSLocalizedString("Bookmarks", comment: ""),
                         destination: AnyView(BookmarksSettings(
-                            parentViewModel: viewModel,
-                            updateBookmarks: updateBookmarks,
-                            removeSchedule: removeSchedule
+                            parentViewModel: viewModel
                         )))
                 }
                 CustomListGroup {
@@ -86,44 +83,40 @@ struct Settings: View {
         .navigationTitle(NSLocalizedString("Settings", comment: ""))
         .navigationBarTitleDisplayMode(.inline)
     }
-
     
+    fileprivate func changeSchool(schoolId: Int) -> Void {
+        viewModel.changeSchool(schoolId: schoolId)
+    }
     
     fileprivate func rescheduleNotifications(previousOffset: Int, newOffset: Int) -> Void {
         viewModel.rescheduleNotifications(previousOffset: previousOffset, newOffset: newOffset)
     }
     
     fileprivate func clearAllNotifications() -> Void {
-        viewModel.clearAllNotifications()
-        AppController.shared.toast = Toast(
-            type: .success,
-            title: NSLocalizedString("Cancelled notifications", comment: ""),
-            message: NSLocalizedString("Cancelled all available notifications set for events", comment: "")
-        )
+        if schedulesAvailable() {
+            viewModel.clearAllNotifications()
+        }
     }
     
     fileprivate func scheduleNotificationsForAllCourses() -> Void {
-        viewModel.scheduleNotificationsForAllEvents(completion: { result in
-            switch result {
-            case .success:
-                DispatchQueue.main.async {
-                    AppController.shared.toast = Toast(
-                        type: .success,
-                        title: NSLocalizedString("Scheduled notifications", comment: ""),
-                        message: NSLocalizedString("Scheduled notifications for all available events", comment: "")
-                    )
-                }
-            case .failure:
-                DispatchQueue.main.async {
-                    AppController.shared.toast = Toast(
-                        type: .error,
-                        title: NSLocalizedString("Error", comment: ""),
-                        message: NSLocalizedString("Failed to set notifications for all available events", comment: "")
-                    )
-                }
-            }
-        })
-        
+        if schedulesAvailable() {
+            let allEvents = Array(schedules)
+                .filter { $0.toggled }
+                .flatMap { $0.days }
+                .flatMap { $0.events }
+                .filter { !($0.dateComponents!.hasDatePassed()) }
+            viewModel.scheduleNotificationsForAllEvents(allEvents: allEvents)
+        }
+    }
+    
+    func schedulesAvailable() -> Bool {
+        if schedules.isEmpty || schedules.filter({ $0.toggled }).isEmpty {
+            viewModel.makeToast(
+                type: .info,
+                title: NSLocalizedString("No available bookmarks", comment: ""),
+                message: NSLocalizedString("It looks like there's no available bookmarks", comment: ""))
+            return false
+        } else { return true }
     }
     
 }

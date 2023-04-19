@@ -1,5 +1,5 @@
 //
-//  HomePageView-ViewModel.swift
+//  HomeViewModel.swift
 //  tumble-ios
 //
 //  Created by Adis Veletanlic on 11/20/22.
@@ -7,126 +7,129 @@
 
 import Foundation
 import SwiftUI
+import Combine
+import RealmSwift
 
-@MainActor final class HomeViewModel: ObservableObject {
+final class HomeViewModel: ObservableObject {
     
     @Inject var preferenceService: PreferenceService
     @Inject var userController: UserController
-    @Inject var scheduleService: ScheduleService
-    @Inject var courseColorService: CourseColorService
-    @Inject var networkManager: KronoxManager
-    @Inject var schoolManager: SchoolManager
+    @Inject var kronoxManager: KronoxManager
     
-    @Published var eventSheet: EventDetailsSheetModel? = nil
-    @Published var todayEventsSectionStatus: GenericPageStatus = .loading
-    @Published var nextEventSectionStatus: GenericPageStatus = .loading
     @Published var newsSectionStatus: GenericPageStatus = .loading
     @Published var news: Response.NewsItems? = nil
-    @Published var eventsForWeek: [WeekEventCardModel] = []
-    @Published var nextClass: Response.Event? = nil
-    @Published var eventsForToday: [WeekEventCardModel] = []
-    @Published var courseColors: CourseAndColorDict? = nil
     @Published var swipedCards: Int = 0
-    @Published var homeStatus: HomeStatus = .loading
+    @Published var status: HomeStatus = .loading
+    @Published var eventsForToday: [WeekEventCardModel] = [WeekEventCardModel]()
+    @Published var nextClass: Event? = nil
     
     private let viewModelFactory: ViewModelFactory = ViewModelFactory.shared
+    var schedulesToken: NotificationToken?
     
     init() {
-        self.getEventsForWeek()
-        self.getNews()
-    }
-    
-    var ladokUrl: String {
-        return schoolManager.getLadokUrl()
-    }
-    
-    func updateViewLocals() -> Void {
-        self.getEventsForWeek()
-    }
-    
-    func makeCanvasUrl() -> URL? {
-        return URL(string: preferenceService.getCanvasUrl(schools: schoolManager.getSchools()) ?? "")
-    }
-    
-    
-    func makeUniversityUrl() -> URL? {
-        return URL(string: preferenceService.getUniversityUrl(schools: schoolManager.getSchools()) ?? "")
-    }
-    
-    func updateCourseColors() -> Void {
-        self.loadCourseColors { courseColors in
-            self.courseColors = courseColors
+        getNews()
+        let realm = try! Realm()
+        let schedules = realm.objects(Schedule.self)
+        schedulesToken = schedules.observe { [weak self] changes in
+            guard let self = self else { return }
+            switch changes {
+            case .initial(let results), .update(let results, _, _, _):
+                self.status = .loading
+                self.createEventsForToday(schedules: Array(results))
+                self.nextClass = self.findNextUpcomingEvent(schedules: Array(schedules))
+                self.status = .available
+            case .error:
+                self.status = .error
+            }
         }
     }
     
+    
     func getNews() -> Void {
-        self.newsSectionStatus = .loading
-        let _ = networkManager.get(.news) { [weak self] (result: Result<Response.NewsItems, Response.ErrorMessage>) in
+        newsSectionStatus = .loading
+        let _ = kronoxManager.get(.news) { [weak self] (result: Result<Response.NewsItems, Response.ErrorMessage>) in
             guard let self = self else { return }
             switch result {
             case .success(let news):
-                DispatchQueue.main.async {
-                    self.news = news
-                    self.newsSectionStatus = .loaded
-                }
+                self.news = news
+                self.newsSectionStatus = .loaded
             case .failure(let failure):
                 AppLogger.shared.critical("Failed to retrieve news items: \(failure)")
-                DispatchQueue.main.async {
-                    self.newsSectionStatus = .error
-                }
+                self.newsSectionStatus = .error
             }
         }
     }
     
-    func getEventsForWeek() {
-        self.todayEventsSectionStatus = .loading
-        self.nextEventSectionStatus = .loading
-        self.homeStatus = .loading
-        let hiddenBookmarks: [String] = self.preferenceService.getHiddenBookmarks()
-        AppLogger.shared.debug("Fetching events for the week", source: "HomePageViewModel")
-        
-        scheduleService.load(forCurrentWeek: { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .failure(let failure):
-                AppLogger.shared.critical("Failed to load schedules for the week: \(failure.localizedDescription)", source: "HomePageViewModel")
-                self.todayEventsSectionStatus = .error
-                self.nextEventSectionStatus = .error
-                self.homeStatus = .error
-            case .success(let events):
-                AppLogger.shared.debug("Loaded \(events.count) events for the week", source: "HomePageViewModel")
-                // If no events are available,
-                // schedule is clear for the week or the user
-                // has nothing saved yet
-                if events.isEmpty {
-                    if let bookmarks = self.preferenceService.getBookmarks() {
-                        if bookmarks.isEmpty {
-                            self.homeStatus = .noBookmarks
-                            return
-                        }
-                    }
-                    self.homeStatus = .notAvailable
-                    return
-                }
-                self.createDayCards(events:
-                    self.filterEventsMatchingToday(events: events)
-                )
-                self.findNextUpcomingEvent()
-                self.loadCourseColors { courseColors in
-                    self.courseColors = courseColors
-                    self.todayEventsSectionStatus = .loaded
-                    self.nextEventSectionStatus = .loaded
-                    self.homeStatus = .available
-                }
-            }
-        }, hiddenBookmarks: hiddenBookmarks)
-    }
-    
-    func createDayCards(events: [Response.Event]) -> Void {
-        let weekEventCards = events.map {
+    func createDayCards(events: [Event]) -> Void {
+        let weekEventCards = filterEventsMatchingToday(events: events).map {
             return WeekEventCardModel(event: $0)
         }
         self.eventsForToday = weekEventCards.reversed()
+    }
+    
+    func findNextUpcomingEvent(schedules: [Schedule]) -> Event? {
+        let hiddenBookmarks = schedules.filter { !$0.toggled }.map { $0.scheduleId }
+        let days: [Day] = schedules.filter {!hiddenBookmarks.contains($0.scheduleId)}.flatMap { $0.days }
+        let events: [Event] = days.flatMap { $0.events }
+        let sortedEvents = events.sorted()
+        let now = Date()
+        
+        // Find the most recent upcoming event that is not today
+        if let nextEvent = sortedEvents.first(where: { isoDateFormatter.date(from: $0.from)! > now }) {
+            if Calendar.current.isDate(now, inSameDayAs: isoDateFormatter.date(from: nextEvent.from)!) {
+                // If the next event is today, find the next upcoming event that is not today
+                if let nextNonTodayEvent = sortedEvents.first(where: {
+                    !Calendar.current.isDate(now, inSameDayAs: isoDateFormatter.date(from: $0.from)!) &&
+                    isoDateFormatter.date(from: $0.from)! > now
+                }) {
+                    return nextNonTodayEvent
+                } else {
+                    return nil
+                }
+            } else {
+                return nextEvent
+            }
+        }
+        return nil
+    }
+    
+    func filterEventsMatchingToday(events: [Event]) -> [Event] {
+        let now = Date()
+        let calendar = Calendar.current
+        let currentDayOfYear = calendar.ordinality(of: .day, in: .year, for: now) ?? 1
+        let filteredEvents = events.filter { event in
+            guard let date = isoDateFormatter.date(from: event.from) else { return false }
+            let dayOfYear = calendar.ordinality(of: .day, in: .year, for: date) ?? 1
+            return dayOfYear == currentDayOfYear
+        }
+        return filteredEvents.sorted().reversed()
+    }
+    
+    func createEventsForToday(schedules: [Schedule]) -> Void {
+        let eventsForToday: [Event] = loadEventsForWeek(schedules: Array(schedules)).sorted().reversed()
+        createDayCards(events: Array(eventsForToday))
+    }
+    
+    
+    func loadEventsForWeek(schedules: [Schedule]) -> [Event] {
+        let now = Calendar.current.startOfDay(for: Date())
+        let timeZone = TimeZone.current
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = timeZone
+        let weekEndDate = calendar.date(byAdding: .day, value: 7, to: now)!
+        let weekDateRange = now...weekEndDate
+        AppLogger.shared.debug("Date range: \(weekDateRange)", source: "ScheduleService")
+        let events = schedules
+            .filter { $0.toggled }
+            .flatMap { $0.days }
+            .filter {
+                if let eventDate = isoDateFormatterFract.date(from: $0.isoString) {
+                    return weekDateRange.contains(eventDate)
+                }
+                return false
+            }
+            .flatMap { $0.events }
+        return events
     }
     
 }
