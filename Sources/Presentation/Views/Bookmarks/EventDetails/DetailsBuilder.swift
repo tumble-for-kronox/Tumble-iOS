@@ -39,7 +39,6 @@ struct DetailsBuilder<Content : View>: View {
             }
             Spacer()
         }
-        .frame(minWidth: UIScreen.main.bounds.width - 60)
         .padding(15)
         .background(Color.surface)
         .cornerRadius(15)

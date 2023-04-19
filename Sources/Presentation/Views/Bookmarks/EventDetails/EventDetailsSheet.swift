@@ -18,15 +18,13 @@ struct EventDetailsSheet: View {
             DraggingPill()
             SheetTitle(title: NSLocalizedString("Details", comment: ""))
             ScrollView (showsIndicators: false) {
-                VStack (spacing: 0) {
-                    EventDetailsCard(
-                        parentViewModel: viewModel,
-                        openColorPicker: openColorPicker,
-                        event: viewModel.event,
-                        color: viewModel.color)
-                    EventDetailsBody(event: viewModel.event)
-                    Spacer()
-                }
+                EventDetailsCard(
+                    parentViewModel: viewModel,
+                    openColorPicker: openColorPicker,
+                    event: viewModel.event,
+                    color: viewModel.color)
+                EventDetailsBody(event: viewModel.event)
+                Spacer()
             }
             .background(Color.background)
             .background(
