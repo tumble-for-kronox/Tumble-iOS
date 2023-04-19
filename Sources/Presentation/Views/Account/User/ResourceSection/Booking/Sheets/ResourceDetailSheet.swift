@@ -78,7 +78,6 @@ struct ResourceDetailSheet: View {
             }
         }
         .background(Color.background)
-        .padding(.horizontal, 15)
     }
     
     func bookingCanBeConfirmed() -> Bool {

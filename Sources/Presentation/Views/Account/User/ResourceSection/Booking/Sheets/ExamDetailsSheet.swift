@@ -66,6 +66,5 @@ struct ExamDetailsSheet: View {
             }
         }
         .background(Color.background)
-        .padding(.horizontal, 15)
     }
 }
