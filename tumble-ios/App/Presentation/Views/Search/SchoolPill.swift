@@ -23,11 +23,11 @@ struct SchoolPill: View {
                     .frame(width: 14, height: 14)
                     .cornerRadius(40)
                 Text(school.name)
-                    .font(.system(size: 12, weight: .semibold))
+                    .font(.system(size: 13, weight: .semibold))
                     .foregroundColor(.onSurface)
                 if selectedSchool == school {
                     Image(systemName: "xmark")
-                        .font(.system(size: 12, weight: .semibold))
+                        .font(.system(size: 13, weight: .semibold))
                         .foregroundColor(.onSurface)
                         .padding(.leading, 5)
                         .onTapGesture {

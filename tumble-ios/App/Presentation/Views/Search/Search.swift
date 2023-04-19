@@ -10,8 +10,6 @@ import SwiftUI
 struct Search: View {
     
     @ObservedObject var viewModel: SearchViewModel
-    @State var searchBarText: String = ""
-    @State private var searching: Bool = false
         
     var body: some View {
         VStack (spacing: 0) {
@@ -23,7 +21,7 @@ struct Search: View {
                         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
                 case .loaded:
                 SearchResults(
-                    searchText: searchBarText,
+                    searchText: viewModel.searchBarText,
                     numberOfSearchResults: viewModel.programmeSearchResults.count,
                     searchResults: viewModel.programmeSearchResults,
                     onOpenProgramme: openProgramme, universityImage: viewModel.universityImage)
@@ -36,8 +34,8 @@ struct Search: View {
                 search: search,
                 clearSearch: clearSearch,
                 title: "Search schedules",
-                searchBarText: $searchBarText,
-                searching: $searching,
+                searchBarText: $viewModel.searchBarText,
+                searching: $viewModel.searching,
                 disabled: $viewModel.schoolNotSelected
             )
             .blur(radius: viewModel.schoolNotSelected ? 2.5 : 0)
@@ -58,13 +56,15 @@ struct Search: View {
     }
 
     fileprivate func searchBoxNotEmpty() -> Bool {
-        return !searchBarText.trimmingCharacters(in: .whitespaces).isEmpty
+        return !viewModel.searchBarText.trimmingCharacters(in: .whitespaces).isEmpty
     }
     
     func search() -> Void {
         if let selectedSchool = viewModel.selectedSchool, searchBoxNotEmpty() {
             viewModel.universityImage = selectedSchool.logo
-            viewModel.onSearchProgrammes(searchQuery: searchBarText, selectedSchoolId: selectedSchool.id)
+            viewModel.onSearchProgrammes(
+                searchQuery: viewModel.searchBarText,
+                selectedSchoolId: selectedSchool.id)
         }
     }
     

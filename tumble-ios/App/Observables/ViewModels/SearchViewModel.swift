@@ -25,6 +25,8 @@ final class SearchViewModel: ObservableObject {
     @Published var schoolNotSelected: Bool = true
     @Published var selectedSchool: School? = nil
     @Published var universityImage: Image? = nil
+    @Published var searching: Bool = false
+    @Published var searchBarText: String = ""
     
     private var cancellables = Set<AnyCancellable>()
     lazy var schools: [School] = schoolManager.getSchools()
