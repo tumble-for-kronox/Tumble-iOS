@@ -22,6 +22,7 @@ extension Event {
         courseDict["englishName"] = self.course?.englishName
         courseDict["swedishName"] = self.course?.englishName
         courseDict["courseId"] = self.course?.courseId
+        courseDict["color"] = self.course?.color
         dictionary["course"] = courseDict
         
         var locationsArray: [[String: Any]] = []

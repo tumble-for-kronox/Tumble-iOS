@@ -26,7 +26,7 @@ struct Bookmarks: View {
                 case .loaded:
                     if schedules.isEmpty {
                         Info(title: NSLocalizedString("No bookmarks yet", comment: ""), image: "bookmark.slash")
-                    } else if schedules.filter { $0.toggled }.isEmpty {
+                    } else if schedules.filter({ $0.toggled }).isEmpty {
                         Info(title: NSLocalizedString("All your bookmarks are hidden", comment: ""), image: "eyeglasses")
                     } else {
                         switch viewModel.defaultViewType {

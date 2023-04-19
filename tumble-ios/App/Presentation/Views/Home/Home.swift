@@ -27,7 +27,7 @@ struct Home: View {
                 if schedules.isEmpty {
                     HomeNoBookmarks()
                 } else {
-                    if schedules.filter { $0.toggled }.isEmpty {
+                    if schedules.filter({ $0.toggled }).isEmpty {
                         HomeNotAvailable()
                     } else {
                         HomeAvailable(

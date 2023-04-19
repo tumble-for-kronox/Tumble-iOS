@@ -811,7 +811,6 @@
 		D41ED546298433AA009DCF8B /* Repository */ = {
 			isa = PBXGroup;
 			children = (
-				D4E491EE29EDB3DC00E674CA /* Realm */,
 				D40D80B0292529FF008CA68D /* Storage */,
 				D41ED55529843728009DCF8B /* Preferences */,
 			);
@@ -1428,13 +1427,6 @@
 				D46BB109298AC31E00887A24 /* DetailsBuilder.swift */,
 			);
 			path = EventDetails;
-			sourceTree = "<group>";
-		};
-		D4E491EE29EDB3DC00E674CA /* Realm */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Realm;
 			sourceTree = "<group>";
 		};
 		D4E83EBF299960EB002E5F88 /* Login */ = {

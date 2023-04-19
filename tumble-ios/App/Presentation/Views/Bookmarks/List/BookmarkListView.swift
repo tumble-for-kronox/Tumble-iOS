@@ -108,11 +108,15 @@ struct BookmarkListView: View {
     var listSearching: some View {
         ScrollView(.vertical, showsIndicators: false) {
             LazyVStack (alignment: .center) {
-                ForEach(filteredEvents, id: \._id) { event in
-                    BookmarkCard(
-                        onTapCard: onTapCard,
-                        event: event,
-                        isLast: true)
+                if filteredEvents.isEmpty {
+                    Info(title: NSLocalizedString("No events match your search", comment: ""), image: nil)
+                } else {
+                    ForEach(filteredEvents, id: \._id) { event in
+                        BookmarkCard(
+                            onTapCard: onTapCard,
+                            event: event,
+                            isLast: true)
+                    }
                 }
             }
             .padding(7.5)

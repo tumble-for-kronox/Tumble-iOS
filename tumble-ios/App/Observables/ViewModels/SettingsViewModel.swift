@@ -67,9 +67,7 @@ final class SettingsViewModel: ObservableObject {
         })
     }
     
-    private func updateBookmarksRemoveNotifications(for id: String, referencing oldSchedule: Schedule) -> Void {
-        let events = oldSchedule.days
-            .flatMap { $0.events }
+    func removeNotificationsFor(for id: String, referencing events: [Event]) -> Void {
         events.forEach { notificationManager.cancelNotification(for: $0.eventId) }
     }
     

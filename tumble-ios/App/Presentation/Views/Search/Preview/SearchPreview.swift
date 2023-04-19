@@ -18,11 +18,13 @@ struct SearchPreview: View {
     var body: some View {
         VStack {
             DraggingPill()
-            HStack {
-                Spacer()
-                BookmarkButton(
-                    bookmark: bookmark,
-                    buttonState: $viewModel.buttonState)
+            if viewModel.status == .loaded || viewModel.status == .loading {
+                HStack {
+                    Spacer()
+                    BookmarkButton(
+                        bookmark: bookmark,
+                        buttonState: $viewModel.buttonState)
+                }
             }
             switch viewModel.status {
             case .loaded:

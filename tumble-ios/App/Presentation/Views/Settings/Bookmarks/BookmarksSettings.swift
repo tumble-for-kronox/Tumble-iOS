@@ -15,11 +15,10 @@ struct BookmarksSettings: View {
     
     var body: some View {
         if !schedules.isEmpty {
-            let sortedBookmarks = schedules.sorted(by: { $0.id < $1.id })
             CustomList {
-                ForEach(sortedBookmarks.indices, id: \.self) { index in
+                ForEach(schedules.indices, id: \.self) { index in
                     BookmarkSettingsRow(
-                        schedule: sortedBookmarks[index],
+                        schedule: schedules[index],
                         index: index,
                         onDelete: onDelete
                     )
@@ -31,7 +30,10 @@ struct BookmarksSettings: View {
         }
     }
     
-    func onDelete(at offsets: IndexSet) {
+    func onDelete(at offsets: IndexSet, for id: String) {
+        AppLogger.shared.info("Removing index \(offsets)")
+        let assignedEvents = Array(schedules).flatMap { $0.days }.flatMap { $0.events }
+        parentViewModel.removeNotificationsFor(for: id, referencing: assignedEvents)
         $schedules.remove(atOffsets: offsets)
     }
     

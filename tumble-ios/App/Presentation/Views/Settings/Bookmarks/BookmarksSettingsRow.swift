@@ -12,12 +12,12 @@ struct BookmarkSettingsRow: View {
     
     @ObservedRealmObject var schedule: Schedule
     let index: Int
-    let onDelete: (IndexSet) -> Void
+    let onDelete: (IndexSet, String) -> Void
     
     var body: some View {
         HStack {
             Button(action: {
-                onDelete(IndexSet(arrayLiteral: index))
+                onDelete(IndexSet(arrayLiteral: index), schedule.scheduleId)
             }, label: {
                 Image(systemName: "trash")
                     .font(.system(size: 18))
