@@ -24,6 +24,7 @@
 		D400F3FE29D799D50050622E /* ResourceViewModelExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D400F3FD29D799D50050622E /* ResourceViewModelExtension.swift */; };
 		D400F40029D79F4C0050622E /* AuthManagerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D400F3FF29D79F4C0050622E /* AuthManagerExtension.swift */; };
 		D4040EC429D310A800613144 /* Refreshable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4040EC329D310A800613144 /* Refreshable.swift */; };
+		D4077F6529F08B80000A3155 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D4077F6429F08B80000A3155 /* GoogleService-Info.plist */; };
 		D40CC161292AFB9F00664776 /* Bookmarks.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40CC160292AFB9F00664776 /* Bookmarks.swift */; };
 		D40CC163292AFE7200664776 /* BookmarksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40CC162292AFE7200664776 /* BookmarksViewModel.swift */; };
 		D40D808929247123008CA68D /* Root.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40D808829247123008CA68D /* Root.swift */; };
@@ -40,13 +41,7 @@
 		D40E843D2981C8B200C2CF2E /* AccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40E843C2981C8B200C2CF2E /* AccountViewModel.swift */; };
 		D41172B52985DA740082BB4F /* TextFieldExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41172B42985DA740082BB4F /* TextFieldExtensions.swift */; };
 		D41472FD29D832D500050BFF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D41472FC29D832D500050BFF /* Preview Assets.xcassets */; };
-		D414B22F29D86E7E00EA8F46 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D414B22E29D86E7E00EA8F46 /* GoogleService-Info.plist */; };
 		D414B23429D88C1100EA8F46 /* PullToRefreshIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D414B23329D88C1100EA8F46 /* PullToRefreshIndicator.swift */; };
-		D414B27529D8BE5700EA8F46 /* RootViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D414B27429D8BE5700EA8F46 /* RootViewModelTests.swift */; };
-		D414B27F29D8BE9700EA8F46 /* Logging in Frameworks */ = {isa = PBXBuildFile; productRef = D414B27E29D8BE9700EA8F46 /* Logging */; };
-		D414B28129D8BE9700EA8F46 /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = D414B28029D8BE9700EA8F46 /* FSCalendar */; };
-		D414B28329D8BE9700EA8F46 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = D414B28229D8BE9700EA8F46 /* FirebaseMessaging */; };
-		D414B28E29D8C7E500EA8F46 /* MockCourseColorService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D414B28D29D8C7E500EA8F46 /* MockCourseColorService.swift */; };
 		D416D33529CA2A46009A4FB8 /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D416D33429CA2A46009A4FB8 /* TabBar.swift */; };
 		D416D33729CA2A4F009A4FB8 /* TabBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D416D33629CA2A4F009A4FB8 /* TabBarButton.swift */; };
 		D416D33929CA7C5B009A4FB8 /* CalendarViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D416D33829CA7C5B009A4FB8 /* CalendarViewRepresentable.swift */; };
@@ -244,16 +239,6 @@
 		D4FFCC2C29EDAEF200708CC0 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FFCC2B29EDAEF200708CC0 /* Location.swift */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		D414B27629D8BE5700EA8F46 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D472213D292454560063BDB7 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = D4722144292454560063BDB7;
-			remoteInfo = "tumble-ios";
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		D400F3CF29D793AB0050622E /* RootViewStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewStatus.swift; sourceTree = "<group>"; };
 		D400F3D129D793CF0050622E /* SearchStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchStatus.swift; sourceTree = "<group>"; };
@@ -272,6 +257,7 @@
 		D400F3FD29D799D50050622E /* ResourceViewModelExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceViewModelExtension.swift; sourceTree = "<group>"; };
 		D400F3FF29D79F4C0050622E /* AuthManagerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManagerExtension.swift; sourceTree = "<group>"; };
 		D4040EC329D310A800613144 /* Refreshable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Refreshable.swift; sourceTree = "<group>"; };
+		D4077F6429F08B80000A3155 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../Documents/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D40CC160292AFB9F00664776 /* Bookmarks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bookmarks.swift; sourceTree = "<group>"; };
 		D40CC162292AFE7200664776 /* BookmarksViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksViewModel.swift; sourceTree = "<group>"; };
 		D40D808829247123008CA68D /* Root.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Root.swift; sourceTree = "<group>"; };
@@ -288,11 +274,7 @@
 		D40E843C2981C8B200C2CF2E /* AccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewModel.swift; sourceTree = "<group>"; };
 		D41172B42985DA740082BB4F /* TextFieldExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldExtensions.swift; sourceTree = "<group>"; };
 		D41472FC29D832D500050BFF /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		D414B22E29D86E7E00EA8F46 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Documents/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D414B23329D88C1100EA8F46 /* PullToRefreshIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullToRefreshIndicator.swift; sourceTree = "<group>"; };
-		D414B27229D8BE5700EA8F46 /* tumble-iosTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "tumble-iosTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		D414B27429D8BE5700EA8F46 /* RootViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewModelTests.swift; sourceTree = "<group>"; };
-		D414B28D29D8C7E500EA8F46 /* MockCourseColorService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCourseColorService.swift; sourceTree = "<group>"; };
 		D416D33429CA2A46009A4FB8 /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
 		D416D33629CA2A4F009A4FB8 /* TabBarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarButton.swift; sourceTree = "<group>"; };
 		D416D33829CA7C5B009A4FB8 /* CalendarViewRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewRepresentable.swift; sourceTree = "<group>"; };
@@ -450,7 +432,7 @@
 		D4D4CD16299CE57C00D48180 /* EventCardButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCardButton.swift; sourceTree = "<group>"; };
 		D4D4CD19299CE5FF00D48180 /* SectionDivider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionDivider.swift; sourceTree = "<group>"; };
 		D4D4DD022927C7DA0083BB7F /* ProgrammeCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgrammeCard.swift; sourceTree = "<group>"; };
-		D4D4DD212927CFFA0083BB7F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		D4D4DD212927CFFA0083BB7F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D4DDE59029CBBC6A0030607B /* ResourceTimeDropdown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceTimeDropdown.swift; sourceTree = "<group>"; };
 		D4E39E312989BBD9004C30DF /* ColorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtensions.swift; sourceTree = "<group>"; };
 		D4E39E362989CE27004C30DF /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
@@ -492,16 +474,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		D414B26F29D8BE5700EA8F46 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				D414B28329D8BE9700EA8F46 /* FirebaseMessaging in Frameworks */,
-				D414B27F29D8BE9700EA8F46 /* Logging in Frameworks */,
-				D414B28129D8BE9700EA8F46 /* FSCalendar in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		D4722142292454560063BDB7 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -586,13 +558,6 @@
 				D400F3FD29D799D50050622E /* ResourceViewModelExtension.swift */,
 			);
 			path = Observables;
-			sourceTree = "<group>";
-		};
-		D4072F4829820944002ADC32 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		D40D809629251EA5008CA68D /* General */ = {
@@ -695,23 +660,6 @@
 				D4EEFB5729DA1BD10007A209 /* CustomListGroup.swift */,
 			);
 			path = Settings;
-			sourceTree = "<group>";
-		};
-		D414B27329D8BE5700EA8F46 /* tumble-iosTests */ = {
-			isa = PBXGroup;
-			children = (
-				D414B28C29D8C7D000EA8F46 /* MockClasses */,
-				D414B27429D8BE5700EA8F46 /* RootViewModelTests.swift */,
-			);
-			path = "tumble-iosTests";
-			sourceTree = "<group>";
-		};
-		D414B28C29D8C7D000EA8F46 /* MockClasses */ = {
-			isa = PBXGroup;
-			children = (
-				D414B28D29D8C7E500EA8F46 /* MockCourseColorService.swift */,
-			);
-			path = MockClasses;
 			sourceTree = "<group>";
 		};
 		D416D33329CA29F9009A4FB8 /* TabBar */ = {
@@ -1094,10 +1042,13 @@
 		D472213C292454560063BDB7 = {
 			isa = PBXGroup;
 			children = (
-				D4722147292454560063BDB7 /* tumble-ios */,
-				D414B27329D8BE5700EA8F46 /* tumble-iosTests */,
+				D4077F6429F08B80000A3155 /* GoogleService-Info.plist */,
+				D4938BAD29D762DE00029F88 /* Preview Content */,
+				D47A451129D74C68008626E6 /* Assets */,
+				D47221582924548A0063BDB7 /* Sources */,
+				D4D4DD212927CFFA0083BB7F /* Info.plist */,
+				D473870229C895510035CD4C /* tumble-ios.entitlements */,
 				D4722146292454560063BDB7 /* Products */,
-				D4072F4829820944002ADC32 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1105,29 +1056,14 @@
 			isa = PBXGroup;
 			children = (
 				D4722145292454560063BDB7 /* tumble-ios.app */,
-				D414B27229D8BE5700EA8F46 /* tumble-iosTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		D4722147292454560063BDB7 /* tumble-ios */ = {
-			isa = PBXGroup;
-			children = (
-				D4938BAD29D762DE00029F88 /* Preview Content */,
-				D47A451129D74C68008626E6 /* Assets */,
-				D47221582924548A0063BDB7 /* App */,
-				D4D4DD212927CFFA0083BB7F /* Info.plist */,
-				D414B22E29D86E7E00EA8F46 /* GoogleService-Info.plist */,
-				D473870229C895510035CD4C /* tumble-ios.entitlements */,
-			);
-			path = "tumble-ios";
-			sourceTree = "<group>";
-		};
-		D47221582924548A0063BDB7 /* App */ = {
+		D47221582924548A0063BDB7 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
 				D4722148292454560063BDB7 /* tumble_iosApp.swift */,
-				D4A433B729951F2B00BFEB7A /* AppDelegate.swift */,
 				D4E39E352989CE1D004C30DF /* Utilities */,
 				D40D80A429252156008CA68D /* Extensions */,
 				D40D80A72925267F008CA68D /* Observables */,
@@ -1137,7 +1073,7 @@
 				D41ED54229843366009DCF8B /* Domain */,
 				D472215B292454F60063BDB7 /* Resources */,
 			);
-			path = App;
+			path = Sources;
 			sourceTree = "<group>";
 		};
 		D47221592924549B0063BDB7 /* Views */ = {
@@ -1234,6 +1170,7 @@
 		D48CE4542984912100D312EC /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				D4A433B729951F2B00BFEB7A /* AppDelegate.swift */,
 				D4EAD3BA298D8A8E00678DF8 /* Factories */,
 				D4563E7C2985F960003261FA /* NetworkSettings */,
 				D48CE4552984912B00D312EC /* DependencyInjection */,
@@ -1525,32 +1462,6 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		D414B27129D8BE5700EA8F46 /* tumble-iosTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = D414B27829D8BE5700EA8F46 /* Build configuration list for PBXNativeTarget "tumble-iosTests" */;
-			buildPhases = (
-				D414B26E29D8BE5700EA8F46 /* Sources */,
-				D414B26F29D8BE5700EA8F46 /* Frameworks */,
-				D414B27029D8BE5700EA8F46 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				D414B28529D8BEBB00EA8F46 /* PBXTargetDependency */,
-				D414B28729D8BEBB00EA8F46 /* PBXTargetDependency */,
-				D414B28929D8BEBB00EA8F46 /* PBXTargetDependency */,
-				D414B27729D8BE5700EA8F46 /* PBXTargetDependency */,
-			);
-			name = "tumble-iosTests";
-			packageProductDependencies = (
-				D414B27E29D8BE9700EA8F46 /* Logging */,
-				D414B28029D8BE9700EA8F46 /* FSCalendar */,
-				D414B28229D8BE9700EA8F46 /* FirebaseMessaging */,
-			);
-			productName = "tumble-iosTests";
-			productReference = D414B27229D8BE5700EA8F46 /* tumble-iosTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 		D4722144292454560063BDB7 /* tumble-ios */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = D4722153292454570063BDB7 /* Build configuration list for PBXNativeTarget "tumble-ios" */;
@@ -1587,10 +1498,6 @@
 				LastSwiftUpdateCheck = 1420;
 				LastUpgradeCheck = 1420;
 				TargetAttributes = {
-					D414B27129D8BE5700EA8F46 = {
-						CreatedOnToolsVersion = 14.2;
-						TestTargetID = D4722144292454560063BDB7;
-					};
 					D4722144292454560063BDB7 = {
 						CreatedOnToolsVersion = 14.1;
 					};
@@ -1622,26 +1529,18 @@
 			projectRoot = "";
 			targets = (
 				D4722144292454560063BDB7 /* tumble-ios */,
-				D414B27129D8BE5700EA8F46 /* tumble-iosTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		D414B27029D8BE5700EA8F46 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		D4722143292454560063BDB7 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				D4CD0F0529D5DC9D00AB5FD0 /* Localizable.strings in Resources */,
 				D4BAE61929246AA200143717 /* schools.json in Resources */,
-				D414B22F29D86E7E00EA8F46 /* GoogleService-Info.plist in Resources */,
+				D4077F6529F08B80000A3155 /* GoogleService-Info.plist in Resources */,
 				D41472FD29D832D500050BFF /* Preview Assets.xcassets in Resources */,
 				D472214D292454570063BDB7 /* Assets.xcassets in Resources */,
 			);
@@ -1650,15 +1549,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		D414B26E29D8BE5700EA8F46 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				D414B27529D8BE5700EA8F46 /* RootViewModelTests.swift in Sources */,
-				D414B28E29D8C7E500EA8F46 /* MockCourseColorService.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		D4722141292454560063BDB7 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1886,26 +1776,6 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXTargetDependency section */
-		D414B27729D8BE5700EA8F46 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = D4722144292454560063BDB7 /* tumble-ios */;
-			targetProxy = D414B27629D8BE5700EA8F46 /* PBXContainerItemProxy */;
-		};
-		D414B28529D8BEBB00EA8F46 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			productRef = D414B28429D8BEBB00EA8F46 /* PopupView */;
-		};
-		D414B28729D8BEBB00EA8F46 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			productRef = D414B28629D8BEBB00EA8F46 /* FSCalendar */;
-		};
-		D414B28929D8BEBB00EA8F46 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			productRef = D414B28829D8BEBB00EA8F46 /* FirebaseMessaging */;
-		};
-/* End PBXTargetDependency section */
-
 /* Begin PBXVariantGroup section */
 		D4CD0F0729D5DC9D00AB5FD0 /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
@@ -1923,64 +1793,6 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		D414B27929D8BE5700EA8F46 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 5QHM3X75YP;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.tumble-iosTests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/tumble-ios.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/tumble-ios";
-			};
-			name = Debug;
-		};
-		D414B27A29D8BE5700EA8F46 /* Debug copy */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 5QHM3X75YP;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.tumble-iosTests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/tumble-ios.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/tumble-ios";
-			};
-			name = "Debug copy";
-		};
-		D414B27B29D8BE5700EA8F46 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 5QHM3X75YP;
-				ENABLE_TESTABILITY = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.tumble-iosTests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/tumble-ios.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/tumble-ios";
-			};
-			name = Release;
-		};
 		D4563E812985FE9A003261FA /* Debug copy */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -2046,20 +1858,20 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = "tumble-ios/tumble-ios.entitlements";
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				CODE_SIGN_ENTITLEMENTS = "tumble-ios.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"tumble-ios/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Preview Content\"";
 				DEVELOPMENT_TEAM = 5QHM3X75YP;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_TESTING_SEARCH_PATHS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "tumble-ios/Info.plist";
+				INFOPLIST_FILE = Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Tumble;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Camera is used for scanning QR codes for room booking functionality in Universities";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "This app will only use photos from your photo library when, and if, you choose to change the profile picture for your account";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
@@ -2203,20 +2015,20 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = "tumble-ios/tumble-ios.entitlements";
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				CODE_SIGN_ENTITLEMENTS = "tumble-ios.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"tumble-ios/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Preview Content\"";
 				DEVELOPMENT_TEAM = 5QHM3X75YP;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_TESTING_SEARCH_PATHS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "tumble-ios/Info.plist";
+				INFOPLIST_FILE = Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Tumble;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Camera is used for scanning QR codes for room booking functionality in Universities";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "This app will only use photos from your photo library when, and if, you choose to change the profile picture for your account";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
@@ -2244,21 +2056,21 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = "tumble-ios/tumble-ios.entitlements";
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				CODE_SIGN_ENTITLEMENTS = "tumble-ios.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"tumble-ios/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Preview Content\"";
 				DEVELOPMENT_TEAM = 5QHM3X75YP;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_TESTABILITY = YES;
 				ENABLE_TESTING_SEARCH_PATHS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "tumble-ios/Info.plist";
+				INFOPLIST_FILE = Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Tumble;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Camera is used for scanning QR codes for room booking functionality in Universities";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "This app will only use photos from your photo library when, and if, you choose to change the profile picture for your account";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
@@ -2285,16 +2097,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		D414B27829D8BE5700EA8F46 /* Build configuration list for PBXNativeTarget "tumble-iosTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				D414B27929D8BE5700EA8F46 /* Debug */,
-				D414B27A29D8BE5700EA8F46 /* Debug copy */,
-				D414B27B29D8BE5700EA8F46 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
-		};
 		D4722140292454560063BDB7 /* Build configuration list for PBXProject "tumble-ios" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -2342,14 +2144,6 @@
 				minimumVersion = 2.0.0;
 			};
 		};
-		D4607635292AA8DE00DE9590 /* XCRemoteSwiftPackageReference "PopupView" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/exyte/PopupView.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
-			};
-		};
 		D47386FD29C88E4F0035CD4C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
@@ -2369,36 +2163,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		D414B27E29D8BE9700EA8F46 /* Logging */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D42BAC1A298D3D590025EAA9 /* XCRemoteSwiftPackageReference "swift-log" */;
-			productName = Logging;
-		};
-		D414B28029D8BE9700EA8F46 /* FSCalendar */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D430F74129C615DC00E30E48 /* XCRemoteSwiftPackageReference "FSCalendar" */;
-			productName = FSCalendar;
-		};
-		D414B28229D8BE9700EA8F46 /* FirebaseMessaging */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D47386FD29C88E4F0035CD4C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseMessaging;
-		};
-		D414B28429D8BEBB00EA8F46 /* PopupView */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D4607635292AA8DE00DE9590 /* XCRemoteSwiftPackageReference "PopupView" */;
-			productName = PopupView;
-		};
-		D414B28629D8BEBB00EA8F46 /* FSCalendar */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D430F74129C615DC00E30E48 /* XCRemoteSwiftPackageReference "FSCalendar" */;
-			productName = FSCalendar;
-		};
-		D414B28829D8BEBB00EA8F46 /* FirebaseMessaging */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D47386FD29C88E4F0035CD4C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseMessaging;
-		};
 		D423F6AB29F0040B00C04123 /* WrappingHStack */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D423F6AA29F0040B00C04123 /* XCRemoteSwiftPackageReference "WrappingHStack" */;
