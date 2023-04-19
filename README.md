@@ -29,7 +29,7 @@ An app to find any KronoX schedule.
 
 Author | Contributing | Need Help?
 --- | --- | ---
-Find is made by [adisve](https://github.com/adisve) and [BlieNuckel](https://github.com/BlieNuckel). | All contributions are welcome. Just [fork](https://github.com/adisve/tumble-ios/fork) the repo, then make a pull request. | Open an [issue](https://github.com/adisve/tumble-ios/issues) or join the [Discord server](https://discord.com/invite/Pmq8fYcus2). You can also reach me on [LinkedIn](https://www.linkedin.com/in/adis-veletanlic-2b51b4229/).
+Find is made by [adisve](https://github.com/adisve) and [BlieNuckel](https://github.com/BlieNuckel). | All contributions are welcome. Just [fork](https://github.com/adisve/tumble-ios/fork) the repo, then make a pull request. | Open an [issue](https://github.com/adisve/tumble-ios/issues) or join the [Discord server](https://discord.gg/GQmNzuQs). You can also reach me on [LinkedIn](https://www.linkedin.com/in/adis-veletanlic-2b51b4229/).
 
 ## License
 
