@@ -31,7 +31,6 @@ struct BookmarksSettings: View {
     }
     
     func onDelete(at offsets: IndexSet, for id: String) {
-        AppLogger.shared.info("Removing index \(offsets)")
         let assignedEvents = Array(schedules).flatMap { $0.days }.flatMap { $0.events }
         parentViewModel.removeNotificationsFor(for: id, referencing: assignedEvents)
         $schedules.remove(atOffsets: offsets)

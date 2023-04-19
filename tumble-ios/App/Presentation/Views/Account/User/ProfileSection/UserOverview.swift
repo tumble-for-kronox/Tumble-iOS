@@ -10,9 +10,9 @@ import SwiftUI
 struct UserOverview: View {
     
     @ObservedObject var viewModel: AccountViewModel
+    @ObservedObject var appController: AppController = AppController.shared
         
     @State private var collapsedHeader: Bool = false
-    @State private var toast: Toast? = nil
     
     var body: some View {
         VStack {
@@ -47,11 +47,10 @@ struct UserOverview: View {
             )
         }
         .background(Color.background)
-        .toastView(toast: $toast)
     }
     
     fileprivate func createToast(toastStyle: ToastStyle, title: String, message: String) -> Void {
-        toast = Toast(type: toastStyle, title: title, message: message)
+        appController.toast = Toast(type: toastStyle, title: title, message: message)
     }
     
     fileprivate func getResourcesAndEvents() -> Void {
