@@ -10,7 +10,7 @@ An app to find any KronoX schedule.
 - Customize colors for each course.
 - Automatic exam signup.
 
-![App preview](Assets/Summary.png)
+![App preview](Assets/summary.png)
 
 ## What's Included
 
