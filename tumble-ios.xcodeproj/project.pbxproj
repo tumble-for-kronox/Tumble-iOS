@@ -691,6 +691,7 @@
 		D41172C02985EB2C0082BB4F /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				D423F6A729EFD3A800C04123 /* GitHub */,
 				D47A451729D75306008626E6 /* GeneralButtons */,
 				D454DEC929D35EF5005BDAE3 /* Settings.swift */,
 				D4EE5B6D29D50FD3002A1399 /* SettingsRadioButton.swift */,
@@ -882,6 +883,13 @@
 				D46BB111298B0E2800887A24 /* NavigationbarSettings.swift */,
 			);
 			path = Navigation;
+			sourceTree = "<group>";
+		};
+		D423F6A729EFD3A800C04123 /* GitHub */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = GitHub;
 			sourceTree = "<group>";
 		};
 		D426E3A2299C39D000A8D7AE /* Booking */ = {
@@ -2109,7 +2117,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.2.0;
+				MARKETING_VERSION = 3.3.0;
 				NETWORK_SETTINGS = testing;
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.tumble;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2266,7 +2274,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.2.0;
+				MARKETING_VERSION = 3.3.0;
 				NETWORK_SETTINGS = testing;
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.tumble;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2308,7 +2316,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.2.0;
+				MARKETING_VERSION = 3.3.0;
 				NETWORK_SETTINGS = production;
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.tumble;
 				PRODUCT_NAME = "$(TARGET_NAME)";

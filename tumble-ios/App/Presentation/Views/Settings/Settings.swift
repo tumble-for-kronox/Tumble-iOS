@@ -71,6 +71,16 @@ struct Settings: View {
                         action: {
                             UIApplication.shared.shareFeedback()
                         })
+                    Divider()
+                    ListRowActionItem(
+                        title: NSLocalizedString("Tumble on GitHub", comment: ""),
+                        image: "chevron.left.forwardslash.chevron.right",
+                        imageColor: .primary,
+                        action: {
+                        if let url = URL(string: "https://github.com/adisve/tumble-ios") {
+                            UIApplication.shared.open(url)
+                        }
+                    })
                 }
                 CustomListGroup {
                     LogInOutButton(parentViewModel: viewModel)
