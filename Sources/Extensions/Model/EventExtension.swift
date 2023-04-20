@@ -65,4 +65,18 @@ extension [Event] {
             return dateFormatterEvent.date(from: $0.from)! < dateFormatterEvent.date(from: $1.from)!
         })
     }
+    
+    func removeDuplicates() -> [Event] {
+        var eventIds = Set<String>()
+        var uniqueEvents: [Event] = []
+        for event in self {
+            if eventIds.insert(event.eventId).inserted {
+                uniqueEvents.append(event)
+            }
+        }
+        
+        return uniqueEvents
+    }
+
+
 }

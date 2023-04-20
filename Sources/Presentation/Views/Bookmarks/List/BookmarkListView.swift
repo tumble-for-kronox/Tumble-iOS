@@ -27,13 +27,13 @@ struct BookmarkListView: View {
     
     var filteredEvents: [Event] {
         if searchText.isEmpty {
-            return days.flatMap { $0.events }.filter { $0.isValidEvent() }
+            return days.flatMap { $0.events }.filter { $0.isValidEvent() }.removeDuplicates()
         } else {
             return days.flatMap { $0.events.filter { event in
                 let titleMatches = event.title.localizedCaseInsensitiveContains(searchText)
                 let courseNameMatches = event.course?.englishName.localizedCaseInsensitiveContains(searchText) ?? false
                 return (titleMatches || courseNameMatches) && event.isValidEvent()
-            }}
+            }}.removeDuplicates()
         }
     }
     

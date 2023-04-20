@@ -65,7 +65,7 @@ struct BookmarkCalendarView: View {
         displayedDayEvents = days.filter { day in
             let dayDate = isoDateFormatterFract.date(from: day.isoString) ?? Date()
             return Calendar.current.isDate(dayDate, inSameDayAs: date) && day.isValidDay()
-        }.flatMap { $0.events }
+        }.flatMap { $0.events }.removeDuplicates()
     }
 
 }

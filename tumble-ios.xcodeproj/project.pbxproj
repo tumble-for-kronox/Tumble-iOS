@@ -197,6 +197,7 @@
 		D4D4CD17299CE57C00D48180 /* EventCardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D4CD16299CE57C00D48180 /* EventCardButton.swift */; };
 		D4D4CD1A299CE5FF00D48180 /* SectionDivider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D4CD19299CE5FF00D48180 /* SectionDivider.swift */; };
 		D4D4DD032927C7DA0083BB7F /* ProgrammeCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D4DD022927C7DA0083BB7F /* ProgrammeCard.swift */; };
+		D4D7B45B29F1505A0032AEEF /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = D4D7B45A29F1505A0032AEEF /* README.md */; };
 		D4DDE59129CBBC6A0030607B /* ResourceTimeDropdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4DDE59029CBBC6A0030607B /* ResourceTimeDropdown.swift */; };
 		D4E39E322989BBD9004C30DF /* ColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E39E312989BBD9004C30DF /* ColorExtensions.swift */; };
 		D4E39E372989CE27004C30DF /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E39E362989CE27004C30DF /* Utilities.swift */; };
@@ -433,6 +434,7 @@
 		D4D4CD19299CE5FF00D48180 /* SectionDivider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionDivider.swift; sourceTree = "<group>"; };
 		D4D4DD022927C7DA0083BB7F /* ProgrammeCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgrammeCard.swift; sourceTree = "<group>"; };
 		D4D4DD212927CFFA0083BB7F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D4D7B45A29F1505A0032AEEF /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		D4DDE59029CBBC6A0030607B /* ResourceTimeDropdown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceTimeDropdown.swift; sourceTree = "<group>"; };
 		D4E39E312989BBD9004C30DF /* ColorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtensions.swift; sourceTree = "<group>"; };
 		D4E39E362989CE27004C30DF /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
@@ -1042,12 +1044,11 @@
 		D472213C292454560063BDB7 = {
 			isa = PBXGroup;
 			children = (
+				D4D7B45A29F1505A0032AEEF /* README.md */,
 				D4077F6429F08B80000A3155 /* GoogleService-Info.plist */,
 				D4938BAD29D762DE00029F88 /* Preview Content */,
 				D47A451129D74C68008626E6 /* Assets */,
 				D47221582924548A0063BDB7 /* Sources */,
-				D4D4DD212927CFFA0083BB7F /* Info.plist */,
-				D473870229C895510035CD4C /* tumble-ios.entitlements */,
 				D4722146292454560063BDB7 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -1063,6 +1064,8 @@
 		D47221582924548A0063BDB7 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				D473870229C895510035CD4C /* tumble-ios.entitlements */,
+				D4D4DD212927CFFA0083BB7F /* Info.plist */,
 				D4722148292454560063BDB7 /* tumble_iosApp.swift */,
 				D4E39E352989CE1D004C30DF /* Utilities */,
 				D40D80A429252156008CA68D /* Extensions */,
@@ -1538,6 +1541,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4D7B45B29F1505A0032AEEF /* README.md in Resources */,
 				D4CD0F0529D5DC9D00AB5FD0 /* Localizable.strings in Resources */,
 				D4BAE61929246AA200143717 /* schools.json in Resources */,
 				D4077F6529F08B80000A3155 /* GoogleService-Info.plist in Resources */,
@@ -1859,7 +1863,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
-				CODE_SIGN_ENTITLEMENTS = "tumble-ios.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Sources/tumble-ios.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1868,7 +1872,7 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_TESTING_SEARCH_PATHS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Info.plist;
+				INFOPLIST_FILE = Sources/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Tumble;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Camera is used for scanning QR codes for room booking functionality in Universities";
@@ -2016,7 +2020,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
-				CODE_SIGN_ENTITLEMENTS = "tumble-ios.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Sources/tumble-ios.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -2025,7 +2029,7 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_TESTING_SEARCH_PATHS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Info.plist;
+				INFOPLIST_FILE = Sources/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Tumble;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Camera is used for scanning QR codes for room booking functionality in Universities";
@@ -2057,7 +2061,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
-				CODE_SIGN_ENTITLEMENTS = "tumble-ios.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Sources/tumble-ios.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -2067,7 +2071,7 @@
 				ENABLE_TESTABILITY = YES;
 				ENABLE_TESTING_SEARCH_PATHS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Info.plist;
+				INFOPLIST_FILE = Sources/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Tumble;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Camera is used for scanning QR codes for room booking functionality in Universities";
