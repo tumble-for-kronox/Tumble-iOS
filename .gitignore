@@ -3,7 +3,7 @@
 # gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
 
 ## Platform specific files
-.DS_STORE
+.DS_Store
 
 ## Firebase
 GoogleService-Info.plist
