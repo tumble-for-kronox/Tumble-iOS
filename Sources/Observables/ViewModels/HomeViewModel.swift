@@ -71,17 +71,19 @@ final class HomeViewModel: ObservableObject {
         let events: [Event] = days.flatMap { $0.events }
         let sortedEvents = events.sorted()
         let now = Date()
-        
+
         // Find the most recent upcoming event that is not today
         if let nextEvent = sortedEvents.first(where: { isoDateFormatter.date(from: $0.from)! > now }) {
             if Calendar.current.isDate(now, inSameDayAs: isoDateFormatter.date(from: nextEvent.from)!) {
                 // If the next event is today, find the next upcoming event that is not today
                 if let nextNonTodayEvent = sortedEvents.first(where: {
-                    !Calendar.current.isDate(now, inSameDayAs: isoDateFormatter.date(from: $0.from)!) &&
-                        isoDateFormatter.date(from: $0.from)! > now
+                    let nextDate = isoDateFormatter.date(from: $0.from)!
+                    let isSameDay = Calendar.current.isDate(now, inSameDayAs: nextDate)
+                    return !isSameDay && nextDate > now
                 }) {
                     return nextNonTodayEvent
                 } else {
+                    // If there are no more non-today events, return nil
                     return nil
                 }
             } else {
@@ -90,6 +92,7 @@ final class HomeViewModel: ObservableObject {
         }
         return nil
     }
+
     
     func filterEventsMatchingToday(events: [Event]) -> [Event] {
         let now = Date()

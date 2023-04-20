@@ -41,7 +41,7 @@ extension String {
     
     func formatDate() -> String? {
         if let date = isoDateFormatterDashed.date(from: self) {
-            dateFormatterSemi.timeZone = TimeZone(abbreviation: "UTC")
+            dateFormatterSemi.timeZone = TimeZone.current
             return dateFormatterSemi.string(from: date)
         }
         return nil

@@ -1064,9 +1064,10 @@
 		D47221582924548A0063BDB7 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				D4A433B729951F2B00BFEB7A /* AppDelegate.swift */,
+				D4722148292454560063BDB7 /* tumble_iosApp.swift */,
 				D473870229C895510035CD4C /* tumble-ios.entitlements */,
 				D4D4DD212927CFFA0083BB7F /* Info.plist */,
-				D4722148292454560063BDB7 /* tumble_iosApp.swift */,
 				D4E39E352989CE1D004C30DF /* Utilities */,
 				D40D80A429252156008CA68D /* Extensions */,
 				D40D80A72925267F008CA68D /* Observables */,
@@ -1082,6 +1083,8 @@
 		D47221592924549B0063BDB7 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				D4607633292AA83F00DE9590 /* AppParent.swift */,
+				D40D808829247123008CA68D /* Root.swift */,
 				D416D33329CA29F9009A4FB8 /* TabBar */,
 				D48CC59D29C7DB5C0028179A /* Buttons */,
 				D421EAEE2993F7F50045D438 /* Navigation */,
@@ -1092,8 +1095,6 @@
 				D45338F7292825A400198411 /* Bookmarks */,
 				D40D80C829265B85008CA68D /* Search */,
 				D40D809629251EA5008CA68D /* General */,
-				D4607633292AA83F00DE9590 /* AppParent.swift */,
-				D40D808829247123008CA68D /* Root.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1173,7 +1174,6 @@
 		D48CE4542984912100D312EC /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				D4A433B729951F2B00BFEB7A /* AppDelegate.swift */,
 				D4EAD3BA298D8A8E00678DF8 /* Factories */,
 				D4563E7C2985F960003261FA /* NetworkSettings */,
 				D48CE4552984912B00D312EC /* DependencyInjection */,
