@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct UserAvatar: View {
-    
     let name: String
     @Binding var collapsedHeader: Bool
     
@@ -20,4 +19,3 @@ struct UserAvatar: View {
             .background(Circle().fill(Color.primary))
     }
 }
-

@@ -12,10 +12,9 @@ import Foundation
 // to certain views with attributes. These values are global
 // and meant to be controllable from anywhere in the app.
 class AppController: ObservableObject {
+    static let shared: AppController = .init()
     
-    static let shared: AppController = AppController()
-    
-    @Published var eventSheet : EventDetailsSheetModel?
+    @Published var eventSheet: EventDetailsSheetModel?
     @Published var selectedAppTab: TabbarTabType = .home
     @Published var toast: Toast? = nil
     @Published var showSideBar: Bool = false

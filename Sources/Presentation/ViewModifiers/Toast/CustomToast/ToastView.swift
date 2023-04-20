@@ -10,11 +10,10 @@
 import SwiftUI
 
 struct ToastView: View {
-    
     var type: ToastStyle
     var title: String
     var message: String
-    var onCancelTapped: (() -> Void)
+    var onCancelTapped: () -> Void
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -48,8 +47,8 @@ struct ToastView: View {
             Rectangle()
                 .fill(type.themeColor)
                 .frame(width: 6)
-                .clipped()
-            , alignment: .leading
+                .clipped(),
+            alignment: .leading
         )
         .frame(minWidth: 0, maxWidth: .infinity)
         .cornerRadius(8)

@@ -9,7 +9,6 @@ import Foundation
 import SwiftUI
 
 class ViewModelFactory {
-    
     static let shared = ViewModelFactory()
         
     func makeViewModelParent() -> ParentViewModel { .init() }
@@ -31,8 +30,9 @@ class ViewModelFactory {
     func makeViewModelRoot() -> RootViewModel { .init() }
     
     func makeViewModelEventDetailsSheet(
-        event: Event) -> EventDetailsSheetViewModel {
-            .init(event: event)
+        event: Event) -> EventDetailsSheetViewModel
+    {
+        .init(event: event)
     }
     
     func makeViewModelSearchPreview() -> SearchPreviewViewModel { .init() }

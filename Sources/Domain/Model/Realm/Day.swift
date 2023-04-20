@@ -30,5 +30,4 @@ class Day: Object {
         self.weekNumber = weekNumber
         self.events = events
     }
-    
 }

@@ -24,7 +24,6 @@ struct TabBarButton: View {
     }
    
     private func isSelected() -> Bool {
-       return selectedAppTab.rawValue == appTab.rawValue
+        return selectedAppTab.rawValue == appTab.rawValue
     }
 }
-

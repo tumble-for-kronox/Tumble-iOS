@@ -8,17 +8,16 @@
 import Foundation
 
 class KeyChainManager: KeyChainManagerProtocol {
-    
     internal func update(_ data: Data, service: String, account: String, completion: @escaping (Result<Bool, Error>) -> Void) {
         let query = [
-                kSecClass: kSecClassGenericPassword,
-                kSecAttrService: service,
-                kSecAttrAccount: account
-            ] as CFDictionary
+            kSecClass: kSecClassGenericPassword,
+            kSecAttrService: service,
+            kSecAttrAccount: account
+        ] as CFDictionary
 
-            let attributes = [
-                kSecValueData: data
-            ] as CFDictionary
+        let attributes = [
+            kSecValueData: data
+        ] as CFDictionary
 
         let status = SecItemUpdate(query, attributes)
         guard status == errSecSuccess else {
@@ -28,14 +27,12 @@ class KeyChainManager: KeyChainManagerProtocol {
         completion(.success(true))
     }
     
-    
     func delete(service: String, account: String, completion: @escaping (Result<Bool, Error>) -> Void) {
-        
         let query = [
             kSecAttrService: service,
             kSecAttrAccount: account,
-            kSecClass: kSecClassGenericPassword,
-            ] as CFDictionary
+            kSecClass: kSecClassGenericPassword
+        ] as CFDictionary
         
         // Delete item from keychain
         SecItemDelete(query)
@@ -44,7 +41,6 @@ class KeyChainManager: KeyChainManagerProtocol {
     }
     
     func read(service: String, account: String) -> String? {
-        
         let query = [
             kSecAttrService: service,
             kSecAttrAccount: account,
@@ -63,12 +59,11 @@ class KeyChainManager: KeyChainManagerProtocol {
     }
     
     func save(_ data: Data, service: String, account: String, completion: @escaping (Result<Bool, Error>) -> Void) {
-        
         let query = [
             kSecValueData: data,
             kSecClass: kSecClassGenericPassword,
             kSecAttrService: service,
-            kSecAttrAccount: account,
+            kSecAttrAccount: account
         ] as CFDictionary
         
         // Add data in query to keychain
@@ -88,5 +83,4 @@ class KeyChainManager: KeyChainManagerProtocol {
         AppLogger.shared.info("Added item to keychain")
         completion(.success(true))
     }
-    
 }

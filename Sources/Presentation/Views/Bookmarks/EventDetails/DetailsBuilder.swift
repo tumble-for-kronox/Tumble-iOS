@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct DetailsBuilder<Content : View>: View {
+struct DetailsBuilder<Content: View>: View {
     let title: String
     let image: String
     let content: Content
@@ -20,8 +20,8 @@ struct DetailsBuilder<Content : View>: View {
     
     var body: some View {
         HStack {
-            VStack (alignment: .leading, spacing: 0) {
-                HStack (alignment: .center, spacing: 10) {
+            VStack(alignment: .leading, spacing: 0) {
+                HStack(alignment: .center, spacing: 10) {
                     Image(systemName: image)
                         .font(.system(size: 17))
                         .foregroundColor(.onSurface)
@@ -29,10 +29,9 @@ struct DetailsBuilder<Content : View>: View {
                         .font(.system(size: 17))
                         .bold()
                         .foregroundColor(.onBackground)
-                    
                 }
                 .padding(.bottom, 5)
-                VStack (alignment: .leading) {
+                VStack(alignment: .leading) {
                     content
                 }
                 .padding(.top, 7.5)

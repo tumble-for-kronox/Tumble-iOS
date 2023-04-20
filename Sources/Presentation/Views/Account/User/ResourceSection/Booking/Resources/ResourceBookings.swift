@@ -8,13 +8,12 @@
 import SwiftUI
 
 struct ResourceBookings: View {
-    
     @ObservedObject var viewModel: ResourceViewModel
     let updateBookingNotifications: () -> Void
     
     var body: some View {
         VStack {
-            ScrollView (showsIndicators: false) {
+            ScrollView(showsIndicators: false) {
                 ResourceDatePicker(date: $viewModel.selectedPickerDate)
                 Divider()
                     .foregroundColor(.onBackground)
@@ -33,7 +32,8 @@ struct ResourceBookings: View {
                     ResourceLocationsList(
                         parentViewModel: viewModel,
                         selectedPickerDate: $viewModel.selectedPickerDate,
-                        updateBookingNotifications: updateBookingNotifications)
+                        updateBookingNotifications: updateBookingNotifications
+                    )
                 case .error:
                     VStack {
                         switch viewModel.error?.statusCode {

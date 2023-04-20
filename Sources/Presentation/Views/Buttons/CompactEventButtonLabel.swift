@@ -8,12 +8,11 @@
 import SwiftUI
 
 struct CompactEventButtonLabel: View {
-    
     let event: Event
     let color: Color
     
     var body: some View {
-        HStack (spacing: 0) {
+        HStack(spacing: 0) {
             if let time = event.from.convertToHoursAndMinutesISOString() {
                 HStack {
                     Circle()
@@ -29,7 +28,7 @@ struct CompactEventButtonLabel: View {
             }
             Divider()
                 .foregroundColor(.onSurface)
-            VStack (alignment: .leading, spacing: 10) {
+            VStack(alignment: .leading, spacing: 10) {
                 HStack {
                     Text(event.title)
                         .font(.system(size: 17, weight: .medium))
@@ -65,7 +64,7 @@ struct CompactEventButtonLabel: View {
                                 .font(.system(size: 15))
                                 .foregroundColor(.onSurface.opacity(0.7))
                         }
-                    }  else {
+                    } else {
                         Text(NSLocalizedString("No teachers listed", comment: ""))
                             .font(.system(size: 15))
                             .foregroundColor(.onSurface.opacity(0.7))
@@ -77,4 +76,3 @@ struct CompactEventButtonLabel: View {
         }
     }
 }
-

@@ -31,5 +31,4 @@ class Schedule: Object, Identifiable {
         self.schoolId = schoolId
         self.requiresAuth = requiresAuth
     }
-    
 }

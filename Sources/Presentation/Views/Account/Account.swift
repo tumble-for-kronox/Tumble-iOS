@@ -8,11 +8,10 @@
 import SwiftUI
 
 struct Account: View {
-    
     @ObservedObject var viewModel: AccountViewModel
         
     var body: some View {
-        VStack (alignment: .center) {
+        VStack(alignment: .center) {
             switch viewModel.status {
             case .authenticated:
                 UserOverview(viewModel: viewModel)
@@ -29,4 +28,3 @@ struct Account: View {
         .padding(.bottom, -10)
     }
 }
-

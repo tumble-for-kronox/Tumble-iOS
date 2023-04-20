@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct AppearanceSettings: View {
-    
     @Binding var appearance: String
     
     var body: some View {

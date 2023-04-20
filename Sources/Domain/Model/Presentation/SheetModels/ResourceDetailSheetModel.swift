@@ -8,6 +8,6 @@
 import Foundation
 
 struct ResourceDetailSheetModel: Identifiable {
-    var id: UUID = UUID()
+    var id: UUID = .init()
     let resource: Response.KronoxUserBookingElement
 }

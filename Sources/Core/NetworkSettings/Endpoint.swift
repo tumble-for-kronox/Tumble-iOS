@@ -7,12 +7,10 @@
 
 import Foundation
 
-
 /// This file contains the endpoint structure for each
 /// possible request. It dynamically generates url components
 /// based on selected Endpoint case, and is then passed to the NetworkManager.
 enum Endpoint {
-    
     case searchProgramme(searchQuery: String, schoolId: String)
     case schedule(scheduleId: String, schoolId: String)
     case userEvents(schoolId: String)
@@ -30,7 +28,6 @@ enum Endpoint {
     case news
     
     var url: URL {
-        
         var components = URLComponents()
         components.host = NetworkSettings.shared.tumbleUrl
         components.port = NetworkSettings.shared.port
@@ -102,7 +99,7 @@ enum Endpoint {
             schoolId: let schoolId):
             components.path = "/api/resources/book"
             components.queryItems = [
-                URLQueryItem(name: "schoolId", value: schoolId),
+                URLQueryItem(name: "schoolId", value: schoolId)
             ]
         case .unbookResource(schoolId: let schoolId, bookingId: let bookingId):
             components.path = "/api/resources/unbook"
@@ -118,5 +115,4 @@ enum Endpoint {
         }
         return components.url!
     }
-    
 }

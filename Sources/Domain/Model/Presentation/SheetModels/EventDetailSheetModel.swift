@@ -8,6 +8,6 @@
 import Foundation
 
 struct ExamDetailSheetModel: Identifiable {
-    var id: UUID = UUID()
+    var id: UUID = .init()
     let event: Response.AvailableKronoxUserEvent
 }

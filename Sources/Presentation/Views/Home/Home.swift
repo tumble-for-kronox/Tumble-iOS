@@ -5,11 +5,10 @@
 //  Created by Adis Veletanlic on 11/20/22.
 //
 
-import SwiftUI
 import RealmSwift
+import SwiftUI
 
 struct Home: View {
-    
     @ObservedObject var viewModel: HomeViewModel
     @ObservedObject var parentViewModel: ParentViewModel
     @ObservedResults(Schedule.self) var schedules
@@ -23,7 +22,7 @@ struct Home: View {
                 News(news: viewModel.news?.pick(length: 4), showOverlay: $showSheet)
             }
             Spacer()
-            VStack (alignment: .leading) {
+            VStack(alignment: .leading) {
                 if schedules.isEmpty {
                     HomeNoBookmarks()
                 } else {
@@ -33,7 +32,8 @@ struct Home: View {
                         HomeAvailable(
                             eventsForToday: $viewModel.eventsForToday,
                             nextClass: viewModel.nextClass,
-                            swipedCards: $viewModel.swipedCards)
+                            swipedCards: $viewModel.swipedCards
+                        )
                     }
                 }
             }

@@ -9,6 +9,6 @@ import Foundation
 import SwiftUI
 
 struct EventDetailsSheetModel: Identifiable {
-    var id: UUID = UUID()
+    var id: UUID = .init()
     let event: Event
 }

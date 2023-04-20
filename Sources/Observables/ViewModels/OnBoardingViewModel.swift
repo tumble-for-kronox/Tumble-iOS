@@ -8,14 +8,12 @@
 import Foundation
 
 final class OnBoardingViewModel: ObservableObject {
-    
     @Inject private var preferenceService: PreferenceService
     
-    func finishOnboarding() -> Void {
+    func finishOnboarding() {
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             guard let self else { return }
             self.preferenceService.setUserOnboarded()
         }
     }
-    
 }

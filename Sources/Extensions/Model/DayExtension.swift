@@ -9,12 +9,11 @@ import Foundation
 
 extension [Day] {
     func ordered() -> [Day] {
-        return self.compactMap { $0 }.sorted(by: {
+        return compactMap { $0 }.sorted(by: {
             // Ascending order
             isoDateFormatterFract.date(from: $0.isoString)! < isoDateFormatterFract.date(from: $1.isoString)!
         })
     }
-
 }
 
 extension Day {
@@ -23,7 +22,7 @@ extension Day {
     // The startOfDay property of Date is used to ignore the time component of the date and only compare the day, month and year.
     func isValidDay() -> Bool {
         isoDateFormatterFract.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
-        let dayIsoString: String = self.isoString
+        let dayIsoString: String = isoString
         guard let day = isoDateFormatterFract.date(from: dayIsoString) else { return false }
         let today = Date()
         return Calendar.current.startOfDay(for: day) >= Calendar.current.startOfDay(for: today)

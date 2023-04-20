@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct ListRowNavigationItem: View {
-    
     let title: String
     let current: String?
     let destination: AnyView
@@ -23,10 +22,9 @@ struct ListRowNavigationItem: View {
         self.destination = destination
     }
     
-    
     var body: some View {
         NavigationLink(destination: destination, label: {
-            HStack (spacing: 0) {
+            HStack(spacing: 0) {
                 Text(title)
                     .font(.system(size: 16, weight: .regular))
                     .foregroundColor(.onSurface)
@@ -45,4 +43,3 @@ struct ListRowNavigationItem: View {
         })
     }
 }
-

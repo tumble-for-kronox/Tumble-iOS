@@ -5,11 +5,10 @@
 //  Created by Adis Veletanlic on 11/18/22.
 //
 
-import SwiftUI
 import RealmSwift
+import SwiftUI
 
 struct SearchPreview: View {
-    
     @ObservedObject var viewModel: SearchPreviewViewModel
     @ObservedResults(Schedule.self) var schedules
     
@@ -24,7 +23,8 @@ struct SearchPreview: View {
                     Spacer()
                     BookmarkButton(
                         bookmark: bookmark,
-                        buttonState: $viewModel.buttonState)
+                        buttonState: $viewModel.buttonState
+                    )
                 }
             }
             switch viewModel.status {
@@ -46,12 +46,12 @@ struct SearchPreview: View {
             }
         }
         .frame(
-              minWidth: 0,
-              maxWidth: .infinity,
-              minHeight: 0,
-              maxHeight: .infinity,
-              alignment: .center
-            )
+            minWidth: 0,
+            maxWidth: .infinity,
+            minHeight: 0,
+            maxHeight: .infinity,
+            alignment: .center
+        )
         .background(Color.background)
         .onAppear {
             viewModel.getSchedule(
@@ -62,7 +62,7 @@ struct SearchPreview: View {
         }
     }
     
-    func bookmark() -> Void {
+    func bookmark() {
         if viewModel.isSaved {
             if let scheduleToRemoveIndex = schedules.firstIndex(where: { $0.scheduleId == programmeId }) {
                 $schedules.remove(atOffsets: IndexSet(arrayLiteral: scheduleToRemoveIndex))
@@ -75,4 +75,3 @@ struct SearchPreview: View {
         viewModel.bookmark(id: programmeId, schedules: Array(schedules))
     }
 }
-

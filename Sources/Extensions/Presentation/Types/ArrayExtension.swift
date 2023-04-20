@@ -8,7 +8,6 @@
 import Foundation
 
 extension Array {
-    
     func pick(from: Int = 0, length: Int) -> [Element] {
         precondition(length >= 0, "length must not be negative")
         if length >= count { return self }
@@ -16,6 +15,4 @@ extension Array {
         let newMax = Double(length - 1)
         return (0..<length).map { self[from + Int((Double($0) * oldMax / newMax).rounded())] }
     }
-    
 }
-

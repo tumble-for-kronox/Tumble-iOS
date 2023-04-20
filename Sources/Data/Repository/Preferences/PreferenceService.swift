@@ -9,39 +9,38 @@ import Foundation
 import SwiftUI
 
 class PreferenceService: PreferenceServiceProtocol {
-    
     @Published var userOnBoarded: Bool = false
     @Published var authSchoolId: Int = -1
     
     init() {
-        self.authSchoolId = self.getDefaultAuthSchool() ?? -1
-        self.userOnBoarded = self.isKeyPresentInUserDefaults(key: StoreKey.userOnboarded.rawValue)
+        authSchoolId = getDefaultAuthSchool() ?? -1
+        userOnBoarded = isKeyPresentInUserDefaults(key: StoreKey.userOnboarded.rawValue)
     }
     
     // ----------- SET -----------
-    func setAuthSchool(id: Int) -> Void {
+    func setAuthSchool(id: Int) {
         authSchoolId = id
         UserDefaults.standard.set(id, forKey: StoreKey.school.rawValue)
         UserDefaults.standard.synchronize()
     }
     
-    func setUserOnboarded() -> Void {
+    func setUserOnboarded() {
         UserDefaults.standard.set(true, forKey: StoreKey.userOnboarded.rawValue)
         userOnBoarded = true
         UserDefaults.standard.synchronize()
     }
     
-    func setOffset(offset: Int) -> Void {
+    func setOffset(offset: Int) {
         UserDefaults.standard.set(offset, forKey: StoreKey.notificationOffset.rawValue)
         UserDefaults.standard.synchronize()
     }
     
-    func setAppearance(appearance: String) -> Void {
+    func setAppearance(appearance: String) {
         UserDefaults.standard.set(appearance, forKey: StoreKey.appearance.rawValue)
         UserDefaults.standard.synchronize()
     }
     
-    func setLang(lang: String) -> Void {
+    func setLang(lang: String) {
         UserDefaults.standard.set(lang, forKey: StoreKey.locale.rawValue)
         UserDefaults.standard.synchronize()
     }
@@ -62,18 +61,18 @@ class PreferenceService: PreferenceServiceProtocol {
     }
     
     func getDefaultViewType() -> BookmarksViewType {
-        let hasView: Bool = self.isKeyPresentInUserDefaults(key: StoreKey.viewType.rawValue)
-        if !(hasView) {
-            self.setViewType(viewType: 0)
+        let hasView: Bool = isKeyPresentInUserDefaults(key: StoreKey.viewType.rawValue)
+        if !hasView {
+            setViewType(viewType: 0)
             return BookmarksViewType.allValues[0]
         }
         
-        let viewType: Int = self.getDefault(key: StoreKey.viewType.rawValue) as! Int
+        let viewType: Int = getDefault(key: StoreKey.viewType.rawValue) as! Int
         return BookmarksViewType.allValues[viewType]
     }
     
     func getDefaultAuthSchoolName(schools: [School]) -> String {
-        return schools.first(where: {$0.id == authSchoolId})!.name
+        return schools.first(where: { $0.id == authSchoolId })!.name
     }
     
     func getDefaultAuthSchool() -> Int? {
@@ -85,12 +84,12 @@ class PreferenceService: PreferenceServiceProtocol {
     }
     
     func getNotificationOffset() -> Int {
-        let hasOffset: Bool = self.isKeyPresentInUserDefaults(key: StoreKey.notificationOffset.rawValue)
+        let hasOffset: Bool = isKeyPresentInUserDefaults(key: StoreKey.notificationOffset.rawValue)
         if !hasOffset {
-            self.setOffset(offset: 60)
+            setOffset(offset: 60)
             return 60
         }
-        return self.getDefault(key: StoreKey.notificationOffset.rawValue) as! Int
+        return getDefault(key: StoreKey.notificationOffset.rawValue) as! Int
     }
     
     func isKeyPresentInUserDefaults(key: String) -> Bool {
@@ -98,7 +97,7 @@ class PreferenceService: PreferenceServiceProtocol {
     }
     
     func getUniversityName(schools: [School]) -> String {
-        let schoolName: String = schools.first(where: {$0.id == authSchoolId})!.name
+        let schoolName: String = schools.first(where: { $0.id == authSchoolId })!.name
         return schoolName
     }
     
@@ -107,22 +106,22 @@ class PreferenceService: PreferenceServiceProtocol {
         let uniColor: Color
         
         switch school?.color {
-            case "blue":
-                uniColor = Color.blue
-            case "orange":
-                uniColor = Color.orange
-            case "green":
-                uniColor = Color.green
-            case "yellow":
-                uniColor = Color.yellow
-            case "brown":
-                uniColor = Color.brown
-            case "red":
-                uniColor = Color.red
-            default:
-                uniColor = Color.black
-            }
+        case "blue":
+            uniColor = Color.blue
+        case "orange":
+            uniColor = Color.orange
+        case "green":
+            uniColor = Color.green
+        case "yellow":
+            uniColor = Color.yellow
+        case "brown":
+            uniColor = Color.brown
+        case "red":
+            uniColor = Color.red
+        default:
+            uniColor = Color.black
+        }
 
-            return uniColor
+        return uniColor
     }
 }

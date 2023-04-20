@@ -5,11 +5,10 @@
 //  Created by Adis Veletanlic on 3/29/23.
 //
 
-import SwiftUI
 import RealmSwift
+import SwiftUI
 
 struct BookmarksSettings: View {
-    
     @ObservedObject var parentViewModel: SettingsViewModel
     @ObservedResults(Schedule.self) var schedules
     
@@ -35,5 +34,4 @@ struct BookmarksSettings: View {
         parentViewModel.removeNotificationsFor(for: id, referencing: assignedEvents)
         $schedules.remove(atOffsets: offsets)
     }
-    
 }

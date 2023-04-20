@@ -8,11 +8,10 @@
 import SwiftUI
 
 struct RecentNews: View {
-    
     let news: Response.NewsItems?
     
     var body: some View {
-        VStack (alignment: .leading) {
+        VStack(alignment: .leading) {
             HStack {
                 Text(NSLocalizedString("Recent news", comment: ""))
                     .font(.system(size: 16, weight: .semibold))
@@ -20,7 +19,7 @@ struct RecentNews: View {
                 Spacer()
             }
             if let news = news {
-                VStack (alignment: .leading) {
+                VStack(alignment: .leading) {
                     if news.isEmpty {
                         Text(NSLocalizedString("No recent news", comment: ""))
                             .font(.system(size: 16))

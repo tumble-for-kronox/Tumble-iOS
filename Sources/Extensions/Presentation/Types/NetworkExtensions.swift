@@ -8,7 +8,6 @@
 import Foundation
 
 extension NetworkSettings {
-
     init() {
         let defaultEnvironment = Bundle.main.object(forInfoDictionaryKey: "DEFAULT_NETWORK_SETTINGS") as? String
         let storedEnvironment = UserDefaults.standard.value(forKey: "networkSettings") as? String

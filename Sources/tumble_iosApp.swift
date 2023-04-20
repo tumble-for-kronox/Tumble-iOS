@@ -9,7 +9,6 @@ import SwiftUI
 
 @main
 struct tumble_iosApp: App {
-    
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     
     init() {

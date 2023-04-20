@@ -5,11 +5,10 @@
 //  Created by Adis Veletanlic on 3/29/23.
 //
 
-import SwiftUI
 import RealmSwift
+import SwiftUI
 
 struct BookmarkSettingsRow: View {
-    
     @ObservedRealmObject var schedule: Schedule
     let index: Int
     let onDelete: (IndexSet, String) -> Void

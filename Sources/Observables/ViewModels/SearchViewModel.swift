@@ -5,13 +5,12 @@
 //  Created by Adis Veletanlic on 11/17/22.
 //
 
+import Combine
 import Foundation
 import SwiftUI
-import Combine
 
 final class SearchViewModel: ObservableObject {
-    
-    let viewModelFactory: ViewModelFactory = ViewModelFactory.shared
+    let viewModelFactory: ViewModelFactory = .shared
     
     @Inject var preferenceService: PreferenceService
     @Inject var kronoxManager: KronoxManager

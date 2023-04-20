@@ -8,13 +8,12 @@
 import SwiftUI
 
 struct VerboseEventButtonLabel: View {
-    
     let event: Event
     
     var body: some View {
         HStack {
-            VStack (alignment: .leading, spacing: 20) {
-                VStack (alignment: .leading, spacing: 2) {
+            VStack(alignment: .leading, spacing: 20) {
+                VStack(alignment: .leading, spacing: 2) {
                     Text(event.course?.englishName ?? "")
                         .font(.system(size: 17, weight: .semibold))
                         .foregroundColor(.onSurface)
@@ -38,7 +37,7 @@ struct VerboseEventButtonLabel: View {
                                 .font(.system(size: 15))
                                 .foregroundColor(.onSurface.opacity(0.7))
                         }
-                    }  else {
+                    } else {
                         Text(NSLocalizedString("No teachers listed", comment: ""))
                             .font(.system(size: 15))
                             .foregroundColor(.onSurface.opacity(0.7))
@@ -55,7 +54,8 @@ struct VerboseEventButtonLabel: View {
                     }
                     Spacer()
                     if let timeFrom = event.from.convertToHoursAndMinutesISOString(),
-                       let timeTo = event.to.convertToHoursAndMinutesISOString() {
+                       let timeTo = event.to.convertToHoursAndMinutesISOString()
+                    {
                         HStack {
                             Circle()
                                 .foregroundColor(event.isSpecial ? Color.red : event.course?.color.toColor())
@@ -79,4 +79,3 @@ struct VerboseEventButtonLabel: View {
         }
     }
 }
-

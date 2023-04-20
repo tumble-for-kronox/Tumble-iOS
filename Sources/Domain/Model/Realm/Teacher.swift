@@ -20,5 +20,4 @@ class Teacher: Object {
         self.firstName = firstName
         self.lastName = lastName
     }
-    
 }

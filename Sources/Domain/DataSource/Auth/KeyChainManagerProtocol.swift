@@ -8,18 +8,18 @@
 import Foundation
 
 protocol KeyChainManagerProtocol {
-    
     func updateKeyChain(
         _ data: Data,
         for service: String,
         account: String,
-        completion: @escaping (Result<Bool, Error>) -> Void)
-    
+        completion: @escaping (Result<Bool, Error>) -> Void
+    )
     
     func deleteKeyChain(
         for service: String,
         account: String,
-        completion: @escaping (Result<Bool, Error>) -> Void)
+        completion: @escaping (Result<Bool, Error>) -> Void
+    )
     
     func readKeyChain(for service: String, account: String) -> Data?
     
@@ -27,6 +27,6 @@ protocol KeyChainManagerProtocol {
         _ data: Data,
         for service: String,
         account: String,
-        completion: @escaping (Result<Bool, Error>) -> Void)
-    
+        completion: @escaping (Result<Bool, Error>) -> Void
+    )
 }

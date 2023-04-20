@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct Root: View {
-    
     @ObservedObject var viewModel: RootViewModel
     @AppStorage(StoreKey.appearance.rawValue) private var appearance = AppearanceTypes.system.rawValue
     
@@ -30,4 +29,3 @@ struct Root: View {
         .ignoresSafeArea(.keyboard)
     }
 }
-

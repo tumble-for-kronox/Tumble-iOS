@@ -8,7 +8,6 @@
 import Foundation
 
 class Bookmark: Identifiable, ObservableObject {
-    
     @Published var toggled: Bool
     let id: String
     

@@ -8,12 +8,11 @@
 import SwiftUI
 
 struct NewsItemCard: View {
-    
     let newsItem: Response.NotificationContent
     
     var body: some View {
         NavigationLink(destination: AnyView(NewsItemDetails(newsItem: newsItem)), label: {
-            VStack (alignment: .leading, spacing: 0) {
+            VStack(alignment: .leading, spacing: 0) {
                 HStack {
                     Text(newsItem.title)
                         .font(.system(size: 16, weight: .semibold))

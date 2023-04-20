@@ -8,15 +8,12 @@
 import SwiftUI
 
 struct UpcomingEventCardButton: View {
-    
     let event: Response.UpcomingKronoxUserEvent
     
     var body: some View {
-        Button(action: {
-            
-        }, label: {
+        Button(action: {}, label: {
             HStack {
-                VStack (alignment: .leading, spacing: 10) {
+                VStack(alignment: .leading, spacing: 10) {
                     HStack {
                         Text(event.title)
                             .font(.system(size: 17, weight: .medium))
@@ -29,7 +26,8 @@ struct UpcomingEventCardButton: View {
                             .font(.system(size: 15))
                             .foregroundColor(.onSurface.opacity(0.7))
                         if let eventStart = event.eventStart.toDate(),
-                            let eventHoursMinutes = event.eventStart.convertToHoursAndMinutes() {
+                           let eventHoursMinutes = event.eventStart.convertToHoursAndMinutes()
+                        {
                             Text(String(format: NSLocalizedString("%@ at %@", comment: ""), eventStart, eventHoursMinutes))
                                 .font(.system(size: 15))
                                 .foregroundColor(.onSurface.opacity(0.7))
@@ -47,14 +45,11 @@ struct UpcomingEventCardButton: View {
                         Text("\(NSLocalizedString("Available at:", comment: "")) \(event.firstSignupDate.toDate() ?? "(no date set)")")
                             .font(.system(size: 15))
                             .foregroundColor(.onSurface.opacity(0.7))
-
                     }
                 }
-                
             }
             .padding()
         })
         .buttonStyle(CompactButtonStyle())
     }
 }
-

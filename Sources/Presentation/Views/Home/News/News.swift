@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct News: View {
-    
     let news: Response.NewsItems?
     @Binding var showOverlay: Bool
     
@@ -19,7 +18,7 @@ struct News: View {
                     showOverlay = true
                 }
             }, label: {
-                HStack (alignment: .center) {
+                HStack(alignment: .center) {
                     Text(
                         String(format: NSLocalizedString("News from us (%@)", comment: ""),
                                news != nil ? String(news!.count) : "0")

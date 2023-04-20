@@ -31,12 +31,12 @@ struct TodaysEventsCarousel: View {
                     .offset(x: weekEventCards[index].offset)
                     .gesture(
                         DragGesture(minimumDistance: 0)
-                            .onChanged({ value in
+                            .onChanged { value in
                                 onChanged(value: value, index: index)
-                            })
-                            .onEnded({ value in
+                            }
+                            .onEnded { value in
                                 onEnded(value: value, index: index)
-                            })
+                            }
                     )
                 }
             }
@@ -44,8 +44,6 @@ struct TodaysEventsCarousel: View {
         resetButton
     }
         
-    
-    
     var resetButton: some View {
         HStack {
             Spacer()
@@ -94,7 +92,6 @@ struct TodaysEventsCarousel: View {
 }
 
 private struct CarouselCard: View {
-    
     let event: Event
     let index: Int
     let eventsForToday: [WeekEventCardModel]

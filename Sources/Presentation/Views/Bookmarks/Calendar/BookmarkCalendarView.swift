@@ -6,20 +6,19 @@
 //
 
 import Foundation
-import SwiftUI
 import FSCalendar
+import SwiftUI
 
 struct BookmarkCalendarView: View {
-
     @ObservedObject var appController: AppController
     
-    @State private var displayedDayEvents: [Event] = [Event]()
-    @State private var selectedDate: Date = Date()
+    @State private var displayedDayEvents: [Event] = .init()
+    @State private var selectedDate: Date = .init()
     
     let days: [Day]
     
     var body: some View {
-        ScrollView (showsIndicators: false) {
+        ScrollView(showsIndicators: false) {
             // Set up the calendar view with scrollEnabled set to false
             CalendarViewRepresentable(
                 selectedDate: $selectedDate,
@@ -57,7 +56,7 @@ struct BookmarkCalendarView: View {
         .id(days)
     }
     
-    private func onTapDetail(event: Event) -> Void {
+    private func onTapDetail(event: Event) {
         appController.eventSheet = EventDetailsSheetModel(event: event)
     }
     
@@ -67,7 +66,4 @@ struct BookmarkCalendarView: View {
             return Calendar.current.isDate(dayDate, inSameDayAs: date) && day.isValidDay()
         }.flatMap { $0.events }.removeDuplicates()
     }
-
 }
-
-

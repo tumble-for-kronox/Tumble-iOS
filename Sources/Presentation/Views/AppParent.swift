@@ -5,14 +5,12 @@
 //  Created by Adis Veletanlic on 11/20/22.
 //
 
-
 import SwiftUI
 
 // All navigation occurs from this view
 struct AppParent: View {
-    
     @ObservedObject var viewModel: ParentViewModel
-    @ObservedObject var appController: AppController = AppController.shared
+    @ObservedObject var appController: AppController = .shared
         
     private let navigationBarAppearance = UINavigationBar.appearance()
     
@@ -36,7 +34,8 @@ struct AppParent: View {
                 case .bookmarks:
                     Bookmarks(
                         viewModel: viewModel.bookmarksViewModel,
-                        parentViewModel: viewModel)
+                        parentViewModel: viewModel
+                    )
                 case .account:
                     Account(viewModel: viewModel.accountPageViewModel)
                 }

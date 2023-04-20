@@ -9,8 +9,8 @@ import SwiftUI
 
 struct HomeError: View {
     var body: some View {
-        VStack (alignment: .leading) {
-            VStack (alignment: .leading, spacing: 20) {
+        VStack(alignment: .leading) {
+            VStack(alignment: .leading, spacing: 20) {
                 Text(NSLocalizedString("Something went wrong", comment: ""))
                     .font(.system(size: 30, weight: .semibold))
                     .foregroundColor(.onBackground)

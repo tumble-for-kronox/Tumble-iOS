@@ -5,11 +5,10 @@
 //  Created by Adis Veletanlic on 2023-01-31.
 //
 
-import SwiftUI
 import RealmSwift
+import SwiftUI
 
 struct EventDetailsCard: View {
-    
     @ObservedObject var parentViewModel: EventDetailsSheetViewModel
     
     let openColorPicker: () -> Void
@@ -17,11 +16,11 @@ struct EventDetailsCard: View {
     let color: Color
     
     var body: some View {
-        VStack (alignment: .leading, spacing: 0) {
+        VStack(alignment: .leading, spacing: 0) {
             HStack {
-                VStack (alignment: .leading) {
+                VStack(alignment: .leading) {
                     HStack {
-                        VStack (alignment: .leading, spacing: 0) {
+                        VStack(alignment: .leading, spacing: 0) {
                             Text(event.course?.englishName ?? "")
                                 .font(.system(size: 20, weight: .semibold))
                                 .foregroundColor(.onSurface)
@@ -33,21 +32,23 @@ struct EventDetailsCard: View {
                         }
                         .padding(.bottom, 20)
                     }
-                    VStack (alignment: .leading) {
-                        HStack (spacing: 5) {
-                            if (parentViewModel.notificationsAllowed) {
+                    VStack(alignment: .leading) {
+                        HStack(spacing: 5) {
+                            if parentViewModel.notificationsAllowed {
                                 if event.from.isAvailableNotificationDate() {
                                     EventDetailsPill(
                                         title: !parentViewModel.isNotificationSetForEvent ?
                                             NSLocalizedString("Event", comment: "") : NSLocalizedString("Remove", comment: ""),
                                         image: "bell.badge",
-                                        onTap: !parentViewModel.isNotificationSetForEvent ? onSetNotificationEvent : onRemoveNotificationForEvent)
+                                        onTap: !parentViewModel.isNotificationSetForEvent ? onSetNotificationEvent : onRemoveNotificationForEvent
+                                    )
                                 }
                                 EventDetailsPill(
                                     title: !parentViewModel.isNotificationSetForCourse ?
                                         NSLocalizedString("Course", comment: "") : NSLocalizedString("Remove", comment: ""),
                                     image: "bell.badge.fill",
-                                    onTap: !parentViewModel.isNotificationSetForCourse ? onSetNotificationForCourse : onRemoveNotificationForCourse)
+                                    onTap: !parentViewModel.isNotificationSetForCourse ? onSetNotificationForCourse : onRemoveNotificationForCourse
+                                )
                             }
                             EventDetailsPill(title: NSLocalizedString("Color", comment: ""), image: "paintbrush", onTap: openColorPicker)
                         }
@@ -62,20 +63,19 @@ struct EventDetailsCard: View {
         .padding([.horizontal, .bottom], 15)
     }
     
-    func onSetNotificationEvent() -> Void {
+    func onSetNotificationEvent() {
         parentViewModel.scheduleNotificationForEvent()
     }
     
-    func onSetNotificationForCourse() -> Void {
+    func onSetNotificationForCourse() {
         parentViewModel.scheduleNotificationsForCourse()
     }
     
-    func onRemoveNotificationForEvent() -> Void {
+    func onRemoveNotificationForEvent() {
         parentViewModel.cancelNotificationForEvent()
     }
     
-    func onRemoveNotificationForCourse() -> Void {
+    func onRemoveNotificationForCourse() {
         parentViewModel.cancelNotificationsForCourse()
     }
-
 }

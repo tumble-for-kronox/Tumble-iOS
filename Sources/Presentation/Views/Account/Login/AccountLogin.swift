@@ -12,9 +12,8 @@ enum focusedField {
 }
 
 struct AccountLogin: View {
-    
     @ObservedObject var viewModel: AccountViewModel
-    @ObservedObject var appController: AppController = AppController.shared
+    @ObservedObject var appController: AppController = .shared
     
     @State private var username: String = ""
     @State private var password: String = ""
@@ -23,8 +22,8 @@ struct AccountLogin: View {
     @State private var blurSelection: Bool = true
         
     var body: some View {
-        GeometryReader { geometry in
-            VStack (spacing: 30) {
+        GeometryReader { _ in
+            VStack(spacing: 30) {
                 LoginHeader()
                 VStack {
                     HStack {
@@ -81,23 +80,24 @@ struct AccountLogin: View {
         .background(Color.background)
     }
     
-    fileprivate func login() -> Void {
+    fileprivate func login() {
         if let selectedSchool = selectedSchool {
             viewModel.login(
                 authSchoolId: selectedSchool.id,
                 username: username,
                 password: password,
-                createToast: createToast)
+                createToast: createToast
+            )
         }
     }
     
-    fileprivate func setSchoolForAuth() -> Void {
+    fileprivate func setSchoolForAuth() {
         if let selectedSchool = selectedSchool {
             viewModel.setDefaultAuthSchool(schoolId: selectedSchool.id)
         }
     }
     
-    fileprivate func createToast(success: Bool) -> Void {
+    fileprivate func createToast(success: Bool) {
         if success {
             appController.toast = Toast(
                 type: .success,

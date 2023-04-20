@@ -13,7 +13,7 @@ extension URLSession {
         config.timeoutIntervalForRequest = 20
         config.timeoutIntervalForResource = 20
         config.httpShouldUsePipelining = true
-        //config.waitsForConnectivity = true
+        // config.waitsForConnectivity = true
         return URLSession(configuration: config)
     }()
 }

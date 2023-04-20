@@ -31,7 +31,8 @@ class Event: Object {
             .day,
             .hour,
             .minute,
-            .second], from: fromDate)
+            .second
+        ], from: fromDate)
         return components
     }
     
@@ -44,17 +45,17 @@ class Event: Object {
         locations: RealmSwift.List<Location>,
         teachers: RealmSwift.List<Teacher>,
         isSpecial: Bool,
-        lastModified: String) {
-            self.init()
-            self.eventId = eventId
-            self.title = title
-            self.course = course
-            self.from = from
-            self.to = to
-            self.locations = locations
-            self.teachers = teachers
-            self.isSpecial = isSpecial
-            self.lastModified = lastModified
+        lastModified: String
+    ) {
+        self.init()
+        self.eventId = eventId
+        self.title = title
+        self.course = course
+        self.from = from
+        self.to = to
+        self.locations = locations
+        self.teachers = teachers
+        self.isSpecial = isSpecial
+        self.lastModified = lastModified
     }
-    
 }

@@ -7,15 +7,13 @@
 
 import Foundation
 
-
 /// This is a custom injector to instantiate
 /// repositories and observable classes used throughout the app.
 /// An instance of a class wrapped with @Provider can be injected
 /// into any other class with the @Inject wrapper. This allows
 /// for a shared instance of a class without having to create static shared.
 struct DependencyInjector {
-    
-    private static var dependencyList: [String : Any] = [:]
+    private static var dependencyList: [String: Any] = [:]
     
     // Find dependency for injection
     static func resolve<T>() -> T {
@@ -38,8 +36,8 @@ struct DependencyInjector {
     var wrappedValue: T
     
     init() {
-        self.wrappedValue = DependencyInjector.resolve()
-        AppLogger.shared.debug("Injected <- \(self.wrappedValue)")
+        wrappedValue = DependencyInjector.resolve()
+        AppLogger.shared.debug("Injected <- \(wrappedValue)")
     }
 }
 

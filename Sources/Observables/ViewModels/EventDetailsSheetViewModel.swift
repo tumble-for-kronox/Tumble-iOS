@@ -5,13 +5,12 @@
 //  Created by Adis Veletanlic on 2023-02-01.
 //
 
-import Foundation
-import SwiftUI
 import Combine
+import Foundation
 import RealmSwift
+import SwiftUI
 
 final class EventDetailsSheetViewModel: ObservableObject {
-    
     @Inject var notificationManager: NotificationManager
     @Inject var preferenceService: PreferenceService
     
@@ -24,7 +23,7 @@ final class EventDetailsSheetViewModel: ObservableObject {
         
     init(event: Event) {
         self.event = event
-        self.color = event.course?.color.toColor() ?? .white
+        color = event.course?.color.toColor() ?? .white
         checkNotificationIsSetForEvent()
         checkNotificationIsSetForCourse()
         notificationOffset = preferenceService.getNotificationOffset()
@@ -36,38 +35,36 @@ final class EventDetailsSheetViewModel: ObservableObject {
         })
     }
     
-    @MainActor func setEventSheetView(event: Event, color: Color) -> Void {
+    @MainActor func setEventSheetView(event: Event, color: Color) {
         self.event = event
     }
     
-    
-    @MainActor func cancelNotificationForEvent() -> Void {
-        self.isNotificationSetForEvent = false
-        self.notificationManager.cancelNotification(for: self.event.eventId)
+    @MainActor func cancelNotificationForEvent() {
+        isNotificationSetForEvent = false
+        notificationManager.cancelNotification(for: event.eventId)
     }
     
-    
-    @MainActor func cancelNotificationsForCourse() -> Void {
-        self.isNotificationSetForCourse = false
-        self.isNotificationSetForEvent = false
-        if let course = self.event.course {
-            self.notificationManager.cancelNotifications(with: course.courseId)
+    @MainActor func cancelNotificationsForCourse() {
+        isNotificationSetForCourse = false
+        isNotificationSetForEvent = false
+        if let course = event.course {
+            notificationManager.cancelNotifications(with: course.courseId)
         }
     }
     
-    
-    @MainActor func scheduleNotificationForEvent() -> Void {
-        let userOffset: Int = self.preferenceService.getNotificationOffset()
+    @MainActor func scheduleNotificationForEvent() {
+        let userOffset: Int = preferenceService.getNotificationOffset()
         
         // Create notification for event without categoryIdentifier,
         // since it does not need to be set for the entire course
         let notification = EventNotification(
-            id: self.event.eventId,
-            dateComponents: self.event.dateComponents!,
+            id: event.eventId,
+            dateComponents: event.dateComponents!,
             categoryIdentifier: nil,
-            content: self.event.toDictionary())
+            content: event.toDictionary()
+        )
         
-        self.notificationManager.scheduleNotification(
+        notificationManager.scheduleNotification(
             for: notification,
             type: .event,
             userOffset: userOffset,
@@ -81,13 +78,15 @@ final class EventDetailsSheetViewModel: ObservableObject {
                     AppLogger.shared.critical("Failed to schedule notifications -> \(failure)")
                     // TODO: Handle error in view
                 }
-        })
+            }
+        )
     }
 
     @MainActor func updateCourseColor() {
         guard let colorToSet = color.toHex(),
               let realm = try? Realm(),
-              let eventCourseID = self.event.course?.courseId else {
+              let eventCourseID = event.course?.courseId
+        else {
             return
         }
         
@@ -98,7 +97,8 @@ final class EventDetailsSheetViewModel: ObservableObject {
                     .flatMap { $0.events.filter { $0.course?.courseId == eventCourseID } }
                 for event in eventsToUpdate {
                     if let courseToUpdate = event.course,
-                       courseToUpdate.color != colorToSet {
+                       courseToUpdate.color != colorToSet
+                    {
                         courseToUpdate.color = colorToSet
                     }
                 }
@@ -106,8 +106,7 @@ final class EventDetailsSheetViewModel: ObservableObject {
         }
     }
 
-    
-    @MainActor func scheduleNotificationsForCourse() -> Void {
+    @MainActor func scheduleNotificationsForCourse() {
         let realm = try! Realm()
         let schedules = realm.objects(Schedule.self)
         let events = Array(schedules)
@@ -123,7 +122,7 @@ final class EventDetailsSheetViewModel: ObservableObject {
         }
     }
     
-    func userAllowedNotifications(completion: @escaping (Bool) -> Void) -> Void {
+    func userAllowedNotifications(completion: @escaping (Bool) -> Void) {
         notificationManager.notificationsAreAllowed(completion: { result in
             switch result {
             case .success:

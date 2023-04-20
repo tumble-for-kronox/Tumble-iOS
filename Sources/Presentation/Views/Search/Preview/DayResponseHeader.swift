@@ -10,7 +10,7 @@ import SwiftUI
 struct DayResponseHeader: View {
     let day: Response.Day
     var body: some View {
-        HStack (spacing: 0) {
+        HStack(spacing: 0) {
             Text(NSLocalizedString(localizedKey(for: day.name), comment: ""))
                 .dayHeader()
             Text(day.date)
@@ -30,5 +30,4 @@ struct DayResponseHeader: View {
     fileprivate func localizedKey(for inputString: String) -> String {
         return "\(inputString)"
     }
-    
 }

@@ -8,8 +8,7 @@
 import Foundation
 
 extension AccountViewModel {
-    
-    func scheduleBookingNotifications(for bookings: Response.KronoxUserBookings) -> Void {
+    func scheduleBookingNotifications(for bookings: Response.KronoxUserBookings) {
         DispatchQueue.global(qos: .background).async { [weak self] in
             guard let self else { return }
             for booking in bookings {
@@ -29,7 +28,8 @@ extension AccountViewModel {
                             case .failure(let failure):
                                 AppLogger.shared.debug("Failed : \(failure)")
                             }
-                        })
+                        }
+                    )
                 } else {
                     AppLogger.shared.critical("Failed to retrieve date components for booking")
                 }
@@ -49,27 +49,28 @@ extension AccountViewModel {
                 switch result {
                 case .success((let schoolId, let refreshToken)):
                     let request = Endpoint.registerAllEvents(schoolId: String(schoolId))
-                    let _ = kronoxManager.put(request, refreshToken: refreshToken, body: Request.Empty(),
-                       then: { (result: Result<Response.KronoxEventRegistration?, Response.ErrorMessage>) in
-                        DispatchQueue.main.async {
-                            switch result {
-                            case .success(let eventRegistrations):
-                                if let eventRegistrations = eventRegistrations {
-                                    AppLogger.shared.debug("Successful registrations: \(String(describing: eventRegistrations.successfulRegistrations?.count))")
-                                    AppLogger.shared.debug("Failed registrations: \(String(describing: eventRegistrations.failedRegistrations?.count))")
-                                    completion(.success(()))
-                                }
-                            case .failure(let failure):
-                                AppLogger.shared.critical("Failed to automatically sign up for exams: \(failure)")
-                                completion(.failure(.generic(reason: "\(failure)")))
-                            }
-                        }
-                    })
+                    _ = kronoxManager.put(request, refreshToken: refreshToken, body: Request.Empty(),
+                                          then: { (result: Result<Response.KronoxEventRegistration?, Response.ErrorMessage>) in
+                                              DispatchQueue.main.async {
+                                                  switch result {
+                                                  case .success(let eventRegistrations):
+                                                      if let eventRegistrations = eventRegistrations {
+                                                          AppLogger.shared.debug("Successful registrations: \(String(describing: eventRegistrations.successfulRegistrations?.count))")
+                                                          AppLogger.shared.debug("Failed registrations: \(String(describing: eventRegistrations.failedRegistrations?.count))")
+                                                          completion(.success(()))
+                                                      }
+                                                  case .failure(let failure):
+                                                      AppLogger.shared.critical("Failed to automatically sign up for exams: \(failure)")
+                                                      completion(.failure(.generic(reason: "\(failure)")))
+                                                  }
+                                              }
+                                          })
                 case .failure(let failure):
                     AppLogger.shared.critical("Could not log in to register for available events")
                     completion(.failure(.generic(reason: "\(failure)")))
                 }
-            })
+            }
+        )
     }
     
     func cancelDataTaskIfTabChanged(dataTask: URLSessionDataTask?) {
@@ -84,6 +85,4 @@ extension AccountViewModel {
             }
         }
     }
-
-
 }

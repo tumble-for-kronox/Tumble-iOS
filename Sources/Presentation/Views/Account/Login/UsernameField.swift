@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct UsernameField: View {
-    
     @Binding var username: String
     
     var body: some View {

@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct SearchResults: View {
-    
     let searchText: String
     let numberOfSearchResults: Int
     let searchResults: [Response.Programme]
@@ -23,7 +22,7 @@ struct SearchResults: View {
                     .searchResultsField()
                 Spacer()
             }
-            ScrollView (showsIndicators: false) {
+            ScrollView(showsIndicators: false) {
                 LazyVStack {
                     ForEach(searchResults, id: \.id) { programme in
                         ProgrammeCard(

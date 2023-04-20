@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct TimeslotCard: View {
-    
     let onBook: () -> Void
     let locationId: String
     @Binding var bookingButtonState: BookingButtonState
@@ -51,4 +50,3 @@ struct TimeslotCard: View {
         .padding(.vertical, 10)
     }
 }
-

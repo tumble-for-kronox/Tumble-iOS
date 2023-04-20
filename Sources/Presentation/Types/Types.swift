@@ -28,8 +28,8 @@ enum TabbarTabType: String {
 }
 
 enum BookmarksViewType: String {
-    case list = "list"
-    case calendar = "calendar"
+    case list
+    case calendar
     
     var displayName: String {
         switch self {
@@ -42,4 +42,3 @@ enum BookmarksViewType: String {
     
     static let allValues: [BookmarksViewType] = [list, calendar]
 }
-

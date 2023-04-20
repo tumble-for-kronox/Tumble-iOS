@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct SearchField: View {
-    
     let search: (() -> Void)?
     let clearSearch: (() -> Void)?
     let title: String
@@ -20,7 +19,8 @@ struct SearchField: View {
     var body: some View {
         HStack {
             TextField(NSLocalizedString(
-                title, comment: ""), text: $searchBarText)
+                title, comment: ""
+            ), text: $searchBarText)
                 .searchBoxText()
                 .onTapGesture {
                     withAnimation(.spring()) {

@@ -5,11 +5,10 @@
 //  Created by Adis Veletanlic on 2023-03-26.
 //
 
-import Foundation
 import Combine
+import Foundation
 
 final class ResourceViewModel: ObservableObject {
-    
     @Inject var userController: UserController
     @Inject var kronoxManager: KronoxManager
     @Inject var notificationManager: NotificationManager
@@ -21,18 +20,17 @@ final class ResourceViewModel: ObservableObject {
     @Published var resourceBookingPageState: GenericPageStatus = .loading
     @Published var eventBookingPageState: GenericPageStatus = .loading
     @Published var error: Response.ErrorMessage? = nil
-    @Published var selectedPickerDate: Date = Date.now
-    
+    @Published var selectedPickerDate: Date = .now
     
     @Published var authSchoolId: Int = -1
     private var allResourcesDataTask: URLSessionDataTask? = nil
     private var cancellables = Set<AnyCancellable>()
     
-    init () {
+    init() {
         initialisePipelines()
     }
     
-    func initialisePipelines() -> Void {
+    func initialisePipelines() {
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             guard let self else { return }
             self.preferenceService.$authSchoolId
@@ -54,29 +52,30 @@ final class ResourceViewModel: ObservableObject {
                 switch result {
                 case .success((let schoolId, let refreshToken)):
                     let request = Endpoint.userEvents(schoolId: String(schoolId))
-                    let _ = self.kronoxManager.get(request, refreshToken: refreshToken,
-                    then: { (result: Result<Response.KronoxCompleteUserEvent?, Response.ErrorMessage>) in
-                        switch result {
-                        case .success(let events):
-                            AppLogger.shared.debug("Successfully loaded events")
-                            DispatchQueue.main.async {
-                                self.completeUserEvent = events
-                                self.eventBookingPageState = .loaded
-                            }
-                        case .failure(let failure):
-                            AppLogger.shared.debug("\(failure)")
-                            DispatchQueue.main.async {
-                                self.eventBookingPageState = .error
-                            }
-                        }
-                    })
+                    _ = self.kronoxManager.get(request, refreshToken: refreshToken,
+                                               then: { (result: Result<Response.KronoxCompleteUserEvent?, Response.ErrorMessage>) in
+                                                   switch result {
+                                                   case .success(let events):
+                                                       AppLogger.shared.debug("Successfully loaded events")
+                                                       DispatchQueue.main.async {
+                                                           self.completeUserEvent = events
+                                                           self.eventBookingPageState = .loaded
+                                                       }
+                                                   case .failure(let failure):
+                                                       AppLogger.shared.debug("\(failure)")
+                                                       DispatchQueue.main.async {
+                                                           self.eventBookingPageState = .error
+                                                       }
+                                                   }
+                                               })
                 case .failure(let failure):
                     AppLogger.shared.critical("Failed to get events: \(failure)")
                     DispatchQueue.main.async {
                         self.eventBookingPageState = .error
                     }
                 }
-            })
+            }
+        )
     }
     
     func registerForEvent(
@@ -96,23 +95,24 @@ final class ResourceViewModel: ObservableObject {
                 switch result {
                 case .success((let schoolId, let refreshToken)):
                     let request = Endpoint.registerEvent(eventId: eventId, schoolId: String(schoolId))
-                    let _ = self.kronoxManager.put(request, refreshToken: refreshToken, body: Request.Empty(),
-                       then: { (result: Result<Response.Empty, Response.ErrorMessage>) in
-                        DispatchQueue.main.async {
-                            switch result {
-                            case .success:
-                                completion(.success(()))
-                            case .failure(let failure):
-                                completion(.failure(.internal(reason: "\(failure)")))
-                            }
-                        }
-                    })
+                    _ = self.kronoxManager.put(request, refreshToken: refreshToken, body: Request.Empty(),
+                                               then: { (result: Result<Response.Empty, Response.ErrorMessage>) in
+                                                   DispatchQueue.main.async {
+                                                       switch result {
+                                                       case .success:
+                                                           completion(.success(()))
+                                                       case .failure(let failure):
+                                                           completion(.failure(.internal(reason: "\(failure)")))
+                                                       }
+                                                   }
+                                               })
                 case .failure(let failure):
                     DispatchQueue.main.async {
                         completion(.failure(.internal(reason: "\(failure)")))
                     }
                 }
-            })
+            }
+        )
     }
     
     func unregisterForEvent(
@@ -132,26 +132,27 @@ final class ResourceViewModel: ObservableObject {
                 switch result {
                 case .success((let schoolId, let refreshToken)):
                     let request = Endpoint.unregisterEvent(eventId: eventId, schoolId: String(schoolId))
-                    let _ = self.kronoxManager.put(request, refreshToken: refreshToken, body: Request.Empty(),
-                       then: { (result: Result<Response.Empty, Response.ErrorMessage>) in
-                        DispatchQueue.main.async {
-                            switch result {
-                            case .success(_):
-                                completion(.success(()))
-                            case .failure(let failure):
-                                completion(.failure(.internal(reason: "\(failure)")))
-                            }
-                        }
-                    })
+                    _ = self.kronoxManager.put(request, refreshToken: refreshToken, body: Request.Empty(),
+                                               then: { (result: Result<Response.Empty, Response.ErrorMessage>) in
+                                                   DispatchQueue.main.async {
+                                                       switch result {
+                                                       case .success:
+                                                           completion(.success(()))
+                                                       case .failure(let failure):
+                                                           completion(.failure(.internal(reason: "\(failure)")))
+                                                       }
+                                                   }
+                                               })
                 case .failure(let failure):
                     DispatchQueue.main.async {
                         completion(.failure(.internal(reason: "\(failure)")))
                     }
                 }
-            })
+            }
+        )
     }
     
-    func getAllResourceData(tries: Int = 0, date: Date) -> Void {
+    func getAllResourceData(tries: Int = 0, date: Date) {
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
             self.resourceBookingPageState = .loading
@@ -165,36 +166,36 @@ final class ResourceViewModel: ObservableObject {
                 case .success((let schoolId, let refreshToken)):
                     let request = Endpoint.allResources(schoolId: String(schoolId), date: date)
                     self.allResourcesDataTask = self.kronoxManager.get(request, refreshToken: refreshToken,
-                    then: { (result: Result<Response.KronoxResources?, Response.ErrorMessage>) in
-                        switch result {
-                        case .success(let resources):
-                            DispatchQueue.main.async {
-                                self.allResources = resources
-                                self.resourceBookingPageState = .loaded
-                            }
-                        case .failure(let failure):
-                            AppLogger.shared.debug("\(failure)")
-                            DispatchQueue.main.async {
-                                self.resourceBookingPageState = .error
-                                self.error = failure
-                            }
-                        }
-                    })
+                                                                       then: { (result: Result<Response.KronoxResources?, Response.ErrorMessage>) in
+                                                                           switch result {
+                                                                           case .success(let resources):
+                                                                               DispatchQueue.main.async {
+                                                                                   self.allResources = resources
+                                                                                   self.resourceBookingPageState = .loaded
+                                                                               }
+                                                                           case .failure(let failure):
+                                                                               AppLogger.shared.debug("\(failure)")
+                                                                               DispatchQueue.main.async {
+                                                                                   self.resourceBookingPageState = .error
+                                                                                   self.error = failure
+                                                                               }
+                                                                           }
+                                                                       })
                 case .failure:
                     DispatchQueue.main.async {
                         self.resourceBookingPageState = .error
                     }
                 }
-            })
-        cancelDataTaskIfDateChanged(dataTask: allResourcesDataTask, date: self.selectedPickerDate)
+            }
+        )
+        cancelDataTaskIfDateChanged(dataTask: allResourcesDataTask, date: selectedPickerDate)
     }
-    
     
     func confirmResource(
         resourceId: String,
         bookingId: String,
         completion: @escaping (Result<Void, Error>) -> Void
-    ) -> Void {
+    ) {
         userController.authenticateAndExecute(
             authSchoolId: authSchoolId,
             refreshToken: userController.refreshToken,
@@ -209,10 +210,11 @@ final class ResourceViewModel: ObservableObject {
                         resourceId: resourceId,
                         bookingId: bookingId
                     )
-                    let _ = self.kronoxManager.put(
+                    _ = self.kronoxManager.put(
                         requestUrl,
                         refreshToken: refreshToken,
-                        body: requestBody) {
+                        body: requestBody
+                    ) {
                         (result: Result<Response.Empty, Response.ErrorMessage>) in
                         switch result {
                         case .success:
@@ -235,13 +237,12 @@ final class ResourceViewModel: ObservableObject {
         )
     }
     
-    
     func bookResource(
         resourceId: String,
         date: Date,
         availabilityValue: Response.AvailabilityValue,
         completion: @escaping (Result<Void, Error>) -> Void
-    ) -> Void {
+    ) {
         userController.authenticateAndExecute(
             authSchoolId: authSchoolId,
             refreshToken: userController.refreshToken,
@@ -257,10 +258,11 @@ final class ResourceViewModel: ObservableObject {
                         date: isoDateFormatterFract.string(from: date),
                         slot: availabilityValue
                     )
-                    let _ = self.kronoxManager.put(
+                    _ = self.kronoxManager.put(
                         requestUrl,
                         refreshToken: refreshToken,
-                        body: requestBody) {
+                        body: requestBody
+                    ) {
                         (result: Result<Response.KronoxUserBookingElement?, Response.ErrorMessage>) in
                         switch result {
                         case .success:
@@ -283,7 +285,7 @@ final class ResourceViewModel: ObservableObject {
         )
     }
     
-    func unbookResource(bookingId: String, completion: @escaping (Result<Void, Error>) -> Void) -> Void {
+    func unbookResource(bookingId: String, completion: @escaping (Result<Void, Error>) -> Void) {
         userController.authenticateAndExecute(
             authSchoolId: authSchoolId,
             refreshToken: userController.refreshToken,
@@ -292,10 +294,11 @@ final class ResourceViewModel: ObservableObject {
                 switch result {
                 case .success((let schoolId, let refreshToken)):
                     let requestUrl: Endpoint = .unbookResource(schoolId: String(schoolId), bookingId: bookingId)
-                    let _ = self.kronoxManager.put(
+                    _ = self.kronoxManager.put(
                         requestUrl,
                         refreshToken: refreshToken,
-                        body: Request.Empty()) {
+                        body: Request.Empty()
+                    ) {
                         (result: Result<Response.Empty, Response.ErrorMessage>) in
                         switch result {
                         case .success:
@@ -311,6 +314,7 @@ final class ResourceViewModel: ObservableObject {
                     AppLogger.shared.critical("\(failure)")
                     completion(.failure(.internal(reason: "\(failure)")))
                 }
-            })
+            }
+        )
     }
 }

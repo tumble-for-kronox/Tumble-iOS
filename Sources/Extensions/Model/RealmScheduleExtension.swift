@@ -13,7 +13,7 @@ extension [Schedule] {
         for schedule in self {
             days += schedule.days
         }
-        let uniqueDays = Set(days.map {$0.date })
+        let uniqueDays = Set(days.map { $0.date })
         var mergedDays = [Day]()
 
         for date in uniqueDays {
@@ -32,12 +32,12 @@ extension [Schedule] {
 
 extension Schedule {
     func courses() -> [String] {
-        return Array(Set(self.days.flatMap { $0.events.compactMap { $0.course?.courseId } }))
+        return Array(Set(days.flatMap { $0.events.compactMap { $0.course?.courseId } }))
     }
     
     func flatten() -> [Day] {
-        return self.days.reduce(into: []) {
-            if $1.isValidDay() {$0.append($1)}}
+        return days.reduce(into: []) {
+            if $1.isValidDay() { $0.append($1) }
+        }
     }
-    
 }

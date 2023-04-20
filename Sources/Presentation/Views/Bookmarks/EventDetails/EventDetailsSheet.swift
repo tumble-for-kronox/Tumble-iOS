@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct EventDetailsSheet: View {
-    
     @AppStorage(StoreKey.appearance.rawValue) private var appearance = AppearanceTypes.system.rawValue
     @ObservedObject var viewModel: EventDetailsSheetViewModel
     @State var presentColorPicker: Bool = false
@@ -17,12 +16,13 @@ struct EventDetailsSheet: View {
         VStack {
             DraggingPill()
             SheetTitle(title: NSLocalizedString("Details", comment: ""))
-            ScrollView (showsIndicators: false) {
+            ScrollView(showsIndicators: false) {
                 EventDetailsCard(
                     parentViewModel: viewModel,
                     openColorPicker: openColorPicker,
                     event: viewModel.event,
-                    color: viewModel.color)
+                    color: viewModel.color
+                )
                 EventDetailsBody(event: viewModel.event)
                 Spacer()
             }
@@ -31,7 +31,6 @@ struct EventDetailsSheet: View {
                 ColorPicker(NSLocalizedString("Select course color", comment: ""), selection: $viewModel.color, supportsOpacity: false)
                     .labelsHidden().opacity(0)
                     .preferredColorScheme(getThemeColorScheme(appearance: appearance))
-                    
             )
             .onDisappear(perform: {
                 viewModel.updateCourseColor()
@@ -41,8 +40,7 @@ struct EventDetailsSheet: View {
         .background(Color.background)
     }
     
-    
-    func openColorPicker() -> Void {
+    func openColorPicker() {
         UIColorWellHelper.helper.execute?()
     }
 }

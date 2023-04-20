@@ -11,7 +11,7 @@ struct TabBar: View {
     @Binding var selectedAppTab: TabbarTabType
         
     var body: some View {
-        HStack (spacing: 0) {
+        HStack(spacing: 0) {
             TabBarButton(appTab: .home, selectedAppTab: $selectedAppTab)
             TabBarButton(appTab: .bookmarks, selectedAppTab: $selectedAppTab)
             TabBarButton(appTab: .account, selectedAppTab: $selectedAppTab)
@@ -21,4 +21,3 @@ struct TabBar: View {
         .background(Color.background)
     }
 }
-

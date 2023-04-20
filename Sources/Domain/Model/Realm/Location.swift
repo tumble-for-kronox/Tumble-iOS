@@ -21,13 +21,13 @@ class Location: Object {
         name: String,
         building: String,
         floor: String,
-        maxSeats: Int) {
-            self.init()
-            self.locationId = locationId
-            self.name = name
-            self.building = building
-            self.floor = floor
-            self.maxSeats = maxSeats
+        maxSeats: Int
+    ) {
+        self.init()
+        self.locationId = locationId
+        self.name = name
+        self.building = building
+        self.floor = floor
+        self.maxSeats = maxSeats
     }
-    
 }

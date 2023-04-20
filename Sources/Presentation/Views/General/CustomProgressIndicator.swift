@@ -20,4 +20,3 @@ struct CustomProgressIndicator: View {
             .scaleEffect(1, anchor: .center)
     }
 }
-

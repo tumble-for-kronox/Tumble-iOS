@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct BookmarkButton: View {
-    
     let bookmark: () -> Void
     
     @Binding var buttonState: ButtonState
@@ -23,7 +22,7 @@ struct BookmarkButton: View {
                 case .loading:
                     CustomProgressIndicator(tint: .onPrimary)
                 case .saved:
-                    HStack (spacing: 10) {
+                    HStack(spacing: 10) {
                         Image(systemName: "bookmark.fill")
                             .font(.system(size: 16))
                             .foregroundColor(.onPrimary)
@@ -32,7 +31,7 @@ struct BookmarkButton: View {
                             .foregroundColor(.onPrimary)
                     }
                 case .notSaved:
-                    HStack (spacing: 10) {
+                    HStack(spacing: 10) {
                         Image(systemName: "bookmark")
                             .font(.system(size: 16))
                             .foregroundColor(.onPrimary)

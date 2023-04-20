@@ -6,19 +6,19 @@
 //
 
 import Foundation
-import UIKit
 import SwiftUI
+import UIKit
 
 func navigationBarFont() -> UIFont {
-    var titleFont = UIFont.preferredFont(forTextStyle: .headline) 
-            titleFont = UIFont(
-                descriptor:
-                    titleFont.fontDescriptor
-                    .withSymbolicTraits(.traitBold)
-                    ??
-                    titleFont.fontDescriptor,
-                size: titleFont.pointSize
-            )
+    var titleFont = UIFont.preferredFont(forTextStyle: .headline)
+    titleFont = UIFont(
+        descriptor:
+        titleFont.fontDescriptor
+            .withSymbolicTraits(.traitBold)
+            ??
+            titleFont.fontDescriptor,
+        size: titleFont.pointSize
+    )
     return titleFont
 }
 

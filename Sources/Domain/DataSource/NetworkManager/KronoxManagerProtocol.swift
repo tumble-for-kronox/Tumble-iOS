@@ -8,7 +8,6 @@
 import Foundation
 
 protocol KronoxManagerProtocol {
-    
     func get<NetworkResponse: Decodable>(
         _ endpoint: Endpoint,
         refreshToken: String?,
@@ -21,5 +20,4 @@ protocol KronoxManagerProtocol {
         body: Request?,
         then completion: ((Result<NetworkResponse, Response.ErrorMessage>) -> Void)?
     ) -> URLSessionDataTask?
-    
 }

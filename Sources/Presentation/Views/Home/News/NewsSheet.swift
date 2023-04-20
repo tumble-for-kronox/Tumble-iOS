@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct NewsSheet: View {
-    
     let news: Response.NewsItems?
     
     @State private var searching: Bool = false
@@ -37,13 +36,13 @@ struct NewsSheet: View {
                     disabled: .constant(false)
                 )
                 if !searching {
-                    ScrollView (showsIndicators: false) {
+                    ScrollView(showsIndicators: false) {
                         RecentNews(news: news)
                         AllNews(news: news)
                     }
                     .padding([.top, .horizontal], 15)
                 } else {
-                    ScrollView (showsIndicators: false) {
+                    ScrollView(showsIndicators: false) {
                         ForEach(filteredNews, id: \.self) { newsItem in
                             NewsItemCard(newsItem: newsItem)
                         }
@@ -56,6 +55,4 @@ struct NewsSheet: View {
             .background(Color.background)
         }
     }
-    
-    
 }

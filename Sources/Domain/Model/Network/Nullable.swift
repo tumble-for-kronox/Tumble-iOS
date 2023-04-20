@@ -9,15 +9,15 @@ import Foundation
 
 enum Nullable {
     // MARK: - Encode/decode helpers
-    class JSONNull: Codable, Hashable {
 
+    class JSONNull: Codable, Hashable {
         public static func == (lhs: JSONNull, rhs: JSONNull) -> Bool {
             return true
         }
 
         public func hash(into hasher: inout Hasher) {
-                hasher.combine(0)
-            }
+            hasher.combine(0)
+        }
 
         public init() {}
 

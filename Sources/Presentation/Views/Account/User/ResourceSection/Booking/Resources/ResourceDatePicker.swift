@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct ResourceDatePicker: View {
-    
     @Binding var date: Date
     
     var body: some View {

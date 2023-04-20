@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 struct BubbleShape: Shape {
-    var myMessage : Bool
+    var myMessage: Bool
     func path(in rect: CGRect) -> Path {
         let width = rect.width
         let height = rect.height

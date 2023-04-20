@@ -11,7 +11,6 @@ import SwiftUI
 // Observable User model, changes to this object will
 // trigger UI changes wherever there are listeners
 class UserController: ObservableObject {
-        
     @Inject var authManager: AuthManager
     @Inject var kronoxManager: KronoxManager
     @Inject var preferenceService: PreferenceService
@@ -36,9 +35,7 @@ class UserController: ObservableObject {
         set { authManager.user = newValue }
     }
 
-    var refreshToken: Token? {
-        get { authManager.refreshToken }
-    }
+    var refreshToken: Token? { authManager.refreshToken }
     
     var autoSignup: Bool {
         get { preferenceService.getDefault(key: StoreKey.autoSignup.rawValue) as? Bool ?? false }
@@ -51,9 +48,9 @@ class UserController: ObservableObject {
         refreshToken: Token?,
         execute: @escaping (Result<(Int, String), Error>) -> Void
     ) {
-        
         guard let refreshToken = refreshToken,
-              !refreshToken.isExpired() else {
+              !refreshToken.isExpired()
+        else {
             if tries < NetworkConstants.MAX_CONSECUTIVE_ATTEMPTS && authStatus == .authorized {
                 AppLogger.shared.debug("Attempting auto login ...")
                 autoLogin(authSchoolId: authSchoolId) { [unowned self] in
@@ -71,5 +68,4 @@ class UserController: ObservableObject {
         }
         execute(.success((authSchoolId, refreshToken.value)))
     }
-
 }

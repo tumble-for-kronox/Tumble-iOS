@@ -14,7 +14,6 @@ struct SettingsDetails {
 }
 
 struct ListRowActionItem: View {
-    
     @State private var isConfirming: Bool = false
     
     let settingsDetails: SettingsDetails?
@@ -49,7 +48,7 @@ struct ListRowActionItem: View {
                 action()
             }
         }, label: {
-            HStack (spacing: 0) {
+            HStack(spacing: 0) {
                 Text(title)
                     .font(.system(size: 16, weight: .regular))
                     .foregroundColor(.onSurface)
@@ -70,7 +69,7 @@ struct ListRowActionItem: View {
             view.confirmationDialog(
                 settingsDetails!.titleKey,
                 isPresented: $isConfirming, presenting: settingsDetails
-            ) { detail in
+            ) { _ in
                 Button {
                     action()
                 } label: {
@@ -84,4 +83,3 @@ struct ListRowActionItem: View {
         }
     }
 }
-

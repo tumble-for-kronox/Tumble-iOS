@@ -35,6 +35,5 @@ struct ProgrammeCard: View {
             }
         })
         .buttonStyle(ProgrammeCardStyle())
-        
     }
 }

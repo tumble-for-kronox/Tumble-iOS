@@ -9,8 +9,8 @@ import SwiftUI
 
 struct HomeNoBookmarks: View {
     var body: some View {
-        VStack (alignment: .leading) {
-            VStack (alignment: .leading) {
+        VStack(alignment: .leading) {
+            VStack(alignment: .leading) {
                 Text(NSLocalizedString("Looks like you don't have anything saved yet", comment: ""))
                     .font(.system(size: 30, weight: .semibold))
                     .foregroundColor(.onBackground)
@@ -27,7 +27,6 @@ struct HomeNoBookmarks: View {
                 .scaledToFit()
                 .frame(width: getRect().width - 40, height: getRect().width - 80)
         }
-        
     }
 }
 

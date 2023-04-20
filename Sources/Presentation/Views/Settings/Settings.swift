@@ -5,11 +5,10 @@
 //  Created by Adis Veletanlic on 3/28/23.
 //
 
-import SwiftUI
 import RealmSwift
+import SwiftUI
 
 struct Settings: View {
-    
     @AppStorage(StoreKey.appearance.rawValue) var appearance: String = AppearanceTypes.system.rawValue
     @ObservedObject var viewModel: SettingsViewModel
     @ObservedResults(Schedule.self) var schedules
@@ -22,7 +21,8 @@ struct Settings: View {
                     ListRowNavigationItem(
                         title: NSLocalizedString("Appearance", comment: ""),
                         current: NSLocalizedString($appearance.wrappedValue, comment: ""),
-                        destination: AnyView(AppearanceSettings(appearance: $appearance)))
+                        destination: AnyView(AppearanceSettings(appearance: $appearance))
+                    )
                     Divider()
                     ListRowActionItem(
                         title: NSLocalizedString("App language", comment: ""),
@@ -31,7 +31,8 @@ struct Settings: View {
                             if let settingsURL = URL(string: UIApplication.openSettingsURLString) {
                                 UIApplication.shared.open(settingsURL)
                             }
-                        })
+                        }
+                    )
                 }
                 CustomListGroup {
                     ListRowNavigationItem(
@@ -39,13 +40,16 @@ struct Settings: View {
                         destination: AnyView(NotificationSettings(
                             clearAllNotifications: clearAllNotifications,
                             scheduleNotificationsForAllCourses: scheduleNotificationsForAllCourses,
-                            rescheduleNotifications: rescheduleNotifications)))
+                            rescheduleNotifications: rescheduleNotifications
+                        ))
+                    )
                     Divider()
                     ListRowNavigationItem(
                         title: NSLocalizedString("Bookmarks", comment: ""),
                         destination: AnyView(BookmarksSettings(
                             parentViewModel: viewModel
-                        )))
+                        ))
+                    )
                 }
                 CustomListGroup {
                     ListRowActionItem(
@@ -54,7 +58,8 @@ struct Settings: View {
                         imageColor: .primary,
                         action: {
                             UIApplication.shared.requestReview()
-                        })
+                        }
+                    )
                     Divider()
                     ListRowActionItem(
                         title: NSLocalizedString("Share feedback", comment: ""),
@@ -62,17 +67,19 @@ struct Settings: View {
                         imageColor: .primary,
                         action: {
                             UIApplication.shared.shareFeedback()
-                        })
+                        }
+                    )
                     Divider()
                     ListRowActionItem(
                         title: NSLocalizedString("Tumble on GitHub", comment: ""),
                         image: "chevron.left.forwardslash.chevron.right",
                         imageColor: .primary,
                         action: {
-                        if let url = URL(string: "https://github.com/adisve/tumble-ios") {
-                            UIApplication.shared.open(url)
+                            if let url = URL(string: "https://github.com/adisve/tumble-ios") {
+                                UIApplication.shared.open(url)
+                            }
                         }
-                    })
+                    )
                 }
                 CustomListGroup {
                     LogInOutButton(parentViewModel: viewModel)
@@ -86,21 +93,21 @@ struct Settings: View {
         .navigationBarTitleDisplayMode(.inline)
     }
     
-    fileprivate func changeSchool(schoolId: Int) -> Void {
+    fileprivate func changeSchool(schoolId: Int) {
         viewModel.changeSchool(schoolId: schoolId)
     }
     
-    fileprivate func rescheduleNotifications(previousOffset: Int, newOffset: Int) -> Void {
+    fileprivate func rescheduleNotifications(previousOffset: Int, newOffset: Int) {
         viewModel.rescheduleNotifications(previousOffset: previousOffset, newOffset: newOffset)
     }
     
-    fileprivate func clearAllNotifications() -> Void {
+    fileprivate func clearAllNotifications() {
         if schedulesAvailable() {
             viewModel.clearAllNotifications()
         }
     }
     
-    fileprivate func scheduleNotificationsForAllCourses() -> Void {
+    fileprivate func scheduleNotificationsForAllCourses() {
         if schedulesAvailable() {
             let allEvents = Array(schedules)
                 .filter { $0.toggled }
@@ -116,9 +123,9 @@ struct Settings: View {
             viewModel.makeToast(
                 type: .info,
                 title: NSLocalizedString("No available bookmarks", comment: ""),
-                message: NSLocalizedString("It looks like there's no available bookmarks", comment: ""))
+                message: NSLocalizedString("It looks like there's no available bookmarks", comment: "")
+            )
             return false
         } else { return true }
     }
-    
 }

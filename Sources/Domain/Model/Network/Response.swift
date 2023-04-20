@@ -8,8 +8,8 @@
 import Foundation
 
 public enum Response {
-    
     // MARK: - Message
+
     struct Message: Codable {
         let message: String
     }
@@ -20,6 +20,7 @@ public enum Response {
     // ----------------------
     
     // MARK: - Schedule
+
     struct Schedule: Encodable, Decodable, Hashable {
         static func == (lhs: Response.Schedule, rhs: Response.Schedule) -> Bool {
             return lhs.id == rhs.id
@@ -30,10 +31,12 @@ public enum Response {
     }
 
     // MARK: - Day
+
     struct Day: Encodable, Decodable, Hashable {
         static func == (lhs: Response.Day, rhs: Response.Day) -> Bool {
             return lhs.name == rhs.name && lhs.isoString == rhs.isoString && lhs.weekNumber == rhs.weekNumber
         }
+
         let name: String
         let date, isoString: String
         let weekNumber: Int
@@ -45,9 +48,9 @@ public enum Response {
     }
 
     // MARK: - Event
+
     struct Event: Encodable, Decodable, Equatable, Hashable, Identifiable {
-        
-        static func == (lhs: Response.Event, rhs:  Response.Event) -> Bool {
+        static func == (lhs: Response.Event, rhs: Response.Event) -> Bool {
             return lhs.id == rhs.id
         }
         
@@ -59,16 +62,17 @@ public enum Response {
         let id: String
         let isSpecial: Bool
         let lastModified: String
-        
     }
 
     // MARK: - Course
+
     struct Course: Encodable, Decodable, Hashable {
         let id: String
         let swedishName, englishName: String
     }
 
     // MARK: - Location
+
     struct Location: Encodable, Decodable, Hashable {
         let id: String
         let name: String
@@ -77,47 +81,52 @@ public enum Response {
     }
 
     // MARK: - Teacher
+
     struct Teacher: Encodable, Decodable, Hashable {
         let id: String
         let firstName: String
         let lastName: String
     }
     
-    
     // ------ SEARCH ------
     // --------------------
+
     // MARK: - SearchResponse
+
     struct Search: Encodable, Decodable {
         let count: Int
         let items: [Programme]
     }
 
     // MARK: - Item
+
     struct Programme: Encodable, Decodable {
         let id, title, subtitle: String
     }
     
-    
     // ------ USER ------
     // ------------------
+
     // MARK: - UserSession
+
     struct KronoxUser: Encodable, Decodable {
         let name, username, refreshToken, sessionToken: String
     }
     
-    
     // ------ KronoX events ------
     // --------------------------
+
     // MARK: - KronoxCompleteUserEvent
+
     struct KronoxCompleteUserEvent: Encodable, Decodable {
         let upcomingEvents: [UpcomingKronoxUserEvent]?
         let registeredEvents, availableEvents, unregisteredEvents: [AvailableKronoxUserEvent]?
     }
 
     // MARK: - AvailableKronoxUserEvent
+
     struct AvailableKronoxUserEvent: Identifiable, Encodable, Decodable {
-        
-        var id: UUID = UUID()
+        var id: UUID = .init()
         
         let eventId, title, type: String?
         let eventStart, eventEnd, lastSignupDate: String
@@ -135,6 +144,7 @@ public enum Response {
     }
 
     // MARK: - UpcomingKronoxUserEvent
+
     struct UpcomingKronoxUserEvent: Identifiable, Encodable, Decodable {
         let title, type: String
         let eventStart, eventEnd, firstSignupDate: String
@@ -144,9 +154,10 @@ public enum Response {
         }
     }
     
-    
     // ------ KronoX resources
+
     // MARK: - KronoxCompleteSchoolResourceElement
+
     struct KronoxCompleteUserResource: Encodable, Decodable {
         let id, name: String
         let timeSlots, locationIDS, date, availabilities: Nullable.JSONNull?
@@ -158,10 +169,12 @@ public enum Response {
         }
     }
     
-    typealias Availabilities = [String : [Int: AvailabilityValue]]?
+    typealias Availabilities = [String: [Int: AvailabilityValue]]?
     
     typealias KronoxResources = [KronoxResourceElement]
+
     // MARK: - KronoxResourceElement
+
     struct KronoxResourceElement: Codable {
         let id, name: String?
         let timeSlots: [TimeSlot]?
@@ -177,8 +190,8 @@ public enum Response {
     }
 
     // MARK: - AvailabilityValue
+
     struct AvailabilityValue: Codable, Hashable {
-        
         static func == (lhs: Response.AvailabilityValue, rhs: Response.AvailabilityValue) -> Bool {
             return lhs.hashValue == rhs.hashValue
         }
@@ -202,9 +215,9 @@ public enum Response {
     }
 
     // MARK: - TimeSlot
+
     struct TimeSlot: Codable, Hashable {
-        
-        static func == (lhs: Response.TimeSlot, rhs:  Response.TimeSlot) -> Bool {
+        static func == (lhs: Response.TimeSlot, rhs: Response.TimeSlot) -> Bool {
             return lhs.id == rhs.id
         }
         
@@ -215,6 +228,7 @@ public enum Response {
     typealias KronoxUserBookings = [KronoxUserBookingElement]
     
     // MARK: - KronoxUserBookingElement
+
     struct KronoxUserBookingElement: Identifiable, Decodable {
         let id, resourceID: String
         let timeSlot: TimeSlot
@@ -241,11 +255,13 @@ public enum Response {
     }
     
     // MARK: - KronoxEventRegistration
+
     struct KronoxEventRegistration: Codable {
         let successfulRegistrations, failedRegistrations: [Registration]?
     }
 
     // MARK: - Registration
+
     struct Registration: Codable {
         let id, title, type: String?
         let eventStart, eventEnd, lastSignupDate: String?
@@ -261,16 +277,18 @@ public enum Response {
     }
     
     // MARK: - ErrorMessage
+
     struct ErrorMessage: Codable, LocalizedError {
         let message: String
         var statusCode: Int? = nil
     }
     
     typealias NewsItems = [NotificationContent]
+
     // MARK: - NotificationContent
+
     struct NotificationContent: Codable, Hashable {
-        
-        static func == (lhs: Response.NotificationContent, rhs:  Response.NotificationContent) -> Bool {
+        static func == (lhs: Response.NotificationContent, rhs: Response.NotificationContent) -> Bool {
             return lhs.hashValue == rhs.hashValue
         }
         
@@ -280,5 +298,4 @@ public enum Response {
         let longBody: String?
         let timestamp: String // ISO date string
     }
-    
 }

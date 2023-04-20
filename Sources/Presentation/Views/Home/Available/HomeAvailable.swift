@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct HomeAvailable: View {
-    
     @Binding var eventsForToday: [WeekEventCardModel]
     let nextClass: Event?
     @Binding var swipedCards: Int
@@ -17,7 +16,8 @@ struct HomeAvailable: View {
         VStack {
             TodaysEvents(
                 eventsForToday: $eventsForToday,
-                swipedCards: $swipedCards)
+                swipedCards: $swipedCards
+            )
             NextClass(nextClass: nextClass)
             Spacer()
         }

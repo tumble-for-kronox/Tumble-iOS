@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct BookmarkCalendarDetail: View {
-    
     let onTapDetail: (Event) -> Void
     let event: Event
     

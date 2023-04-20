@@ -8,7 +8,6 @@
 import SwiftUI
 
 enum NotificationOffset: Int, Identifiable {
-    
     var id: UUID {
         return UUID()
     }
@@ -22,7 +21,6 @@ enum NotificationOffset: Int, Identifiable {
 }
 
 struct NotificationOffsetSettings: View {
-    
     @Binding var offset: Int
     let rescheduleNotifications: (Int, Int) -> Void
     
@@ -64,5 +62,4 @@ struct NotificationOffsetSettings: View {
             }
         }
     }
-    
 }

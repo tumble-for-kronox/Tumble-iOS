@@ -8,11 +8,10 @@
 import SwiftUI
 
 struct EventDetailsBody: View {
-    
     let event: Event
     
     var body: some View {
-        VStack (alignment: .leading)  {
+        VStack(alignment: .leading) {
             DetailsBuilder(title: NSLocalizedString("Course", comment: ""), image: "text.book.closed") {
                 Text(event.course?.englishName ?? "")
                     .font(.system(size: 16))
@@ -65,4 +64,3 @@ struct EventDetailsBody: View {
         }
     }
 }
-

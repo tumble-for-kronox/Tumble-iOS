@@ -19,4 +19,3 @@ actor Dependencies {
         @Provider var schoolManager = SchoolManager()
     }
 }
-

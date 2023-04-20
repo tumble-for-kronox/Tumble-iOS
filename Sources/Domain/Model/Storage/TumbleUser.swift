@@ -17,5 +17,4 @@ class TumbleUser: Decodable, Encodable {
         self.password = password
         self.name = name
     }
-    
 }

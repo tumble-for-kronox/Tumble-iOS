@@ -14,13 +14,12 @@ enum BookingButtonState {
 }
 
 struct TimeslotSelection: View {
-    
     let resourceId: String
     let bookResource: (String, Date, Response.AvailabilityValue, @escaping (Result<Void, Error>) -> Void) -> Void
     let selectedPickerDate: Date
     let makeToast: (Bool) -> Void
     let updateBookingNotifications: () -> Void
-    @State var buttonStateMap: [String : BookingButtonState] = [:]
+    @State var buttonStateMap: [String: BookingButtonState] = [:]
     @Binding var availabilityValues: [Response.AvailabilityValue]
     
     var body: some View {
@@ -28,9 +27,8 @@ struct TimeslotSelection: View {
             VStack {
                 Info(title: NSLocalizedString("No available timeslots", comment: ""), image: "clock.arrow.circlepath")
             }.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
-        }
-        else {
-            ScrollView (showsIndicators: false) {
+        } else {
+            ScrollView(showsIndicators: false) {
                 ForEach(availabilityValues, id: \.self) { availabilityValue in
                     if let locationId = availabilityValue.locationID {
                         TimeslotCard(onBook: {
@@ -55,7 +53,7 @@ struct TimeslotSelection: View {
         }
     }
     
-    func handleBookingResponse(locationId: String, result: Result<Void, Error>) -> Void {
+    func handleBookingResponse(locationId: String, result: Result<Void, Error>) {
         switch result {
         case .success:
             buttonStateMap[locationId] = .booked
@@ -67,4 +65,3 @@ struct TimeslotSelection: View {
         }
     }
 }
-

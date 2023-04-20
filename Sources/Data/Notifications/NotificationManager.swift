@@ -9,15 +9,15 @@ import Foundation
 import UserNotifications
 
 class NotificationManager: NotificationManagerProtocol {
-    
     private let notificationCenter = UNUserNotificationCenter.current()
     private let authorizationOptions: UNAuthorizationOptions = [.alert, .sound, .badge]
 
-    func scheduleNotification<Notification : LocalNotification>(
+    func scheduleNotification<Notification: LocalNotification>(
         for notification: Notification,
         type: NotificationType,
         userOffset: Int,
-        completion: @escaping (Result<Int, NotificationError>) -> Void) {
+        completion: @escaping (Result<Int, NotificationError>) -> Void
+    ) {
         notificationsAreAllowed { [weak self] result in
             guard let self else { return }
             switch result {
@@ -43,31 +43,29 @@ class NotificationManager: NotificationManagerProtocol {
         }
     }
 
-
     func cancelNotification(for id: String) {
         notificationCenter.removePendingNotificationRequests(withIdentifiers: [id])
         AppLogger.shared.debug("Cancelled notifications with id -> \(id)")
     }
     
-    func isNotificationScheduled(eventId: String, completion: @escaping (Bool) -> Void) -> Void {
+    func isNotificationScheduled(eventId: String, completion: @escaping (Bool) -> Void) {
         notificationCenter.getPendingNotificationRequests { requests in
             let isScheduled = requests.contains { $0.identifier == eventId }
             completion(isScheduled)
         }
     }
     
-    func isNotificationScheduled(categoryIdentifier: String, completion: @escaping (Bool) -> Void) -> Void {
-        notificationCenter.getPendingNotificationRequests { (requests) in
+    func isNotificationScheduled(categoryIdentifier: String, completion: @escaping (Bool) -> Void) {
+        notificationCenter.getPendingNotificationRequests { requests in
             let requestsWithMatchingCategory = requests.filter { $0.content.categoryIdentifier == categoryIdentifier }
             completion(!requestsWithMatchingCategory.isEmpty)
         }
     }
 
-    
     func cancelNotifications(with categoryIdentifier: String) {
         DispatchQueue.global(qos: .background).async { [weak self] in
             guard let self = self else { return }
-            self.notificationCenter.getPendingNotificationRequests {  (requests) in
+            self.notificationCenter.getPendingNotificationRequests { requests in
                 let requestsWithMatchingCategory = requests.filter { $0.content.categoryIdentifier == categoryIdentifier }
                 let identifiers = requestsWithMatchingCategory.map { $0.identifier }
                 AppLogger.shared.debug("Cancelling notifications with categoryIdentifier -> \(categoryIdentifier)")
@@ -76,7 +74,7 @@ class NotificationManager: NotificationManagerProtocol {
         }
     }
     
-    func cancelNotifications() -> Void {
+    func cancelNotifications() {
         DispatchQueue.global(qos: .background).async { [weak self] in
             guard let self else { return }
             self.notificationCenter.removeAllPendingNotificationRequests()
@@ -128,8 +126,10 @@ class NotificationManager: NotificationManagerProtocol {
                 let newTrigger = UNCalendarNotificationTrigger(
                     dateMatching: self.dateComponentsAfterSubtractingUserOffset(
                         date: dateAfterAddingUserOffset(date: trigger.nextTriggerDate()!, userOffset: previousOffset),
-                        userOffset: userOffset),
-                    repeats: false)
+                        userOffset: userOffset
+                    ),
+                    repeats: false
+                )
                 let modifiedRequest = UNNotificationRequest(identifier: request.identifier, content: request.content, trigger: newTrigger)
                 return modifiedRequest
             }
@@ -143,65 +143,64 @@ class NotificationManager: NotificationManagerProtocol {
     }
 }
 
-
-extension NotificationManager {
-    
-    fileprivate func requestEventNotification(
+private extension NotificationManager {
+    func requestEventNotification(
         for notification: EventNotification,
-        userOffset: Int) -> UNNotificationRequest {
-            AppLogger.shared.debug("Making notification request for -> \(notification.id)")
-            let content = UNMutableNotificationContent()
-            let event = notification.content?.toEvent()
-            content.title = (event?.course?.englishName ?? "")!
-            content.subtitle = (event?.title)!
-            // Optional course id
-            content.categoryIdentifier = notification.categoryIdentifier ?? ""
-            content.sound = .default
-            content.badge = 1
-            content.userInfo[NotificationContentKey.event.rawValue] = notification.content
+        userOffset: Int
+    ) -> UNNotificationRequest {
+        AppLogger.shared.debug("Making notification request for -> \(notification.id)")
+        let content = UNMutableNotificationContent()
+        let event = notification.content?.toEvent()
+        content.title = (event?.course?.englishName ?? "")!
+        content.subtitle = (event?.title)!
+        // Optional course id
+        content.categoryIdentifier = notification.categoryIdentifier ?? ""
+        content.sound = .default
+        content.badge = 1
+        content.userInfo[NotificationContentKey.event.rawValue] = notification.content
             
-            let components = dateComponentsAfterSubtractingUserOffset(
-                dateComponents: notification.dateComponents,
-                userOffset: userOffset
-            )
-            let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
-            return UNNotificationRequest(
-                identifier: notification.id,
-                content: content,
-                trigger: trigger
-            )
+        let components = dateComponentsAfterSubtractingUserOffset(
+            dateComponents: notification.dateComponents,
+            userOffset: userOffset
+        )
+        let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
+        return UNNotificationRequest(
+            identifier: notification.id,
+            content: content,
+            trigger: trigger
+        )
     }
     
-    fileprivate func requestBookingNotification(
-        for notification: BookingNotification) -> UNNotificationRequest {
-            let content = UNMutableNotificationContent()
-            content.title = "Booking confirmation"
-            content.subtitle = "A booking needs to be confirmed"
-            content.sound = .default
-            content.badge = 1
-            let trigger = UNCalendarNotificationTrigger(dateMatching: notification.dateComponents, repeats: false)
-            AppLogger.shared.debug("Created trigger with date components: \(notification.dateComponents)")
-            return UNNotificationRequest(
-                identifier: notification.id,
-                content: content,
-                trigger: trigger
-            )
-        }
+    func requestBookingNotification(
+        for notification: BookingNotification) -> UNNotificationRequest
+    {
+        let content = UNMutableNotificationContent()
+        content.title = "Booking confirmation"
+        content.subtitle = "A booking needs to be confirmed"
+        content.sound = .default
+        content.badge = 1
+        let trigger = UNCalendarNotificationTrigger(dateMatching: notification.dateComponents, repeats: false)
+        AppLogger.shared.debug("Created trigger with date components: \(notification.dateComponents)")
+        return UNNotificationRequest(
+            identifier: notification.id,
+            content: content,
+            trigger: trigger
+        )
+    }
 
-    fileprivate func dateComponentsAfterSubtractingUserOffset(dateComponents: DateComponents, userOffset: Int) -> DateComponents {
+    func dateComponentsAfterSubtractingUserOffset(dateComponents: DateComponents, userOffset: Int) -> DateComponents {
         let calendarDateFromComponents = Calendar(identifier: .gregorian).date(from: dateComponents)
         let subtractUserOffset = Calendar.current.date(byAdding: .minute, value: -userOffset, to: calendarDateFromComponents!)
         return Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: subtractUserOffset!)
     }
         
-    fileprivate func dateComponentsAfterSubtractingUserOffset(date: Date, userOffset: Int) -> DateComponents {
+    func dateComponentsAfterSubtractingUserOffset(date: Date, userOffset: Int) -> DateComponents {
         let subtractUserOffset = Calendar.current.date(byAdding: .minute, value: -userOffset, to: date)!
         return Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: subtractUserOffset)
     }
     
-    fileprivate func dateAfterAddingUserOffset(date: Date, userOffset: Int) -> Date {
+    func dateAfterAddingUserOffset(date: Date, userOffset: Int) -> Date {
         let addUserOffset = Calendar.current.date(byAdding: .minute, value: userOffset, to: date)!
         return addUserOffset
     }
-
 }

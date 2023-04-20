@@ -13,7 +13,6 @@ enum EventType: String {
 }
 
 struct EventCardButton: View {
-    
     let event: Response.AvailableKronoxUserEvent
     let eventType: EventType
     let onTap: (String, EventType) -> Void
@@ -21,7 +20,7 @@ struct EventCardButton: View {
     var body: some View {
         VStack {
             HStack {
-                VStack (alignment: .leading, spacing: 10) {
+                VStack(alignment: .leading, spacing: 10) {
                     HStack {
                         Text(event.title ?? NSLocalizedString("No title", comment: ""))
                             .font(.system(size: 17, weight: .medium))
@@ -34,7 +33,8 @@ struct EventCardButton: View {
                             .font(.system(size: 15))
                             .foregroundColor(.onSurface.opacity(0.7))
                         if let eventStart = event.eventStart.toDate(),
-                            let eventHoursMinutes = event.eventStart.convertToHoursAndMinutes() {
+                           let eventHoursMinutes = event.eventStart.convertToHoursAndMinutes()
+                        {
                             Text("\(eventStart) at \(eventHoursMinutes)")
                                 .font(.system(size: 15))
                                 .foregroundColor(.onSurface.opacity(0.7))
@@ -60,7 +60,6 @@ struct EventCardButton: View {
                         }
                     }
                 }
-                
             }
             .padding()
             .frame(minWidth: 0, maxWidth: .infinity, minHeight: 100, maxHeight: 100, alignment: .center)
@@ -92,4 +91,3 @@ struct EventCardButton: View {
         .padding(.bottom, 10)
     }
 }
-

@@ -5,24 +5,23 @@
 //  Created by Adis Veletanlic on 4/14/23.
 //
 
-import Foundation
 import Combine
+import Foundation
 import RealmSwift
 
 struct SearchPreviewModel: Identifiable {
-    let id: UUID = UUID()
+    let id: UUID = .init()
     let scheduleId: String
     let schoolId: String
 }
 
 final class SearchPreviewViewModel: ObservableObject {
-    
     @Published var isSaved = false
     @Published var status: SchedulePreviewStatus = .loading
     @Published var bookmarks: [Bookmark]?
     @Published var errorMessage: String? = nil
     @Published var buttonState: ButtonState = .loading
-    @Published var courseColorsForPreview: [String : String] = [:]
+    @Published var courseColorsForPreview: [String: String] = [:]
     
     @Inject var preferenceService: PreferenceService
     @Inject var kronoxManager: KronoxManager
@@ -35,7 +34,8 @@ final class SearchPreviewViewModel: ObservableObject {
     func getSchedule(
         programmeId: String,
         schoolId: String,
-        schedules: [Schedule]) -> Void {
+        schedules: [Schedule]
+    ) {
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
             // Check if schedule is already saved, to set flag
@@ -49,8 +49,7 @@ final class SearchPreviewViewModel: ObservableObject {
                 if fetchedSchedule.isScheduleEmpty() {
                     self.status = .empty
                     self.buttonState = .disabled
-                }
-                else if (schedules.map { $0.scheduleId }).contains(fetchedSchedule.id) {
+                } else if (schedules.map { $0.scheduleId }).contains(fetchedSchedule.id) {
                     self.isSaved = true
                     self.buttonState = .saved
                     self.schedule = fetchedSchedule
@@ -59,7 +58,7 @@ final class SearchPreviewViewModel: ObservableObject {
                 } else {
                     self.assignRandomCourseColors(
                         schedule: fetchedSchedule
-                    ) { [weak self] (result: Result<[String : String], Error>) in
+                    ) { [weak self] (result: Result<[String: String], Error>) in
                         guard let self = self else { return }
                         switch result {
                         case .success(let courseColors):
@@ -85,7 +84,7 @@ final class SearchPreviewViewModel: ObservableObject {
         return schools.first(where: { $0.id == Int(schoolId) })?.loginRq ?? false
     }
     
-    func getCourseColors() -> [String : String] {
+    func getCourseColors() -> [String: String] {
         let realm = try! Realm()
         let courses = realm.objects(Course.self)
         var courseColors: [String: String] = [:]
@@ -95,27 +94,28 @@ final class SearchPreviewViewModel: ObservableObject {
         return courseColors
     }
 
-    
     // API Call to fetch a schedule from backend
     func fetchSchedule(
         programmeId: String,
         schoolId: String,
-        completion: @escaping (Result<Response.Schedule, Response.ErrorMessage>) -> Void) -> Void {
+        completion: @escaping (Result<Response.Schedule, Response.ErrorMessage>) -> Void
+    ) {
         let _ = kronoxManager.get(
             .schedule(
                 scheduleId: programmeId,
-                schoolId: schoolId)) {
-                    (result: Result<Response.Schedule, Response.ErrorMessage>) in
-                    switch result {
-                    case .success(let schedule):
-                        completion(.success(schedule))
-                    case .failure(let failure):
-                        completion(.failure(failure))
+                schoolId: schoolId
+            )) {
+                (result: Result<Response.Schedule, Response.ErrorMessage>) in
+                switch result {
+                case .success(let schedule):
+                    completion(.success(schedule))
+                case .failure(let failure):
+                    completion(.failure(failure))
                 }
-        }
+            }
     }
     
-    func bookmark(id: String, schedules: [Schedule]) -> Void {
+    func bookmark(id: String, schedules: [Schedule]) {
         buttonState = .loading
         // If the schedule isn't already saved in the local database
         if !isSaved {
@@ -133,14 +133,13 @@ final class SearchPreviewViewModel: ObservableObject {
             buttonState = .notSaved
         }
     }
-    
 }
 
 extension SearchPreviewViewModel {
-    
     func assignRandomCourseColors(
         schedule: Response.Schedule,
-        completion: @escaping (Result<[String : String], Error>) -> Void) -> Void {
+        completion: @escaping (Result<[String: String], Error>) -> Void
+    ) {
         DispatchQueue.global(qos: .userInitiated).async {
             let randomCourseColors = schedule.assignCoursesRandomColors()
             DispatchQueue.main.async {

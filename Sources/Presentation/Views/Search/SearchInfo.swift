@@ -21,14 +21,15 @@ struct SearchInfo: View {
     }
     
     var body: some View {
-        VStack (alignment: .leading) {
+        VStack(alignment: .leading) {
             Spacer()
             if selectedSchool == nil {
                 Text(NSLocalizedString(
-                    "Choose a university to begin your search", comment: ""))
-                    .info()
-                    .multilineTextAlignment(.leading)
-                    .padding(.bottom, 10)
+                    "Choose a university to begin your search", comment: ""
+                ))
+                .info()
+                .multilineTextAlignment(.leading)
+                .padding(.bottom, 10)
             }
             WrappingHStack(displayedSchools, id: \.self) { school in
                 SchoolPill(selectedSchool: $selectedSchool, school: school)
@@ -42,8 +43,8 @@ struct SearchInfo: View {
                             .foregroundColor(.red)
                         Group {
                             Text(NSLocalizedString("Important: ", comment: "")).bold()
-                            +
-                            Text(NSLocalizedString("This university requires you to log in to their institution before you can see some of their schedules", comment: ""))
+                                +
+                                Text(NSLocalizedString("This university requires you to log in to their institution before you can see some of their schedules", comment: ""))
                         }.font(.system(size: 14))
                             .foregroundColor(.red)
                     }
@@ -53,5 +54,3 @@ struct SearchInfo: View {
         .padding()
     }
 }
-
-

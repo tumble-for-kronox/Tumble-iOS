@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct ToTopButton: View {
-    
     var buttonOffsetX: CGFloat
     var value: ScrollViewProxy
     
@@ -31,4 +30,3 @@ struct ToTopButton: View {
         .offset(x: buttonOffsetX)
     }
 }
-

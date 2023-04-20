@@ -5,14 +5,13 @@
 //  Created by Adis Veletanlic on 11/21/22.
 //
 
-import Foundation
-import SwiftUI
 import Combine
+import Foundation
 import RealmSwift
+import SwiftUI
 
 final class BookmarksViewModel: ObservableObject {
-    
-    let viewModelFactory: ViewModelFactory = ViewModelFactory()
+    let viewModelFactory: ViewModelFactory = .init()
     let scheduleViewTypes: [BookmarksViewType] = BookmarksViewType.allValues
     
     @Inject var preferenceService: PreferenceService
@@ -21,12 +20,12 @@ final class BookmarksViewModel: ObservableObject {
     
     @Published var defaultViewType: BookmarksViewType = .list
     @Published var eventSheet: EventDetailsSheetModel? = nil
-    @Published var days: [Day] = [Day]()
+    @Published var days: [Day] = .init()
     @Published var status: BookmarksViewStatus = .loading
     
     var schedulesToken: NotificationToken? = nil
     
-    init () {
+    init() {
         defaultViewType = preferenceService.getDefaultViewType()
         // Observe changes to schedules and update days
         let realm = try! Realm()
@@ -46,19 +45,20 @@ final class BookmarksViewModel: ObservableObject {
         return viewModelFactory.makeViewModelEventDetailsSheet(event: event)
     }
     
-    func onChangeViewType(viewType: BookmarksViewType) -> Void {
+    func onChangeViewType(viewType: BookmarksViewType) {
         let viewTypeIndex: Int = scheduleViewTypes.firstIndex(of: viewType)!
         preferenceService.setViewType(viewType: viewTypeIndex)
         defaultViewType = viewType
     }
     
-    func createDays(schedules: [Schedule]) -> Void {
+    func createDays(schedules: [Schedule]) {
         let hiddenSchedules = Array(schedules).filter { !$0.toggled }.map { $0.scheduleId }
         let days = filterHiddenBookmarks(
             schedules: Array(schedules),
-            hiddenBookmarks: hiddenSchedules)
+            hiddenBookmarks: hiddenSchedules
+        )
         .flattenAndMerge().ordered()
         self.days = days
-        self.status = .loaded
+        status = .loaded
     }
 }

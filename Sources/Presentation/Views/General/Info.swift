@@ -11,7 +11,7 @@ struct Info: View {
     let title: String
     let image: String?
     var body: some View {
-        VStack (alignment: .center) {
+        VStack(alignment: .center) {
             if image != nil {
                 Image(systemName: image!)
                     .font(.system(size: 24))
@@ -23,12 +23,12 @@ struct Info: View {
                 .multilineTextAlignment(.center)
         }
         .frame(
-              minWidth: 0,
-              maxWidth: .infinity,
-              minHeight: 0,
-              maxHeight: .infinity,
-              alignment: .center
-            )
+            minWidth: 0,
+            maxWidth: .infinity,
+            minHeight: 0,
+            maxHeight: .infinity,
+            alignment: .center
+        )
         .background(Color.background)
     }
 }

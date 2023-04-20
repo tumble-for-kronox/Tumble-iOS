@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct SheetTitle: View {
-    
     let title: String
     
     var body: some View {

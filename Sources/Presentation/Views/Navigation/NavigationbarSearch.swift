@@ -8,22 +8,19 @@
 import SwiftUI
 
 struct NavigationbarSearch: View {
-    
     @ObservedObject var viewModel: SearchViewModel
     
     var body: some View {
         NavigationLink(destination:
             Search(viewModel: viewModel)
-            .navigationBarTitle(NSLocalizedString("Search", comment: ""))
-           , label: {
-            Image(systemName: "magnifyingglass")
-                .actionIcon()
-        })
+                .navigationBarTitle(NSLocalizedString("Search", comment: "")),
+            label: {
+                Image(systemName: "magnifyingglass")
+                    .actionIcon()
+            })
     }
     
-    private func resetSearchResults() -> Void {
+    private func resetSearchResults() {
         viewModel.resetSearchResults()
     }
-    
 }
-

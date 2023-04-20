@@ -8,7 +8,6 @@
 import Foundation
 
 class SchoolManager {
-
     private let schools: [School]
     private let ladokUrl: String = "https://www.student.ladok.se/student/app/studentwebb/"
     private let cache = NSCache<NSString, NSArray>()
@@ -41,4 +40,3 @@ class SchoolManager {
         return decoded
     }
 }
-

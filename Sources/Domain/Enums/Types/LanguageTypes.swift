@@ -8,7 +8,6 @@
 import Foundation
 
 enum LanguageTypes: String, Identifiable {
-    
     var id: UUID {
         return UUID()
     }

@@ -12,8 +12,7 @@ enum ResourceType {
     case resource
 }
 
-struct ResourceSectionDivider<Content : View>: View {
-    
+struct ResourceSectionDivider<Content: View>: View {
     let content: Content
     let title: String
     let resourceType: ResourceType?
@@ -25,16 +24,17 @@ struct ResourceSectionDivider<Content : View>: View {
         resourceType: ResourceType? = nil,
         destination: AnyView? = nil,
         onBook: (() -> Void)? = nil,
-        @ViewBuilder content: () -> Content) {
-            self.title = title
-            self.resourceType = resourceType
-            self.onBook = onBook
-            self.destination = destination
-            self.content = content()
+        @ViewBuilder content: () -> Content
+    ) {
+        self.title = title
+        self.resourceType = resourceType
+        self.onBook = onBook
+        self.destination = destination
+        self.content = content()
     }
     
     var body: some View {
-        VStack (alignment: .leading, spacing: 0) {
+        VStack(alignment: .leading, spacing: 0) {
             HStack {
                 Text(title)
                     .font(.system(size: 17, weight: .semibold))

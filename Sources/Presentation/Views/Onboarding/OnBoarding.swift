@@ -20,24 +20,26 @@ var boardingScreens: [BoardingScreen] = [
     BoardingScreen(
         image: "GuyPointing",
         title: NSLocalizedString("Save schedules", comment: ""),
-        description: NSLocalizedString("Search for schedules from the search page and download them locally. View them as a list or a in a dedicated calendar.", comment: "")),
+        description: NSLocalizedString("Search for schedules from the search page and download them locally. View them as a list or a in a dedicated calendar.", comment: "")
+    ),
     BoardingScreen(
         image: "GuyWithPhone",
         title: NSLocalizedString("Set notifications", comment: ""),
-        description: NSLocalizedString("Get notified before important events and dates. Just press an event and set notifications for either a course or a single event.", comment: "")),
+        description: NSLocalizedString("Get notified before important events and dates. Just press an event and set notifications for either a course or a single event.", comment: "")
+    ),
     BoardingScreen(
         image: "GirlProud",
         title: NSLocalizedString("Be creative", comment: ""),
-        description: NSLocalizedString("Set custom colors for the courses in your schedules. Just press an event and modify the color to your liking.", comment: "")),
+        description: NSLocalizedString("Set custom colors for the courses in your schedules. Just press an event and modify the color to your liking.", comment: "")
+    ),
     BoardingScreen(
         image: "GuyWalking",
         title: NSLocalizedString("Booking", comment: ""),
-        description: NSLocalizedString("Log in to your KronoX account and book resources and exams. Booking is easy, and notifications remind you to confirm the bookings you've created.", comment: "")),
+        description: NSLocalizedString("Log in to your KronoX account and book resources and exams. Booking is easy, and notifications remind you to confirm the bookings you've created.", comment: "")
+    )
 ]
 
-
 struct OnBoarding: View {
-    
     @ObservedObject var viewModel: OnBoardingViewModel
     @State private var viewedTab: Int = 0
     @State private var animateButton: Bool = true
@@ -85,8 +87,8 @@ struct OnBoarding: View {
                 .scaleEffect(2)
                 .rotationEffect(.init(degrees: 25))
                 .rotationEffect(.init(degrees: getRotation()))
-                .offset(y: -getRect().width + 20)
-            ,alignment: .leading
+                .offset(y: -getRect().width + 20),
+            alignment: .leading
         )
         .background(
             Color.primary
@@ -122,8 +124,8 @@ struct OnBoarding: View {
                 .padding(.top, 5)
             }
             .padding()
-            .padding(.bottom, 20)
-            ,alignment: .bottom
+            .padding(.bottom, 20),
+            alignment: .bottom
         )
         .zIndex(0)
         .transition(.asymmetric(insertion: .move(edge: .trailing), removal: .move(edge: .leading)))

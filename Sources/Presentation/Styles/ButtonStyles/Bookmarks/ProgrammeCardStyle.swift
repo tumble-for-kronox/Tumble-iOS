@@ -8,7 +8,6 @@
 import Foundation
 import SwiftUI
 
-
 struct ProgrammeCardStyle: ButtonStyle {
     func makeBody(configuration: Self.Configuration) -> some View {
         configuration.label

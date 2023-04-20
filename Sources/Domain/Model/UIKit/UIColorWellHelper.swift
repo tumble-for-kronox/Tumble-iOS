@@ -9,8 +9,8 @@ import Foundation
 
 class UIColorWellHelper: NSObject {
     static let helper = UIColorWellHelper()
-        var execute: (() -> ())?
-        @objc func handler(_ sender: Any) {
-            execute?()
-        }
+    var execute: (() -> Void)?
+    @objc func handler(_ sender: Any) {
+        execute?()
+    }
 }

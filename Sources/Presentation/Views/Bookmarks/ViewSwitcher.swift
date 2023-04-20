@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct ViewSwitcher: View {
-    
     @ObservedObject var parentViewModel: BookmarksViewModel
     
     var body: some View {
@@ -47,5 +46,4 @@ struct ViewSwitcher: View {
     func isSelectedViewType(viewType: BookmarksViewType) -> Bool {
         return parentViewModel.defaultViewType == viewType
     }
-    
 }

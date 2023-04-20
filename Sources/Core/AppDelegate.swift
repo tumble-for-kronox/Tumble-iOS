@@ -5,11 +5,11 @@
 //  Created by Adis Veletanlic on 2023-02-09.
 //
 
-import Foundation
-import UIKit
-import SwiftUI
 import FirebaseCore
 import FirebaseMessaging
+import Foundation
+import SwiftUI
+import UIKit
 
 /// This AppDelegate does not take into consideration devices
 /// that are below iOS 10, delegates are set accordingly.
@@ -18,42 +18,42 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 
     func application(
         _ application: UIApplication,
-        didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
-            FirebaseApp.configure()
-            Messaging.messaging().delegate = self
-            UNUserNotificationCenter.current().delegate = self
+        didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
+    ) -> Bool {
+        FirebaseApp.configure()
+        Messaging.messaging().delegate = self
+        UNUserNotificationCenter.current().delegate = self
             
-            // Request permission to send remote notifications
-            UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
-                if granted {
-                    DispatchQueue.main.async {
-                        UIApplication.shared.registerForRemoteNotifications()
-                    }
+        // Request permission to send remote notifications
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, _ in
+            if granted {
+                DispatchQueue.main.async {
+                    UIApplication.shared.registerForRemoteNotifications()
                 }
             }
+        }
             
-            return true
+        return true
     }
 
     func application(
         _ application: UIApplication,
         didReceiveRemoteNotification userInfo: [AnyHashable: Any],
-        fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-
-          if let messageID = userInfo[gcmMessageIDKey] {
-              AppLogger.shared.debug("Message ID: \(messageID)")
-          }
-
-          AppLogger.shared.debug("\(userInfo)")
-
-          completionHandler(UIBackgroundFetchResult.newData)
+        fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void
+    ) {
+        if let messageID = userInfo[gcmMessageIDKey] {
+            AppLogger.shared.debug("Message ID: \(messageID)")
         }
+
+        AppLogger.shared.debug("\(userInfo)")
+
+        completionHandler(UIBackgroundFetchResult.newData)
+    }
 }
 
 extension AppDelegate: MessagingDelegate {
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
-
-      let deviceToken: [String: String] = ["token": fcmToken ?? ""]
+        let deviceToken: [String: String] = ["token": fcmToken ?? ""]
         AppLogger.shared.debug("Device token: \(deviceToken)")
         if deviceToken["token"] != nil {
             Messaging.messaging().subscribe(toTopic: "updates") { error in
@@ -68,15 +68,15 @@ extension AppDelegate: MessagingDelegate {
 }
 
 @available(iOS 10, *)
-extension AppDelegate : UNUserNotificationCenterDelegate {
-
-  // Receive displayed notifications for iOS 10+ devices.
-  func userNotificationCenter(
-    _ center: UNUserNotificationCenter,
-    willPresent notification: UNNotification,
-    withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+extension AppDelegate: UNUserNotificationCenterDelegate {
+    // Receive displayed notifications for iOS 10+ devices.
+    func userNotificationCenter(
+        _ center: UNUserNotificationCenter,
+        willPresent notification: UNNotification,
+        withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void
+    ) {
         completionHandler([[.banner, .badge, .list, .sound]])
-  }
+    }
 
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         AppLogger.shared.critical("Failed to register for remote notifications for the current device token: \(deviceToken)")
@@ -86,14 +86,14 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
         AppLogger.shared.critical("Failed to register for remote notifications: \(error)")
     }
     
-  func userNotificationCenter(
-    _ center: UNUserNotificationCenter,
-    didReceive response: UNNotificationResponse,
-    withCompletionHandler completionHandler: @escaping () -> Void) {
-        
+    func userNotificationCenter(
+        _ center: UNUserNotificationCenter,
+        didReceive response: UNNotificationResponse,
+        withCompletionHandler completionHandler: @escaping () -> Void
+    ) {
         let userInfo = response.notification.request.content.userInfo
         
-        if let userInfoAsDict = userInfo[NotificationContentKey.event.rawValue] as? [String : Any] {
+        if let userInfoAsDict = userInfo[NotificationContentKey.event.rawValue] as? [String: Any] {
             if let event = userInfoAsDict.toEvent() {
                 // Message successully parsed as Event, which means it was a local notification
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
@@ -108,5 +108,5 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
         }
 
         completionHandler()
-  }
+    }
 }

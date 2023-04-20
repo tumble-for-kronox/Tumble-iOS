@@ -8,12 +8,11 @@
 import SwiftUI
 
 struct TodaysEvents: View {
-    
     @Binding var eventsForToday: [WeekEventCardModel]
     @Binding var swipedCards: Int
     
     var body: some View {
-        VStack (alignment: .leading) {
+        VStack(alignment: .leading) {
             Text(NSLocalizedString("Today's events", comment: ""))
                 .font(.system(size: 18, weight: .semibold))
                 .foregroundColor(.onBackground)

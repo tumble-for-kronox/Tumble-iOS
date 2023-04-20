@@ -7,8 +7,7 @@
 
 import SwiftUI
 
-struct SectionDivider<Content : View>: View {
-    
+struct SectionDivider<Content: View>: View {
     let content: Content
     let title: String
     let image: String
@@ -20,7 +19,7 @@ struct SectionDivider<Content : View>: View {
     }
     
     var body: some View {
-        VStack (alignment: .leading) {
+        VStack(alignment: .leading) {
             HStack {
                 Image(systemName: image)
                     .font(.system(size: 21))
@@ -28,12 +27,11 @@ struct SectionDivider<Content : View>: View {
                 Text(title)
                     .font(.system(size: 17, weight: .semibold))
                     .foregroundColor(.onBackground)
-                VStack (spacing: 0) {
+                VStack(spacing: 0) {
                     Divider()
                         .overlay(Color.onBackground)
                         .padding([.leading, .trailing], 5)
                 }
-                
             }
             .padding(.bottom)
             content
@@ -41,4 +39,3 @@ struct SectionDivider<Content : View>: View {
         .padding(25)
     }
 }
-

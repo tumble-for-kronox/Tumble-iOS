@@ -9,7 +9,6 @@ import Foundation
 import SwiftUI
 
 struct WideAnimatedButtonStyle: ButtonStyle {
-    
     let color: Color
     
     init(color: Color = .primary) {

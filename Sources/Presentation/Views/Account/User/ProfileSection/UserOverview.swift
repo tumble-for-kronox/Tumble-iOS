@@ -8,9 +8,8 @@
 import SwiftUI
 
 struct UserOverview: View {
-    
     @ObservedObject var viewModel: AccountViewModel
-    @ObservedObject var appController: AppController = AppController.shared
+    @ObservedObject var appController: AppController = .shared
         
     @State private var collapsedHeader: Bool = false
     
@@ -18,9 +17,10 @@ struct UserOverview: View {
         VStack {
             HStack {
                 if let name = viewModel.userDisplayName,
-                   let username = viewModel.username {
+                   let username = viewModel.username
+                {
                     UserAvatar(name: name, collapsedHeader: $collapsedHeader)
-                    VStack (alignment: .leading, spacing: 0) {
+                    VStack(alignment: .leading, spacing: 0) {
                         Text(name)
                             .font(.system(size: collapsedHeader ? 20 : 22, weight: .semibold))
                         if !collapsedHeader {
@@ -49,13 +49,12 @@ struct UserOverview: View {
         .background(Color.background)
     }
     
-    fileprivate func createToast(toastStyle: ToastStyle, title: String, message: String) -> Void {
+    fileprivate func createToast(toastStyle: ToastStyle, title: String, message: String) {
         appController.toast = Toast(type: toastStyle, title: title, message: message)
     }
     
-    fileprivate func getResourcesAndEvents() -> Void {
+    fileprivate func getResourcesAndEvents() {
         viewModel.getUserBookingsForSection()
         viewModel.getUserEventsForSection()
     }
-    
 }

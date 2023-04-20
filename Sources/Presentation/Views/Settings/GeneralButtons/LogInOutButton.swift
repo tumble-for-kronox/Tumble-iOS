@@ -8,15 +8,15 @@
 import SwiftUI
 
 struct LogInOutButton: View {
-    
     @Environment(\.dismiss) var dismiss
     @ObservedObject var parentViewModel: SettingsViewModel
     
     @State private var isConfirming: Bool = false
-    var settingsDetails: SettingsDetails = SettingsDetails(
+    var settingsDetails: SettingsDetails = .init(
         titleKey: NSLocalizedString("Are you sure you want to log out of your account?", comment: ""),
         name: "Log out of your account",
-        details: "This action will log you out of your KronoX account")
+        details: "This action will log you out of your KronoX account"
+    )
     
     var body: some View {
         Button(action: {
@@ -46,7 +46,7 @@ struct LogInOutButton: View {
         .confirmationDialog(
             NSLocalizedString("Are you sure you want to log out of your account?", comment: ""),
             isPresented: $isConfirming, presenting: settingsDetails
-        ) { detail in
+        ) { _ in
             Button {
                 parentViewModel.logOut()
             } label: {

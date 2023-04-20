@@ -5,16 +5,15 @@
 //  Created by Adis Veletanlic on 11/20/22.
 //
 
+import Combine
 import Foundation
 import SwiftUI
-import Combine
 
 final class RootViewModel: ObservableObject {
-    
     @Inject private var authManager: AuthManager
     @Inject private var preferenceService: PreferenceService
     
-    var viewModelFactory: ViewModelFactory = ViewModelFactory.shared
+    var viewModelFactory: ViewModelFactory = .shared
     
     @Published var currentView: RootViewStatus = .onboarding
     @Published var userOnBoarded: Bool = false
@@ -25,7 +24,7 @@ final class RootViewModel: ObservableObject {
     
     init() { setUpDataPublishers() }
     
-    func setUpDataPublishers() -> Void {
+    func setUpDataPublishers() {
         userOnBoardingSubscription = preferenceService.$userOnBoarded
             .receive(on: DispatchQueue.main)
             .sink { [weak self] userOnBoarded in

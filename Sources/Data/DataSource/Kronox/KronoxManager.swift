@@ -7,18 +7,15 @@
 
 import Foundation
 
-
 class KronoxManager: KronoxManagerProtocol {
-    
     private let serialQueue = OperationQueue()
     private let urlRequestUtils = NetworkUtilities.shared
     private let session: URLSession
     
     init() {
-        
-        self.serialQueue.maxConcurrentOperationCount = 1
-        self.serialQueue.qualityOfService = .userInitiated
-        self.session = URLSession.shared
+        serialQueue.maxConcurrentOperationCount = 1
+        serialQueue.qualityOfService = .userInitiated
+        session = URLSession.shared
     }
     
     // [HTTP GET]
@@ -28,7 +25,7 @@ class KronoxManager: KronoxManagerProtocol {
         then completion: ((Result<NetworkResponse, Response.ErrorMessage>) -> Void)? = nil
     ) -> URLSessionDataTask? {
         let body: Request.Empty? = nil
-        return self.createRequest(refreshToken: refreshToken, endpoint: endpoint, method: .get, body: body) { result in
+        return createRequest(refreshToken: refreshToken, endpoint: endpoint, method: .get, body: body) { result in
             completion?(result)
         }
     }
@@ -40,7 +37,7 @@ class KronoxManager: KronoxManagerProtocol {
         body: Request? = nil,
         then completion: ((Result<NetworkResponse, Response.ErrorMessage>) -> Void)? = nil
     ) -> URLSessionDataTask? {
-        return self.createRequest(refreshToken: refreshToken, endpoint: endpoint, method: .put, body: body) { result in
+        return createRequest(refreshToken: refreshToken, endpoint: endpoint, method: .put, body: body) { result in
             completion?(result)
         }
     }
@@ -53,23 +50,23 @@ class KronoxManager: KronoxManagerProtocol {
         body: Request? = nil,
         completion: @escaping (Result<NetworkResponse, Response.ErrorMessage>) -> Void
     ) -> URLSessionDataTask? {
-            guard let urlRequest = urlRequestUtils.createUrlRequest(
-                method: method,
-                endpoint: endpoint,
-                refreshToken: refreshToken,
-                body: body)
-            else {
-                completion(.failure(Response.ErrorMessage(message: "Something went wrong on our end")))
-                return nil
-            }
-            let networkTask: URLSessionDataTask = createUrlSessionDataTask(
-                urlRequest: urlRequest,
-                completion: completion
-            )
-            networkTask.resume()
-            return networkTask
+        guard let urlRequest = urlRequestUtils.createUrlRequest(
+            method: method,
+            endpoint: endpoint,
+            refreshToken: refreshToken,
+            body: body
+        )
+        else {
+            completion(.failure(Response.ErrorMessage(message: "Something went wrong on our end")))
+            return nil
+        }
+        let networkTask: URLSessionDataTask = createUrlSessionDataTask(
+            urlRequest: urlRequest,
+            completion: completion
+        )
+        networkTask.resume()
+        return networkTask
     }
-    
     
     // Processes the queued network request, creating a URLSessionDataTask
     fileprivate func processNetworkRequest<Request: Encodable, NetworkResponse: Decodable>(
@@ -77,22 +74,22 @@ class KronoxManager: KronoxManagerProtocol {
         endpoint: Endpoint,
         method: Method,
         body: Request? = nil,
-        completion: @escaping (Result<NetworkResponse, Response.ErrorMessage>) -> Void) {
-            guard let urlRequest = urlRequestUtils.createUrlRequest(method: method, endpoint: endpoint, refreshToken: refreshToken, body: body) else {
-                completion(.failure(Response.ErrorMessage(message: "Something went wrong on our end")))
-                return
-            }
-            let networkTask: URLSessionDataTask = createUrlSessionDataTask(urlRequest: urlRequest, completion: completion)
-            networkTask.resume()
+        completion: @escaping (Result<NetworkResponse, Response.ErrorMessage>) -> Void
+    ) {
+        guard let urlRequest = urlRequestUtils.createUrlRequest(method: method, endpoint: endpoint, refreshToken: refreshToken, body: body) else {
+            completion(.failure(Response.ErrorMessage(message: "Something went wrong on our end")))
+            return
         }
-    
+        let networkTask: URLSessionDataTask = createUrlSessionDataTask(urlRequest: urlRequest, completion: completion)
+        networkTask.resume()
+    }
     
     // Creates a URLSessionDataTask that handles all possible response cases
     fileprivate func createUrlSessionDataTask<NetworkResponse: Decodable>(
-            urlRequest: URLRequest,
-            completion: @escaping (Result<NetworkResponse, Response.ErrorMessage>) -> Void) -> URLSessionDataTask {
-        
-        let task = session.dataTask(with: urlRequest) { data, response, error in
+        urlRequest: URLRequest,
+        completion: @escaping (Result<NetworkResponse, Response.ErrorMessage>) -> Void
+    ) -> URLSessionDataTask {
+        let task = session.dataTask(with: urlRequest) { data, response, _ in
             guard let httpResponse = response as? HTTPURLResponse else {
                 DispatchQueue.main.async {
                     completion(.failure(Response.ErrorMessage(message: "Did not receive valid HTTP response")))
@@ -116,7 +113,7 @@ class KronoxManager: KronoxManagerProtocol {
                     DispatchQueue.main.async {
                         completion(.success(result))
                     }
-                } catch (let failure) { 
+                } catch (let failure) {
                     AppLogger.shared.critical("Failed to decode response to object \(NetworkResponse.self). Attempting to parse as empty object since status was 200. Error: \(failure)",
                                               source: "NetworkManager")
                     if let result = Response.Empty() as? NetworkResponse {
@@ -162,5 +159,4 @@ class KronoxManager: KronoxManagerProtocol {
         
         return task
     }
-
 }

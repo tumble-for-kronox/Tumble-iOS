@@ -15,7 +15,6 @@ struct Token: Codable {
         let currentDate = Date()
         return createdDate.addingTimeInterval(7200000) <= currentDate
     }
-    
 }
 
 enum TokenType: String {

@@ -80,5 +80,5 @@ let colors = [
     "#FDDA0D", // Cadmium yellow
     "#FAD5A5", // Desert
     "#FFD700", // Gold
-    "#FADA5E", // Navel yellow
-  ]
+    "#FADA5E" // Navel yellow
+]

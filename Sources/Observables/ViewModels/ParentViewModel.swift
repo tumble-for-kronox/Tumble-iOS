@@ -5,15 +5,14 @@
 //  Created by Adis Veletanlic on 11/16/22.
 //
 
-import Foundation
-import SwiftUI
 import Combine
+import Foundation
 import RealmSwift
+import SwiftUI
 
 // Parent/Container for other viewmodels
 final class ParentViewModel: ObservableObject {
-    
-    var viewModelFactory: ViewModelFactory = ViewModelFactory.shared
+    var viewModelFactory: ViewModelFactory = .shared
     
     @Inject var preferenceService: PreferenceService
     @Inject var kronoxManager: KronoxManager
@@ -32,10 +31,9 @@ final class ParentViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     
     init() {
-        
-        self.preferenceService.$authSchoolId
+        preferenceService.$authSchoolId
             .assign(to: \.authSchoolId, on: self)
-            .store(in: &self.cancellables)
+            .store(in: &cancellables)
         let realm = try! Realm()
         let schedules = realm.objects(Schedule.self)
         schedulesToken = schedules.observe { [weak self] changes in
@@ -51,9 +49,9 @@ final class ParentViewModel: ObservableObject {
         }
     }
     
-    func updateBookmarks(schedules: [Schedule]) -> Void {
+    func updateBookmarks(schedules: [Schedule]) {
         defer { self.updatedDuringSession = true } // Always claim update during startup, even if failed
-        var updatedSchedules: Int = 0
+        var updatedSchedules = 0
         let scheduleCount: Int = schedules.count
         let group = DispatchGroup() // Create a DispatchGroup
         
@@ -79,7 +77,8 @@ final class ParentViewModel: ObservableObject {
                         case .failure(let failure):
                             AppLogger.shared.error("Updating could not finish due to network error: \(failure)")
                         }
-                })
+                    }
+                )
             } else {
                 AppLogger.shared.error("Can not update schedule. Requires authentication against different university")
             }
@@ -90,12 +89,12 @@ final class ParentViewModel: ObservableObject {
                 AppController.shared.toast = Toast(
                     type: .info,
                     title: NSLocalizedString("Information", comment: ""),
-                    message: NSLocalizedString("Some schedules could not be updated. Either due to missing authorization or network errors", comment: ""))
+                    message: NSLocalizedString("Some schedules could not be updated. Either due to missing authorization or network errors", comment: "")
+                )
             }
         }
     }
 
-    
     func validUpdateRequest(schedule: Schedule) -> Bool {
         let validRequest: Bool = (schedule.requiresAuth && String(authSchoolId) == schedule.schoolId) || !schedule.requiresAuth
         return validRequest
@@ -123,7 +122,7 @@ final class ParentViewModel: ObservableObject {
         }
     }
     
-    func getCourseColors() -> [String : String] {
+    func getCourseColors() -> [String: String] {
         let realm = try! Realm()
         let courses = realm.objects(Course.self)
         var courseColors: [String: String] = [:]
@@ -132,5 +131,4 @@ final class ParentViewModel: ObservableObject {
         }
         return courseColors
     }
-
 }

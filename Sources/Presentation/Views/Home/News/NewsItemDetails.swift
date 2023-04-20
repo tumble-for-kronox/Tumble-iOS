@@ -8,12 +8,11 @@
 import SwiftUI
 
 struct NewsItemDetails: View {
-    
     let newsItem: Response.NotificationContent
     
     var body: some View {
-        ScrollView (showsIndicators: false) {
-            VStack (alignment: .leading) {
+        ScrollView(showsIndicators: false) {
+            VStack(alignment: .leading) {
                 Text(newsItem.title)
                     .font(.system(size: 30, weight: .semibold))
                     .foregroundColor(.onBackground)
@@ -23,7 +22,7 @@ struct NewsItemDetails: View {
                     .foregroundColor(.onBackground.opacity(0.8))
             }
             .frame(maxWidth: .infinity, alignment: .leading)
-            VStack (alignment: .leading) {
+            VStack(alignment: .leading) {
                 Divider()
                     .opacity(0.8)
                     .padding(.vertical, 15)

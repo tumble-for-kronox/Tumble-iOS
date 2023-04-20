@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-
 struct BookmarksListModel {
     var scrollViewOffset: CGFloat = .zero
     var startOffset: CGFloat = .zero
@@ -15,10 +14,9 @@ struct BookmarksListModel {
 }
 
 struct BookmarkListView: View {
-    
     let days: [Day]
     @ObservedObject var appController: AppController
-    @State private var bookmarksListModel: BookmarksListModel = BookmarksListModel()
+    @State private var bookmarksListModel: BookmarksListModel = .init()
     @State private var searching: Bool = false
     @State private var searchText: String = ""
     @State private var showSearchField: Bool = true
@@ -61,7 +59,7 @@ struct BookmarkListView: View {
     var listNotSearching: some View {
         ScrollViewReader { value in
             ScrollView(.vertical, showsIndicators: false) {
-                LazyVStack (alignment: .center) {
+                LazyVStack(alignment: .center) {
                     listUnfiltered
                 }
                 .padding(7.5)
@@ -78,8 +76,8 @@ struct BookmarkListView: View {
                 .id("bookmarkScrollView")
             }
             .overlay(
-                ToTopButton(buttonOffsetX: bookmarksListModel.buttonOffsetX, value: value)
-                ,alignment: .bottomTrailing
+                ToTopButton(buttonOffsetX: bookmarksListModel.buttonOffsetX, value: value),
+                alignment: .bottomTrailing
             )
         }
     }
@@ -95,7 +93,8 @@ struct BookmarkListView: View {
                                     BookmarkCard(
                                         onTapCard: onTapCard,
                                         event: event,
-                                        isLast: event == day.events.last)
+                                        isLast: event == day.events.last
+                                    )
                                 }
                             })
                         }
@@ -109,7 +108,7 @@ struct BookmarkListView: View {
     
     var listSearching: some View {
         ScrollView(.vertical, showsIndicators: false) {
-            LazyVStack (alignment: .center) {
+            LazyVStack(alignment: .center) {
                 if filteredEvents.isEmpty {
                     Info(title: NSLocalizedString("No events match your search", comment: ""), image: nil)
                 } else {
@@ -117,7 +116,8 @@ struct BookmarkListView: View {
                         BookmarkCard(
                             onTapCard: onTapCard,
                             event: event,
-                            isLast: true)
+                            isLast: true
+                        )
                     }
                 }
             }
@@ -125,11 +125,11 @@ struct BookmarkListView: View {
         }
     }
     
-    fileprivate func onTapCard(event: Event) -> Void {
+    fileprivate func onTapCard(event: Event) {
         appController.eventSheet = EventDetailsSheetModel(event: event)
     }
     
-    fileprivate func handleButtonAnimation() -> Void {
+    fileprivate func handleButtonAnimation() {
         if -bookmarksListModel.scrollViewOffset > 450 {
             withAnimation(.spring()) {
                 bookmarksListModel.buttonOffsetX = .zero
@@ -141,7 +141,7 @@ struct BookmarkListView: View {
         }
     }
     
-    fileprivate func handleSearchFieldVisibility() -> Void {
+    fileprivate func handleSearchFieldVisibility() {
         if -bookmarksListModel.scrollViewOffset > 100 && !searching {
             withAnimation(.easeInOut) {
                 showSearchField = false
@@ -153,7 +153,7 @@ struct BookmarkListView: View {
         }
     }
     
-    fileprivate func handleScrollOffset(value: CGFloat) -> Void {
+    fileprivate func handleScrollOffset(value: CGFloat) {
         if bookmarksListModel.startOffset == 0 {
             bookmarksListModel.startOffset = value
         }

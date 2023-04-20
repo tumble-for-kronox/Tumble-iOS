@@ -8,7 +8,6 @@
 import Foundation
 
 extension ResourceViewModel {
-    
     func cancelDataTaskIfDateChanged(dataTask: URLSessionDataTask?, date: Date) {
         let currentSelectedDate = date
         DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + .seconds(1)) {
@@ -21,5 +20,4 @@ extension ResourceViewModel {
             }
         }
     }
-    
 }

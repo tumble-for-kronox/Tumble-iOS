@@ -8,7 +8,6 @@
 import Foundation
 import SwiftUI
 
-
 struct ToastModifier: ViewModifier {
     @Binding var toast: Toast?
     @State private var workItem: DispatchWorkItem?
@@ -23,7 +22,7 @@ struct ToastModifier: ViewModifier {
                 }
                 .animation(.spring(), value: toast)
             )
-            .onChange(of: toast) { value in
+            .onChange(of: toast) { _ in
                 showToast()
             }
     }
@@ -35,9 +34,10 @@ struct ToastModifier: ViewModifier {
                 ToastView(
                     type: toast.type,
                     title: toast.title,
-                    message: toast.message) {
-                        dismissToast()
-                    }
+                    message: toast.message
+                ) {
+                    dismissToast()
+                }
             }
             .transition(.move(edge: .bottom))
         }
@@ -52,7 +52,7 @@ struct ToastModifier: ViewModifier {
             workItem?.cancel()
             
             let task = DispatchWorkItem {
-               dismissToast()
+                dismissToast()
             }
             
             workItem = task

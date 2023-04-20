@@ -23,4 +23,3 @@ class Course: Object {
         self.color = color
     }
 }
-

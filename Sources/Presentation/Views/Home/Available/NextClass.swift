@@ -8,11 +8,10 @@
 import SwiftUI
 
 struct NextClass: View {
-    
     let nextClass: Event?
     
     var body: some View {
-        VStack (alignment: .leading) {
+        VStack(alignment: .leading) {
             HStack {
                 if let nextClass = nextClass {
                     Text(nextClass.from.formatDate() ?? "")

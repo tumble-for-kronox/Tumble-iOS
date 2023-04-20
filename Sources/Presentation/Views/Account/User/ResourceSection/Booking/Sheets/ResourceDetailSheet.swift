@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct ResourceDetailSheet: View {
-    
     let resource: Response.KronoxUserBookingElement
     let unbookResource: (String) -> Void
     let confirmResource: (String, String) -> Void
@@ -83,10 +82,10 @@ struct ResourceDetailSheet: View {
     func bookingCanBeConfirmed() -> Bool {
         let currentDate = Date()
         if let confirmationOpen = dateFormatterUTC.date(from: resource.confirmationOpen),
-           let confirmationClosed = dateFormatterUTC.date(from: resource.confirmationClosed) {
+           let confirmationClosed = dateFormatterUTC.date(from: resource.confirmationClosed)
+        {
             return currentDate > confirmationOpen && currentDate < confirmationClosed
         }
         return false
     }
-
 }

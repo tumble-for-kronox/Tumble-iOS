@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct RegisteredBookings: View {
-    
     let onClickResource: (Response.KronoxUserBookingElement) -> Void
     @Binding var state: GenericPageStatus
     let bookings: Response.KronoxUserBookings?
@@ -52,4 +51,3 @@ struct RegisteredBookings: View {
         .frame(minHeight: 100)
     }
 }
-

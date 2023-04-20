@@ -8,7 +8,7 @@
 import Foundation
 
 struct WeekEventCardModel: Identifiable {
-    var id: UUID = UUID()
+    var id: UUID = .init()
     var offset: CGFloat = 0
     var event: Event
 }

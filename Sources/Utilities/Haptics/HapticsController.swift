@@ -9,18 +9,17 @@ import Foundation
 import UIKit
 
 struct HapticsController {
-    
-    static func triggerHapticLight() -> Void {
+    static func triggerHapticLight() {
         let impactMed = UIImpactFeedbackGenerator(style: .light)
         impactMed.impactOccurred()
     }
     
-    static func triggerHapticMedium() -> Void {
+    static func triggerHapticMedium() {
         let impactMed = UIImpactFeedbackGenerator(style: .medium)
         impactMed.impactOccurred()
     }
     
-    static func triggerHapticHeavy() -> Void {
+    static func triggerHapticHeavy() {
         let impactMed = UIImpactFeedbackGenerator(style: .heavy)
         impactMed.impactOccurred()
     }

@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct PasswordField: View {
-    
     @Binding var password: String
     @FocusState var focused: focusedField?
     @Binding var visiblePassword: Bool
@@ -46,9 +45,7 @@ struct PasswordField: View {
             RoundedRectangle(cornerRadius: 10)
                 .stroke(lineWidth: 0.5)
                 .foregroundColor(.onBackground.opacity(0.5)
-            )
+                )
         )
     }
 }
-
-

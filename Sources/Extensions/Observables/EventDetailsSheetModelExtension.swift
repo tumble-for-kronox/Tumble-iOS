@@ -8,18 +8,17 @@
 import Foundation
 
 extension EventDetailsSheetViewModel {
-    
     // Apply scheduleNotifaction for each event under specific course id
     func applyNotificationForScheduleEventsInCourse(
         events: [Event], completion: @escaping (Bool) -> Void
     ) {
         var couldSetNotifications = true
         for event in events {
-            if let notification = self.notificationManager.createNotificationFromEvent(event: event) {
-                self.notificationManager.scheduleNotification(
+            if let notification = notificationManager.createNotificationFromEvent(event: event) {
+                notificationManager.scheduleNotification(
                     for: notification,
                     type: .event,
-                    userOffset: self.notificationOffset
+                    userOffset: notificationOffset
                 ) { result in
                     switch result {
                     case .success(let success):
@@ -39,7 +38,7 @@ extension EventDetailsSheetViewModel {
         completion(couldSetNotifications ? true : false)
     }
     
-    func checkNotificationIsSetForCourse() -> Void {
+    func checkNotificationIsSetForCourse() {
         if let course = event.course {
             notificationManager.isNotificationScheduled(categoryIdentifier: course.courseId) { result in
                 DispatchQueue.main.async {
@@ -51,7 +50,7 @@ extension EventDetailsSheetViewModel {
         }
     }
     
-    func checkNotificationIsSetForEvent() -> Void {
+    func checkNotificationIsSetForEvent() {
         notificationManager.isNotificationScheduled(eventId: event.eventId) { result in
             DispatchQueue.main.async {
                 if result {
@@ -60,5 +59,4 @@ extension EventDetailsSheetViewModel {
             }
         }
     }
-    
 }

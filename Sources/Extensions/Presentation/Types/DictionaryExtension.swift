@@ -6,37 +6,40 @@
 //
 
 import Foundation
-import RealmSwift
 import Realm
+import RealmSwift
 
 extension Dictionary where Key == String, Value == Any {
     func toEvent() -> Event? {
         guard let title = self["title"] as? String,
-            let from = self["from"] as? String,
-            let to = self["to"] as? String,
-            let id = self["eventId"] as? String,
-            let isSpecial = self["isSpecial"] as? Bool,
-            let lastModified = self["lastModified"] as? String,
-            let courseDict = self["course"] as? [String: String],
-            let locationsArray = self["locations"] as? [[String: Any]],
-            let teachersArray = self["teachers"] as? [[String: String]] else {
-                return nil
+              let from = self["from"] as? String,
+              let to = self["to"] as? String,
+              let id = self["eventId"] as? String,
+              let isSpecial = self["isSpecial"] as? Bool,
+              let lastModified = self["lastModified"] as? String,
+              let courseDict = self["course"] as? [String: String],
+              let locationsArray = self["locations"] as? [[String: Any]],
+              let teachersArray = self["teachers"] as? [[String: String]]
+        else {
+            return nil
         }
         
         let course = Course(
             courseId: courseDict["id"] ?? "",
             swedishName: courseDict["swedishName"] ?? "",
             englishName: courseDict["englishName"] ?? "",
-            color: courseDict["color"] ?? "#FFFFFF")
+            color: courseDict["color"] ?? "#FFFFFF"
+        )
         
-        let locations: List<Location> = List<Location>()
+        let locations = List<Location>()
         for locationDict in locationsArray {
             guard let name = locationDict["name"] as? String,
-                let locationId = locationDict["id"] as? String,
-                let building = locationDict["building"] as? String,
-                let floor = locationDict["floor"] as? String,
-                let maxSeats = locationDict["maxSeats"] as? Int else {
-                    continue
+                  let locationId = locationDict["id"] as? String,
+                  let building = locationDict["building"] as? String,
+                  let floor = locationDict["floor"] as? String,
+                  let maxSeats = locationDict["maxSeats"] as? Int
+            else {
+                continue
             }
             
             let location = Location(locationId: locationId, name: name,
@@ -46,16 +49,17 @@ extension Dictionary where Key == String, Value == Any {
             locations.append(location)
         }
         
-        let teachers: List<Teacher> = List<Teacher>()
+        let teachers = List<Teacher>()
         for teacherDict in teachersArray {
             guard let firstName = teacherDict["firstName"],
-                let lastName = teacherDict["lastName"],
-                let teacherId = teacherDict["id"] else {
-                    continue
+                  let lastName = teacherDict["lastName"],
+                  let teacherId = teacherDict["id"]
+            else {
+                continue
             }
             
             let teacher = Teacher(teacherId: teacherId, firstName: firstName,
-                                           lastName: lastName)
+                                  lastName: lastName)
             teachers.append(teacher)
         }
         

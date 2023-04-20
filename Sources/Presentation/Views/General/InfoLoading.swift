@@ -10,7 +10,7 @@ import SwiftUI
 struct InfoLoading: View {
     let title: String
     var body: some View {
-        VStack (alignment: .center) {
+        VStack(alignment: .center) {
             CustomProgressIndicator()
                 .padding(.bottom, 15)
             Text(title)
@@ -18,12 +18,12 @@ struct InfoLoading: View {
                 .multilineTextAlignment(.center)
         }
         .frame(
-              minWidth: 0,
-              maxWidth: .infinity,
-              minHeight: 0,
-              maxHeight: .infinity,
-              alignment: .center
-            )
+            minWidth: 0,
+            maxWidth: .infinity,
+            minHeight: 0,
+            maxHeight: .infinity,
+            alignment: .center
+        )
         .background(Color.background)
     }
 }

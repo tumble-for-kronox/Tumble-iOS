@@ -10,7 +10,6 @@ import StoreKit
 import UIKit
 
 extension UIApplication {
-    
     // Override variable
     private var keyWindow: UIWindow? {
         // Get connected scenes
@@ -20,21 +19,20 @@ extension UIApplication {
             // Keep only the first `UIWindowScene`
             .first(where: { $0 is UIWindowScene })
             // Get its associated windows
-            .flatMap({ $0 as? UIWindowScene })?.windows
+            .flatMap { $0 as? UIWindowScene }?.windows
             // Finally, keep only the key window
             .first(where: \.isKeyWindow)
     }
     
-    func requestReview() -> Void {
+    func requestReview() {
         if let keyWindow = UIApplication.shared.keyWindow, let windowScene = keyWindow.windowScene {
             SKStoreReviewController.requestReview(in: windowScene)
         }
     }
     
-    func shareFeedback() -> Void {
+    func shareFeedback() {
         if let url = URL(string: "mailto:tumblestudios.app@gmail.com") {
             UIApplication.shared.open(url)
         }
     }
-    
 }

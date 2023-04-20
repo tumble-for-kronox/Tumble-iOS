@@ -9,8 +9,9 @@ import Foundation
 
 enum AppearanceTypes: String, Identifiable {
     var id: UUID {
-       return UUID()
+        return UUID()
     }
+
     case system = "Automatic"
     case light = "Light"
     case dark = "Dark"

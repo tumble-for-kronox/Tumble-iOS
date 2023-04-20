@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct TimeslotDropdown: View {
-    
     let resource: Response.KronoxResourceElement
     let timeslots: [Response.TimeSlot]
     
@@ -38,26 +37,27 @@ struct TimeslotDropdown: View {
                         if let timeslotId = timeslot.id,
                            resource.availabilities.timeslotHasAvailable(for: timeslotId),
                            let start = timeslot.from?.convertToHoursAndMinutes(),
-                           let end = timeslot.to?.convertToHoursAndMinutes() {
+                           let end = timeslot.to?.convertToHoursAndMinutes()
+                        {
                             DropdownMenuItemView(
                                 isSelecting: $isSelecting,
                                 selectiontitle: $selectionTitle,
                                 selectedIndex: $selectedIndex,
                                 item: DropdownItem(id: timeslotId,
-                                title: "\(start) - \(end)",
-                                onSelect: {
-                                    selectedIndex = index
-                                })
+                                                   title: "\(start) - \(end)",
+                                                   onSelect: {
+                                                       selectedIndex = index
+                                                   })
                             )
                         }
                     }
                 }
-
             }
         }
         .onAppear {
             if let start = timeslots[selectedIndex].from?.convertToHoursAndMinutes(),
-               let end = timeslots[selectedIndex].to?.convertToHoursAndMinutes() {
+               let end = timeslots[selectedIndex].to?.convertToHoursAndMinutes()
+            {
                 selectionTitle = "\(start) - \(end)"
             }
         }
@@ -73,18 +73,15 @@ struct TimeslotDropdown: View {
             }
         }
     }
-
 }
 
-
-fileprivate struct DropdownItem: Identifiable {
+private struct DropdownItem: Identifiable {
     let id: Int
     let title: String
     let onSelect: () -> Void
 }
 
-
-fileprivate struct DropdownMenuItemView: View {
+private struct DropdownMenuItemView: View {
     @Binding var isSelecting: Bool
     @Binding var selectiontitle: String
     @Binding var selectedIndex: Int

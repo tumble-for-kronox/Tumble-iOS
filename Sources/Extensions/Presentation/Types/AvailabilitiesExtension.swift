@@ -8,7 +8,6 @@
 import Foundation
 
 extension Response.Availabilities {
-    
     func countAvailable() -> Int {
         guard let availabilities = self else { return 0 }
         var count = 0

@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct NotificationSettings: View {
-    
     @AppStorage(StoreKey.notificationOffset.rawValue) var offset: Int = 60
     
     let clearAllNotifications: () -> Void
@@ -31,7 +30,8 @@ struct NotificationSettings: View {
                     settingsDetails: SettingsDetails(
                         titleKey: NSLocalizedString("Are you sure you want to set notifications for all events?", comment: ""),
                         name: NSLocalizedString("Set notifications for all events", comment: ""),
-                        details: ""),
+                        details: ""
+                    ),
                     title: NSLocalizedString("Set notifications for all events", comment: ""),
                     image: "bell.badge",
                     imageColor: .primary,
@@ -42,11 +42,13 @@ struct NotificationSettings: View {
                     settingsDetails: SettingsDetails(
                         titleKey: NSLocalizedString("Are you sure you want to cancel all set notifications?", comment: ""),
                         name: NSLocalizedString("Cancel notifications for all events", comment: ""),
-                        details: ""),
+                        details: ""
+                    ),
                     title: NSLocalizedString("Cancel all notifications", comment: ""),
                     image: "bell.slash",
                     imageColor: .primary,
-                    action: clearAllNotifications)
+                    action: clearAllNotifications
+                )
             }
             .padding(.top, 20)
             CustomListGroup {
@@ -55,7 +57,9 @@ struct NotificationSettings: View {
                     current: offsetDisplayName,
                     destination: AnyView(NotificationOffsetSettings(
                         offset: $offset,
-                        rescheduleNotifications: rescheduleNotifications)))
+                        rescheduleNotifications: rescheduleNotifications
+                    ))
+                )
             }
         }
     }

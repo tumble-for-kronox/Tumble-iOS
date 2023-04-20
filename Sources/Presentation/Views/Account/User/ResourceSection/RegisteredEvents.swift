@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct RegisteredEvents: View {
-    
     let onClickEvent: (Response.AvailableKronoxUserEvent) -> Void
     @Binding var state: GenericPageStatus
     let registeredEvents: [Response.AvailableKronoxUserEvent]?
@@ -25,7 +24,8 @@ struct RegisteredEvents: View {
                     if !events.isEmpty {
                         ForEach(events) { event in
                             if let eventStart = event.eventStart.convertToHoursAndMinutes(),
-                               let eventEnd = event.eventEnd.convertToHoursAndMinutes() {
+                               let eventEnd = event.eventEnd.convertToHoursAndMinutes()
+                            {
                                 ResourceCard(
                                     timeSpan: "\(event.eventStart.convertToHoursAndMinutes() ?? "")",
                                     type: event.type,
@@ -37,7 +37,6 @@ struct RegisteredEvents: View {
                                     }
                                 )
                             }
-                            
                         }
                     } else {
                         Text(NSLocalizedString("No registered events yet", comment: ""))

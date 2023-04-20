@@ -9,23 +9,19 @@ import Foundation
 import SwiftUI
 
 struct OffsetPageTabView<Content: View>: UIViewRepresentable {
-    
     var content: Content
     @Binding var offset: CGFloat
-    
     
     func makeCoordinator() -> Coordinator {
         return OffsetPageTabView.Coordinator(parent: self)
     }
     
-    init(offset: Binding<CGFloat>,@ViewBuilder content: @escaping ()->Content){
-        
+    init(offset: Binding<CGFloat>, @ViewBuilder content: @escaping () -> Content) {
         self.content = content()
-        self._offset = offset
+        _offset = offset
     }
     
     func makeUIView(context: Context) -> UIScrollView {
-        
         let scrollview = UIScrollView()
         
         let hostview = UIHostingController(rootView: content)
@@ -54,7 +50,6 @@ struct OffsetPageTabView<Content: View>: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: UIScrollView, context: Context) {
-        
         let currentOffset = uiView.contentOffset.x
         
         if currentOffset != offset {
@@ -62,8 +57,7 @@ struct OffsetPageTabView<Content: View>: UIViewRepresentable {
         }
     }
     
-    class Coordinator: NSObject,UIScrollViewDelegate{
-        
+    class Coordinator: NSObject, UIScrollViewDelegate {
         var parent: OffsetPageTabView
         
         init(parent: OffsetPageTabView) {
@@ -75,6 +69,5 @@ struct OffsetPageTabView<Content: View>: UIViewRepresentable {
             
             parent.offset = offset
         }
-        
     }
 }

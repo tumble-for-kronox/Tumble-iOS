@@ -9,8 +9,8 @@ import SwiftUI
 
 struct HomeNotAvailable: View {
     var body: some View {
-        VStack (alignment: .leading) {
-            VStack (alignment: .leading, spacing: 20) {
+        VStack(alignment: .leading) {
+            VStack(alignment: .leading, spacing: 20) {
                 Text(NSLocalizedString("Everything looks good for this week", comment: ""))
                     .font(.system(size: 30, weight: .semibold))
                     .foregroundColor(.onBackground)

@@ -8,7 +8,6 @@
 import Foundation
 
 struct NetworkUtilities {
-    
     static let shared = NetworkUtilities()
     
     /// Creates a URLRequest with necessary headers and body
@@ -17,25 +16,25 @@ struct NetworkUtilities {
         method: Method,
         endpoint: Endpoint,
         refreshToken: String? = nil,
-        body: Request? = nil) -> URLRequest? {
+        body: Request? = nil
+    ) -> URLRequest? {
+        let encoder = JSONEncoder()
+        var urlRequest = URLRequest(url: endpoint.url)
+        urlRequest.httpMethod = method.rawValue
             
-            let encoder = JSONEncoder()
-            var urlRequest = URLRequest(url: endpoint.url)
-            urlRequest.httpMethod = method.rawValue
+        urlRequest.setValue(refreshToken, forHTTPHeaderField: "X-auth-token")
+        urlRequest.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
+        urlRequest.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")
             
-            urlRequest.setValue(refreshToken, forHTTPHeaderField: "X-auth-token")
-            urlRequest.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
-            urlRequest.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")
-            
-            if let body = body {
-                do {
-                    urlRequest.httpBody = try encoder.encode(body)
-                } catch {
-                    return nil
-                }
+        if let body = body {
+            do {
+                urlRequest.httpBody = try encoder.encode(body)
+            } catch {
+                return nil
             }
-            return urlRequest
         }
+        return urlRequest
+    }
     
     /// Overload function in case no body is given,
     /// as in for example GET requests
@@ -44,6 +43,6 @@ struct NetworkUtilities {
         endpoint: Endpoint,
         refreshToken: String? = nil
     ) -> URLRequest? {
-        return createUrlRequest(method: method, endpoint: endpoint, refreshToken: refreshToken, body: Optional<String>.none)
+        return createUrlRequest(method: method, endpoint: endpoint, refreshToken: refreshToken, body: String?.none)
     }
 }

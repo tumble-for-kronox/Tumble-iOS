@@ -5,8 +5,8 @@
 //  Created by Adis Veletanlic on 2022-12-02.
 //
 
-import SwiftUI
 import Combine
+import SwiftUI
 
 enum ButtonState {
     case loading
@@ -44,5 +44,3 @@ struct SearchPreviewList: View {
         return viewModel.schedule?.flatten().ordered()
     }
 }
-
-

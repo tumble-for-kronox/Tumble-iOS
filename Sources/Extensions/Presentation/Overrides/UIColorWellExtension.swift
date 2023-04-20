@@ -12,12 +12,12 @@ import UIKit
 
 extension UIColorWell {
     override open func didMoveToSuperview() {
-            super.didMoveToSuperview()
+        super.didMoveToSuperview()
 
-            if let uiButton = self.subviews.first?.subviews.last as? UIButton {
-                UIColorWellHelper.helper.execute = {
-                    uiButton.sendActions(for: .touchUpInside)
-                }
+        if let uiButton = subviews.first?.subviews.last as? UIButton {
+            UIColorWellHelper.helper.execute = {
+                uiButton.sendActions(for: .touchUpInside)
             }
         }
+    }
 }

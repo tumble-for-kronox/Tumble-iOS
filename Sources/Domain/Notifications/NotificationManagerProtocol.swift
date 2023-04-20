@@ -8,12 +8,12 @@
 import Foundation
 
 protocol NotificationManagerProtocol {
-    
     func scheduleNotification(
         for notification: EventNotification,
         type: NotificationType,
         userOffset: Int,
-        completion: @escaping (Result<Int, NotificationError>) -> Void)
+        completion: @escaping (Result<Int, NotificationError>) -> Void
+    )
     
     func cancelNotification(for eventId: String)
     
@@ -26,5 +26,4 @@ protocol NotificationManagerProtocol {
     func isNotificationScheduled(eventId: String, completion: @escaping (Bool) -> Void) -> Void
     
     func rescheduleEventNotifications(previousOffset: Int, userOffset: Int) -> Void
-    
 }

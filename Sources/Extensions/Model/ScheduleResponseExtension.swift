@@ -6,24 +6,22 @@
 //
 
 import Foundation
-import SwiftUI
-import RealmSwift
 import Realm
-
+import RealmSwift
+import SwiftUI
 
 extension [Response.Schedule] {
-    
     func flatten() -> [Response.Day] {
         var days = [Response.Day]()
-            for schedule in self {
-                days += schedule.days
-            }
+        for schedule in self {
+            days += schedule.days
+        }
         return days
     }
         
     func removeDuplicateEvents() -> [Response.Schedule] {
         var eventIds = Set<String>()
-        return self.map { schedule in
+        return map { schedule in
             let uniqueDays = schedule.days.map { day in
                 let uniqueEvents = day.events.filter { event in
                     eventIds.insert(event.id).inserted
@@ -42,12 +40,11 @@ extension [Response.Schedule] {
 }
 
 extension Response.Schedule {
-    
-    func toRealmSchedule(scheduleRequiresAuth: Bool, schoolId: String, existingCourseColors: [String : String] = [:]) -> Schedule {
+    func toRealmSchedule(scheduleRequiresAuth: Bool, schoolId: String, existingCourseColors: [String: String] = [:]) -> Schedule {
         let realmDays = RealmSwift.List<Day>()
         var colors = Set(colors)
         var visitedColors: [String: String] = existingCourseColors
-        for responseDay in self.days {
+        for responseDay in days {
             let realmEvents = RealmSwift.List<Event>()
             for responseEvent in responseDay.events {
                 let courseId = responseEvent.course.id
@@ -58,7 +55,8 @@ extension Response.Schedule {
                     courseId: responseEvent.course.id,
                     swedishName: responseEvent.course.swedishName,
                     englishName: responseEvent.course.englishName,
-                    color: visitedColors[courseId] ?? "#FFFFFF")
+                    color: visitedColors[courseId] ?? "#FFFFFF"
+                )
                 let locations = RealmSwift.List<Location>()
                 for responseLocation in responseEvent.locations {
                     let location = Location(locationId: responseLocation.id, name: responseLocation.name, building: responseLocation.building, floor: responseLocation.floor, maxSeats: responseLocation.maxSeats)
@@ -76,8 +74,8 @@ extension Response.Schedule {
             realmDays.append(realmDay)
         }
         let realmSchedule = Schedule(
-            scheduleId: self.id,
-            cachedAt: self.cachedAt,
+            scheduleId: id,
+            cachedAt: cachedAt,
             days: realmDays,
             schoolId: schoolId,
             requiresAuth: scheduleRequiresAuth
@@ -85,11 +83,8 @@ extension Response.Schedule {
         return realmSchedule
     }
 
-
-
-    
     func isScheduleEmpty() -> Bool {
-        for day in self.days {
+        for day in days {
             for event in day.events {
                 if !event.title.isEmpty {
                     return false
@@ -99,12 +94,11 @@ extension Response.Schedule {
         return true
     }
 
-    
     // Returns dictionary of random colors for each course in a schedule
-    func assignCoursesRandomColors() -> [String : String] {
-        var courseColors: [String : String] = [:]
+    func assignCoursesRandomColors() -> [String: String] {
+        var courseColors: [String: String] = [:]
         var availableColors = Set(colors)
-        for day in self.days {
+        for day in days {
             for event in day.events {
                 if courseColors[event.course.id] == nil {
                     if let hexColorString = availableColors.popFirst() {
@@ -117,18 +111,16 @@ extension Response.Schedule {
     }
     
     func flatten() -> [Response.Day] {
-        return self.days.reduce(into: []) {
-            if $1.isValidDay() {$0.append($1)}}
+        return days.reduce(into: []) {
+            if $1.isValidDay() { $0.append($1) }
+        }
     }
 
-    
     func courses() -> [String] {
-        return Array(Set(self.days.flatMap { $0.events.map { $0.course.id } }))
+        return Array(Set(days.flatMap { $0.events.map { $0.course.id } }))
     }
     
     func isEmpty() -> Bool {
         return days.allSatisfy { $0.events.isEmpty }
     }
-
-
 }

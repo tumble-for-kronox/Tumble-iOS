@@ -30,7 +30,8 @@ struct CalendarViewRepresentable: UIViewRepresentable {
         calendar.appearance.todayColor = UIColor(named: "PrimaryColor")?.withAlphaComponent(0.5)
         calendar.appearance.titleFont = .boldSystemFont(ofSize: 20)
         calendar.appearance.headerTitleFont = UIFont(
-            descriptor: UIFontDescriptor.preferredFontDescriptor(withTextStyle: .largeTitle), size: 25)
+            descriptor: UIFontDescriptor.preferredFontDescriptor(withTextStyle: .largeTitle), size: 25
+        )
         calendar.appearance.headerMinimumDissolvedAlpha = 0.12
         calendar.appearance.headerTitleFont = .systemFont(ofSize: 30, weight: .black)
         calendar.appearance.headerTitleColor = UIColor(named: "OnBackground")
@@ -46,30 +47,31 @@ struct CalendarViewRepresentable: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: FSCalendar, context: Context) {
-            uiView.scope = .month
-            uiView.firstWeekday = 2
+        uiView.scope = .month
+        uiView.firstWeekday = 2
         uiView.appearance.weekdayTextColor = UIColor(named: "OnBackground")?.withAlphaComponent(0.7)
-            uiView.appearance.titleDefaultColor = UIColor(named: "OnBackground")
-            uiView.appearance.selectionColor = UIColor(named: "PrimaryColor")
-            uiView.appearance.titleTodayColor = UIColor(named: "OnPrimary")
-            uiView.appearance.todayColor = UIColor(named: "PrimaryColor")?.withAlphaComponent(0.5)
-            uiView.appearance.titleFont = .boldSystemFont(ofSize: 20)
-            uiView.appearance.headerTitleFont = UIFont(
-                descriptor: UIFontDescriptor.preferredFontDescriptor(withTextStyle: .largeTitle), size: 30)
-            uiView.appearance.headerMinimumDissolvedAlpha = 0.12
-            uiView.appearance.headerTitleFont = .systemFont(ofSize: 30, weight: .black)
-            uiView.appearance.headerTitleColor = UIColor(named: "OnBackground")
-            uiView.appearance.headerDateFormat = "MMMM"
+        uiView.appearance.titleDefaultColor = UIColor(named: "OnBackground")
+        uiView.appearance.selectionColor = UIColor(named: "PrimaryColor")
+        uiView.appearance.titleTodayColor = UIColor(named: "OnPrimary")
+        uiView.appearance.todayColor = UIColor(named: "PrimaryColor")?.withAlphaComponent(0.5)
+        uiView.appearance.titleFont = .boldSystemFont(ofSize: 20)
+        uiView.appearance.headerTitleFont = UIFont(
+            descriptor: UIFontDescriptor.preferredFontDescriptor(withTextStyle: .largeTitle), size: 30
+        )
+        uiView.appearance.headerMinimumDissolvedAlpha = 0.12
+        uiView.appearance.headerTitleFont = .systemFont(ofSize: 30, weight: .black)
+        uiView.appearance.headerTitleColor = UIColor(named: "OnBackground")
+        uiView.appearance.headerDateFormat = "MMMM"
         
-            uiView.appearance.eventDefaultColor = UIColor(named: "PrimaryColor")
-            uiView.appearance.eventSelectionColor = UIColor(named: "PrimaryColor")
-        }
+        uiView.appearance.eventDefaultColor = UIColor(named: "PrimaryColor")
+        uiView.appearance.eventSelectionColor = UIColor(named: "PrimaryColor")
+    }
 
     func makeCoordinator() -> Coordinator {
         Coordinator(self)
     }
     
-    func makeCalendarEvents() -> [Date : [Event]] {
+    func makeCalendarEvents() -> [Date: [Event]] {
         var dict = [Date: [Event]]()
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
@@ -90,7 +92,6 @@ struct CalendarViewRepresentable: UIViewRepresentable {
     }
     
     class Coordinator: NSObject, FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {
-        
         var parent: CalendarViewRepresentable
         var displayedDayEventsByDate: [Date: [Event]] = [:]
         
@@ -101,13 +102,14 @@ struct CalendarViewRepresentable: UIViewRepresentable {
         /// Set cell indicators on individual calendar cells,
         /// to display amount of events for a single date before pressing it
         func calendar(
-                _ calendar: FSCalendar,
-                willDisplay cell: FSCalendarCell,
-                for date: Date, at monthPosition: FSCalendarMonthPosition) {
-                    let filteredEvents = displayedDayEventsByDate[date] ?? []
-                    cell.eventIndicator.isHidden = false
-                    cell.eventIndicator.numberOfEvents = filteredEvents.count
-            }
+            _ calendar: FSCalendar,
+            willDisplay cell: FSCalendarCell,
+            for date: Date, at monthPosition: FSCalendarMonthPosition
+        ) {
+            let filteredEvents = displayedDayEventsByDate[date] ?? []
+            cell.eventIndicator.isHidden = false
+            cell.eventIndicator.numberOfEvents = filteredEvents.count
+        }
         
         /// Handle the click of a date cell
         func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
@@ -130,7 +132,6 @@ struct CalendarViewRepresentable: UIViewRepresentable {
             return filteredEvents.count
         }
 
-        
         /// All date cells are clickable
         func calendar(_ calendar: FSCalendar, shouldSelect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
             return true
@@ -141,7 +142,6 @@ struct CalendarViewRepresentable: UIViewRepresentable {
             return Calendar.current.date(byAdding: sixMonths, to: Date()) ?? Date()
         }
 
-        
         func minimumDate(for calendar: FSCalendar) -> Date {
             Date.now
         }

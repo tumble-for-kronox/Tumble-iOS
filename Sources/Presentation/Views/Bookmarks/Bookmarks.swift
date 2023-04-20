@@ -5,18 +5,17 @@
 //  Created by Adis Veletanlic on 11/21/22.
 //
 
-import SwiftUI
 import RealmSwift
+import SwiftUI
 
 struct Bookmarks: View {
-    
     @ObservedObject var viewModel: BookmarksViewModel
     @ObservedObject var parentViewModel: ParentViewModel
-    @ObservedObject var appController: AppController = AppController.shared
+    @ObservedObject var appController: AppController = .shared
     @ObservedResults(Schedule.self) var schedules
     
     var body: some View {
-        VStack (alignment: .center) {
+        VStack(alignment: .center) {
             VStack {
                 ViewSwitcher(parentViewModel: viewModel)
                 switch viewModel.status {
@@ -49,7 +48,6 @@ struct Bookmarks: View {
                 case .error:
                     Info(title: NSLocalizedString("Something went wrong", comment: ""), image: nil)
                 }
-                
             }
         }
         .padding(.top, 10)
@@ -68,6 +66,4 @@ struct Bookmarks: View {
                     event: eventSheet.event))
         }
     }
-    
 }
-

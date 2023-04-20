@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct EventDetailsPill: View {
-    
     let title: String
     let image: String
     let onTap: () -> Void

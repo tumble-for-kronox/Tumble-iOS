@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct Resources: View {
-    
     @ObservedObject var parentViewModel: AccountViewModel
     let getResourcesAndEvents: () -> Void
     let createToast: (ToastStyle, String, String) -> Void
@@ -25,21 +24,21 @@ struct Resources: View {
         createToast: @escaping (ToastStyle, String, String) -> Void,
         collapsedHeader: Binding<Bool>
     ) {
-        self._isAutoSignupEnabled = State(initialValue: parentViewModel.autoSignupEnabled)
+        _isAutoSignupEnabled = State(initialValue: parentViewModel.autoSignupEnabled)
         self.parentViewModel = parentViewModel
         self.getResourcesAndEvents = getResourcesAndEvents
         self.createToast = createToast
-        self._collapsedHeader = collapsedHeader
+        _collapsedHeader = collapsedHeader
     }
     
     var body: some View {
-        ScrollView (showsIndicators: false) {
-            ScrollViewReader { proxy in
+        ScrollView(showsIndicators: false) {
+            ScrollViewReader { _ in
                 Refreshable(coordinateSpaceName: scrollSpace, onRefresh: getResourcesAndEvents)
                 VStack {
                     PullToRefreshIndicator()
-                    .padding(.bottom, -15)
-                    ResourceSectionDivider (title: NSLocalizedString("User options", comment: "")) {
+                        .padding(.bottom, -15)
+                    ResourceSectionDivider(title: NSLocalizedString("User options", comment: "")) {
                         Toggle(isOn: $isAutoSignupEnabled) {
                             Text(NSLocalizedString("Automatic exam signup", comment: ""))
                                 .sectionDividerEmpty()
@@ -47,36 +46,39 @@ struct Resources: View {
                         .onChange(of: isAutoSignupEnabled, perform: toggleAutomaticExamSignup)
                         .padding(.bottom)
                         .toggleStyle(SwitchToggleStyle(tint: .primary))
-                        
                     }
                     .padding(.top)
-                    ResourceSectionDivider (title: NSLocalizedString("Your bookings", comment: ""), resourceType: .resource,
-                                 destination: AnyView(
-                                    ResourceBookings(
-                                        viewModel: parentViewModel.resourceViewModel,
-                                        updateBookingNotifications: {
-                                            parentViewModel.checkNotificationsForUserBookings()
-                                        })
-                                        .navigationTitle(NSLocalizedString("Resources", comment: ""))
-                                        .navigationBarTitleDisplayMode(.inline)
-                                    )) {
-                                            RegisteredBookings(
-                                                onClickResource: onClickResource,
-                                                state: $parentViewModel.bookingSectionState,
-                                                bookings: parentViewModel.userBookings)
+                    ResourceSectionDivider(title: NSLocalizedString("Your bookings", comment: ""), resourceType: .resource,
+                                           destination: AnyView(
+                                               ResourceBookings(
+                                                   viewModel: parentViewModel.resourceViewModel,
+                                                   updateBookingNotifications: {
+                                                       parentViewModel.checkNotificationsForUserBookings()
+                                                   }
+                                               )
+                                               .navigationTitle(NSLocalizedString("Resources", comment: ""))
+                                               .navigationBarTitleDisplayMode(.inline)
+                                           )) {
+                        RegisteredBookings(
+                            onClickResource: onClickResource,
+                            state: $parentViewModel.bookingSectionState,
+                            bookings: parentViewModel.userBookings
+                        )
                     }
-                    ResourceSectionDivider (title: NSLocalizedString("Your events", comment: ""), resourceType: .event,
-                                 destination: AnyView(
-                                    EventBookings(
-                                        viewModel: parentViewModel.resourceViewModel,
-                                        getUserEventsForSection: getUserEventsForSection
-                                    )
-                                    .navigationTitle(NSLocalizedString("Events", comment: ""))
-                                    .navigationBarTitleDisplayMode(.inline))) {
-                                            RegisteredEvents(
-                                                onClickEvent: onClickEvent,
-                                                state: $parentViewModel.registeredEventSectionState,
-                                                registeredEvents: parentViewModel.completeUserEvent?.registeredEvents)
+                    ResourceSectionDivider(title: NSLocalizedString("Your events", comment: ""), resourceType: .event,
+                                           destination: AnyView(
+                                               EventBookings(
+                                                   viewModel: parentViewModel.resourceViewModel,
+                                                   getUserEventsForSection: getUserEventsForSection
+                                               )
+                                               .navigationTitle(NSLocalizedString("Events", comment: ""))
+                                               .navigationBarTitleDisplayMode(.inline)))
+                    {
+                        RegisteredEvents(
+                            onClickEvent: onClickEvent,
+                            state: $parentViewModel.registeredEventSectionState,
+                            registeredEvents: parentViewModel.completeUserEvent?.registeredEvents
+                        )
                     }
                 }
                 .background(GeometryReader { geo in
@@ -111,19 +113,19 @@ struct Resources: View {
         })
     }
     
-    fileprivate func getUserEventsForSection() -> Void {
+    fileprivate func getUserEventsForSection() {
         parentViewModel.getUserEventsForSection()
     }
     
-    fileprivate func onClickResource(resource: Response.KronoxUserBookingElement) -> Void {
+    fileprivate func onClickResource(resource: Response.KronoxUserBookingElement) {
         parentViewModel.resourceDetailsSheetModel = ResourceDetailSheetModel(resource: resource)
     }
     
-    fileprivate func onClickEvent(event: Response.AvailableKronoxUserEvent) -> Void {
+    fileprivate func onClickEvent(event: Response.AvailableKronoxUserEvent) {
         parentViewModel.examDetailSheetModel = ExamDetailSheetModel(event: event)
     }
     
-    fileprivate func handleScroll(value: CGFloat) -> Void {
+    fileprivate func handleScroll(value: CGFloat) {
         scrollOffset = value
         if scrollOffset >= 80 {
             withAnimation(.easeInOut) {
@@ -136,7 +138,7 @@ struct Resources: View {
         }
     }
     
-    fileprivate func unregisterEvent(eventId: String) -> Void {
+    fileprivate func unregisterEvent(eventId: String) {
         parentViewModel.registeredEventSectionState = .loading
         parentViewModel.unregisterForEvent(eventId: eventId) { result in
             switch result {
@@ -149,7 +151,8 @@ struct Resources: View {
                 createToast(
                     .success,
                     NSLocalizedString("Unregistered from event", comment: ""),
-                    NSLocalizedString("You have been unregistered from the specified event", comment: ""))
+                    NSLocalizedString("You have been unregistered from the specified event", comment: "")
+                )
             case .failure:
                 AppLogger.shared.critical("Failed to unregister for event: \(eventId)")
                 DispatchQueue.main.async {
@@ -158,12 +161,13 @@ struct Resources: View {
                 createToast(
                     .error,
                     NSLocalizedString("Error", comment: ""),
-                    NSLocalizedString("We couldn't unregister you for the specified event", comment: ""))
+                    NSLocalizedString("We couldn't unregister you for the specified event", comment: "")
+                )
             }
         }
     }
     
-    fileprivate func confirmResource(resourceId: String, bookingId: String) -> Void {
+    fileprivate func confirmResource(resourceId: String, bookingId: String) {
         parentViewModel.bookingSectionState = .loading
         parentViewModel.resourceViewModel.confirmResource(
             resourceId: resourceId,
@@ -178,7 +182,8 @@ struct Resources: View {
                     createToast(
                         .success,
                         NSLocalizedString("Confirmed resource", comment: ""),
-                        NSLocalizedString("You have confirmed the selected resource", comment: ""))
+                        NSLocalizedString("You have confirmed the selected resource", comment: "")
+                    )
                 case .failure:
                     AppLogger.shared.critical("Failed to confirm resource: \(bookingId)")
                     DispatchQueue.main.async {
@@ -187,12 +192,14 @@ struct Resources: View {
                     createToast(
                         .error,
                         NSLocalizedString("Error", comment: ""),
-                        NSLocalizedString("We couldn't confirm the specified resource", comment: ""))
+                        NSLocalizedString("We couldn't confirm the specified resource", comment: "")
+                    )
                 }
-            })
+            }
+        )
     }
     
-    fileprivate func unbookResource(bookingId: String) -> Void {
+    fileprivate func unbookResource(bookingId: String) {
         parentViewModel.bookingSectionState = .loading
         parentViewModel.resourceViewModel.unbookResource(bookingId: bookingId, completion: { result in
             switch result {
@@ -205,7 +212,8 @@ struct Resources: View {
                 createToast(
                     .success,
                     NSLocalizedString("Unbooked resource", comment: ""),
-                    NSLocalizedString("You have unbooked the selected resource", comment: ""))
+                    NSLocalizedString("You have unbooked the selected resource", comment: "")
+                )
             case .failure:
                 AppLogger.shared.critical("Failed to unbook resource: \(bookingId)")
                 DispatchQueue.main.async {
@@ -214,33 +222,35 @@ struct Resources: View {
                 createToast(
                     .error,
                     NSLocalizedString("Error", comment: ""),
-                    NSLocalizedString("We couldn't unbook the specified resource", comment: ""))
+                    NSLocalizedString("We couldn't unbook the specified resource", comment: "")
+                )
             }
         })
     }
     
-    fileprivate func toggleAutomaticExamSignup(value: Bool) -> Void {
+    fileprivate func toggleAutomaticExamSignup(value: Bool) {
         parentViewModel.toggleAutoSignup(value: value)
         if value {
             createToast(
                 .info,
                 NSLocalizedString("Automatic signup", comment: ""),
-                NSLocalizedString("Automatic exam/event signup has been enabled, but make sure you are always registered for exams through your institution.", comment: ""))
+                NSLocalizedString("Automatic exam/event signup has been enabled, but make sure you are always registered for exams through your institution.", comment: "")
+            )
         } else {
             createToast(
                 .info,
                 NSLocalizedString("Automatic signup", comment: ""),
-                NSLocalizedString("Automatic exam/event signup has been disabled.", comment: ""))
+                NSLocalizedString("Automatic exam/event signup has been disabled.", comment: "")
+            )
         }
         AppLogger.shared.debug("Toggled to \(value)")
     }
-    
 }
 
-fileprivate struct ResourcesScrollViewOffsetPreferenceKey: PreferenceKey {
-  static var defaultValue = CGFloat.zero
+private struct ResourcesScrollViewOffsetPreferenceKey: PreferenceKey {
+    static var defaultValue = CGFloat.zero
 
-  static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
-    value += nextValue()
-  }
+    static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
+        value += nextValue()
+    }
 }

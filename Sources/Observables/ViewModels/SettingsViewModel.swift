@@ -5,13 +5,12 @@
 //  Created by Adis Veletanlic on 2023-02-08.
 //
 
-import Foundation
-import SwiftUI
 import Combine
+import Foundation
 import RealmSwift
+import SwiftUI
 
 final class SettingsViewModel: ObservableObject {
-    
     @Inject var preferenceService: PreferenceService
     @Inject var notificationManager: NotificationManager
     @Inject var userController: UserController
@@ -26,10 +25,9 @@ final class SettingsViewModel: ObservableObject {
     lazy var schools: [School] = schoolManager.getSchools()
     var cancellables = Set<AnyCancellable>()
     
-    
     init() { setUpDataPublishers() }
     
-    private func setUpDataPublishers() -> Void {
+    private func setUpDataPublishers() {
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             guard let self else { return }
             let authStatusPublisher = self.userController.$authStatus
@@ -49,29 +47,31 @@ final class SettingsViewModel: ObservableObject {
         }
     }
     
-    func logOut() -> Void {
+    func logOut() {
         userController.logOut(completion: { success in
             if success {
                 AppLogger.shared.debug("Logged out")
                 AppController.shared.toast = Toast(
                     type: .success,
                     title: NSLocalizedString("Logged out", comment: ""),
-                    message: NSLocalizedString("You have successfully logged out of your account", comment: ""))
+                    message: NSLocalizedString("You have successfully logged out of your account", comment: "")
+                )
             } else {
                 AppLogger.shared.debug("Could not log out")
                 AppController.shared.toast = Toast(
                     type: .success,
                     title: NSLocalizedString("Error", comment: ""),
-                    message: NSLocalizedString("Could not log out from your account", comment: ""))
+                    message: NSLocalizedString("Could not log out from your account", comment: "")
+                )
             }
         })
     }
     
-    func removeNotificationsFor(for id: String, referencing events: [Event]) -> Void {
+    func removeNotificationsFor(for id: String, referencing events: [Event]) {
         events.forEach { notificationManager.cancelNotification(for: $0.eventId) }
     }
     
-    func clearAllNotifications() -> Void {
+    func clearAllNotifications() {
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             guard let self else { return }
             self.notificationManager.cancelNotifications()
@@ -83,7 +83,7 @@ final class SettingsViewModel: ObservableObject {
         )
     }
     
-    func rescheduleNotifications(previousOffset: Int, newOffset: Int) -> Void {
+    func rescheduleNotifications(previousOffset: Int, newOffset: Int) {
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             guard let self else { return }
             self.notificationManager.rescheduleEventNotifications(
@@ -92,7 +92,6 @@ final class SettingsViewModel: ObservableObject {
             )
         }
     }
-    
     
     func scheduleNotificationsForAllEvents(allEvents: [Event]) {
         guard !allEvents.isEmpty else {
@@ -161,8 +160,7 @@ final class SettingsViewModel: ObservableObject {
         }
     }
 
-    
-    func changeSchool(schoolId: Int) -> Void {
+    func changeSchool(schoolId: Int) {
         if schoolIsAlreadySelected(schoolId: schoolId) {
             return
         }
@@ -178,32 +176,33 @@ final class SettingsViewModel: ObservableObject {
             title: NSLocalizedString("New school", comment: ""),
             message: String(
                 format: NSLocalizedString("Set %@ to default", comment: ""),
-                self.schoolName
-            ))
+                schoolName
+            )
+        )
     }
     
-    func makeToast(type: ToastStyle, title: String, message: String) -> Void {
+    func makeToast(type: ToastStyle, title: String, message: String) {
         DispatchQueue.main.async {
             AppController.shared.toast = Toast(
                 type: type,
                 title: title,
-                message: message)
+                message: message
+            )
         }
     }
     
     private func schoolIsAlreadySelected(schoolId: Int) -> Bool {
-        if schoolId == self.authSchoolId {
+        if schoolId == authSchoolId {
             makeToast(
                 type: .info,
                 title: NSLocalizedString("School already selected", comment: ""),
                 message: String(
                     format: NSLocalizedString("You already have '%@' as your default school", comment: ""),
                     schoolName
-                ))
+                )
+            )
             return true
         }
         return false
     }
-    
 }
-

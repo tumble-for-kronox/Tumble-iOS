@@ -9,28 +9,27 @@ import Foundation
 import SwiftUI
 
 extension String {
-        
     func abbreviate() -> String {
         let formatter = PersonNameComponentsFormatter()
         if let components = formatter.personNameComponents(from: self) {
-             formatter.style = .abbreviated
-             return formatter.string(from: components)
+            formatter.style = .abbreviated
+            return formatter.string(from: components)
         }
         return ""
     }
     
-    func toColor () -> Color {
-        var cString:String = self.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
+    func toColor() -> Color {
+        var cString: String = trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
 
-        if (cString.hasPrefix("#")) {
+        if cString.hasPrefix("#") {
             cString.remove(at: cString.startIndex)
         }
 
-        if ((cString.count) != 6) {
+        if (cString.count) != 6 {
             return Color.gray
         }
 
-        var rgbValue:UInt64 = 0
+        var rgbValue: UInt64 = 0
         Scanner(string: cString).scanHexInt64(&rgbValue)
 
         return Color(
@@ -48,7 +47,6 @@ extension String {
         return nil
     }
 
-    
     // Should not be used with strings that are not ISO formatted
     func convertToHoursAndMinutesISOString() -> String? {
         guard let date = isoDateFormatter.date(from: self) else {
@@ -87,11 +85,11 @@ extension String {
     }
     
     func toDate() -> String? {
-            if let date = dateFormatterFull.date(from: self) {
-                return dateFormatterSemi.string(from: date)
-            }
-            return nil
+        if let date = dateFormatterFull.date(from: self) {
+            return dateFormatterSemi.string(from: date)
         }
+        return nil
+    }
     
     func isAvailableNotificationDate() -> Bool {
         guard let eventDate = isoDateFormatter.date(from: self) else {
@@ -103,8 +101,6 @@ extension String {
     }
     
     func capitalizingFirstLetter() -> String {
-          return prefix(1).uppercased() + self.lowercased().dropFirst()
-        }
-    
+        return prefix(1).uppercased() + lowercased().dropFirst()
+    }
 }
-

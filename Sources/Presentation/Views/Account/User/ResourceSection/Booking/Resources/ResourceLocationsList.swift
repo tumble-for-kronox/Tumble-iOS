@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct ResourceLocationsList: View {
-    
     @ObservedObject var parentViewModel: ResourceViewModel
     @Binding var selectedPickerDate: Date
     
@@ -30,8 +29,8 @@ struct ResourceLocationsList: View {
                     .navigationTitle(NSLocalizedString("Rooms", comment: ""))
                     .navigationBarTitleDisplayMode(.inline)
                 }, label: {
-                    HStack (spacing: 0) {
-                        VStack (alignment: .leading, spacing: 10) {
+                    HStack(spacing: 0) {
+                        VStack(alignment: .leading, spacing: 10) {
                             HStack {
                                 Text(resource.name ?? NSLocalizedString("No name", comment: ""))
                                     .font(.system(size: 18, weight: .medium))
@@ -55,7 +54,6 @@ struct ResourceLocationsList: View {
                                 Text(String(format: NSLocalizedString("Available timeslots: %d", comment: ""), availableCounts))
                                     .font(.system(size: 15))
                                     .foregroundColor(.onSurface.opacity(0.7))
-
                             }
                         }
                         .padding()

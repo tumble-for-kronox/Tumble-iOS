@@ -10,11 +10,9 @@ import Foundation
 /// Dynamic network settings based on the $(NETWORK_SETTINGS)
 /// property list key that is toggled by changing build schemes.
 struct NetworkSettings {
-
     static let shared = NetworkSettings()
     
     enum Environments {
-        
         // Production URL
         static let production = NetworkSettings(
             port: 443, scheme: "https", tumbleUrl: "tumble.hkr.se"
@@ -24,7 +22,6 @@ struct NetworkSettings {
         static let testing = NetworkSettings(
             port: 7036, scheme: "https", tumbleUrl: "localhost"
         )
-
     }
 
     let port: Int

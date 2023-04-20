@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct SettingsRadioButton: View {
-    
     let title: String
     @Binding var isSelected: Bool
     

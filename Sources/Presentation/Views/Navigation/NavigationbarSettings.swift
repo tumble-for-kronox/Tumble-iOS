@@ -8,18 +8,16 @@
 import SwiftUI
 
 struct NavigationbarSettings: View {
-    
     @ObservedObject var viewModel: SettingsViewModel
     
     var body: some View {
         NavigationLink(destination:
             Settings(
                 viewModel: viewModel
-            )
-           , label: {
-            Image(systemName: "gearshape")
-                .actionIcon()
-        })
+            ),
+            label: {
+                Image(systemName: "gearshape")
+                    .actionIcon()
+            })
     }
 }
-

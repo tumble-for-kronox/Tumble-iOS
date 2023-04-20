@@ -8,11 +8,10 @@
 import SwiftUI
 
 struct AllNews: View {
-    
     let news: Response.NewsItems?
     
     var body: some View {
-        VStack (alignment: .leading) {
+        VStack(alignment: .leading) {
             HStack {
                 Text(NSLocalizedString("Other news", comment: ""))
                     .font(.system(size: 16, weight: .semibold))
@@ -20,7 +19,7 @@ struct AllNews: View {
                 Spacer()
             }
             if let news = news {
-                VStack (alignment: .leading) {
+                VStack(alignment: .leading) {
                     if news.isEmpty {
                         Text(NSLocalizedString("No other news", comment: ""))
                             .font(.system(size: 16))

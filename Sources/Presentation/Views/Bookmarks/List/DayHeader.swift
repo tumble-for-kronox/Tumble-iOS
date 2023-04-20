@@ -5,13 +5,12 @@
 //  Created by Adis Veletanlic on 11/21/22.
 //
 
-
 import SwiftUI
 
 struct DayHeader: View {
     let day: Day
     var body: some View {
-        HStack (spacing: 0) {
+        HStack(spacing: 0) {
             Text(NSLocalizedString(localizedKey(for: day.name), comment: ""))
                 .dayHeader()
             Text(day.date)
@@ -31,5 +30,4 @@ struct DayHeader: View {
     fileprivate func localizedKey(for inputString: String) -> String {
         return "\(inputString)"
     }
-    
 }

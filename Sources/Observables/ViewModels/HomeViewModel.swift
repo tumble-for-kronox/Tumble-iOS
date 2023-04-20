@@ -5,13 +5,12 @@
 //  Created by Adis Veletanlic on 11/20/22.
 //
 
-import Foundation
-import SwiftUI
 import Combine
+import Foundation
 import RealmSwift
+import SwiftUI
 
 final class HomeViewModel: ObservableObject {
-    
     @Inject var preferenceService: PreferenceService
     @Inject var userController: UserController
     @Inject var kronoxManager: KronoxManager
@@ -20,10 +19,10 @@ final class HomeViewModel: ObservableObject {
     @Published var news: Response.NewsItems? = nil
     @Published var swipedCards: Int = 0
     @Published var status: HomeStatus = .loading
-    @Published var eventsForToday: [WeekEventCardModel] = [WeekEventCardModel]()
+    @Published var eventsForToday: [WeekEventCardModel] = .init()
     @Published var nextClass: Event? = nil
     
-    private let viewModelFactory: ViewModelFactory = ViewModelFactory.shared
+    private let viewModelFactory: ViewModelFactory = .shared
     var schedulesToken: NotificationToken?
     
     init() {
@@ -44,8 +43,7 @@ final class HomeViewModel: ObservableObject {
         }
     }
     
-    
-    func getNews() -> Void {
+    func getNews() {
         newsSectionStatus = .loading
         let _ = kronoxManager.get(.news) { [weak self] (result: Result<Response.NewsItems, Response.ErrorMessage>) in
             guard let self = self else { return }
@@ -60,16 +58,16 @@ final class HomeViewModel: ObservableObject {
         }
     }
     
-    func createDayCards(events: [Event]) -> Void {
+    func createDayCards(events: [Event]) {
         let weekEventCards = filterEventsMatchingToday(events: events).map {
-            return WeekEventCardModel(event: $0)
+            WeekEventCardModel(event: $0)
         }
-        self.eventsForToday = weekEventCards.reversed()
+        eventsForToday = weekEventCards.reversed()
     }
     
     func findNextUpcomingEvent(schedules: [Schedule]) -> Event? {
         let hiddenBookmarks = schedules.filter { !$0.toggled }.map { $0.scheduleId }
-        let days: [Day] = schedules.filter {!hiddenBookmarks.contains($0.scheduleId)}.flatMap { $0.days }
+        let days: [Day] = schedules.filter { !hiddenBookmarks.contains($0.scheduleId) }.flatMap { $0.days }
         let events: [Event] = days.flatMap { $0.events }
         let sortedEvents = events.sorted()
         let now = Date()
@@ -80,7 +78,7 @@ final class HomeViewModel: ObservableObject {
                 // If the next event is today, find the next upcoming event that is not today
                 if let nextNonTodayEvent = sortedEvents.first(where: {
                     !Calendar.current.isDate(now, inSameDayAs: isoDateFormatter.date(from: $0.from)!) &&
-                    isoDateFormatter.date(from: $0.from)! > now
+                        isoDateFormatter.date(from: $0.from)! > now
                 }) {
                     return nextNonTodayEvent
                 } else {
@@ -105,11 +103,10 @@ final class HomeViewModel: ObservableObject {
         return filteredEvents.sorted().reversed()
     }
     
-    func createEventsForToday(schedules: [Schedule]) -> Void {
+    func createEventsForToday(schedules: [Schedule]) {
         let eventsForToday: [Event] = loadEventsForWeek(schedules: Array(schedules)).sorted().reversed()
         createDayCards(events: Array(eventsForToday))
     }
-    
     
     func loadEventsForWeek(schedules: [Schedule]) -> [Event] {
         let now = Calendar.current.startOfDay(for: Date())
@@ -131,5 +128,4 @@ final class HomeViewModel: ObservableObject {
             .flatMap { $0.events }
         return events
     }
-    
 }

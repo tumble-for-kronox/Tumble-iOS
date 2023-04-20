@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct WrappedHStack<Content: View>: View {
-    
     private let content: [Content]
     private let spacing: CGFloat = 8
     private let geometry: GeometryProxy
@@ -32,7 +31,6 @@ struct WrappedHStack<Content: View>: View {
 }
 
 extension WrappedHStack {
-    
     init<Data, ID: Hashable>(geometry: GeometryProxy, @ViewBuilder content: () -> ForEach<Data, ID, Content>) {
         let views = content()
         self.geometry = geometry
@@ -47,7 +45,6 @@ extension WrappedHStack {
 
 extension WrappedHStack {
     struct RowBuilder {
-        
         private var spacing: CGFloat
         private var containerWidth: CGFloat
         
@@ -57,13 +54,12 @@ extension WrappedHStack {
         }
         
         func generateRows<Content: View>(views: [Content]) -> [AnyView] {
-            
             var rows = [AnyView]()
             
             var currentRowViews = [AnyView]()
             var currentRowWidth: CGFloat = 0
             
-            for (view) in views {
+            for view in views {
                 let viewWidth = view.getRect().width
                 
                 if currentRowWidth + viewWidth > containerWidth {

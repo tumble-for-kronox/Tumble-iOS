@@ -42,4 +42,3 @@ struct SchoolPill: View {
         .padding(5)
     }
 }
-

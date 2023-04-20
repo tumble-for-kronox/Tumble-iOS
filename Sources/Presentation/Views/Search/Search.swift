@@ -8,28 +8,28 @@
 import SwiftUI
 
 struct Search: View {
-    
     @ObservedObject var viewModel: SearchViewModel
         
     var body: some View {
-        VStack (spacing: 0) {
+        VStack(spacing: 0) {
             switch viewModel.status {
-                case .initial:
+            case .initial:
                 SearchInfo(schools: viewModel.schools, selectedSchool: $viewModel.selectedSchool)
-                case .loading:
-                    CustomProgressIndicator()
-                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
-                case .loaded:
+            case .loading:
+                CustomProgressIndicator()
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+            case .loaded:
                 SearchResults(
                     searchText: viewModel.searchBarText,
                     numberOfSearchResults: viewModel.programmeSearchResults.count,
                     searchResults: viewModel.programmeSearchResults,
-                    onOpenProgramme: openProgramme, universityImage: viewModel.universityImage)
-                case .error:
-                    Info(title: viewModel.errorMessageSearch ?? NSLocalizedString("Something went wrong", comment: ""), image: nil)
-                case .empty:
-                    Info(title: NSLocalizedString("Schedule is empty", comment: ""), image: nil)
-                }
+                    onOpenProgramme: openProgramme, universityImage: viewModel.universityImage
+                )
+            case .error:
+                Info(title: viewModel.errorMessageSearch ?? NSLocalizedString("Something went wrong", comment: ""), image: nil)
+            case .empty:
+                Info(title: NSLocalizedString("Schedule is empty", comment: ""), image: nil)
+            }
             SearchField(
                 search: search,
                 clearSearch: clearSearch,
@@ -59,24 +59,25 @@ struct Search: View {
         return !viewModel.searchBarText.trimmingCharacters(in: .whitespaces).isEmpty
     }
     
-    func search() -> Void {
+    func search() {
         if let selectedSchool = viewModel.selectedSchool, searchBoxNotEmpty() {
             viewModel.universityImage = selectedSchool.logo
             viewModel.onSearchProgrammes(
                 searchQuery: viewModel.searchBarText,
-                selectedSchoolId: selectedSchool.id)
+                selectedSchoolId: selectedSchool.id
+            )
         }
     }
     
-    func clearSearch() -> Void {
+    func clearSearch() {
         viewModel.resetSearchResults()
     }
     
-    func openProgramme(programmeId: String) -> Void {
+    func openProgramme(programmeId: String) {
         if let selectedSchoolId = viewModel.selectedSchool?.id {
             viewModel.searchPreviewModel = SearchPreviewModel(
-                scheduleId: programmeId, schoolId: String(selectedSchoolId))
+                scheduleId: programmeId, schoolId: String(selectedSchoolId)
+            )
         }
     }
-    
 }

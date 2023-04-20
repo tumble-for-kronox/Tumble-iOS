@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SearchError: View {
     var body: some View {
-        VStack (alignment: .center) {
+        VStack(alignment: .center) {
             Spacer()
             Image(systemName: "wifi.exclamationmark")
                 .font(.system(size: 24))
@@ -25,4 +25,3 @@ struct SearchError: View {
         .padding(.trailing, 15)
     }
 }
-

@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct ResourceCard: View {
-    
     let date: String
     let hoursMinutes: String
     let timeSpan: String
@@ -23,7 +22,8 @@ struct ResourceCard: View {
          location: String? = nil,
          date: String,
          hoursMinutes: String,
-         onClick: @escaping () -> Void) {
+         onClick: @escaping () -> Void)
+    {
         self.timeSpan = timeSpan
         self.type = type
         self.title = title
@@ -39,7 +39,7 @@ struct ResourceCard: View {
             onClick()
         }, label: {
             HStack {
-                VStack (alignment: .leading, spacing: 10) {
+                VStack(alignment: .leading, spacing: 10) {
                     Text(title ?? NSLocalizedString("No title", comment: ""))
                         .font(.system(size: 17, weight: .medium))
                         .foregroundColor(.onSurface)
@@ -83,4 +83,3 @@ struct ResourceCard: View {
         .padding(.bottom, -10)
     }
 }
-

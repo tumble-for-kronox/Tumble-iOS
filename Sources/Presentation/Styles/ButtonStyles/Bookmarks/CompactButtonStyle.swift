@@ -9,7 +9,6 @@ import Foundation
 import SwiftUI
 
 struct CompactButtonStyle: ButtonStyle {
-    
     let backgroundColor: Color
     
     init(backgroundColor: Color = Color.surface) {
