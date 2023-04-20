@@ -234,7 +234,7 @@ public enum Response {
         let timeSlot: TimeSlot
         let locationID: String
         let showConfirmButton, showUnbookButton: Bool
-        let confirmationOpen, confirmationClosed: String
+        let confirmationOpen, confirmationClosed: String?
 
         enum CodingKeys: String, CodingKey {
             case id
@@ -245,6 +245,9 @@ public enum Response {
         }
         
         var dateComponentsConfirmation: DateComponents? {
+            guard let confirmationOpen = self.confirmationOpen else {
+                return nil
+            }
             guard let date = dateFormatterFull.date(from: confirmationOpen) else {
                 return nil
             }
