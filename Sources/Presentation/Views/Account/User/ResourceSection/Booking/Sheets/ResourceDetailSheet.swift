@@ -33,14 +33,16 @@ struct ResourceDetailSheet: View {
                         .font(.system(size: 16))
                         .foregroundColor(.onSurface)
                 })
-                DetailsBuilder(title: NSLocalizedString("Confirmation", comment: ""), image: "checkmark.seal", content: {
-                    let date = resource.confirmationOpen.toDate() ?? "(missing)"
-                    let from = resource.confirmationOpen.convertToHoursAndMinutes() ?? NSLocalizedString("(missing)", comment: "")
-                    let to = resource.confirmationClosed.convertToHoursAndMinutes() ?? NSLocalizedString("(missing)", comment: "")
-                    Text(String(format: NSLocalizedString("%@, from %@ - %@", comment: ""), date, from, to))
-                        .font(.system(size: 16))
-                        .foregroundColor(.onSurface)
-                })
+                if let confirmationOpen = resource.confirmationOpen, let confirmationClosed = resource.confirmationClosed {
+                    DetailsBuilder(title: NSLocalizedString("Confirmation", comment: ""), image: "checkmark.seal", content: {
+                        let date = confirmationOpen.toDate() ?? "(missing)"
+                        let from = confirmationOpen.convertToHoursAndMinutes() ?? NSLocalizedString("(missing)", comment: "")
+                        let to = confirmationClosed.convertToHoursAndMinutes() ?? NSLocalizedString("(missing)", comment: "")
+                        Text(String(format: NSLocalizedString("%@, from %@ - %@", comment: ""), date, from, to))
+                            .font(.system(size: 16))
+                            .foregroundColor(.onSurface)
+                    })
+                }
                 Spacer()
                 if resource.showConfirmButton {
                     Button(action: {
@@ -81,8 +83,11 @@ struct ResourceDetailSheet: View {
     
     func bookingCanBeConfirmed() -> Bool {
         let currentDate = Date()
-        if let confirmationOpen = dateFormatterUTC.date(from: resource.confirmationOpen),
-           let confirmationClosed = dateFormatterUTC.date(from: resource.confirmationClosed)
+        guard let confirmationOpen = resource.confirmationOpen, let confirmationClosed = resource.confirmationClosed else {
+            return false
+        }
+        if let confirmationOpen = dateFormatterUTC.date(from: confirmationOpen),
+           let confirmationClosed = dateFormatterUTC.date(from: confirmationClosed)
         {
             return currentDate > confirmationOpen && currentDate < confirmationClosed
         }

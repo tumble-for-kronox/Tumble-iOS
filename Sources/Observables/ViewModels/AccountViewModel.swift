@@ -46,8 +46,8 @@ final class AccountViewModel: ObservableObject {
         return userController.autoSignup
     }
     
-    /// AccountViewModel is responsible for instantiating
-    /// the viewmodel used in its child views it navigates to
+    // AccountViewModel is responsible for instantiating
+    // the viewmodel used in its child views it navigates to
     lazy var resourceViewModel: ResourceViewModel = viewModelFactory.makeViewModelResource()
     private var cancellables = Set<AnyCancellable>()
     
