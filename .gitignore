@@ -2,6 +2,9 @@
 #
 # gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
 
+## Platform specific files
+.DS_STORE
+
 ## Firebase
 GoogleService-Info.plist
 tumble-ios/GoogleService-Info.plist
