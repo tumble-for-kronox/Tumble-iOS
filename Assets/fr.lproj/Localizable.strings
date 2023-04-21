@@ -36,13 +36,13 @@
 
 "There are no schedules that match your search"="Aucun horaire ne correspond à votre recherche";
 
-"Important: "="Importante: ";
+"Important: "="Important: ";
 
 "Choose a university to begin your search"="Choisissez une université pour commencer votre recherche";
 
 "Information"="Information";
 
-"This university requires you to log in to their institution before you can see some of their schedules"="Cette université vous demande de vous connecter à son établissement avant de pouvoir voir certains de ses horaires";
+"This university requires you to log in to their institution before you can see some of their schedules"="Cette université vous demande de vous connecter à leur établissement avant de pouvoir voir certains de ses horaires";
 
 "Something went wrong"="Quelque chose s'est mal passé";
 
@@ -64,9 +64,9 @@
 
 "Bosnian"="Bosnien";
 
-"Home"="Maison";
+"Home"="Accueil";
 
-"Bookmarks"="Signets";
+"Bookmarks"="Favoris";
 
 "Account"="Compte";
 
@@ -84,9 +84,9 @@
 
 "Removed schedule"="Calendrier supprimé";
 
-"Successfully removed the schedule '%@' from your bookmarks"="Le programme '%@' a été supprimé avec succès de vos favoris";
+"Successfully removed the schedule '%@' from your bookmarks"="L'horaire '%@' a été supprimé avec succès de vos favoris";
 
-"Could not remove schedule"="Impossible de supprimer le programme";
+"Could not remove schedule"="Impossible de supprimer l'horaire";
 
 "The schedule '%@' could not be removed from your bookmarks"="L'horaire '%@' n'a pas pu être supprimé de vos favoris";
 
@@ -110,7 +110,7 @@
 
 "Scheduled notifications"="Notifications planifiées";
 
-"Scheduled notifications for all available events"="Notifications programmées pour tous les événements disponibles";
+"Scheduled notifications for all available events"="Notifications planifiées pour tous les événements disponibles";
 
 "Failed to set notifications for all available events"="Échec de la définition des notifications pour tous les événements disponibles";
 
@@ -120,7 +120,7 @@
 
 "Log in"="Connexion";
 
-"No bookmarks yet"="Aucun marque-page pour le moment";
+"No bookmarks yet"="Aucune calendrier favoris";
 
 "No events match your search"="Aucun événement ne correspond à votre recherche";
 
@@ -130,15 +130,15 @@
 
 "hours"="Heures";
 
-"Are you sure you want to set notifications for all events?"="Voulez-vous vraiment définir des notifications pour tous les événements ?";
+"Are you sure you want to set notifications for all events?"="Voulez-vous vraiment activer des notifications pour tous les événements ?";
 
-"Set notifications for all events"="Définir des notifications pour tous les événements";
+"Set notifications for all events"="Activer des notifications pour tous les événements";
 
 "Are you sure you want to cancel all set notifications?"="Voulez-vous vraiment annuler toutes les notifications définies ?";
 
 "Cancel all notifications"="Annuler toutes les notifications";
 
-"No available bookmarks"="Aucun marque-page disponible";
+"No available bookmarks"="Aucun favoris disponible";
 
 "It looks like there's no available bookmarks"="Il semble qu'il n'y ait pas de favoris disponibles";
 
@@ -150,7 +150,7 @@
 
 "Schedules are bookmarked from the search page, which you can access at the top right of the screen."="Les horaires sont mis en signet à partir de la page de recherche, à laquelle vous pouvez accéder en haut à droite de l'écran.";
 
-"Everything looks good for this week"="Tout s'annonce bien pour cette semaine";
+"Everything looks good for this week"="Tout semble bien pour cette semaine";
 
 "Looks like you don't have any classes or exams in the coming week. Yay!"="Il semble que vous n'ayez ni cours ni examen dans la semaine à venir. yay!";
 
@@ -202,7 +202,7 @@
 
 "Search schedules"="Rechercher les horaires";
 
-"Remove"="Retirer";
+"Remove"="Enlever";
 
 "Save"="Sauvegarder";
 
@@ -340,15 +340,15 @@
 
 "Rooms"="Pièces";
 
-"No name"="Sans nom";
+"No name"="Pas de nom";
 
 "Available timeslots: %d"="Plages horaires disponibles : %d";
 
-"Pick a date"="Choisis une date";
+"Pick a date"="Choisissez une date";
 
-"No rooms available on weekends"="Pas de chambres disponibles le week-end";
+"No rooms available on weekends"="Pas de salle disponibles le week-end";
 
-"Book"="Livre";
+"Book"="Réserver";
 
 "at"="À";
 
@@ -356,7 +356,7 @@
 
 "Available at:"="Disponible à:";
 
-"Registered"="Inscrit";
+"Registered"="Enregistré";
 
 "No registered events available"="Aucun événement enregistré disponible";
 
@@ -368,7 +368,7 @@
 
 "No upcoming events available"="Aucun événement à venir disponible";
 
-"Signup has passed"="L'inscription est passée";
+"Signup has passed"="L'inscription est dépassée";
 
 "Unregister"="Se désinscrire";
 
@@ -398,7 +398,7 @@
 
 "Get notified before important events and dates. Just press an event and set notifications for either a course or a single event."="Soyez averti avant les événements et les dates importantes. appuyez simplement sur un événement et définissez des notifications pour un cours ou un événement unique.";
 
-"Be creative"="Sois créatif";
+"Be creative"="Soyez créatif";
 
 "Set custom colors for the courses in your schedules. Just press an event and modify the color to your liking."="Définissez des couleurs personnalisées pour les cours dans vos horaires. appuyez simplement sur un événement et modifiez la couleur à votre guise.";
 
