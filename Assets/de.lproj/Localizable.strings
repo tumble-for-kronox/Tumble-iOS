@@ -28,13 +28,13 @@
 
 "Logged out"="Abgemeldet";
 
-"You have successfully logged out of your account"="Sie haben sich erfolgreich von ihrem konto abgemeldet";
+"You have successfully logged out of your account"="Sie haben sich erfolgreich von ihrem Konto abgemeldet";
 
 "Error"="Fehler";
 
-"Could not log out from your account"="Abmeldung von ihrem konto nicht möglich";
+"Could not log out from your account"="Abmeldung von ihrem Konto nicht möglich";
 
-"There are no schedules that match your search"="Es gibt keine zeitpläne, die ihrer suche entsprechen";
+"There are no schedules that match your search"="Es gibt keine Zeitpläne, die ihrer Suche entsprechen";
 
 "Important: "="Wichtig: ";
 
@@ -72,23 +72,23 @@
 
 "Calendar"="Kalender";
 
-"List"="Aufführen";
+"List"="Liste";
 
-"New school"="Neue schule";
+"New school"="Neue Schule";
 
-"Set %@ to default"="Setzen sie %@ auf standard";
+"Set %@ to default"="Setzen sie %@ auf Standard";
 
 "School already selected"="Schule bereits ausgewählt";
 
-"You already have '%@' as your default school"="Sie haben bereits „%@“ als ihre standardschule";
+"You already have '%@' as your default school"="Sie haben bereits „%@“ als ihre Standardschule";
 
 "Removed schedule"="Zeitplan entfernt";
 
-"Successfully removed the schedule '%@' from your bookmarks"="Der zeitplan „%@“ wurde erfolgreich aus ihren lesezeichen entfernt";
+"Successfully removed the schedule '%@' from your bookmarks"="Der Zeitplan „%@“ wurde erfolgreich aus ihren Lesezeichen entfernt";
 
 "Could not remove schedule"="Zeitplan konnte nicht entfernt werden";
 
-"The schedule '%@' could not be removed from your bookmarks"="Der zeitplan „%@“ konnte nicht aus ihren lesezeichen entfernt werden";
+"The schedule '%@' could not be removed from your bookmarks"="Der Zeitplan „%@“ konnte nicht aus ihren Lesezeichen entfernt werden";
 
 "Appearance"="Aussehen";
 
@@ -106,37 +106,37 @@
 
 "Cancelled notifications"="Stornierte benachrichtigungen";
 
-"Cancelled all available notifications set for events"="Alle verfügbaren benachrichtigungen für ereignisse abgebrochen";
+"Cancelled all available notifications set for events"="Alle verfügbare Benachrichtigungen für Ereignisse abgebrochen";
 
-"Scheduled notifications"="Geplante benachrichtigungen";
+"Scheduled notifications"="Geplante Benachrichtigungen";
 
-"Scheduled notifications for all available events"="Geplante benachrichtigungen für alle verfügbaren ereignisse";
+"Scheduled notifications for all available events"="Geplante Benachrichtigungen für alle verfügbaren Ereignisse";
 
-"Failed to set notifications for all available events"="Fehler beim festlegen von benachrichtigungen für alle verfügbaren ereignisse";
+"Failed to set notifications for all available events"="Fehler beim festlegen von Benachrichtigungen für alle verfügbaren Ereignisse";
 
-"Are you sure you want to log out of your account?"="Möchten sie sich wirklich von ihrem konto abmelden?";
+"Are you sure you want to log out of your account?"="Möchten sie sich wirklich von ihrem Konto abmelden?";
 
 "Log out"="Ausloggen";
 
-"Log in"="Anmeldung";
+"Log in"="Einloggen";
 
-"No bookmarks yet"="Noch keine lesezeichen";
+"No bookmarks yet"="Noch keine Lesezeichen";
 
-"No events match your search"="Keine ereignisse entsprechen Ihrer suche";
+"No events match your search"="Keine Ereignisse entsprechen Ihrer Suche";
 
-"minutes"="Protokoll";
+"minutes"="Minuten";
 
 "hour"="Stunde";
 
-"hours"="Std.";
+"hours"="Stunden";
 
 "Are you sure you want to set notifications for all events?"="Sind sie sicher, dass sie benachrichtigungen für alle ereignisse festlegen möchten?";
 
-"Set notifications for all events"="Benachrichtigungen für alle ereignisse festlegen";
+"Set notifications for all events"="Benachrichtigungen für alle Ereignisse festlegen";
 
-"Are you sure you want to cancel all set notifications?"="Möchten sie wirklich alle eingestellten benachrichtigungen abbrechen?";
+"Are you sure you want to cancel all set notifications?"="Möchten sie wirklich alle eingestellten Benachrichtigungen abstellen?";
 
-"Cancel all notifications"="Alle benachrichtigungen abbrechen";
+"Cancel all notifications"="Alle benachrichtigungen abstellen";
 
 "No available bookmarks"="Keine verfügbaren Lesezeichen";
 
@@ -146,35 +146,35 @@
 
 "Notification offset"="Benachrichtigungs-offset";
 
-"Looks like you don't have anything saved yet"="Anscheinend hast du noch nichts gespeichert";
+"Looks like you don't have anything saved yet"="Anscheinend haben Sie noch nichts gespeichert";
 
-"Schedules are bookmarked from the search page, which you can access at the top right of the screen."="Zeitpläne werden von der suchseite aus mit einem lesezeichen versehen, auf die sie oben rechts auf dem bildschirm zugreifen können.";
+"Schedules are bookmarked from the search page, which you can access at the top right of the screen."="Zeitpläne werden von der Suchseite aus mit einem Lesezeichen versehen, auf die sie oben rechts auf dem Bildschirm zugreifen können.";
 
-"Everything looks good for this week"="Alles sieht gut aus für diese woche";
+"Everything looks good for this week"="Alles sieht gut aus für diese Woche";
 
-"Looks like you don't have any classes or exams in the coming week. Yay!"="Sieht so aus, als hätten sie in der kommenden woche keine kurse oder prüfungen. yay!";
+"Looks like you don't have any classes or exams in the coming week. Yay!"="Sieht so aus, als hätten sie in der kommenden Woche keine Kurse oder Prüfungen. Yay!";
 
-"We experienced an issue when trying to find your schedules. Try again later"="Bei der suche nach ihren zeitplänen ist ein problem aufgetreten. versuchen sie es später erneut";
+"We experienced an issue when trying to find your schedules. Try again later"="Bei der Suche nach ihren Zeitplänen ist ein Problem aufgetreten. versuchen sie es später erneut";
 
-"Today's events"="Die heutigen ereignisse";
+"Today's events"="Die heutigen Ereignisse";
 
-"No events for today"="Keine veranstaltungen für heute";
+"No events for today"="Keine Veranstaltungen für Heute";
 
-"Next class"="Nächste klasse";
+"Next class"="Nächste Kurs";
 
-"No upcoming class"="Keine bevorstehende klasse";
+"No upcoming class"="Keine bevorstehende Kurse";
 
-"No classes for today"="Kein unterricht für heute";
+"No classes for today"="Kein Kurs für heute";
 
-"Other news"="Andere neuigkeiten";
+"Other news"="Andere Neuigkeiten";
 
-"No other news"="Keine weiteren neuigkeiten";
+"No other news"="Keine weiteren Neuigkeiten";
 
 "Details"="Einzelheiten";
 
-"Recent news"="Neueste nachrichten";
+"Recent news"="Neueste Nachrichten";
 
-"No recent news"="Keine aktuellen nachrichten";
+"No recent news"="Keine aktuellen Nachrichten";
 
 "News"="Nachricht";
 
@@ -182,7 +182,7 @@
 
 "News from us (%@)"="Neuigkeiten von uns (%@)";
 
-"No teachers listed"="Keine lehrer aufgelistet";
+"No teachers listed"="Keine Lehrer aufgelistet";
 
 "Unknown"="Unbekannt";
 
@@ -190,9 +190,9 @@
 
 "Search"="Suchen";
 
-"%@ results"="%@ ergebnisse";
+"%@ results"="%@ Ergebnisse";
 
-"This is where you find your schedules"="Hier finden sie ihre stundenpläne";
+"This is where you find your schedules"="Hier finden sie ihre Stundenpläne";
 
 "Looks like something went wrong"="Scheint etwas schief gelaufen zu sein";
 
@@ -206,19 +206,19 @@
 
 "Save"="Speichern";
 
-"Schedule seems to be empty"="Der zeitplan scheint leer zu sein";
+"Schedule seems to be empty"="Der Zeitplan scheint leer zu sein";
 
-"There was an error retrieving your schedules"="Beim abrufen ihrer zeitpläne ist ein fehler aufgetreten";
+"There was an error retrieving your schedules"="Beim abrufen ihrer Zeitpläne ist ein Fehler aufgetreten";
 
-"All your bookmarks are hidden"="Alle ihre lesezeichen sind ausgeblendet";
+"All your bookmarks are hidden"="Alle ihre Lesezeichen sind ausgeblendet";
 
-"No events for this date"="Keine veranstaltungen für dieses datum";
+"No events for this date"="Keine Veranstaltungen für dieses Datum";
 
 "Course"="Kurs";
 
 "Teachers"="Lehrer";
 
-"No teachers listed at this time"="Zur zeit sind keine lehrer eingetragen";
+"No teachers listed at this time"="Zur Zeit sind keine Lehrer eingetragen";
 
 "Date"="Datum";
 
@@ -226,7 +226,7 @@
 
 "Locations"="Standorte";
 
-"No locations listed at this time"="Derzeit sind keine standorte aufgeführt";
+"No locations listed at this time"="Derzeit sind keine Standorte aufgeführt";
 
 "Select course color"="Kursfarbe auswählen";
 
@@ -234,21 +234,21 @@
 
 "Color"="Farbe";
 
-"Attempting to log in user"="Versuch, benutzer anzumelden";
+"Attempting to log in user"="Versuch, Benutzer anzumelden";
 
-"(no date)"="(kein datum)";
+"(no date)"="(kein Datum)";
 
-"No registered events yet"="Noch keine veranstaltungen registriert";
+"No registered events yet"="Noch keine Veranstaltungen registriert";
 
-"Could not contact the server, try again later"="Es konnte keine verbindung zum server hergestellt werden. versuchen sie es später erneut";
+"Could not contact the server, try again later"="Es konnte keine Verbindung zum Server hergestellt werden. versuchen sie es später erneut";
 
-"Booked resource"="Gebuchte ressource";
+"Booked resource"="Gebuchte Ressource";
 
-"(no time)"="(keine zeit)";
+"(no time)"="(keine Zeit)";
 
-"No booked resources yet"="Noch keine gebuchten ressourcen";
+"No booked resources yet"="Noch keine gebuchten Ressourcen";
 
-"No title"="Kein titel";
+"No title"="Kein Titel";
 
 "Date:"="Datum:";
 
@@ -256,39 +256,39 @@
 
 "User options"="Benutzeroptionen";
 
-"Automatic exam signup"="Automatische prüfungsanmeldung";
+"Automatic exam signup"="Automatische Prüfungsanmeldung";
 
-"Your bookings"="Ihre buchungen";
+"Your bookings"="Ihre Buchungen";
 
 "Resources"="Ressourcen";
 
-"Your events"="Ihre veranstaltungen";
+"Your events"="Ihre Veranstaltungen";
 
 "Events"="Veranstaltungen";
 
-"Unregistered from event"="Von der veranstaltung abgemeldet";
+"Unregistered from event"="Von der Veranstaltung abgemeldet";
 
-"You have been unregistered from the specified event"="Sie wurden von der angegebenen veranstaltung abgemeldet";
+"You have been unregistered from the specified event"="Sie wurden von der angegebenen Veranstaltung abgemeldet";
 
-"We couldn't unregister you for the specified event"="Wir konnten sie für die angegebene veranstaltung nicht abmelden";
+"We couldn't unregister you for the specified event"="Wir konnten sie für die angegebene Veranstaltung nicht abmelden";
 
-"Confirmed resource"="Bestätigte ressource";
+"Confirmed resource"="Bestätigte Ressource";
 
-"You have confirmed the selected resource"="Sie haben die ausgewählte ressource bestätigt";
+"You have confirmed the selected resource"="Sie haben die ausgewählte Ressource bestätigt";
 
-"We couldn't confirm the specified resource"="Wir konnten die angegebene ressource nicht bestätigen";
+"We couldn't confirm the specified resource"="Wir konnten die angegebene Ressource nicht bestätigen";
 
-"Unbooked resource"="Nicht gebuchte ressource";
+"Unbooked resource"="Nicht gebuchte Ressourcen";
 
-"You have unbooked the selected resource"="Sie haben die ausgewählte ressource ausgebucht";
+"You have unbooked the selected resource"="Sie haben die ausgewählte Ressource ausgebucht";
 
-"We couldn't unbook the specified resource"="Wir konnten die angegebene ressource nicht abbuchen";
+"We couldn't unbook the specified resource"="Wir konnten die angegebene Ressource nicht abbuchen";
 
-"Automatic signup"="Automatische anmeldung";
+"Automatic signup"="Automatische Anmeldung";
 
-"Automatic exam/event signup has been enabled, but make sure you are always registered for exams through your institution."="Die automatische prüfungs-/veranstaltungsanmeldung wurde aktiviert, aber stellen sie sicher, dass sie sich immer über ihre institution für prüfungen angemeldet haben.";
+"Automatic exam/event signup has been enabled, but make sure you are always registered for exams through your institution."="Die automatische Prüfungs-/Veranstaltungsanmeldung wurde aktiviert, aber stellen sie sicher, dass sie sich immer über ihre Institution für Prüfungen angemeldet haben.";
 
-"Automatic exam/event signup has been disabled."="Die automatische prüfungs-/veranstaltungsanmeldung wurde deaktiviert.";
+"Automatic exam/event signup has been disabled."="Die automatische Prüfungs-/Veranstaltungsanmeldung wurde deaktiviert.";
 
 "See all"="Alles sehen";
 
@@ -300,15 +300,15 @@
 
 "Type"="Typ";
 
-"No type"="Kein typ";
+"No type"="Kein Typ";
 
-"No date"="Kein datum";
+"No date"="Kein Datum";
 
 "%@, from %@ - %@"="%@, aus %@ - %@";
 
 "Available until"="Verfügbar bis";
 
-"(no date set)"="(kein datum festgelegt)";
+"(no date set)"="(kein Datum festgelegt)";
 
 "Unregister event"="Veranstaltung abmelden";
 
@@ -328,7 +328,7 @@
 
 "Remove booking"="Buchung entfernen";
 
-"No available timeslots"="Keine verfügbaren zeitfenster";
+"No available timeslots"="Keine verfügbaren Zeitfenster";
 
 "Booked"="Gebucht";
 
@@ -336,39 +336,39 @@
 
 "Not booked"="Nicht gebucht";
 
-"Failed to book the specified resource"="Die angegebene ressource konnte nicht gebucht werden";
+"Failed to book the specified resource"="Die angegebene Ressource konnte nicht gebucht werden";
 
 "Rooms"="Räume";
 
-"No name"="Kein name";
+"No name"="Kein Name";
 
-"Available timeslots: %d"="Verfügbare zeitfenster: %d";
+"Available timeslots: %d"="Verfügbare Zeitfenster: %d";
 
-"Pick a date"="Suche dir einen termin aus";
+"Pick a date"="Suche dir einen Termin aus";
 
-"No rooms available on weekends"="Am wochenende sind keine zimmer verfügbar";
+"No rooms available on weekends"="Am Wochenende sind keine Zimmer verfügbar";
 
 "Book"="Buch";
 
 "at"="Bei";
 
-"No date at this time"="Derzeit kein datum";
+"No date at this time"="Derzeit kein Datum";
 
 "Available at:"="Verfügbar um:";
 
 "Registered"="Eingetragen";
 
-"No registered events available"="Keine registrierten veranstaltungen verfügbar";
+"No registered events available"="Keine registrierten Veranstaltungen verfügbar";
 
 "Unregistered"="Nicht registriert";
 
-"No unregistered events available"="Keine nicht registrierten veranstaltungen verfügbar";
+"No unregistered events available"="Keine nicht registrierten Veranstaltungen verfügbar";
 
 "Upcoming"="Bevorstehende";
 
-"No upcoming events available"="Keine bevorstehenden veranstaltungen verfügbar";
+"No upcoming events available"="Keine bevorstehenden Veranstaltungen verfügbar";
 
-"Signup has passed"="Die anmeldung ist abgelaufen";
+"Signup has passed"="Die Anmeldung ist abgelaufen";
 
 "Unregister"="Registrierung aufheben";
 
@@ -376,23 +376,23 @@
 
 "Password"="Passwort";
 
-"Use your university credentials for %@ to sign in to your KronoX account"="Verwenden sie ihre universitätsdaten für %@, um sich bei ihrem kronox-konto anzumelden";
+"Use your university credentials for %@ to sign in to your KronoX account"="Verwenden sie ihre Universitätsdaten für %@, um sich bei ihrem Kronox-Konto anzumelden";
 
-"Need help?"="Brauchen sie hilfe?";
+"Need help?"="Brauchen sie Hilfe?";
 
 "Logged in"="Eingeloggt";
 
 "Successfully logged in as %@"="Erfolgreich angemeldet als %@";
 
-"Something went wrong when logging in to your account"="Bei der anmeldung bei ihrem konto ist etwas schief gelaufen";
+"Something went wrong when logging in to your account"="Bei der Anmeldung bei ihrem Konto ist etwas schief gelaufen";
 
-"Username/Email address"="Benutzername (e-mail addresse";
+"Username/Email address"="Benutzername (E-mail Addresse";
 
 "Please log in to continue"="Bitte einloggen zum fortfahren";
 
 "Save schedules"="Zeitpläne speichern";
 
-"Search for schedules from the search page and download them locally. View them as a list or a in a dedicated calendar."="Suchen sie auf der suchseite nach zeitplänen und laden sie sie lokal herunter. zeigen sie sie als liste oder in einem speziellen kalender an.";
+"Search for schedules from the search page and download them locally. View them as a list or a in a dedicated calendar."="Suchen sie auf der Suchseite nach Zeitplänen und laden Sie diese lokal herunter. Zeigen Sie diese als Liste oder in einem speziellen Kalender an.";
 
 "Set notifications"="Benachrichtigungen einstellen";
 
@@ -400,12 +400,12 @@
 
 "Be creative"="Seien sie kreativ";
 
-"Set custom colors for the courses in your schedules. Just press an event and modify the color to your liking."="Legen sie benutzerdefinierte farben für die kurse in ihren stundenplänen fest. drücken sie einfach auf ein ereignis und ändern sie die farbe nach ihren wünschen.";
+"Set custom colors for the courses in your schedules. Just press an event and modify the color to your liking."="Legen sie benutzerdefinierte Farben für die Kurse in ihren Stundenplänen fest. Drücken sie einfach auf ein Ereignis und ändern sie die Farbe nach ihren wünschen.";
 
 "Booking"="Buchung";
 
-"Log in to your KronoX account and book resources and exams. Booking is easy, and notifications remind you to confirm the bookings you've created."="Melden sie sich bei ihrem kronox-konto an und buchen sie ressourcen und prüfungen. die buchung ist einfach und benachrichtigungen erinnern sie daran, die von ihnen erstellten buchungen zu bestätigen.";
+"Log in to your KronoX account and book resources and exams. Booking is easy, and notifications remind you to confirm the bookings you've created."="Melden Sie sich bei ihrem Kronox-Konto an und buchen sie Ressourcen und Prüfungen. Die Buchung ist einfach und Benachrichtigungen erinnern sie daran, die von ihnen erstellten Buchungen zu bestätigen.";
 
-"Select university"="Hochschule auswählen";
+"Select university"="Universität auswählen";
 
 "Universities"="Universitäten";
