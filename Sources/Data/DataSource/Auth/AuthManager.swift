@@ -67,7 +67,6 @@ class AuthManager: AuthManagerProtocol {
         // when multiple credentials / login requests can lead auth manager in an unpredictable state
         serialQueue.addOperation {
             let semaphore = DispatchSemaphore(value: 0)
-            
             self.processLogin(
                 authSchoolId: authSchoolId,
                 user: user,
