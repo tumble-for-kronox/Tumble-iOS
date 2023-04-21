@@ -22,7 +22,7 @@ final class AccountViewModel: ObservableObject {
     
     @Published var authSchoolId: Int = -1
     @Published var schoolName: String = ""
-    @Published var status: AccountViewStatus = .unAuthenticated
+    @Published var status: AccountViewStatus = .loading
     @Published var completeUserEvent: Response.KronoxCompleteUserEvent? = nil
     @Published var userBookings: Response.KronoxUserBookings? = nil
     @Published var registeredEventSectionState: GenericPageStatus = .loading
@@ -57,8 +57,6 @@ final class AccountViewModel: ObservableObject {
             guard let self else { return }
             if self.userController.autoSignup {
                 self.registerAutoSignup(completion: { _ in })
-            } else {
-                AppLogger.shared.debug("User has not enabled auto signup for events")
             }
         }
     }
@@ -78,9 +76,12 @@ final class AccountViewModel: ObservableObject {
                         self.getUserEventsForSection()
                         self.getUserBookingsForSection()
                         self.authSchoolId = authSchoolId
-                        self.schoolName = self.schoolManager.getSchools().first(where: { $0.id == authSchoolId })?.name ?? ""
+                        self.schoolName = self.schoolManager
+                            .getSchools().first(where: { $0.id == authSchoolId })?.name ?? ""
                     case .unAuthorized:
                         self.status = .unAuthenticated
+                    case .loading:
+                        self.status = .loading
                     }
                 }
                 .store(in: &self.cancellables)
@@ -94,9 +95,9 @@ final class AccountViewModel: ObservableObject {
         }
     }
     
-    /// This is a caching approach to avoid a network call after user
-    /// unregisters for an event in account page, and instead modify it in place,
-    /// since network errors can occur.
+    // This is a caching approach to avoid a network call after user
+    // unregisters for an event in account page, and instead modify it in place,
+    // since network errors can occur.
     func removeUserEvent(where id: String) {
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             guard let self else { return }
@@ -164,25 +165,20 @@ final class AccountViewModel: ObservableObject {
                 switch result {
                 case .success((let schoolId, let refreshToken)):
                     let request = Endpoint.userEvents(schoolId: String(schoolId))
-                    self.eventSectionDataTask = self.kronoxManager.get(request, refreshToken: refreshToken,
-                                                                       then: { (result: Result<Response.KronoxCompleteUserEvent?, Response.ErrorMessage>) in
-                                                                           switch result {
-                                                                           case .success(let events):
-                                                                               DispatchQueue.main.async {
-                                                                                   self.completeUserEvent = events
-                                                                                   self.registeredEventSectionState = .loaded
-                                                                               }
-                                                                           case .failure(let failure):
-                                                                               AppLogger.shared.critical("Could not get user events: \(failure)")
-                                                                               DispatchQueue.main.async {
-                                                                                   self.registeredEventSectionState = .error
-                                                                               }
-                                                                           }
-                                                                       })
+                    self.eventSectionDataTask =
+                        self.kronoxManager.get(request, refreshToken: refreshToken,
+                           then: { (result: Result<Response.KronoxCompleteUserEvent?, Response.ErrorMessage>) in
+                               switch result {
+                               case .success(let events):
+                                   self.completeUserEvent = events
+                                   self.registeredEventSectionState = .loaded
+                               case .failure(let failure):
+                                   AppLogger.shared.critical("Could not get user events: \(failure)")
+                                   self.registeredEventSectionState = .error
+                               }
+                           })
                 case .failure:
-                    DispatchQueue.main.async {
-                        self.registeredEventSectionState = .error
-                    }
+                    self.registeredEventSectionState = .error
                 }
             }
         )
