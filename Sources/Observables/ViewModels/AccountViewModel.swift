@@ -167,16 +167,16 @@ final class AccountViewModel: ObservableObject {
                     let request = Endpoint.userEvents(schoolId: String(schoolId))
                     self.eventSectionDataTask =
                         self.kronoxManager.get(request, refreshToken: refreshToken,
-                           then: { (result: Result<Response.KronoxCompleteUserEvent?, Response.ErrorMessage>) in
-                               switch result {
-                               case .success(let events):
-                                   self.completeUserEvent = events
-                                   self.registeredEventSectionState = .loaded
-                               case .failure(let failure):
-                                   AppLogger.shared.critical("Could not get user events: \(failure)")
-                                   self.registeredEventSectionState = .error
-                               }
-                           })
+                                               then: { (result: Result<Response.KronoxCompleteUserEvent?, Response.ErrorMessage>) in
+                                                   switch result {
+                                                   case .success(let events):
+                                                       self.completeUserEvent = events
+                                                       self.registeredEventSectionState = .loaded
+                                                   case .failure(let failure):
+                                                       AppLogger.shared.critical("Could not get user events: \(failure)")
+                                                       self.registeredEventSectionState = .error
+                                                   }
+                                               })
                 case .failure:
                     self.registeredEventSectionState = .error
                 }

@@ -20,9 +20,10 @@ final class ParentViewModel: ObservableObject {
     
     lazy var homeViewModel: HomeViewModel = viewModelFactory.makeViewModelHome()
     lazy var bookmarksViewModel: BookmarksViewModel = viewModelFactory.makeViewModelBookmarks()
-    lazy var accountPageViewModel: AccountViewModel = viewModelFactory.makeViewModelAccount()
     lazy var searchViewModel: SearchViewModel = viewModelFactory.makeViewModelSearch()
     lazy var settingsViewModel: SettingsViewModel = viewModelFactory.makeViewModelSettings()
+    
+    let accountPageViewModel: AccountViewModel
     
     @Published var authSchoolId: Int = -1
         
@@ -31,6 +32,9 @@ final class ParentViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     
     init() {
+        // Do not lazy load account page
+        accountPageViewModel = viewModelFactory.makeViewModelAccount()
+        
         preferenceService.$authSchoolId
             .assign(to: \.authSchoolId, on: self)
             .store(in: &cancellables)
