@@ -75,7 +75,7 @@ struct Settings: View {
                         image: "chevron.left.forwardslash.chevron.right",
                         imageColor: .primary,
                         action: {
-                            if let url = URL(string: "https://github.com/adisve/Tumble") {
+                            if let url = URL(string: "https://github.com/adisve/Tumble-iOS") {
                                 UIApplication.shared.open(url)
                             }
                         }

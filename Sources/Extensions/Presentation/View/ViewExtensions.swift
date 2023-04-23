@@ -30,20 +30,6 @@ extension View {
         UIApplication.shared.sendAction(resign, to: nil, from: nil, for: nil)
     }
     
-    func cornerRadius(_ radius: CGFloat, corners: UIRectCorner) -> some View {
-        clipShape(RoundedCorner(radius: radius, corners: corners))
-    }
-    
-    func eventDetailsSheet<Content>(isPresented: Binding<Bool>, onDismiss: (() -> Void)? = nil, @ViewBuilder content: @escaping () -> Content)
-        -> some View where Content: View
-    {
-        ZStack {
-            if isPresented.wrappedValue {
-                content()
-                    .transition(.move(edge: .bottom))
-            }
-        }
-    }
     
     func searchBox() -> some View {
         padding(10)
