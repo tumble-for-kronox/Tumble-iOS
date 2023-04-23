@@ -1,6 +1,6 @@
 //
 //  Colors.swift
-//  tumble-ios
+//  Tumble
 //
 //  Created by Adis Veletanlic on 11/29/22.
 //

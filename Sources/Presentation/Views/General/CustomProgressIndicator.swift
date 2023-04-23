@@ -1,6 +1,6 @@
 //
 //  CustomProgressView.swift
-//  tumble-ios
+//  Tumble
 //
 //  Created by Adis Veletanlic on 11/19/22.
 //

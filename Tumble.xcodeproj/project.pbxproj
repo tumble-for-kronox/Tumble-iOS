@@ -144,7 +144,7 @@
 		D46BB10C298ADDF600887A24 /* CustomCorners.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46BB10B298ADDF600887A24 /* CustomCorners.swift */; };
 		D46BB112298B0E2800887A24 /* NavigationbarSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46BB111298B0E2800887A24 /* NavigationbarSettings.swift */; };
 		D46BB118298B21DA00887A24 /* InfoLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46BB117298B21DA00887A24 /* InfoLoading.swift */; };
-		D4722149292454560063BDB7 /* tumble_iosApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4722148292454560063BDB7 /* tumble_iosApp.swift */; };
+		D4722149292454560063BDB7 /* TumbleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4722148292454560063BDB7 /* TumbleApp.swift */; };
 		D472214D292454570063BDB7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D472214C292454570063BDB7 /* Assets.xcassets */; };
 		D4722161292455710063BDB7 /* KronoxManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D472215E292455710063BDB7 /* KronoxManager.swift */; };
 		D47386FF29C88E4F0035CD4C /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = D47386FE29C88E4F0035CD4C /* FirebaseAnalytics */; };
@@ -187,7 +187,7 @@
 		D4B7F25829CC6135006E2449 /* BookButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B7F25729CC6135006E2449 /* BookButtonStyle.swift */; };
 		D4BAE5F82924636500143717 /* School.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BAE5F72924636500143717 /* School.swift */; };
 		D4BAE614292466F700143717 /* SchoolManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BAE613292466F700143717 /* SchoolManager.swift */; };
-		D4BAE61929246AA200143717 /* schools.json in Resources */ = {isa = PBXBuildFile; fileRef = D4BAE61829246AA200143717 /* schools.json */; };
+		D4BAE61929246AA200143717 /* Schools.json in Resources */ = {isa = PBXBuildFile; fileRef = D4BAE61829246AA200143717 /* Schools.json */; };
 		D4CD0EFF29D5B00A00AB5FD0 /* UIApplicationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CD0EFE29D5B00A00AB5FD0 /* UIApplicationExtension.swift */; };
 		D4CD0F0529D5DC9D00AB5FD0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D4CD0F0729D5DC9D00AB5FD0 /* Localizable.strings */; };
 		D4CE2DBD2982E55200B81052 /* NavigationbarSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CE2DBC2982E55200B81052 /* NavigationbarSearch.swift */; };
@@ -374,11 +374,11 @@
 		D46BB10B298ADDF600887A24 /* CustomCorners.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCorners.swift; sourceTree = "<group>"; };
 		D46BB111298B0E2800887A24 /* NavigationbarSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationbarSettings.swift; sourceTree = "<group>"; };
 		D46BB117298B21DA00887A24 /* InfoLoading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoLoading.swift; sourceTree = "<group>"; };
-		D4722145292454560063BDB7 /* tumble-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "tumble-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		D4722148292454560063BDB7 /* tumble_iosApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tumble_iosApp.swift; sourceTree = "<group>"; };
+		D4722145292454560063BDB7 /* Tumble.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tumble.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D4722148292454560063BDB7 /* TumbleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TumbleApp.swift; sourceTree = "<group>"; };
 		D472214C292454570063BDB7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D472215E292455710063BDB7 /* KronoxManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KronoxManager.swift; sourceTree = "<group>"; };
-		D473870229C895510035CD4C /* tumble-ios.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "tumble-ios.entitlements"; sourceTree = "<group>"; };
+		D473870229C895510035CD4C /* Tumble.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Tumble.entitlements; sourceTree = "<group>"; };
 		D475626E29CE09A600B72008 /* ResourceDetailSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceDetailSheet.swift; sourceTree = "<group>"; };
 		D475627029CE20A700B72008 /* ExamDetailsSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExamDetailsSheet.swift; sourceTree = "<group>"; };
 		D4761C4329CF222900B3BB0B /* WideAnimatedButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WideAnimatedButtonStyle.swift; sourceTree = "<group>"; };
@@ -421,7 +421,7 @@
 		D4B7F25729CC6135006E2449 /* BookButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookButtonStyle.swift; sourceTree = "<group>"; };
 		D4BAE5F72924636500143717 /* School.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = School.swift; sourceTree = "<group>"; };
 		D4BAE613292466F700143717 /* SchoolManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolManager.swift; sourceTree = "<group>"; };
-		D4BAE61829246AA200143717 /* schools.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = schools.json; sourceTree = "<group>"; };
+		D4BAE61829246AA200143717 /* Schools.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Schools.json; sourceTree = "<group>"; };
 		D4CD0EFE29D5B00A00AB5FD0 /* UIApplicationExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplicationExtension.swift; sourceTree = "<group>"; };
 		D4CD0F0629D5DC9D00AB5FD0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; wrapsLines = 1; };
 		D4CD0F0829D5DCA300AB5FD0 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -1053,7 +1053,7 @@
 		D4722146292454560063BDB7 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D4722145292454560063BDB7 /* tumble-ios.app */,
+				D4722145292454560063BDB7 /* Tumble.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1062,8 +1062,8 @@
 			isa = PBXGroup;
 			children = (
 				D4A433B729951F2B00BFEB7A /* AppDelegate.swift */,
-				D4722148292454560063BDB7 /* tumble_iosApp.swift */,
-				D473870229C895510035CD4C /* tumble-ios.entitlements */,
+				D4722148292454560063BDB7 /* TumbleApp.swift */,
+				D473870229C895510035CD4C /* Tumble.entitlements */,
 				D4D4DD212927CFFA0083BB7F /* Info.plist */,
 				D4E39E352989CE1D004C30DF /* Utilities */,
 				D40D80A429252156008CA68D /* Extensions */,
@@ -1099,7 +1099,7 @@
 		D472215B292454F60063BDB7 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				D4BAE61829246AA200143717 /* schools.json */,
+				D4BAE61829246AA200143717 /* Schools.json */,
 				D48F0D8929367CAF0039CD0F /* Colors.swift */,
 			);
 			path = Resources;
@@ -1454,9 +1454,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		D4722144292454560063BDB7 /* tumble-ios */ = {
+		D4722144292454560063BDB7 /* Tumble */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D4722153292454570063BDB7 /* Build configuration list for PBXNativeTarget "tumble-ios" */;
+			buildConfigurationList = D4722153292454570063BDB7 /* Build configuration list for PBXNativeTarget "Tumble" */;
 			buildPhases = (
 				D4722141292454560063BDB7 /* Sources */,
 				D4722142292454560063BDB7 /* Frameworks */,
@@ -1466,7 +1466,7 @@
 			);
 			dependencies = (
 			);
-			name = "tumble-ios";
+			name = Tumble;
 			packageProductDependencies = (
 				D42BAC1B298D3D590025EAA9 /* Logging */,
 				D430F74229C615DC00E30E48 /* FSCalendar */,
@@ -1477,7 +1477,7 @@
 				D423F6AB29F0040B00C04123 /* WrappingHStack */,
 			);
 			productName = "tumble-ios";
-			productReference = D4722145292454560063BDB7 /* tumble-ios.app */;
+			productReference = D4722145292454560063BDB7 /* Tumble.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -1495,7 +1495,7 @@
 					};
 				};
 			};
-			buildConfigurationList = D4722140292454560063BDB7 /* Build configuration list for PBXProject "tumble-ios" */;
+			buildConfigurationList = D4722140292454560063BDB7 /* Build configuration list for PBXProject "Tumble" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -1520,7 +1520,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				D4722144292454560063BDB7 /* tumble-ios */,
+				D4722144292454560063BDB7 /* Tumble */,
 			);
 		};
 /* End PBXProject section */
@@ -1532,7 +1532,7 @@
 			files = (
 				D4D7B45B29F1505A0032AEEF /* README.md in Resources */,
 				D4CD0F0529D5DC9D00AB5FD0 /* Localizable.strings in Resources */,
-				D4BAE61929246AA200143717 /* schools.json in Resources */,
+				D4BAE61929246AA200143717 /* Schools.json in Resources */,
 				D4077F6529F08B80000A3155 /* GoogleService-Info.plist in Resources */,
 				D41472FD29D832D500050BFF /* Preview Assets.xcassets in Resources */,
 				D472214D292454570063BDB7 /* Assets.xcassets in Resources */,
@@ -1586,7 +1586,7 @@
 				D4E83EBC299960AD002E5F88 /* UsernameField.swift in Sources */,
 				D4FCD14E2995ADFE009D2987 /* UIColorWellHelper.swift in Sources */,
 				D4DDE59129CBBC6A0030607B /* ResourceTimeDropdown.swift in Sources */,
-				D4722149292454560063BDB7 /* tumble_iosApp.swift in Sources */,
+				D4722149292454560063BDB7 /* TumbleApp.swift in Sources */,
 				D441B10D298A8CEC00D22142 /* EventDetailsSheetViewModel.swift in Sources */,
 				D4644A29298DD79D00B0BB28 /* EventNotification.swift in Sources */,
 				D416D33529CA2A46009A4FB8 /* TabBar.swift in Sources */,
@@ -1851,7 +1851,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
-				CODE_SIGN_ENTITLEMENTS = "Sources/tumble-ios.entitlements";
+				CODE_SIGN_ENTITLEMENTS = Sources/Tumble.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -2008,7 +2008,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
-				CODE_SIGN_ENTITLEMENTS = "Sources/tumble-ios.entitlements";
+				CODE_SIGN_ENTITLEMENTS = Sources/Tumble.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -2049,7 +2049,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
-				CODE_SIGN_ENTITLEMENTS = "Sources/tumble-ios.entitlements";
+				CODE_SIGN_ENTITLEMENTS = Sources/Tumble.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -2089,7 +2089,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		D4722140292454560063BDB7 /* Build configuration list for PBXProject "tumble-ios" */ = {
+		D4722140292454560063BDB7 /* Build configuration list for PBXProject "Tumble" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D4722151292454570063BDB7 /* Debug */,
@@ -2099,7 +2099,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		D4722153292454570063BDB7 /* Build configuration list for PBXNativeTarget "tumble-ios" */ = {
+		D4722153292454570063BDB7 /* Build configuration list for PBXNativeTarget "Tumble" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D4722154292454570063BDB7 /* Debug */,

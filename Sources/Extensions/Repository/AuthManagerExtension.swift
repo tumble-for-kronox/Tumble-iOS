@@ -1,108 +1,19 @@
 //
-//  AuthManager.swift
+//  AuthManagerExtension.swift
 //  Tumble
 //
-//  Created by Adis Veletanlic on 2023-02-13.
+//  Created by Adis Veletanlic on 2023-04-01.
 //
 
 import Foundation
 
-class AuthManager: AuthManagerProtocol {
-    private let serialQueue = OperationQueue()
-    
-    let urlRequestUtils = NetworkUtilities.shared
-    let keychainManager = KeyChainManager()
-    let urlSession: URLSession
-    
-    init() {
-        // Limit amount of concurrent operations to avoid
-        // potentially strange state behavior
-        serialQueue.maxConcurrentOperationCount = 1
-        serialQueue.qualityOfService = .userInitiated
-        urlSession = URLSession.shared
-    }
-    
-    var refreshToken: Token? {
-        get {
-            getToken(tokenType: .refreshToken)
-        }
-        set {
-            setToken(newValue: newValue, tokenType: .refreshToken)
-        }
-    }
-    
-    var user: TumbleUser? {
-        get {
-            getUser()
-        }
-        set {
-            setUser(newValue: newValue)
-        }
-    }
-    
-    func autoLoginUser(
-        authSchoolId: Int,
-        completionHandler: @escaping (Result<TumbleUser, Error>) -> Void
-    ) {
-        serialQueue.addOperation {
-            let semaphore = DispatchSemaphore(value: 0)
-            AppLogger.shared.debug("Running auto login ...")
-            self.processAutoLogin(
-                authSchoolId: authSchoolId,
-                completionHandler: { (result: Result<TumbleUser, Error>) in
-                    completionHandler(result)
-                    semaphore.signal()
-                }
-            )
-            _ = semaphore.wait(timeout: DispatchTime.distantFuture)
-        }
-    }
-    
-    func loginUser(
-        authSchoolId: Int,
-        user: Request.KronoxUserLogin,
-        completionHandler: @escaping (Result<TumbleUser, Error>) -> Void
-    ) {
-        // Process all token requests using private serial queue to avoid issues with race conditions
-        // when multiple credentials / login requests can lead auth manager in an unpredictable state
-        serialQueue.addOperation {
-            let semaphore = DispatchSemaphore(value: 0)
-            self.processLogin(
-                authSchoolId: authSchoolId,
-                user: user,
-                completionHandler: { (result: Result<TumbleUser, Error>) in
-                    completionHandler(result)
-                    semaphore.signal()
-                }
-            )
-            _ = semaphore.wait(timeout: DispatchTime.distantFuture)
-        }
-    }
-    
-    // This method will clear all tokens both from memory and persistent storage.
-    // Most common use case for this method is user logout.
-    func logOutUser(completionHandler: ((Result<Int, Error>) -> Void)? = nil) {
-        if OperationQueue.current == serialQueue {
-            clearTokensAndKeyChain(of: [TokenType.refreshToken.rawValue, "tumble-user"], completionHandler: completionHandler)
-        } else {
-            serialQueue.addOperation {
-                self.clearTokensAndKeyChain(of: [TokenType.refreshToken.rawValue, "tumble-user"], completionHandler: completionHandler)
-            }
-        }
-    }
-    
-    func clearTokensAndKeyChain(
-        of tokensToDelete: [String],
-        completionHandler: ((Result<Int, Error>) -> Void)? = nil
-    ) {
+extension AuthManager {
+    func clearTokensAndKeyChain(of tokensToDelete: [String], completionHandler: ((Result<Int, Error>) -> Void)? = nil) {
         refreshToken = nil
         clearKeyChain(of: tokensToDelete, completionHandler: completionHandler)
     }
     
-    func clearKeyChain(
-        of tokensToDelete: [String],
-        completionHandler: ((Result<Int, Error>) -> Void)?
-    ) {
+    func clearKeyChain(of tokensToDelete: [String], completionHandler: ((Result<Int, Error>) -> Void)?) {
         let tokensToDelete = [TokenType.refreshToken.rawValue, TokenType.sessionToken.rawValue]
 
         for token in tokensToDelete {
@@ -127,10 +38,7 @@ class AuthManager: AuthManagerProtocol {
     ) {
         if let user = user {
             let userRequest = Request.KronoxUserLogin(username: user.username, password: user.password)
-            AppLogger.shared.debug(
-                "Running login with keychain credentials for user: \(userRequest.username)",
-                source: "AuthManager"
-            )
+            AppLogger.shared.debug("Running login with keychain credentials for user: \(userRequest.username)", source: "AuthManager")
             let urlRequest = urlRequestUtils.createUrlRequest(
                 method: .post,
                 endpoint: .login(schoolId: String(authSchoolId)),
@@ -155,9 +63,9 @@ class AuthManager: AuthManagerProtocol {
         }
     }
     
-    // Function to log in user with credentials passed
-    // from account page when entered credentials. On successful response,
-    // the user is stored securely in the keychain as TumbleUser
+    /// Function to log in user with credentials passed
+    /// from account page when entered credentials. On successful response,
+    /// the user is stored securely in the keychain as TumbleUser
     func processLogin(
         authSchoolId: Int,
         user: Request.KronoxUserLogin,
@@ -204,23 +112,15 @@ class AuthManager: AuthManagerProtocol {
                                 completionHandler(.success(user))
                             case .failure(let failure):
                                 AppLogger.shared.critical("Missing refresh token or is expired -> \(failure)")
-                                self.processAutoLoginWithKeyChainCredentials(
-                                    authSchoolId: authSchoolId, completionHandler: completionHandler
-                                )
+                                self.processAutoLoginWithKeyChainCredentials(authSchoolId: authSchoolId, completionHandler: completionHandler)
                             }
                         }
                     )
                 }).resume()
             }
         } else {
-            AppLogger.shared.debug(
-                "Missing school/token ... Attempting login with keychain credentials instead",
-                source: "AuthManager"
-            )
-            processAutoLoginWithKeyChainCredentials(
-                authSchoolId: authSchoolId,
-                completionHandler: completionHandler
-            )
+            AppLogger.shared.debug("Missing school/token ... Attempting login with keychain credentials instead", source: "AuthManager")
+            processAutoLoginWithKeyChainCredentials(authSchoolId: authSchoolId, completionHandler: completionHandler)
         }
     }
     
@@ -254,7 +154,7 @@ class AuthManager: AuthManagerProtocol {
             // In case we got an error while using refresh token, we want to clear token storage - there's no way
             // to recover from this
             clearTokensAndKeyChain(of: [TokenType.refreshToken.rawValue])
-            completionHandler(.failure(.generic(reason: "Invalid credentials or token")))
+            completionHandler(.failure(.generic(reason: "Could not retrieve any tokens")))
             return
                 
         } else {

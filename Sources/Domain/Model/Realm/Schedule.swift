@@ -1,6 +1,6 @@
 //
 //  Schedule.swift
-//  tumble-ios
+//  Tumble
 //
 //  Created by Adis Veletanlic on 2023-04-17.
 //

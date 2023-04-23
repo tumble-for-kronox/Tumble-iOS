@@ -1,6 +1,6 @@
 //
 //  Settings.swift
-//  tumble-ios
+//  Tumble
 //
 //  Created by Adis Veletanlic on 3/28/23.
 //
@@ -75,7 +75,7 @@ struct Settings: View {
                         image: "chevron.left.forwardslash.chevron.right",
                         imageColor: .primary,
                         action: {
-                            if let url = URL(string: "https://github.com/adisve/tumble-ios") {
+                            if let url = URL(string: "https://github.com/adisve/Tumble") {
                                 UIApplication.shared.open(url)
                             }
                         }

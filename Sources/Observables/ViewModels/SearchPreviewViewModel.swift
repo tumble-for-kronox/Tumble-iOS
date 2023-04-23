@@ -1,6 +1,6 @@
 //
 //  SearchPreviewViewModel.swift
-//  tumble-ios
+//  Tumble
 //
 //  Created by Adis Veletanlic on 4/14/23.
 //

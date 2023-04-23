@@ -1,6 +1,6 @@
 //
 //  SchedulePreviewGrouperListView.swift
-//  tumble-ios
+//  Tumble
 //
 //  Created by Adis Veletanlic on 2022-12-02.
 //

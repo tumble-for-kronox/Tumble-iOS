@@ -1,6 +1,6 @@
 //
 //  SchoolModelData.swift
-//  tumble-ios
+//  Tumble
 //
 //  Created by Adis Veletanlic on 11/16/22.
 //
@@ -13,7 +13,7 @@ class SchoolManager {
     private let cache = NSCache<NSString, NSArray>()
 
     init() {
-        schools = SchoolManager.loadJSON("schools.json")
+        schools = SchoolManager.loadJSON("Schools.json")
     }
     
     func getLadokUrl() -> String {

@@ -33,7 +33,7 @@
                 "kronoxUrl" : "https://schema.ltu.se",
                 "name" : "Luleå University of Technology",
                 "logoName" : "ltu_logo",
-                "loginRq" : true,
+                "loginRq" : false,
                 "color": "blue",
                 "schoolUrl": "https://www.ltu.se/",
                 "domain": "ltu"
@@ -53,7 +53,7 @@
                 "kronoxUrl" : "https://schema.sh.se",
                 "name" : "Södertörns Högskola",
                 "logoName" : "sh_logo",
-                "loginRq" : true,
+                "loginRq" : false,
                 "color": "yellow",
                 "schoolUrl": "https://www.sh.se/",
                 "domain": "sh"
@@ -78,10 +78,10 @@
                 "domain": "hb"
         },{
                 "id" : 8,
-                "kronoxUrl" : "https://webbschema.mdh.se",
+                "kronoxUrl" : "https://webbschema.mdu.se",
                 "name" : "Mälardalen University",
                 "logoName" : "mdu_logo",
-                "loginRq" : true,
+                "loginRq" : false,
                 "color": "orange",
                 "schoolUrl": "https://www.mdu.se",
                 "domain": "mdh"

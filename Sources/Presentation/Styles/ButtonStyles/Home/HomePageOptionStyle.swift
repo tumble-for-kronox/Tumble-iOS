@@ -1,6 +1,6 @@
 //
 //  HomePageOptionStyle.swift
-//  tumble-ios
+//  Tumble
 //
 //  Created by Adis Veletanlic on 3/14/23.
 //

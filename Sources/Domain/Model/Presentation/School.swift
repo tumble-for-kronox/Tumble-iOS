@@ -1,6 +1,6 @@
 //
 //  School.swift
-//  tumble-ios
+//  Tumble
 //
 //  Created by Adis Veletanlic on 11/16/22.
 //
