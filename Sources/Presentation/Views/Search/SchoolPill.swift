@@ -1,6 +1,6 @@
 //
 //  SchoolPill.swift
-//  tumble-ios
+//  Tumble
 //
 //  Created by Adis Veletanlic on 4/19/23.
 //

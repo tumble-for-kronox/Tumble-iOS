@@ -1,6 +1,6 @@
 //
 //  BookmarksSettingsRow.swift
-//  tumble-ios
+//  Tumble
 //
 //  Created by Adis Veletanlic on 3/29/23.
 //

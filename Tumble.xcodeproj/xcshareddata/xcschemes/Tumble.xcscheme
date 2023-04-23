@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "D4722144292454560063BDB7"
-               BuildableName = "tumble-ios.app"
-               BlueprintName = "tumble-ios"
-               ReferencedContainer = "container:tumble-ios.xcodeproj">
+               BuildableName = "Tumble.app"
+               BlueprintName = "Tumble"
+               ReferencedContainer = "container:Tumble.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -36,7 +36,7 @@
                BlueprintIdentifier = "D448E76029D6E43300C56F93"
                BuildableName = "tumble-iosUITests.xctest"
                BlueprintName = "tumble-iosUITests"
-               ReferencedContainer = "container:tumble-ios.xcodeproj">
+               ReferencedContainer = "container:Tumble.xcodeproj">
             </BuildableReference>
          </TestableReference>
          <TestableReference
@@ -47,7 +47,7 @@
                BlueprintIdentifier = "D414B23829D8BB4100EA8F46"
                BuildableName = "tumble-iosTests.xctest"
                BlueprintName = "tumble-iosTests"
-               ReferencedContainer = "container:tumble-ios.xcodeproj">
+               ReferencedContainer = "container:Tumble.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -67,9 +67,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D4722144292454560063BDB7"
-            BuildableName = "tumble-ios.app"
-            BlueprintName = "tumble-ios"
-            ReferencedContainer = "container:tumble-ios.xcodeproj">
+            BuildableName = "Tumble.app"
+            BlueprintName = "Tumble"
+            ReferencedContainer = "container:Tumble.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -84,9 +84,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D4722144292454560063BDB7"
-            BuildableName = "tumble-ios.app"
-            BlueprintName = "tumble-ios"
-            ReferencedContainer = "container:tumble-ios.xcodeproj">
+            BuildableName = "Tumble.app"
+            BlueprintName = "Tumble"
+            ReferencedContainer = "container:Tumble.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

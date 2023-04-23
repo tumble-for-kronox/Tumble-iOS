@@ -1,6 +1,6 @@
 //
 //  PullToRefreshIndicator.swift
-//  tumble-ios
+//  Tumble
 //
 //  Created by Adis Veletanlic on 4/1/23.
 //

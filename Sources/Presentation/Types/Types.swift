@@ -1,6 +1,6 @@
 //
 //  Types.swift
-//  tumble-ios
+//  Tumble
 //
 //  Created by Adis Veletanlic on 11/20/22.
 //

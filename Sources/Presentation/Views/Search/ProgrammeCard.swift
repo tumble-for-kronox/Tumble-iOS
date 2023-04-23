@@ -1,6 +1,6 @@
 //
 //  ProgrammeSearchResult.swift
-//  tumble-ios
+//  Tumble
 //
 //  Created by Adis Veletanlic on 11/18/22.
 //

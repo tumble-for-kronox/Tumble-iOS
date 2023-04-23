@@ -1,6 +1,6 @@
 //
 //  SchedulePageMainView.swift
-//  tumble-ios
+//  Tumble
 //
 //  Created by Adis Veletanlic on 11/21/22.
 //
