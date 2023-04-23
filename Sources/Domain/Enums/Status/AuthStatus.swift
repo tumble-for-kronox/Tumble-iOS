@@ -10,4 +10,5 @@ import Foundation
 enum AuthStatus {
     case authorized
     case unAuthorized
+    case loading
 }

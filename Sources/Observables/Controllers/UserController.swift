@@ -15,7 +15,7 @@ class UserController: ObservableObject {
     @Inject var kronoxManager: KronoxManager
     @Inject var preferenceService: PreferenceService
     
-    @Published var authStatus: AuthStatus = .unAuthorized
+    @Published var authStatus: AuthStatus = .loading
     
     init() {
         let authSchoolId = preferenceService.getDefaultAuthSchool() ?? -1

@@ -22,7 +22,6 @@
 		D400F3F829D799530050622E /* AccountViewModelExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D400F3F729D799530050622E /* AccountViewModelExtension.swift */; };
 		D400F3FA29D7997F0050622E /* EventDetailsSheetModelExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D400F3F929D7997F0050622E /* EventDetailsSheetModelExtension.swift */; };
 		D400F3FE29D799D50050622E /* ResourceViewModelExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D400F3FD29D799D50050622E /* ResourceViewModelExtension.swift */; };
-		D400F40029D79F4C0050622E /* AuthManagerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D400F3FF29D79F4C0050622E /* AuthManagerExtension.swift */; };
 		D4040EC429D310A800613144 /* Refreshable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4040EC329D310A800613144 /* Refreshable.swift */; };
 		D4077F6529F08B80000A3155 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D4077F6429F08B80000A3155 /* GoogleService-Info.plist */; };
 		D40CC161292AFB9F00664776 /* Bookmarks.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40CC160292AFB9F00664776 /* Bookmarks.swift */; };
@@ -256,7 +255,6 @@
 		D400F3F729D799530050622E /* AccountViewModelExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewModelExtension.swift; sourceTree = "<group>"; };
 		D400F3F929D7997F0050622E /* EventDetailsSheetModelExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailsSheetModelExtension.swift; sourceTree = "<group>"; };
 		D400F3FD29D799D50050622E /* ResourceViewModelExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceViewModelExtension.swift; sourceTree = "<group>"; };
-		D400F3FF29D79F4C0050622E /* AuthManagerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManagerExtension.swift; sourceTree = "<group>"; };
 		D4040EC329D310A800613144 /* Refreshable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Refreshable.swift; sourceTree = "<group>"; };
 		D4077F6429F08B80000A3155 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../Documents/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D40CC160292AFB9F00664776 /* Bookmarks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bookmarks.swift; sourceTree = "<group>"; };
@@ -599,7 +597,6 @@
 			isa = PBXGroup;
 			children = (
 				D400F3EA29D7975A0050622E /* Observables */,
-				D4ABD273298C2EAF002FD8F5 /* Repository */,
 				D4ABD26E298C2E02002FD8F5 /* Model */,
 				D4ABD26C298C2DF0002FD8F5 /* Presentation */,
 			);
@@ -1277,14 +1274,6 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		D4ABD273298C2EAF002FD8F5 /* Repository */ = {
-			isa = PBXGroup;
-			children = (
-				D400F3FF29D79F4C0050622E /* AuthManagerExtension.swift */,
-			);
-			path = Repository;
-			sourceTree = "<group>";
-		};
 		D4B7F25929CC615C006E2449 /* Home */ = {
 			isa = PBXGroup;
 			children = (
@@ -1666,7 +1655,6 @@
 				D41ED5522984351F009DCF8B /* Method.swift in Sources */,
 				D4A433B829951F2B00BFEB7A /* AppDelegate.swift in Sources */,
 				D4CE2DBD2982E55200B81052 /* NavigationbarSearch.swift in Sources */,
-				D400F40029D79F4C0050622E /* AuthManagerExtension.swift in Sources */,
 				D4607645292AC41D00DE9590 /* SearchResults.swift in Sources */,
 				D4644A2B298DD7B000B0BB28 /* NotificatonError.swift in Sources */,
 				D49B985229CF47700023DF75 /* KeyChainManager.swift in Sources */,
@@ -1885,7 +1873,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.2.0;
+				MARKETING_VERSION = 3.2.1;
 				NETWORK_SETTINGS = testing;
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.tumble;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2042,7 +2030,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.2.0;
+				MARKETING_VERSION = 3.2.1;
 				NETWORK_SETTINGS = testing;
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.tumble;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2084,7 +2072,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.2.0;
+				MARKETING_VERSION = 3.2.1;
 				NETWORK_SETTINGS = production;
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.tumble;
 				PRODUCT_NAME = "$(TARGET_NAME)";

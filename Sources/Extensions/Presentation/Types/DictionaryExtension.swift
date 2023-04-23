@@ -25,7 +25,7 @@ extension Dictionary where Key == String, Value == Any {
         }
         
         let course = Course(
-            courseId: courseDict["id"] ?? "",
+            courseId: courseDict["courseId"] ?? "",
             swedishName: courseDict["swedishName"] ?? "",
             englishName: courseDict["englishName"] ?? "",
             color: courseDict["color"] ?? "#FFFFFF"
@@ -34,7 +34,7 @@ extension Dictionary where Key == String, Value == Any {
         let locations = List<Location>()
         for locationDict in locationsArray {
             guard let name = locationDict["name"] as? String,
-                  let locationId = locationDict["id"] as? String,
+                  let locationId = locationDict["locationId"] as? String,
                   let building = locationDict["building"] as? String,
                   let floor = locationDict["floor"] as? String,
                   let maxSeats = locationDict["maxSeats"] as? Int
@@ -53,7 +53,7 @@ extension Dictionary where Key == String, Value == Any {
         for teacherDict in teachersArray {
             guard let firstName = teacherDict["firstName"],
                   let lastName = teacherDict["lastName"],
-                  let teacherId = teacherDict["id"]
+                  let teacherId = teacherDict["teacherId"]
             else {
                 continue
             }

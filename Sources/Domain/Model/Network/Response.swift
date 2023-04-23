@@ -245,7 +245,7 @@ public enum Response {
         }
         
         var dateComponentsConfirmation: DateComponents? {
-            guard let confirmationOpen = self.confirmationOpen else {
+            guard let confirmationOpen = confirmationOpen else {
                 return nil
             }
             guard let date = dateFormatterFull.date(from: confirmationOpen) else {

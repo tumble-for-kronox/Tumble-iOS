@@ -26,6 +26,8 @@ struct LogInOutButton: View {
                 dismiss()
             case .authorized:
                 isConfirming = true
+            case .loading:
+                break
             }
         }, label: {
             HStack {
@@ -39,6 +41,8 @@ struct LogInOutButton: View {
                     Text(NSLocalizedString("Log out", comment: ""))
                         .font(.system(size: 17, weight: .medium))
                         .foregroundColor(.primary)
+                case .loading:
+                    CustomProgressIndicator()
                 }
                 Spacer()
             }

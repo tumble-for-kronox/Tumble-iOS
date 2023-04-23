@@ -93,7 +93,6 @@ final class HomeViewModel: ObservableObject {
         return nil
     }
 
-    
     func filterEventsMatchingToday(events: [Event]) -> [Event] {
         let now = Date()
         let calendar = Calendar.current
