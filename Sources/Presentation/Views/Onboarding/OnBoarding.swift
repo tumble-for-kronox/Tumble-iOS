@@ -60,8 +60,8 @@ struct OnBoarding: View {
                         Image(screen.image)
                             .resizable()
                             .scaledToFit()
-                            .frame(width: getRect().width - 120, height: getRect().width - 120)
-                            .offset(y: -120)
+                            .frame(width: getRect().width - 160, height: getRect().width - 160)
+                            .offset(y: -100)
                         VStack(alignment: .leading, spacing: 15) {
                             Text(screen.title)
                                 .font(.largeTitle.bold())
@@ -83,7 +83,7 @@ struct OnBoarding: View {
         .background(
             RoundedRectangle(cornerRadius: 50)
                 .fill(Color.background)
-                .frame(width: getRect().width - 100, height: getRect().width - 100)
+                .frame(width: getRect().width - 120, height: getRect().width - 120)
                 .scaleEffect(2)
                 .rotationEffect(.init(degrees: 25))
                 .rotationEffect(.init(degrees: getRotation()))
