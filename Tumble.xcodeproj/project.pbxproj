@@ -94,7 +94,6 @@
 		D44ABF0729BFE89D00344792 /* SchoolRowStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44ABF0629BFE89D00344792 /* SchoolRowStyle.swift */; };
 		D44B44D029E99BBF005164CA /* SearchPreviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44B44CF29E99BBF005164CA /* SearchPreviewViewModel.swift */; };
 		D44FBFEB29CB1CC500CAAD39 /* ResourceDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44FBFEA29CB1CC500CAAD39 /* ResourceDatePicker.swift */; };
-		D4527EA929F5F449004835C2 /* ci_pre_xcodebuild.sh in Resources */ = {isa = PBXBuildFile; fileRef = D4527EA829F5F449004835C2 /* ci_pre_xcodebuild.sh */; };
 		D45338F629280E8400198411 /* ScheduleResponseExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45338F529280E8400198411 /* ScheduleResponseExtension.swift */; };
 		D45338F9292825B200198411 /* BookmarkCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45338F8292825B200198411 /* BookmarkCard.swift */; };
 		D45338FB2929730200198411 /* CustomProgressIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45338FA2929730200198411 /* CustomProgressIndicator.swift */; };
@@ -324,7 +323,6 @@
 		D44ABF0629BFE89D00344792 /* SchoolRowStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolRowStyle.swift; sourceTree = "<group>"; };
 		D44B44CF29E99BBF005164CA /* SearchPreviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPreviewViewModel.swift; sourceTree = "<group>"; };
 		D44FBFEA29CB1CC500CAAD39 /* ResourceDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceDatePicker.swift; sourceTree = "<group>"; };
-		D4527EA829F5F449004835C2 /* ci_pre_xcodebuild.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = ci_pre_xcodebuild.sh; sourceTree = "<group>"; };
 		D45338F529280E8400198411 /* ScheduleResponseExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleResponseExtension.swift; sourceTree = "<group>"; };
 		D45338F8292825B200198411 /* BookmarkCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkCard.swift; sourceTree = "<group>"; };
 		D45338FA2929730200198411 /* CustomProgressIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomProgressIndicator.swift; sourceTree = "<group>"; };
@@ -840,14 +838,6 @@
 			path = Onboarding;
 			sourceTree = "<group>";
 		};
-		D4527EA729F5F434004835C2 /* ci_scripts */ = {
-			isa = PBXGroup;
-			children = (
-				D4527EA829F5F449004835C2 /* ci_pre_xcodebuild.sh */,
-			);
-			path = ci_scripts;
-			sourceTree = "<group>";
-		};
 		D45338F7292825A400198411 /* Bookmarks */ = {
 			isa = PBXGroup;
 			children = (
@@ -1039,7 +1029,6 @@
 		D472213C292454560063BDB7 = {
 			isa = PBXGroup;
 			children = (
-				D4527EA729F5F434004835C2 /* ci_scripts */,
 				D4D7B45A29F1505A0032AEEF /* README.md */,
 				D4077F6429F08B80000A3155 /* GoogleService-Info.plist */,
 				D4938BAD29D762DE00029F88 /* Preview Content */,
@@ -1541,7 +1530,6 @@
 				D4D7B45B29F1505A0032AEEF /* README.md in Resources */,
 				D4CD0F0529D5DC9D00AB5FD0 /* Localizable.strings in Resources */,
 				D4BAE61929246AA200143717 /* Schools.json in Resources */,
-				D4527EA929F5F449004835C2 /* ci_pre_xcodebuild.sh in Resources */,
 				D4077F6529F08B80000A3155 /* GoogleService-Info.plist in Resources */,
 				D41472FD29D832D500050BFF /* Preview Assets.xcassets in Resources */,
 				D472214D292454570063BDB7 /* Assets.xcassets in Resources */,
