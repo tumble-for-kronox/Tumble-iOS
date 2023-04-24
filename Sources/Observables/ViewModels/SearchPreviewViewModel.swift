@@ -107,10 +107,10 @@ final class SearchPreviewViewModel: ObservableObject {
     }
     
     @MainActor func bookmark(
-            id: String,
-            schedules: [Schedule],
-            schoolId: String
-        ) {
+        id: String,
+        schedules: [Schedule],
+        schoolId: String
+    ) {
         buttonState = .loading
         
         // If the schedule isn't already saved in the local database

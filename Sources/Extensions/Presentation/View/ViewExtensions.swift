@@ -30,7 +30,6 @@ extension View {
         UIApplication.shared.sendAction(resign, to: nil, from: nil, for: nil)
     }
     
-    
     func searchBox() -> some View {
         padding(10)
             .background(Color.gray.opacity(0.3))

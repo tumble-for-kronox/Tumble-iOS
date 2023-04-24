@@ -105,18 +105,17 @@ final class ParentViewModel: ObservableObject {
     }
     
     func updateSchedule(
-            schedule: Response.Schedule,
-            schoolId: String,
-            schedules: [Schedule]
-        ) {
-            if let scheduleRequiresAuth: Bool = schedules.first(where: { $0.scheduleId == schedule.id })?.requiresAuth {
-                let realmSchedule: Schedule = schedule.toRealmSchedule(
-                    scheduleRequiresAuth: scheduleRequiresAuth,
-                    schoolId: schoolId,
-                    existingCourseColors: realmManager.getCourseColors()
-                )
-                realmManager.updateSchedule(scheduleId: schedule.id, newSchedule: realmSchedule)
-            }
+        schedule: Response.Schedule,
+        schoolId: String,
+        schedules: [Schedule]
+    ) {
+        if let scheduleRequiresAuth: Bool = schedules.first(where: { $0.scheduleId == schedule.id })?.requiresAuth {
+            let realmSchedule: Schedule = schedule.toRealmSchedule(
+                scheduleRequiresAuth: scheduleRequiresAuth,
+                schoolId: schoolId,
+                existingCourseColors: realmManager.getCourseColors()
+            )
+            realmManager.updateSchedule(scheduleId: schedule.id, newSchedule: realmSchedule)
         }
-    
+    }
 }

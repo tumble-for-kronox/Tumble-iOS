@@ -85,10 +85,10 @@ final class EventDetailsSheetViewModel: ObservableObject {
 
     @MainActor func updateCourseColor() {
         guard let color = color.toHex(),
-                      let courseId = event.course?.courseId
-                else { return }
+              let courseId = event.course?.courseId
+        else { return }
                 
-                realmManager.updateCourseColors(courseId: courseId, color: color)
+        realmManager.updateCourseColors(courseId: courseId, color: color)
     }
 
     @MainActor func scheduleNotificationsForCourse() {
