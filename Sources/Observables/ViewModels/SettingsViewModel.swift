@@ -15,6 +15,7 @@ final class SettingsViewModel: ObservableObject {
     @Inject var notificationManager: NotificationManager
     @Inject var userController: UserController
     @Inject var schoolManager: SchoolManager
+    @Inject var realmManager: RealmManager
     
     @Published var bookmarks: [Bookmark]?
     @Published var presentSidebarSheet: Bool = false
@@ -147,17 +148,12 @@ final class SettingsViewModel: ObservableObject {
         }
     }
     
+    func deleteBookmark(schedule: Schedule) {
+        realmManager.deleteSchedule(schedule: schedule)
+    }
+    
     private func deleteAllSchedules() {
-        do {
-            let realm = try Realm()
-            let schedules = realm.objects(Schedule.self)
-            try realm.write {
-                realm.delete(schedules)
-            }
-            
-        } catch (let error) {
-            AppLogger.shared.error("Error deleting schedules: \(error)")
-        }
+        realmManager.deleteAllSchedules()
     }
 
     func changeSchool(schoolId: Int) {

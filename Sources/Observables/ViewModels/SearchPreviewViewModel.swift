@@ -23,10 +23,11 @@ final class SearchPreviewViewModel: ObservableObject {
     @Published var buttonState: ButtonState = .loading
     @Published var courseColorsForPreview: [String: String] = [:]
     
-    @Inject var preferenceService: PreferenceService
-    @Inject var kronoxManager: KronoxManager
-    @Inject var notificationManager: NotificationManager
-    @Inject var schoolManager: SchoolManager
+    @Inject private var preferenceService: PreferenceService
+    @Inject private var kronoxManager: KronoxManager
+    @Inject private var notificationManager: NotificationManager
+    @Inject private var schoolManager: SchoolManager
+    @Inject private var realmManager: RealmManager
     
     var schedule: Response.Schedule? = nil
     private lazy var schools: [School] = schoolManager.getSchools()
@@ -53,7 +54,7 @@ final class SearchPreviewViewModel: ObservableObject {
                     self.isSaved = true
                     self.buttonState = .saved
                     self.schedule = fetchedSchedule
-                    self.courseColorsForPreview = self.getCourseColors()
+                    self.courseColorsForPreview = self.realmManager.getCourseColors()
                     self.status = .loaded
                 } else {
                     self.assignRandomCourseColors(
@@ -83,16 +84,6 @@ final class SearchPreviewViewModel: ObservableObject {
     func scheduleRequiresAuth(schoolId: String) -> Bool {
         return schools.first(where: { $0.id == Int(schoolId) })?.loginRq ?? false
     }
-    
-    func getCourseColors() -> [String: String] {
-        let realm = try! Realm()
-        let courses = realm.objects(Course.self)
-        var courseColors: [String: String] = [:]
-        for course in courses {
-            courseColors[course.courseId] = course.color
-        }
-        return courseColors
-    }
 
     // API Call to fetch a schedule from backend
     func fetchSchedule(
@@ -115,22 +106,31 @@ final class SearchPreviewViewModel: ObservableObject {
             }
     }
     
-    func bookmark(id: String, schedules: [Schedule]) {
+    @MainActor func bookmark(
+            id: String,
+            schedules: [Schedule],
+            schoolId: String
+        ) {
         buttonState = .loading
+        
         // If the schedule isn't already saved in the local database
         if !isSaved {
-            isSaved = true
-            buttonState = .saved
+            if let realmSchedule = schedule?.toRealmSchedule(
+                scheduleRequiresAuth: scheduleRequiresAuth(schoolId: schoolId), schoolId: schoolId
+            ) {
+                realmManager.saveSchedule(schedule: realmSchedule)
+                isSaved = true
+                buttonState = .saved
+            }
         }
         // Otherwise we remove (untoggle) the schedule
         else {
-            let schedulesToRemove = schedules.filter { $0.scheduleId == id }
-            let events = schedulesToRemove
-                .flatMap { schedule in schedule.days }
-                .flatMap { day in day.events }
-            events.forEach { event in self.notificationManager.cancelNotification(for: event.eventId) }
-            isSaved = false
-            buttonState = .notSaved
+            let realmSchedule = realmManager.getAllSchedules().filter { $0.scheduleId == id }.first
+            if let realmSchedule = realmSchedule {
+                realmManager.deleteSchedule(schedule: realmSchedule)
+                isSaved = false
+                buttonState = .notSaved
+            }
         }
     }
 }

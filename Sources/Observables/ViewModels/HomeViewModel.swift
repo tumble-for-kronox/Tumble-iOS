@@ -14,6 +14,7 @@ final class HomeViewModel: ObservableObject {
     @Inject var preferenceService: PreferenceService
     @Inject var userController: UserController
     @Inject var kronoxManager: KronoxManager
+    @Inject var realmManager: RealmManager
     
     @Published var newsSectionStatus: GenericPageStatus = .loading
     @Published var news: Response.NewsItems? = nil
@@ -27,8 +28,7 @@ final class HomeViewModel: ObservableObject {
     
     init() {
         getNews()
-        let realm = try! Realm()
-        let schedules = realm.objects(Schedule.self)
+        let schedules = realmManager.getAllLiveSchedules()
         schedulesToken = schedules.observe { [weak self] changes in
             guard let self = self else { return }
             switch changes {

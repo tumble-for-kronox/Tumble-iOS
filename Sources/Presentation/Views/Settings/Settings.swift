@@ -11,7 +11,7 @@ import SwiftUI
 struct Settings: View {
     @AppStorage(StoreKey.appearance.rawValue) var appearance: String = AppearanceTypes.system.rawValue
     @ObservedObject var viewModel: SettingsViewModel
-    @ObservedResults(Schedule.self) var schedules
+    @ObservedResults(Schedule.self, configuration: realmConfig) var schedules
     let currentLocale = Bundle.main.preferredLocalizations.first
     
     var body: some View {

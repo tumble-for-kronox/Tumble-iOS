@@ -11,7 +11,7 @@ import SwiftUI
 struct Home: View {
     @ObservedObject var viewModel: HomeViewModel
     @ObservedObject var parentViewModel: ParentViewModel
-    @ObservedResults(Schedule.self) var schedules
+    @ObservedResults(Schedule.self, configuration: realmConfig) var schedules
     
     @Binding var selectedAppTab: TabbarTabType
     @State private var showSheet: Bool = false

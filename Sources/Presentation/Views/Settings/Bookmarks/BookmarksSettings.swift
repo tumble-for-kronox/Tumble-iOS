@@ -10,7 +10,7 @@ import SwiftUI
 
 struct BookmarksSettings: View {
     @ObservedObject var parentViewModel: SettingsViewModel
-    @ObservedResults(Schedule.self) var schedules
+    @ObservedResults(Schedule.self, configuration: realmConfig) var schedules
     
     var body: some View {
         if !schedules.isEmpty {

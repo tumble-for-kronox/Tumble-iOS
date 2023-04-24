@@ -12,7 +12,7 @@ struct Bookmarks: View {
     @ObservedObject var viewModel: BookmarksViewModel
     @ObservedObject var parentViewModel: ParentViewModel
     @ObservedObject var appController: AppController = .shared
-    @ObservedResults(Schedule.self) var schedules
+    @ObservedResults(Schedule.self, configuration: realmConfig) var schedules
     
     var body: some View {
         VStack(alignment: .center) {
