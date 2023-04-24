@@ -23,7 +23,7 @@ struct DayHeader: View {
                 .padding(.trailing, 8)
             Spacer()
         }
-        .padding(.leading, 10)
+        .padding(.leading, 15)
         .padding(.bottom, 7.5)
     }
     

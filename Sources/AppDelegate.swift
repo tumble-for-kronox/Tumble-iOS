@@ -55,7 +55,7 @@ extension AppDelegate: MessagingDelegate {
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
         let deviceToken: [String: String] = ["token": fcmToken ?? ""]
         AppLogger.shared.debug("Device token: \(deviceToken)")
-        if let token = deviceToken["token"] {
+        if deviceToken["token"] != nil {
             Messaging.messaging().subscribe(toTopic: "updates") { error in
                 if let error = error {
                     AppLogger.shared.critical("Failed to subscribe to updates topic: \(error.localizedDescription)", source: "AppDelegate")
@@ -68,7 +68,6 @@ extension AppDelegate: MessagingDelegate {
 }
 
 extension AppDelegate: UNUserNotificationCenterDelegate {
-    // Receive displayed notifications for iOS 10+ devices.
     func userNotificationCenter(
         _ center: UNUserNotificationCenter,
         willPresent notification: UNNotification,

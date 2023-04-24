@@ -51,5 +51,6 @@ struct UpcomingEventCardButton: View {
             .padding()
         })
         .buttonStyle(CompactButtonStyle())
+        .background(Color.surface)
     }
 }
