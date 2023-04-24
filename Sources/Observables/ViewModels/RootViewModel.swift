@@ -21,6 +21,7 @@ final class RootViewModel: ObservableObject {
     var onBoardingViewModel: OnBoardingViewModel? = nil
     
     private var userOnBoardingSubscription: AnyCancellable?
+    private var currentlyOnboarding: Bool = false
     
     init() { setUpDataPublishers() }
     
@@ -31,9 +32,16 @@ final class RootViewModel: ObservableObject {
                 guard let self = self else { return }
                 if userOnBoarded {
                     self.parentViewModel = self.viewModelFactory.makeViewModelParent()
-                    self.currentView = .app
+                    if currentlyOnboarding {
+                        withAnimation(.spring()) {
+                            self.currentView = .app
+                        }
+                    } else {
+                        self.currentView = .app
+                    }
                     self.userOnBoardingSubscription?.cancel()
                 } else {
+                    self.currentlyOnboarding = true
                     self.onBoardingViewModel = self.viewModelFactory.makeViewModelOnBoarding()
                     self.currentView = .onboarding
                 }

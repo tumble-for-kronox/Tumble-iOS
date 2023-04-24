@@ -17,6 +17,7 @@ final class BookmarksViewModel: ObservableObject {
     @Inject var preferenceService: PreferenceService
     @Inject var kronoxManager: KronoxManager
     @Inject var schoolManager: SchoolManager
+    @Inject var realmManager: RealmManager
     
     @Published var defaultViewType: BookmarksViewType = .list
     @Published var eventSheet: EventDetailsSheetModel? = nil
@@ -28,8 +29,7 @@ final class BookmarksViewModel: ObservableObject {
     init() {
         defaultViewType = preferenceService.getDefaultViewType()
         // Observe changes to schedules and update days
-        let realm = try! Realm()
-        let schedules = realm.objects(Schedule.self)
+        let schedules = realmManager.getAllLiveSchedules()
         schedulesToken = schedules.observe { [weak self] changes in
             guard let self = self else { return }
             switch changes {

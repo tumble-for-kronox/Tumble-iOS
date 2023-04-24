@@ -13,6 +13,7 @@ import SwiftUI
 final class EventDetailsSheetViewModel: ObservableObject {
     @Inject var notificationManager: NotificationManager
     @Inject var preferenceService: PreferenceService
+    @Inject var realmManager: RealmManager
     
     @Published var event: Event
     @Published var color: Color
@@ -83,33 +84,16 @@ final class EventDetailsSheetViewModel: ObservableObject {
     }
 
     @MainActor func updateCourseColor() {
-        guard let colorToSet = color.toHex(),
-              let realm = try? Realm(),
-              let eventCourseID = event.course?.courseId
-        else {
-            return
-        }
-        
-        try! realm.write {
-            let schedules = realm.objects(Schedule.self)
-            for schedule in schedules {
-                let eventsToUpdate = schedule.days
-                    .flatMap { $0.events.filter { $0.course?.courseId == eventCourseID } }
-                for event in eventsToUpdate {
-                    if let courseToUpdate = event.course,
-                       courseToUpdate.color != colorToSet
-                    {
-                        courseToUpdate.color = colorToSet
-                    }
-                }
-            }
-        }
+        guard let color = color.toHex(),
+                      let courseId = event.course?.courseId
+                else { return }
+                
+                realmManager.updateCourseColors(courseId: courseId, color: color)
     }
 
     @MainActor func scheduleNotificationsForCourse() {
-        let realm = try! Realm()
-        let schedules = realm.objects(Schedule.self)
-        let events = Array(schedules)
+        let schedules = realmManager.getAllSchedules()
+        let events = schedules
             .flatMap { $0.days }
             .flatMap { $0.events }
             .filter { !($0.dateComponents!.hasDatePassed()) }

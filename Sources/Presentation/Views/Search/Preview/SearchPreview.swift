@@ -7,10 +7,11 @@
 
 import RealmSwift
 import SwiftUI
+import WidgetKit
 
 struct SearchPreview: View {
     @ObservedObject var viewModel: SearchPreviewViewModel
-    @ObservedResults(Schedule.self) var schedules
+    @ObservedResults(Schedule.self, configuration: realmConfig) var schedules
     
     let programmeId: String
     let schoolId: String
@@ -63,15 +64,11 @@ struct SearchPreview: View {
     }
     
     func bookmark() {
-        if viewModel.isSaved {
-            if let scheduleToRemoveIndex = schedules.firstIndex(where: { $0.scheduleId == programmeId }) {
-                $schedules.remove(atOffsets: IndexSet(arrayLiteral: scheduleToRemoveIndex))
-            }
-        } else {
-            let scheduleRequiresAuth = viewModel.scheduleRequiresAuth(schoolId: schoolId)
-            let realmSchedule = viewModel.schedule!.toRealmSchedule(scheduleRequiresAuth: scheduleRequiresAuth, schoolId: schoolId)
-            $schedules.append(realmSchedule)
-        }
-        viewModel.bookmark(id: programmeId, schedules: Array(schedules))
+        viewModel.bookmark(
+            id: programmeId,
+            schedules: Array(schedules),
+            schoolId: schoolId
+        )
+        WidgetCenter.shared.reloadAllTimelines()
     }
 }

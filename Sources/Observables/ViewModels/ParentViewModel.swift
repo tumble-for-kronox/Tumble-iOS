@@ -14,9 +14,10 @@ import SwiftUI
 final class ParentViewModel: ObservableObject {
     var viewModelFactory: ViewModelFactory = .shared
     
-    @Inject var preferenceService: PreferenceService
-    @Inject var kronoxManager: KronoxManager
-    @Inject var schoolManager: SchoolManager
+    @Inject private var preferenceService: PreferenceService
+    @Inject private var kronoxManager: KronoxManager
+    @Inject private var schoolManager: SchoolManager
+    @Inject private var realmManager: RealmManager
     
     lazy var homeViewModel: HomeViewModel = viewModelFactory.makeViewModelHome()
     lazy var bookmarksViewModel: BookmarksViewModel = viewModelFactory.makeViewModelBookmarks()
@@ -38,8 +39,7 @@ final class ParentViewModel: ObservableObject {
         preferenceService.$authSchoolId
             .assign(to: \.authSchoolId, on: self)
             .store(in: &cancellables)
-        let realm = try! Realm()
-        let schedules = realm.objects(Schedule.self)
+        let schedules = realmManager.getAllLiveSchedules()
         schedulesToken = schedules.observe { [weak self] changes in
             guard let self else { return }
             switch changes {
@@ -105,34 +105,18 @@ final class ParentViewModel: ObservableObject {
     }
     
     func updateSchedule(
-        schedule: Response.Schedule,
-        schoolId: String,
-        schedules: [Schedule]
-    ) {
-        if let scheduleRequiresAuth: Bool = schedules.first(where: { $0.scheduleId == schedule.id })?.requiresAuth {
-            let realmSchedule: Schedule = schedule.toRealmSchedule(
-                scheduleRequiresAuth: scheduleRequiresAuth,
-                schoolId: schoolId,
-                existingCourseColors: getCourseColors()
-            )
-            if let realm = try? Realm() {
-                if let scheduleToUpdate = realm.objects(Schedule.self).first(where: { $0.scheduleId == schedule.id }) {
-                    try! realm.write {
-                        scheduleToUpdate.days = realmSchedule.days
-                        scheduleToUpdate.cachedAt = realmSchedule.cachedAt
-                    }
-                }
+            schedule: Response.Schedule,
+            schoolId: String,
+            schedules: [Schedule]
+        ) {
+            if let scheduleRequiresAuth: Bool = schedules.first(where: { $0.scheduleId == schedule.id })?.requiresAuth {
+                let realmSchedule: Schedule = schedule.toRealmSchedule(
+                    scheduleRequiresAuth: scheduleRequiresAuth,
+                    schoolId: schoolId,
+                    existingCourseColors: realmManager.getCourseColors()
+                )
+                realmManager.updateSchedule(scheduleId: schedule.id, newSchedule: realmSchedule)
             }
         }
-    }
     
-    func getCourseColors() -> [String: String] {
-        let realm = try! Realm()
-        let courses = realm.objects(Course.self)
-        var courseColors: [String: String] = [:]
-        for course in courses {
-            courseColors[course.courseId] = course.color
-        }
-        return courseColors
-    }
 }
