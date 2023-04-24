@@ -11,8 +11,8 @@ import Foundation
 import SwiftUI
 import UIKit
 
-/// This AppDelegate does not take into consideration devices
-/// that are below iOS 10, delegates are set accordingly.
+// This AppDelegate does not take into consideration devices
+// that are below iOS 10, delegates are set accordingly.
 class AppDelegate: NSObject, UIApplicationDelegate {
     let gcmMessageIDKey = "gcm.message_id"
 
@@ -55,19 +55,18 @@ extension AppDelegate: MessagingDelegate {
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
         let deviceToken: [String: String] = ["token": fcmToken ?? ""]
         AppLogger.shared.debug("Device token: \(deviceToken)")
-        if deviceToken["token"] != nil {
+        if let token = deviceToken["token"] {
             Messaging.messaging().subscribe(toTopic: "updates") { error in
                 if let error = error {
-                    AppLogger.shared.critical("Failed to subscribe to news topic: \(error.localizedDescription)", source: "AppDelegate")
+                    AppLogger.shared.critical("Failed to subscribe to updates topic: \(error.localizedDescription)", source: "AppDelegate")
                 } else {
-                    AppLogger.shared.debug("Subscribed to news topic", source: "AppDelegate")
+                    AppLogger.shared.debug("Subscribed to updates topic", source: "AppDelegate")
                 }
             }
         }
     }
 }
 
-@available(iOS 10, *)
 extension AppDelegate: UNUserNotificationCenterDelegate {
     // Receive displayed notifications for iOS 10+ devices.
     func userNotificationCenter(
