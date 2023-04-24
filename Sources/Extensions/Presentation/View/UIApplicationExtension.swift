@@ -31,7 +31,7 @@ extension UIApplication {
     }
     
     func shareFeedback() {
-        if let url = URL(string: "mailto:tumblestudios.app@gmail.com") {
+        if let url = URL(string: "mailto:tumbleapps.studios@gmail.com") {
             UIApplication.shared.open(url)
         }
     }
