@@ -74,5 +74,6 @@ struct CompactEventButtonLabel: View {
             .padding()
             Spacer()
         }
+        .background(event.isSpecial ? Color.red.opacity(0.2) : color.opacity(0.2))
     }
 }

@@ -9,16 +9,16 @@ import Foundation
 import SwiftUI
 
 struct CompactButtonStyle: ButtonStyle {
-    let backgroundColor: Color
+    let colored: Bool
     
-    init(backgroundColor: Color = Color.surface) {
-        self.backgroundColor = backgroundColor
+    init(colored: Bool = false) {
+        self.colored = colored
     }
     
     func makeBody(configuration: Self.Configuration) -> some View {
         configuration.label
             .frame(minWidth: 0, maxWidth: .infinity, minHeight: 100, maxHeight: 100, alignment: .center)
-            .background(backgroundColor)
+            .background(colored ? Color.surface : nil)
             .cornerRadius(20)
             .padding(.bottom, 10)
             .scaleEffect(configuration.isPressed ? 0.9 : 1)

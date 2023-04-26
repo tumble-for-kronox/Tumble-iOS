@@ -20,8 +20,8 @@ struct SearchPreviewList: View {
     
     var body: some View {
         ScrollView(showsIndicators: false) {
-            VStack(spacing: 0) {
-                ForEach(createDays() ?? [], id: \.date) { day in
+            VStack(spacing: 10) {
+                ForEach(createDays() ?? [], id: \.id) { day in
                     if !day.events.isEmpty {
                         VStack {
                             DayResponseHeader(day: day)
@@ -30,13 +30,14 @@ struct SearchPreviewList: View {
                                     event: event,
                                     color: viewModel.courseColorsForPreview[event.course.id]!.toColor()
                                 )
+                                .padding(.bottom, 10)
                             }
                         }
-                        .padding(.bottom, 35)
+                        .padding(.vertical, 20)
                     }
                 }
             }
-            .padding(.horizontal, 7.5)
+            .padding(.horizontal, 15)
         }
     }
     
