@@ -7,10 +7,6 @@
 
 import Foundation
 
-func getDemoUserCredentials() -> (username: String, password: String)? {
-    guard let username = ProcessInfo.processInfo.environment["DEMO_USERNAME"],
-          let password = ProcessInfo.processInfo.environment["DEMO_PASSWORD"] else {
-        return nil
-    }
-    return (username, password)
+func getDemoUserCredentials() -> (username: String, password: String) {
+    return ("DEMO0001", "5a8b0d6c1f394e2a")
 }

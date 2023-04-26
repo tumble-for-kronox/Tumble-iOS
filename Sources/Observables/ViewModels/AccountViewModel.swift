@@ -139,13 +139,12 @@ final class AccountViewModel: ObservableObject {
     ) {
         
         // Check if matching demo user
-        if let (demoUsername, demoPassword) = getDemoUserCredentials() {
-            if username == demoUsername && password == demoPassword {
-                let result = userController.loginDemo(username: username, password: password)
-                preferenceService.setInAppReview(value: result)
-                createToast(result)
-                return
-            }
+        let (demoUsername, demoPassword) = getDemoUserCredentials()
+        if username == demoUsername && password == demoPassword {
+            let result = userController.loginDemo(username: username, password: password)
+            preferenceService.setInAppReview(value: result)
+            createToast(result)
+            return
         }
         
         DispatchQueue.main.async { [weak self] in
