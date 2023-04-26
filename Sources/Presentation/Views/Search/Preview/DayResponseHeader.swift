@@ -20,10 +20,8 @@ struct DayResponseHeader: View {
                 .offset(x: 7.5)
                 .frame(height: 1)
                 .cornerRadius(20)
-                .padding(.trailing, 8)
             Spacer()
         }
-        .padding(.leading, 10)
         .padding(.bottom, 7.5)
     }
     

@@ -62,7 +62,7 @@ struct BookmarkListView: View {
                 LazyVStack(alignment: .center) {
                     listUnfiltered
                 }
-                .padding(7.5)
+                .padding(.top, 15)
                 .overlay(
                     GeometryReader { proxy -> Color in
                         DispatchQueue.main.async {
@@ -95,13 +95,13 @@ struct BookmarkListView: View {
                                         event: event,
                                         isLast: event == day.events.last
                                     )
+                                    .padding(.horizontal, 15)
                                 }
                             })
                         }
-                        .padding(.vertical, 15)
                     }
                 }
-                .padding(.top, 5)
+                .padding(.vertical, 20)
             }
         }
     }
@@ -118,6 +118,7 @@ struct BookmarkListView: View {
                             event: event,
                             isLast: true
                         )
+                        .padding(.horizontal, 15)
                     }
                 }
             }

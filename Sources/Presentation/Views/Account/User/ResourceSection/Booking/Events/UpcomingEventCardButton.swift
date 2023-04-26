@@ -30,7 +30,7 @@ struct UpcomingEventCardButton: View {
                         Text(String(format: NSLocalizedString("%@ at %@", comment: ""), eventStart, eventHoursMinutes))
                             .font(.system(size: 15))
                             .foregroundColor(.onSurface.opacity(0.7))
-
+                        
                     } else {
                         Text(NSLocalizedString("No date at this time", comment: ""))
                             .font(.system(size: 15))
