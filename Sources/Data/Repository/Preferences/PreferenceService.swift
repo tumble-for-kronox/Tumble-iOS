@@ -11,16 +11,24 @@ import SwiftUI
 class PreferenceService: PreferenceServiceProtocol {
     @Published var userOnBoarded: Bool = false
     @Published var authSchoolId: Int = -1
+    @Published var inAppReview: Bool = false
     
     init() {
         authSchoolId = getDefaultAuthSchool() ?? -1
         userOnBoarded = isKeyPresentInUserDefaults(key: StoreKey.userOnboarded.rawValue)
+        inAppReview = isInAppReview()
     }
     
     // ----------- SET -----------
     func setAuthSchool(id: Int) {
         authSchoolId = id
         UserDefaults.standard.set(id, forKey: StoreKey.school.rawValue)
+        UserDefaults.standard.synchronize()
+    }
+    
+    func setInAppReview(value: Bool) {
+        UserDefaults.standard.set(value, forKey: StoreKey.inAppReview.rawValue)
+        inAppReview = value
         UserDefaults.standard.synchronize()
     }
     
@@ -73,6 +81,11 @@ class PreferenceService: PreferenceServiceProtocol {
     
     func getDefaultAuthSchoolName(schools: [School]) -> String {
         return schools.first(where: { $0.id == authSchoolId })!.name
+    }
+    
+    func isInAppReview() -> Bool {
+        let inAppReview = UserDefaults.standard.object(forKey: StoreKey.inAppReview.rawValue) as? Bool ?? false
+        return inAppReview
     }
     
     func getDefaultAuthSchool() -> Int? {

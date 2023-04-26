@@ -226,6 +226,8 @@
 		D4EEFB5629DA1B050007A209 /* ListRowActionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EEFB5529DA1B050007A209 /* ListRowActionItem.swift */; };
 		D4EEFB5829DA1BD10007A209 /* CustomListGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EEFB5729DA1BD10007A209 /* CustomListGroup.swift */; };
 		D4EEFB5A29DA4E490007A209 /* AppearanceTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EEFB5929DA4E490007A209 /* AppearanceTypes.swift */; };
+		D4F0E29229F91774009A6FAD /* DummyDataFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F0E29129F91774009A6FAD /* DummyDataFactory.swift */; };
+		D4F0E29429F91843009A6FAD /* NetworkResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F0E29329F91843009A6FAD /* NetworkResult.swift */; };
 		D4FCD14B2995AD64009D2987 /* UIColorWellExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FCD14A2995AD64009D2987 /* UIColorWellExtension.swift */; };
 		D4FCD14E2995ADFE009D2987 /* UIColorWellHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FCD14D2995ADFE009D2987 /* UIColorWellHelper.swift */; };
 		D4FFCC1D29EDA9A700708CC0 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = D4FFCC1C29EDA9A700708CC0 /* Realm */; };
@@ -461,6 +463,8 @@
 		D4EEFB5529DA1B050007A209 /* ListRowActionItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListRowActionItem.swift; sourceTree = "<group>"; };
 		D4EEFB5729DA1BD10007A209 /* CustomListGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomListGroup.swift; sourceTree = "<group>"; };
 		D4EEFB5929DA4E490007A209 /* AppearanceTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceTypes.swift; sourceTree = "<group>"; };
+		D4F0E29129F91774009A6FAD /* DummyDataFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyDataFactory.swift; sourceTree = "<group>"; };
+		D4F0E29329F91843009A6FAD /* NetworkResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResult.swift; sourceTree = "<group>"; };
 		D4FCD14A2995AD64009D2987 /* UIColorWellExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorWellExtension.swift; sourceTree = "<group>"; };
 		D4FCD14D2995ADFE009D2987 /* UIColorWellHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorWellHelper.swift; sourceTree = "<group>"; };
 		D4FFCC2129EDA9E200708CC0 /* Schedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Schedule.swift; sourceTree = "<group>"; };
@@ -527,6 +531,7 @@
 			children = (
 				D478452529D64F0F00BDF7A3 /* LanguageTypes.swift */,
 				D4EEFB5929DA4E490007A209 /* AppearanceTypes.swift */,
+				D4F0E29329F91843009A6FAD /* NetworkResult.swift */,
 			);
 			path = Types;
 			sourceTree = "<group>";
@@ -1296,6 +1301,7 @@
 		D4E39E352989CE1D004C30DF /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				D4F0E29029F91769009A6FAD /* Factories */,
 				D4D3368429F66E2A00933D38 /* Config */,
 				D400F3E929D797340050622E /* Formatters */,
 				D400F3E829D796F00050622E /* Logging */,
@@ -1380,6 +1386,14 @@
 				D4EE5B6B29D50FC0002A1399 /* AppearanceSettings.swift */,
 			);
 			path = Appearance;
+			sourceTree = "<group>";
+		};
+		D4F0E29029F91769009A6FAD /* Factories */ = {
+			isa = PBXGroup;
+			children = (
+				D4F0E29129F91774009A6FAD /* DummyDataFactory.swift */,
+			);
+			path = Factories;
 			sourceTree = "<group>";
 		};
 		D4F145E62982144C00C3A351 /* Calendar */ = {
@@ -1678,6 +1692,7 @@
 				D458604E29DC9D6200B77513 /* NextClass.swift in Sources */,
 				D458605229DC9FAC00B77513 /* News.swift in Sources */,
 				D4040EC429D310A800613144 /* Refreshable.swift in Sources */,
+				D4F0E29429F91843009A6FAD /* NetworkResult.swift in Sources */,
 				D454DECA29D35EF5005BDAE3 /* Settings.swift in Sources */,
 				D4607632292AA39400DE9590 /* Types.swift in Sources */,
 				D416D33729CA2A4F009A4FB8 /* TabBarButton.swift in Sources */,
@@ -1702,6 +1717,7 @@
 				D400F3D629D794010050622E /* BookmarksViewStatus.swift in Sources */,
 				D443962C29CB4D720069D66A /* ResourceLocationsList.swift in Sources */,
 				D4FFCC2C29EDAEF200708CC0 /* Location.swift in Sources */,
+				D4F0E29229F91774009A6FAD /* DummyDataFactory.swift in Sources */,
 				D4462C3229858A7D0067DA65 /* ImageExtensions.swift in Sources */,
 				D48CC59829C7C3C70028179A /* HomePageSeeAllStyle.swift in Sources */,
 				D41DEC0B29EB2F8600D4B7E3 /* Permissions.swift in Sources */,
