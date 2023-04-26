@@ -99,9 +99,9 @@ struct BookmarkListView: View {
                                 }
                             })
                         }
+                        .padding(.vertical, 15)
                     }
                 }
-                .padding(.vertical, 20)
             }
         }
     }
@@ -118,7 +118,7 @@ struct BookmarkListView: View {
                             event: event,
                             isLast: true
                         )
-                        .padding(.horizontal, 15)
+                        .padding(.horizontal, 7.5)
                     }
                 }
             }
