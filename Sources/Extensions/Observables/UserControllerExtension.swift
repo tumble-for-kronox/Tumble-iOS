@@ -10,8 +10,8 @@ import Foundation
 extension UserController {
     func logOutDemo() {
         preferenceService.setInAppReview(value: false)
-        self.user = nil
-        self.authStatus = .unAuthorized
+        user = nil
+        authStatus = .unAuthorized
     }
 
     func logOut(completion: ((Bool) -> Void)? = nil) {
@@ -37,14 +37,13 @@ extension UserController {
     }
     
     func loginDemo(
-            username: String,
-            password: String
-        ) -> Bool {
-        self.user = TumbleUser(username: username, password: password, name: "App Review Team")
-        self.authStatus = .authorized
+        username: String,
+        password: String
+    ) -> Bool {
+        user = TumbleUser(username: username, password: password, name: "App Review Team")
+        authStatus = .authorized
         return true
     }
-
 
     func logIn(
         authSchoolId: Int,

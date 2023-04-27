@@ -8,7 +8,6 @@
 import Foundation
 
 class DummyDataFactory {
-    
     func getDummyKronoxResources() -> Response.KronoxResources {
         let timeSlot1 = Response.TimeSlot(id: 1, from: "2023-05-01T09:00:00", to: "2023-05-01T10:00:00", duration: "01:00:00")
         let timeSlot2 = Response.TimeSlot(id: 2, from: "2023-05-01T10:00:00", to: "2023-05-01T11:00:00", duration: "01:00:00")
@@ -31,7 +30,6 @@ class DummyDataFactory {
         return kronoxResources
     }
 
-    
     func getDummyKronoxCompleteUserEvent() -> Response.KronoxCompleteUserEvent {
         let upcomingEvent1 = Response.UpcomingKronoxUserEvent(title: "Workshop on Machine Learning", type: "Workshop", eventStart: "2023-05-01T10:00:00", eventEnd: "2023-05-01 12:00:00", firstSignupDate: "2023-04-25T10:00:00")
         let upcomingEvent2 = Response.UpcomingKronoxUserEvent(title: "Guest Lecture on Quantum Computing", type: "Lecture", eventStart: "2023-05-02 14:00:00", eventEnd: "2023-05-02 16:00:00", firstSignupDate: "2023-04-26T10:00:00")
@@ -63,7 +61,6 @@ class DummyDataFactory {
         return kronoxResourceElement
     }
 
-    
     func getDummyDataUpcomingKronoxUserEvent() -> Response.UpcomingKronoxUserEvent {
         let upcomingEvent = Response.UpcomingKronoxUserEvent(title: "Guest Lecture on Quantum Computing", type: "Lecture", eventStart: "2023-05-02T14:00:00", eventEnd: "2023-05-02T16:00:00", firstSignupDate: "2023-04-26T10:00:00")
         return upcomingEvent

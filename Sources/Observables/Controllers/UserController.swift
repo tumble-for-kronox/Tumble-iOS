@@ -21,7 +21,7 @@ class UserController: ObservableObject {
         let authSchoolId = preferenceService.getDefaultAuthSchool() ?? -1
         let inAppReview = preferenceService.isInAppReview()
         if inAppReview {
-            self.authStatus = .authorized
+            authStatus = .authorized
             return
         }
         autoLogin(authSchoolId: authSchoolId, completion: {
@@ -53,7 +53,6 @@ class UserController: ObservableObject {
         refreshToken: Token?,
         execute: @escaping (NetworkResult<(Int, String), Error>) -> Void
     ) {
-        
         // Check if in review by apple
         if preferenceService.inAppReview {
             execute(.demo)
