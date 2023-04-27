@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum NetworkResult<Success, Failure> where Failure : Swift.Error {
+enum NetworkResult<Success, Failure> where Failure: Swift.Error {
     case success(Success)
     case failure(Failure)
     case demo

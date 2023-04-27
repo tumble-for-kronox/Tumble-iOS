@@ -39,7 +39,7 @@ struct Home: View {
             }
             Spacer()
         }
-        .padding(.horizontal, 30)
+        .padding(.horizontal, 15)
         .padding(.top, 10)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.background)

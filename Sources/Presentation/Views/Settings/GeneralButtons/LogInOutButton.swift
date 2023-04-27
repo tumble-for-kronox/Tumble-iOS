@@ -46,6 +46,7 @@ struct LogInOutButton: View {
                 }
                 Spacer()
             }
+            .padding(5)
         })
         .confirmationDialog(
             NSLocalizedString("Are you sure you want to log out of your account?", comment: ""),

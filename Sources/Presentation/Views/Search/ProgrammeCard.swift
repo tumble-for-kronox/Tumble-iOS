@@ -24,7 +24,7 @@ struct ProgrammeCard: View {
                             universityImage!
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
-                                .frame(width: 20, height: 20)
+                                .frame(width: 22, height: 22)
                                 .cornerRadius(2.5)
                         }
                         Text(programme.subtitle.trimmingCharacters(in: .whitespaces))

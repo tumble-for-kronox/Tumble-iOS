@@ -47,6 +47,7 @@ struct SearchField: View {
                     hideKeyboard()
                 }) {
                     Text(NSLocalizedString("Cancel", comment: ""))
+                        .font(.system(size: 16, weight: .semibold))
                 }
                 .padding(.trailing, 25)
                 .padding(.top, 5)
