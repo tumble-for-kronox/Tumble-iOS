@@ -26,20 +26,20 @@ struct ListRowNavigationItem: View {
         NavigationLink(destination: destination, label: {
             HStack(spacing: 0) {
                 Text(title)
-                    .font(.system(size: 16, weight: .regular))
+                    .font(.system(size: 17, weight: .regular))
                     .foregroundColor(.onSurface)
                 Spacer()
                 if let current = current {
                     Text(current)
-                        .font(.system(size: 16, weight: .regular))
+                        .font(.system(size: 17, weight: .regular))
                         .foregroundColor(.onSurface.opacity(0.7))
                         .padding(.trailing, 10)
                 }
                 Image(systemName: "chevron.right")
-                    .font(.system(size: 14, weight: .medium))
+                    .font(.system(size: 15, weight: .medium))
                     .foregroundColor(.onSurface.opacity(0.5))
             }
-            .padding(2.5)
+            .padding(5)
         })
     }
 }

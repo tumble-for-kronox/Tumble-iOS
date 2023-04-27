@@ -104,7 +104,7 @@ struct BookmarkListView: View {
                 }
             }
         }
-        .padding(.top, 5)
+        .padding(.top, 2.5)
     }
     
     var listSearching: some View {

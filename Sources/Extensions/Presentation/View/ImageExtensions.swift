@@ -17,7 +17,7 @@ extension Image {
     
     func actionIcon() -> some View {
         font(.system(size: 17, weight: .medium))
-            .foregroundColor(.onBackground)
+            .foregroundColor(.primary)
     }
     
     func featureIcon() -> some View {
