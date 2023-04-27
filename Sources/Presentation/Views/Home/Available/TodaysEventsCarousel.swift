@@ -28,7 +28,7 @@ struct TodaysEventsCarousel: View {
                     )
                     .frame(height: 160)
                     .contentShape(Rectangle())
-                    .offset(x: weekEventCards[index].offset)
+                    .offset(x: weekEventCards[index].offset + 10)
                     .gesture(
                         DragGesture(minimumDistance: 0)
                             .onChanged { value in
@@ -130,11 +130,11 @@ private struct CarouselCard: View {
     }
     
     func getCardWidth(index: Int) -> CGFloat {
-        let boxWidth = getRect().width - 35
+        let boxWidth = (getRect().width - 60)
         return boxWidth
     }
     
     func getCardOffset(index: Int) -> CGFloat {
-        return (index - swipedCards) <= 3 ? CGFloat(index - swipedCards) * 10 : 0
+        return (index - swipedCards) <= 2 ? CGFloat(index - swipedCards) * 10 : -10
     }
 }

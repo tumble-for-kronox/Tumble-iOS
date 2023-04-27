@@ -14,7 +14,7 @@ extension NetworkSettings {
         let resolvedEnvironment = storedEnvironment ?? defaultEnvironment
         switch resolvedEnvironment {
         case "testing":
-            self = Environments.testing
+            self = Environments.development
         default:
             self = Environments.production
         }
