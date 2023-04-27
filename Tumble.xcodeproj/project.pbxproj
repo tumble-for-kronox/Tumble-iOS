@@ -190,6 +190,7 @@
 		D4CE2DBD2982E55200B81052 /* NavigationbarSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CE2DBC2982E55200B81052 /* NavigationbarSearch.swift */; };
 		D4CF9B2A2935634800DDB5F0 /* SearchError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CF9B292935634800DDB5F0 /* SearchError.swift */; };
 		D4CF9B2C293572BE00DDB5F0 /* Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CF9B2B293572BE00DDB5F0 /* Info.swift */; };
+		D4D04DFD29FB29BC008858F0 /* SwipeActions in Frameworks */ = {isa = PBXBuildFile; productRef = D4D04DFC29FB29BC008858F0 /* SwipeActions */; };
 		D4D3368329F66E0000933D38 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D3368229F66E0000933D38 /* RealmManager.swift */; };
 		D4D3368629F66E3900933D38 /* RealmConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D3368529F66E3900933D38 /* RealmConfig.swift */; };
 		D4D4CD17299CE57C00D48180 /* EventCardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D4CD16299CE57C00D48180 /* EventCardButton.swift */; };
@@ -485,6 +486,7 @@
 				D423F6AC29F0040B00C04123 /* WrappingHStack in Frameworks */,
 				D4FFCC1F29EDA9A700708CC0 /* RealmSwift in Frameworks */,
 				D47386FF29C88E4F0035CD4C /* FirebaseAnalytics in Frameworks */,
+				D4D04DFD29FB29BC008858F0 /* SwipeActions in Frameworks */,
 				D430F74329C615DC00E30E48 /* FSCalendar in Frameworks */,
 				D42BAC1C298D3D590025EAA9 /* Logging in Frameworks */,
 			);
@@ -1486,6 +1488,7 @@
 				D4FFCC1C29EDA9A700708CC0 /* Realm */,
 				D4FFCC1E29EDA9A700708CC0 /* RealmSwift */,
 				D423F6AB29F0040B00C04123 /* WrappingHStack */,
+				D4D04DFC29FB29BC008858F0 /* SwipeActions */,
 			);
 			productName = "tumble-ios";
 			productReference = D4722145292454560063BDB7 /* Tumble.app */;
@@ -1526,6 +1529,7 @@
 				D47386FD29C88E4F0035CD4C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				D4FFCC1B29EDA9A700708CC0 /* XCRemoteSwiftPackageReference "realm-swift" */,
 				D423F6AA29F0040B00C04123 /* XCRemoteSwiftPackageReference "WrappingHStack" */,
+				D4D04DFB29FB29BC008858F0 /* XCRemoteSwiftPackageReference "SwipeActions" */,
 			);
 			productRefGroup = D4722146292454560063BDB7 /* Products */;
 			projectDirPath = "";
@@ -2156,6 +2160,14 @@
 				minimumVersion = 9.0.0;
 			};
 		};
+		D4D04DFB29FB29BC008858F0 /* XCRemoteSwiftPackageReference "SwipeActions" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/aheze/SwipeActions.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		D4FFCC1B29EDA9A700708CC0 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/realm/realm-swift.git";
@@ -2191,6 +2203,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D47386FD29C88E4F0035CD4C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseMessaging;
+		};
+		D4D04DFC29FB29BC008858F0 /* SwipeActions */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D4D04DFB29FB29BC008858F0 /* XCRemoteSwiftPackageReference "SwipeActions" */;
+			productName = SwipeActions;
 		};
 		D4FFCC1C29EDA9A700708CC0 /* Realm */ = {
 			isa = XCSwiftPackageProductDependency;

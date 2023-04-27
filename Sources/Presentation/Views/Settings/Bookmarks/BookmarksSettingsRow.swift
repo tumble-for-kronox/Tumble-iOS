@@ -7,6 +7,7 @@
 
 import RealmSwift
 import SwiftUI
+import SwipeActions
 
 struct BookmarkSettingsRow: View {
     @ObservedRealmObject var schedule: Schedule
@@ -14,15 +15,7 @@ struct BookmarkSettingsRow: View {
     let onDelete: (IndexSet, String) -> Void
     
     var body: some View {
-        HStack {
-            Button(action: {
-                onDelete(IndexSet(arrayLiteral: index), schedule.scheduleId)
-            }, label: {
-                Image(systemName: "trash")
-                    .font(.system(size: 18))
-                    .foregroundColor(.onSurface)
-            })
-            .padding(.trailing, 5)
+        SwipeView {
             HStack {
                 Toggle(isOn: $schedule.toggled) {
                     Text(schedule.scheduleId)
@@ -33,8 +26,14 @@ struct BookmarkSettingsRow: View {
             .frame(maxWidth: .infinity)
             .background(Color.surface)
             .cornerRadius(10)
+        } trailingActions: { _ in
+            SwipeAction("Delete") {
+                onDelete(IndexSet(arrayLiteral: index), schedule.scheduleId)
+            }
+            .cornerRadius(10)
+            .background(Color.red)
         }
-        .padding(.horizontal, 15)
-        .padding(.vertical, 15)
+        .swipeActionCornerRadius(10)
+        .padding()
     }
 }
