@@ -60,6 +60,7 @@ struct EventCardButton: View {
                         }
                     }
                 }
+                Spacer()
             }
             .padding()
             .frame(minWidth: 0, maxWidth: .infinity, minHeight: 100, maxHeight: 100, alignment: .center)

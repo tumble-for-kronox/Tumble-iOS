@@ -8,7 +8,17 @@
 import Foundation
 
 extension UserController {
+    func logOutDemo() {
+        preferenceService.setInAppReview(value: false)
+        self.user = nil
+        self.authStatus = .unAuthorized
+    }
+
     func logOut(completion: ((Bool) -> Void)? = nil) {
+        if preferenceService.inAppReview {
+            logOutDemo()
+            completion?(true)
+        }
         authManager.logOutUser(completionHandler: { [weak self] result in
             guard let self = self else { return }
             DispatchQueue.main.async {
@@ -25,6 +35,16 @@ extension UserController {
             }
         })
     }
+    
+    func loginDemo(
+            username: String,
+            password: String
+        ) -> Bool {
+        self.user = TumbleUser(username: username, password: password, name: "App Review Team")
+        self.authStatus = .authorized
+        return true
+    }
+
 
     func logIn(
         authSchoolId: Int,

@@ -17,6 +17,6 @@ enum StoreKey: String {
     case viewType = "view_type"
     case userOnboarded = "user_onboarded"
     case profileImage = "profile_image"
-    
+    case inAppReview = "in_app_review"
     case networkSettings
 }

@@ -67,6 +67,16 @@
             value = "production"
             isEnabled = "YES">
          </EnvironmentVariable>
+         <EnvironmentVariable
+            key = "DEMO_USERNAME"
+            value = "DEMO0001"
+            isEnabled = "YES">
+         </EnvironmentVariable>
+         <EnvironmentVariable
+            key = "DEMO_PASSWORD"
+            value = "5a8b0d6c1f394e2a"
+            isEnabled = "YES">
+         </EnvironmentVariable>
       </EnvironmentVariables>
    </LaunchAction>
    <ProfileAction

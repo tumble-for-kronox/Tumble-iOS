@@ -99,11 +99,12 @@ struct BookmarkListView: View {
                                 }
                             })
                         }
+                        .padding(.vertical, 15)
                     }
                 }
-                .padding(.vertical, 20)
             }
         }
+        .padding(.top, 5)
     }
     
     var listSearching: some View {
@@ -118,7 +119,7 @@ struct BookmarkListView: View {
                             event: event,
                             isLast: true
                         )
-                        .padding(.horizontal, 15)
+                        .padding(.horizontal, 7.5)
                     }
                 }
             }

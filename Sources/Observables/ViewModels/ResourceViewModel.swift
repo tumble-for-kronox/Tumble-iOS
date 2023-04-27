@@ -25,6 +25,7 @@ final class ResourceViewModel: ObservableObject {
     @Published var authSchoolId: Int = -1
     private var allResourcesDataTask: URLSessionDataTask? = nil
     private var cancellables = Set<AnyCancellable>()
+    private let dummyDataFactory: DummyDataFactory = DummyDataFactory()
     
     init() {
         initialisePipelines()
@@ -53,25 +54,30 @@ final class ResourceViewModel: ObservableObject {
                 case .success((let schoolId, let refreshToken)):
                     let request = Endpoint.userEvents(schoolId: String(schoolId))
                     _ = self.kronoxManager.get(request, refreshToken: refreshToken,
-                                               then: { (result: Result<Response.KronoxCompleteUserEvent?, Response.ErrorMessage>) in
-                                                   switch result {
-                                                   case .success(let events):
-                                                       AppLogger.shared.debug("Successfully loaded events")
-                                                       DispatchQueue.main.async {
-                                                           self.completeUserEvent = events
-                                                           self.eventBookingPageState = .loaded
-                                                       }
-                                                   case .failure(let failure):
-                                                       AppLogger.shared.debug("\(failure)")
-                                                       DispatchQueue.main.async {
-                                                           self.eventBookingPageState = .error
-                                                       }
-                                                   }
-                                               })
+                       then: { (result: Result<Response.KronoxCompleteUserEvent?, Response.ErrorMessage>) in
+                           switch result {
+                           case .success(let events):
+                               AppLogger.shared.debug("Successfully loaded events")
+                               DispatchQueue.main.async {
+                                   self.completeUserEvent = events
+                                   self.eventBookingPageState = .loaded
+                               }
+                           case .failure(let failure):
+                               AppLogger.shared.debug("\(failure)")
+                               DispatchQueue.main.async {
+                                   self.eventBookingPageState = .error
+                               }
+                           }
+                       })
                 case .failure(let failure):
                     AppLogger.shared.critical("Failed to get events: \(failure)")
                     DispatchQueue.main.async {
                         self.eventBookingPageState = .error
+                    }
+                case .demo:
+                    DispatchQueue.main.async {
+                        self.completeUserEvent = self.dummyDataFactory.getDummyKronoxCompleteUserEvent()
+                        self.eventBookingPageState = .loaded
                     }
                 }
             }
@@ -110,6 +116,10 @@ final class ResourceViewModel: ObservableObject {
                     DispatchQueue.main.async {
                         completion(.failure(.internal(reason: "\(failure)")))
                     }
+                case .demo:
+                    DispatchQueue.main.async {
+                        completion(.success(()))
+                    }
                 }
             }
         )
@@ -147,6 +157,10 @@ final class ResourceViewModel: ObservableObject {
                     DispatchQueue.main.async {
                         completion(.failure(.internal(reason: "\(failure)")))
                     }
+                case .demo:
+                    DispatchQueue.main.async {
+                        completion(.success(()))
+                    }
                 }
             }
         )
@@ -166,24 +180,29 @@ final class ResourceViewModel: ObservableObject {
                 case .success((let schoolId, let refreshToken)):
                     let request = Endpoint.allResources(schoolId: String(schoolId), date: date)
                     self.allResourcesDataTask = self.kronoxManager.get(request, refreshToken: refreshToken,
-                                                                       then: { (result: Result<Response.KronoxResources?, Response.ErrorMessage>) in
-                                                                           switch result {
-                                                                           case .success(let resources):
-                                                                               DispatchQueue.main.async {
-                                                                                   self.allResources = resources
-                                                                                   self.resourceBookingPageState = .loaded
-                                                                               }
-                                                                           case .failure(let failure):
-                                                                               AppLogger.shared.debug("\(failure)")
-                                                                               DispatchQueue.main.async {
-                                                                                   self.resourceBookingPageState = .error
-                                                                                   self.error = failure
-                                                                               }
-                                                                           }
-                                                                       })
+                       then: { (result: Result<Response.KronoxResources?, Response.ErrorMessage>) in
+                           switch result {
+                           case .success(let resources):
+                               DispatchQueue.main.async {
+                                   self.allResources = resources
+                                   self.resourceBookingPageState = .loaded
+                               }
+                           case .failure(let failure):
+                               AppLogger.shared.debug("\(failure)")
+                               DispatchQueue.main.async {
+                                   self.resourceBookingPageState = .error
+                                   self.error = failure
+                               }
+                           }
+                       })
                 case .failure:
                     DispatchQueue.main.async {
                         self.resourceBookingPageState = .error
+                    }
+                case .demo:
+                    DispatchQueue.main.async {
+                        self.allResources = self.dummyDataFactory.getDummyKronoxResources()
+                        self.resourceBookingPageState = .loaded
                     }
                 }
             }
@@ -232,6 +251,8 @@ final class ResourceViewModel: ObservableObject {
                 case .failure(let failure):
                     AppLogger.shared.critical("\(failure)")
                     completion(.failure(.internal(reason: "\(failure)")))
+                case .demo:
+                    completion(.success(()))
                 }
             }
         )
@@ -280,6 +301,8 @@ final class ResourceViewModel: ObservableObject {
                 case .failure(let failure):
                     AppLogger.shared.critical("\(failure)")
                     completion(.failure(.internal(reason: "\(failure)")))
+                case .demo:
+                    completion(.success(()))
                 }
             }
         )
@@ -313,6 +336,8 @@ final class ResourceViewModel: ObservableObject {
                 case .failure(let failure):
                     AppLogger.shared.critical("\(failure)")
                     completion(.failure(.internal(reason: "\(failure)")))
+                case .demo:
+                    completion(.success(()))
                 }
             }
         )

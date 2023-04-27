@@ -13,6 +13,7 @@ import Foundation
 // for KronoX events, and booking and unbooking of resources.
 final class AccountViewModel: ObservableObject {
     let viewModelFactory: ViewModelFactory = .shared
+    let dummyDataFactory: DummyDataFactory = DummyDataFactory()
     
     @Inject var userController: UserController
     @Inject var kronoxManager: KronoxManager
@@ -21,6 +22,7 @@ final class AccountViewModel: ObservableObject {
     @Inject var schoolManager: SchoolManager
     
     @Published var authSchoolId: Int = -1
+    @Published var inAppReview: Bool = false
     @Published var schoolName: String = ""
     @Published var status: AccountViewStatus = .loading
     @Published var completeUserEvent: Response.KronoxCompleteUserEvent? = nil
@@ -66,10 +68,11 @@ final class AccountViewModel: ObservableObject {
             guard let self else { return }
             let authStatusPublisher = self.userController.$authStatus
             let schoolIdPublisher = self.preferenceService.$authSchoolId
+            let inAppReviewPublisher = self.preferenceService.$inAppReview
             
-            Publishers.CombineLatest(authStatusPublisher, schoolIdPublisher)
+            Publishers.CombineLatest3(authStatusPublisher, schoolIdPublisher, inAppReviewPublisher)
                 .receive(on: DispatchQueue.main)
-                .sink { authStatus, authSchoolId in
+                .sink { authStatus, authSchoolId, inAppReview in
                     switch authStatus {
                     case .authorized:
                         self.status = .authenticated
@@ -134,6 +137,16 @@ final class AccountViewModel: ObservableObject {
         password: String,
         createToast: @escaping (Bool) -> Void
     ) {
+        
+        // Check if matching demo user
+        let (demoUsername, demoPassword) = getDemoUserCredentials()
+        if username == demoUsername && password == demoPassword {
+            let result = userController.loginDemo(username: username, password: password)
+            preferenceService.setInAppReview(value: result)
+            createToast(result)
+            return
+        }
+        
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
             self.status = .loading
@@ -151,7 +164,7 @@ final class AccountViewModel: ObservableObject {
         preferenceService.setAuthSchool(id: schoolId)
     }
     
-    /// Retrieve user events for resource section
+    // Retrieve user events for resource section
     func getUserEventsForSection(tries: Int = 0) {
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
@@ -167,18 +180,25 @@ final class AccountViewModel: ObservableObject {
                     let request = Endpoint.userEvents(schoolId: String(schoolId))
                     self.eventSectionDataTask =
                         self.kronoxManager.get(request, refreshToken: refreshToken,
-                                               then: { (result: Result<Response.KronoxCompleteUserEvent?, Response.ErrorMessage>) in
-                                                   switch result {
-                                                   case .success(let events):
-                                                       self.completeUserEvent = events
-                                                       self.registeredEventSectionState = .loaded
-                                                   case .failure(let failure):
-                                                       AppLogger.shared.critical("Could not get user events: \(failure)")
-                                                       self.registeredEventSectionState = .error
-                                                   }
-                                               })
+                           then: { (result: Result<Response.KronoxCompleteUserEvent?, Response.ErrorMessage>) in
+                               switch result {
+                               case .success(let events):
+                                   self.completeUserEvent = events
+                                   self.registeredEventSectionState = .loaded
+                               case .failure(let failure):
+                                   AppLogger.shared.critical("Could not get user events: \(failure)")
+                                   self.registeredEventSectionState = .error
+                               }
+                           })
                 case .failure:
-                    self.registeredEventSectionState = .error
+                    DispatchQueue.main.async {
+                        self.registeredEventSectionState = .error
+                    }
+                case .demo:
+                    DispatchQueue.main.async {
+                        self.completeUserEvent = self.dummyDataFactory.getDummyKronoxCompleteUserEvent()
+                        self.registeredEventSectionState = .loaded
+                    }
                 }
             }
         )
@@ -198,27 +218,31 @@ final class AccountViewModel: ObservableObject {
                 case .success((let schoolId, let refreshToken)):
                     let request = Endpoint.userBookings(schoolId: String(schoolId))
                     self.resourceSectionDataTask = self.kronoxManager.get(request, refreshToken: refreshToken,
-                                                                          then: { [weak self] (result: Result<Response.KronoxUserBookings, Response.ErrorMessage>) in
-                                                                              guard let self = self else { return }
-                                                                              switch result {
-                                                                              case .success(let bookings):
-                                                                                  DispatchQueue.main.async {
-                                                                                      self.bookingSectionState = .loaded
-                                                                                      self.userBookings = bookings
-                                                                                  }
-                                                                                  self.checkNotificationsForUserBookings(bookings: bookings)
-                                                                              case .failure(let failure):
-                                                                                  AppLogger.shared.debug("\(failure)")
-                                                                                  DispatchQueue.main.async {
-                                                                                      self.bookingSectionState = .error
-                                                                                  }
-                                                                              }
-                                                                          })
+                      then: { [weak self] (result: Result<Response.KronoxUserBookings, Response.ErrorMessage>) in
+                          guard let self = self else { return }
+                          switch result {
+                          case .success(let bookings):
+                              DispatchQueue.main.async {
+                                  self.bookingSectionState = .loaded
+                                  self.userBookings = bookings
+                              }
+                              self.checkNotificationsForUserBookings(bookings: bookings)
+                          case .failure(let failure):
+                              AppLogger.shared.debug("\(failure)")
+                              DispatchQueue.main.async {
+                                  self.bookingSectionState = .error
+                              }
+                          }
+                      })
                 case .failure:
                     DispatchQueue.main.async {
                         self.bookingSectionState = .error
-                        self.registeredEventSectionState = .error
-                        self.completeUserEvent = nil
+                        self.userBookings = nil
+                    }
+                case .demo:
+                    DispatchQueue.main.async {
+                        self.userBookings = self.dummyDataFactory.getDummyDataKronoxUserBookingElement()
+                        self.bookingSectionState = .loaded
                     }
                 }
             }
@@ -253,6 +277,10 @@ final class AccountViewModel: ObservableObject {
                 case .failure(let failure):
                     DispatchQueue.main.async {
                         completion(.failure(.internal(reason: "\(failure)")))
+                    }
+                case .demo:
+                    DispatchQueue.main.async {
+                        completion(.success(()))
                     }
                 }
             }
@@ -289,23 +317,26 @@ final class AccountViewModel: ObservableObject {
                 case .success((let schoolId, let refreshToken)):
                     let request = Endpoint.userBookings(schoolId: String(schoolId))
                     self.resourceSectionDataTask = self.kronoxManager.get(request, refreshToken: refreshToken,
-                                                                          then: { (result: Result<Response.KronoxUserBookings, Response.ErrorMessage>) in
-                                                                              switch result {
-                                                                              case .success(let bookings):
-                                                                                  self.scheduleBookingNotifications(for: bookings)
-                                                                              case .failure(let failure):
-                                                                                  AppLogger.shared.debug("\(failure)")
-                                                                                  DispatchQueue.main.async {
-                                                                                      self.bookingSectionState = .error
-                                                                                  }
-                                                                              }
-                                                                          })
+                      then: { (result: Result<Response.KronoxUserBookings, Response.ErrorMessage>) in
+                          switch result {
+                          case .success(let bookings):
+                              self.scheduleBookingNotifications(for: bookings)
+                          case .failure(let failure):
+                              AppLogger.shared.debug("\(failure)")
+                              DispatchQueue.main.async {
+                                  self.bookingSectionState = .error
+                              }
+                          }
+                      })
                 case .failure:
                     DispatchQueue.main.async {
                         self.bookingSectionState = .error
                         self.registeredEventSectionState = .error
                         self.completeUserEvent = nil
+                        self.userBookings = nil
                     }
+                case .demo:
+                    break
                 }
             }
         )
