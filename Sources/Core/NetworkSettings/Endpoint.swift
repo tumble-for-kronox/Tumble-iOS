@@ -90,10 +90,11 @@ enum Endpoint {
         case .news:
             components.path = "/api/misc/news"
         case .allResources(schoolId: let schoolId, date: let date):
+            let localDate = convertToLocalDate(date: date)
             components.path = "/api/resources/all"
             components.queryItems = [
                 URLQueryItem(name: "schoolId", value: schoolId),
-                URLQueryItem(name: "date", value: isoDateFormatterResourceDate.string(from: date))
+                URLQueryItem(name: "date", value: isoDateFormatterResourceDate.string(from: localDate))
             ]
         case .bookResource(
             schoolId: let schoolId):
