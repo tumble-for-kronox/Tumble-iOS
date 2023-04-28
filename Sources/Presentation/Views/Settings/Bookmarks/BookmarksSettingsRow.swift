@@ -19,7 +19,7 @@ struct BookmarkSettingsRow: View {
             HStack {
                 Toggle(isOn: $schedule.toggled) {
                     Text(schedule.scheduleId)
-                        .font(.system(size: 16))
+                        .font(.system(size: 16, weight: .medium))
                 }
             }
             .padding(10)

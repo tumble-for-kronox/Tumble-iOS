@@ -17,7 +17,7 @@ struct SettingsRadioButton: View {
         }) {
             HStack {
                 Text(title)
-                    .font(.system(size: 17))
+                    .font(.system(size: 17, weight: .medium))
                     .foregroundColor(.onSurface)
                 Spacer()
                 if isSelected {
