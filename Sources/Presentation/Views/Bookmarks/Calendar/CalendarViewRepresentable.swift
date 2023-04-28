@@ -13,13 +13,13 @@ struct CalendarViewRepresentable: UIViewRepresentable {
     typealias UIViewType = FSCalendar
     
     @Binding var selectedDate: Date
-    @Binding var displayedDayEvents: [Event]
+    @Binding var selectedDateEvents: [Event]
+    @Binding var calendarEventsByDate: [Date: [Event]]
     
     let calendar = FSCalendar()
-    @Binding var days: [Day]
-    @Binding var eventsByDate: [Date: [Event]]
     
     func makeUIView(context: Context) -> FSCalendar {
+                
         calendar.delegate = context.coordinator
         calendar.dataSource = context.coordinator
         
@@ -47,6 +47,7 @@ struct CalendarViewRepresentable: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: FSCalendar, context: Context) {
+                
         uiView.scope = .month
         uiView.firstWeekday = 2
         uiView.appearance.weekdayTextColor = UIColor(named: "OnBackground")?.withAlphaComponent(0.7)
@@ -68,15 +69,16 @@ struct CalendarViewRepresentable: UIViewRepresentable {
     }
 
     func makeCoordinator() -> Coordinator {
-        Coordinator(self)
+        Coordinator(self, calendarDayEvents: $calendarEventsByDate)
     }
     
     class Coordinator: NSObject, FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {
         var parent: CalendarViewRepresentable
-        var displayedDayEventsByDate: [Date: [Event]] = [:]
+        @Binding var calendarDayEvents: [Date: [Event]]
         
-        init(_ parent: CalendarViewRepresentable) {
+        init(_ parent: CalendarViewRepresentable, calendarDayEvents: Binding<[Date : [Event]]>) {
             self.parent = parent
+            self._calendarDayEvents = calendarDayEvents
         }
         
         /// Set cell indicators on individual calendar cells,
@@ -86,7 +88,7 @@ struct CalendarViewRepresentable: UIViewRepresentable {
             willDisplay cell: FSCalendarCell,
             for date: Date, at monthPosition: FSCalendarMonthPosition
         ) {
-            let filteredEvents = displayedDayEventsByDate[date] ?? []
+            let filteredEvents = calendarDayEvents[date] ?? []
             cell.eventIndicator.isHidden = false
             cell.eventIndicator.numberOfEvents = filteredEvents.count
         }
@@ -94,11 +96,11 @@ struct CalendarViewRepresentable: UIViewRepresentable {
         /// Handle the click of a date cell
         func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
             parent.selectedDate = date
-            parent.displayedDayEvents = displayedDayEventsByDate[date] ?? []
+            parent.selectedDateEvents = calendarDayEvents[date] ?? []
             
             for cell in parent.calendar.visibleCells() {
                 if let cellDate = parent.calendar.date(for: cell) {
-                    let filteredEvents = displayedDayEventsByDate[cellDate] ?? []
+                    let filteredEvents = calendarDayEvents[cellDate] ?? []
                     cell.eventIndicator.isHidden = false
                     cell.eventIndicator.numberOfEvents = filteredEvents.count
                 }
@@ -107,8 +109,8 @@ struct CalendarViewRepresentable: UIViewRepresentable {
 
         /// Calculate number of events for a specific cell
         func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
-            let filteredEvents = parent.eventsByDate[date] ?? []
-            displayedDayEventsByDate[date] = filteredEvents
+            let filteredEvents = parent.calendarEventsByDate[date] ?? []
+            calendarDayEvents[date] = filteredEvents
             return filteredEvents.count
         }
 

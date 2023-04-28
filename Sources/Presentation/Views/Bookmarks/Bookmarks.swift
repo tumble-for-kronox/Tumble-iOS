@@ -37,6 +37,7 @@ struct Bookmarks: View {
                         case .calendar:
                             BookmarkCalendarView(
                                 appController: appController,
+                                calendarEventsByDate: $viewModel.calendarEventsByDate,
                                 days: $viewModel.days
                             )
                         }
