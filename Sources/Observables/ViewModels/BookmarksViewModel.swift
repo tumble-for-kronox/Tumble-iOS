@@ -34,6 +34,7 @@ final class BookmarksViewModel: ObservableObject {
             guard let self = self else { return }
             switch changes {
             case .initial(let results), .update(let results, _, _, _):
+                print("Something changed")
                 self.createDays(schedules: Array(results))
             case .error:
                 self.status = .error
@@ -58,7 +59,10 @@ final class BookmarksViewModel: ObservableObject {
             hiddenBookmarks: hiddenSchedules
         )
         .flattenAndMerge().ordered()
-        self.days = days
-        status = .loaded
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            self.days = days
+            self.status = .loaded
+        }
     }
 }

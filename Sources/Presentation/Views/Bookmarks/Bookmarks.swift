@@ -31,13 +31,13 @@ struct Bookmarks: View {
                         switch viewModel.defaultViewType {
                         case .list:
                             BookmarkListView(
-                                days: viewModel.days,
+                                days: $viewModel.days,
                                 appController: appController
                             )
                         case .calendar:
                             BookmarkCalendarView(
                                 appController: appController,
-                                days: viewModel.days
+                                days: $viewModel.days
                             )
                         }
                     }
