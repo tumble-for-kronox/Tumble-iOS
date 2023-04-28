@@ -34,7 +34,6 @@ final class BookmarksViewModel: ObservableObject {
             guard let self = self else { return }
             switch changes {
             case .initial(let results), .update(let results, _, _, _):
-                print("Something changed")
                 self.createDays(schedules: Array(results))
             case .error:
                 self.status = .error
