@@ -30,10 +30,10 @@ struct BookmarkSettingsRow: View {
             SwipeAction("Delete") {
                 onDelete(IndexSet(arrayLiteral: index), schedule.scheduleId)
             }
-            .cornerRadius(10)
+            .foregroundColor(.onPrimary)
             .background(Color.red)
         }
-        .swipeActionCornerRadius(10)
+        .swipeActionCornerRadius(5)
         .padding()
     }
 }
