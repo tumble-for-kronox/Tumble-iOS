@@ -19,7 +19,7 @@ struct BookmarkSettingsRow: View {
             HStack {
                 Toggle(isOn: $schedule.toggled) {
                     Text(schedule.scheduleId)
-                        .font(.system(size: 16))
+                        .font(.system(size: 16, weight: .medium))
                 }
             }
             .padding(10)
@@ -30,10 +30,10 @@ struct BookmarkSettingsRow: View {
             SwipeAction("Delete") {
                 onDelete(IndexSet(arrayLiteral: index), schedule.scheduleId)
             }
-            .cornerRadius(10)
+            .foregroundColor(.onPrimary)
             .background(Color.red)
         }
-        .swipeActionCornerRadius(10)
+        .swipeActionCornerRadius(5)
         .padding()
     }
 }

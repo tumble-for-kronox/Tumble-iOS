@@ -12,27 +12,29 @@ import SwiftUI
 struct BookmarkCalendarView: View {
     @ObservedObject var appController: AppController
     
-    @State private var displayedDayEvents: [Event] = .init()
+    @State private var selectedDateEvents: [Event] = .init()
     @State private var selectedDate: Date = .init()
-    
-    let days: [Day]
+    @Binding var calendarEventsByDate: [Date: [Event]]
+    @Binding var days: [Day]
     
     var body: some View {
         ScrollView(showsIndicators: false) {
-            // Set up the calendar view with scrollEnabled set to false
             CalendarViewRepresentable(
                 selectedDate: $selectedDate,
-                displayedDayEvents: $displayedDayEvents,
-                days: days.filter { $0.isValidDay() } // Only display valid dates
+                selectedDateEvents: $selectedDateEvents,
+                calendarEventsByDate: $calendarEventsByDate
             )
-            .frame(height: 400)
-            .onAppear {
+            .id(days)
+            .onChange(of: days, perform: { _ in
+                // Update selected date to be date now
+                selectedDate = Date.now
                 updateDisplayedDayEvents(for: selectedDate)
-            }
+            })
+            .frame(height: 375)
             
             // Add other views below the calendar view inside a VStack
             VStack {
-                if displayedDayEvents.isEmpty {
+                if selectedDateEvents.isEmpty {
                     HStack {
                         Text(NSLocalizedString("No events for this date", comment: ""))
                             .foregroundColor(.onBackground)
@@ -42,7 +44,7 @@ struct BookmarkCalendarView: View {
                     .padding([.top, .leading], 15)
                 } else {
                     VStack {
-                        ForEach(displayedDayEvents.sorted(), id: \.self) { event in
+                        ForEach(selectedDateEvents.sorted(), id: \.self) { event in
                             BookmarkCalendarDetail(
                                 onTapDetail: onTapDetail,
                                 event: event
@@ -53,17 +55,21 @@ struct BookmarkCalendarView: View {
                 }
             }
         }
-        .id(days)
+        .onFirstAppear {
+            updateDisplayedDayEvents(for: selectedDate)
+        }
     }
     
     private func onTapDetail(event: Event) {
         appController.eventSheet = EventDetailsSheetModel(event: event)
     }
     
+    
     private func updateDisplayedDayEvents(for date: Date) {
-        displayedDayEvents = days.filter { day in
+        selectedDateEvents = days.filter { day in
             let dayDate = isoDateFormatterFract.date(from: day.isoString) ?? Date()
             return Calendar.current.isDate(dayDate, inSameDayAs: date) && day.isValidDay()
         }.flatMap { $0.events }.removeDuplicates()
     }
+    
 }

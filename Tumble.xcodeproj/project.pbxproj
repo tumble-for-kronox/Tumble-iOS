@@ -191,6 +191,7 @@
 		D4CF9B2A2935634800DDB5F0 /* SearchError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CF9B292935634800DDB5F0 /* SearchError.swift */; };
 		D4CF9B2C293572BE00DDB5F0 /* Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CF9B2B293572BE00DDB5F0 /* Info.swift */; };
 		D4D04DFD29FB29BC008858F0 /* SwipeActions in Frameworks */ = {isa = PBXBuildFile; productRef = D4D04DFC29FB29BC008858F0 /* SwipeActions */; };
+		D4D04E0029FB3DF6008858F0 /* FirstAppear.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D04DFF29FB3DF6008858F0 /* FirstAppear.swift */; };
 		D4D3368329F66E0000933D38 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D3368229F66E0000933D38 /* RealmManager.swift */; };
 		D4D3368629F66E3900933D38 /* RealmConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D3368529F66E3900933D38 /* RealmConfig.swift */; };
 		D4D4CD17299CE57C00D48180 /* EventCardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D4CD16299CE57C00D48180 /* EventCardButton.swift */; };
@@ -427,6 +428,7 @@
 		D4CE2DBC2982E55200B81052 /* NavigationbarSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationbarSearch.swift; sourceTree = "<group>"; };
 		D4CF9B292935634800DDB5F0 /* SearchError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchError.swift; sourceTree = "<group>"; };
 		D4CF9B2B293572BE00DDB5F0 /* Info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Info.swift; sourceTree = "<group>"; };
+		D4D04DFF29FB3DF6008858F0 /* FirstAppear.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstAppear.swift; sourceTree = "<group>"; };
 		D4D3368229F66E0000933D38 /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 		D4D3368529F66E3900933D38 /* RealmConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmConfig.swift; sourceTree = "<group>"; };
 		D4D4CD16299CE57C00D48180 /* EventCardButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCardButton.swift; sourceTree = "<group>"; };
@@ -593,6 +595,7 @@
 		D40D809E292520AA008CA68D /* ViewModifiers */ = {
 			isa = PBXGroup;
 			children = (
+				D4D04DFE29FB3DE4008858F0 /* Actions */,
 				D40D809929251FC5008CA68D /* Toast */,
 			);
 			path = ViewModifiers;
@@ -1292,6 +1295,14 @@
 			path = Bookmarks;
 			sourceTree = "<group>";
 		};
+		D4D04DFE29FB3DE4008858F0 /* Actions */ = {
+			isa = PBXGroup;
+			children = (
+				D4D04DFF29FB3DF6008858F0 /* FirstAppear.swift */,
+			);
+			path = Actions;
+			sourceTree = "<group>";
+		};
 		D4D3368429F66E2A00933D38 /* Config */ = {
 			isa = PBXGroup;
 			children = (
@@ -1688,6 +1699,7 @@
 				D476BD2A293A31FD0027CFE8 /* SearchPreviewList.swift in Sources */,
 				D454DED029D3B953005BDAE3 /* BookmarksSettingsRow.swift in Sources */,
 				D46ABF0F29843CF300B059F6 /* PreferenceServiceProtocol.swift in Sources */,
+				D4D04E0029FB3DF6008858F0 /* FirstAppear.swift in Sources */,
 				D4B4B62D29C37C130098D175 /* ProgrammeCardStyle.swift in Sources */,
 				D48F0D8A29367CAF0039CD0F /* Colors.swift in Sources */,
 				D400F3E329D795810050622E /* AuthStatus.swift in Sources */,
@@ -1889,7 +1901,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.2.3;
+				MARKETING_VERSION = 3.2.4;
 				NETWORK_SETTINGS = testing;
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.tumble;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2046,7 +2058,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.2.3;
+				MARKETING_VERSION = 3.2.4;
 				NETWORK_SETTINGS = testing;
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.tumble;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2088,7 +2100,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.2.3;
+				MARKETING_VERSION = 3.2.4;
 				NETWORK_SETTINGS = production;
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.tumble;
 				PRODUCT_NAME = "$(TARGET_NAME)";

@@ -23,6 +23,7 @@ final class BookmarksViewModel: ObservableObject {
     @Published var eventSheet: EventDetailsSheetModel? = nil
     @Published var days: [Day] = .init()
     @Published var status: BookmarksViewStatus = .loading
+    @Published var calendarEventsByDate: [Date : [Event]] = [:]
     
     var schedulesToken: NotificationToken? = nil
     
@@ -34,9 +35,11 @@ final class BookmarksViewModel: ObservableObject {
             guard let self = self else { return }
             switch changes {
             case .initial(let results), .update(let results, _, _, _):
-                self.createDays(schedules: Array(results))
+                self.createDaysAndCalendarEvents(schedules: Array(results))
             case .error:
-                self.status = .error
+                DispatchQueue.main.async {
+                    self.status = .error
+                }
             }
         }
     }
@@ -51,14 +54,37 @@ final class BookmarksViewModel: ObservableObject {
         defaultViewType = viewType
     }
     
-    func createDays(schedules: [Schedule]) {
-        let hiddenSchedules = Array(schedules).filter { !$0.toggled }.map { $0.scheduleId }
+    func createDaysAndCalendarEvents(schedules: [Schedule]) {
+        let hiddenSchedules = schedules.filter { !$0.toggled }.map { $0.scheduleId }
         let days = filterHiddenBookmarks(
             schedules: Array(schedules),
             hiddenBookmarks: hiddenSchedules
         )
         .flattenAndMerge().ordered()
-        self.days = days
-        status = .loaded
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            AppLogger.shared.debug("Updating days ..", file: "BookmarksViewModel")
+            self.days = days
+            self.calendarEventsByDate = makeCalendarEvents(days: days)
+            self.status = .loaded
+        }
+    }
+    
+    private func makeCalendarEvents(days: [Day]) -> [Date: [Event]] {
+        var dict = [Date: [Event]]()
+        for day in days {
+            guard day.isValidDay() else { continue }
+            for event in day.events {
+                if let date = dateFormatterEvent.date(from: event.from) {
+                    let normalizedDate = Calendar.current.startOfDay(for: date)
+                    if dict[normalizedDate] == nil {
+                        dict[normalizedDate] = [event]
+                    } else {
+                        dict[normalizedDate]?.append(event)
+                    }
+                }
+            }
+        }
+        return dict
     }
 }

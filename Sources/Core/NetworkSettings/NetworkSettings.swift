@@ -19,7 +19,7 @@ struct NetworkSettings {
         )
 
         // Debug URL
-        static let testing = NetworkSettings(
+        static let development = NetworkSettings(
             port: 7036, scheme: "https", tumbleUrl: "localhost"
         )
     }

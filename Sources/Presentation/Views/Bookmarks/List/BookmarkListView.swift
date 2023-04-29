@@ -14,7 +14,7 @@ struct BookmarksListModel {
 }
 
 struct BookmarkListView: View {
-    let days: [Day]
+    @Binding var days: [Day]
     @ObservedObject var appController: AppController
     @State private var bookmarksListModel: BookmarksListModel = .init()
     @State private var searching: Bool = false

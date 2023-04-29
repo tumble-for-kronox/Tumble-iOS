@@ -27,7 +27,6 @@ struct NextClass: View {
                 let color: Color = course.color.toColor()
                 CompactEventButtonLabel(event: nextClass, color: color)
                     .frame(maxWidth: .infinity, minHeight: 100, maxHeight: 100, alignment: .center)
-                    .background(color.opacity(0.2))
                     .cornerRadius(20)
                     .padding(.bottom, 10)
             } else {

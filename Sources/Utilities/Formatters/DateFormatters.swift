@@ -94,3 +94,12 @@ var dateFormatterLong: DateFormatter = {
     dateFormatter.timeZone = timeZone
     return dateFormatter
 }()
+
+func convertToLocalDate(date: Date) -> Date {
+    let calendar = Calendar.current
+    let localDate = calendar.date(
+        byAdding: .second,
+        value: TimeZone.current.secondsFromGMT(),
+        to: date) ?? date
+    return localDate
+}
