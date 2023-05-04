@@ -11,7 +11,10 @@ extension [Day] {
     func ordered() -> [Day] {
         return compactMap { $0 }.sorted(by: {
             // Ascending order
-            isoDateFormatterFract.date(from: $0.isoString)! < isoDateFormatterFract.date(from: $1.isoString)!
+            if let fromFirst = isoDateFormatterFract.date(from: $0.isoString), let fromSecond = isoDateFormatterFract.date(from: $1.isoString) {
+                return fromFirst < fromSecond
+            }
+            return false
         })
     }
 }

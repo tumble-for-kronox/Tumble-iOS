@@ -61,7 +61,10 @@ extension [Event] {
     func sorted() -> [Event] {
         return self.sorted(by: {
             // Ascending order
-            dateFormatterEvent.date(from: $0.from)! < dateFormatterEvent.date(from: $1.from)!
+            if let fromFirst = dateFormatterEvent.date(from: $0.from), let fromSecond = dateFormatterEvent.date(from: $1.from) {
+                return fromFirst < fromSecond
+            }
+            return false
         })
     }
     

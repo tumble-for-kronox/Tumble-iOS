@@ -99,7 +99,8 @@ class NotificationManager: NotificationManagerProtocol {
         guard let dateComponents = booking.dateComponentsConfirmation else { return nil }
         let notification = BookingNotification(
             id: booking.resourceID,
-            dateComponents: dateComponents
+            dateComponents: dateComponents,
+            categoryIdentifier: "Booking"
         )
         return notification
     }
