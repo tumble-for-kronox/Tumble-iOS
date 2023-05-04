@@ -17,12 +17,12 @@ struct ToTopButton: View {
                 value.scrollTo("bookmarkScrollView", anchor: .top)
             }
         }, label: {
-            Image(systemName: "arrow.up")
+            Image(systemName: "chevron.up")
                 .font(.system(size: 24, weight: .semibold))
                 .foregroundColor(.onPrimary)
-                .padding(15)
+                .padding(20)
                 .background(Color.primary)
-                .clipShape(Rectangle())
+                .clipShape(Circle())
                 .cornerRadius(40)
         })
         .buttonStyle(ToTopButtonStyle())

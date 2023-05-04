@@ -48,10 +48,10 @@ struct TodaysEventsCarousel: View {
         HStack {
             Spacer()
             Button(action: resetCards, label: {
-                Image(systemName: "arrow.left")
+                Image(systemName: "chevron.left")
                     .font(.system(size: 18, weight: .semibold))
                     .foregroundColor(.onPrimary)
-                    .padding(10)
+                    .padding(15)
                     .background(Color.primary)
                     .clipShape(Circle())
                 
