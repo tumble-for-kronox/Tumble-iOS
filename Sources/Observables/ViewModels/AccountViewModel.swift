@@ -316,17 +316,17 @@ final class AccountViewModel: ObservableObject {
                 case .success((let schoolId, let refreshToken)):
                     let request = Endpoint.userBookings(schoolId: String(schoolId))
                     self.resourceSectionDataTask = self.kronoxManager.get(request, refreshToken: refreshToken,
-                                                                          then: { (result: Result<Response.KronoxUserBookings, Response.ErrorMessage>) in
-                                                                              switch result {
-                                                                              case .success(let bookings):
-                                                                                  self.scheduleBookingNotifications(for: bookings)
-                                                                              case .failure(let failure):
-                                                                                  AppLogger.shared.debug("\(failure)")
-                                                                                  DispatchQueue.main.async {
-                                                                                      self.bookingSectionState = .error
-                                                                                  }
-                                                                              }
-                                                                          })
+                      then: { (result: Result<Response.KronoxUserBookings, Response.ErrorMessage>) in
+                          switch result {
+                          case .success(let bookings):
+                              self.scheduleBookingNotifications(for: bookings)
+                          case .failure(let failure):
+                              AppLogger.shared.debug("\(failure)")
+                              DispatchQueue.main.async {
+                                  self.bookingSectionState = .error
+                              }
+                          }
+                      })
                 case .failure:
                     DispatchQueue.main.async {
                         self.bookingSectionState = .error

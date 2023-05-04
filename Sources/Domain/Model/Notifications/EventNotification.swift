@@ -17,6 +17,7 @@ struct EventNotification: LocalNotification {
 struct BookingNotification: LocalNotification {
     var id: String
     let dateComponents: DateComponents
+    let categoryIdentifier: String?
 }
 
 protocol LocalNotification: Identifiable {}

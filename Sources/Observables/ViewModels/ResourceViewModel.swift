@@ -54,21 +54,21 @@ final class ResourceViewModel: ObservableObject {
                 case .success((let schoolId, let refreshToken)):
                     let request = Endpoint.userEvents(schoolId: String(schoolId))
                     _ = self.kronoxManager.get(request, refreshToken: refreshToken,
-                                               then: { (result: Result<Response.KronoxCompleteUserEvent?, Response.ErrorMessage>) in
-                                                   switch result {
-                                                   case .success(let events):
-                                                       AppLogger.shared.debug("Successfully loaded events")
-                                                       DispatchQueue.main.async {
-                                                           self.completeUserEvent = events
-                                                           self.eventBookingPageState = .loaded
-                                                       }
-                                                   case .failure(let failure):
-                                                       AppLogger.shared.debug("\(failure)")
-                                                       DispatchQueue.main.async {
-                                                           self.eventBookingPageState = .error
-                                                       }
-                                                   }
-                                               })
+                       then: { (result: Result<Response.KronoxCompleteUserEvent?, Response.ErrorMessage>) in
+                           switch result {
+                           case .success(let events):
+                               AppLogger.shared.debug("Successfully loaded events")
+                               DispatchQueue.main.async {
+                                   self.completeUserEvent = events
+                                   self.eventBookingPageState = .loaded
+                               }
+                           case .failure(let failure):
+                               AppLogger.shared.debug("\(failure)")
+                               DispatchQueue.main.async {
+                                   self.eventBookingPageState = .error
+                               }
+                           }
+                       })
                 case .failure(let failure):
                     AppLogger.shared.critical("Failed to get events: \(failure)")
                     DispatchQueue.main.async {
