@@ -26,7 +26,7 @@ struct News: View {
                     .font(.system(size: 16, weight: .semibold))
                     .foregroundColor(.onPrimary)
                     Spacer()
-                    Image(systemName: "square.grid.2x2")
+                    Image(systemName: "newspaper")
                         .font(.system(size: 18, weight: .medium))
                         .foregroundColor(.onPrimary)
                 }

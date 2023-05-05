@@ -11,7 +11,7 @@ import SwiftUI
 struct AppParent: View {
     @ObservedObject var viewModel: ParentViewModel
     @ObservedObject var appController: AppController = .shared
-        
+    
     private let navigationBarAppearance = UINavigationBar.appearance()
     
     init(viewModel: ParentViewModel) {
@@ -21,54 +21,59 @@ struct AppParent: View {
     }
     
     var body: some View {
-        NavigationView {
-            ZStack {
-                Color.background.ignoresSafeArea(.all)
-                TabView(selection: $appController.selectedAppTab, content: {
-                    Home(
-                        viewModel: viewModel.homeViewModel,
-                        parentViewModel: viewModel,
-                        selectedAppTab: $appController.selectedAppTab
-                    )
-                    .tabItem {
-                        TabItem(appTab: TabbarTabType.home)
-                    }
-                    .tag(TabbarTabType.home)
-                    Bookmarks(
-                        viewModel: viewModel.bookmarksViewModel,
-                        parentViewModel: viewModel
-                    )
-                    .tabItem {
-                        TabItem(appTab: TabbarTabType.bookmarks)
-                    }
-                    .tag(TabbarTabType.bookmarks)
-                    Account(viewModel: viewModel.accountPageViewModel)
-                        .tabItem {
-                            TabItem(appTab: TabbarTabType.account)
-                        }
-                        .tag(TabbarTabType.account)
-                })
-                .tabViewStyle(.automatic)
-            }
-            .ignoresSafeArea(.keyboard)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing, content: {
+        TabView(selection: $appController.selectedAppTab) {
+            NavigationView {
+                Home(
+                    viewModel: viewModel.homeViewModel,
+                    parentViewModel: viewModel,
+                    selectedAppTab: $appController.selectedAppTab
+                )
+                .navigationBarTitleDisplayMode(.inline)
+                .navigationTitle(NSLocalizedString("Home", comment: ""))
+                .navigationBarItems(trailing: HStack {
                     NavigationbarSearch(
-                        viewModel: viewModel.searchViewModel)
-                })
-                ToolbarItem(placement: .navigationBarTrailing, content: {
-                    NavigationbarSettings(
-                        viewModel: viewModel.settingsViewModel)
+                        viewModel: viewModel.searchViewModel
+                    )
                 })
             }
-            .navigationBarTitleDisplayMode(.inline)
-            .navigationTitle(NSLocalizedString(appController.selectedAppTab.displayName, comment: ""))
+            .tabItem {
+                TabItem(appTab: TabbarTabType.home)
+            }
+            .tag(TabbarTabType.home)
+            
+            NavigationView {
+                Bookmarks(
+                    viewModel: viewModel.bookmarksViewModel,
+                    parentViewModel: viewModel
+                )
+                .navigationBarTitleDisplayMode(.inline)
+                .navigationBarTitle(NSLocalizedString("Bookmarks", comment: ""))
+            }
+            .tabItem {
+                TabItem(appTab: TabbarTabType.bookmarks)
+            }
+            .tag(TabbarTabType.bookmarks)
+            
+            NavigationView {
+                Account(viewModel: viewModel.accountPageViewModel)
+                    .navigationBarTitleDisplayMode(.inline)
+                    .navigationTitle(NSLocalizedString("Account", comment: ""))
+                    .navigationBarItems(trailing: HStack {
+                        NavigationbarSettings(
+                            viewModel: viewModel.settingsViewModel
+                        )
+                    })
+            }
+            .tabItem {
+                TabItem(appTab: TabbarTabType.account)
+            }
+            .tag(TabbarTabType.account)
         }
         .tint(.primary)
         .toastView(toast: $appController.toast)
         .ignoresSafeArea(.keyboard)
         .navigationViewStyle(StackNavigationViewStyle())
         .zIndex(1)
-        .ignoresSafeArea(.keyboard)
     }
 }
+

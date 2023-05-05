@@ -20,7 +20,7 @@ struct AllNews: View {
             }
             if let news = news {
                 VStack(alignment: .leading) {
-                    if news.isEmpty {
+                    if news[4...].isEmpty {
                         Text(NSLocalizedString("No other news", comment: ""))
                             .font(.system(size: 16))
                             .foregroundColor(.onBackground)
