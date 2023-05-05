@@ -11,8 +11,6 @@ extension AccountViewModel {
     func scheduleBookingNotifications(for bookings: Response.KronoxUserBookings) {
         DispatchQueue.global(qos: .background).async { [weak self] in
             guard let self else { return }
-            // Remove all old notifications in case booking has been changed externally or internally
-            self.notificationManager.cancelNotifications(with: "Booking")
             for booking in bookings {
                 if let notification = self.notificationManager.createNotificationFromBooking(booking: booking) {
                     self.notificationManager.scheduleNotification(
@@ -22,7 +20,7 @@ extension AccountViewModel {
                         completion: { result in
                             switch result {
                             case .success(let success):
-                                AppLogger.shared.info("Scheduled \(success) notification")
+                                AppLogger.shared.info("Scheduled \(success) notification with id: \(notification.id)")
                             case .failure(let failure):
                                 AppLogger.shared.debug("Failed : \(failure)")
                             }
@@ -36,7 +34,6 @@ extension AccountViewModel {
     }
     
     func registerAutoSignup(
-        tries: Int = 0,
         completion: @escaping (Result<Void, Error>) -> Void
     ) {
         AppLogger.shared.debug("Automatically signing up for exams")
