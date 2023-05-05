@@ -56,7 +56,6 @@ struct AppParent: View {
             .navigationTitle(NSLocalizedString(appController.selectedAppTab.displayName, comment: ""))
         }
         .tint(.primary)
-        .offset(x: appController.showSideBar ? getRect().width - 120 : 0)
         .toastView(toast: $appController.toast)
         .ignoresSafeArea(.keyboard)
         .navigationViewStyle(StackNavigationViewStyle())

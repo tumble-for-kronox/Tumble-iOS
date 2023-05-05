@@ -15,6 +15,9 @@ struct TabBarButton: View {
         VStack(spacing: 0) {
             Image(systemName: isSelected() ? appTab.rawValue + ".fill" : appTab.rawValue)
                 .tabBarIcon(isSelected: isSelected())
+            Text(NSLocalizedString(appTab.displayName, comment: ""))
+                .font(.system(size: 11))
+                .foregroundColor(isSelected() ? .primary : .onSurface.opacity(0.5))
         }
         .frame(maxWidth: .infinity)
         .padding(.top, 10)
