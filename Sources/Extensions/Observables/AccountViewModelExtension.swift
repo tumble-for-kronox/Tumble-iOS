@@ -20,7 +20,7 @@ extension AccountViewModel {
                         completion: { result in
                             switch result {
                             case .success(let success):
-                                AppLogger.shared.info("Scheduled \(success) notification with id: \(notification.id)")
+                                AppLogger.shared.debug("Scheduled \(success) notification with id: \(notification.id)")
                             case .failure(let failure):
                                 AppLogger.shared.debug("Failed : \(failure)")
                             }
