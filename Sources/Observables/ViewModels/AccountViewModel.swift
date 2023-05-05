@@ -94,6 +94,7 @@ final class AccountViewModel: ObservableObject {
     func removeUserBooking(where id: String) {
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
+            self.notificationManager.cancelNotification(for: id)
             self.userBookings?.removeAll { $0.id == id }
         }
     }
