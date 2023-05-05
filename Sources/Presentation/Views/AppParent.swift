@@ -30,11 +30,6 @@ struct AppParent: View {
                 )
                 .navigationBarTitleDisplayMode(.inline)
                 .navigationTitle(NSLocalizedString("Home", comment: ""))
-                .navigationBarItems(trailing: HStack {
-                    NavigationbarSearch(
-                        viewModel: viewModel.searchViewModel
-                    )
-                })
             }
             .tabItem {
                 TabItem(appTab: TabbarTabType.home)
@@ -53,6 +48,16 @@ struct AppParent: View {
                 TabItem(appTab: TabbarTabType.bookmarks)
             }
             .tag(TabbarTabType.bookmarks)
+            
+            NavigationView {
+                Search(viewModel: viewModel.searchViewModel)
+                    .navigationBarTitleDisplayMode(.inline)
+                    .navigationTitle(NSLocalizedString("Search", comment: ""))
+            }
+            .tabItem {
+                TabItem(appTab: TabbarTabType.search)
+            }
+            .tag(TabbarTabType.search)
             
             NavigationView {
                 Account(viewModel: viewModel.accountPageViewModel)
