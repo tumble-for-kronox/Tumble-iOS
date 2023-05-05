@@ -22,24 +22,33 @@ struct AppParent: View {
     
     var body: some View {
         NavigationView {
-            VStack {
-                // Main home page view switcher
-                switch appController.selectedAppTab {
-                case .home:
+            ZStack {
+                Color.background.ignoresSafeArea(.all)
+                TabView(selection: $appController.selectedAppTab, content: {
                     Home(
                         viewModel: viewModel.homeViewModel,
                         parentViewModel: viewModel,
                         selectedAppTab: $appController.selectedAppTab
                     )
-                case .bookmarks:
+                    .tabItem {
+                        TabItem(appTab: TabbarTabType.home)
+                    }
+                    .tag(TabbarTabType.home)
                     Bookmarks(
                         viewModel: viewModel.bookmarksViewModel,
                         parentViewModel: viewModel
                     )
-                case .account:
+                    .tabItem {
+                        TabItem(appTab: TabbarTabType.bookmarks)
+                    }
+                    .tag(TabbarTabType.bookmarks)
                     Account(viewModel: viewModel.accountPageViewModel)
-                }
-                TabBar(selectedAppTab: $appController.selectedAppTab)
+                        .tabItem {
+                            TabItem(appTab: TabbarTabType.account)
+                        }
+                        .tag(TabbarTabType.account)
+                })
+                .tabViewStyle(.automatic)
             }
             .ignoresSafeArea(.keyboard)
             .toolbar {

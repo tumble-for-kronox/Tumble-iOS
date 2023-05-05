@@ -11,7 +11,7 @@ import Foundation
 enum TabbarTabType: String {
     case home = "house"
     case bookmarks = "bookmark"
-    case account = "graduationcap"
+    case account = "person"
     
     static let allValues = [home, bookmarks, account]
     
@@ -23,6 +23,17 @@ enum TabbarTabType: String {
             return NSLocalizedString("Bookmarks", comment: "")
         case .account:
             return NSLocalizedString("Account", comment: "")
+        }
+    }
+    
+    var index: Int {
+        switch self {
+        case .home:
+            return 0
+        case .bookmarks:
+            return 1
+        case .account:
+            return 2
         }
     }
 }

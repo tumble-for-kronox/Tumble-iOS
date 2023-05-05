@@ -27,6 +27,7 @@ struct ToTopButton: View {
         })
         .buttonStyle(ToTopButtonStyle())
         .padding()
+        .padding(.bottom, 10)
         .offset(x: buttonOffsetX)
     }
 }
