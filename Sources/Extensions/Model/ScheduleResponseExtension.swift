@@ -83,7 +83,7 @@ extension Response.Schedule {
         return realmSchedule
     }
 
-    func isScheduleEmpty() -> Bool {
+    func isEmpty() -> Bool {
         for day in days {
             for event in day.events {
                 if !event.title.isEmpty {
@@ -120,7 +120,4 @@ extension Response.Schedule {
         return Array(Set(days.flatMap { $0.events.map { $0.course.id } }))
     }
     
-    func isEmpty() -> Bool {
-        return days.allSatisfy { $0.events.isEmpty }
-    }
 }

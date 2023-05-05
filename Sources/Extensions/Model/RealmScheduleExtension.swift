@@ -28,9 +28,11 @@ extension [Schedule] {
         }
         return mergedDays
     }
+    
 }
 
 extension Schedule {
+    
     func courses() -> [String] {
         return Array(Set(days.flatMap { $0.events.compactMap { $0.course?.courseId } }))
     }
