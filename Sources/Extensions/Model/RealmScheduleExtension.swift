@@ -42,4 +42,15 @@ extension Schedule {
             if $1.isValidDay() { $0.append($1) }
         }
     }
+    
+    func isMissingEvents() -> Bool {
+        for day in days {
+            for event in day.events {
+                if !event.title.isEmpty {
+                    return false
+                }
+            }
+        }
+        return true
+    }
 }

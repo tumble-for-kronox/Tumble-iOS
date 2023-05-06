@@ -55,8 +55,9 @@ final class BookmarksViewModel: ObservableObject {
     }
     
     func createDaysAndCalendarEvents(schedules: [Schedule]) {
-        // If no schedules are saved
-        if schedules.isEmpty {
+        // If no schedules are saved or schedules that are saved
+        // miss events
+        if schedules.isEmpty || schedules.allSatisfy({ $0.isMissingEvents() }) {
             DispatchQueue.main.async { [weak self] in
                 guard let self else { return }
                 self.status = .uninitialized
