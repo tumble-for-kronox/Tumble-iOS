@@ -11,7 +11,7 @@ import SwiftUI
 struct AppParent: View {
     @ObservedObject var viewModel: ParentViewModel
     @ObservedObject var appController: AppController = .shared
-        
+    
     private let navigationBarAppearance = UINavigationBar.appearance()
     
     init(viewModel: ParentViewModel) {
@@ -21,46 +21,64 @@ struct AppParent: View {
     }
     
     var body: some View {
-        NavigationView {
-            VStack {
-                // Main home page view switcher
-                switch appController.selectedAppTab {
-                case .home:
-                    Home(
-                        viewModel: viewModel.homeViewModel,
-                        parentViewModel: viewModel,
-                        selectedAppTab: $appController.selectedAppTab
-                    )
-                case .bookmarks:
-                    Bookmarks(
-                        viewModel: viewModel.bookmarksViewModel,
-                        parentViewModel: viewModel
-                    )
-                case .account:
-                    Account(viewModel: viewModel.accountPageViewModel)
-                }
-                TabBar(selectedAppTab: $appController.selectedAppTab)
+        TabView(selection: $appController.selectedAppTab) {
+            NavigationView {
+                Home(
+                    viewModel: viewModel.homeViewModel,
+                    parentViewModel: viewModel,
+                    selectedAppTab: $appController.selectedAppTab
+                )
+                .navigationBarTitleDisplayMode(.inline)
+                .navigationTitle(NSLocalizedString("Home", comment: ""))
             }
-            .ignoresSafeArea(.keyboard)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing, content: {
-                    NavigationbarSearch(
-                        viewModel: viewModel.searchViewModel)
-                })
-                ToolbarItem(placement: .navigationBarTrailing, content: {
-                    NavigationbarSettings(
-                        viewModel: viewModel.settingsViewModel)
-                })
+            .tabItem {
+                TabItem(appTab: TabbarTabType.home)
             }
-            .navigationBarTitleDisplayMode(.inline)
-            .navigationTitle(NSLocalizedString(appController.selectedAppTab.displayName, comment: ""))
+            .tag(TabbarTabType.home)
+            
+            NavigationView {
+                Bookmarks(
+                    viewModel: viewModel.bookmarksViewModel,
+                    parentViewModel: viewModel
+                )
+                .navigationBarTitleDisplayMode(.inline)
+                .navigationBarTitle(NSLocalizedString("Bookmarks", comment: ""))
+            }
+            .tabItem {
+                TabItem(appTab: TabbarTabType.bookmarks)
+            }
+            .tag(TabbarTabType.bookmarks)
+            
+            NavigationView {
+                Search(viewModel: viewModel.searchViewModel)
+                    .navigationBarTitleDisplayMode(.inline)
+                    .navigationTitle(NSLocalizedString("Search", comment: ""))
+            }
+            .tabItem {
+                TabItem(appTab: TabbarTabType.search)
+            }
+            .tag(TabbarTabType.search)
+            
+            NavigationView {
+                Account(viewModel: viewModel.accountPageViewModel)
+                    .navigationBarTitleDisplayMode(.inline)
+                    .navigationTitle(NSLocalizedString("Account", comment: ""))
+                    .navigationBarItems(trailing: HStack {
+                        NavigationbarSettings(
+                            viewModel: viewModel.settingsViewModel
+                        )
+                    })
+            }
+            .tabItem {
+                TabItem(appTab: TabbarTabType.account)
+            }
+            .tag(TabbarTabType.account)
         }
         .tint(.primary)
-        .offset(x: appController.showSideBar ? getRect().width - 120 : 0)
         .toastView(toast: $appController.toast)
         .ignoresSafeArea(.keyboard)
         .navigationViewStyle(StackNavigationViewStyle())
         .zIndex(1)
-        .ignoresSafeArea(.keyboard)
     }
 }
+

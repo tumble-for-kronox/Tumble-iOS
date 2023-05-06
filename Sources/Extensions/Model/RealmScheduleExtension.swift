@@ -28,9 +28,11 @@ extension [Schedule] {
         }
         return mergedDays
     }
+    
 }
 
 extension Schedule {
+    
     func courses() -> [String] {
         return Array(Set(days.flatMap { $0.events.compactMap { $0.course?.courseId } }))
     }
@@ -39,5 +41,16 @@ extension Schedule {
         return days.reduce(into: []) {
             if $1.isValidDay() { $0.append($1) }
         }
+    }
+    
+    func isMissingEvents() -> Bool {
+        for day in days {
+            for event in day.events {
+                if !event.title.isEmpty {
+                    return false
+                }
+            }
+        }
+        return true
     }
 }

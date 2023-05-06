@@ -22,6 +22,25 @@ struct TimeslotSelection: View {
     @State var buttonStateMap: [String: BookingButtonState] = [:]
     @Binding var availabilityValues: [Response.AvailabilityValue]
     
+    init(
+        resourceId: String,
+        bookResource: @escaping (String, Date, Response.AvailabilityValue, @escaping (Result<Void, Error>) -> Void) -> Void,
+        selectedPickerDate: Date, makeToast: @escaping (Bool) -> Void, updateBookingNotifications: @escaping () -> Void,
+        availabilityValues: Binding<[Response.AvailabilityValue]>) {
+            self.resourceId = resourceId
+            self.bookResource = bookResource
+            self.selectedPickerDate = selectedPickerDate
+            self.makeToast = makeToast
+            self.updateBookingNotifications = updateBookingNotifications
+            self._availabilityValues = availabilityValues
+            
+            for availabilityValue in availabilityValues.wrappedValue {
+                if let locationId = availabilityValue.locationID {
+                    buttonStateMap[locationId] = .available
+                }
+            }
+    }
+    
     var body: some View {
         if availabilityValues.isEmpty {
             VStack {
@@ -40,13 +59,6 @@ struct TimeslotSelection: View {
                             get: { buttonStateMap[locationId] ?? .available },
                             set: { buttonStateMap[locationId] = $0 }
                         ))
-                    }
-                }
-            }
-            .onAppear {
-                for availabilityValue in availabilityValues {
-                    if let locationId = availabilityValue.locationID {
-                        buttonStateMap[locationId] = .available
                     }
                 }
             }

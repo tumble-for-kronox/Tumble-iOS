@@ -17,5 +17,4 @@ class AppController: ObservableObject {
     @Published var eventSheet: EventDetailsSheetModel?
     @Published var selectedAppTab: TabbarTabType = .home
     @Published var toast: Toast? = nil
-    @Published var showSideBar: Bool = false
 }

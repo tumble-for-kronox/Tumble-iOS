@@ -47,7 +47,7 @@ final class SearchPreviewViewModel: ObservableObject {
             guard let self else { return }
             switch result {
             case .success(let fetchedSchedule):
-                if fetchedSchedule.isScheduleEmpty() {
+                if fetchedSchedule.isEmpty() {
                     self.status = .empty
                     self.buttonState = .disabled
                 } else if (schedules.map { $0.scheduleId }).contains(fetchedSchedule.id) {

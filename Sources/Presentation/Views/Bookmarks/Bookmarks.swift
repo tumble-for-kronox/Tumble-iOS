@@ -23,24 +23,18 @@ struct Bookmarks: View {
                     CustomProgressIndicator()
                         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
                 case .loaded:
-                    if schedules.isEmpty {
-                        Info(title: NSLocalizedString("No bookmarks yet", comment: ""), image: "bookmark.slash")
-                    } else if schedules.filter({ $0.toggled }).isEmpty {
-                        Info(title: NSLocalizedString("All your bookmarks are hidden", comment: ""), image: "eyeglasses")
-                    } else {
-                        switch viewModel.defaultViewType {
-                        case .list:
-                            BookmarkListView(
-                                days: $viewModel.days,
-                                appController: appController
-                            )
-                        case .calendar:
-                            BookmarkCalendarView(
-                                appController: appController,
-                                calendarEventsByDate: $viewModel.calendarEventsByDate,
-                                days: $viewModel.days
-                            )
-                        }
+                    switch viewModel.defaultViewType {
+                    case .list:
+                        BookmarkListView(
+                            days: $viewModel.days,
+                            appController: appController
+                        )
+                    case .calendar:
+                        BookmarkCalendarView(
+                            appController: appController,
+                            calendarEventsByDate: $viewModel.calendarEventsByDate,
+                            days: $viewModel.days
+                        )
                     }
                 case .uninitialized:
                     Info(title: NSLocalizedString("No bookmarks yet", comment: ""), image: "bookmark.slash")

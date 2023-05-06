@@ -10,7 +10,7 @@ import SwiftUI
 
 extension Image {
     func tabBarIcon(isSelected: Bool) -> some View {
-        font(.system(size: 21, weight: .medium))
+        font(.system(size: 20, weight: .medium))
             .foregroundColor(isSelected ? .primary : .onSurface.opacity(0.5))
             .padding(.bottom, 5)
     }
@@ -20,8 +20,4 @@ extension Image {
             .foregroundColor(.primary)
     }
     
-    func featureIcon() -> some View {
-        font(.system(size: 20))
-            .foregroundColor(Color("PrimaryColor"))
-    }
 }

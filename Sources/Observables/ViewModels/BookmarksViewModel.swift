@@ -55,6 +55,22 @@ final class BookmarksViewModel: ObservableObject {
     }
     
     func createDaysAndCalendarEvents(schedules: [Schedule]) {
+        // If no schedules are saved or schedules that are saved
+        // miss events
+        if schedules.isEmpty || schedules.allSatisfy({ $0.isMissingEvents() }) {
+            DispatchQueue.main.async { [weak self] in
+                guard let self else { return }
+                self.status = .uninitialized
+            }
+            return
+        }
+        if allSchedulesHidden(schedules: schedules) {
+            DispatchQueue.main.async { [weak self] in
+                guard let self else { return }
+                self.status = .hiddenAll
+            }
+            return
+        }
         let hiddenSchedules = schedules.filter { !$0.toggled }.map { $0.scheduleId }
         let days = filterHiddenBookmarks(
             schedules: Array(schedules),
@@ -68,6 +84,10 @@ final class BookmarksViewModel: ObservableObject {
             self.calendarEventsByDate = makeCalendarEvents(days: days)
             self.status = .loaded
         }
+    }
+    
+    private func allSchedulesHidden(schedules: [Schedule]) -> Bool {
+        return schedules.filter({ $0.toggled }).isEmpty
     }
     
     private func makeCalendarEvents(days: [Day]) -> [Date: [Event]] {
