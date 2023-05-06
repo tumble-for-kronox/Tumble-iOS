@@ -1,4 +1,4 @@
-/* 
+/*
   Localizable.strings
   Tumble
 
@@ -186,7 +186,7 @@
 
 "Unknown"="Sconosciuto";
 
-"Pull to refresh"="Tirare per aggiornare";
+"Pull to refresh"="Trascina per aggiornare";
 
 "Search"="Ricerca";
 
@@ -202,7 +202,7 @@
 
 "Search schedules"="Cerca programmi";
 
-"Remove"="Rimuovere";
+"Remove"="Rimuovi";
 
 "Save"="Salvare";
 

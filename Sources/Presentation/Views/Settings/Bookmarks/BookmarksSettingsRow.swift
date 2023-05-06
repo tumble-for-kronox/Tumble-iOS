@@ -27,7 +27,7 @@ struct BookmarkSettingsRow: View {
             .background(Color.surface)
             .cornerRadius(10)
         } trailingActions: { _ in
-            SwipeAction("Delete") {
+            SwipeAction("\(NSLocalizedString("Remove", comment: ""))") {
                 onDelete(IndexSet(arrayLiteral: index), schedule.scheduleId)
             }
             .foregroundColor(.onPrimary)
