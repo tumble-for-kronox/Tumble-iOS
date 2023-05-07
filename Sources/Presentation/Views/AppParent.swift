@@ -32,7 +32,7 @@ struct AppParent: View {
                 .navigationTitle(NSLocalizedString("Home", comment: ""))
             }
             .tabItem {
-                TabItem(appTab: TabbarTabType.home)
+                TabItem(appTab: TabbarTabType.home, selectedAppTab: $appController.selectedAppTab)
             }
             .tag(TabbarTabType.home)
             
@@ -45,7 +45,7 @@ struct AppParent: View {
                 .navigationBarTitle(NSLocalizedString("Bookmarks", comment: ""))
             }
             .tabItem {
-                TabItem(appTab: TabbarTabType.bookmarks)
+                TabItem(appTab: TabbarTabType.bookmarks, selectedAppTab: $appController.selectedAppTab)
             }
             .tag(TabbarTabType.bookmarks)
             
@@ -55,7 +55,7 @@ struct AppParent: View {
                     .navigationTitle(NSLocalizedString("Search", comment: ""))
             }
             .tabItem {
-                TabItem(appTab: TabbarTabType.search)
+                TabItem(appTab: TabbarTabType.search, selectedAppTab: $appController.selectedAppTab)
             }
             .tag(TabbarTabType.search)
             
@@ -70,7 +70,7 @@ struct AppParent: View {
                     })
             }
             .tabItem {
-                TabItem(appTab: TabbarTabType.account)
+                TabItem(appTab: TabbarTabType.account, selectedAppTab: $appController.selectedAppTab)
             }
             .tag(TabbarTabType.account)
         }

@@ -53,7 +53,7 @@ struct Settings: View {
                 }
                 CustomListGroup {
                     ListRowActionItem(
-                        title: NSLocalizedString("App review", comment: ""),
+                        title: NSLocalizedString("Review the app", comment: ""),
                         image: "square.and.arrow.up",
                         imageColor: .primary,
                         action: {
