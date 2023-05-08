@@ -51,7 +51,7 @@ struct BookmarkCalendarView: View {
                             )
                         }
                     }
-                    .padding(.top, 20)
+                    .padding(.vertical, 20)
                 }
             }
         }
