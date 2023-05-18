@@ -6,6 +6,8 @@
   
 */
 
+"%@ at %@"="%@ kl. %@";
+
 "Continue"="Fortsätt";
 
 "Search events" = "Sök händelser";

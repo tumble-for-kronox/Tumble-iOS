@@ -9,26 +9,27 @@ import SwiftUI
 
 struct ResourceCard: View {
     let date: String
-    let hoursMinutes: String
-    let timeSpan: String
+    let eventStart: String
+    let eventEnd: String
     let type: String?
     let location: String?
     let title: String?
     let onClick: () -> Void
     
-    init(timeSpan: String,
-         type: String? = nil,
-         title: String? = nil,
-         location: String? = nil,
-         date: String,
-         hoursMinutes: String,
-         onClick: @escaping () -> Void)
+    init(
+        eventStart: String,
+        eventEnd: String,
+        type: String? = nil,
+        title: String? = nil,
+        location: String? = nil,
+        date: String,
+        onClick: @escaping () -> Void)
     {
-        self.timeSpan = timeSpan
+        self.eventStart = eventStart
+        self.eventEnd = eventEnd
         self.type = type
         self.title = title
         self.date = date
-        self.hoursMinutes = hoursMinutes
         self.location = location
         self.onClick = onClick
     }
@@ -69,7 +70,7 @@ struct ResourceCard: View {
                         Image(systemName: "calendar.badge.clock")
                             .font(.system(size: 15))
                             .foregroundColor(.onSurface.opacity(0.7))
-                        Text("\(NSLocalizedString("Date:", comment: "")) \(date) \(NSLocalizedString("Time:", comment: "")) \(hoursMinutes)")
+                        Text(String(format: NSLocalizedString("%@, from %@ - %@", comment: ""), date, eventStart, eventEnd))
                             .font(.system(size: 15))
                             .foregroundColor(.onSurface.opacity(0.7))
                     }

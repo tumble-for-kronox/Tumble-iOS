@@ -24,11 +24,11 @@ struct RegisteredBookings: View {
                     if !bookings.isEmpty {
                         ForEach(bookings) { resource in
                             ResourceCard(
-                                timeSpan: "\(resource.timeSlot.from?.convertToHoursAndMinutes() ?? "")",
+                                eventStart: resource.timeSlot.from?.convertToHoursAndMinutes() ?? NSLocalizedString("(no time)", comment: ""),
+                                eventEnd: resource.timeSlot.to?.convertToHoursAndMinutes() ?? NSLocalizedString("(no time)", comment: ""),
                                 title: NSLocalizedString("Booked resource", comment: ""),
                                 location: resource.locationID,
                                 date: resource.timeSlot.from?.toDate() ?? NSLocalizedString("(no date)", comment: ""),
-                                hoursMinutes: "\(resource.timeSlot.from?.convertToHoursAndMinutes() ?? NSLocalizedString("(no time)", comment: "")) - \(resource.timeSlot.to?.convertToHoursAndMinutes() ?? NSLocalizedString("(no time)", comment: ""))",
                                 onClick: {
                                     onClickResource(resource)
                                 }

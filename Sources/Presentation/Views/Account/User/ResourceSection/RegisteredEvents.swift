@@ -27,11 +27,11 @@ struct RegisteredEvents: View {
                                let eventEnd = event.eventEnd.convertToHoursAndMinutes()
                             {
                                 ResourceCard(
-                                    timeSpan: "\(event.eventStart.convertToHoursAndMinutes() ?? "")",
+                                    eventStart: eventStart,
+                                    eventEnd: eventEnd,
                                     type: event.type,
                                     title: event.title,
                                     date: event.eventStart.toDate() ?? NSLocalizedString("(no date)", comment: ""),
-                                    hoursMinutes: "\(eventStart) - \(eventEnd)",
                                     onClick: {
                                         onClickEvent(event)
                                     }
