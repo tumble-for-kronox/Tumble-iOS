@@ -42,8 +42,12 @@ struct Search: View {
             .padding(.bottom, 15)
         }
         .background(Color.background)
-        .onChange(of: viewModel.selectedSchool) { _ in
-            viewModel.schoolNotSelected.toggle()
+        .onChange(of: viewModel.selectedSchool) { school in
+            if school == nil {
+                viewModel.schoolNotSelected = true
+            } else {
+                viewModel.schoolNotSelected = false
+            }
         }
         .sheet(item: $viewModel.searchPreviewModel) { model in
             SearchPreview(

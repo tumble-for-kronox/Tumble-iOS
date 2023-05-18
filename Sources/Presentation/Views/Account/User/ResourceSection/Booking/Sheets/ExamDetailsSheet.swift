@@ -25,7 +25,7 @@ struct ExamDetailsSheet: View {
                         .foregroundColor(.onSurface)
                 })
                 DetailsBuilder(title: NSLocalizedString("Type", comment: ""), image: "info.circle", content: {
-                    Text(event.type ?? NSLocalizedString("No type", comment: ""))
+                    Text(event.type?.trimmingCharacters(in: .newlines) ?? NSLocalizedString("No type", comment: ""))
                         .font(.system(size: 16))
                         .foregroundColor(.onSurface)
                 })

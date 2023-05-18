@@ -32,10 +32,11 @@ struct EventCardButton: View {
                         Image(systemName: "calendar.badge.clock")
                             .font(.system(size: 15))
                             .foregroundColor(.onSurface.opacity(0.7))
-                        if let eventStart = event.eventStart.toDate(),
-                           let eventHoursMinutes = event.eventStart.convertToHoursAndMinutes()
+                        if let eventDate = event.eventStart.toDate(),
+                           let eventEnd = event.eventEnd.convertToHoursAndMinutes(),
+                           let eventStart = event.eventStart.convertToHoursAndMinutes()
                         {
-                            Text("\(eventStart) at \(eventHoursMinutes)")
+                            Text(String(format: NSLocalizedString("%@, from %@ - %@", comment: ""), eventDate, eventStart, eventEnd))
                                 .font(.system(size: 15))
                                 .foregroundColor(.onSurface.opacity(0.7))
                         } else {

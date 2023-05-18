@@ -6,6 +6,8 @@
   
 */
 
+"%@ at %@"="%@ à %@";
+
 "Continue"="Continuer";
 
 "Search events" = "Rechercher des événements";

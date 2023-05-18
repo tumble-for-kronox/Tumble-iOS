@@ -6,6 +6,8 @@
   
 */
 
+"%@ at %@"="%@ u %@ sati";
+
 "Continue"="Nastavi";
 
 "Search events"="Traži događaje";
