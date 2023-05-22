@@ -8,6 +8,8 @@
 
 "%@ at %@"="%@ u %@ sati";
 
+"Your visible schedules do not contain any events"="Vaši vidljivi rasporedi ne sadrže događaje";
+
 "Continue"="Nastavi";
 
 "Search events"="Traži događaje";

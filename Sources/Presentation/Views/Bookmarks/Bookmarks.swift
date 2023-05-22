@@ -42,6 +42,8 @@ struct Bookmarks: View {
                     Info(title: NSLocalizedString("All your bookmarks are hidden", comment: ""), image: "bookmark.slash")
                 case .error:
                     Info(title: NSLocalizedString("Something went wrong", comment: ""), image: nil)
+                case .empty:
+                    Info(title: NSLocalizedString("Your visible schedules do not contain any events", comment: ""), image: "calendar.badge.exclamationmark")
                 }
             }
         }
