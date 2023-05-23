@@ -26,13 +26,14 @@ final class RootViewModel: ObservableObject {
     init() { setUpDataPublishers() }
     
     func setUpDataPublishers() {
+        print("HERE")
         userOnBoardingSubscription = preferenceService.$userOnBoarded
-            .receive(on: DispatchQueue.main)
+            .receive(on: RunLoop.main)
             .sink { [weak self] userOnBoarded in
                 guard let self = self else { return }
                 if userOnBoarded {
                     self.parentViewModel = self.viewModelFactory.makeViewModelParent()
-                    if currentlyOnboarding {
+                    if self.currentlyOnboarding {
                         withAnimation(.spring()) {
                             self.currentView = .app
                         }

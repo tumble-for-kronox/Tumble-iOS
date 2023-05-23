@@ -95,7 +95,7 @@ final class BookmarksViewModel: ObservableObject {
             guard let self else { return }
             AppLogger.shared.debug("Updating days ..", file: "BookmarksViewModel")
             self.days = days
-            self.calendarEventsByDate = makeCalendarEvents(days: days)
+            self.calendarEventsByDate = self.makeCalendarEvents(days: days)
             self.status = .loaded
         }
     }
