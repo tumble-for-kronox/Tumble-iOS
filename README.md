@@ -1,4 +1,4 @@
-![Tumble](Assets/Header.png)
+![Header](Assets/Header.png)
 
 An app to find any KronoX schedule.
 
@@ -10,7 +10,7 @@ An app to find any KronoX schedule.
 - Customize colors for each course.
 - Automatic exam signup.
 
-![App preview](Assets/summary.png)
+![Showroom](Assets/Showroom.png)
 
 ## What's Included
 
