@@ -8,6 +8,8 @@
 
 "%@ at %@"="%@ at %@";
 
+"Your visible schedules do not contain any events"="Your visible schedules do not contain any events";
+
 "Continue"="Continue";
 
 "Search events" = "Search events";

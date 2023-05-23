@@ -8,6 +8,8 @@
 
 "%@ at %@"="%@ kl. %@";
 
+"Your visible schedules do not contain any events"="Dina synliga scheman innehåller inga händelser";
+
 "Continue"="Fortsätt";
 
 "Search events" = "Sök händelser";

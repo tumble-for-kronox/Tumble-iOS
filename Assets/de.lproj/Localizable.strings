@@ -8,6 +8,8 @@
 
 "%@ at %@"="%@ um %@";
 
+"Your visible schedules do not contain any events"="Ihre sichtbaren Zeitpläne enthalten keine Ereignisse";
+
 "Continue"="Fortsetzen";
 
 "Search events" = "Ereignisse suchen";

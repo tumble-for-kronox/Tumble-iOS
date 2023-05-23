@@ -8,9 +8,9 @@
 import Combine
 import Foundation
 
-// ViewModel for the account page of the app.
-// It handles the signing in of users, registering and unregistering
-// for KronoX events, and booking and unbooking of resources.
+/// ViewModel for the account page of the app.
+/// It handles the signing in of users, registering and unregistering
+/// for KronoX events, and booking and unbooking of resources.
 final class AccountViewModel: ObservableObject {
     let viewModelFactory: ViewModelFactory = .shared
     let dummyDataFactory: DummyDataFactory = .init()
@@ -48,8 +48,8 @@ final class AccountViewModel: ObservableObject {
         return userController.autoSignup
     }
     
-    // AccountViewModel is responsible for instantiating
-    // the viewmodel used in its child views it navigates to
+    /// AccountViewModel is responsible for instantiating
+    /// the viewmodel used in its child views it navigates to
     lazy var resourceViewModel: ResourceViewModel = viewModelFactory.makeViewModelResource()
     private var cancellables = Set<AnyCancellable>()
     
@@ -155,7 +155,11 @@ final class AccountViewModel: ObservableObject {
                     authSchoolId: authSchoolId,
                     username: username,
                     password: password
-                )
+                ) { success in
+                    if !success {
+                        createToast(success)
+                    }
+                }
             }
         }
     }

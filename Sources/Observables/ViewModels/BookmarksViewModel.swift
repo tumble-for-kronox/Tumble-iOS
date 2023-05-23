@@ -55,15 +55,20 @@ final class BookmarksViewModel: ObservableObject {
     }
     
     func createDaysAndCalendarEvents(schedules: [Schedule]) {
-        // If no schedules are saved or schedules that are saved
-        // miss events
-        if schedules.isEmpty || schedules.allSatisfy({ $0.isMissingEvents() }) {
+        
+        let hiddenScheduleIds = schedules.filter { !$0.toggled }.map { $0.scheduleId }
+        
+        let visibleSchedules = schedules.filter { $0.toggled }.map { $0 }
+        
+        /// If user has not saved any schedules
+        if schedules.isEmpty {
             DispatchQueue.main.async { [weak self] in
                 guard let self else { return }
                 self.status = .uninitialized
             }
             return
         }
+        
         if allSchedulesHidden(schedules: schedules) {
             DispatchQueue.main.async { [weak self] in
                 guard let self else { return }
@@ -71,17 +76,26 @@ final class BookmarksViewModel: ObservableObject {
             }
             return
         }
-        let hiddenSchedules = schedules.filter { !$0.toggled }.map { $0.scheduleId }
+        
+        /// If the visible schedules do not contain anything
+        if visibleSchedules.allSatisfy({ $0.isMissingEvents() }) {
+            DispatchQueue.main.async { [weak self] in
+                guard let self else { return }
+                self.status = .empty
+            }
+            return
+        }
+        
         let days = filterHiddenBookmarks(
             schedules: Array(schedules),
-            hiddenBookmarks: hiddenSchedules
+            hiddenBookmarks: hiddenScheduleIds
         )
         .flattenAndMerge().ordered()
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
             AppLogger.shared.debug("Updating days ..", file: "BookmarksViewModel")
             self.days = days
-            self.calendarEventsByDate = makeCalendarEvents(days: days)
+            self.calendarEventsByDate = self.makeCalendarEvents(days: days)
             self.status = .loaded
         }
     }
