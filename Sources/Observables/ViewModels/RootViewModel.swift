@@ -26,7 +26,6 @@ final class RootViewModel: ObservableObject {
     init() { setUpDataPublishers() }
     
     func setUpDataPublishers() {
-        print("HERE")
         userOnBoardingSubscription = preferenceService.$userOnBoarded
             .receive(on: RunLoop.main)
             .sink { [weak self] userOnBoarded in
