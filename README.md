@@ -64,3 +64,5 @@ SOFTWARE.
 
 > **Note**  
 > If you like Tumble, download it from the [App Store](https://apps.apple.com/se/app/tumble-for-kronox/id1617642864)!
+
+![Repobeats](https://repobeats.axiom.co/api/embed/862812c4c65cdb26b034a07e3ea0dd1fd619563c.svg "Repobeats analytics image")
