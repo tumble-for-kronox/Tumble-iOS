@@ -7,38 +7,56 @@
 
 import SwiftUI
 
-struct SchoolPill: View {
-    @Binding var selectedSchool: School?
+struct SchoolPill: View, Pill {
+    
+    var id: UUID = UUID()
+
     let school: School
+    
+    var title: String
+    
+    var icon: Image
+    
+    @Binding var selectedSchool: School?
+    
+    
+    init(school: School, selectedSchool: Binding<School?>) {
+        self._selectedSchool = selectedSchool
+        self.title = school.domain.uppercased()
+        self.icon = school.logo
+        self.school = school
+    }
+    
     var body: some View {
         Button(action: {
-            withAnimation(.easeInOut) {
-                selectedSchool = school
+            withAnimation(.spring()) {
+                if isSelected() {
+                    selectedSchool = nil
+                } else {
+                    selectedSchool = school
+                }
             }
         }, label: {
             HStack {
-                school.logo
+                icon
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .frame(width: 14, height: 14)
+                    .frame(width: fontSize, height: fontSize)
                     .cornerRadius(40)
-                Text(school.name)
-                    .font(.system(size: 13, weight: .semibold))
-                    .foregroundColor(.onSurface)
-                if selectedSchool == school {
-                    Image(systemName: "xmark")
-                        .font(.system(size: 13, weight: .semibold))
-                        .foregroundColor(.onSurface)
-                        .padding(.leading, 5)
-                        .onTapGesture {
-                            withAnimation(.easeInOut) {
-                                selectedSchool = nil
-                            }
-                        }
-                }
+                Text(title)
+                    .font(.system(size: fontSize, weight: .semibold))
+                    .foregroundColor(isSelected() ? .onPrimary : .onSurface)
             }
         })
-        .buttonStyle(PillStyle())
+        .buttonStyle(PillStyle(color: isSelected() ? .primary : .surface))
         .padding(5)
+    }
+    
+    var fontSize: CGFloat {
+        isSelected() ? 16 : 14
+    }
+    
+    func isSelected() -> Bool {
+        return selectedSchool == school
     }
 }

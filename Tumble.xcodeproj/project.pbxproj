@@ -56,7 +56,6 @@
 		D41ED5522984351F009DCF8B /* Method.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41ED5512984351F009DCF8B /* Method.swift */; };
 		D41F152B299C699500E13264 /* Events.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41F152A299C699500E13264 /* Events.swift */; };
 		D421EAF02993FB660045D438 /* EventDetailsSheetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D421EAEF2993FB660045D438 /* EventDetailsSheetModel.swift */; };
-		D423F6AC29F0040B00C04123 /* WrappingHStack in Frameworks */ = {isa = PBXBuildFile; productRef = D423F6AB29F0040B00C04123 /* WrappingHStack */; };
 		D423F6AE29F0085D00C04123 /* SchoolPill.swift in Sources */ = {isa = PBXBuildFile; fileRef = D423F6AD29F0085D00C04123 /* SchoolPill.swift */; };
 		D426E3A4299C39DE00A8D7AE /* ResourceBookings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D426E3A3299C39DE00A8D7AE /* ResourceBookings.swift */; };
 		D426E3A6299C39EA00A8D7AE /* EventBookings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D426E3A5299C39EA00A8D7AE /* EventBookings.swift */; };
@@ -131,6 +130,8 @@
 		D460764C292AEAEC00DE9590 /* BookmarkListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460764B292AEAEC00DE9590 /* BookmarkListView.swift */; };
 		D460764E292AF21900DE9590 /* SearchPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460764D292AF21900DE9590 /* SearchPreview.swift */; };
 		D4607653292AF5DA00DE9590 /* DayHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4607652292AF5DA00DE9590 /* DayHeader.swift */; };
+		D46400062A1EAD1000456FE7 /* FlowStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46400052A1EAD1000456FE7 /* FlowStack.swift */; };
+		D46400082A1EAD5F00456FE7 /* Pill.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46400072A1EAD5F00456FE7 /* Pill.swift */; };
 		D4644A23298DA93A00B0BB28 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4644A22298DA93A00B0BB28 /* NotificationManager.swift */; };
 		D4644A26298DAA4F00B0BB28 /* NotificationManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4644A25298DAA4F00B0BB28 /* NotificationManagerProtocol.swift */; };
 		D4644A29298DD79D00B0BB28 /* EventNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4644A28298DD79D00B0BB28 /* EventNotification.swift */; };
@@ -363,6 +364,8 @@
 		D460764B292AEAEC00DE9590 /* BookmarkListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkListView.swift; sourceTree = "<group>"; };
 		D460764D292AF21900DE9590 /* SearchPreview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchPreview.swift; sourceTree = "<group>"; };
 		D4607652292AF5DA00DE9590 /* DayHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayHeader.swift; sourceTree = "<group>"; };
+		D46400052A1EAD1000456FE7 /* FlowStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowStack.swift; sourceTree = "<group>"; };
+		D46400072A1EAD5F00456FE7 /* Pill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pill.swift; sourceTree = "<group>"; };
 		D4644A22298DA93A00B0BB28 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		D4644A25298DAA4F00B0BB28 /* NotificationManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManagerProtocol.swift; sourceTree = "<group>"; };
 		D4644A28298DD79D00B0BB28 /* EventNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventNotification.swift; sourceTree = "<group>"; };
@@ -483,7 +486,6 @@
 			files = (
 				D4FFCC1D29EDA9A700708CC0 /* Realm in Frameworks */,
 				D473870129C88E4F0035CD4C /* FirebaseMessaging in Frameworks */,
-				D423F6AC29F0040B00C04123 /* WrappingHStack in Frameworks */,
 				D4FFCC1F29EDA9A700708CC0 /* RealmSwift in Frameworks */,
 				D47386FF29C88E4F0035CD4C /* FirebaseAnalytics in Frameworks */,
 				D4D04DFD29FB29BC008858F0 /* SwipeActions in Frameworks */,
@@ -568,6 +570,7 @@
 		D40D809629251EA5008CA68D /* General */ = {
 			isa = PBXGroup;
 			children = (
+				D46400042A1EAD0200456FE7 /* GenericViews */,
 				D45338FA2929730200198411 /* CustomProgressIndicator.swift */,
 				D4CF9B2B293572BE00DDB5F0 /* Info.swift */,
 				D46BB117298B21DA00887A24 /* InfoLoading.swift */,
@@ -771,6 +774,7 @@
 				D421EAEF2993FB660045D438 /* EventDetailsSheetModel.swift */,
 				D4A550D029946B8200028BCF /* Bookmark.swift */,
 				D43294E129E0ABC800842884 /* WeekEventCardModel.swift */,
+				D46400072A1EAD5F00456FE7 /* Pill.swift */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -963,6 +967,14 @@
 				D4EEFB4829DA06A40007A209 /* ToTopButton.swift */,
 			);
 			path = List;
+			sourceTree = "<group>";
+		};
+		D46400042A1EAD0200456FE7 /* GenericViews */ = {
+			isa = PBXGroup;
+			children = (
+				D46400052A1EAD1000456FE7 /* FlowStack.swift */,
+			);
+			path = GenericViews;
 			sourceTree = "<group>";
 		};
 		D4644A21298DA92500B0BB28 /* Notifications */ = {
@@ -1495,7 +1507,6 @@
 				D473870029C88E4F0035CD4C /* FirebaseMessaging */,
 				D4FFCC1C29EDA9A700708CC0 /* Realm */,
 				D4FFCC1E29EDA9A700708CC0 /* RealmSwift */,
-				D423F6AB29F0040B00C04123 /* WrappingHStack */,
 				D4D04DFC29FB29BC008858F0 /* SwipeActions */,
 			);
 			productName = "tumble-ios";
@@ -1536,7 +1547,6 @@
 				D430F74129C615DC00E30E48 /* XCRemoteSwiftPackageReference "FSCalendar" */,
 				D47386FD29C88E4F0035CD4C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				D4FFCC1B29EDA9A700708CC0 /* XCRemoteSwiftPackageReference "realm-swift" */,
-				D423F6AA29F0040B00C04123 /* XCRemoteSwiftPackageReference "WrappingHStack" */,
 				D4D04DFB29FB29BC008858F0 /* XCRemoteSwiftPackageReference "SwipeActions" */,
 			);
 			productRefGroup = D4722146292454560063BDB7 /* Products */;
@@ -1604,6 +1614,7 @@
 				D45268D12A052F97004F1642 /* TabItem.swift in Sources */,
 				D421EAF02993FB660045D438 /* EventDetailsSheetModel.swift in Sources */,
 				D46ABF1229843D3000B059F6 /* StoreKey.swift in Sources */,
+				D46400062A1EAD1000456FE7 /* FlowStack.swift in Sources */,
 				D458605029DC9DA000B77513 /* TodaysEvents.swift in Sources */,
 				D443962A29CB40C70069D66A /* ToTopButtonStyle.swift in Sources */,
 				D40D80B429252A5A008CA68D /* PreferenceService.swift in Sources */,
@@ -1652,6 +1663,7 @@
 				D47A451929D75316008626E6 /* LogInOutButton.swift in Sources */,
 				D4294B3429C91CF700007747 /* ArrayExtension.swift in Sources */,
 				D4E491F429EDC10E00E674CA /* RealmScheduleExtension.swift in Sources */,
+				D46400082A1EAD5F00456FE7 /* Pill.swift in Sources */,
 				D46BB10A298AC31E00887A24 /* DetailsBuilder.swift in Sources */,
 				D4A433BC29952BE600BFEB7A /* DictionaryExtension.swift in Sources */,
 				D4E39E402989DDDC004C30DF /* EventDetailsBody.swift in Sources */,
@@ -2136,14 +2148,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		D423F6AA29F0040B00C04123 /* XCRemoteSwiftPackageReference "WrappingHStack" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/dkk/WrappingHStack.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.0.0;
-			};
-		};
 		D42BAC1A298D3D590025EAA9 /* XCRemoteSwiftPackageReference "swift-log" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apple/swift-log";
@@ -2187,11 +2191,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		D423F6AB29F0040B00C04123 /* WrappingHStack */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D423F6AA29F0040B00C04123 /* XCRemoteSwiftPackageReference "WrappingHStack" */;
-			productName = WrappingHStack;
-		};
 		D42BAC1B298D3D590025EAA9 /* Logging */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D42BAC1A298D3D590025EAA9 /* XCRemoteSwiftPackageReference "swift-log" */;
