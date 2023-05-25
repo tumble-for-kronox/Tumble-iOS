@@ -7,6 +7,9 @@
 
 import SwiftUI
 
+/// Search field displayed on the Search
+/// page of the app. Handles user input
+/// when searching for specific schools.®
 struct SearchField: View {
     let search: (() -> Void)?
     let clearSearch: (() -> Void)?
@@ -36,16 +39,7 @@ struct SearchField: View {
                 }
                 .searchBox()
             if searching {
-                Button(action: {
-                    withAnimation(.spring()) {
-                        self.searching = false
-                    }
-                    if let clearSearch = clearSearch {
-                        clearSearch()
-                    }
-                    self.searchBarText = ""
-                    hideKeyboard()
-                }) {
+                Button(action: searchFieldAction) {
                     Text(NSLocalizedString("Cancel", comment: ""))
                         .font(.system(size: 16, weight: .semibold))
                 }
@@ -54,4 +48,16 @@ struct SearchField: View {
             }
         }
     }
+    
+    func searchFieldAction() {
+        withAnimation(.easeInOut) {
+            self.searching = false
+        }
+        if let clearSearch = clearSearch {
+            clearSearch()
+        }
+        self.searchBarText = ""
+        hideKeyboard()
+    }
+    
 }

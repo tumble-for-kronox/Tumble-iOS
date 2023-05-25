@@ -9,6 +9,9 @@ import Combine
 import Foundation
 import SwiftUI
 
+/// Handles state and interaction with KronoxManager
+/// for finding schedules for specific schools
+/// and displaying search results
 final class SearchViewModel: ObservableObject {
     let viewModelFactory: ViewModelFactory = .shared
     
@@ -27,7 +30,6 @@ final class SearchViewModel: ObservableObject {
     @Published var searching: Bool = false
     @Published var searchBarText: String = ""
     
-    private var cancellables = Set<AnyCancellable>()
     lazy var schools: [School] = schoolManager.getSchools()
     
     func createSearchPreviewViewModel() -> SearchPreviewViewModel {
@@ -66,12 +68,16 @@ final class SearchViewModel: ObservableObject {
     @MainActor
     func resetSearchResults() {
         programmeSearchResults = []
-        status = .initial
+        withAnimation(.spring()) {
+            status = .initial
+        }
     }
     
     @MainActor
     func parseSearchResults(_ results: Response.Search) {
         programmeSearchResults = results.items.map { $0 }
-        status = .loaded
+        withAnimation(.spring()) {
+            status = .loaded
+        }
     }
 }

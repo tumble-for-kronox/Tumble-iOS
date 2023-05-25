@@ -6,13 +6,11 @@
 //
 
 import SwiftUI
-import WrappingHStack
 
 struct SearchInfo: View {
-    let schools: [School]
-    let gridSpacing: CGFloat = 10.0
-    @Binding var selectedSchool: School?
     
+    let schools: [School]
+    @Binding var selectedSchool: School?
     
     var body: some View {
         VStack(alignment: .leading) {
