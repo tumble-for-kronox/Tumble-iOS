@@ -78,7 +78,9 @@ struct AppParent: View {
         .toastView(toast: $appController.toast)
         .ignoresSafeArea(.keyboard)
         .navigationViewStyle(StackNavigationViewStyle())
-        .zIndex(1)
+        .fullScreenCover(isPresented: $viewModel.userNotOnBoarded, content: {
+            OnBoarding(finishOnBoarding: viewModel.finishOnboarding)
+        })
     }
 }
 

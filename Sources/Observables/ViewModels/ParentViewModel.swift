@@ -10,7 +10,7 @@ import Foundation
 import RealmSwift
 import SwiftUI
 
-// Parent/Container for other viewmodels
+/// Also acts as delegator for other viewmodels
 final class ParentViewModel: ObservableObject {
     var viewModelFactory: ViewModelFactory = .shared
     
@@ -27,6 +27,7 @@ final class ParentViewModel: ObservableObject {
     let accountPageViewModel: AccountViewModel
     
     @Published var authSchoolId: Int = -1
+    @Published var userNotOnBoarded: Bool = false
         
     private var updatedDuringSession: Bool = false
     private var schedulesToken: NotificationToken? = nil
@@ -36,9 +37,24 @@ final class ParentViewModel: ObservableObject {
         // Do not lazy load account page
         accountPageViewModel = viewModelFactory.makeViewModelAccount()
         
-        preferenceService.$authSchoolId
-            .assign(to: \.authSchoolId, on: self)
+        setupPublishers()
+        
+        setupRealmListener()
+    }
+    
+    private func setupPublishers() {
+        let authSchoolIdPublisher = preferenceService.$authSchoolId.receive(on: RunLoop.main)
+        let onBoardingPublisher = preferenceService.$userOnBoarded.receive(on: RunLoop.main)
+        
+        Publishers.CombineLatest(authSchoolIdPublisher, onBoardingPublisher)
+            .sink { [weak self] authSchoolId, userOnBoarded in
+                self?.userNotOnBoarded = !userOnBoarded
+                self?.authSchoolId = authSchoolId
+            }
             .store(in: &cancellables)
+    }
+    
+    private func setupRealmListener() {
         let schedules = realmManager.getAllLiveSchedules()
         schedulesToken = schedules.observe { [weak self] changes in
             guard let self else { return }
@@ -53,11 +69,17 @@ final class ParentViewModel: ObservableObject {
         }
     }
     
+    func finishOnboarding() {
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            self?.preferenceService.setUserOnboarded()
+        }
+    }
+    
     func updateBookmarks(schedules: [Schedule]) {
-        defer { self.updatedDuringSession = true } // Always claim update during startup, even if failed
+        defer { self.updatedDuringSession = true } /// Always claim update during startup, even if failed
         var updatedSchedules = 0
         let scheduleCount: Int = schedules.count
-        let group = DispatchGroup() // Create a DispatchGroup
+        let group = DispatchGroup() /// Create a DispatchGroup
         
         for schedule in schedules {
             if validUpdateRequest(schedule: schedule) {
@@ -65,18 +87,17 @@ final class ParentViewModel: ObservableObject {
                 let schoolId = schedule.schoolId
                 let endpoint: Endpoint = .schedule(scheduleId: scheduleId, schoolId: schoolId)
                 
-                group.enter() // Enter the DispatchGroup before each asynchronous call
+                group.enter()
                 
-                // Fetch schedule from backend
+                /// Fetch schedule from backend
                 let _ = kronoxManager.get(
                     endpoint, then: { [weak self] (result: Result<Response.Schedule, Response.ErrorMessage>) in
-                        guard let self = self else { return }
-                        defer { group.leave() } // Leave the DispatchGroup in each completion block
+                        defer { group.leave() }
                         
                         switch result {
                         case .success(let fetchedSchedule):
                             AppLogger.shared.debug("Updated schedule with id: \(fetchedSchedule.id)")
-                            self.updateSchedule(schedule: fetchedSchedule, schoolId: schoolId, schedules: schedules)
+                            self?.updateSchedule(schedule: fetchedSchedule, schoolId: schoolId, schedules: schedules)
                             updatedSchedules += 1
                         case .failure(let failure):
                             AppLogger.shared.error("Updating could not finish due to network error: \(failure)")
