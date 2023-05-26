@@ -8,21 +8,13 @@
 import SwiftUI
 
 struct Root: View {
-    @ObservedObject var viewModel: RootViewModel
+    
     @AppStorage(StoreKey.appearance.rawValue) private var appearance = AppearanceTypes.system.rawValue
+    let viewModel: ParentViewModel = ViewModelFactory.shared.makeViewModelParent()
     
     var body: some View {
         ZStack {
-            switch viewModel.currentView {
-            case .onboarding:
-                if let onBoardingViewModel = viewModel.onBoardingViewModel {
-                    OnBoarding(viewModel: onBoardingViewModel)
-                }
-            case .app:
-                if let parentViewModel = viewModel.parentViewModel {
-                    AppParent(viewModel: parentViewModel)
-                }
-            }
+            AppParent(viewModel: viewModel)
         }
         .preferredColorScheme(getThemeColorScheme(appearance: appearance))
         .edgesIgnoringSafeArea(.all)
