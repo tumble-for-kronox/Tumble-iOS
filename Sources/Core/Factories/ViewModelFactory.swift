@@ -23,11 +23,7 @@ class ViewModelFactory {
     
     func makeViewModelResource() -> ResourceViewModel { .init() }
     
-    func makeViewModelOnBoarding() -> OnBoardingViewModel { .init() }
-    
     func makeViewModelSettings() -> SettingsViewModel { .init() }
-    
-    func makeViewModelRoot() -> RootViewModel { .init() }
     
     func makeViewModelEventDetailsSheet(
         event: Event) -> EventDetailsSheetViewModel
