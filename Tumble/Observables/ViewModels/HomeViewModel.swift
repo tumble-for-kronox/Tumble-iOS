@@ -28,6 +28,11 @@ final class HomeViewModel: ObservableObject {
     
     init() {
         getNews()
+        
+        setupRealmListener()
+    }
+    
+    func setupRealmListener() {
         let schedules = realmManager.getAllLiveSchedules()
         schedulesToken = schedules.observe { [weak self] changes in
             guard let self = self else { return }

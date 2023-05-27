@@ -80,7 +80,6 @@ final class EventDetailsSheetViewModel: ObservableObject {
                     }
                 case .failure(let failure):
                     AppLogger.shared.critical("Failed to schedule notifications -> \(failure)")
-                    // TODO: Handle error in view
                 }
             }
         )
