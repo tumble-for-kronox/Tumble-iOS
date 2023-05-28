@@ -773,8 +773,8 @@
 				D40D809C29251FF6008CA68D /* Toast.swift */,
 				D421EAEF2993FB660045D438 /* EventDetailsSheetModel.swift */,
 				D4A550D029946B8200028BCF /* Bookmark.swift */,
-				D43294E129E0ABC800842884 /* WeekEventCardModel.swift */,
 				D46400072A1EAD5F00456FE7 /* Pill.swift */,
+				D43294E129E0ABC800842884 /* WeekEventCardModel.swift */,
 				D4CEFA392A216DDF001E94CF /* OnBoardingScreen.swift */,
 			);
 			path = Presentation;
@@ -1053,7 +1053,7 @@
 				D4077F6429F08B80000A3155 /* GoogleService-Info.plist */,
 				D4938BAD29D762DE00029F88 /* Preview Content */,
 				D47A451129D74C68008626E6 /* Assets */,
-				D47221582924548A0063BDB7 /* Sources */,
+				D47221582924548A0063BDB7 /* Tumble */,
 				D4722146292454560063BDB7 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -1066,7 +1066,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		D47221582924548A0063BDB7 /* Sources */ = {
+		D47221582924548A0063BDB7 /* Tumble */ = {
 			isa = PBXGroup;
 			children = (
 				D4A433B729951F2B00BFEB7A /* AppDelegate.swift */,
@@ -1082,7 +1082,7 @@
 				D41ED54229843366009DCF8B /* Domain */,
 				D472215B292454F60063BDB7 /* Resources */,
 			);
-			path = Sources;
+			path = Tumble;
 			sourceTree = "<group>";
 		};
 		D47221592924549B0063BDB7 /* Views */ = {
@@ -1888,7 +1888,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
-				CODE_SIGN_ENTITLEMENTS = Sources/Tumble.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Tumble/Tumble.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1897,7 +1897,7 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_TESTING_SEARCH_PATHS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Sources/Info.plist;
+				INFOPLIST_FILE = Tumble/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Tumble;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Camera is used for scanning QR codes for room booking functionality in Universities";
@@ -2047,7 +2047,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
-				CODE_SIGN_ENTITLEMENTS = Sources/Tumble.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Tumble/Tumble.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -2056,7 +2056,7 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_TESTING_SEARCH_PATHS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Sources/Info.plist;
+				INFOPLIST_FILE = Tumble/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Tumble;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Camera is used for scanning QR codes for room booking functionality in Universities";
@@ -2090,7 +2090,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
-				CODE_SIGN_ENTITLEMENTS = Sources/Tumble.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Tumble/Tumble.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -2100,7 +2100,7 @@
 				ENABLE_TESTABILITY = YES;
 				ENABLE_TESTING_SEARCH_PATHS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Sources/Info.plist;
+				INFOPLIST_FILE = Tumble/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Tumble;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Camera is used for scanning QR codes for room booking functionality in Universities";
