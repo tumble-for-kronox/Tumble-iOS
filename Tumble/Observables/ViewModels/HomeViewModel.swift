@@ -35,25 +35,10 @@ final class HomeViewModel: ObservableObject {
             guard let self = self else { return }
             switch changes {
             case .initial(let results), .update(let results, _, _, _):
-                self.filterInitialState(results: Array(schedules))
-                if self.status == .loading {
-                    self.createEventCardsForToday(schedules: Array(results))
-                    self.findNextUpcomingEvent(schedules: Array(results))
-                }
+                self.createEventCardsForToday(schedules: Array(results))
+                self.findNextUpcomingEvent(schedules: Array(results))
             case .error:
                 self.status = .error
-            }
-        }
-    }
-    
-    private func filterInitialState(results: [Schedule]) {
-        DispatchQueue.main.async { [weak self] in
-            if results.isEmpty {
-                self?.status = .noBookmarks
-                return
-            }
-            if results.filter({ $0.toggled }).isEmpty {
-                self?.status = .notAvailable
             }
         }
     }
@@ -75,7 +60,18 @@ final class HomeViewModel: ObservableObject {
     
     /// Finds the next upcoming event in all schedules
     private func findNextUpcomingEvent(schedules: [Schedule]) {
-        
+        if schedules.isEmpty {
+            DispatchQueue.main.async { [weak self] in
+                self?.status = .noBookmarks
+            }
+            return
+        }
+        else if schedules.filter({ $0.toggled }).isEmpty {
+            DispatchQueue.main.async { [weak self] in
+                self?.status = .notAvailable
+            }
+            return
+        }
         let nextUpcomingEvent = schedules.findNextUpcomingEvent()
         
         DispatchQueue.main.async { [weak self] in
@@ -87,6 +83,9 @@ final class HomeViewModel: ObservableObject {
     /// Creates and assigns a list of `DayEventCardModel`
     /// that will be displayd on the home screen
     private func createEventCardsForToday(schedules: [Schedule]) {
+        if schedules.isEmpty || schedules.filter({ $0.toggled }).isEmpty {
+            return
+        }
         DispatchQueue.main.async { [weak self] in
             self?.status = .loading
         }

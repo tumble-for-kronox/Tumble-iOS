@@ -15,4 +15,13 @@ extension Array {
         let newMax = Double(length - 1)
         return (0..<length).map { self[from + Int((Double($0) * oldMax / newMax).rounded())] }
     }
+    
+    /// This method takes an integer `size`
+    /// and returns a two-dimensional array ([[Element]])
+    /// where the original array is divided into chunks of the specified size.
+    func chunked(into size: Int) -> [[Element]] {
+        stride(from: 0, to: count, by: size).map {
+            Array(self[$0..<Swift.min($0 + size, count)])
+        }
+    }
 }

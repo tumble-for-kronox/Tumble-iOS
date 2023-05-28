@@ -6,19 +6,11 @@
 //
 
 import SwiftUI
-import WrappingHStack
 
 struct SearchInfo: View {
-    let schools: [School]
-    let gridSpacing: CGFloat = 10.0
-    @Binding var selectedSchool: School?
     
-    var displayedSchools: [School] {
-        guard let selectedSchool = selectedSchool else {
-            return schools
-        }
-        return schools.filter { $0.name == selectedSchool.name }
-    }
+    let schools: [School]
+    @Binding var selectedSchool: School?
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -31,10 +23,11 @@ struct SearchInfo: View {
                 .multilineTextAlignment(.leading)
                 .padding(.bottom, 10)
             }
-            WrappingHStack(displayedSchools, id: \.self) { school in
-                SchoolPill(selectedSchool: $selectedSchool, school: school)
-            }
-            .frame(minWidth: 250)
+            
+            FlowStack(items: schools, viewGenerator: { school in
+                SchoolPill(school: school, selectedSchool: $selectedSchool)
+            })
+            
             if let selectedSchool = selectedSchool {
                 if schools.filter({ $0.loginRq }).contains(selectedSchool) {
                     HStack {
