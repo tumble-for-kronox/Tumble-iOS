@@ -57,17 +57,21 @@ final class ParentViewModel: ObservableObject {
     private func setupRealmListener() {
         let schedules = realmManager.getAllLiveSchedules()
         schedulesToken = schedules.observe { [weak self] changes in
-            guard let self else { return }
+            guard let self = self else { return }
             switch changes {
             case .initial(let results), .update(let results, _, _, _):
                 if !results.isEmpty && !self.updatedDuringSession {
-                    self.updateBookmarks(schedules: Array(results))
+                    let scheduleIds = Array(results).map { $0.scheduleId }
+                    Task {
+                        await self.updateBookmarks(scheduleIds: scheduleIds)
+                    }
                 }
             case .error:
                 fatalError()
             }
         }
     }
+
     
     func finishOnboarding() {
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
@@ -75,68 +79,59 @@ final class ParentViewModel: ObservableObject {
         }
     }
     
-    func updateBookmarks(schedules: [Schedule]) {
+    @MainActor
+    func updateBookmarks(scheduleIds: [String]) async {
         defer { self.updatedDuringSession = true } /// Always claim update during startup, even if failed
         var updatedSchedules = 0
-        let scheduleCount: Int = schedules.count
-        let group = DispatchGroup() /// Create a DispatchGroup
-        
-        for schedule in schedules {
-            if validUpdateRequest(schedule: schedule) {
+        let scheduleCount: Int = scheduleIds.count
+
+        for scheduleId in scheduleIds {
+            if let schedule = self.realmManager.getScheduleByScheduleId(scheduleId: scheduleId), self.validUpdateRequest(schedule: schedule) {
                 let scheduleId: String = schedule.scheduleId
                 let schoolId = schedule.schoolId
                 let endpoint: Endpoint = .schedule(scheduleId: scheduleId, schoolId: schoolId)
-                
-                group.enter()
-                
-                /// Fetch schedule from backend
-                let _ = kronoxManager.get(
-                    endpoint, then: { [weak self] (result: Result<Response.Schedule, Response.ErrorMessage>) in
-                        defer { group.leave() }
-                        
-                        switch result {
-                        case .success(let fetchedSchedule):
-                            AppLogger.shared.debug("Updated schedule with id: \(fetchedSchedule.id)")
-                            self?.updateSchedule(schedule: fetchedSchedule, schoolId: schoolId, schedules: schedules)
-                            updatedSchedules += 1
-                        case .failure(let failure):
-                            AppLogger.shared.error("Updating could not finish due to network error: \(failure)")
-                        }
-                    }
-                )
+
+                do {
+                    let fetchedSchedule: Response.Schedule = try await kronoxManager.get(endpoint)
+                    self.updateSchedule(schedule: fetchedSchedule, schoolId: schoolId, existingSchedule: schedule)
+                    updatedSchedules += 1
+                } catch {
+                    AppLogger.shared.error("Updating could not finish due to network error")
+                }
             } else {
                 AppLogger.shared.error("Can not update schedule. Requires authentication against different university")
             }
         }
-        
-        group.notify(queue: .main) {
-            if updatedSchedules != scheduleCount {
-                AppController.shared.toast = Toast(
-                    type: .info,
-                    title: NSLocalizedString("Information", comment: ""),
-                    message: NSLocalizedString("Some schedules could not be updated. Either due to missing authorization or network errors", comment: "")
-                )
-            }
+
+        if updatedSchedules != scheduleCount {
+            AppController.shared.toast = Toast(
+                type: .info,
+                title: NSLocalizedString("Information", comment: ""),
+                message: NSLocalizedString("Some schedules could not be updated. Either due to missing authorization or network errors", comment: "")
+            )
         }
     }
+
+
 
     func validUpdateRequest(schedule: Schedule) -> Bool {
         let validRequest: Bool = (schedule.requiresAuth && String(authSchoolId) == schedule.schoolId) || !schedule.requiresAuth
         return validRequest
     }
     
+    @MainActor
     func updateSchedule(
         schedule: Response.Schedule,
         schoolId: String,
-        schedules: [Schedule]
+        existingSchedule: Schedule
     ) {
-        if let scheduleRequiresAuth: Bool = schedules.first(where: { $0.scheduleId == schedule.id })?.requiresAuth {
-            let realmSchedule: Schedule = schedule.toRealmSchedule(
-                scheduleRequiresAuth: scheduleRequiresAuth,
-                schoolId: schoolId,
-                existingCourseColors: realmManager.getCourseColors()
-            )
-            realmManager.updateSchedule(scheduleId: schedule.id, newSchedule: realmSchedule)
-        }
+        let scheduleRequiresAuth = existingSchedule.requiresAuth
+        let realmSchedule: Schedule = schedule.toRealmSchedule(
+            scheduleRequiresAuth: scheduleRequiresAuth,
+            schoolId: schoolId,
+            existingCourseColors: self.realmManager.getCourseColors()
+        )
+        self.realmManager.updateSchedule(scheduleId: schedule.id, newSchedule: realmSchedule)
     }
+
 }

@@ -18,6 +18,80 @@ class KronoxManager: KronoxManagerProtocol {
         session = URLSession.shared
     }
     
+    func get<NetworkResponse: Decodable>(
+        _ endpoint: Endpoint,
+        refreshToken: String? = nil
+    ) async throws -> NetworkResponse {
+        let body: Request.Empty? = nil
+        let urlRequest = try makeUrlRequest(method: .get, endpoint: endpoint, refreshToken: refreshToken, body: body)
+        return try await fetchRequest(urlRequest: urlRequest)
+    }
+    
+    func put<NetworkResponse : Decodable, Request : Encodable>(
+        _ endpoint: Endpoint,
+        refreshToken: String? = nil,
+        body: Request? = nil
+    ) async throws -> NetworkResponse {
+        let urlRequest = try makeUrlRequest(method: .put, endpoint: endpoint, refreshToken: refreshToken, body: body)
+        return try await fetchRequest(urlRequest: urlRequest)
+    }
+    
+    private func makeUrlRequest<Request : Encodable>(
+        method: Method,
+        endpoint: Endpoint,
+        refreshToken: String?,
+        body: Request?
+    ) throws -> URLRequest {
+        guard let urlRequest = urlRequestUtils.createUrlRequest(
+            method: .get,
+            endpoint: endpoint,
+            refreshToken: refreshToken,
+            body: body
+        ) else {
+            throw Error.generic(reason: "Could not create url request")
+        }
+        return urlRequest
+    }
+    
+    private func fetchRequest<NetworkResponse : Decodable>(urlRequest: URLRequest) async throws -> NetworkResponse {
+        let (data, response) = try await session.data(for: urlRequest)
+            
+        guard let httpResponse = response as? HTTPURLResponse else {
+            throw URLError(.badServerResponse)
+        }
+        
+        let statusCode = httpResponse.statusCode
+        
+        if statusCode == 200 {
+            let decoder = JSONDecoder()
+            let decodedData = try decoder.decode(NetworkResponse.self, from: data)
+            
+            return decodedData
+        } else if statusCode == 202 {
+            if let result = Response.Empty() as? NetworkResponse {
+                return result
+            }
+        }
+        throw Error.generic(reason: "Something went wrong")
+    }
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     // [HTTP GET]
     func get<NetworkResponse: Decodable>(
         _ endpoint: Endpoint,
@@ -66,22 +140,6 @@ class KronoxManager: KronoxManagerProtocol {
         )
         networkTask.resume()
         return networkTask
-    }
-    
-    // Processes the queued network request, creating a URLSessionDataTask
-    fileprivate func processNetworkRequest<Request: Encodable, NetworkResponse: Decodable>(
-        refreshToken: String?,
-        endpoint: Endpoint,
-        method: Method,
-        body: Request? = nil,
-        completion: @escaping (Result<NetworkResponse, Response.ErrorMessage>) -> Void
-    ) {
-        guard let urlRequest = urlRequestUtils.createUrlRequest(method: method, endpoint: endpoint, refreshToken: refreshToken, body: body) else {
-            completion(.failure(Response.ErrorMessage(message: "Something went wrong on our end")))
-            return
-        }
-        let networkTask: URLSessionDataTask = createUrlSessionDataTask(urlRequest: urlRequest, completion: completion)
-        networkTask.resume()
     }
     
     // Creates a URLSessionDataTask that handles all possible response cases

@@ -93,9 +93,6 @@ struct Settings: View {
         .navigationBarTitleDisplayMode(.inline)
     }
     
-    fileprivate func changeSchool(schoolId: Int) {
-        viewModel.changeSchool(schoolId: schoolId)
-    }
     
     fileprivate func rescheduleNotifications(previousOffset: Int, newOffset: Int) {
         viewModel.rescheduleNotifications(previousOffset: previousOffset, newOffset: newOffset)

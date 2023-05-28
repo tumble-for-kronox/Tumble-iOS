@@ -40,306 +40,141 @@ final class ResourceViewModel: ObservableObject {
         }
     }
     
-    func getUserEventsForPage(tries: Int = 0, completion: (() -> Void)? = nil) {
+    func getUserEventsForPage() async {
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
             self.eventBookingPageState = .loading
         }
-        userController.authenticateAndExecute(
-            authSchoolId: authSchoolId,
-            refreshToken: userController.refreshToken,
-            execute: { [weak self] result in
-                guard let self else { return }
-                switch result {
-                case .success((let schoolId, let refreshToken)):
-                    let request = Endpoint.userEvents(schoolId: String(schoolId))
-                    _ = self.kronoxManager.get(request, refreshToken: refreshToken,
-                       then: { (result: Result<Response.KronoxCompleteUserEvent?, Response.ErrorMessage>) in
-                           switch result {
-                           case .success(let events):
-                               AppLogger.shared.debug("Successfully loaded events")
-                               DispatchQueue.main.async {
-                                   self.completeUserEvent = events
-                                   self.eventBookingPageState = .loaded
-                               }
-                           case .failure(let failure):
-                               AppLogger.shared.debug("\(failure)")
-                               DispatchQueue.main.async {
-                                   self.eventBookingPageState = .error
-                               }
-                           }
-                       })
-                case .failure(let failure):
-                    AppLogger.shared.critical("Failed to get events: \(failure)")
-                    DispatchQueue.main.async {
-                        self.eventBookingPageState = .error
-                    }
-                case .demo:
-                    DispatchQueue.main.async {
-                        self.completeUserEvent = self.dummyDataFactory.getDummyKronoxCompleteUserEvent()
-                        self.eventBookingPageState = .loaded
-                    }
-                }
+        
+        do {
+            let request = Endpoint.userEvents(schoolId: String(authSchoolId))
+            guard let refreshToken = userController.refreshToken else {
+                return
             }
-        )
+            let events: Response.KronoxCompleteUserEvent? = try await kronoxManager.get(request, refreshToken: refreshToken.value)
+            AppLogger.shared.debug("Successfully loaded events")
+            DispatchQueue.main.async {
+                self.completeUserEvent = events
+                self.eventBookingPageState = .loaded
+            }
+        } catch (let error) {
+            AppLogger.shared.debug("\(error)")
+            DispatchQueue.main.async {
+                self.eventBookingPageState = .error
+            }
+        }
     }
     
-    func registerForEvent(
-        tries: Int = 0,
-        eventId: String,
-        completion: @escaping (Result<Void, Error>) -> Void
-    ) {
+    func registerForEvent(eventId: String) async {
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
             self.eventBookingPageState = .loading
         }
-        userController.authenticateAndExecute(
-            authSchoolId: authSchoolId,
-            refreshToken: userController.refreshToken,
-            execute: { [weak self] result in
-                guard let self else { return }
-                switch result {
-                case .success((let schoolId, let refreshToken)):
-                    let request = Endpoint.registerEvent(eventId: eventId, schoolId: String(schoolId))
-                    _ = self.kronoxManager.put(request, refreshToken: refreshToken, body: Request.Empty(),
-                                               then: { (result: Result<Response.Empty, Response.ErrorMessage>) in
-                                                   DispatchQueue.main.async {
-                                                       switch result {
-                                                       case .success:
-                                                           completion(.success(()))
-                                                       case .failure(let failure):
-                                                           completion(.failure(.internal(reason: "\(failure)")))
-                                                       }
-                                                   }
-                                               })
-                case .failure(let failure):
-                    DispatchQueue.main.async {
-                        completion(.failure(.internal(reason: "\(failure)")))
-                    }
-                case .demo:
-                    DispatchQueue.main.async {
-                        completion(.success(()))
-                    }
-                }
+        
+        do {
+            let request = Endpoint.registerEvent(eventId: eventId, schoolId: String(authSchoolId))
+            guard let refreshToken = userController.refreshToken else {
+                return
             }
-        )
+            let _ : Response.Empty = try await kronoxManager.put(request, refreshToken: refreshToken.value, body: Request.Empty())
+        } catch (let error) {
+            AppLogger.shared.debug("\(error)")
+        }
     }
     
-    func unregisterForEvent(
-        tries: Int = 0,
-        eventId: String,
-        completion: @escaping (Result<Void, Error>) -> Void
-    ) {
+    func unregisterForEvent(eventId: String) async {
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
             self.eventBookingPageState = .loading
         }
-        userController.authenticateAndExecute(
-            authSchoolId: authSchoolId,
-            refreshToken: userController.refreshToken,
-            execute: { [weak self] result in
-                guard let self else { return }
-                switch result {
-                case .success((let schoolId, let refreshToken)):
-                    let request = Endpoint.unregisterEvent(eventId: eventId, schoolId: String(schoolId))
-                    _ = self.kronoxManager.put(request, refreshToken: refreshToken, body: Request.Empty(),
-                                               then: { (result: Result<Response.Empty, Response.ErrorMessage>) in
-                                                   DispatchQueue.main.async {
-                                                       switch result {
-                                                       case .success:
-                                                           completion(.success(()))
-                                                       case .failure(let failure):
-                                                           completion(.failure(.internal(reason: "\(failure)")))
-                                                       }
-                                                   }
-                                               })
-                case .failure(let failure):
-                    DispatchQueue.main.async {
-                        completion(.failure(.internal(reason: "\(failure)")))
-                    }
-                case .demo:
-                    DispatchQueue.main.async {
-                        completion(.success(()))
-                    }
-                }
+        
+        do {
+            let request = Endpoint.unregisterEvent(eventId: eventId, schoolId: String(authSchoolId))
+            guard let refreshToken = userController.refreshToken else {
+                return
             }
-        )
+            let _ : Response.Empty = try await kronoxManager.put(request, refreshToken: refreshToken.value, body: Request.Empty())
+            
+        } catch (let error) {
+            AppLogger.shared.debug("\(error)")
+            DispatchQueue.main.async {
+                self.eventBookingPageState = .error
+            }
+        }
     }
     
-    func getAllResourceData(tries: Int = 0, date: Date) {
+    func getAllResourceData(date: Date) async {
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
             self.resourceBookingPageState = .loading
         }
-        userController.authenticateAndExecute(
-            authSchoolId: authSchoolId,
-            refreshToken: userController.refreshToken,
-            execute: { [weak self] result in
-                guard let self else { return }
-                switch result {
-                case .success((let schoolId, let refreshToken)):
-                    let request = Endpoint.allResources(schoolId: String(schoolId), date: date)
-                    self.allResourcesDataTask = self.kronoxManager.get(request, refreshToken: refreshToken,
-                                                                       then: { (result: Result<Response.KronoxResources?, Response.ErrorMessage>) in
-                                                                           switch result {
-                                                                           case .success(let resources):
-                                                                               DispatchQueue.main.async {
-                                                                                   self.allResources = resources
-                                                                                   self.resourceBookingPageState = .loaded
-                                                                               }
-                                                                           case .failure(let failure):
-                                                                               AppLogger.shared.debug("\(failure)")
-                                                                               DispatchQueue.main.async {
-                                                                                   self.resourceBookingPageState = .error
-                                                                                   self.error = failure
-                                                                               }
-                                                                           }
-                                                                       })
-                case .failure:
-                    DispatchQueue.main.async {
-                        self.resourceBookingPageState = .error
-                    }
-                case .demo:
-                    DispatchQueue.main.async {
-                        self.allResources = self.dummyDataFactory.getDummyKronoxResources()
-                        self.resourceBookingPageState = .loaded
-                    }
-                }
+        
+        do {
+            let request = Endpoint.allResources(schoolId: String(authSchoolId), date: date)
+            guard let refreshToken = userController.refreshToken else {
+                return
             }
-        )
-        cancelDataTaskIfDateChanged(dataTask: allResourcesDataTask, date: selectedPickerDate)
+            let resources: Response.KronoxResources? = try await kronoxManager.get(request, refreshToken: refreshToken.value)
+            DispatchQueue.main.async {
+                self.allResources = resources
+                self.resourceBookingPageState = .loaded
+            }
+        } catch (let error) {
+            AppLogger.shared.debug("\(error)")
+            DispatchQueue.main.async {
+                self.resourceBookingPageState = .error
+            }
+        }
     }
     
-    func confirmResource(
-        resourceId: String,
-        bookingId: String,
-        completion: @escaping (Result<Void, Error>) -> Void
-    ) {
-        userController.authenticateAndExecute(
-            authSchoolId: authSchoolId,
-            refreshToken: userController.refreshToken,
-            execute: { [weak self] result in
-                guard let self else { return }
-                switch result {
-                case .success((let schoolId, let refreshToken)):
-                    let requestUrl = Endpoint.confirmResource(
-                        schoolId: String(schoolId)
-                    )
-                    let requestBody = Request.ConfirmKronoxResource(
-                        resourceId: resourceId,
-                        bookingId: bookingId
-                    )
-                    _ = self.kronoxManager.put(
-                        requestUrl,
-                        refreshToken: refreshToken,
-                        body: requestBody
-                    ) {
-                        (result: Result<Response.Empty, Response.ErrorMessage>) in
-                        switch result {
-                        case .success:
-                            AppLogger.shared.debug("Confirmed resource \(resourceId)")
-                            completion(.success(()))
-                        case .failure(let failure):
-                            if failure.statusCode == 202 {
-                                completion(.success(()))
-                            } else {
-                                AppLogger.shared.critical("Failed to confirm resource: \(failure)")
-                                completion(.failure(.internal(reason: "\(failure)")))
-                            }
-                        }
-                    }
-                case .failure(let failure):
-                    AppLogger.shared.critical("\(failure)")
-                    completion(.failure(.internal(reason: "\(failure)")))
-                case .demo:
-                    completion(.success(()))
-                }
+    func confirmResource(resourceId: String, bookingId: String) async {
+        do {
+            let request = Endpoint.confirmResource(schoolId: String(authSchoolId))
+            let requestBody = Request.ConfirmKronoxResource(
+                resourceId: resourceId,
+                bookingId: bookingId
+            )
+            guard let refreshToken = userController.refreshToken else {
+                return
             }
-        )
+            let _ : Response.Empty = try await kronoxManager.put(request, refreshToken: refreshToken.value, body: requestBody)
+        } catch (let error) {
+            AppLogger.shared.critical("Failed to confirm resource: \(error)")
+        }
     }
     
     func bookResource(
         resourceId: String,
         date: Date,
-        availabilityValue: Response.AvailabilityValue,
-        completion: @escaping (Result<Void, Error>) -> Void
-    ) {
-        userController.authenticateAndExecute(
-            authSchoolId: authSchoolId,
-            refreshToken: userController.refreshToken,
-            execute: { [weak self] result in
-                guard let self else { return }
-                switch result {
-                case .success((let schoolId, let refreshToken)):
-                    let requestUrl = Endpoint.bookResource(
-                        schoolId: String(schoolId)
-                    )
-                    let requestBody = Request.BookKronoxResource(
-                        resourceId: resourceId,
-                        date: isoDateFormatterFract.string(from: date),
-                        slot: availabilityValue
-                    )
-                    _ = self.kronoxManager.put(
-                        requestUrl,
-                        refreshToken: refreshToken,
-                        body: requestBody
-                    ) {
-                        (result: Result<Response.KronoxUserBookingElement?, Response.ErrorMessage>) in
-                        switch result {
-                        case .success:
-                            AppLogger.shared.debug("Booked resource \(resourceId)")
-                            completion(.success(()))
-                        case .failure(let failure):
-                            if failure.statusCode == 202 {
-                                completion(.success(()))
-                            } else {
-                                AppLogger.shared.critical("Failed to book resource: \(failure)")
-                                completion(.failure(.internal(reason: "\(failure)")))
-                            }
-                        }
-                    }
-                case .failure(let failure):
-                    AppLogger.shared.critical("\(failure)")
-                    completion(.failure(.internal(reason: "\(failure)")))
-                case .demo:
-                    completion(.success(()))
-                }
+        availabilityValue: Response.AvailabilityValue
+    ) async {
+        do {
+            let request = Endpoint.bookResource(schoolId: String(authSchoolId))
+            let requestBody = Request.BookKronoxResource(
+                resourceId: resourceId,
+                date: isoDateFormatterFract.string(from: date),
+                slot: availabilityValue
+            )
+            guard let refreshToken = userController.refreshToken else {
+                return
             }
-        )
+            let _ : Response.KronoxUserBookingElement = try await kronoxManager.put(request, refreshToken: refreshToken.value, body: requestBody)
+        } catch (let error) {
+            AppLogger.shared.critical("Failed to book resource: \(error)")
+        }
     }
     
-    func unbookResource(bookingId: String, completion: @escaping (Result<Void, Error>) -> Void) {
-        userController.authenticateAndExecute(
-            authSchoolId: authSchoolId,
-            refreshToken: userController.refreshToken,
-            execute: { [weak self] result in
-                guard let self else { return }
-                switch result {
-                case .success((let schoolId, let refreshToken)):
-                    let requestUrl: Endpoint = .unbookResource(schoolId: String(schoolId), bookingId: bookingId)
-                    _ = self.kronoxManager.put(
-                        requestUrl,
-                        refreshToken: refreshToken,
-                        body: Request.Empty()
-                    ) {
-                        (result: Result<Response.Empty, Response.ErrorMessage>) in
-                        switch result {
-                        case .success:
-                            AppLogger.shared.debug("Unbooked resource")
-                            self.notificationManager.cancelNotification(for: bookingId)
-                            completion(.success(()))
-                        case .failure(let failure):
-                            AppLogger.shared.critical("Failed to unbook resource: \(bookingId)")
-                            completion(.failure(.internal(reason: "\(failure)")))
-                        }
-                    }
-                case .failure(let failure):
-                    AppLogger.shared.critical("\(failure)")
-                    completion(.failure(.internal(reason: "\(failure)")))
-                case .demo:
-                    completion(.success(()))
-                }
+    func unbookResource(bookingId: String) async {
+        do {
+            let request: Endpoint = .unbookResource(schoolId: String(authSchoolId), bookingId: bookingId)
+            guard let refreshToken = userController.refreshToken else {
+                return
             }
-        )
+            let _ : Response.Empty = try await kronoxManager.put(request, refreshToken: refreshToken.value, body: Request.Empty())
+            AppLogger.shared.debug("Unbooked resource")
+            self.notificationManager.cancelNotification(for: bookingId)
+        } catch (let error) {
+            AppLogger.shared.critical("Failed to unbook resource: \(bookingId)\nError: \(error)")
+        }
     }
 }

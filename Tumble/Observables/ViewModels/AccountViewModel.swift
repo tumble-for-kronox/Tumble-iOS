@@ -55,10 +55,9 @@ final class AccountViewModel: ObservableObject {
     
     init() {
         setUpDataPublishers()
-        DispatchQueue.global(qos: .background).async { [weak self] in
-            guard let self else { return }
+        Task {
             if self.userController.autoSignup {
-                self.registerAutoSignup(completion: { _ in })
+                await self.registerAutoSignup()
             }
         }
     }
@@ -75,12 +74,14 @@ final class AccountViewModel: ObservableObject {
                 .sink { authStatus, authSchoolId, _ in
                     switch authStatus {
                     case .authorized:
-                        self.status = .authenticated
-                        self.getUserEventsForSection()
-                        self.getUserBookingsForSection()
                         self.authSchoolId = authSchoolId
                         self.schoolName = self.schoolManager
                             .getSchools().first(where: { $0.id == authSchoolId })?.name ?? ""
+                        Task {
+                            await self.getUserEventsForSection()
+                            await self.getUserBookingsForSection()
+                        }
+                        self.status = .authenticated
                     case .unAuthorized:
                         self.status = .unAuthenticated
                     case .loading:
@@ -135,32 +136,24 @@ final class AccountViewModel: ObservableObject {
     func login(
         authSchoolId: Int,
         username: String,
-        password: String,
-        createToast: @escaping (Bool) -> Void
-    ) {
+        password: String
+    ) async {
+        
         // Check if matching demo user
         let (demoUsername, demoPassword) = getDemoUserCredentials()
         if username == demoUsername && password == demoPassword {
-            let result = userController.loginDemo(username: username, password: password)
-            preferenceService.setInAppReview(value: result)
-            createToast(result)
-            return
+            do {
+                try await userController.loginDemo(username: username, password: password)
+                preferenceService.setInAppReview(value: true)
+            } catch {
+                AppLogger.shared.critical("Could not sign in App Review Team")
+            }
         }
         
-        DispatchQueue.main.async { [weak self] in
-            guard let self else { return }
-            self.status = .loading
-            DispatchQueue.global(qos: .userInitiated).async {
-                self.userController.logIn(
-                    authSchoolId: authSchoolId,
-                    username: username,
-                    password: password
-                ) { success in
-                    if !success {
-                        createToast(success)
-                    }
-                }
-            }
+        do {
+            try await userController.logIn(authSchoolId: authSchoolId, username: username, password: password)
+        } catch {
+            AppLogger.shared.critical("Failed to log in user")
         }
     }
     
@@ -169,180 +162,105 @@ final class AccountViewModel: ObservableObject {
     }
     
     // Retrieve user events for resource section
-    func getUserEventsForSection(tries: Int = 0) {
+    func getUserEventsForSection() async {
         DispatchQueue.main.async { [weak self] in
-            guard let self else { return }
-            self.registeredEventSectionState = .loading
+            self?.registeredEventSectionState = .loading
         }
-        userController.authenticateAndExecute(
-            authSchoolId: authSchoolId,
-            refreshToken: userController.refreshToken,
-            execute: { [weak self] result in
-                guard let self else { return }
-                switch result {
-                case .success((let schoolId, let refreshToken)):
-                    let request = Endpoint.userEvents(schoolId: String(schoolId))
-                    self.eventSectionDataTask =
-                        self.kronoxManager.get(request, refreshToken: refreshToken,
-                                               then: { (result: Result<Response.KronoxCompleteUserEvent?, Response.ErrorMessage>) in
-                                                   switch result {
-                                                   case .success(let events):
-                                                       self.completeUserEvent = events
-                                                       self.registeredEventSectionState = .loaded
-                                                   case .failure(let failure):
-                                                       AppLogger.shared.critical("Could not get user events: \(failure)")
-                                                       self.registeredEventSectionState = .error
-                                                   }
-                                               })
-                case .failure:
-                    DispatchQueue.main.async {
-                        self.registeredEventSectionState = .error
-                    }
-                case .demo:
-                    DispatchQueue.main.async {
-                        self.completeUserEvent = self.dummyDataFactory.getDummyKronoxCompleteUserEvent()
-                        self.registeredEventSectionState = .loaded
-                    }
-                }
+        
+        do {
+            let request = Endpoint.userEvents(schoolId: String(authSchoolId))
+            guard let refreshToken = userController.refreshToken else {
+                // TODO: Handle error
+                return
             }
-        )
-        cancelDataTaskIfTabChanged(dataTask: eventSectionDataTask)
+            let events: Response.KronoxCompleteUserEvent? = try await kronoxManager.get(request, refreshToken: refreshToken.value)
+            DispatchQueue.main.async { [weak self] in
+                self?.completeUserEvent = events
+                self?.registeredEventSectionState = .loaded
+            }
+        } catch (let error) {
+            AppLogger.shared.critical("Could not get user events: \(error)")
+            DispatchQueue.main.async { [weak self] in
+                self?.registeredEventSectionState = .error
+            }
+        }
     }
 
-    func getUserBookingsForSection(tries: Int = 0) {
+    func getUserBookingsForSection() async {
         DispatchQueue.main.async {
             self.bookingSectionState = .loading
         }
-        userController.authenticateAndExecute(
-            authSchoolId: authSchoolId,
-            refreshToken: userController.refreshToken,
-            execute: { [weak self] result in
-                guard let self else { return }
-                switch result {
-                case .success((let schoolId, let refreshToken)):
-                    let request = Endpoint.userBookings(schoolId: String(schoolId))
-                    self.resourceSectionDataTask = self.kronoxManager.get(request, refreshToken: refreshToken,
-                                                                          then: { [weak self] (result: Result<Response.KronoxUserBookings, Response.ErrorMessage>) in
-                                                                              guard let self = self else { return }
-                                                                              switch result {
-                                                                              case .success(let bookings):
-                                                                                  DispatchQueue.main.async {
-                                                                                      self.bookingSectionState = .loaded
-                                                                                      self.userBookings = bookings
-                                                                                  }
-                                                                                  self.checkNotificationsForUserBookings(bookings: bookings)
-                                                                              case .failure(let failure):
-                                                                                  AppLogger.shared.debug("\(failure)")
-                                                                                  DispatchQueue.main.async {
-                                                                                      self.bookingSectionState = .error
-                                                                                  }
-                                                                              }
-                                                                          })
-                case .failure:
-                    DispatchQueue.main.async {
-                        self.bookingSectionState = .error
-                        self.userBookings = nil
-                    }
-                case .demo:
-                    DispatchQueue.main.async {
-                        self.userBookings = self.dummyDataFactory.getDummyDataKronoxUserBookingElement()
-                        self.bookingSectionState = .loaded
-                    }
-                }
+        
+        do {
+            let request = Endpoint.userBookings(schoolId: String(authSchoolId))
+            guard let refreshToken = userController.refreshToken else {
+                // TODO: Handle error
+                return
             }
-        )
-        cancelDataTaskIfTabChanged(dataTask: resourceSectionDataTask)
+            let bookings: Response.KronoxUserBookings = try await kronoxManager.get(request, refreshToken: refreshToken.value)
+            DispatchQueue.main.async {
+                self.bookingSectionState = .loaded
+                self.userBookings = bookings
+            }
+            await self.checkNotificationsForUserBookings(bookings: bookings)
+        } catch (let error) {
+            AppLogger.shared.debug("\(error)")
+            DispatchQueue.main.async {
+                self.bookingSectionState = .error
+            }
+        }
     }
     
-    func unregisterForEvent(
-        tries: Int = 0,
-        eventId: String,
-        completion: @escaping (Result<Void, Error>) -> Void
-    ) {
-        userController.authenticateAndExecute(
-            authSchoolId: authSchoolId,
-            refreshToken: userController.refreshToken,
-            execute: { [weak self] result in
-                guard let self else { return }
-                switch result {
-                case .success((let schoolId, let refreshToken)):
-                    let request = Endpoint.unregisterEvent(eventId: eventId, schoolId: String(schoolId))
-                    _ = self.kronoxManager.put(request, refreshToken: refreshToken, body: Request.Empty(),
-                                               then: { (result: Result<Response.Empty, Response.ErrorMessage>) in
-                                                   DispatchQueue.main.async {
-                                                       switch result {
-                                                       case .success:
-                                                           completion(.success(()))
-                                                       case .failure(let failure):
-                                                           completion(.failure(.internal(reason: "\(failure)")))
-                                                       }
-                                                   }
-                                               })
-                case .failure(let failure):
-                    DispatchQueue.main.async {
-                        completion(.failure(.internal(reason: "\(failure)")))
-                    }
-                case .demo:
-                    DispatchQueue.main.async {
-                        completion(.success(()))
-                    }
-                }
+    func unregisterForEvent(eventId: String) async {
+        do {
+            let request = Endpoint.unregisterEvent(eventId: eventId, schoolId: String(authSchoolId))
+            guard let refreshToken = userController.refreshToken else {
+                // TODO: Handle error
+                return
             }
-        )
+            let _ : Response.Empty = try await kronoxManager.put(request, refreshToken: refreshToken.value, body: Request.Empty())
+            DispatchQueue.main.async {
+                self.registeredEventSectionState = .loaded
+            }
+        } catch (let error) {
+            AppLogger.shared.critical("Failed to unregister from event: \(error)")
+            // TODO: Add toast
+            DispatchQueue.main.async {
+                self.registeredEventSectionState = .error
+            }
+        }
     }
     
     func toggleAutoSignup(value: Bool) {
         userController.autoSignup = value
         if value {
-            registerAutoSignup(completion: { [weak self] result in
-                guard let self else { return }
-                switch result {
-                case .success:
-                    self.getUserEventsForSection()
-                case .failure:
-                    break
-                }
-            })
+            Task {
+                await registerAutoSignup()
+                await getUserEventsForSection()
+            }
         }
     }
     
-    func checkNotificationsForUserBookings(bookings: Response.KronoxUserBookings? = nil) {
+    func checkNotificationsForUserBookings(bookings: Response.KronoxUserBookings? = nil) async {
         AppLogger.shared.debug("Checking for notifications to set for user booked resources ...")
         if let userBookings = bookings {
             scheduleBookingNotifications(for: userBookings)
             return
         }
-        userController.authenticateAndExecute(
-            authSchoolId: authSchoolId,
-            refreshToken: userController.refreshToken,
-            execute: { [weak self] result in
-                guard let self else { return }
-                switch result {
-                case .success((let schoolId, let refreshToken)):
-                    let request = Endpoint.userBookings(schoolId: String(schoolId))
-                    self.resourceSectionDataTask = self.kronoxManager.get(request, refreshToken: refreshToken,
-                      then: { (result: Result<Response.KronoxUserBookings, Response.ErrorMessage>) in
-                          switch result {
-                          case .success(let bookings):
-                              self.scheduleBookingNotifications(for: bookings)
-                          case .failure(let failure):
-                              AppLogger.shared.debug("\(failure)")
-                              DispatchQueue.main.async {
-                                  self.bookingSectionState = .error
-                              }
-                          }
-                      })
-                case .failure:
-                    DispatchQueue.main.async {
-                        self.bookingSectionState = .error
-                        self.registeredEventSectionState = .error
-                        self.completeUserEvent = nil
-                        self.userBookings = nil
-                    }
-                case .demo:
-                    break
-                }
+        
+        do {
+            let request = Endpoint.userBookings(schoolId: String(authSchoolId))
+            guard let refreshToken = userController.refreshToken else {
+                // TODO: Handle error
+                return
             }
-        )
+            let bookings: Response.KronoxUserBookings = try await kronoxManager.get(request, refreshToken: refreshToken.value)
+            self.scheduleBookingNotifications(for: bookings)
+        } catch (let error) {
+            AppLogger.shared.debug("\(error)")
+            DispatchQueue.main.async {
+                self.bookingSectionState = .error
+            }
+        }
     }
 }

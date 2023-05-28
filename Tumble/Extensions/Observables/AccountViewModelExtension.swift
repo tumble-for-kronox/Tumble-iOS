@@ -33,53 +33,19 @@ extension AccountViewModel {
         }
     }
     
-    func registerAutoSignup(
-        completion: @escaping (Result<Void, Error>) -> Void
-    ) {
-        AppLogger.shared.debug("Automatically signing up for exams")
-        userController.authenticateAndExecute(
-            authSchoolId: authSchoolId,
-            refreshToken: userController.refreshToken,
-            execute: { [unowned self] result in
-                switch result {
-                case .success((let schoolId, let refreshToken)):
-                    let request = Endpoint.registerAllEvents(schoolId: String(schoolId))
-                    _ = kronoxManager.put(request, refreshToken: refreshToken, body: Request.Empty(),
-                                          then: { (result: Result<Response.KronoxEventRegistration?, Response.ErrorMessage>) in
-                                              DispatchQueue.main.async {
-                                                  switch result {
-                                                  case .success(let eventRegistrations):
-                                                      if let eventRegistrations = eventRegistrations {
-                                                          AppLogger.shared.debug("Successful registrations: \(String(describing: eventRegistrations.successfulRegistrations?.count))")
-                                                          AppLogger.shared.debug("Failed registrations: \(String(describing: eventRegistrations.failedRegistrations?.count))")
-                                                          completion(.success(()))
-                                                      }
-                                                  case .failure(let failure):
-                                                      AppLogger.shared.critical("Failed to automatically sign up for exams: \(failure)")
-                                                      completion(.failure(.generic(reason: "\(failure)")))
-                                                  }
-                                              }
-                                          })
-                case .failure(let failure):
-                    AppLogger.shared.critical("Could not log in to register for available events")
-                    completion(.failure(.generic(reason: "\(failure)")))
-                case .demo:
-                    completion(.success(()))
-                }
+    func registerAutoSignup() async {
+        AppLogger.shared.debug("Attempting to automatically sign up for exams")
+        do {
+            let request = Endpoint.registerAllEvents(schoolId: String(authSchoolId))
+            guard let refreshToken = userController.refreshToken else {
+                // TODO: Handle error
+                return
             }
-        )
-    }
-    
-    func cancelDataTaskIfTabChanged(dataTask: URLSessionDataTask?) {
-        let currentSelectedTab = AppController.shared.selectedAppTab
-        DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + .seconds(1)) {
-            if AppController.shared.selectedAppTab != currentSelectedTab {
-                DispatchQueue.main.async {
-                    // selected app tab has changed, cancel the dataTask
-                    AppLogger.shared.debug("Cancelling task due to tab change")
-                    dataTask?.cancel()
-                }
-            }
+            let _: Response.KronoxEventRegistration?
+                = try await kronoxManager.put(request, refreshToken: refreshToken.value, body: Request.Empty())
+        } catch (let error) {
+            AppLogger.shared.critical("Failed to sign up for exams: \(error)")
         }
     }
+    
 }

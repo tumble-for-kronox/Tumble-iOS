@@ -49,23 +49,13 @@ final class SettingsViewModel: ObservableObject {
     }
     
     func logOut() {
-        userController.logOut(completion: { success in
-            if success {
-                AppLogger.shared.debug("Logged out")
-                AppController.shared.toast = Toast(
-                    type: .success,
-                    title: NSLocalizedString("Logged out", comment: ""),
-                    message: NSLocalizedString("You have successfully logged out of your account", comment: "")
-                )
-            } else {
-                AppLogger.shared.debug("Could not log out")
-                AppController.shared.toast = Toast(
-                    type: .success,
-                    title: NSLocalizedString("Error", comment: ""),
-                    message: NSLocalizedString("Could not log out from your account", comment: "")
-                )
+        Task {
+            do {
+                try await userController.logOut()
+            } catch (_) {
+                // TODO: Add toast
             }
-        })
+        }
     }
     
     func removeNotificationsFor(for id: String, referencing events: [Event]) {
@@ -154,27 +144,6 @@ final class SettingsViewModel: ObservableObject {
     
     private func deleteAllSchedules() {
         realmManager.deleteAllSchedules()
-    }
-
-    func changeSchool(schoolId: Int) {
-        if schoolIsAlreadySelected(schoolId: schoolId) {
-            return
-        }
-        deleteAllSchedules()
-        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-            guard let self else { return }
-            self.userController.logOut()
-            self.preferenceService.setAuthSchool(id: schoolId)
-            self.notificationManager.cancelNotifications()
-        }
-        makeToast(
-            type: .success,
-            title: NSLocalizedString("New school", comment: ""),
-            message: String(
-                format: NSLocalizedString("Set %@ to default", comment: ""),
-                schoolName
-            )
-        )
     }
     
     func makeToast(type: ToastStyle, title: String, message: String) {

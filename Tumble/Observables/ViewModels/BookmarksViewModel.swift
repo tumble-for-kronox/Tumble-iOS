@@ -15,7 +15,6 @@ final class BookmarksViewModel: ObservableObject {
     let scheduleViewTypes: [BookmarksViewType] = BookmarksViewType.allValues
     
     @Inject var preferenceService: PreferenceService
-    @Inject var kronoxManager: KronoxManager
     @Inject var schoolManager: SchoolManager
     @Inject var realmManager: RealmManager
     

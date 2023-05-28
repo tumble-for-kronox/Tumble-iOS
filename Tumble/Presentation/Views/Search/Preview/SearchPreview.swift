@@ -65,7 +65,7 @@ struct SearchPreview: View {
     
     func bookmark() {
         viewModel.bookmark(
-            id: programmeId,
+            scheduleId: programmeId,
             schedules: Array(schedules),
             schoolId: schoolId
         )

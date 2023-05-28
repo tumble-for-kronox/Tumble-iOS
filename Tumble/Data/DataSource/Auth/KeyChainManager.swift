@@ -9,13 +9,12 @@ import Foundation
 
 /// Handles operations on user KeyChain
 /// such as storing, deleting, updating: basic CRUD operations
-class KeyChainManager: KeyChainManagerProtocol {
+actor KeyChainManager {
     func updateKeyChain(
         _ data: Data,
         for service: String,
-        account: String,
-        completion: @escaping (Result<Bool, Error>) -> Void
-    ) {
+        account: String
+    ) throws -> Void {
         let query = [
             kSecClass: kSecClassGenericPassword,
             kSecAttrService: service,
@@ -28,17 +27,14 @@ class KeyChainManager: KeyChainManagerProtocol {
 
         let status = SecItemUpdate(query, attributes)
         guard status == errSecSuccess else {
-            completion(.failure(.internal(reason: status.description)))
-            return
+            throw Error.internal(reason: "Failed to update keychain item")
         }
-        completion(.success(true))
     }
     
     func deleteKeyChain(
         for service: String,
-        account: String,
-        completion: @escaping (Result<Bool, Error>) -> Void
-    ) {
+        account: String
+    ) throws -> Void {
         let query = [
             kSecAttrService: service,
             kSecAttrAccount: account,
@@ -46,12 +42,16 @@ class KeyChainManager: KeyChainManagerProtocol {
         ] as [CFString: Any] as CFDictionary
             
         // Delete item from keychain
-        SecItemDelete(query)
+        let status = SecItemDelete(query)
+        
+        guard status == errSecSuccess else {
+            throw Error.internal(reason: "Failed to delete keychain item")
+        }
+        
         AppLogger.shared.debug("Deleted item from keychain")
-        completion(.success(true))
     }
     
-    func readKeyChain(for service: String, account: String) -> Data? {
+    func readKeyChain(for service: String, account: String) throws -> Data? {
         let query = [
             kSecAttrService: service,
             kSecAttrAccount: account,
@@ -60,20 +60,19 @@ class KeyChainManager: KeyChainManagerProtocol {
         ] as [CFString: Any] as CFDictionary
         
         var result: AnyObject?
-        SecItemCopyMatching(query, &result)
+        let status = SecItemCopyMatching(query, &result)
         
-        guard let data = result as? Data else {
-            return nil
+        guard status == errSecSuccess else {
+            throw Error.internal(reason: "Failed to read keychain item")
         }
-        return data
+        return result as? Data
     }
     
     func saveKeyChain(
         _ data: Data,
         for service: String,
-        account: String,
-        completion: @escaping (Result<Bool, Error>) -> Void
-    ) {
+        account: String
+    ) throws -> Void {
         let query = [
             kSecValueData: data,
             kSecClass: kSecClassGenericPassword,
@@ -85,17 +84,15 @@ class KeyChainManager: KeyChainManagerProtocol {
         let status = SecItemAdd(query, nil)
             
         if status == errSecDuplicateItem {
-            updateKeyChain(data, for: service, account: account, completion: completion)
+            try updateKeyChain(data, for: service, account: account)
             return
         }
             
         if status != errSecSuccess {
             AppLogger.shared.critical("Could not save item to keychain -> \(status)")
-            completion(.failure(.internal(reason: status.description)))
-            return
+            throw Error.internal(reason: "Could not save item to keychain")
         }
             
         AppLogger.shared.debug("Added item to keychain")
-        completion(.success(true))
     }
 }

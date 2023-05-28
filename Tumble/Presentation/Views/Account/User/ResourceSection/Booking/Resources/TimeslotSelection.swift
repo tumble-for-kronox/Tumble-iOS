@@ -15,7 +15,7 @@ enum BookingButtonState {
 
 struct TimeslotSelection: View {
     let resourceId: String
-    let bookResource: (String, Date, Response.AvailabilityValue, @escaping (Result<Void, Error>) -> Void) -> Void
+    let bookResource: (String, Date, Response.AvailabilityValue) -> Void
     let selectedPickerDate: Date
     let makeToast: (Bool) -> Void
     let updateBookingNotifications: () -> Void
@@ -24,7 +24,7 @@ struct TimeslotSelection: View {
     
     init(
         resourceId: String,
-        bookResource: @escaping (String, Date, Response.AvailabilityValue, @escaping (Result<Void, Error>) -> Void) -> Void,
+        bookResource: @escaping (String, Date, Response.AvailabilityValue) -> Void,
         selectedPickerDate: Date, makeToast: @escaping (Bool) -> Void, updateBookingNotifications: @escaping () -> Void,
         availabilityValues: Binding<[Response.AvailabilityValue]>) {
             self.resourceId = resourceId
@@ -52,9 +52,7 @@ struct TimeslotSelection: View {
                     if let locationId = availabilityValue.locationID {
                         TimeslotCard(onBook: {
                             buttonStateMap[locationId] = .loading
-                            bookResource(resourceId, selectedPickerDate, availabilityValue) { result in
-                                handleBookingResponse(locationId: locationId, result: result)
-                            }
+                            bookResource(resourceId, selectedPickerDate, availabilityValue)
                         }, locationId: locationId, bookingButtonState: Binding(
                             get: { buttonStateMap[locationId] ?? .available },
                             set: { buttonStateMap[locationId] = $0 }
@@ -62,18 +60,6 @@ struct TimeslotSelection: View {
                     }
                 }
             }
-        }
-    }
-    
-    func handleBookingResponse(locationId: String, result: Result<Void, Error>) {
-        switch result {
-        case .success:
-            buttonStateMap[locationId] = .booked
-            updateBookingNotifications()
-            makeToast(true)
-        case .failure:
-            buttonStateMap[locationId] = .available
-            makeToast(false)
         }
     }
 }

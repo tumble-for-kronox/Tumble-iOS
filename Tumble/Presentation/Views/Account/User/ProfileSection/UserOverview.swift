@@ -54,7 +54,9 @@ struct UserOverview: View {
     }
     
     fileprivate func getResourcesAndEvents() {
-        viewModel.getUserBookingsForSection()
-        viewModel.getUserEventsForSection()
+        Task {
+            await viewModel.getUserBookingsForSection()
+            await viewModel.getUserEventsForSection()
+        }
     }
 }

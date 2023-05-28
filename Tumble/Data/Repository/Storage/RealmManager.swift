@@ -75,4 +75,10 @@ class RealmManager {
             realm.delete(schedule)
         }
     }
+    
+    func getScheduleByScheduleId(scheduleId: String) -> Schedule? {
+        return realm.objects(Schedule.self).filter("scheduleId == %@", scheduleId).first
+    }
+
+
 }
