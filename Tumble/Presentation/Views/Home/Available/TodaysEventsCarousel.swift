@@ -9,7 +9,7 @@ import SwiftUI
 
 struct TodaysEventsCarousel: View {
     @Binding var swipedCards: Int
-    @Binding var weekEventCards: [WeekEventCardModel]
+    @Binding var weekEventCards: [DayEventCardModel]
     
     var body: some View {
         ZStack {
@@ -94,7 +94,7 @@ struct TodaysEventsCarousel: View {
 private struct CarouselCard: View {
     let event: Event
     let index: Int
-    let eventsForToday: [WeekEventCardModel]
+    let eventsForToday: [DayEventCardModel]
     @Binding var swipedCards: Int
     
     var body: some View {

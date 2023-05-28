@@ -9,12 +9,6 @@ import Combine
 import Foundation
 import RealmSwift
 
-struct SearchPreviewModel: Identifiable {
-    let id: UUID = .init()
-    let scheduleId: String
-    let schoolId: String
-}
-
 final class SearchPreviewViewModel: ObservableObject {
     @Published var isSaved = false
     @Published var status: SchedulePreviewStatus = .loading

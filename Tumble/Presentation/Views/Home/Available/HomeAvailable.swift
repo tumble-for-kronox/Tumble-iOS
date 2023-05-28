@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct HomeAvailable: View {
-    @Binding var eventsForToday: [WeekEventCardModel]
+    @Binding var eventsForToday: [DayEventCardModel]
     let nextClass: Event?
     @Binding var swipedCards: Int
     
