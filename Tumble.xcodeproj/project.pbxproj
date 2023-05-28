@@ -73,7 +73,7 @@
 		D430F74729C654A200E30E48 /* BookmarkCalendarDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = D430F74629C654A200E30E48 /* BookmarkCalendarDetail.swift */; };
 		D430F74929C6558700E30E48 /* BookmarkCalendarDetailStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D430F74829C6558700E30E48 /* BookmarkCalendarDetailStyle.swift */; };
 		D43294E029E0ABAA00842884 /* HomeStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43294DF29E0ABAA00842884 /* HomeStatus.swift */; };
-		D43294E229E0ABC800842884 /* WeekEventCardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43294E129E0ABC800842884 /* WeekEventCardModel.swift */; };
+		D43294E229E0ABC800842884 /* DayEventCardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43294E129E0ABC800842884 /* DayEventCardModel.swift */; };
 		D43419A429853F34001089A0 /* OnBoarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43419A329853F34001089A0 /* OnBoarding.swift */; };
 		D439F89F29DB8952006332AB /* OffsetPageTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D439F89E29DB8952006332AB /* OffsetPageTabView.swift */; };
 		D439F8A129DBA96B006332AB /* HomeAvailable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D439F8A029DBA96B006332AB /* HomeAvailable.swift */; };
@@ -88,6 +88,8 @@
 		D443962E29CB56040069D66A /* ResourceBookingButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D443962D29CB56040069D66A /* ResourceBookingButtonStyle.swift */; };
 		D4462C3029858A280067DA65 /* TextExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4462C2F29858A280067DA65 /* TextExtensions.swift */; };
 		D4462C3229858A7D0067DA65 /* ImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4462C3129858A7D0067DA65 /* ImageExtensions.swift */; };
+		D447EA8D2A23612400E50A92 /* CalendarExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D447EA8C2A23612400E50A92 /* CalendarExtension.swift */; };
+		D447EA8F2A238D0100E50A92 /* SearchPreviewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D447EA8E2A238D0100E50A92 /* SearchPreviewModel.swift */; };
 		D44ABF0729BFE89D00344792 /* SchoolRowStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44ABF0629BFE89D00344792 /* SchoolRowStyle.swift */; };
 		D44B44D029E99BBF005164CA /* SearchPreviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44B44CF29E99BBF005164CA /* SearchPreviewViewModel.swift */; };
 		D44FBFEB29CB1CC500CAAD39 /* ResourceDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44FBFEA29CB1CC500CAAD39 /* ResourceDatePicker.swift */; };
@@ -305,7 +307,7 @@
 		D430F74629C654A200E30E48 /* BookmarkCalendarDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkCalendarDetail.swift; sourceTree = "<group>"; };
 		D430F74829C6558700E30E48 /* BookmarkCalendarDetailStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkCalendarDetailStyle.swift; sourceTree = "<group>"; };
 		D43294DF29E0ABAA00842884 /* HomeStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeStatus.swift; sourceTree = "<group>"; };
-		D43294E129E0ABC800842884 /* WeekEventCardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekEventCardModel.swift; sourceTree = "<group>"; };
+		D43294E129E0ABC800842884 /* DayEventCardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayEventCardModel.swift; sourceTree = "<group>"; };
 		D43419A329853F34001089A0 /* OnBoarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoarding.swift; sourceTree = "<group>"; };
 		D439F89E29DB8952006332AB /* OffsetPageTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffsetPageTabView.swift; sourceTree = "<group>"; };
 		D439F8A029DBA96B006332AB /* HomeAvailable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeAvailable.swift; sourceTree = "<group>"; };
@@ -320,6 +322,8 @@
 		D443962D29CB56040069D66A /* ResourceBookingButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceBookingButtonStyle.swift; sourceTree = "<group>"; };
 		D4462C2F29858A280067DA65 /* TextExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextExtensions.swift; sourceTree = "<group>"; };
 		D4462C3129858A7D0067DA65 /* ImageExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageExtensions.swift; sourceTree = "<group>"; };
+		D447EA8C2A23612400E50A92 /* CalendarExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarExtension.swift; sourceTree = "<group>"; };
+		D447EA8E2A238D0100E50A92 /* SearchPreviewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPreviewModel.swift; sourceTree = "<group>"; };
 		D44ABF0629BFE89D00344792 /* SchoolRowStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolRowStyle.swift; sourceTree = "<group>"; };
 		D44B44CF29E99BBF005164CA /* SearchPreviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPreviewViewModel.swift; sourceTree = "<group>"; };
 		D44FBFEA29CB1CC500CAAD39 /* ResourceDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceDatePicker.swift; sourceTree = "<group>"; };
@@ -509,6 +513,7 @@
 			children = (
 				D400F3DC29D794840050622E /* ResourceDetailSheetModel.swift */,
 				D400F3DE29D794970050622E /* EventDetailSheetModel.swift */,
+				D447EA8E2A238D0100E50A92 /* SearchPreviewModel.swift */,
 			);
 			path = SheetModels;
 			sourceTree = "<group>";
@@ -770,7 +775,7 @@
 				D40D809C29251FF6008CA68D /* Toast.swift */,
 				D421EAEF2993FB660045D438 /* EventDetailsSheetModel.swift */,
 				D4A550D029946B8200028BCF /* Bookmark.swift */,
-				D43294E129E0ABC800842884 /* WeekEventCardModel.swift */,
+				D43294E129E0ABC800842884 /* DayEventCardModel.swift */,
 				D4CEFA392A216DDF001E94CF /* OnBoardingScreen.swift */,
 			);
 			path = Presentation;
@@ -1439,6 +1444,7 @@
 				D4E39E312989BBD9004C30DF /* ColorExtensions.swift */,
 				D4294B3329C91CF700007747 /* ArrayExtension.swift */,
 				D481F15629CB820D0088C28E /* AvailabilitiesExtension.swift */,
+				D447EA8C2A23612400E50A92 /* CalendarExtension.swift */,
 			);
 			path = Types;
 			sourceTree = "<group>";
@@ -1631,6 +1637,7 @@
 				D4563E802985FBFB003261FA /* NetworkExtensions.swift in Sources */,
 				D4FFCC2A29EDAEC900708CC0 /* Teacher.swift in Sources */,
 				D4E83ECE2999B041002E5F88 /* UserOverview.swift in Sources */,
+				D447EA8D2A23612400E50A92 /* CalendarExtension.swift in Sources */,
 				D4D3368329F66E0000933D38 /* RealmManager.swift in Sources */,
 				D400F3D029D793AB0050622E /* RootViewStatus.swift in Sources */,
 				D4FFCC2229EDA9E200708CC0 /* Schedule.swift in Sources */,
@@ -1665,7 +1672,7 @@
 				D400F3F829D799530050622E /* AccountViewModelExtension.swift in Sources */,
 				D458605629DCDEAE00B77513 /* DraggingPill.swift in Sources */,
 				D478452629D64F0F00BDF7A3 /* LanguageTypes.swift in Sources */,
-				D43294E229E0ABC800842884 /* WeekEventCardModel.swift in Sources */,
+				D43294E229E0ABC800842884 /* DayEventCardModel.swift in Sources */,
 				D4FFCC2429EDA9F000708CC0 /* Day.swift in Sources */,
 				D47A1AF729C00C0E004F03DB /* HomePageOptionStyle.swift in Sources */,
 				D40D809B29251FD7008CA68D /* ToastStyle.swift in Sources */,
@@ -1748,6 +1755,7 @@
 				D48CC59F29C7DB6E0028179A /* CompactEventButtonLabel.swift in Sources */,
 				D49D2500299A9495001D2751 /* UserController.swift in Sources */,
 				D498290B299D8E3F0017D636 /* Resources.swift in Sources */,
+				D447EA8F2A238D0100E50A92 /* SearchPreviewModel.swift in Sources */,
 				D4722161292455710063BDB7 /* KronoxManager.swift in Sources */,
 				D4E83EBA29996026002E5F88 /* PasswordField.swift in Sources */,
 				D4BAE614292466F700143717 /* SchoolManager.swift in Sources */,

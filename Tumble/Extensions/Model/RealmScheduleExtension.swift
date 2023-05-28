@@ -34,6 +34,58 @@ extension [Schedule] {
         }
         return Array<Day>(dayDictionary.values)
     }
+    
+    func filterEventsMatchingToday() -> [Event] {
+        let now = Calendar.current.startOfDay(for: Date.now)
+        let end = Calendar.current.endOfDay(for: Date.now)
+        let dayRange = now...end
+
+        var eventsForToday = [Event]()
+        for event in self {
+            guard event.toggled else {
+                continue
+            }
+
+            for day in event.days {
+                guard let eventDate = isoDateFormatterFract.date(from: day.isoString),
+                      dayRange.contains(eventDate) else {
+                    continue
+                }
+
+                eventsForToday.append(contentsOf: day.events)
+            }
+        }
+        return eventsForToday
+    }
+    
+    func findNextUpcomingEvent() -> Event? {
+        let now = Date.now
+
+        /// Filter schedules and flatten to get the list of events
+        let events: [Event] = self
+            .filter { $0.toggled }
+            .flatMap { $0.days }
+            .flatMap { $0.events }
+        
+        /// Parse dates and make pairs of (event, date)
+        let eventDatePairs: [(event: Event, date: Date)] = events
+            .compactMap { event in
+                guard let date = isoDateFormatter.date(from: event.from) else {
+                    return nil
+                }
+                return (event, date)
+            }
+        
+        let sortedEventDatePairs = eventDatePairs.sorted(by: { $0.date < $1.date })
+        
+        /// Find the first event that is not today and after now
+        let nextUpcomingEvent = sortedEventDatePairs.first(where: {
+            !Calendar.current.isDate(now, inSameDayAs: $0.date) && $0.date > now
+        })?.event
+        
+        return nextUpcomingEvent
+    }
+
 }
 
 extension Schedule {
