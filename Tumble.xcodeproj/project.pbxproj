@@ -87,6 +87,7 @@
 		D443962E29CB56040069D66A /* ResourceBookingButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D443962D29CB56040069D66A /* ResourceBookingButtonStyle.swift */; };
 		D4462C3029858A280067DA65 /* TextExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4462C2F29858A280067DA65 /* TextExtensions.swift */; };
 		D4462C3229858A7D0067DA65 /* ImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4462C3129858A7D0067DA65 /* ImageExtensions.swift */; };
+		D447EA922A238E0100E50A92 /* FlowStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = D447EA912A238E0100E50A92 /* FlowStack.swift */; };
 		D44ABF0729BFE89D00344792 /* SchoolRowStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44ABF0629BFE89D00344792 /* SchoolRowStyle.swift */; };
 		D44B44D029E99BBF005164CA /* SearchPreviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44B44CF29E99BBF005164CA /* SearchPreviewViewModel.swift */; };
 		D44FBFEB29CB1CC500CAAD39 /* ResourceDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44FBFEA29CB1CC500CAAD39 /* ResourceDatePicker.swift */; };
@@ -128,7 +129,6 @@
 		D460764C292AEAEC00DE9590 /* BookmarkListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460764B292AEAEC00DE9590 /* BookmarkListView.swift */; };
 		D460764E292AF21900DE9590 /* SearchPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460764D292AF21900DE9590 /* SearchPreview.swift */; };
 		D4607653292AF5DA00DE9590 /* DayHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4607652292AF5DA00DE9590 /* DayHeader.swift */; };
-		D46400062A1EAD1000456FE7 /* FlowStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46400052A1EAD1000456FE7 /* FlowStack.swift */; };
 		D46400082A1EAD5F00456FE7 /* Pill.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46400072A1EAD5F00456FE7 /* Pill.swift */; };
 		D4644A23298DA93A00B0BB28 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4644A22298DA93A00B0BB28 /* NotificationManager.swift */; };
 		D4644A26298DAA4F00B0BB28 /* NotificationManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4644A25298DAA4F00B0BB28 /* NotificationManagerProtocol.swift */; };
@@ -321,6 +321,7 @@
 		D443962D29CB56040069D66A /* ResourceBookingButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceBookingButtonStyle.swift; sourceTree = "<group>"; };
 		D4462C2F29858A280067DA65 /* TextExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextExtensions.swift; sourceTree = "<group>"; };
 		D4462C3129858A7D0067DA65 /* ImageExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageExtensions.swift; sourceTree = "<group>"; };
+		D447EA912A238E0100E50A92 /* FlowStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowStack.swift; sourceTree = "<group>"; };
 		D44ABF0629BFE89D00344792 /* SchoolRowStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolRowStyle.swift; sourceTree = "<group>"; };
 		D44B44CF29E99BBF005164CA /* SearchPreviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPreviewViewModel.swift; sourceTree = "<group>"; };
 		D44FBFEA29CB1CC500CAAD39 /* ResourceDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceDatePicker.swift; sourceTree = "<group>"; };
@@ -362,7 +363,6 @@
 		D460764B292AEAEC00DE9590 /* BookmarkListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkListView.swift; sourceTree = "<group>"; };
 		D460764D292AF21900DE9590 /* SearchPreview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchPreview.swift; sourceTree = "<group>"; };
 		D4607652292AF5DA00DE9590 /* DayHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayHeader.swift; sourceTree = "<group>"; };
-		D46400052A1EAD1000456FE7 /* FlowStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowStack.swift; sourceTree = "<group>"; };
 		D46400072A1EAD5F00456FE7 /* Pill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pill.swift; sourceTree = "<group>"; };
 		D4644A22298DA93A00B0BB28 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		D4644A25298DAA4F00B0BB28 /* NotificationManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManagerProtocol.swift; sourceTree = "<group>"; };
@@ -570,7 +570,7 @@
 		D40D809629251EA5008CA68D /* General */ = {
 			isa = PBXGroup;
 			children = (
-				D46400042A1EAD0200456FE7 /* GenericViews */,
+				D447EA902A238DF600E50A92 /* Generic */,
 				D45338FA2929730200198411 /* CustomProgressIndicator.swift */,
 				D4CF9B2B293572BE00DDB5F0 /* Info.swift */,
 				D46BB117298B21DA00887A24 /* InfoLoading.swift */,
@@ -850,6 +850,14 @@
 			path = OnBoarding;
 			sourceTree = "<group>";
 		};
+		D447EA902A238DF600E50A92 /* Generic */ = {
+			isa = PBXGroup;
+			children = (
+				D447EA912A238E0100E50A92 /* FlowStack.swift */,
+			);
+			path = Generic;
+			sourceTree = "<group>";
+		};
 		D45338F7292825A400198411 /* Bookmarks */ = {
 			isa = PBXGroup;
 			children = (
@@ -969,14 +977,6 @@
 				D4EEFB4829DA06A40007A209 /* ToTopButton.swift */,
 			);
 			path = List;
-			sourceTree = "<group>";
-		};
-		D46400042A1EAD0200456FE7 /* GenericViews */ = {
-			isa = PBXGroup;
-			children = (
-				D46400052A1EAD1000456FE7 /* FlowStack.swift */,
-			);
-			path = GenericViews;
 			sourceTree = "<group>";
 		};
 		D4644A21298DA92500B0BB28 /* Notifications */ = {
@@ -1613,7 +1613,6 @@
 				D45268D12A052F97004F1642 /* TabItem.swift in Sources */,
 				D421EAF02993FB660045D438 /* EventDetailsSheetModel.swift in Sources */,
 				D46ABF1229843D3000B059F6 /* StoreKey.swift in Sources */,
-				D46400062A1EAD1000456FE7 /* FlowStack.swift in Sources */,
 				D458605029DC9DA000B77513 /* TodaysEvents.swift in Sources */,
 				D443962A29CB40C70069D66A /* ToTopButtonStyle.swift in Sources */,
 				D40D80B429252A5A008CA68D /* PreferenceService.swift in Sources */,
@@ -1736,6 +1735,7 @@
 				D4CD0EFF29D5B00A00AB5FD0 /* UIApplicationExtension.swift in Sources */,
 				D44ABF0729BFE89D00344792 /* SchoolRowStyle.swift in Sources */,
 				D4EEFB5829DA1BD10007A209 /* CustomListGroup.swift in Sources */,
+				D447EA922A238E0100E50A92 /* FlowStack.swift in Sources */,
 				D400F3D629D794010050622E /* BookmarksViewStatus.swift in Sources */,
 				D443962C29CB4D720069D66A /* ResourceLocationsList.swift in Sources */,
 				D4FFCC2C29EDAEF200708CC0 /* Location.swift in Sources */,
