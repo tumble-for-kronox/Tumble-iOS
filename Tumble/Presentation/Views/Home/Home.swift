@@ -23,18 +23,21 @@ struct Home: View {
             }
             Spacer()
             VStack(alignment: .leading) {
-                if schedules.isEmpty {
+                switch viewModel.status {
+                case .available:
+                    HomeAvailable(
+                        eventsForToday: $viewModel.todaysEventsCards,
+                        nextClass: viewModel.nextClass,
+                        swipedCards: $viewModel.swipedCards
+                    )
+                case .loading:
+                    CustomProgressIndicator()
+                case .noBookmarks:
                     HomeNoBookmarks()
-                } else {
-                    if schedules.filter({ $0.toggled }).isEmpty {
-                        HomeNotAvailable()
-                    } else {
-                        HomeAvailable(
-                            eventsForToday: $viewModel.eventsForToday,
-                            nextClass: viewModel.nextClass,
-                            swipedCards: $viewModel.swipedCards
-                        )
-                    }
+                case .notAvailable:
+                    HomeNotAvailable()
+                case .error:
+                    Info(title: NSLocalizedString("Something went wrong", comment: ""), image: nil)
                 }
             }
             Spacer()
