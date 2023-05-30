@@ -51,7 +51,8 @@ final class ResourceViewModel: ObservableObject {
             guard let refreshToken = userController.refreshToken else {
                 return
             }
-            let events: Response.KronoxCompleteUserEvent? = try await kronoxManager.get(request, refreshToken: refreshToken.value)
+            let events: Response.KronoxCompleteUserEvent?
+                = try await kronoxManager.get(request, refreshToken: refreshToken.value)
             AppLogger.shared.debug("Successfully loaded events")
             DispatchQueue.main.async {
                 self.completeUserEvent = events
@@ -76,7 +77,11 @@ final class ResourceViewModel: ObservableObject {
             guard let refreshToken = userController.refreshToken else {
                 return
             }
-            let _ : Response.Empty = try await kronoxManager.put(request, refreshToken: refreshToken.value, body: Request.Empty())
+            let _ : Response.Empty
+                = try await kronoxManager.put(
+                    request,
+                    refreshToken: refreshToken.value,
+                    body: Request.Empty())
         } catch (let error) {
             AppLogger.shared.debug("\(error)")
         }
@@ -93,7 +98,10 @@ final class ResourceViewModel: ObservableObject {
             guard let refreshToken = userController.refreshToken else {
                 return
             }
-            let _ : Response.Empty = try await kronoxManager.put(request, refreshToken: refreshToken.value, body: Request.Empty())
+            let _ : Response.Empty = try await kronoxManager.put(
+                request,
+                refreshToken: refreshToken.value,
+                body: Request.Empty())
             
         } catch (let error) {
             AppLogger.shared.debug("\(error)")
@@ -114,7 +122,8 @@ final class ResourceViewModel: ObservableObject {
             guard let refreshToken = userController.refreshToken else {
                 return
             }
-            let resources: Response.KronoxResources? = try await kronoxManager.get(request, refreshToken: refreshToken.value)
+            let resources: Response.KronoxResources? = try await kronoxManager.get(
+                request, refreshToken: refreshToken.value)
             DispatchQueue.main.async {
                 self.allResources = resources
                 self.resourceBookingPageState = .loaded
@@ -137,7 +146,8 @@ final class ResourceViewModel: ObservableObject {
             guard let refreshToken = userController.refreshToken else {
                 return
             }
-            let _ : Response.Empty = try await kronoxManager.put(request, refreshToken: refreshToken.value, body: requestBody)
+            let _ : Response.Empty = try await kronoxManager.put(
+                request, refreshToken: refreshToken.value, body: requestBody)
         } catch (let error) {
             AppLogger.shared.critical("Failed to confirm resource: \(error)")
         }
@@ -158,7 +168,8 @@ final class ResourceViewModel: ObservableObject {
             guard let refreshToken = userController.refreshToken else {
                 return
             }
-            let _ : Response.KronoxUserBookingElement = try await kronoxManager.put(request, refreshToken: refreshToken.value, body: requestBody)
+            let _ : Response.KronoxUserBookingElement? = try await kronoxManager.put(
+                request, refreshToken: refreshToken.value, body: requestBody)
         } catch (let error) {
             AppLogger.shared.critical("Failed to book resource: \(error)")
         }
@@ -170,7 +181,8 @@ final class ResourceViewModel: ObservableObject {
             guard let refreshToken = userController.refreshToken else {
                 return
             }
-            let _ : Response.Empty = try await kronoxManager.put(request, refreshToken: refreshToken.value, body: Request.Empty())
+            let _ : Response.Empty = try await kronoxManager.put(
+                request, refreshToken: refreshToken.value, body: Request.Empty())
             AppLogger.shared.debug("Unbooked resource")
             self.notificationManager.cancelNotification(for: bookingId)
         } catch (let error) {

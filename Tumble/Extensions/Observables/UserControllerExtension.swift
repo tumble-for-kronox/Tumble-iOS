@@ -66,7 +66,6 @@ extension UserController {
         AppLogger.shared.debug("Attempting auto login for user", source: "UserController")
         do {
             let user: TumbleUser = try await authManager.autoLoginUser(authSchoolId: authSchoolId)
-            print(user.name)
             try await self.authManager.setUser(newValue: user)
             let token: Token? = await authManager.getToken(tokenType: .refreshToken)
             DispatchQueue.main.async {

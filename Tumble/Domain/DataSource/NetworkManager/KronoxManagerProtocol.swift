@@ -10,14 +10,12 @@ import Foundation
 protocol KronoxManagerProtocol {
     func get<NetworkResponse: Decodable>(
         _ endpoint: Endpoint,
-        refreshToken: String?,
-        then completion: ((Result<NetworkResponse, Response.ErrorMessage>) -> Void)?
-    ) -> URLSessionDataTask?
+        refreshToken: String?
+    ) async throws -> NetworkResponse
     
-    func put<NetworkResponse: Decodable, Request: Encodable>(
+    func put<NetworkResponse : Decodable, Request : Encodable>(
         _ endpoint: Endpoint,
         refreshToken: String?,
-        body: Request?,
-        then completion: ((Result<NetworkResponse, Response.ErrorMessage>) -> Void)?
-    ) -> URLSessionDataTask?
+        body: Request?
+    ) async throws -> NetworkResponse
 }
