@@ -13,7 +13,7 @@ struct Token: Codable {
     
     func isExpired() -> Bool {
         let currentDate = Date()
-        return createdDate.addingTimeInterval(7200000) <= currentDate
+        return createdDate.addingTimeInterval(1314900000) <= currentDate
     }
 }
 

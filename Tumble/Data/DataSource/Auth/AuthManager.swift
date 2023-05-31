@@ -24,25 +24,16 @@ class AuthManager {
         try await clearTokensAndKeyChain(of: [TokenType.refreshToken.rawValue, "tumble-user"])
     }
     
-    private func clearTokensAndKeyChain(of tokensToDelete: [String]) async throws {
-        do {
-            try await clearKeyChain(of: tokensToDelete)
-        } catch (let error) {
-            AppLogger.shared.critical("Failed to delete tokens: \(error)")
-            throw error
-        }
-    }
-    
-    // This method will clear all tokens both from memory and persistent storage.
-    // Most common use case for this method is user logout.
-    private func clearKeyChain(of tokensToDelete: [String]) async throws -> Void {
+    /// This method will clear all tokens both from memory and persistent storage.
+    /// Most common use case for this method is user logout.
+    private func clearTokensAndKeyChain(of tokensToDelete: [String]) async throws -> Void {
         for token in tokensToDelete {
             try await keychainManager.deleteKeyChain(for: token, account: "Tumble for Kronox")
         }
     }
 
     /// Attempts to log in a user with credentials that are stored
-    /// in keychain and have been previously saved
+    /// in keychain and have been previously saved by `POST` request
     private func processAutoLoginWithKeyChainCredentials(authSchoolId: Int) async throws -> TumbleUser {
         let user = await getUser()
         if let user = user {
@@ -71,7 +62,8 @@ class AuthManager {
                 
                 return TumbleUser(username: user.username, password: user.password, name: user.name)
             } catch {
-                throw Error.generic(reason: "Could not decode object to KronoxUser")
+                AppLogger.shared.info("Could not decode object to KronoxUser or network request failed")
+                return try await retriveStoredUser()
             }
             
         } else {
@@ -80,9 +72,17 @@ class AuthManager {
         }
     }
     
-    // Function to log in user with credentials passed
-    // from account page when entered credentials. On successful response,
-    // the user is stored securely in the keychain as TumbleUser
+    /// Retrieves a local copy of user stored in the keychain
+    private func retriveStoredUser() async throws -> TumbleUser {
+        guard let user = await getUser() else {
+            throw Error.internal(reason: "No user available")
+        }
+        return user
+    }
+    
+    /// Function to log in user with credentials passed
+    /// from account page when entered credentials. On successful response,
+    /// the user is stored securely in the keychain as TumbleUser
     private func processLogin(authSchoolId: Int, user: Request.KronoxUserLogin) async throws -> TumbleUser {
         guard let urlRequest = urlRequestUtils.createUrlRequest(
             method: .post,
@@ -92,45 +92,45 @@ class AuthManager {
             throw Error.generic(reason: "Could not create URLRequest object")
         }
         
-        do {
-            let decoder = JSONDecoder()
-            let (data, _) = try await urlSession.data(for: urlRequest)
-            guard let result = try? decoder.decode(Response.KronoxUser.self, from: data) else {
-                throw Error.generic(reason: "Could not decode object to KronoxUser")
-            }
-            
-            try await setToken(newValue: Token(value: result.refreshToken, createdDate: Date.now), tokenType: .refreshToken)
-            try await setUser(newValue: TumbleUser(username: result.username, password: user.password, name: result.name))
-            
-            return TumbleUser(username: user.username, password: user.password, name: result.name)
-        } catch (let error) {
-            throw error
+        let decoder = JSONDecoder()
+        let (data, _) = try await urlSession.data(for: urlRequest)
+        guard let result = try? decoder.decode(Response.KronoxUser.self, from: data) else {
+            throw Error.generic(reason: "Could not decode object to KronoxUser")
         }
+        
+        try await setToken(newValue: Token(value: result.refreshToken, createdDate: Date.now), tokenType: .refreshToken)
+        try await setUser(newValue: TumbleUser(username: result.username, password: user.password, name: result.name))
+        
+        return TumbleUser(username: user.username, password: user.password, name: result.name)
     }
     
+    /// Attempts to automatically retrive the users credentials
+    /// by `GET` request to backend
     private func processAutoLogin(authSchoolId: Int) async throws -> TumbleUser {
         
-        guard let token = await getToken(tokenType: .refreshToken),
-              let user = await getUser() else {
-            try await logOutUser()
-            throw Error.internal(reason: "No refresh token or user stored")
-        }
-        
-        guard let urlRequest = urlRequestUtils.createUrlRequest(
-            method: .get,
-            endpoint: .users(schoolId: String(authSchoolId)),
-            refreshToken: token.value
-        ) else {
-            return try await processAutoLoginWithKeyChainCredentials(authSchoolId: authSchoolId)
-        }
-        
         do {
+            guard let token = await getToken(tokenType: .refreshToken),
+                  let user = await getUser() else {
+                throw Error.internal(reason: "No token or user stored")
+            }
+            
+            guard let urlRequest = urlRequestUtils.createUrlRequest(
+                method: .get,
+                endpoint: .users(schoolId: String(authSchoolId)),
+                refreshToken: token.value
+            ) else {
+                throw Error.internal(reason: "Could not create url request object")
+            }
+            
             let decoder = JSONDecoder()
             let (data, response) = try await urlSession.data(for: urlRequest)
             
+            /// If network request succeeds
+            /// but status code indicates an error, could be due
+            /// to expired token
             if let statusCode = (response as? HTTPURLResponse)?.statusCode {
                 if statusCode > 299 {
-                   return try await processAutoLoginWithKeyChainCredentials(authSchoolId: authSchoolId)
+                   try await logOutUser()
                 }
             }
             
@@ -141,8 +141,9 @@ class AuthManager {
             try await setToken(newValue: Token(value: result.refreshToken, createdDate: Date.now), tokenType: .refreshToken)
             
             return TumbleUser(username: user.username, password: user.password, name: result.name)
-        } catch (let error) {
-            throw error
+        } catch {
+            /// Attempt to manually log in with stored credentials
+            return try await processAutoLoginWithKeyChainCredentials(authSchoolId: authSchoolId)
         }
     }
     

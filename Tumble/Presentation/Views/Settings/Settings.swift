@@ -117,11 +117,7 @@ struct Settings: View {
     
     func schedulesAvailable() -> Bool {
         if schedules.isEmpty || schedules.filter({ $0.toggled }).isEmpty {
-            viewModel.makeToast(
-                type: .info,
-                title: NSLocalizedString("No available bookmarks", comment: ""),
-                message: NSLocalizedString("It looks like there's no available bookmarks", comment: "")
-            )
+            
             return false
         } else { return true }
     }

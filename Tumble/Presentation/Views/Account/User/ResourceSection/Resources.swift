@@ -10,7 +10,7 @@ import SwiftUI
 struct Resources: View {
     @ObservedObject var parentViewModel: AccountViewModel
     let getResourcesAndEvents: () -> Void
-    let createToast: (ToastStyle, String, String) -> Void
+    let toastFactory: ToastFactory = ToastFactory.shared
     
     var scrollSpace: String = "resourceRefreshable"
     @State var scrollOffset: CGFloat = .zero
@@ -21,13 +21,11 @@ struct Resources: View {
     init(
         parentViewModel: AccountViewModel,
         getResourcesAndEvents: @escaping () -> Void,
-        createToast: @escaping (ToastStyle, String, String) -> Void,
         collapsedHeader: Binding<Bool>
     ) {
         _isAutoSignupEnabled = State(initialValue: parentViewModel.autoSignupEnabled)
         self.parentViewModel = parentViewModel
         self.getResourcesAndEvents = getResourcesAndEvents
-        self.createToast = createToast
         _collapsedHeader = collapsedHeader
     }
     
@@ -160,24 +158,25 @@ struct Resources: View {
     fileprivate func unbookResource(bookingId: String) {
         parentViewModel.bookingSectionState = .loading
         Task {
-            await parentViewModel.resourceViewModel.unbookResource(bookingId: bookingId)
+            let result = await parentViewModel.resourceViewModel.unbookResource(bookingId: bookingId)
+            DispatchQueue.main.async {
+                if result {
+                    AppController.shared.toast = toastFactory.unBookedResourceSuccess()
+                    parentViewModel.removeUserBooking(where: bookingId)
+                } else {
+                    AppController.shared.toast = toastFactory.unBookedResourceFailed()
+                }
+                parentViewModel.bookingSectionState = .loaded
+            }
         }
     }
     
     fileprivate func toggleAutomaticExamSignup(value: Bool) {
         parentViewModel.toggleAutoSignup(value: value)
         if value {
-            createToast(
-                .info,
-                NSLocalizedString("Automatic signup", comment: ""),
-                NSLocalizedString("Automatic exam/event signup has been enabled, but make sure you are always registered for exams through your institution.", comment: "")
-            )
+            AppController.shared.toast = toastFactory.autoSignupEnabled()
         } else {
-            createToast(
-                .info,
-                NSLocalizedString("Automatic signup", comment: ""),
-                NSLocalizedString("Automatic exam/event signup has been disabled.", comment: "")
-            )
+            AppController.shared.toast = toastFactory.autoSignupDisabled()
         }
         AppLogger.shared.debug("Toggled to \(value)")
     }

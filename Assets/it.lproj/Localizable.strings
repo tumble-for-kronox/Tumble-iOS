@@ -36,7 +36,7 @@
 
 "Error"="Errore"; // OK
 
-"Could not log out from your account"="Impossibile disconnettersi dal tuo account"; // OK
+"Could not log out of your account"="Impossibile disconnettersi dal tuo account"; // OK
 
 "There are no schedules that match your search"="Non ci sono programmi che corrispondono alla tua ricerca"; // OK
 

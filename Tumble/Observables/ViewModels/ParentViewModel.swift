@@ -25,6 +25,7 @@ final class ParentViewModel: ObservableObject {
     lazy var settingsViewModel: SettingsViewModel = viewModelFactory.makeViewModelSettings()
     
     let accountPageViewModel: AccountViewModel
+    let toastFactory: ToastFactory = ToastFactory.shared
     
     @Published var authSchoolId: Int = -1
     @Published var userNotOnBoarded: Bool = false
@@ -104,11 +105,7 @@ final class ParentViewModel: ObservableObject {
         }
 
         if updatedSchedules != scheduleCount {
-            AppController.shared.toast = Toast(
-                type: .info,
-                title: NSLocalizedString("Information", comment: ""),
-                message: NSLocalizedString("Some schedules could not be updated. Either due to missing authorization or network errors", comment: "")
-            )
+            AppController.shared.toast = toastFactory.updateBookmarksFailed()
         }
     }
 

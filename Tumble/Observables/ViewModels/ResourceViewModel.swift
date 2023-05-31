@@ -157,7 +157,7 @@ final class ResourceViewModel: ObservableObject {
         resourceId: String,
         date: Date,
         availabilityValue: Response.AvailabilityValue
-    ) async {
+    ) async -> Bool {
         do {
             let request = Endpoint.bookResource(schoolId: String(authSchoolId))
             let requestBody = Request.BookKronoxResource(
@@ -166,20 +166,22 @@ final class ResourceViewModel: ObservableObject {
                 slot: availabilityValue
             )
             guard let refreshToken = userController.refreshToken else {
-                return
+                return false
             }
             let _ : Response.KronoxUserBookingElement? = try await kronoxManager.put(
                 request, refreshToken: refreshToken.value, body: requestBody)
         } catch (let error) {
             AppLogger.shared.critical("Failed to book resource: \(error)")
+            return false
         }
+        return true
     }
     
-    func unbookResource(bookingId: String) async {
+    func unbookResource(bookingId: String) async -> Bool {
         do {
             let request: Endpoint = .unbookResource(schoolId: String(authSchoolId), bookingId: bookingId)
             guard let refreshToken = userController.refreshToken else {
-                return
+                return false
             }
             let _ : Response.Empty = try await kronoxManager.put(
                 request, refreshToken: refreshToken.value, body: Request.Empty())
@@ -187,6 +189,8 @@ final class ResourceViewModel: ObservableObject {
             self.notificationManager.cancelNotification(for: bookingId)
         } catch (let error) {
             AppLogger.shared.critical("Failed to unbook resource: \(bookingId)\nError: \(error)")
+            return false
         }
+        return true
     }
 }

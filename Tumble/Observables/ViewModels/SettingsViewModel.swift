@@ -23,6 +23,7 @@ final class SettingsViewModel: ObservableObject {
     @Published var authSchoolId: Int = -1
     @Published var schoolName: String = ""
     
+    let toastFactory: ToastFactory = ToastFactory.shared
     lazy var schools: [School] = schoolManager.getSchools()
     var cancellables = Set<AnyCancellable>()
     
@@ -38,7 +39,7 @@ final class SettingsViewModel: ObservableObject {
                 schoolIdPublisher,
                 authStatusPublisher
             )
-            .receive(on: DispatchQueue.main)
+            .receive(on: RunLoop.main)
             .sink { schoolId, authStatus in
                 self.authStatus = authStatus
                 self.authSchoolId = schoolId
@@ -52,8 +53,13 @@ final class SettingsViewModel: ObservableObject {
         Task {
             do {
                 try await userController.logOut()
-            } catch (_) {
-                // TODO: Add toast
+                DispatchQueue.main.async { [weak self] in
+                    AppController.shared.toast = self?.toastFactory.logOutSuccess()
+                }
+            } catch {
+                DispatchQueue.main.async { [weak self] in
+                    AppController.shared.toast = self?.toastFactory.logOutFailed()
+                }
             }
         }
     }
@@ -67,11 +73,7 @@ final class SettingsViewModel: ObservableObject {
             guard let self else { return }
             self.notificationManager.cancelNotifications()
         }
-        makeToast(
-            type: .success,
-            title: NSLocalizedString("Cancelled notifications", comment: ""),
-            message: NSLocalizedString("Cancelled all available notifications set for events", comment: "")
-        )
+        AppController.shared.toast = toastFactory.clearNotificationsAllEventsSuccess()
     }
     
     func rescheduleNotifications(previousOffset: Int, newOffset: Int) {
@@ -86,11 +88,7 @@ final class SettingsViewModel: ObservableObject {
     
     func scheduleNotificationsForAllEvents(allEvents: [Event]) {
         guard !allEvents.isEmpty else {
-            makeToast(
-                type: .error,
-                title: NSLocalizedString("Error", comment: ""),
-                message: NSLocalizedString("Failed to set notifications for all available events", comment: "")
-            )
+            AppController.shared.toast = toastFactory.setNotificationsAllEventsFailed()
             return
         }
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
@@ -104,11 +102,7 @@ final class SettingsViewModel: ObservableObject {
                     event: event
                 ) else {
                     AppLogger.shared.critical("Could not set notification for event \(event._id)")
-                    self.makeToast(
-                        type: .error,
-                        title: NSLocalizedString("Error", comment: ""),
-                        message: NSLocalizedString("Failed to set notifications for all available events", comment: "")
-                    )
+                    AppController.shared.toast = self.toastFactory.setNotificationsAllEventsFailed()
                     break
                 }
                 
@@ -124,11 +118,9 @@ final class SettingsViewModel: ObservableObject {
                         AppLogger.shared.debug("\(success) notification set")
                         
                         if scheduledNotifications == totalNotifications {
-                            self.makeToast(
-                                type: .success,
-                                title: NSLocalizedString("Scheduled notifications", comment: ""),
-                                message: NSLocalizedString("Scheduled notifications for all available events", comment: "")
-                            )
+                            DispatchQueue.main.async {
+                                AppController.shared.toast = self.toastFactory.setNotificationsAllEventsSuccess()
+                            }
                         }
                     case .failure(let failure):
                         AppLogger.shared.critical("\(failure)")
@@ -144,30 +136,5 @@ final class SettingsViewModel: ObservableObject {
     
     private func deleteAllSchedules() {
         realmManager.deleteAllSchedules()
-    }
-    
-    func makeToast(type: ToastStyle, title: String, message: String) {
-        DispatchQueue.main.async {
-            AppController.shared.toast = Toast(
-                type: type,
-                title: title,
-                message: message
-            )
-        }
-    }
-    
-    private func schoolIsAlreadySelected(schoolId: Int) -> Bool {
-        if schoolId == authSchoolId {
-            makeToast(
-                type: .info,
-                title: NSLocalizedString("School already selected", comment: ""),
-                message: String(
-                    format: NSLocalizedString("You already have '%@' as your default school", comment: ""),
-                    schoolName
-                )
-            )
-            return true
-        }
-        return false
     }
 }
