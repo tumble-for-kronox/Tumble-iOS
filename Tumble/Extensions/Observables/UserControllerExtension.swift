@@ -8,32 +8,12 @@
 import Foundation
 
 extension UserController {
-    func logOutDemo() async throws {
-        preferenceService.setInAppReview(value: false)
-        try await authManager.setUser(newValue: nil)
-        authStatus = .unAuthorized
-    }
 
     func logOut() async throws {
-        if preferenceService.inAppReview {
-            try await logOutDemo()
-        } else {
-            try await authManager.logOutUser()
-        }
-        try await authManager.setUser(newValue: nil)
+        try await authManager.logOutUser()
         AppLogger.shared.debug("Successfully deleted items from KeyChain")
         DispatchQueue.main.async { [weak self] in
             self?.authStatus = .unAuthorized
-        }
-    }
-    
-    func loginDemo(
-        username: String,
-        password: String
-    ) async throws {
-        try await self.authManager.setUser(newValue: TumbleUser(username: username, password: password, name: "App Review Team"))
-        DispatchQueue.main.async {
-            self.authStatus = .authorized
         }
     }
 

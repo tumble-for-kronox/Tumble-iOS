@@ -7,14 +7,36 @@
 
 import Foundation
 
+enum KronoxManagerError: LocalizedError {
+    case generic(String)
+    case badServerResponse
+    case wrongStatusCode
+    case emptyResponse
+    case decodingError
+    case noInternetConnection
+    
+    var errorDescription: String? {
+        switch self {
+        case .generic(let reason):
+            return reason
+        case .badServerResponse, .wrongStatusCode:
+            return NSLocalizedString("Bad server response.", comment: "")
+        case .emptyResponse:
+            return NSLocalizedString("The server seems to be offline", comment: "")
+        case .decodingError:
+            return NSLocalizedString("Something went wrong on our end", comment: "")
+        case .noInternetConnection:
+            return NSLocalizedString("Not connected to the internet.", comment: "")
+        }
+    }
+}
+
+
 class KronoxManager: KronoxManagerProtocol {
-    private let serialQueue = OperationQueue()
     private let urlRequestUtils = NetworkUtilities.shared
     private let session: URLSession
     
     init() {
-        serialQueue.maxConcurrentOperationCount = 1
-        serialQueue.qualityOfService = .userInitiated
         session = URLSession.shared
     }
     
@@ -48,35 +70,49 @@ class KronoxManager: KronoxManagerProtocol {
             refreshToken: refreshToken,
             body: body
         ) else {
-            throw Error.generic(reason: "Could not create url request")
+            throw KronoxManagerError.decodingError
         }
         return urlRequest
     }
     
     private func fetchRequest<NetworkResponse : Decodable>(urlRequest: URLRequest) async throws -> NetworkResponse {
-        let (data, response) = try await session.data(for: urlRequest)
+        do {
+            let (data, response) = try await session.data(for: urlRequest)
+                
+            guard let httpResponse = response as? HTTPURLResponse else {
+                throw KronoxManagerError.badServerResponse
+            }
             
-        guard let httpResponse = response as? HTTPURLResponse else {
-            throw URLError(.badServerResponse)
-        }
-        
-        let statusCode = httpResponse.statusCode
-        
-        if statusCode == 200 {
-            do {
-                let decoder = JSONDecoder()
-                let decodedData = try decoder.decode(NetworkResponse.self, from: data)
-                return decodedData
-            } catch {
+            let statusCode = httpResponse.statusCode
+            
+            if statusCode == 200 {
+                do {
+                    let decoder = JSONDecoder()
+                    let decodedData = try decoder.decode(NetworkResponse.self, from: data)
+                    return decodedData
+                } catch {
+                    if let result = Response.Empty() as? NetworkResponse {
+                        return result
+                    } else {
+                        throw KronoxManagerError.decodingError
+                    }
+                }
+            } else if statusCode == 202 {
                 if let result = Response.Empty() as? NetworkResponse {
                     return result
+                } else {
+                    throw KronoxManagerError.emptyResponse
                 }
+            } else {
+                throw KronoxManagerError.wrongStatusCode
             }
-        } else if statusCode == 202 {
-            if let result = Response.Empty() as? NetworkResponse {
-                return result
+        } catch {
+            if let urlError = error as? URLError, urlError.code == .notConnectedToInternet {
+                throw KronoxManagerError.noInternetConnection
+            } else {
+                throw KronoxManagerError.decodingError
             }
         }
-        throw Error.generic(reason: "Something went wrong")
     }
+
 }

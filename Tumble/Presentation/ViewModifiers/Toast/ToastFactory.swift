@@ -95,7 +95,7 @@ class ToastFactory {
         Toast(
             type: .info,
             title: NSLocalizedString("Information", comment: ""),
-            message: NSLocalizedString("Some schedules could not be updated. Either due to missing authorization or network errors", comment: "")
+            message: NSLocalizedString("Some schedules could not be updated. Either due to missing authorization or network errors.", comment: "")
         )
     }
     

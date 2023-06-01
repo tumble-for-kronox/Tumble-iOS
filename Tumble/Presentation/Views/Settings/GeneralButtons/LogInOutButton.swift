@@ -14,8 +14,8 @@ struct LogInOutButton: View {
     @State private var isConfirming: Bool = false
     var settingsDetails: SettingsDetails = .init(
         titleKey: NSLocalizedString("Are you sure you want to log out of your account?", comment: ""),
-        name: "Log out of your account",
-        details: "This action will log you out of your KronoX account"
+        name: NSLocalizedString("Log out of your account", comment: ""),
+        details: NSLocalizedString("This action will log you out of your KronoX account", comment: "")
     )
     
     var body: some View {

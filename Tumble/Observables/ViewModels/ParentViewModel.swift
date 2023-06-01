@@ -10,7 +10,7 @@ import Foundation
 import RealmSwift
 import SwiftUI
 
-/// Also acts as delegator for other viewmodels
+/// Also acts as container for other viewmodels
 final class ParentViewModel: ObservableObject {
     var viewModelFactory: ViewModelFactory = .shared
     

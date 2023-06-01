@@ -6,13 +6,29 @@
   
 */
 
+"Cancel notifications for all events"="Annuler les notifications pour tous les événements";
+
+"Log out of your account"="Se déconnecter de votre compte";
+
+"This action will log you out of your KronoX account"="Cette action vous déconnectera de votre compte KronoX";
+
+"Some schedules could not be updated. Either due to missing authorization or network errors."="Certaines horaires n'ont pas pu être mises à jour. Soit en raison d'une autorisation manquante ou d'erreurs réseau.";
+
+"Bad server response."="Mauvaise réponse du serveur.";
+
+"The server seems to be offline."="Le serveur semble être hors ligne.";
+
+"Something went wrong on our end."="Quelque chose a mal tourné de notre côté.";
+
+"Not connected to the internet."="Pas connecté à internet.";
+
 "%@ at %@"="%@ à %@";
 
 "Your visible schedules do not contain any events"="Vos plannings visibles ne contiennent aucun événement";
 
 "Continue"="Continuer";
 
-"Search events" = "Rechercher des événements";
+"Search events"="Rechercher des événements";
 
 "Tumble on GitHub"="Tumble sur GitHub";
 

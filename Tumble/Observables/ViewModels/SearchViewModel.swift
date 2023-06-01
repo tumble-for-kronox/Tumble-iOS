@@ -37,14 +37,16 @@ final class SearchViewModel: ObservableObject {
     }
     
     func onSearchProgrammes(searchQuery: String, selectedSchoolId: Int) {
+        self.status = .loading
         let endpoint = Endpoint.searchProgramme(searchQuery: searchQuery, schoolId: String(selectedSchoolId))
         Task {
             do {
                 let searchResult: Response.Search = try await self.kronoxManager.get(endpoint)
                 await self.parseSearchResults(searchResult)
-            } catch {
+            } catch (let error) {
+                print(error.localizedDescription)
                 DispatchQueue.main.async {
-                    self.errorMessageSearch = NSLocalizedString("There are no schedules that match your search", comment: "")
+                    self.errorMessageSearch = error.localizedDescription
                     self.status = SearchStatus.error
                 }
             }

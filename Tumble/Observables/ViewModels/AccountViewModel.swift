@@ -139,18 +139,6 @@ final class AccountViewModel: ObservableObject {
         username: String,
         password: String
     ) async {
-        
-        // Check if matching demo user
-        let (demoUsername, demoPassword) = getDemoUserCredentials()
-        if username == demoUsername && password == demoPassword {
-            do {
-                try await userController.loginDemo(username: username, password: password)
-                preferenceService.setInAppReview(value: true)
-            } catch {
-                AppLogger.shared.critical("Could not sign in App Review Team")
-            }
-        }
-        
         do {
             try await userController.logIn(authSchoolId: authSchoolId, username: username, password: password)
             if let username = userController.user?.username {

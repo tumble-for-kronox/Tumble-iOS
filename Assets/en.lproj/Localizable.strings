@@ -6,13 +6,29 @@
   
 */
 
+"Cancel notifications for all events"="Cancel notifications for all events";
+
+"Log out of your account"="Log out of your account";
+
+"This action will log you out of your KronoX account"="This action will log you out of your KronoX account";
+
+"Some schedules could not be updated. Either due to missing authorization or network errors."="Some schedules could not be updated. Either due to missing authorization or network errors.";
+
+"Bad server response."="Bad server response.";
+
+"The server seems to be offline."="The server seems to be offline.";
+
+"Something went wrong on our end."="Something went wrong on our end.";
+
+"Not connected to the internet."="Not connected to the internet.";
+
 "%@ at %@"="%@ at %@";
 
 "Your visible schedules do not contain any events"="Your visible schedules do not contain any events";
 
 "Continue"="Continue";
 
-"Search events" = "Search events";
+"Search events"="Search events";
 
 "Tumble on GitHub"="Tumble on GitHub";
 
