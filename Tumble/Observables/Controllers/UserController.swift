@@ -21,11 +21,6 @@ class UserController: ObservableObject {
     
     init() {
         let authSchoolId = preferenceService.getDefaultAuthSchool() ?? -1
-        let inAppReview = preferenceService.isInAppReview()
-        if inAppReview {
-            authStatus = .authorized
-            return
-        }
         Task {
             await autoLogin(authSchoolId: authSchoolId)
         }

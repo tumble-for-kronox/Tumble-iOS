@@ -107,11 +107,16 @@ class KronoxManager: KronoxManagerProtocol {
                 throw KronoxManagerError.wrongStatusCode
             }
         } catch {
-            if let urlError = error as? URLError, urlError.code == .notConnectedToInternet {
-                throw KronoxManagerError.noInternetConnection
-            } else {
-                throw KronoxManagerError.decodingError
-            }
+            if let urlError = error as? URLError {
+                    switch urlError.code {
+                    case .notConnectedToInternet, .networkConnectionLost, .dataNotAllowed:
+                        throw KronoxManagerError.noInternetConnection
+                    default:
+                        throw KronoxManagerError.decodingError
+                    }
+                } else {
+                    throw KronoxManagerError.decodingError
+                }
         }
     }
 

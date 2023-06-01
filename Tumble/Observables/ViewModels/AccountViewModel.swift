@@ -22,7 +22,6 @@ final class AccountViewModel: ObservableObject {
     @Inject var schoolManager: SchoolManager
     
     @Published var authSchoolId: Int = -1
-    @Published var inAppReview: Bool = false
     @Published var schoolName: String = ""
     @Published var status: AccountViewStatus = .loading
     @Published var completeUserEvent: Response.KronoxCompleteUserEvent? = nil
@@ -66,13 +65,11 @@ final class AccountViewModel: ObservableObject {
     func setUpDataPublishers() {
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             guard let self else { return }
-            let authStatusPublisher = self.userController.$authStatus
-            let schoolIdPublisher = self.preferenceService.$authSchoolId
-            let inAppReviewPublisher = self.preferenceService.$inAppReview
+            let authStatusPublisher = self.userController.$authStatus.receive(on: RunLoop.main)
+            let schoolIdPublisher = self.preferenceService.$authSchoolId.receive(on: RunLoop.main)
             
-            Publishers.CombineLatest3(authStatusPublisher, schoolIdPublisher, inAppReviewPublisher)
-                .receive(on: DispatchQueue.main)
-                .sink { authStatus, authSchoolId, _ in
+            Publishers.CombineLatest(authStatusPublisher, schoolIdPublisher)
+                .sink { authStatus, authSchoolId in
                     switch authStatus {
                     case .authorized:
                         self.authSchoolId = authSchoolId

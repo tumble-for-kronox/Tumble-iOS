@@ -23,6 +23,9 @@ extension UserController {
         password: String
     ) async throws {
         do {
+            DispatchQueue.main.async {
+                self.authStatus = .loading
+            }
             let userRequest = Request.KronoxUserLogin(username: username, password: password)
             let user: TumbleUser = try await authManager.loginUser(authSchoolId: authSchoolId, user: userRequest)
             try await self.authManager.setUser(newValue: user)
@@ -44,6 +47,9 @@ extension UserController {
     
     func autoLogin(authSchoolId: Int) async {
         AppLogger.shared.debug("Attempting auto login for user", source: "UserController")
+        DispatchQueue.main.async {
+            self.authStatus = .loading
+        }
         do {
             let user: TumbleUser = try await authManager.autoLoginUser(authSchoolId: authSchoolId)
             try await self.authManager.setUser(newValue: user)
