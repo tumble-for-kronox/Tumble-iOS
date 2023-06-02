@@ -73,11 +73,11 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         willPresent notification: UNNotification,
         withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void
     ) {
-        completionHandler([[.banner, .badge, .list, .sound]])
+        completionHandler([.banner, .badge, .list, .sound])
     }
 
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        AppLogger.shared.critical("Failed to register for remote notifications for the current device token: \(deviceToken)")
+        AppLogger.shared.critical("Registered for remote notifications for the current device token: \(deviceToken)")
     }
 
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
@@ -90,14 +90,13 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         withCompletionHandler completionHandler: @escaping () -> Void
     ) {
         let userInfo = response.notification.request.content.userInfo
-        
+
+        /// Only modify application state if notification comes from
+        /// local Event notification
         if let userInfoAsDict = userInfo[NotificationContentKey.event.rawValue] as? [String: Any] {
             if let event = userInfoAsDict.toEvent() {
-                // Message successully parsed as Event, which means it was a local notification
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    AppController.shared.selectedAppTab = .bookmarks
-                    AppController.shared.eventSheet = EventDetailsSheetModel(event: event)
-                }
+                // Message successfully parsed as Event, which means it was a local notification
+                NotificationCenter.default.post(name: .eventReceived, object: event)
             }
         }
         

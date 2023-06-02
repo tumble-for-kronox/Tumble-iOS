@@ -234,7 +234,9 @@ final class AccountViewModel: ObservableObject {
     func checkNotificationsForUserBookings(bookings: Response.KronoxUserBookings? = nil) async {
         AppLogger.shared.debug("Checking for notifications to set for user booked resources ...")
         if let userBookings = bookings {
-            scheduleBookingNotifications(for: userBookings)
+            Task {
+                await scheduleBookingNotifications(for: userBookings)
+            }
             return
         }
         
@@ -245,7 +247,9 @@ final class AccountViewModel: ObservableObject {
                 return
             }
             let bookings: Response.KronoxUserBookings = try await kronoxManager.get(request, refreshToken: refreshToken.value)
-            self.scheduleBookingNotifications(for: bookings)
+            Task {
+                await self.scheduleBookingNotifications(for: bookings)
+            }
         } catch (let error) {
             AppLogger.shared.debug("\(error)")
             DispatchQueue.main.async {

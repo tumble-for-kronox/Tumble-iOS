@@ -24,7 +24,7 @@ final class ParentViewModel: ObservableObject {
     lazy var searchViewModel: SearchViewModel = viewModelFactory.makeViewModelSearch()
     lazy var settingsViewModel: SettingsViewModel = viewModelFactory.makeViewModelSettings()
     
-    let accountPageViewModel: AccountViewModel
+    let accountPageViewModel: AccountViewModel = ViewModelFactory.shared.makeViewModelAccount()
     let toastFactory: ToastFactory = ToastFactory.shared
     
     @Published var authSchoolId: Int = -1
@@ -35,12 +35,28 @@ final class ParentViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     
     init() {
-        // Do not lazy load account page
-        accountPageViewModel = viewModelFactory.makeViewModelAccount()
-        
+        setupNotificationObserver()
         setupPublishers()
-        
         setupRealmListener()
+    }
+    
+    private func setupNotificationObserver() {
+        NotificationCenter.default
+            .addObserver(
+                self,
+                selector: #selector(handleEventNotification(_:)),
+                name: .eventReceived,
+                object: nil
+            )
+    }
+    
+    @objc private func handleEventNotification(_ notification: Notification) {
+        if let event = notification.object as? Event {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                AppController.shared.selectedAppTab = .bookmarks
+                AppController.shared.eventSheet = EventDetailsSheetModel(event: event)
+            }
+        }
     }
     
     private func setupPublishers() {
@@ -129,6 +145,12 @@ final class ParentViewModel: ObservableObject {
             existingCourseColors: self.realmManager.getCourseColors()
         )
         self.realmManager.updateSchedule(scheduleId: schedule.id, newSchedule: realmSchedule)
+    }
+    
+    
+    /// Cleanup
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
 
 }

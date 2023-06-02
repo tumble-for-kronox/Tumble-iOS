@@ -167,7 +167,6 @@
 		D4982913299DA07F0017D636 /* ResourceCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4982912299DA07F0017D636 /* ResourceCard.swift */; };
 		D49B984E29CF461C0023DF75 /* URLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49B984D29CF461C0023DF75 /* URLSession.swift */; };
 		D49B985229CF47700023DF75 /* KeyChainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49B985129CF47700023DF75 /* KeyChainManager.swift */; };
-		D49B985429CF47C60023DF75 /* KeyChainManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49B985329CF47C60023DF75 /* KeyChainManagerProtocol.swift */; };
 		D49D2500299A9495001D2751 /* UserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49D24FF299A9495001D2751 /* UserController.swift */; };
 		D49FCAD629CFCA5400E3CE6E /* ResourceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49FCAD529CFCA5400E3CE6E /* ResourceViewModel.swift */; };
 		D4A328DE29CD10F300945AF4 /* NetworkUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A328DD29CD10F300945AF4 /* NetworkUtilities.swift */; };
@@ -220,7 +219,6 @@
 		D4E83ED12999B1B1002E5F88 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E83ED02999B1B1002E5F88 /* AuthManager.swift */; };
 		D4EACB3629CB99540096ADD2 /* ResourceTimeButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EACB3529CB99540096ADD2 /* ResourceTimeButtonStyle.swift */; };
 		D4EACB3829CB9E640096ADD2 /* TimeslotSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EACB3729CB9E640096ADD2 /* TimeslotSelection.swift */; };
-		D4EAD3B9298D633B00678DF8 /* KronoxManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EAD3B8298D633B00678DF8 /* KronoxManagerProtocol.swift */; };
 		D4EE5B6C29D50FC0002A1399 /* AppearanceSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EE5B6B29D50FC0002A1399 /* AppearanceSettings.swift */; };
 		D4EE5B6E29D50FD3002A1399 /* SettingsRadioButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EE5B6D29D50FD3002A1399 /* SettingsRadioButton.swift */; };
 		D4EEFB4929DA06A40007A209 /* ToTopButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EEFB4829DA06A40007A209 /* ToTopButton.swift */; };
@@ -230,6 +228,7 @@
 		D4EEFB5829DA1BD10007A209 /* CustomListGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EEFB5729DA1BD10007A209 /* CustomListGroup.swift */; };
 		D4EEFB5A29DA4E490007A209 /* AppearanceTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EEFB5929DA4E490007A209 /* AppearanceTypes.swift */; };
 		D4F0E29229F91774009A6FAD /* DummyDataFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F0E29129F91774009A6FAD /* DummyDataFactory.swift */; };
+		D4F532642A2A3FF2009DC8B8 /* Notification+NameExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F532632A2A3FF2009DC8B8 /* Notification+NameExtension.swift */; };
 		D4FCD14B2995AD64009D2987 /* UIColorWellExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FCD14A2995AD64009D2987 /* UIColorWellExtension.swift */; };
 		D4FCD14E2995ADFE009D2987 /* UIColorWellHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FCD14D2995ADFE009D2987 /* UIColorWellHelper.swift */; };
 		D4FFCC1D29EDA9A700708CC0 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = D4FFCC1C29EDA9A700708CC0 /* Realm */; };
@@ -405,7 +404,6 @@
 		D4982912299DA07F0017D636 /* ResourceCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceCard.swift; sourceTree = "<group>"; };
 		D49B984D29CF461C0023DF75 /* URLSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSession.swift; sourceTree = "<group>"; };
 		D49B985129CF47700023DF75 /* KeyChainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChainManager.swift; sourceTree = "<group>"; };
-		D49B985329CF47C60023DF75 /* KeyChainManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChainManagerProtocol.swift; sourceTree = "<group>"; };
 		D49D24FF299A9495001D2751 /* UserController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserController.swift; sourceTree = "<group>"; };
 		D49FCAD529CFCA5400E3CE6E /* ResourceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceViewModel.swift; sourceTree = "<group>"; };
 		D4A328DD29CD10F300945AF4 /* NetworkUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkUtilities.swift; sourceTree = "<group>"; };
@@ -459,7 +457,6 @@
 		D4E83ED02999B1B1002E5F88 /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
 		D4EACB3529CB99540096ADD2 /* ResourceTimeButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceTimeButtonStyle.swift; sourceTree = "<group>"; };
 		D4EACB3729CB9E640096ADD2 /* TimeslotSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeslotSelection.swift; sourceTree = "<group>"; };
-		D4EAD3B8298D633B00678DF8 /* KronoxManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KronoxManagerProtocol.swift; sourceTree = "<group>"; };
 		D4EE5B6B29D50FC0002A1399 /* AppearanceSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceSettings.swift; sourceTree = "<group>"; };
 		D4EE5B6D29D50FD3002A1399 /* SettingsRadioButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRadioButton.swift; sourceTree = "<group>"; };
 		D4EEFB4829DA06A40007A209 /* ToTopButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToTopButton.swift; sourceTree = "<group>"; };
@@ -469,6 +466,7 @@
 		D4EEFB5729DA1BD10007A209 /* CustomListGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomListGroup.swift; sourceTree = "<group>"; };
 		D4EEFB5929DA4E490007A209 /* AppearanceTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceTypes.swift; sourceTree = "<group>"; };
 		D4F0E29129F91774009A6FAD /* DummyDataFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyDataFactory.swift; sourceTree = "<group>"; };
+		D4F532632A2A3FF2009DC8B8 /* Notification+NameExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+NameExtension.swift"; sourceTree = "<group>"; };
 		D4FCD14A2995AD64009D2987 /* UIColorWellExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorWellExtension.swift; sourceTree = "<group>"; };
 		D4FCD14D2995ADFE009D2987 /* UIColorWellHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorWellHelper.swift; sourceTree = "<group>"; };
 		D4FFCC2129EDA9E200708CC0 /* Schedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Schedule.swift; sourceTree = "<group>"; };
@@ -606,6 +604,7 @@
 		D40D80A429252156008CA68D /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				D4F532622A2A3FDE009DC8B8 /* Notification+Name */,
 				D400F3EA29D7975A0050622E /* Observables */,
 				D4ABD26E298C2E02002FD8F5 /* Model */,
 				D4ABD26C298C2DF0002FD8F5 /* Presentation */,
@@ -688,20 +687,11 @@
 			path = Constants;
 			sourceTree = "<group>";
 		};
-		D41ADFE8299F8D8A0074E2C7 /* Auth */ = {
-			isa = PBXGroup;
-			children = (
-				D49B985329CF47C60023DF75 /* KeyChainManagerProtocol.swift */,
-			);
-			path = Auth;
-			sourceTree = "<group>";
-		};
 		D41ED54229843366009DCF8B /* Domain */ = {
 			isa = PBXGroup;
 			children = (
 				D400F3CE29D7939C0050622E /* Enums */,
 				D4644A21298DA92500B0BB28 /* Notifications */,
-				D4EAD3B6298D632500678DF8 /* DataSource */,
 				D46ABF032984385700B059F6 /* Repository */,
 				D41ED545298433A3009DCF8B /* Model */,
 			);
@@ -1375,23 +1365,6 @@
 			path = Auth;
 			sourceTree = "<group>";
 		};
-		D4EAD3B6298D632500678DF8 /* DataSource */ = {
-			isa = PBXGroup;
-			children = (
-				D41ADFE8299F8D8A0074E2C7 /* Auth */,
-				D4EAD3B7298D632E00678DF8 /* NetworkManager */,
-			);
-			path = DataSource;
-			sourceTree = "<group>";
-		};
-		D4EAD3B7298D632E00678DF8 /* NetworkManager */ = {
-			isa = PBXGroup;
-			children = (
-				D4EAD3B8298D633B00678DF8 /* KronoxManagerProtocol.swift */,
-			);
-			path = NetworkManager;
-			sourceTree = "<group>";
-		};
 		D4EAD3BA298D8A8E00678DF8 /* Factories */ = {
 			isa = PBXGroup;
 			children = (
@@ -1424,6 +1397,14 @@
 				D416D33829CA7C5B009A4FB8 /* CalendarViewRepresentable.swift */,
 			);
 			path = Calendar;
+			sourceTree = "<group>";
+		};
+		D4F532622A2A3FDE009DC8B8 /* Notification+Name */ = {
+			isa = PBXGroup;
+			children = (
+				D4F532632A2A3FF2009DC8B8 /* Notification+NameExtension.swift */,
+			);
+			path = "Notification+Name";
 			sourceTree = "<group>";
 		};
 		D4FCD1472995AD30009D2987 /* View */ = {
@@ -1642,6 +1623,7 @@
 				D4FFCC2A29EDAEC900708CC0 /* Teacher.swift in Sources */,
 				D4E83ECE2999B041002E5F88 /* UserOverview.swift in Sources */,
 				D447EA8D2A23612400E50A92 /* CalendarExtension.swift in Sources */,
+				D4F532642A2A3FF2009DC8B8 /* Notification+NameExtension.swift in Sources */,
 				D4D3368329F66E0000933D38 /* RealmManager.swift in Sources */,
 				D400F3D029D793AB0050622E /* RootViewStatus.swift in Sources */,
 				D4FFCC2229EDA9E200708CC0 /* Schedule.swift in Sources */,
@@ -1723,14 +1705,12 @@
 				D49FCAD629CFCA5400E3CE6E /* ResourceViewModel.swift in Sources */,
 				D419EDF6299A78C400479DCE /* ResourceSectionDivider.swift in Sources */,
 				D40D80A629252165008CA68D /* ViewExtensions.swift in Sources */,
-				D4EAD3B9298D633B00678DF8 /* KronoxManagerProtocol.swift in Sources */,
 				D45DAB2E29DB4FCA00FCA5AC /* TodaysEventsCarousel.swift in Sources */,
 				D4EEFB5029DA15440007A209 /* ListRowNavigationItem.swift in Sources */,
 				D458606329DCF72300B77513 /* NewsItemDetails.swift in Sources */,
 				D454204129BE982000EF0FC9 /* HapticsController.swift in Sources */,
 				D43294E029E0ABAA00842884 /* HomeStatus.swift in Sources */,
 				D42DFD5E29BD5BC9002942D7 /* PillStyle.swift in Sources */,
-				D49B985429CF47C60023DF75 /* KeyChainManagerProtocol.swift in Sources */,
 				D4CD0EFF29D5B00A00AB5FD0 /* UIApplicationExtension.swift in Sources */,
 				D44ABF0729BFE89D00344792 /* SchoolRowStyle.swift in Sources */,
 				D4562E0B2A27E9020059ED36 /* ToastFactory.swift in Sources */,

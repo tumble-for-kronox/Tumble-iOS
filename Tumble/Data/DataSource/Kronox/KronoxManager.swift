@@ -32,7 +32,7 @@ enum KronoxManagerError: LocalizedError {
 }
 
 
-class KronoxManager: KronoxManagerProtocol {
+class KronoxManager {
     private let urlRequestUtils = NetworkUtilities.shared
     private let session: URLSession
     

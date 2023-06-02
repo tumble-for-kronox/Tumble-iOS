@@ -8,30 +8,26 @@
 import Foundation
 
 extension AccountViewModel {
-    func scheduleBookingNotifications(for bookings: Response.KronoxUserBookings) {
-        DispatchQueue.global(qos: .background).async { [weak self] in
-            guard let self else { return }
-            for booking in bookings {
-                if let notification = self.notificationManager.createNotificationFromBooking(booking: booking) {
-                    self.notificationManager.scheduleNotification(
+    
+    func scheduleBookingNotifications(for bookings: Response.KronoxUserBookings) async {
+        for booking in bookings {
+            if let notification = notificationManager.createNotificationFromBooking(booking: booking) {
+                do {
+                    try await notificationManager.scheduleNotification(
                         for: notification,
                         type: .booking,
-                        userOffset: self.preferenceService.getNotificationOffset(),
-                        completion: { result in
-                            switch result {
-                            case .success(let success):
-                                AppLogger.shared.debug("Scheduled \(success) notification with id: \(notification.id)")
-                            case .failure(let failure):
-                                AppLogger.shared.debug("Failed : \(failure)")
-                            }
-                        }
+                        userOffset: preferenceService.getNotificationOffset()
                     )
-                } else {
-                    AppLogger.shared.critical("Failed to retrieve date components for booking")
+                    AppLogger.shared.debug("Scheduled one notification with id: \(notification.id)")
+                } catch let failure {
+                    AppLogger.shared.debug("Failed: \(failure)")
                 }
+            } else {
+                AppLogger.shared.critical("Failed to retrieve date components for booking")
             }
         }
     }
+
     
     func registerAutoSignup() async {
         AppLogger.shared.debug("Attempting to automatically sign up for exams")

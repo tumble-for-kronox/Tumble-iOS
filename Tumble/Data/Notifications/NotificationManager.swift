@@ -8,71 +8,76 @@
 import Foundation
 import UserNotifications
 
-class NotificationManager: NotificationManagerProtocol {
+class NotificationManager {
     private let notificationCenter = UNUserNotificationCenter.current()
     private let authorizationOptions: UNAuthorizationOptions = [.alert, .sound, .badge]
 
     func scheduleNotification<Notification: LocalNotification>(
         for notification: Notification,
         type: NotificationType,
-        userOffset: Int,
-        completion: @escaping (Result<Int, NotificationError>) -> Void
-    ) {
-        notificationsAreAllowed { [weak self] result in
-            guard let self else { return }
-            switch result {
-            case .success:
-                switch type {
-                case .event:
-                    if let eventNotification = notification as? EventNotification {
-                        let request = self.requestEventNotification(for: eventNotification, userOffset: userOffset)
-                        self.notificationCenter.add(request)
-                    }
-                case .booking:
-                    if let bookingNotification = notification as? BookingNotification {
-                        self.notificationCenter.add(self.requestBookingNotification(for: bookingNotification))
-                    }
+        userOffset: Int
+    ) async throws {
+        let allowed = try await notificationsAreAllowed()
+        if allowed {
+            switch type {
+            case .event:
+                if let eventNotification = notification as? EventNotification {
+                    let request = self.requestEventNotification(for: eventNotification, userOffset: userOffset)
+                    try await self.notificationCenter.add(request)
                 }
-                
-                AppLogger.shared.debug("Successfully set notification with id -> \(notification.id)")
-                completion(.success(1))
-            case .failure(let failure):
-                AppLogger.shared.critical("Could not set notification. Not allowed")
-                completion(.failure(failure))
+            case .booking:
+                if let bookingNotification = notification as? BookingNotification {
+                    try await self.notificationCenter.add(self.requestBookingNotification(for: bookingNotification))
+                }
             }
+            
+            AppLogger.shared.debug("Successfully set notification with id -> \(notification.id)")
+            return
         }
+        throw NotificationError.internal(reason: "Lacking permission to set notifications")
     }
+
 
     func cancelNotification(for id: String) {
         notificationCenter.removePendingNotificationRequests(withIdentifiers: [id])
         AppLogger.shared.debug("Cancelled notifications with id -> \(id)")
     }
     
-    func isNotificationScheduled(eventId: String, completion: @escaping (Bool) -> Void) {
-        notificationCenter.getPendingNotificationRequests { requests in
-            let isScheduled = requests.contains { $0.identifier == eventId }
-            completion(isScheduled)
-        }
-    }
-    
-    func isNotificationScheduled(categoryIdentifier: String, completion: @escaping (Bool) -> Void) {
-        notificationCenter.getPendingNotificationRequests { requests in
-            let requestsWithMatchingCategory = requests.filter { $0.content.categoryIdentifier == categoryIdentifier }
-            completion(!requestsWithMatchingCategory.isEmpty)
-        }
-    }
-
-    func cancelNotifications(with categoryIdentifier: String) {
-        DispatchQueue.global(qos: .background).async { [weak self] in
-            guard let self = self else { return }
-            self.notificationCenter.getPendingNotificationRequests { requests in
-                let requestsWithMatchingCategory = requests.filter { $0.content.categoryIdentifier == categoryIdentifier }
-                let identifiers = requestsWithMatchingCategory.map { $0.identifier }
-                AppLogger.shared.debug("Cancelling notifications with categoryIdentifier -> \(categoryIdentifier)")
-                self.notificationCenter.removePendingNotificationRequests(withIdentifiers: identifiers)
+    func isNotificationScheduled(eventId: String) async -> Bool {
+        return await withCheckedContinuation { continuation in
+            notificationCenter.getPendingNotificationRequests { requests in
+                let isScheduled = requests.contains { $0.identifier == eventId }
+                continuation.resume(returning: isScheduled)
             }
         }
     }
+    
+    func isNotificationScheduled(categoryIdentifier: String) async -> Bool {
+        return await withCheckedContinuation { continuation in
+            notificationCenter.getPendingNotificationRequests { requests in
+                let requestsWithMatchingCategory = requests.filter { $0.content.categoryIdentifier == categoryIdentifier }
+                continuation.resume(returning: !requestsWithMatchingCategory.isEmpty)
+            }
+        }
+    }
+
+    func cancelNotifications(with categoryIdentifier: String) async {
+        let requests = await getPendingNotificationRequests()
+        let requestsWithMatchingCategory = requests.filter { $0.content.categoryIdentifier == categoryIdentifier }
+        let identifiers = requestsWithMatchingCategory.map { $0.identifier }
+        AppLogger.shared.debug("Cancelling notifications with categoryIdentifier -> \(categoryIdentifier)")
+        notificationCenter.removePendingNotificationRequests(withIdentifiers: identifiers)
+    }
+
+
+    private func getPendingNotificationRequests() async -> [UNNotificationRequest] {
+        return await withCheckedContinuation { continuation in
+            notificationCenter.getPendingNotificationRequests { requests in
+                continuation.resume(returning: requests)
+            }
+        }
+    }
+
     
     func cancelNotifications() {
         DispatchQueue.global(qos: .background).async { [weak self] in
@@ -104,43 +109,49 @@ class NotificationManager: NotificationManagerProtocol {
         return notification
     }
     
-    func notificationsAreAllowed(completion: ((Result<Bool, NotificationError>) -> Void)? = nil) {
-        notificationCenter.getNotificationSettings { settings in
-            switch settings.authorizationStatus {
-            case .authorized:
-                completion?(.success(true))
-            case .denied:
-                completion?(.failure(.internal(reason: "Notifications denied")))
-            default:
-                completion?(.failure(.internal(reason: "Notifications not allowed")))
+    func notificationsAreAllowed() async throws -> Bool {
+        return try await withCheckedThrowingContinuation { continuation in
+            notificationCenter.getNotificationSettings { settings in
+                switch settings.authorizationStatus {
+                case .authorized:
+                    continuation.resume(returning: true)
+                case .denied:
+                    continuation.resume(throwing: NotificationError.internal(reason: "Notifications denied"))
+                default:
+                    continuation.resume(throwing: NotificationError.internal(reason: "Notifications not allowed"))
+                }
             }
         }
     }
+
     
-    func rescheduleEventNotifications(previousOffset: Int, userOffset: Int) {
-        notificationCenter.getPendingNotificationRequests { [unowned self] requests in
-            let eventRequests = requests.filter { $0.content.userInfo[NotificationContentKey.event.rawValue] != nil }
-            AppLogger.shared.debug("Found \(eventRequests.count) notifications that need rescheduling")
-            let modifiedRequests = eventRequests.map { request -> UNNotificationRequest in
-                let trigger = request.trigger as! UNCalendarNotificationTrigger
-                let newTrigger = UNCalendarNotificationTrigger(
-                    dateMatching: self.dateComponentsAfterSubtractingUserOffset(
-                        date: dateAfterAddingUserOffset(date: trigger.nextTriggerDate()!, userOffset: previousOffset),
-                        userOffset: userOffset
-                    ),
-                    repeats: false
-                )
-                let modifiedRequest = UNNotificationRequest(identifier: request.identifier, content: request.content, trigger: newTrigger)
-                return modifiedRequest
-            }
-            AppLogger.shared.debug("Removing \(eventRequests.map { $0.identifier }.count) notifications")
-            self.notificationCenter.removePendingNotificationRequests(withIdentifiers: eventRequests.map { $0.identifier })
-            for request in modifiedRequests {
-                self.notificationCenter.add(request)
-            }
-            AppLogger.shared.debug("Rescheduled \(modifiedRequests.count) notifications")
+    func rescheduleEventNotifications(previousOffset: Int, userOffset: Int) async throws {
+        let requests = await getPendingNotificationRequests()
+        let eventRequests = requests.filter { $0.content.userInfo[NotificationContentKey.event.rawValue] != nil }
+        AppLogger.shared.debug("Found \(eventRequests.count) notifications that need rescheduling")
+
+        let modifiedRequests = eventRequests.map { request -> UNNotificationRequest in
+            let trigger = request.trigger as! UNCalendarNotificationTrigger
+            let newTrigger = UNCalendarNotificationTrigger(
+                dateMatching: self.dateComponentsAfterSubtractingUserOffset(
+                    date: dateAfterAddingUserOffset(date: trigger.nextTriggerDate()!, userOffset: previousOffset),
+                    userOffset: userOffset
+                ),
+                repeats: false
+            )
+            let modifiedRequest = UNNotificationRequest(identifier: request.identifier, content: request.content, trigger: newTrigger)
+            return modifiedRequest
         }
+
+        AppLogger.shared.debug("Removing \(eventRequests.map { $0.identifier }.count) notifications")
+        notificationCenter.removePendingNotificationRequests(withIdentifiers: eventRequests.map { $0.identifier })
+
+        for request in modifiedRequests {
+            try await notificationCenter.add(request)
+        }
+        AppLogger.shared.debug("Rescheduled \(modifiedRequests.count) notifications")
     }
+
 }
 
 private extension NotificationManager {

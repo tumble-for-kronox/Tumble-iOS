@@ -111,7 +111,9 @@ struct Settings: View {
                 .flatMap { $0.days }
                 .flatMap { $0.events }
                 .filter { !($0.dateComponents!.hasDatePassed()) }
-            viewModel.scheduleNotificationsForAllEvents(allEvents: allEvents)
+            Task {
+                await viewModel.scheduleNotificationsForAllEvents(allEvents: allEvents)
+            }
         }
     }
     

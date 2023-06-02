@@ -77,58 +77,57 @@ final class SettingsViewModel: ObservableObject {
     }
     
     func rescheduleNotifications(previousOffset: Int, newOffset: Int) {
-        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-            guard let self else { return }
-            self.notificationManager.rescheduleEventNotifications(
-                previousOffset: previousOffset,
-                userOffset: newOffset
-            )
+        Task {
+            do {
+                try await notificationManager.rescheduleEventNotifications(
+                    previousOffset: previousOffset,
+                    userOffset: newOffset
+                )
+            } catch {
+                // TODO: Error handling
+            }
         }
     }
     
-    func scheduleNotificationsForAllEvents(allEvents: [Event]) {
+    func scheduleNotificationsForAllEvents(allEvents: [Event]) async {
         guard !allEvents.isEmpty else {
             AppController.shared.toast = toastFactory.setNotificationsAllEventsFailed()
             return
         }
-        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-            guard let self else { return }
+        
+        let totalNotifications = allEvents.count
+        var scheduledNotifications = 0
+        
+        for event in allEvents {
+            guard let notification = notificationManager.createNotificationFromEvent(
+                event: event
+            ) else {
+                AppLogger.shared.critical("Could not set notification for event \(event._id)")
+                AppController.shared.toast = toastFactory.setNotificationsAllEventsFailed()
+                return
+            }
             
-            let totalNotifications = allEvents.count
-            var scheduledNotifications = 0
-            
-            for event in allEvents {
-                guard let notification = self.notificationManager.createNotificationFromEvent(
-                    event: event
-                ) else {
-                    AppLogger.shared.critical("Could not set notification for event \(event._id)")
-                    AppController.shared.toast = self.toastFactory.setNotificationsAllEventsFailed()
-                    break
-                }
-                
-                self.notificationManager.scheduleNotification(
+            do {
+                try await notificationManager.scheduleNotification(
                     for: notification,
                     type: .event,
-                    userOffset: self.preferenceService.getNotificationOffset()
-                ) { [weak self] result in
-                    guard let self else { return }
-                    switch result {
-                    case .success(let success):
-                        scheduledNotifications += 1
-                        AppLogger.shared.debug("\(success) notification set")
-                        
-                        if scheduledNotifications == totalNotifications {
-                            DispatchQueue.main.async {
-                                AppController.shared.toast = self.toastFactory.setNotificationsAllEventsSuccess()
-                            }
-                        }
-                    case .failure(let failure):
-                        AppLogger.shared.critical("\(failure)")
+                    userOffset: preferenceService.getNotificationOffset()
+                )
+                scheduledNotifications += 1
+                AppLogger.shared.debug("One notification set")
+                
+                if scheduledNotifications == totalNotifications {
+                    DispatchQueue.main.async { [weak self] in
+                        AppController.shared.toast = self?.toastFactory.setNotificationsAllEventsSuccess()
                     }
                 }
+            } catch let failure {
+                AppLogger.shared.critical("\(failure)")
+                // TODO: Error handling
             }
         }
     }
+
     
     func deleteBookmark(schedule: Schedule) {
         realmManager.deleteSchedule(schedule: schedule)

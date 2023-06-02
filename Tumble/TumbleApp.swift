@@ -15,6 +15,7 @@ struct TumbleApp: App {
         /// Cache the environment variable in app storage (user defaults).
         if let networkSettings = ProcessInfo.processInfo.environment["NETWORK_SETTINGS"] {
             UserDefaults.standard.set(networkSettings, forKey: StoreKey.networkSettings.rawValue)
+            UserDefaults.standard.synchronize()
         }
         /// Initialize dependency providers
         _ = Dependencies()

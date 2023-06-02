@@ -53,7 +53,7 @@
       <EnvironmentVariables>
          <EnvironmentVariable
             key = "NETWORK_SETTINGS"
-            value = "producton"
+            value = "production"
             isEnabled = "YES">
          </EnvironmentVariable>
       </EnvironmentVariables>
