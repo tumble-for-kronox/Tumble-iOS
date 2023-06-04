@@ -145,12 +145,12 @@
       }
     },
     {
-      "identity" : "wrappinghstack",
+      "identity" : "swipeactions",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/dkk/WrappingHStack.git",
+      "location" : "https://github.com/aheze/SwipeActions.git",
       "state" : {
-        "revision" : "44987fbb01112e6ec72098dc6481187dd53ad4d2",
-        "version" : "2.2.9"
+        "revision" : "41e6f6dce02d8cfa164f8c5461a41340850ca3ab",
+        "version" : "1.1.0"
       }
     }
   ],

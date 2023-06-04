@@ -50,12 +50,12 @@ struct ListRowActionItem: View {
         }, label: {
             HStack(spacing: 0) {
                 Text(title)
-                    .font(.system(size: 17, weight: .medium))
+                    .font(.system(size: 16, weight: .medium))
                     .foregroundColor(.onSurface)
                 Spacer()
                 if let current = current {
                     Text(current)
-                        .font(.system(size: 17, weight: .medium))
+                        .font(.system(size: 16, weight: .medium))
                         .foregroundColor(.onSurface.opacity(0.7))
                         .padding(.trailing, 10)
                 }
