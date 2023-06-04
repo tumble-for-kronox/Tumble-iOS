@@ -290,6 +290,7 @@
 		D41F152A299C699500E13264 /* Events.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Events.swift; sourceTree = "<group>"; };
 		D421EAEF2993FB660045D438 /* EventDetailsSheetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailsSheetModel.swift; sourceTree = "<group>"; };
 		D423F6AD29F0085D00C04123 /* SchoolPill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolPill.swift; sourceTree = "<group>"; };
+		D42554332A2C9A4700256550 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D426E3A3299C39DE00A8D7AE /* ResourceBookings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceBookings.swift; sourceTree = "<group>"; };
 		D426E3A5299C39EA00A8D7AE /* EventBookings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventBookings.swift; sourceTree = "<group>"; };
 		D4294B3329C91CF700007747 /* ArrayExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
@@ -1521,6 +1522,7 @@
 				de,
 				it,
 				"bs-BA",
+				ar,
 			);
 			mainGroup = D472213C292454560063BDB7;
 			packageReferences = (
@@ -1794,6 +1796,7 @@
 				D478452229D64CC300BDF7A3 /* de */,
 				D478452429D64D8800BDF7A3 /* it */,
 				D47A451C29D75D14008626E6 /* bs-BA */,
+				D42554332A2C9A4700256550 /* ar */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";

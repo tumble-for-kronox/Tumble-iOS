@@ -1,0 +1,431 @@
+/*
+  Localizable.strings
+  Tumble
+
+  Created by Adis Veletanlic on 2023-03-30.
+  
+*/
+
+"Cancel notifications for all events"="إلغاء التنبيهات لجميع الأحداث";
+
+"Log out of your account"="تسجيل الخروج من حسابك";
+
+"This action will log you out of your KronoX account"="سيؤدي هذا الإجراء إلى تسجيل الخروج من حسابك في KronoX";
+
+"Some schedules could not be updated. Either due to missing authorization or network errors."="تعذر تحديث بعض الجداول. إما بسبب عدم وجود ترخيص أو أخطاء في الشبكة.";
+
+"Bad server response."="استجابة سيئة من الخادم.";
+
+"The server seems to be offline."="يبدو أن الخادم غير متصل.";
+
+"Something went wrong on our end."="حدث خطأ ما من جانبنا.";
+
+"Not connected to the internet."="غير متصل بالإنترنت.";
+
+"%@ at %@"="%@ في %@";
+
+"Your visible schedules do not contain any events"="الجداول المرئية لديك لا تحتوي على أي أحداث";
+
+"Continue"="استمر";
+
+"Search events" = "ابحث عن الأحداث";
+
+"Tumble on GitHub"="تامبل على جيتهب";
+
+"Monday"="الاثنَين";
+
+"Tuesday"="الثلاثَاء";
+
+"Wednesday"="الأربعَاء";
+
+"Thursday"="الخميس";
+
+"Friday"="الجُمعة";
+
+"Saturday"="السَبْت";
+
+"Sunday"="الأحَد";
+
+"Logged out"="تسجيل الخروج";
+
+"You have successfully logged out of your account"="لقد قُمت بتسجيل الخروج بنجاح من حسابك";
+
+"Error"="خَطَأ";
+
+"Could not log out from your account"="تعذر تسجيل الخروج من حسابك";
+
+"There are no schedules that match your search"="لا توجد جداول تطابِق بحثك";
+
+"Important: "="مُهِمّ:";
+
+"Choose a university to begin your search"="اختر جامعة لبدء البحث";
+
+"Information"="معلومات";
+
+"This university requires you to log in to their institution before you can see some of their schedules"="تتطلب هذه الجامعة منك تسجيل الدخول إلى مؤسستها قبل أن تتمكن من رؤية بعض الجداول الخاصة بها";
+
+"Something went wrong"="حدث خَطَأ ما";
+
+"Automatic"="تَلقائِي";
+
+"Light"="فاتِح";
+
+"Dark"="داكِن";
+
+"English"="الإنجلِيزيّة";
+
+"Swedish"="السُويدِيّة";
+
+"Italian"="الإيطالِيّة";
+
+"French"="الفَرَنسِيّة";
+
+"German"="الألمانِيّة";
+
+"Bosnian"="البوسنِيّة";
+
+"Home"="الصَّفْحَة الرئيسيَّة";
+
+"Bookmarks"="المُفَضَّلَة";
+
+"Account"="الحِسَاب";
+
+"Calendar"="التَّقْوِيم";
+
+"List"="القَائِمَة";
+
+"New school"="مَدْرَسَة جدِيدَة";
+
+"Set %@ to default"="تعيين %@ كافتراضي";
+
+"School already selected"="المدرسة محددة بالفعل";
+
+"You already have '%@' as your default school"="لديك بالفعل '%@' كمدرسة افتراضية";
+
+"Removed schedule"="تمت إزالة الجدول";
+
+"Successfully removed the schedule '%@' from your bookmarks"="تمت إزالة الجدول '%@' بنجاح من المفضلة الخاصة بك";
+
+"Could not remove schedule"="تعذر إزالة الجدول";
+
+"The schedule '%@' could not be removed from your bookmarks"="تعذر إزالة الجدول '%@' من المفضلة الخاصة بك";
+
+"Appearance"="المظهر";
+
+"App language"="لغة التطبيق";
+
+"Notifications"="الإشعارات";
+
+"School"="المدرسة";
+
+"Review the app"="مراجعة التطبيق";
+
+"Share feedback"="مشاركة التعليقات";
+
+"Settings"="الإعدادات";
+
+"Cancelled notifications"="إلغاء الإشعارات";
+
+"Cancelled all available notifications set for events"="تم إلغاء جميع الإشعارات المتاحة المضبوطة للأحداث";
+
+"Scheduled notifications"="الإشعارات المجدولة";
+
+"Scheduled notifications for all available events"="الإشعارات المجدولة لجميع الأحداث المتاحة";
+
+"Failed to set notifications for all available events"="فشل في تعيين الإشعارات لجميع الأحداث المتاحة";
+
+"Are you sure you want to log out of your account?"="هل أنت متأكد أنك تريد تسجيل الخروج من حسابك؟";
+
+"Log out"="تسجيل الخروج";
+
+"Log in"="تسجيل الدخول";
+
+"No bookmarks yet"="لا توجد علامات مرجعية حتى الآن";
+
+"No events match your search"="لا توجد أحداث تطابق بحثك";
+
+"minutes"="دقائق";
+
+"hour"="ساعة";
+
+"hours"="ساعات";
+
+"Are you sure you want to set notifications for all events?"="هل أنت متأكد أنك تريد تعيين الإشعارات لجميع الأحداث؟";
+
+"Set notifications for all events"="تعيين الإشعارات لجميع الأحداث";
+
+"Are you sure you want to cancel all set notifications?"="هل أنت متأكد أنك تريد إلغاء جميع الإشعارات المضبوطة؟";
+
+"Cancel all notifications"="إلغاء جميع الإشعارات";
+
+"Cancel"="إلغاء";
+"No available bookmarks"="لا توجد علامات مرجعية متاحة";
+
+"It looks like there's no available bookmarks"="يبدو أنه لا توجد علامات مرجعية متاحة";
+
+"Notification offset"="تعويض الإشعارات";
+
+"Looks like you don't have anything saved yet"="يبدو أنك لم تقم بحفظ أي شيء بعد";
+
+"Schedules are bookmarked from the search page, which you can access from the search tab."="تتم إضافة الجداول إلى العلامات المرجعية من صفحة البحث التي يمكنك الوصول إليها من علامة التبويب البحث.";
+
+"Everything looks good for this week"="كل شيء يبدو جيداً لهذا الأسبوع";
+
+"Looks like you don't have any classes or exams in the coming week. Yay!"="يبدو أنه ليس لديك أي دروس أو امتحانات في الأسبوع المقبل. ياي!";
+
+"We experienced an issue when trying to find your schedules. Try again later"="واجهنا مشكلة عند محاولة العثور على جداولك. حاول مرة أخرى لاحقًا";
+
+"Today's events"="أحداث اليوم";
+
+"No events for today"="لا توجد أحداث لليوم";
+
+"Next class"="الحصة التالية";
+
+"No upcoming class"="لا يوجد حصة قادمة";
+
+"No classes for today"="لا توجد حصص لليوم";
+
+"Other news"="أخبار أخرى";
+
+"No other news"="لا توجد أخبار أخرى";
+
+"Details"="تفاصيل";
+
+"Recent news"="أخبار حديثة";
+
+"No recent news"="لا توجد أخبار حديثة";
+
+"News"="أخبار";
+
+"Search news"="البحث عن أخبار";
+
+"News from us (%@)"="أخبار منا (%@)";
+
+"No teachers listed"="لا توجد معلمين مذكورين";
+
+"Unknown"="غير معروف";
+
+"Pull to refresh"="اسحب للتحديث";
+
+"Search"="بحث";
+
+
+"%@ results"="%@ نتائج";
+
+"This is where you find your schedules"="هنا حيث تجد جداولك";
+
+"Looks like something went wrong"="يبدو أن هناك خطأ ما";
+
+"Schedule is empty"="الجدول فارغ";
+
+"Schedule"="الجدول";
+
+"Search schedules"="البحث في الجداول";
+
+"Remove"="إزالة";
+
+"Save"="حفظ";
+
+"Schedule seems to be empty"="يبدو أن الجدول فارغ";
+
+"There was an error retrieving your schedules"="حدث خطأ في استرجاع الجداول الخاصة بك";
+
+"All your bookmarks are hidden"="جميع علاماتك المرجعية مخفية";
+
+"No events for this date"="لا توجد أحداث لهذا التاريخ";
+
+"Course"="المقرر الدراسي";
+
+"Teachers"="المعلمين";
+
+"No teachers listed at this time"="لا توجد معلمين مذكورين في الوقت الحالي";
+
+"Date"="التاريخ";
+
+"Time"="الوقت";
+
+"Locations"="المواقع";
+
+"No locations listed at this time"="لا توجد مواقع مذكورة في الوقت الحالي";
+
+"Select course color"="اختر لون المقرر الدراسي";
+
+"Event"="الحدث";
+
+"Color"="اللون";
+
+"Attempting to log in user"="محاولة تسجيل دخول المستخدم";
+
+"(no date)"="(بدون تاريخ)";
+
+"No registered events yet"="لا توجد أحداث مسجلة حتى الآن";
+
+"Could not contact the server, try again later"="تعذر الاتصال بالخادم، حاول مرة أخرى لاحقًا";
+
+"Booked resource"="المصدر المحجوز";
+
+"(no time)"="(بدون وقت)";
+
+"No booked resources yet"="لا توجد مصادر محجوزة حتى الآن";
+
+"No title"="بدون عنوان";
+
+"Date:"="التاريخ:";
+
+"Time:"="الوقت:";
+
+"User options"="خيارات المستخدم";
+
+"Automatic exam signup"="تسجيل تلقائي للاختبار";
+
+"Your bookings"="حجوزاتك";
+
+"Resources"="المصادر";
+
+"Your events"="أحداثك";
+
+"Events"="الأحداث";
+
+"Unregistered from event"="تم إلغاء تسجيلك من الحدث";
+
+"You have been unregistered from the specified event"="تم إلغاء تسجيلك من الحدث المحدد";
+
+"We couldn't unregister you for the specified event"="لم نتمكن من إلغاء تسجيلك من الحدث المحدد";
+
+"Confirmed resource"="المصدر المؤكد";
+
+"You have confirmed the selected resource"="لقد أكدت المصدر المحدد";
+
+"We couldn't confirm the specified resource"="لم نتمكن من تأكيد المصدر المحدد";
+
+"Unbooked resource"="إلغاء حجز المصدر";
+
+"You have unbooked the selected resource"="لقد قمت بإلغاء حجز المصدر المحدد";
+
+"We couldn't unbook the specified resource"="لم نتمكن من إلغاء حجز المصدر المحدد";
+
+"Automatic signup"="التسجيل التلقائي";
+
+"Automatic exam/event signup has been enabled, but make sure you are always registered for exams through your institution."="تم تمكين التسجيل التلقائي للاختبارات/الأحداث، ولكن تأكد من تسجيلك دائمًا للاختبارات من خلال مؤسستك.";
+
+"Automatic exam/event signup has been disabled."="تم تعطيل التسجيل التلقائي للاختبارات/الأحداث.";
+
+"See all"="عرض الكل";
+
+"Book more"="حجز المزيد";
+
+"Event details"="تفاصيل الحدث";
+
+"Title"="العنوان";
+
+"Type"="النوع";
+
+"No type"="بدون نوع";
+
+"No date"="بدون تاريخ";
+
+"%@, from %@ - %@"="%@، من %@ - %@";
+
+"Available until"="متاح حتى";
+
+"(no date set)"="(لم يتم تحديد تاريخ)";
+
+"Unregister event"="إلغاء تسجيل الحدث";
+
+"Resource details"="تفاصيل المصدر";
+
+"Location"="الموقع";
+
+"Timeslot"="فترة زمنية";
+
+"Confirmation"="التأكيد";
+
+"(missing)"="(مفقود)";
+
+"%@, from %@ - %@"="%@، من %@ - %@";
+
+"Confirm booking"="تأكيد الحجز";
+
+"Remove booking"="إزالة الحجز";
+
+"No available timeslots"="لا تتوفر فترات زمنية متاحة";
+
+"Booked"="تم الحجز";
+
+"Successfully booked resource"="تم حجز المصدر بنجاح";
+
+"Not booked"="لم يتم الحجز";
+
+"Failed to book the specified resource"="فشل في حجز المصدر المحدد";
+
+"Rooms"="الغرف";
+
+"No name"="بدون اسم";
+
+"Available timeslots: %d"="فترات زمنية متاحة: %d";
+
+"Pick a date"="اختر تاريخًا";
+
+"No rooms available on weekends"="لا تتوفر غرف في عطلات نهاية الأسبوع";
+
+"Book"="حجز";
+
+"at"="في";
+
+"No date at this time"="لا توجد تاريخ في هذا الوقت";
+
+"Available at:"="متاح في:";
+
+"Registered"="مسجل";
+
+"No registered events available"="لا توجد أحداث مسجلة متاحة";
+
+"Unregistered"="غير مسجل";
+
+"No unregistered events available"="لا توجد أحداث غير مسجلة متاحة";
+
+"Upcoming"="القادمة";
+
+"No upcoming events available"="لا توجد أحداث قادمة متاحة";
+
+"Signup has passed"="انتهت فترة التسجيل";
+
+"Unregister"="إلغاء التسجيل";
+
+"Register"="التسجيل";
+
+"Password"="كلمة المرور";
+
+"Use your university credentials for %@ to sign in to your KronoX account"="استخدم بيانات اعتماد جامعتك في %@ لتسجيل الدخول إلى حسابك في KronoX";
+
+"Need help?"="هل تحتاج إلى مساعدة؟";
+
+"Logged in"="تم تسجيل الدخول";
+
+"Successfully logged in as %@"="تم تسجيل الدخول بنجاح كـ %@";
+
+"Something went wrong when logging in to your account"="حدث خطأ ما عند تسجيل الدخول إلى حسابك";
+
+"Username/Email address"="اسم المستخدم/عنوان البريد الإلكتروني";
+
+"Please log in to continue"="يرجى تسجيل الدخول للمتابعة";
+
+"Save schedules"="حفظ الجداول";
+
+"Search for schedules from the search page and download them locally. View them as a list or in a dedicated calendar."="ابحث عن الجداول من صفحة البحث وقم بتنزيلها محليًا. عرضها كقائمة أو في تقويم مخصص.";
+
+"Set notifications"="تعيين التنبيهات";
+
+"Get notified before important events and dates. Just press an event and set notifications for either a course or a single event."="احصل على إشعار قبل الأحداث والمواعيد الهامة. اضغط فقط على حدث وقم بتعيين التنبيهات إما للدورة أو لحدث واحد.";
+
+"Be creative"="كن مبدعًا";
+
+"Set custom colors for the courses in your schedules. Just press an event and modify the color to your liking."="قم بتعيين ألوان مخصصة للدورات في الجداول الخاصة بك. اضغط فقط على حدث وقم بتعديل اللون حسب تفضيلاتك.";
+
+"Booking"="الحجز";
+
+"Log in to your KronoX account and book resources and exams. Booking is easy, and notifications remind you to confirm the bookings you've created."="قم بتسجيل الدخول إلى حسابك في KronoX واحجز الموارد والاختبارات. عملية الحجز سهلة، والإشعارات تذكرك بتأكيد الحجوزات التي أنشأتها.";
+
+"Select university"="اختر الجامعة";
+
+"Universities"="الجامعات";
