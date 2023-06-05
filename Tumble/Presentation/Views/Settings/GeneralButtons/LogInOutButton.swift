@@ -35,18 +35,18 @@ struct LogInOutButton: View {
                 switch parentViewModel.authStatus {
                 case .unAuthorized:
                     Text(NSLocalizedString("Log in", comment: ""))
-                        .font(.system(size: 17, weight: .semibold))
+                        .font(.system(size: 16, weight: .regular))
                         .foregroundColor(.primary)
                 case .authorized:
                     Text(NSLocalizedString("Log out", comment: ""))
-                        .font(.system(size: 17, weight: .semibold))
+                        .font(.system(size: 16, weight: .regular))
                         .foregroundColor(.primary)
                 case .loading:
                     CustomProgressIndicator()
                 }
                 Spacer()
             }
-            .padding(5)
+            .padding(7)
         })
         .confirmationDialog(
             NSLocalizedString("Are you sure you want to log out of your account?", comment: ""),
