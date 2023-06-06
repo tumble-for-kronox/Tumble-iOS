@@ -27,7 +27,7 @@ protocol PreferenceServiceProtocol {
     // ----------- GET -----------
     func getDefault(key: String) -> Any?
     
-    func getDefaultViewType() -> BookmarksViewType
+    func getDefaultViewType() -> ViewType
     
     func getDefaultAuthSchoolName(schools: [School]) -> String
     

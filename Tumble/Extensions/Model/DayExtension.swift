@@ -29,6 +29,18 @@ extension [Day] {
     func filterValidDays() -> [Day] {
         self.filter { $0.isValidDay() }
     }
+    
+    func groupedByWeeks() -> [Int : [Day]] {
+        var weeks: [Int : [Day]] = [:]
+        for day in self {
+            if let date = isoDateFormatterFract.date(from: day.isoString) {
+                let weekOfYear: Int = Calendar.current.component(.weekOfYear, from: date)
+                weeks[weekOfYear, default: []].append(day)
+            }
+        }
+        return weeks
+    }
+
 }
 
 extension Day {
@@ -41,5 +53,15 @@ extension Day {
         guard let day = isoDateFormatterFract.date(from: dayIsoString) else { return false }
         let today = Date()
         return Calendar.current.startOfDay(for: day) >= Calendar.current.startOfDay(for: today)
+    }
+    
+    var dayOfWeek: Int? {
+        guard let date = isoDateFormatterFract.date(from: self.isoString) else {
+            return nil
+        }
+        
+        let weekday = Calendar.current.component(.weekday, from: date)
+        let offset = (weekday - Calendar.current.firstWeekday + 7) % 7
+        return offset
     }
 }

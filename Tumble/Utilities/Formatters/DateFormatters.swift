@@ -9,6 +9,7 @@ import Foundation
 
 /// Formatters used globally
 
+
 /// To convert API result date (ISO8601) to `Date`
 var isoDateFormatterFract: ISO8601DateFormatter = {
     let formatter = ISO8601DateFormatter()

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 // Bottom tab bar
 enum TabbarTabType: String {
@@ -30,18 +31,33 @@ enum TabbarTabType: String {
     }
 }
 
-enum BookmarksViewType: String {
+enum ViewType {
     case list
     case calendar
+    case week
     
-    var displayName: String {
+    static var allCases: [ViewType] = [.list, .calendar, .week]
+    
+    var name: String {
         switch self {
-        case .calendar:
-            return NSLocalizedString("Calendar", comment: "")
         case .list:
-            return NSLocalizedString("List", comment: "")
+            return "List"
+        case .calendar:
+            return "Calendar"
+        case .week:
+            return "Week"
         }
     }
     
-    static let allValues: [BookmarksViewType] = [list, calendar]
+    var icon: Image {
+        switch self {
+        case .list:
+            return Image(systemName: "list.dash")
+        case .calendar:
+            return Image(systemName: "calendar")
+        case .week:
+            return Image(systemName: "list.bullet.indent")
+        }
+    }
+    
 }

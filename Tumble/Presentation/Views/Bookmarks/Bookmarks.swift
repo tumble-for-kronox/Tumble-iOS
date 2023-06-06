@@ -35,6 +35,8 @@ struct Bookmarks: View {
                             calendarEventsByDate: $viewModel.calendarEventsByDate,
                             days: $viewModel.days
                         )
+                    case .week:
+                        BookmarkWeekView(scheduleWeeks: viewModel.weeks)
                     }
                 case .uninitialized:
                     Info(title: NSLocalizedString("No bookmarks yet", comment: ""), image: "bookmark.slash")

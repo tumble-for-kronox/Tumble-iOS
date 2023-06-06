@@ -72,6 +72,7 @@
 		D439F8A129DBA96B006332AB /* HomeAvailable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D439F8A029DBA96B006332AB /* HomeAvailable.swift */; };
 		D439F8A329DBAA59006332AB /* HomeNotAvailable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D439F8A229DBAA59006332AB /* HomeNotAvailable.swift */; };
 		D439F8A529DBAA71006332AB /* HomeNoBookmarks.swift in Sources */ = {isa = PBXBuildFile; fileRef = D439F8A429DBAA71006332AB /* HomeNoBookmarks.swift */; };
+		D43F77002A2FCA1800AB75F0 /* BookmarkWeekView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43F76FF2A2FCA1800AB75F0 /* BookmarkWeekView.swift */; };
 		D440F40229E73B3E003E4CAA /* ViewSwitcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = D440F40129E73B3E003E4CAA /* ViewSwitcher.swift */; };
 		D440F40429E73BE2003E4CAA /* SearchField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D440F40329E73BE2003E4CAA /* SearchField.swift */; };
 		D441B10D298A8CEC00D22142 /* EventDetailsSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D441B10C298A8CEC00D22142 /* EventDetailsSheetViewModel.swift */; };
@@ -304,6 +305,7 @@
 		D439F8A029DBA96B006332AB /* HomeAvailable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeAvailable.swift; sourceTree = "<group>"; };
 		D439F8A229DBAA59006332AB /* HomeNotAvailable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNotAvailable.swift; sourceTree = "<group>"; };
 		D439F8A429DBAA71006332AB /* HomeNoBookmarks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNoBookmarks.swift; sourceTree = "<group>"; };
+		D43F76FF2A2FCA1800AB75F0 /* BookmarkWeekView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkWeekView.swift; sourceTree = "<group>"; };
 		D440F40129E73B3E003E4CAA /* ViewSwitcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewSwitcher.swift; sourceTree = "<group>"; };
 		D440F40329E73BE2003E4CAA /* SearchField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchField.swift; sourceTree = "<group>"; };
 		D441B10C298A8CEC00D22142 /* EventDetailsSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailsSheetViewModel.swift; sourceTree = "<group>"; };
@@ -823,6 +825,14 @@
 			path = OnBoarding;
 			sourceTree = "<group>";
 		};
+		D43F76FE2A2FCA1000AB75F0 /* Week */ = {
+			isa = PBXGroup;
+			children = (
+				D43F76FF2A2FCA1800AB75F0 /* BookmarkWeekView.swift */,
+			);
+			path = Week;
+			sourceTree = "<group>";
+		};
 		D447EA902A238DF600E50A92 /* Generic */ = {
 			isa = PBXGroup;
 			children = (
@@ -834,6 +844,7 @@
 		D45338F7292825A400198411 /* Bookmarks */ = {
 			isa = PBXGroup;
 			children = (
+				D43F76FE2A2FCA1000AB75F0 /* Week */,
 				D4E39E382989CE76004C30DF /* EventDetails */,
 				D4F145E62982144C00C3A351 /* Calendar */,
 				D460764F292AF5BB00DE9590 /* List */,
@@ -1755,6 +1766,7 @@
 				D40CC163292AFE7200664776 /* BookmarksViewModel.swift in Sources */,
 				D440F40229E73B3E003E4CAA /* ViewSwitcher.swift in Sources */,
 				D4F0C7FE2A2F8373002F8376 /* OutlinedButtonStyle.swift in Sources */,
+				D43F77002A2FCA1800AB75F0 /* BookmarkWeekView.swift in Sources */,
 				D44FBFEB29CB1CC500CAAD39 /* ResourceDatePicker.swift in Sources */,
 				D40D80CC29265C36008CA68D /* SearchViewModel.swift in Sources */,
 				D4607641292AB18D00DE9590 /* Home.swift in Sources */,

@@ -6,21 +6,21 @@
 //
 
 import Combine
-import Foundation
 import RealmSwift
 import SwiftUI
 
 final class BookmarksViewModel: ObservableObject {
     let viewModelFactory: ViewModelFactory = ViewModelFactory.shared
-    let scheduleViewTypes: [BookmarksViewType] = BookmarksViewType.allValues
+    let scheduleViewTypes: [ViewType] = ViewType.allCases
     
     @Inject var preferenceService: PreferenceService
     @Inject var schoolManager: SchoolManager
     @Inject var realmManager: RealmManager
     
-    @Published var defaultViewType: BookmarksViewType = .list
+    @Published var defaultViewType: ViewType = .list
     @Published var eventSheet: EventDetailsSheetModel? = nil
     @Published var days: [Day] = .init()
+    @Published var weeks: [Int : [Day]] = .init()
     @Published var status: BookmarksViewStatus = .loading
     @Published var calendarEventsByDate: [Date : [Event]] = [:]
     
@@ -47,7 +47,7 @@ final class BookmarksViewModel: ObservableObject {
         return viewModelFactory.makeViewModelEventDetailsSheet(event: event)
     }
     
-    func onChangeViewType(viewType: BookmarksViewType) {
+    func onChangeViewType(viewType: ViewType) {
         let viewTypeIndex: Int = scheduleViewTypes.firstIndex(of: viewType)!
         preferenceService.setViewType(viewType: viewTypeIndex)
         defaultViewType = viewType
@@ -94,11 +94,14 @@ final class BookmarksViewModel: ObservableObject {
         .filterEmptyDays()
         .filterValidDays()
         
+        let calendarEvents = makeCalendarEvents(days: days)
+        
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
             AppLogger.shared.debug("Updating days ..", file: "BookmarksViewModel")
             self.days = days
-            self.calendarEventsByDate = self.makeCalendarEvents(days: days)
+            self.calendarEventsByDate = calendarEvents
+            self.weeks = days.groupedByWeeks()
             self.status = .loaded
         }
     }
