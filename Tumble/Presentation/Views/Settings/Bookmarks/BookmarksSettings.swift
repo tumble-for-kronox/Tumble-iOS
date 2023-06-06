@@ -14,7 +14,7 @@ struct BookmarksSettings: View {
     
     var body: some View {
         if !schedules.isEmpty {
-            CustomList {
+            SettingsList {
                 ForEach(schedules.indices, id: \.self) { index in
                     BookmarkSettingsRow(
                         schedule: schedules[index],

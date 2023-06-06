@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ListRowNavigationItem: View {
+struct SettingsNavigationButton: View {
     let title: String
     let current: String?
     let leadingIcon: String

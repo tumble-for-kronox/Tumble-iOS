@@ -13,27 +13,27 @@ struct SettingsDetails {
     let details: String
 }
 
-struct ListRowExternalButton: View {
+struct SettingsExternalButton: View {
     let title: String
     let current: String?
     let action: () -> Void
     let trailingIcon: String
     let leadingIcon: String
-    let leadingIconBackgorundColor: Color
+    let leadingIconBackgroundColor: Color
     
     init(
         title: String,
         current: String? = nil,
         leadingIcon: String,
         trailingIcon: String = "arrow.up.right",
-        leadingIconBackgorundColor: Color = Color.onSurface,
+        leadingIconBackgroundColor: Color = Color.onSurface,
         action: @escaping () -> Void
     ) {
         self.title = title
         self.current = current
         self.leadingIcon = leadingIcon
         self.trailingIcon = trailingIcon
-        self.leadingIconBackgorundColor = leadingIconBackgorundColor
+        self.leadingIconBackgroundColor = leadingIconBackgroundColor
         self.action = action
     }
     
@@ -42,9 +42,9 @@ struct ListRowExternalButton: View {
             HapticsController.triggerHapticLight()
             action()
         }, label: {
-            HStack(spacing: 0) {
+            HStack {
                 Label(title, systemImage: leadingIcon)
-                    .labelStyle(ColorfulIconLabelStyle(color: leadingIconBackgorundColor))
+                    .labelStyle(ColorfulIconLabelStyle(color: leadingIconBackgroundColor))
                 Spacer()
                 if let current = current {
                     Text(current)
@@ -56,7 +56,7 @@ struct ListRowExternalButton: View {
                     .font(.system(size: 15, weight: .medium))
                     .foregroundColor(.onSurface.opacity(0.4))
             }
-            .padding(10)
         })
+        .padding(10)
     }
 }

@@ -25,8 +25,8 @@ struct NotificationOffsetSettings: View {
     let rescheduleNotifications: (Int, Int) -> Void
     
     var body: some View {
-        CustomList {
-            CustomListGroup {
+        SettingsList {
+            SettingsListGroup {
                 ForEach(NotificationOffset.allCases) { type in
                     SettingsRadioButton(
                         title: getOffsetDisplayName(offset: type),

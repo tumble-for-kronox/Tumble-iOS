@@ -13,6 +13,7 @@ struct SettingsRadioButton: View {
     
     var body: some View {
         Button(action: {
+            HapticsController.triggerHapticLight()
             isSelected = true
         }) {
             HStack {

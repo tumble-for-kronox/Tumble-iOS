@@ -9,29 +9,35 @@ import RealmSwift
 import SwiftUI
 
 struct Settings: View {
+    
     @AppStorage(StoreKey.appearance.rawValue) var appearance: String = AppearanceTypes.system.rawValue
+    @AppStorage(StoreKey.notificationOffset.rawValue) var offset: Int = 60
     @ObservedObject var viewModel: SettingsViewModel
+    
     @ObservedResults(Schedule.self, configuration: realmConfig) var schedules
+    
     let currentLocale = Bundle.main.preferredLocalizations.first
     let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
     
+    @State private var showShareSheet: Bool = false
+    
     var body: some View {
         VStack {
-            CustomList {
-                CustomListGroup {
-                    ListRowNavigationItem(
+            SettingsList {
+                SettingsListGroup {
+                    SettingsNavigationButton(
                         title: NSLocalizedString("Appearance", comment: ""),
                         current: NSLocalizedString($appearance.wrappedValue, comment: ""),
                         leadingIcon: "moon",
-                        leadingIconBackgroundColor: .blue,
+                        leadingIconBackgroundColor: .purple,
                         destination: AnyView(AppearanceSettings(appearance: $appearance))
                     )
                     Divider()
-                    ListRowExternalButton(
+                    SettingsExternalButton(
                         title: NSLocalizedString("App language", comment: ""),
                         current: currentLocale != nil ? LanguageTypes.fromLocaleName(currentLocale!)?.displayName : nil,
                         leadingIcon: "globe",
-                        leadingIconBackgorundColor: .blue,
+                        leadingIconBackgroundColor: .blue,
                         action: {
                             if let settingsURL = URL(string: UIApplication.openSettingsURLString) {
                                 UIApplication.shared.open(settingsURL)
@@ -39,19 +45,18 @@ struct Settings: View {
                         }
                     )
                 }
-                CustomListGroup {
-                    ListRowNavigationItem(
-                        title: NSLocalizedString("Notifications", comment: ""),
-                        leadingIcon: "bell.badge",
-                        leadingIconBackgroundColor: .primary,
-                        destination: AnyView(NotificationSettings(
-                            clearAllNotifications: clearAllNotifications,
-                            scheduleNotificationsForAllCourses: scheduleNotificationsForAllCourses,
+                SettingsListGroup {
+                    SettingsNavigationButton(
+                        title: NSLocalizedString("Notification offset", comment: ""),
+                        leadingIcon: "clock.badge",
+                        leadingIconBackgroundColor: .red,
+                        destination: AnyView(NotificationOffsetSettings(
+                            offset: $offset,
                             rescheduleNotifications: rescheduleNotifications
                         ))
                     )
                     Divider()
-                    ListRowNavigationItem(
+                    SettingsNavigationButton(
                         title: NSLocalizedString("Bookmarks", comment: ""),
                         leadingIcon: "bookmark",
                         leadingIconBackgroundColor: .primary,
@@ -60,49 +65,46 @@ struct Settings: View {
                         ))
                     )
                 }
-                CustomListGroup {
-                    ListRowExternalButton(
+                SettingsListGroup {
+                    SettingsExternalButton(
                         title: NSLocalizedString("Review the app", comment: ""),
                         leadingIcon: "star.leadinghalf.filled",
-                        leadingIconBackgorundColor: .pink,
+                        leadingIconBackgroundColor: .yellow,
                         action: {
                             UIApplication.shared.openAppStoreForReview()
                         }
                     )
                     Divider()
-                    ListRowExternalButton(
+                    SettingsExternalButton(
                         title: NSLocalizedString("Share feedback", comment: ""),
                         leadingIcon: "envelope",
-                        leadingIconBackgorundColor: .pink,
+                        leadingIconBackgroundColor: .blue,
                         action: {
                             UIApplication.shared.shareFeedback()
                         }
                     )
                     Divider()
-                    ListRowExternalButton(
-                        title: NSLocalizedString("Tumble on GitHub", comment: ""),
-                        leadingIcon: "chevron.left.forwardslash.chevron.right",
-                        leadingIconBackgorundColor: .pink,
+                    SettingsExternalButton(
+                        title: NSLocalizedString("Share the app", comment: ""),
+                        leadingIcon: "square.and.arrow.up",
+                        leadingIconBackgroundColor: .green,
                         action: {
-                            if let url = URL(string: "https://github.com/adisve/Tumble-iOS") {
-                                UIApplication.shared.open(url)
-                            }
-                        }
-                    )
+                            showShareSheet = true
+                    })
                 }
-                CustomListGroup {
-                    LogInOutButton(parentViewModel: viewModel)
-                }
+                
                 if let appVersion = appVersion {
-                    Spacer()
                     Text("Tumble, iOS v.\(appVersion)")
                         .font(.system(size: 12, weight: .regular))
                         .foregroundColor(.onBackground.opacity(0.7))
-                        .padding(25)
+                        .padding(35)
                 }
             }
             .padding(.top, 20)
             .background(Color.background)
+            .sheet(isPresented: $showShareSheet, content: {
+                ShareSheet()
+            })
         }
         .background(Color.background)
         .navigationTitle(NSLocalizedString("Settings", comment: ""))

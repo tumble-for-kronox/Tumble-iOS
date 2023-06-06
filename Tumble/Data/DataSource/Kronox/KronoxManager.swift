@@ -34,11 +34,7 @@ enum KronoxManagerError: LocalizedError {
 
 class KronoxManager {
     private let urlRequestUtils = NetworkUtilities.shared
-    private let session: URLSession
-    
-    init() {
-        session = URLSession.shared
-    }
+    private let session = URLSession.shared
     
     func get<NetworkResponse: Decodable>(
         _ endpoint: Endpoint,

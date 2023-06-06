@@ -11,8 +11,8 @@ struct AppearanceSettings: View {
     @Binding var appearance: String
     
     var body: some View {
-        CustomList {
-            CustomListGroup {
+        SettingsList {
+            SettingsListGroup {
                 ForEach(AppearanceTypes.allCases) { type in
                     SettingsRadioButton(
                         title: NSLocalizedString(type.displayName, comment: ""),
