@@ -192,6 +192,8 @@
 		D4CF9B2C293572BE00DDB5F0 /* Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CF9B2B293572BE00DDB5F0 /* Info.swift */; };
 		D4D04DFD29FB29BC008858F0 /* SwipeActions in Frameworks */ = {isa = PBXBuildFile; productRef = D4D04DFC29FB29BC008858F0 /* SwipeActions */; };
 		D4D04E0029FB3DF6008858F0 /* FirstAppear.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D04DFF29FB3DF6008858F0 /* FirstAppear.swift */; };
+		D4D14A0F2A2EA51D00D7E374 /* ColorfulIconLabelStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D14A0E2A2EA51D00D7E374 /* ColorfulIconLabelStyle.swift */; };
+		D4D14A132A2EADAB00D7E374 /* SettingsActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D14A122A2EADAB00D7E374 /* SettingsActionButton.swift */; };
 		D4D3368329F66E0000933D38 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D3368229F66E0000933D38 /* RealmManager.swift */; };
 		D4D3368629F66E3900933D38 /* RealmConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D3368529F66E3900933D38 /* RealmConfig.swift */; };
 		D4D4CD17299CE57C00D48180 /* EventCardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D4CD16299CE57C00D48180 /* EventCardButton.swift */; };
@@ -224,10 +226,9 @@
 		D4EEFB4929DA06A40007A209 /* ToTopButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EEFB4829DA06A40007A209 /* ToTopButton.swift */; };
 		D4EEFB5029DA15440007A209 /* ListRowNavigationItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EEFB4F29DA15440007A209 /* ListRowNavigationItem.swift */; };
 		D4EEFB5429DA177D0007A209 /* CustomList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EEFB5329DA177C0007A209 /* CustomList.swift */; };
-		D4EEFB5629DA1B050007A209 /* ListRowActionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EEFB5529DA1B050007A209 /* ListRowActionItem.swift */; };
+		D4EEFB5629DA1B050007A209 /* ListRowExternalButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EEFB5529DA1B050007A209 /* ListRowExternalButton.swift */; };
 		D4EEFB5829DA1BD10007A209 /* CustomListGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EEFB5729DA1BD10007A209 /* CustomListGroup.swift */; };
 		D4EEFB5A29DA4E490007A209 /* AppearanceTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EEFB5929DA4E490007A209 /* AppearanceTypes.swift */; };
-		D4F0E29229F91774009A6FAD /* DummyDataFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F0E29129F91774009A6FAD /* DummyDataFactory.swift */; };
 		D4F532642A2A3FF2009DC8B8 /* Notification+NameExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F532632A2A3FF2009DC8B8 /* Notification+NameExtension.swift */; };
 		D4FCD14B2995AD64009D2987 /* UIColorWellExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FCD14A2995AD64009D2987 /* UIColorWellExtension.swift */; };
 		D4FCD14E2995ADFE009D2987 /* UIColorWellHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FCD14D2995ADFE009D2987 /* UIColorWellHelper.swift */; };
@@ -430,6 +431,8 @@
 		D4CF9B292935634800DDB5F0 /* SearchError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchError.swift; sourceTree = "<group>"; };
 		D4CF9B2B293572BE00DDB5F0 /* Info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Info.swift; sourceTree = "<group>"; };
 		D4D04DFF29FB3DF6008858F0 /* FirstAppear.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstAppear.swift; sourceTree = "<group>"; };
+		D4D14A0E2A2EA51D00D7E374 /* ColorfulIconLabelStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorfulIconLabelStyle.swift; sourceTree = "<group>"; };
+		D4D14A122A2EADAB00D7E374 /* SettingsActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsActionButton.swift; sourceTree = "<group>"; };
 		D4D3368229F66E0000933D38 /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 		D4D3368529F66E3900933D38 /* RealmConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmConfig.swift; sourceTree = "<group>"; };
 		D4D4CD16299CE57C00D48180 /* EventCardButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCardButton.swift; sourceTree = "<group>"; };
@@ -463,10 +466,9 @@
 		D4EEFB4829DA06A40007A209 /* ToTopButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToTopButton.swift; sourceTree = "<group>"; };
 		D4EEFB4F29DA15440007A209 /* ListRowNavigationItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListRowNavigationItem.swift; sourceTree = "<group>"; };
 		D4EEFB5329DA177C0007A209 /* CustomList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomList.swift; sourceTree = "<group>"; };
-		D4EEFB5529DA1B050007A209 /* ListRowActionItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListRowActionItem.swift; sourceTree = "<group>"; };
+		D4EEFB5529DA1B050007A209 /* ListRowExternalButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListRowExternalButton.swift; sourceTree = "<group>"; };
 		D4EEFB5729DA1BD10007A209 /* CustomListGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomListGroup.swift; sourceTree = "<group>"; };
 		D4EEFB5929DA4E490007A209 /* AppearanceTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceTypes.swift; sourceTree = "<group>"; };
-		D4F0E29129F91774009A6FAD /* DummyDataFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyDataFactory.swift; sourceTree = "<group>"; };
 		D4F532632A2A3FF2009DC8B8 /* Notification+NameExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+NameExtension.swift"; sourceTree = "<group>"; };
 		D4FCD14A2995AD64009D2987 /* UIColorWellExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorWellExtension.swift; sourceTree = "<group>"; };
 		D4FCD14D2995ADFE009D2987 /* UIColorWellHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorWellHelper.swift; sourceTree = "<group>"; };
@@ -588,7 +590,6 @@
 				D40D809F292520C5008CA68D /* ToastModifier.swift */,
 				D4607639292AAD3B00DE9590 /* PopupViewToast */,
 				D4607638292AAD3100DE9590 /* CustomToast */,
-				D4562E0A2A27E9020059ED36 /* ToastFactory.swift */,
 			);
 			path = Toast;
 			sourceTree = "<group>";
@@ -666,7 +667,7 @@
 				D454DED129D3BAEA005BDAE3 /* Bookmarks */,
 				D4EEFB4F29DA15440007A209 /* ListRowNavigationItem.swift */,
 				D4EEFB5329DA177C0007A209 /* CustomList.swift */,
-				D4EEFB5529DA1B050007A209 /* ListRowActionItem.swift */,
+				D4EEFB5529DA1B050007A209 /* ListRowExternalButton.swift */,
 				D4EEFB5729DA1BD10007A209 /* CustomListGroup.swift */,
 			);
 			path = Settings;
@@ -826,6 +827,7 @@
 		D42DFD5A29BD5911002942D7 /* Styles */ = {
 			isa = PBXGroup;
 			children = (
+				D4D14A0D2A2EA50800D7E374 /* LabelStyles */,
 				D47A451629D74E5D008626E6 /* ButtonStyles */,
 			);
 			path = Styles;
@@ -1153,6 +1155,7 @@
 			isa = PBXGroup;
 			children = (
 				D47A451829D75316008626E6 /* LogInOutButton.swift */,
+				D4D14A122A2EADAB00D7E374 /* SettingsActionButton.swift */,
 			);
 			path = GeneralButtons;
 			sourceTree = "<group>";
@@ -1302,6 +1305,14 @@
 			path = Actions;
 			sourceTree = "<group>";
 		};
+		D4D14A0D2A2EA50800D7E374 /* LabelStyles */ = {
+			isa = PBXGroup;
+			children = (
+				D4D14A0E2A2EA51D00D7E374 /* ColorfulIconLabelStyle.swift */,
+			);
+			path = LabelStyles;
+			sourceTree = "<group>";
+		};
 		D4D3368429F66E2A00933D38 /* Config */ = {
 			isa = PBXGroup;
 			children = (
@@ -1313,7 +1324,6 @@
 		D4E39E352989CE1D004C30DF /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				D4F0E29029F91769009A6FAD /* Factories */,
 				D4D3368429F66E2A00933D38 /* Config */,
 				D400F3E929D797340050622E /* Formatters */,
 				D400F3E829D796F00050622E /* Logging */,
@@ -1369,6 +1379,7 @@
 		D4EAD3BA298D8A8E00678DF8 /* Factories */ = {
 			isa = PBXGroup;
 			children = (
+				D4562E0A2A27E9020059ED36 /* ToastFactory.swift */,
 				D46ABF13298443AC00B059F6 /* ViewModelFactory.swift */,
 			);
 			path = Factories;
@@ -1380,14 +1391,6 @@
 				D4EE5B6B29D50FC0002A1399 /* AppearanceSettings.swift */,
 			);
 			path = Appearance;
-			sourceTree = "<group>";
-		};
-		D4F0E29029F91769009A6FAD /* Factories */ = {
-			isa = PBXGroup;
-			children = (
-				D4F0E29129F91774009A6FAD /* DummyDataFactory.swift */,
-			);
-			path = Factories;
 			sourceTree = "<group>";
 		};
 		D4F145E62982144C00C3A351 /* Calendar */ = {
@@ -1634,7 +1637,7 @@
 				D423F6AE29F0085D00C04123 /* SchoolPill.swift in Sources */,
 				D454DECE29D3B900005BDAE3 /* BookmarksSettings.swift in Sources */,
 				D4A433BA29952A8A00BFEB7A /* EventExtension.swift in Sources */,
-				D4EEFB5629DA1B050007A209 /* ListRowActionItem.swift in Sources */,
+				D4EEFB5629DA1B050007A209 /* ListRowExternalButton.swift in Sources */,
 				D419EDF4299A662400479DCE /* UserAvatar.swift in Sources */,
 				D460763B292AAD5400DE9590 /* PopupToastView.swift in Sources */,
 				D4D4DD032927C7DA0083BB7F /* ProgrammeCard.swift in Sources */,
@@ -1653,6 +1656,7 @@
 				D4E39E402989DDDC004C30DF /* EventDetailsBody.swift in Sources */,
 				D42DFD5C29BD5920002942D7 /* SettingsButtonStyle.swift in Sources */,
 				D4E39E3A2989CE84004C30DF /* EventDetailsSheet.swift in Sources */,
+				D4D14A0F2A2EA51D00D7E374 /* ColorfulIconLabelStyle.swift in Sources */,
 				D4A550D129946B8200028BCF /* Bookmark.swift in Sources */,
 				D41ADFEC299F8DBD0074E2C7 /* Token.swift in Sources */,
 				D4CF9B2A2935634800DDB5F0 /* SearchError.swift in Sources */,
@@ -1717,11 +1721,11 @@
 				D44ABF0729BFE89D00344792 /* SchoolRowStyle.swift in Sources */,
 				D4562E0B2A27E9020059ED36 /* ToastFactory.swift in Sources */,
 				D4EEFB5829DA1BD10007A209 /* CustomListGroup.swift in Sources */,
+				D4D14A132A2EADAB00D7E374 /* SettingsActionButton.swift in Sources */,
 				D447EA922A238E0100E50A92 /* FlowStack.swift in Sources */,
 				D400F3D629D794010050622E /* BookmarksViewStatus.swift in Sources */,
 				D443962C29CB4D720069D66A /* ResourceLocationsList.swift in Sources */,
 				D4FFCC2C29EDAEF200708CC0 /* Location.swift in Sources */,
-				D4F0E29229F91774009A6FAD /* DummyDataFactory.swift in Sources */,
 				D4462C3229858A7D0067DA65 /* ImageExtensions.swift in Sources */,
 				D48CC59829C7C3C70028179A /* HomePageSeeAllStyle.swift in Sources */,
 				D46ABF14298443AC00B059F6 /* ViewModelFactory.swift in Sources */,

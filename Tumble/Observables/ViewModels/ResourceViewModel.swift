@@ -25,7 +25,6 @@ final class ResourceViewModel: ObservableObject {
     @Published var authSchoolId: Int = -1
     private var allResourcesDataTask: URLSessionDataTask? = nil
     private var cancellables = Set<AnyCancellable>()
-    private let dummyDataFactory: DummyDataFactory = .init()
     
     init() {
         initialisePipelines()

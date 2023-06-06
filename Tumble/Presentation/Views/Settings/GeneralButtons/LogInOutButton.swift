@@ -19,27 +19,17 @@ struct LogInOutButton: View {
     )
     
     var body: some View {
-        Button(action: {
-            switch parentViewModel.authStatus {
-            case .unAuthorized:
-                AppController.shared.selectedAppTab = .account
-                dismiss()
-            case .authorized:
-                isConfirming = true
-            case .loading:
-                break
-            }
-        }, label: {
+        Button(action: onClick, label: {
             HStack {
                 Spacer()
                 switch parentViewModel.authStatus {
                 case .unAuthorized:
                     Text(NSLocalizedString("Log in", comment: ""))
-                        .font(.system(size: 16, weight: .regular))
+                        .font(.system(size: 16, weight: .semibold))
                         .foregroundColor(.primary)
                 case .authorized:
                     Text(NSLocalizedString("Log out", comment: ""))
-                        .font(.system(size: 16, weight: .regular))
+                        .font(.system(size: 16, weight: .semibold))
                         .foregroundColor(.primary)
                 case .loading:
                     CustomProgressIndicator()
@@ -63,4 +53,17 @@ struct LogInOutButton: View {
             }
         }
     }
+    
+    func onClick() {
+        switch parentViewModel.authStatus {
+        case .unAuthorized:
+            AppController.shared.selectedAppTab = .account
+            dismiss()
+        case .authorized:
+            isConfirming = true
+        case .loading:
+            break
+        }
+    }
+    
 }

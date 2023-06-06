@@ -13,7 +13,6 @@ import Foundation
 /// for KronoX events, and booking and unbooking of resources.
 final class AccountViewModel: ObservableObject {
     let viewModelFactory: ViewModelFactory = .shared
-    let dummyDataFactory: DummyDataFactory = .init()
     
     @Inject var userController: UserController
     @Inject var kronoxManager: KronoxManager

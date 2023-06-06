@@ -15,7 +15,7 @@ struct CustomList<Content: View>: View {
     }
     
     var body: some View {
-        ScrollView {
+        ScrollView (showsIndicators: false) {
             VStack(spacing: 0) {
                 content()
             }
