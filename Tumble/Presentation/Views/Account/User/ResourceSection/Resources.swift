@@ -10,7 +10,7 @@ import SwiftUI
 struct Resources: View {
     @ObservedObject var parentViewModel: AccountViewModel
     let getResourcesAndEvents: () -> Void
-    let toastFactory: ToastFactory = ToastFactory.shared
+    let popupFactory: PopupFactory = PopupFactory.shared
     
     var scrollSpace: String = "resourceRefreshable"
     @State var scrollOffset: CGFloat = .zero
@@ -161,10 +161,10 @@ struct Resources: View {
             let result = await parentViewModel.resourceViewModel.unbookResource(bookingId: bookingId)
             DispatchQueue.main.async {
                 if result {
-                    AppController.shared.toast = toastFactory.unBookedResourceSuccess()
+                    AppController.shared.popup = popupFactory.unBookedResourceSuccess()
                     parentViewModel.removeUserBooking(where: bookingId)
                 } else {
-                    AppController.shared.toast = toastFactory.unBookedResourceFailed()
+                    AppController.shared.popup = popupFactory.unBookedResourceFailed()
                 }
                 parentViewModel.bookingSectionState = .loaded
             }
@@ -174,9 +174,9 @@ struct Resources: View {
     fileprivate func toggleAutomaticExamSignup(value: Bool) {
         parentViewModel.toggleAutoSignup(value: value)
         if value {
-            AppController.shared.toast = toastFactory.autoSignupEnabled()
+            AppController.shared.popup = popupFactory.autoSignupEnabled()
         } else {
-            AppController.shared.toast = toastFactory.autoSignupDisabled()
+            AppController.shared.popup = popupFactory.autoSignupDisabled()
         }
         AppLogger.shared.debug("Toggled to \(value)")
     }

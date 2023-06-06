@@ -21,18 +21,11 @@ extension View {
         modifier(FirstAppear(action: action))
     }
     
-    func erasedToAnyView() -> AnyView {
-        AnyView(self)
-    }
-    
-    func toastView(toast: Binding<Toast?>) -> some View {
-        modifier(ToastModifier(toast: toast))
-    }
-    
     func hideKeyboard() {
         let resign = #selector(UIResponder.resignFirstResponder)
         UIApplication.shared.sendAction(resign, to: nil, from: nil, for: nil)
     }
+    
     
     func searchBox() -> some View {
         padding(10)

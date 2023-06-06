@@ -12,7 +12,7 @@ struct ResourceSelection: View {
     @ObservedObject var parentViewModel: ResourceViewModel
     @State private var selectedTimeIndex: Int = 0
     @State private var availabilityValues: [Response.AvailabilityValue] = .init()
-    let toastFactory: ToastFactory = ToastFactory.shared
+    let popupFactory: PopupFactory = PopupFactory.shared
     
     let resource: Response.KronoxResourceElement
     let selectedPickerDate: Date
@@ -82,9 +82,9 @@ struct ResourceSelection: View {
             availabilityValue: availabilityValue
         )
         if result {
-            AppController.shared.toast = toastFactory.bookedResourceSuccess()
+            AppController.shared.popup = popupFactory.bookedResourceSuccess()
         } else {
-            AppController.shared.toast = toastFactory.bookResourceFailed()
+            AppController.shared.popup = popupFactory.bookResourceFailed()
         }
         return result
     }

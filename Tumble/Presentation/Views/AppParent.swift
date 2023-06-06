@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import PopupView
 
 // All navigation occurs from this view
 struct AppParent: View {
@@ -80,7 +81,18 @@ struct AppParent: View {
             .tag(TabbarTabType.account)
         }
         .tint(.primary)
-        .toastView(toast: $appController.toast)
+        .popup(isPresented: $appController.showPopup) {
+            if let popup = appController.popup {
+                PopupContainer(popup: popup)
+            }
+        } customize: {
+            $0
+                .type(.floater())
+                .position(.bottom)
+                .animation(.spring())
+                .closeOnTapOutside(true)
+                .autohideIn(5)
+        }
         .ignoresSafeArea(.keyboard)
         .navigationViewStyle(StackNavigationViewStyle())
         .fullScreenCover(isPresented: $viewModel.userNotOnBoarded, content: {
