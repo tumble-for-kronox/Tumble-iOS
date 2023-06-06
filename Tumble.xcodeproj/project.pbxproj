@@ -102,7 +102,6 @@
 		D454DECA29D35EF5005BDAE3 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D454DEC929D35EF5005BDAE3 /* Settings.swift */; };
 		D454DECE29D3B900005BDAE3 /* BookmarksSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D454DECD29D3B900005BDAE3 /* BookmarksSettings.swift */; };
 		D454DED029D3B953005BDAE3 /* BookmarksSettingsRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D454DECF29D3B953005BDAE3 /* BookmarksSettingsRow.swift */; };
-		D454DED529D3BB13005BDAE3 /* NotificationSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D454DED429D3BB13005BDAE3 /* NotificationSettings.swift */; };
 		D455E04B29D58F7D00770910 /* NotificationOffsetSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D455E04A29D58F7D00770910 /* NotificationOffsetSettings.swift */; };
 		D4562E0B2A27E9020059ED36 /* ToastFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4562E0A2A27E9020059ED36 /* ToastFactory.swift */; };
 		D4563E7E2985F96C003261FA /* NetworkSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4563E7D2985F96C003261FA /* NetworkSettings.swift */; };
@@ -153,7 +152,6 @@
 		D476BD2A293A31FD0027CFE8 /* SearchPreviewList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D476BD29293A31FD0027CFE8 /* SearchPreviewList.swift */; };
 		D478452629D64F0F00BDF7A3 /* LanguageTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = D478452529D64F0F00BDF7A3 /* LanguageTypes.swift */; };
 		D47A1AF729C00C0E004F03DB /* HomePageOptionStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47A1AF629C00C0E004F03DB /* HomePageOptionStyle.swift */; };
-		D47A451929D75316008626E6 /* LogInOutButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47A451829D75316008626E6 /* LogInOutButton.swift */; };
 		D481F15729CB820D0088C28E /* AvailabilitiesExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D481F15629CB820D0088C28E /* AvailabilitiesExtension.swift */; };
 		D481F15929CB84F10088C28E /* ResourceSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D481F15829CB84F10088C28E /* ResourceSelection.swift */; };
 		D48CC59829C7C3C70028179A /* HomePageSeeAllStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48CC59729C7C3C70028179A /* HomePageSeeAllStyle.swift */; };
@@ -193,7 +191,6 @@
 		D4D04DFD29FB29BC008858F0 /* SwipeActions in Frameworks */ = {isa = PBXBuildFile; productRef = D4D04DFC29FB29BC008858F0 /* SwipeActions */; };
 		D4D04E0029FB3DF6008858F0 /* FirstAppear.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D04DFF29FB3DF6008858F0 /* FirstAppear.swift */; };
 		D4D14A0F2A2EA51D00D7E374 /* ColorfulIconLabelStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D14A0E2A2EA51D00D7E374 /* ColorfulIconLabelStyle.swift */; };
-		D4D14A132A2EADAB00D7E374 /* SettingsActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D14A122A2EADAB00D7E374 /* SettingsActionButton.swift */; };
 		D4D3368329F66E0000933D38 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D3368229F66E0000933D38 /* RealmManager.swift */; };
 		D4D3368629F66E3900933D38 /* RealmConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D3368529F66E3900933D38 /* RealmConfig.swift */; };
 		D4D4CD17299CE57C00D48180 /* EventCardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D4CD16299CE57C00D48180 /* EventCardButton.swift */; };
@@ -224,11 +221,13 @@
 		D4EE5B6C29D50FC0002A1399 /* AppearanceSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EE5B6B29D50FC0002A1399 /* AppearanceSettings.swift */; };
 		D4EE5B6E29D50FD3002A1399 /* SettingsRadioButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EE5B6D29D50FD3002A1399 /* SettingsRadioButton.swift */; };
 		D4EEFB4929DA06A40007A209 /* ToTopButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EEFB4829DA06A40007A209 /* ToTopButton.swift */; };
-		D4EEFB5029DA15440007A209 /* ListRowNavigationItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EEFB4F29DA15440007A209 /* ListRowNavigationItem.swift */; };
-		D4EEFB5429DA177D0007A209 /* CustomList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EEFB5329DA177C0007A209 /* CustomList.swift */; };
-		D4EEFB5629DA1B050007A209 /* ListRowExternalButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EEFB5529DA1B050007A209 /* ListRowExternalButton.swift */; };
-		D4EEFB5829DA1BD10007A209 /* CustomListGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EEFB5729DA1BD10007A209 /* CustomListGroup.swift */; };
+		D4EEFB5029DA15440007A209 /* SettingsNavigationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EEFB4F29DA15440007A209 /* SettingsNavigationButton.swift */; };
+		D4EEFB5429DA177D0007A209 /* SettingsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EEFB5329DA177C0007A209 /* SettingsList.swift */; };
+		D4EEFB5629DA1B050007A209 /* SettingsExternalButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EEFB5529DA1B050007A209 /* SettingsExternalButton.swift */; };
+		D4EEFB5829DA1BD10007A209 /* SettingsListGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EEFB5729DA1BD10007A209 /* SettingsListGroup.swift */; };
 		D4EEFB5A29DA4E490007A209 /* AppearanceTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EEFB5929DA4E490007A209 /* AppearanceTypes.swift */; };
+		D4F0C7FC2A2F7E16002F8376 /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F0C7FB2A2F7E16002F8376 /* ShareSheet.swift */; };
+		D4F0C7FE2A2F8373002F8376 /* OutlinedButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F0C7FD2A2F8373002F8376 /* OutlinedButtonStyle.swift */; };
 		D4F532642A2A3FF2009DC8B8 /* Notification+NameExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F532632A2A3FF2009DC8B8 /* Notification+NameExtension.swift */; };
 		D4FCD14B2995AD64009D2987 /* UIColorWellExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FCD14A2995AD64009D2987 /* UIColorWellExtension.swift */; };
 		D4FCD14E2995ADFE009D2987 /* UIColorWellHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FCD14D2995ADFE009D2987 /* UIColorWellHelper.swift */; };
@@ -337,7 +336,6 @@
 		D454DEC929D35EF5005BDAE3 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		D454DECD29D3B900005BDAE3 /* BookmarksSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksSettings.swift; sourceTree = "<group>"; };
 		D454DECF29D3B953005BDAE3 /* BookmarksSettingsRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksSettingsRow.swift; sourceTree = "<group>"; };
-		D454DED429D3BB13005BDAE3 /* NotificationSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettings.swift; sourceTree = "<group>"; };
 		D455E04A29D58F7D00770910 /* NotificationOffsetSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationOffsetSettings.swift; sourceTree = "<group>"; };
 		D4562E0A2A27E9020059ED36 /* ToastFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastFactory.swift; sourceTree = "<group>"; };
 		D4563E7D2985F96C003261FA /* NetworkSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkSettings.swift; sourceTree = "<group>"; };
@@ -391,7 +389,6 @@
 		D478452429D64D8800BDF7A3 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D478452529D64F0F00BDF7A3 /* LanguageTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageTypes.swift; sourceTree = "<group>"; };
 		D47A1AF629C00C0E004F03DB /* HomePageOptionStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageOptionStyle.swift; sourceTree = "<group>"; };
-		D47A451829D75316008626E6 /* LogInOutButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInOutButton.swift; sourceTree = "<group>"; };
 		D47A451C29D75D14008626E6 /* bs-BA */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "bs-BA"; path = "bs-BA.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		D481F15629CB820D0088C28E /* AvailabilitiesExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvailabilitiesExtension.swift; sourceTree = "<group>"; };
 		D481F15829CB84F10088C28E /* ResourceSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceSelection.swift; sourceTree = "<group>"; };
@@ -432,7 +429,6 @@
 		D4CF9B2B293572BE00DDB5F0 /* Info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Info.swift; sourceTree = "<group>"; };
 		D4D04DFF29FB3DF6008858F0 /* FirstAppear.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstAppear.swift; sourceTree = "<group>"; };
 		D4D14A0E2A2EA51D00D7E374 /* ColorfulIconLabelStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorfulIconLabelStyle.swift; sourceTree = "<group>"; };
-		D4D14A122A2EADAB00D7E374 /* SettingsActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsActionButton.swift; sourceTree = "<group>"; };
 		D4D3368229F66E0000933D38 /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 		D4D3368529F66E3900933D38 /* RealmConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmConfig.swift; sourceTree = "<group>"; };
 		D4D4CD16299CE57C00D48180 /* EventCardButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCardButton.swift; sourceTree = "<group>"; };
@@ -464,11 +460,13 @@
 		D4EE5B6B29D50FC0002A1399 /* AppearanceSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceSettings.swift; sourceTree = "<group>"; };
 		D4EE5B6D29D50FD3002A1399 /* SettingsRadioButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRadioButton.swift; sourceTree = "<group>"; };
 		D4EEFB4829DA06A40007A209 /* ToTopButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToTopButton.swift; sourceTree = "<group>"; };
-		D4EEFB4F29DA15440007A209 /* ListRowNavigationItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListRowNavigationItem.swift; sourceTree = "<group>"; };
-		D4EEFB5329DA177C0007A209 /* CustomList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomList.swift; sourceTree = "<group>"; };
-		D4EEFB5529DA1B050007A209 /* ListRowExternalButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListRowExternalButton.swift; sourceTree = "<group>"; };
-		D4EEFB5729DA1BD10007A209 /* CustomListGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomListGroup.swift; sourceTree = "<group>"; };
+		D4EEFB4F29DA15440007A209 /* SettingsNavigationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsNavigationButton.swift; sourceTree = "<group>"; };
+		D4EEFB5329DA177C0007A209 /* SettingsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsList.swift; sourceTree = "<group>"; };
+		D4EEFB5529DA1B050007A209 /* SettingsExternalButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsExternalButton.swift; sourceTree = "<group>"; };
+		D4EEFB5729DA1BD10007A209 /* SettingsListGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsListGroup.swift; sourceTree = "<group>"; };
 		D4EEFB5929DA4E490007A209 /* AppearanceTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceTypes.swift; sourceTree = "<group>"; };
+		D4F0C7FB2A2F7E16002F8376 /* ShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheet.swift; sourceTree = "<group>"; };
+		D4F0C7FD2A2F8373002F8376 /* OutlinedButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutlinedButtonStyle.swift; sourceTree = "<group>"; };
 		D4F532632A2A3FF2009DC8B8 /* Notification+NameExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+NameExtension.swift"; sourceTree = "<group>"; };
 		D4FCD14A2995AD64009D2987 /* UIColorWellExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorWellExtension.swift; sourceTree = "<group>"; };
 		D4FCD14D2995ADFE009D2987 /* UIColorWellHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorWellHelper.swift; sourceTree = "<group>"; };
@@ -659,16 +657,13 @@
 		D41172C02985EB2C0082BB4F /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				D47A451729D75306008626E6 /* GeneralButtons */,
 				D454DEC929D35EF5005BDAE3 /* Settings.swift */,
-				D4EE5B6D29D50FD3002A1399 /* SettingsRadioButton.swift */,
+				D4F0C7FA2A2F7DFD002F8376 /* List */,
+				D4F0C7F92A2F7DE5002F8376 /* Buttons */,
 				D4EE5B6A29D50FAF002A1399 /* Appearance */,
 				D454DED329D3BB08005BDAE3 /* Notifications */,
 				D454DED129D3BAEA005BDAE3 /* Bookmarks */,
-				D4EEFB4F29DA15440007A209 /* ListRowNavigationItem.swift */,
-				D4EEFB5329DA177C0007A209 /* CustomList.swift */,
-				D4EEFB5529DA1B050007A209 /* ListRowExternalButton.swift */,
-				D4EEFB5729DA1BD10007A209 /* CustomListGroup.swift */,
+				D4F0C7FB2A2F7E16002F8376 /* ShareSheet.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -896,7 +891,6 @@
 		D454DED329D3BB08005BDAE3 /* Notifications */ = {
 			isa = PBXGroup;
 			children = (
-				D454DED429D3BB13005BDAE3 /* NotificationSettings.swift */,
 				D455E04A29D58F7D00770910 /* NotificationOffsetSettings.swift */,
 			);
 			path = Notifications;
@@ -1147,17 +1141,9 @@
 				D4B7F25729CC6135006E2449 /* BookButtonStyle.swift */,
 				D4761C4329CF222900B3BB0B /* WideAnimatedButtonStyle.swift */,
 				D45DAB2129DB380E00FCA5AC /* AnimatedButtonStyle.swift */,
+				D4F0C7FD2A2F8373002F8376 /* OutlinedButtonStyle.swift */,
 			);
 			path = ButtonStyles;
-			sourceTree = "<group>";
-		};
-		D47A451729D75306008626E6 /* GeneralButtons */ = {
-			isa = PBXGroup;
-			children = (
-				D47A451829D75316008626E6 /* LogInOutButton.swift */,
-				D4D14A122A2EADAB00D7E374 /* SettingsActionButton.swift */,
-			);
-			path = GeneralButtons;
 			sourceTree = "<group>";
 		};
 		D48CC59D29C7DB5C0028179A /* Buttons */ = {
@@ -1393,6 +1379,25 @@
 			path = Appearance;
 			sourceTree = "<group>";
 		};
+		D4F0C7F92A2F7DE5002F8376 /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				D4EE5B6D29D50FD3002A1399 /* SettingsRadioButton.swift */,
+				D4EEFB4F29DA15440007A209 /* SettingsNavigationButton.swift */,
+				D4EEFB5529DA1B050007A209 /* SettingsExternalButton.swift */,
+			);
+			path = Buttons;
+			sourceTree = "<group>";
+		};
+		D4F0C7FA2A2F7DFD002F8376 /* List */ = {
+			isa = PBXGroup;
+			children = (
+				D4EEFB5329DA177C0007A209 /* SettingsList.swift */,
+				D4EEFB5729DA1BD10007A209 /* SettingsListGroup.swift */,
+			);
+			path = List;
+			sourceTree = "<group>";
+		};
 		D4F145E62982144C00C3A351 /* Calendar */ = {
 			isa = PBXGroup;
 			children = (
@@ -1594,7 +1599,6 @@
 				D458605429DCAABD00B77513 /* HomeError.swift in Sources */,
 				D400F3D829D794230050622E /* AccountViewStatus.swift in Sources */,
 				D400F3DD29D794840050622E /* ResourceDetailSheetModel.swift in Sources */,
-				D454DED529D3BB13005BDAE3 /* NotificationSettings.swift in Sources */,
 				D400F3D229D793CF0050622E /* SearchStatus.swift in Sources */,
 				D45268D12A052F97004F1642 /* TabItem.swift in Sources */,
 				D421EAF02993FB660045D438 /* EventDetailsSheetModel.swift in Sources */,
@@ -1610,7 +1614,7 @@
 				D441B10D298A8CEC00D22142 /* EventDetailsSheetViewModel.swift in Sources */,
 				D4644A29298DD79D00B0BB28 /* EventNotification.swift in Sources */,
 				D4EACB3629CB99540096ADD2 /* ResourceTimeButtonStyle.swift in Sources */,
-				D4EEFB5429DA177D0007A209 /* CustomList.swift in Sources */,
+				D4EEFB5429DA177D0007A209 /* SettingsList.swift in Sources */,
 				D45338F629280E8400198411 /* ScheduleResponseExtension.swift in Sources */,
 				D42BAC1E298D3D6A0025EAA9 /* AppLogger.swift in Sources */,
 				D45338FB2929730200198411 /* CustomProgressIndicator.swift in Sources */,
@@ -1637,7 +1641,7 @@
 				D423F6AE29F0085D00C04123 /* SchoolPill.swift in Sources */,
 				D454DECE29D3B900005BDAE3 /* BookmarksSettings.swift in Sources */,
 				D4A433BA29952A8A00BFEB7A /* EventExtension.swift in Sources */,
-				D4EEFB5629DA1B050007A209 /* ListRowExternalButton.swift in Sources */,
+				D4EEFB5629DA1B050007A209 /* SettingsExternalButton.swift in Sources */,
 				D419EDF4299A662400479DCE /* UserAvatar.swift in Sources */,
 				D460763B292AAD5400DE9590 /* PopupToastView.swift in Sources */,
 				D4D4DD032927C7DA0083BB7F /* ProgrammeCard.swift in Sources */,
@@ -1647,7 +1651,6 @@
 				D498290F299D9E7F0017D636 /* RegisteredBookings.swift in Sources */,
 				D4CEFA382A216DBB001E94CF /* OnBoardingScreens.swift in Sources */,
 				D4EEFB5A29DA4E490007A209 /* AppearanceTypes.swift in Sources */,
-				D47A451929D75316008626E6 /* LogInOutButton.swift in Sources */,
 				D4294B3429C91CF700007747 /* ArrayExtension.swift in Sources */,
 				D4E491F429EDC10E00E674CA /* RealmScheduleExtension.swift in Sources */,
 				D46400082A1EAD5F00456FE7 /* Pill.swift in Sources */,
@@ -1712,7 +1715,7 @@
 				D419EDF6299A78C400479DCE /* ResourceSectionDivider.swift in Sources */,
 				D40D80A629252165008CA68D /* ViewExtensions.swift in Sources */,
 				D45DAB2E29DB4FCA00FCA5AC /* TodaysEventsCarousel.swift in Sources */,
-				D4EEFB5029DA15440007A209 /* ListRowNavigationItem.swift in Sources */,
+				D4EEFB5029DA15440007A209 /* SettingsNavigationButton.swift in Sources */,
 				D458606329DCF72300B77513 /* NewsItemDetails.swift in Sources */,
 				D454204129BE982000EF0FC9 /* HapticsController.swift in Sources */,
 				D43294E029E0ABAA00842884 /* HomeStatus.swift in Sources */,
@@ -1720,8 +1723,7 @@
 				D4CD0EFF29D5B00A00AB5FD0 /* UIApplicationExtension.swift in Sources */,
 				D44ABF0729BFE89D00344792 /* SchoolRowStyle.swift in Sources */,
 				D4562E0B2A27E9020059ED36 /* ToastFactory.swift in Sources */,
-				D4EEFB5829DA1BD10007A209 /* CustomListGroup.swift in Sources */,
-				D4D14A132A2EADAB00D7E374 /* SettingsActionButton.swift in Sources */,
+				D4EEFB5829DA1BD10007A209 /* SettingsListGroup.swift in Sources */,
 				D447EA922A238E0100E50A92 /* FlowStack.swift in Sources */,
 				D400F3D629D794010050622E /* BookmarksViewStatus.swift in Sources */,
 				D443962C29CB4D720069D66A /* ResourceLocationsList.swift in Sources */,
@@ -1739,6 +1741,7 @@
 				D40D80A929252688008CA68D /* ParentViewModel.swift in Sources */,
 				D4A550CC2994509A00028BCF /* SettingsViewModel.swift in Sources */,
 				D475627129CE20A700B72008 /* ExamDetailsSheet.swift in Sources */,
+				D4F0C7FC2A2F7E16002F8376 /* ShareSheet.swift in Sources */,
 				D41F152B299C699500E13264 /* Events.swift in Sources */,
 				D458605829DCDF1200B77513 /* NewsSheet.swift in Sources */,
 				D439F8A129DBA96B006332AB /* HomeAvailable.swift in Sources */,
@@ -1775,6 +1778,7 @@
 				D475626F29CE09A600B72008 /* ResourceDetailSheet.swift in Sources */,
 				D40CC163292AFE7200664776 /* BookmarksViewModel.swift in Sources */,
 				D440F40229E73B3E003E4CAA /* ViewSwitcher.swift in Sources */,
+				D4F0C7FE2A2F8373002F8376 /* OutlinedButtonStyle.swift in Sources */,
 				D44FBFEB29CB1CC500CAAD39 /* ResourceDatePicker.swift in Sources */,
 				D40D80CC29265C36008CA68D /* SearchViewModel.swift in Sources */,
 				D4607641292AB18D00DE9590 /* Home.swift in Sources */,

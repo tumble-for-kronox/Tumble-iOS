@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct CustomListGroup<Content: View>: View {
+struct SettingsListGroup<Content: View>: View {
     let content: () -> Content
     
     init(@ViewBuilder content: @escaping () -> Content) {
@@ -22,7 +22,6 @@ struct CustomListGroup<Content: View>: View {
         .frame(maxWidth: .infinity)
         .background(Color.surface)
         .cornerRadius(10)
-        .padding(.horizontal, 15)
-        .padding(.vertical, 15)
+        .padding([.horizontal, .vertical], 15)
     }
 }

@@ -15,12 +15,17 @@ struct ColorfulIconLabelStyle: LabelStyle {
         Label {
             configuration.title
                 .foregroundColor(.onSurface)
-                .padding(.leading, 10)
+                .padding(.leading, 20)
         } icon: {
             configuration.icon
-                .font(.system(size: 14))
+                .frame(width: 2, height: 2)
                 .foregroundColor(.white)
-                .background(RoundedRectangle(cornerRadius: 7).frame(width: 28, height: 28).foregroundColor(color))
+                .background(
+                    RoundedRectangle(cornerRadius: 7)
+                        .frame(width: 30, height: 30)
+                        .foregroundColor(color)
+                )
         }
+        .padding(.leading, 10)
     }
 }

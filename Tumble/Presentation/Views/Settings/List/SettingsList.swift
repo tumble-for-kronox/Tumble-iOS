@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct CustomList<Content: View>: View {
+struct SettingsList<Content: View>: View {
     let content: () -> Content
     
     init(@ViewBuilder content: @escaping () -> Content) {
