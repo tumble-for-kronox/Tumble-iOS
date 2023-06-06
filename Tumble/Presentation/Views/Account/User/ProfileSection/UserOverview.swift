@@ -42,19 +42,16 @@ struct UserOverview: View {
             Resources(
                 parentViewModel: viewModel,
                 getResourcesAndEvents: getResourcesAndEvents,
-                createToast: createToast,
                 collapsedHeader: $collapsedHeader
             )
         }
         .background(Color.background)
     }
     
-    fileprivate func createToast(toastStyle: ToastStyle, title: String, message: String) {
-        appController.toast = Toast(type: toastStyle, title: title, message: message)
-    }
-    
     fileprivate func getResourcesAndEvents() {
-        viewModel.getUserBookingsForSection()
-        viewModel.getUserEventsForSection()
+        Task {
+            await viewModel.getUserBookingsForSection()
+            await viewModel.getUserEventsForSection()
+        }
     }
 }

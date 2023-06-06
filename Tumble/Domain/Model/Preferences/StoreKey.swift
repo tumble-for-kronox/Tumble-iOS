@@ -8,15 +8,12 @@
 import Foundation
 
 enum StoreKey: String {
-    case school
-    case bookmarks
-    case appearance
-    case locale
+    case authSchool = "auth_school"
+    case appearance = "appearance"
+    case locale = "locale"
     case notificationOffset = "notification_offset"
     case autoSignup = "auto_signup"
     case viewType = "view_type"
     case userOnboarded = "user_onboarded"
-    case profileImage = "profile_image"
-    case inAppReview = "in_app_review"
-    case networkSettings
+    case networkSettings = "network_settings"
 }

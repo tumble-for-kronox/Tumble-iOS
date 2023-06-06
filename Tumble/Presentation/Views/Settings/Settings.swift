@@ -13,6 +13,7 @@ struct Settings: View {
     @ObservedObject var viewModel: SettingsViewModel
     @ObservedResults(Schedule.self, configuration: realmConfig) var schedules
     let currentLocale = Bundle.main.preferredLocalizations.first
+    let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
     
     var body: some View {
         VStack {
@@ -21,12 +22,16 @@ struct Settings: View {
                     ListRowNavigationItem(
                         title: NSLocalizedString("Appearance", comment: ""),
                         current: NSLocalizedString($appearance.wrappedValue, comment: ""),
+                        leadingIcon: "moon",
+                        leadingIconBackgroundColor: .blue,
                         destination: AnyView(AppearanceSettings(appearance: $appearance))
                     )
                     Divider()
-                    ListRowActionItem(
+                    ListRowExternalButton(
                         title: NSLocalizedString("App language", comment: ""),
                         current: currentLocale != nil ? LanguageTypes.fromLocaleName(currentLocale!)?.displayName : nil,
+                        leadingIcon: "globe",
+                        leadingIconBackgorundColor: .blue,
                         action: {
                             if let settingsURL = URL(string: UIApplication.openSettingsURLString) {
                                 UIApplication.shared.open(settingsURL)
@@ -37,6 +42,8 @@ struct Settings: View {
                 CustomListGroup {
                     ListRowNavigationItem(
                         title: NSLocalizedString("Notifications", comment: ""),
+                        leadingIcon: "bell.badge",
+                        leadingIconBackgroundColor: .primary,
                         destination: AnyView(NotificationSettings(
                             clearAllNotifications: clearAllNotifications,
                             scheduleNotificationsForAllCourses: scheduleNotificationsForAllCourses,
@@ -46,34 +53,36 @@ struct Settings: View {
                     Divider()
                     ListRowNavigationItem(
                         title: NSLocalizedString("Bookmarks", comment: ""),
+                        leadingIcon: "bookmark",
+                        leadingIconBackgroundColor: .primary,
                         destination: AnyView(BookmarksSettings(
                             parentViewModel: viewModel
                         ))
                     )
                 }
                 CustomListGroup {
-                    ListRowActionItem(
+                    ListRowExternalButton(
                         title: NSLocalizedString("Review the app", comment: ""),
-                        image: "square.and.arrow.up",
-                        imageColor: .primary,
+                        leadingIcon: "star.leadinghalf.filled",
+                        leadingIconBackgorundColor: .pink,
                         action: {
-                            UIApplication.shared.requestReview()
+                            UIApplication.shared.openAppStoreForReview()
                         }
                     )
                     Divider()
-                    ListRowActionItem(
+                    ListRowExternalButton(
                         title: NSLocalizedString("Share feedback", comment: ""),
-                        image: "envelope",
-                        imageColor: .primary,
+                        leadingIcon: "envelope",
+                        leadingIconBackgorundColor: .pink,
                         action: {
                             UIApplication.shared.shareFeedback()
                         }
                     )
                     Divider()
-                    ListRowActionItem(
+                    ListRowExternalButton(
                         title: NSLocalizedString("Tumble on GitHub", comment: ""),
-                        image: "chevron.left.forwardslash.chevron.right",
-                        imageColor: .primary,
+                        leadingIcon: "chevron.left.forwardslash.chevron.right",
+                        leadingIconBackgorundColor: .pink,
                         action: {
                             if let url = URL(string: "https://github.com/adisve/Tumble-iOS") {
                                 UIApplication.shared.open(url)
@@ -84,6 +93,13 @@ struct Settings: View {
                 CustomListGroup {
                     LogInOutButton(parentViewModel: viewModel)
                 }
+                if let appVersion = appVersion {
+                    Spacer()
+                    Text("Tumble, iOS v.\(appVersion)")
+                        .font(.system(size: 12, weight: .regular))
+                        .foregroundColor(.onBackground.opacity(0.7))
+                        .padding(25)
+                }
             }
             .padding(.top, 20)
             .background(Color.background)
@@ -93,39 +109,35 @@ struct Settings: View {
         .navigationBarTitleDisplayMode(.inline)
     }
     
-    fileprivate func changeSchool(schoolId: Int) {
-        viewModel.changeSchool(schoolId: schoolId)
-    }
     
     fileprivate func rescheduleNotifications(previousOffset: Int, newOffset: Int) {
         viewModel.rescheduleNotifications(previousOffset: previousOffset, newOffset: newOffset)
     }
     
     fileprivate func clearAllNotifications() {
-        if schedulesAvailable() {
+        if schedulesAvailable {
             viewModel.clearAllNotifications()
+        } else {
+            AppController.shared.toast = ToastFactory.shared.noAvailableBookmarks()
         }
     }
     
     fileprivate func scheduleNotificationsForAllCourses() {
-        if schedulesAvailable() {
+        if schedulesAvailable {
             let allEvents = Array(schedules)
                 .filter { $0.toggled }
                 .flatMap { $0.days }
                 .flatMap { $0.events }
                 .filter { !($0.dateComponents!.hasDatePassed()) }
-            viewModel.scheduleNotificationsForAllEvents(allEvents: allEvents)
+            Task {
+                await viewModel.scheduleNotificationsForAllEvents(allEvents: allEvents)
+            }
+        } else {
+            AppController.shared.toast = ToastFactory.shared.noAvailableBookmarks()
         }
     }
     
-    func schedulesAvailable() -> Bool {
-        if schedules.isEmpty || schedules.filter({ $0.toggled }).isEmpty {
-            viewModel.makeToast(
-                type: .info,
-                title: NSLocalizedString("No available bookmarks", comment: ""),
-                message: NSLocalizedString("It looks like there's no available bookmarks", comment: "")
-            )
-            return false
-        } else { return true }
+    var schedulesAvailable: Bool {
+        !schedules.isEmpty || !schedules.filter({ $0.toggled }).isEmpty
     }
 }

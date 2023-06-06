@@ -11,11 +11,10 @@ import RealmSwift
 import SwiftUI
 
 final class BookmarksViewModel: ObservableObject {
-    let viewModelFactory: ViewModelFactory = .init()
+    let viewModelFactory: ViewModelFactory = ViewModelFactory.shared
     let scheduleViewTypes: [BookmarksViewType] = BookmarksViewType.allValues
     
     @Inject var preferenceService: PreferenceService
-    @Inject var kronoxManager: KronoxManager
     @Inject var schoolManager: SchoolManager
     @Inject var realmManager: RealmManager
     

@@ -10,7 +10,7 @@ import SwiftUI
 struct Resources: View {
     @ObservedObject var parentViewModel: AccountViewModel
     let getResourcesAndEvents: () -> Void
-    let createToast: (ToastStyle, String, String) -> Void
+    let toastFactory: ToastFactory = ToastFactory.shared
     
     var scrollSpace: String = "resourceRefreshable"
     @State var scrollOffset: CGFloat = .zero
@@ -21,13 +21,11 @@ struct Resources: View {
     init(
         parentViewModel: AccountViewModel,
         getResourcesAndEvents: @escaping () -> Void,
-        createToast: @escaping (ToastStyle, String, String) -> Void,
         collapsedHeader: Binding<Bool>
     ) {
         _isAutoSignupEnabled = State(initialValue: parentViewModel.autoSignupEnabled)
         self.parentViewModel = parentViewModel
         self.getResourcesAndEvents = getResourcesAndEvents
-        self.createToast = createToast
         _collapsedHeader = collapsedHeader
     }
     
@@ -53,7 +51,9 @@ struct Resources: View {
                                                ResourceBookings(
                                                    viewModel: parentViewModel.resourceViewModel,
                                                    updateBookingNotifications: {
-                                                       parentViewModel.checkNotificationsForUserBookings()
+                                                       Task {
+                                                           await parentViewModel.checkNotificationsForUserBookings()
+                                                       }
                                                    }
                                                )
                                                .navigationTitle(NSLocalizedString("Resources", comment: ""))
@@ -114,7 +114,9 @@ struct Resources: View {
     }
     
     fileprivate func getUserEventsForSection() {
-        parentViewModel.getUserEventsForSection()
+        Task {
+            await parentViewModel.getUserEventsForSection()
+        }
     }
     
     fileprivate func onClickResource(resource: Response.KronoxUserBookingElement) {
@@ -139,109 +141,42 @@ struct Resources: View {
     }
     
     fileprivate func unregisterEvent(eventId: String) {
-        parentViewModel.registeredEventSectionState = .loading
-        parentViewModel.unregisterForEvent(eventId: eventId) { result in
-            switch result {
-            case .success:
-                AppLogger.shared.debug("Unregistered for event: \(eventId)")
-                parentViewModel.removeUserEvent(where: eventId)
-                DispatchQueue.main.async {
-                    parentViewModel.registeredEventSectionState = .loaded
-                }
-                createToast(
-                    .success,
-                    NSLocalizedString("Unregistered from event", comment: ""),
-                    NSLocalizedString("You have been unregistered from the specified event", comment: "")
-                )
-            case .failure:
-                AppLogger.shared.critical("Failed to unregister for event: \(eventId)")
-                DispatchQueue.main.async {
-                    parentViewModel.registeredEventSectionState = .error
-                }
-                createToast(
-                    .error,
-                    NSLocalizedString("Error", comment: ""),
-                    NSLocalizedString("We couldn't unregister you for the specified event", comment: "")
-                )
-            }
+        Task {
+            await parentViewModel.unregisterForEvent(eventId: eventId)
         }
     }
     
     fileprivate func confirmResource(resourceId: String, bookingId: String) {
         parentViewModel.bookingSectionState = .loading
-        parentViewModel.resourceViewModel.confirmResource(
-            resourceId: resourceId,
-            bookingId: bookingId,
-            completion: { result in
-                switch result {
-                case .success:
-                    AppLogger.shared.debug("Confirmed resource: \(bookingId)")
-                    DispatchQueue.main.async {
-                        parentViewModel.bookingSectionState = .loaded
-                    }
-                    createToast(
-                        .success,
-                        NSLocalizedString("Confirmed resource", comment: ""),
-                        NSLocalizedString("You have confirmed the selected resource", comment: "")
-                    )
-                case .failure:
-                    AppLogger.shared.critical("Failed to confirm resource: \(bookingId)")
-                    DispatchQueue.main.async {
-                        parentViewModel.bookingSectionState = .error
-                    }
-                    createToast(
-                        .error,
-                        NSLocalizedString("Error", comment: ""),
-                        NSLocalizedString("We couldn't confirm the specified resource", comment: "")
-                    )
-                }
-            }
-        )
+        Task {
+            await parentViewModel.resourceViewModel.confirmResource(
+                resourceId: resourceId,
+                bookingId: bookingId)
+        }
     }
     
     fileprivate func unbookResource(bookingId: String) {
         parentViewModel.bookingSectionState = .loading
-        parentViewModel.resourceViewModel.unbookResource(bookingId: bookingId, completion: { result in
-            switch result {
-            case .success:
-                AppLogger.shared.debug("Unbooked resource: \(bookingId)")
-                parentViewModel.removeUserBooking(where: bookingId)
-                DispatchQueue.main.async {
-                    parentViewModel.bookingSectionState = .loaded
+        Task {
+            let result = await parentViewModel.resourceViewModel.unbookResource(bookingId: bookingId)
+            DispatchQueue.main.async {
+                if result {
+                    AppController.shared.toast = toastFactory.unBookedResourceSuccess()
+                    parentViewModel.removeUserBooking(where: bookingId)
+                } else {
+                    AppController.shared.toast = toastFactory.unBookedResourceFailed()
                 }
-                createToast(
-                    .success,
-                    NSLocalizedString("Unbooked resource", comment: ""),
-                    NSLocalizedString("You have unbooked the selected resource", comment: "")
-                )
-            case .failure:
-                AppLogger.shared.critical("Failed to unbook resource: \(bookingId)")
-                DispatchQueue.main.async {
-                    parentViewModel.bookingSectionState = .error
-                }
-                createToast(
-                    .error,
-                    NSLocalizedString("Error", comment: ""),
-                    NSLocalizedString("We couldn't unbook the specified resource", comment: "")
-                )
+                parentViewModel.bookingSectionState = .loaded
             }
-        })
+        }
     }
     
     fileprivate func toggleAutomaticExamSignup(value: Bool) {
         parentViewModel.toggleAutoSignup(value: value)
         if value {
-            createToast(
-                .info,
-                NSLocalizedString("Automatic signup", comment: ""),
-                NSLocalizedString("Automatic exam/event signup has been enabled, but make sure you are always registered for exams through your institution.", comment: "")
-            )
+            AppController.shared.toast = toastFactory.autoSignupEnabled()
         } else {
-            createToast(
-                .info,
-                NSLocalizedString("Automatic signup", comment: ""),
-                NSLocalizedString("Automatic exam/event signup has been disabled.", comment: "")
-            )
+            AppController.shared.toast = toastFactory.autoSignupDisabled()
         }
         AppLogger.shared.debug("Toggled to \(value)")
     }

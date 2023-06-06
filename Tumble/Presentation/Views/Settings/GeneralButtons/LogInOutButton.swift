@@ -14,32 +14,22 @@ struct LogInOutButton: View {
     @State private var isConfirming: Bool = false
     var settingsDetails: SettingsDetails = .init(
         titleKey: NSLocalizedString("Are you sure you want to log out of your account?", comment: ""),
-        name: "Log out of your account",
-        details: "This action will log you out of your KronoX account"
+        name: NSLocalizedString("Log out of your account", comment: ""),
+        details: NSLocalizedString("This action will log you out of your KronoX account", comment: "")
     )
     
     var body: some View {
-        Button(action: {
-            switch parentViewModel.authStatus {
-            case .unAuthorized:
-                AppController.shared.selectedAppTab = .account
-                dismiss()
-            case .authorized:
-                isConfirming = true
-            case .loading:
-                break
-            }
-        }, label: {
+        Button(action: onClick, label: {
             HStack {
                 Spacer()
                 switch parentViewModel.authStatus {
                 case .unAuthorized:
                     Text(NSLocalizedString("Log in", comment: ""))
-                        .font(.system(size: 16, weight: .regular))
+                        .font(.system(size: 16, weight: .semibold))
                         .foregroundColor(.primary)
                 case .authorized:
                     Text(NSLocalizedString("Log out", comment: ""))
-                        .font(.system(size: 16, weight: .regular))
+                        .font(.system(size: 16, weight: .semibold))
                         .foregroundColor(.primary)
                 case .loading:
                     CustomProgressIndicator()
@@ -63,4 +53,17 @@ struct LogInOutButton: View {
             }
         }
     }
+    
+    func onClick() {
+        switch parentViewModel.authStatus {
+        case .unAuthorized:
+            AppController.shared.selectedAppTab = .account
+            dismiss()
+        case .authorized:
+            isConfirming = true
+        case .loading:
+            break
+        }
+    }
+    
 }

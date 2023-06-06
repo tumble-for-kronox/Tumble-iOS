@@ -74,7 +74,9 @@ struct Search: View {
     }
     
     func clearSearch() {
-        viewModel.resetSearchResults()
+        withAnimation(.spring()) {
+            viewModel.resetSearchResults()
+        }
     }
     
     func openProgramme(programmeId: String) {

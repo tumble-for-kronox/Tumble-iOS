@@ -35,4 +35,10 @@ extension UIApplication {
             UIApplication.shared.open(url)
         }
     }
+    
+    func openAppStoreForReview() {
+        guard let writeReviewURL = URL(string: "https://apps.apple.com/app/1617642864?action=write-review")
+        else { fatalError("Expected a valid URL") }
+        UIApplication.shared.open(writeReviewURL, options: [:], completionHandler: nil)
+    }
 }

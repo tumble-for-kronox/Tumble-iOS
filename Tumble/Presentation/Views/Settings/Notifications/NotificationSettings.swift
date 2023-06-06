@@ -26,41 +26,41 @@ struct NotificationSettings: View {
     var body: some View {
         CustomList {
             CustomListGroup {
-                ListRowActionItem(
-                    settingsDetails: SettingsDetails(
-                        titleKey: NSLocalizedString("Are you sure you want to set notifications for all events?", comment: ""),
-                        name: NSLocalizedString("Set notifications for all events", comment: ""),
-                        details: ""
-                    ),
-                    title: NSLocalizedString("Set notifications for all events", comment: ""),
-                    image: "bell.badge",
-                    imageColor: .primary,
-                    action: scheduleNotificationsForAllCourses
-                )
-                Divider()
-                ListRowActionItem(
-                    settingsDetails: SettingsDetails(
-                        titleKey: NSLocalizedString("Are you sure you want to cancel all set notifications?", comment: ""),
-                        name: NSLocalizedString("Cancel notifications for all events", comment: ""),
-                        details: ""
-                    ),
-                    title: NSLocalizedString("Cancel all notifications", comment: ""),
-                    image: "bell.slash",
-                    imageColor: .primary,
-                    action: clearAllNotifications
-                )
-            }
-            .padding(.top, 20)
-            CustomListGroup {
                 ListRowNavigationItem(
                     title: NSLocalizedString("Notification offset", comment: ""),
-                    current: offsetDisplayName,
+                    leadingIcon: "clock.badge",
+                    leadingIconBackgroundColor: .indigo,
                     destination: AnyView(NotificationOffsetSettings(
                         offset: $offset,
                         rescheduleNotifications: rescheduleNotifications
                     ))
                 )
             }
+            .padding(.top, 20)
+            CustomListGroup {
+                SettingsActionButton(
+                    settingsDetails: SettingsDetails(
+                        titleKey: NSLocalizedString("Are you sure you want to set notifications for all events?", comment: ""),
+                        name: NSLocalizedString("Set notifications for all events", comment: ""),
+                        details: ""
+                    ),
+                    title: NSLocalizedString("Set notifications for all events", comment: ""),
+                    action: scheduleNotificationsForAllCourses
+                )
+            }
+            CustomListGroup {
+                SettingsActionButton(
+                    settingsDetails: SettingsDetails(
+                        titleKey: NSLocalizedString("Are you sure you want to cancel all set notifications?", comment: ""),
+                        name: NSLocalizedString("Cancel notifications for all events", comment: ""),
+                        details: ""
+                    ),
+                    title: NSLocalizedString("Cancel all notifications", comment: ""),
+                    color: .red,
+                    action: clearAllNotifications
+                )
+            }
+            
         }
     }
 }

@@ -6,6 +6,22 @@
   
 */
 
+"Cancel notifications for all events"="Annulla le notifiche per tutti gli eventi";
+
+"Log out of your account"="Esci dal tuo account";
+
+"This action will log you out of your KronoX account"="Questa azione ti farà uscire dal tuo account KronoX";
+
+"Some schedules could not be updated. Either due to missing authorization or network errors."="Alcuni orari non hanno potuto essere aggiornati. A causa di autorizzazione mancante o errori di rete.";
+
+"Bad server response."="Cattiva risposta del server.";
+
+"The server seems to be offline."="Il server sembra essere offline.";
+
+"Something went wrong on our end."="Qualcosa è andato storto da parte nostra.";
+
+"Not connected to the internet."="Non connesso a internet.";
+
 "%@ at %@"="%@ alle %@";
 
 "Your visible schedules do not contain any events"="I tuoi programmi visibili non contengono eventi";
@@ -36,7 +52,7 @@
 
 "Error"="Errore"; // OK
 
-"Could not log out from your account"="Impossibile disconnettersi dal tuo account"; // OK
+"Could not log out of your account"="Impossibile disconnettersi dal tuo account"; // OK
 
 "There are no schedules that match your search"="Non ci sono programmi che corrispondono alla tua ricerca"; // OK
 

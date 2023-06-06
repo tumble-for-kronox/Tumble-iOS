@@ -10,36 +10,41 @@ import SwiftUI
 struct ListRowNavigationItem: View {
     let title: String
     let current: String?
+    let leadingIcon: String
+    let leadingIconBackgroundColor: Color
     let destination: AnyView
         
     init(
         title: String,
         current: String? = nil,
+        leadingIcon: String,
+        leadingIconBackgroundColor: Color,
         destination: AnyView
     ) {
         self.title = title
         self.current = current
+        self.leadingIcon = leadingIcon
+        self.leadingIconBackgroundColor = leadingIconBackgroundColor
         self.destination = destination
     }
     
     var body: some View {
         NavigationLink(destination: destination, label: {
-            HStack(spacing: 0) {
-                Text(title)
-                    .font(.system(size: 16, weight: .regular))
-                    .foregroundColor(.onSurface)
+            HStack {
+                Label(title, systemImage: leadingIcon)
+                    .labelStyle(ColorfulIconLabelStyle(color: leadingIconBackgroundColor))
                 Spacer()
                 if let current = current {
                     Text(current)
                         .font(.system(size: 16, weight: .regular))
-                        .foregroundColor(.onSurface.opacity(0.7))
+                        .foregroundColor(.onSurface.opacity(0.4))
                         .padding(.trailing, 10)
                 }
                 Image(systemName: "chevron.right")
-                    .font(.system(size: 15, weight: .medium))
-                    .foregroundColor(.onSurface.opacity(0.3))
+                    .foregroundColor(.onSurface.opacity(0.4))
+                    .font(.system(size: 14, weight: .semibold))
             }
-            .padding(7)
+            .padding(10)
         })
     }
 }

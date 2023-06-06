@@ -37,47 +37,32 @@ final class SearchViewModel: ObservableObject {
     }
     
     func onSearchProgrammes(searchQuery: String, selectedSchoolId: Int) {
-        DispatchQueue.main.async { [weak self] in
-            guard let self else { return }
-            self.status = .loading
-            let endpoint = Endpoint.searchProgramme(searchQuery: searchQuery, schoolId: String(selectedSchoolId))
-            let _ = self.kronoxManager.get(endpoint, then: self.handleSearchResult)
-        }
-    }
-    
-    func handleSearchResult(result: Result<Response.Search, Response.ErrorMessage>) {
-        DispatchQueue.main.async { [weak self] in
-            guard let self else { return }
-            switch result {
-            case .success(let result):
-                self.parseSearchResults(result)
-            case .failure(let failure):
-                switch failure.statusCode {
-                case 204:
-                    self.errorMessageSearch = NSLocalizedString("There are no schedules that match your search", comment: "")
-                    self.status = SearchStatus.error
-                default:
-                    self.errorMessageSearch = NSLocalizedString("Something went wrong", comment: "")
+        self.status = .loading
+        let endpoint = Endpoint.searchProgramme(searchQuery: searchQuery, schoolId: String(selectedSchoolId))
+        Task {
+            do {
+                let searchResult: Response.Search = try await self.kronoxManager.get(endpoint)
+                await self.parseSearchResults(searchResult)
+            } catch (let error) {
+                print(error.localizedDescription)
+                DispatchQueue.main.async {
+                    self.errorMessageSearch = error.localizedDescription
                     self.status = SearchStatus.error
                 }
-                AppLogger.shared.debug("Encountered error when trying to search for programme: \(failure)")
             }
         }
+        
     }
     
     @MainActor
     func resetSearchResults() {
         programmeSearchResults = []
-        withAnimation(.spring()) {
-            status = .initial
-        }
+        status = .initial
     }
     
     @MainActor
     func parseSearchResults(_ results: Response.Search) {
         programmeSearchResults = results.items.map { $0 }
-        withAnimation(.spring()) {
-            status = .loaded
-        }
+        status = .loaded
     }
 }

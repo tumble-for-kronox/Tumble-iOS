@@ -28,15 +28,15 @@ final class EventDetailsSheetViewModel: ObservableObject {
         self.event = event
         color = event.course?.color.toColor() ?? .white
         oldColor = event.course?.color.toColor() ?? .white
-        checkNotificationIsSetForEvent()
-        checkNotificationIsSetForCourse()
         notificationOffset = preferenceService.getNotificationOffset()
-        userAllowedNotifications(completion: { value in
+        Task {
+            let allowed = await userAllowedNotifications()
             DispatchQueue.main.async { [weak self] in
-                guard let self else { return }
-                self.notificationsAllowed = value
+                self?.notificationsAllowed = allowed
             }
-        })
+            await checkNotificationIsSetForEvent()
+            await checkNotificationIsSetForCourse()
+        }
     }
     
     @MainActor func setEventSheetView(event: Event, color: Color) {
@@ -52,7 +52,9 @@ final class EventDetailsSheetViewModel: ObservableObject {
         isNotificationSetForCourse = false
         isNotificationSetForEvent = false
         if let course = event.course {
-            notificationManager.cancelNotifications(with: course.courseId)
+            Task {
+                await notificationManager.cancelNotifications(with: course.courseId)
+            }
         }
     }
     
@@ -68,21 +70,16 @@ final class EventDetailsSheetViewModel: ObservableObject {
             content: event.toDictionary()
         )
         
-        notificationManager.scheduleNotification(
-            for: notification,
-            type: .event,
-            userOffset: userOffset,
-            completion: { result in
-                switch result {
-                case .success:
-                    DispatchQueue.main.async {
-                        self.isNotificationSetForEvent = true
-                    }
-                case .failure(let failure):
-                    AppLogger.shared.critical("Failed to schedule notifications -> \(failure)")
+        Task {
+            do {
+                try await notificationManager.scheduleNotification(for: notification, type: .event, userOffset: userOffset)
+                DispatchQueue.main.async {
+                    self.isNotificationSetForEvent = true
                 }
+            } catch {
+                AppLogger.shared.critical("Failed to schedule notifications -> \(error)")
             }
-        )
+        }
     }
 
     @MainActor func updateCourseColor() {
@@ -101,22 +98,27 @@ final class EventDetailsSheetViewModel: ObservableObject {
             .flatMap { $0.events }
             .filter { !($0.dateComponents!.hasDatePassed()) }
             .filter { $0.course?.courseId == event.course?.courseId }
-        applyNotificationForScheduleEventsInCourse(events: events) { success in
-            if success {
-                self.isNotificationSetForCourse = true
-                self.isNotificationSetForEvent = true
+        Task {
+            do {
+                let result = try await applyNotificationForScheduleEventsInCourse(events: events)
+                if result {
+                    DispatchQueue.main.async { [weak self] in
+                        self?.isNotificationSetForCourse = true
+                        self?.isNotificationSetForEvent = true
+                    }
+                }
+            } catch {
+                // TODO: Error handling
             }
         }
     }
     
-    func userAllowedNotifications(completion: @escaping (Bool) -> Void) {
-        notificationManager.notificationsAreAllowed(completion: { result in
-            switch result {
-            case .success:
-                completion(true)
-            case .failure:
-                completion(false)
-            }
-        })
+    func userAllowedNotifications() async -> Bool {
+        do {
+            return try await notificationManager.notificationsAreAllowed()
+        } catch {
+            return false
+        }
     }
+
 }

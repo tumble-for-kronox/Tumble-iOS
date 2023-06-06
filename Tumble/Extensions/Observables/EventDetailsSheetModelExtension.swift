@@ -9,54 +9,46 @@ import Foundation
 
 extension EventDetailsSheetViewModel {
     // Apply scheduleNotifaction for each event under specific course id
-    func applyNotificationForScheduleEventsInCourse(
-        events: [Event], completion: @escaping (Bool) -> Void
-    ) {
-        var couldSetNotifications = true
+    @MainActor
+    func applyNotificationForScheduleEventsInCourse(events: [Event]) async throws -> Bool {
         for event in events {
             if let notification = notificationManager.createNotificationFromEvent(event: event) {
-                notificationManager.scheduleNotification(
+                try await notificationManager.scheduleNotification(
                     for: notification,
                     type: .event,
                     userOffset: notificationOffset
-                ) { result in
-                    switch result {
-                    case .success(let success):
-                        AppLogger.shared.debug("Scheduled \(success) notifications")
-                    case .failure(let failure):
-                        AppLogger.shared.critical("Failed to schedule notifications for course -> \(failure)")
-                        couldSetNotifications = false
-                        return
-                    }
-                }
-                if !couldSetNotifications { break }
+                )
                 AppLogger.shared.debug("Set notification for \(event.title)")
             } else {
-                AppLogger.shared.error("Could not set event")
+                AppLogger.shared.error("Permission error: Not allowed")
+                return false
             }
         }
-        completion(couldSetNotifications ? true : false)
+        return true
     }
-    
+
+    @MainActor
     func checkNotificationIsSetForCourse() {
         if let course = event.course {
-            notificationManager.isNotificationScheduled(categoryIdentifier: course.courseId) { result in
+            let courseId = course.courseId
+            Task {
+                let result = await notificationManager.isNotificationScheduled(categoryIdentifier: courseId)
                 DispatchQueue.main.async {
-                    if result {
-                        self.isNotificationSetForCourse = true
-                    }
+                    self.isNotificationSetForCourse = result
                 }
             }
         }
     }
     
+    @MainActor
     func checkNotificationIsSetForEvent() {
-        notificationManager.isNotificationScheduled(eventId: event.eventId) { result in
+        let eventId = event.eventId
+        Task {
+            let result = await notificationManager.isNotificationScheduled(eventId: eventId)
             DispatchQueue.main.async {
-                if result {
-                    self.isNotificationSetForEvent = true
-                }
+                self.isNotificationSetForEvent = result
             }
         }
     }
+
 }

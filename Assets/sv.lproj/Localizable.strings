@@ -6,13 +6,29 @@
   
 */
 
+"Cancel notifications for all events"="Avbryt aviseringar för alla händelser";
+
+"Log out of your account"="Logga ut från ditt konto";
+
+"This action will log you out of your KronoX account"="Denna åtgärd kommer att logga ut dig från ditt KronoX-konto";
+
+"Some schedules could not be updated. Either due to missing authorization or network errors."="Vissa scheman kunde inte uppdateras. Antingen på grund av saknad auktorisation eller nätverksfel.";
+
+"Bad server response."="Dåligt serversvar.";
+
+"The server seems to be offline."="Servern verkar vara offline.";
+
+"Something went wrong on our end."="Något gick fel på vår sida.";
+
+"Not connected to the internet."="Inte ansluten till internet.";
+
 "%@ at %@"="%@ kl. %@";
 
 "Your visible schedules do not contain any events"="Dina synliga scheman innehåller inga händelser";
 
 "Continue"="Fortsätt";
 
-"Search events" = "Sök händelser";
+"Search events"="Sök händelser";
 
 "Tumble on GitHub"="Tumble på GitHub";
 
@@ -36,7 +52,7 @@
 
 "Error"="Fel";
 
-"Could not log out from your account"="Kunde inte logga ut från ditt konto";
+"Could not log out of your account"="Kunde inte logga ut från ditt konto";
 
 "There are no schedules that match your search"="Det finns inga scheman som matchar din sökning";
 
@@ -136,7 +152,7 @@
 
 "Are you sure you want to set notifications for all events?"="Är du säker på att du vill ställa in aviseringar för alla händelser?";
 
-"Set notifications for all events"="Ställ in aviseringar för alla händelser";
+"Set notifications for all events"="Sätt på aviseringar för alla händelser";
 
 "Are you sure you want to cancel all set notifications?"="Är du säker på att du vill avbryta alla inställda aviseringar?";
 

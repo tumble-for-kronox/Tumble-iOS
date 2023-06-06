@@ -9,7 +9,7 @@ import SwiftUI
 
 struct PasswordField: View {
     @Binding var password: String
-    @FocusState var focused: focusedField?
+    @FocusState var focused: FocusedField?
     @Binding var visiblePassword: Bool
     
     var body: some View {

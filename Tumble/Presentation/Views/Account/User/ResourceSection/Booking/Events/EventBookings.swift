@@ -62,7 +62,9 @@ struct EventBookings: View {
             .frame(maxHeight: .infinity, alignment: .center)
         }
         .onAppear {
-            viewModel.getUserEventsForPage()
+            Task {
+                await viewModel.getUserEventsForPage()
+            }
         }
         .onDisappear {
             getUserEventsForSection()
@@ -72,27 +74,13 @@ struct EventBookings: View {
     func onTapEventAction(eventId: String, eventType: EventType) {
         switch eventType {
         case .register:
-            viewModel.registerForEvent(eventId: eventId, completion: { result in
-                switch result {
-                case .success:
-                    viewModel.getUserEventsForPage()
-                case .failure:
-                    DispatchQueue.main.async {
-                        viewModel.eventBookingPageState = .error
-                    }
-                }
-            })
+            Task {
+                await viewModel.registerForEvent(eventId: eventId)
+            }
         case .unregister:
-            viewModel.unregisterForEvent(eventId: eventId, completion: { result in
-                switch result {
-                case .success:
-                    viewModel.getUserEventsForPage()
-                case .failure:
-                    DispatchQueue.main.async {
-                        viewModel.eventBookingPageState = .error
-                    }
-                }
-            })
+            Task {
+                await viewModel.unregisterForEvent(eventId: eventId)
+            }
         }
     }
 }

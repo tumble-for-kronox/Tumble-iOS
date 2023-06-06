@@ -9,6 +9,13 @@ import Foundation
 import SwiftUI
 
 struct BookButtonStyle: ButtonStyle {
+    
+    var color: Color?
+    
+    init(color: Color? = .primary) {
+        self.color = color
+    }
+    
     func makeBody(configuration: Self.Configuration) -> some View {
         configuration.label
             .frame(minWidth: 85, maxHeight: 40)

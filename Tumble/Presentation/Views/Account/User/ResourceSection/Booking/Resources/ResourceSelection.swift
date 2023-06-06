@@ -8,9 +8,11 @@
 import SwiftUI
 
 struct ResourceSelection: View {
+    
     @ObservedObject var parentViewModel: ResourceViewModel
     @State private var selectedTimeIndex: Int = 0
     @State private var availabilityValues: [Response.AvailabilityValue] = .init()
+    let toastFactory: ToastFactory = ToastFactory.shared
     
     let resource: Response.KronoxResourceElement
     let selectedPickerDate: Date
@@ -35,7 +37,6 @@ struct ResourceSelection: View {
                     resourceId: resource.id ?? "",
                     bookResource: bookResource,
                     selectedPickerDate: selectedPickerDate,
-                    makeToast: makeToast,
                     updateBookingNotifications: updateBookingNotifications,
                     availabilityValues: $availabilityValues
                 )
@@ -69,34 +70,22 @@ struct ResourceSelection: View {
                 )
         }
     }
-    
-    fileprivate func makeToast(success: Bool) {
-        if success {
-            AppController.shared.toast = Toast(
-                type: .success,
-                title: NSLocalizedString("Booked", comment: ""),
-                message: NSLocalizedString("Successfully booked resource", comment: "")
-            )
-        } else {
-            AppController.shared.toast = Toast(
-                type: .error,
-                title: NSLocalizedString("Not booked", comment: ""),
-                message: NSLocalizedString("Failed to book the specified resource", comment: "")
-            )
-        }
-    }
 
     fileprivate func bookResource(
         resourceId: String,
         date: Date,
-        availabilityValue: Response.AvailabilityValue,
-        completion: @escaping (Result<Void, Error>) -> Void
-    ) {
-        parentViewModel.bookResource(
+        availabilityValue: Response.AvailabilityValue
+    ) async -> Bool {
+        let result = await parentViewModel.bookResource(
             resourceId: resourceId,
             date: date,
-            availabilityValue: availabilityValue,
-            completion: completion
+            availabilityValue: availabilityValue
         )
+        if result {
+            AppController.shared.toast = toastFactory.bookedResourceSuccess()
+        } else {
+            AppController.shared.toast = toastFactory.bookResourceFailed()
+        }
+        return result
     }
 }

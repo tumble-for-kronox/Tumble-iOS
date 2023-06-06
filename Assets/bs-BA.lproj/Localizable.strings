@@ -6,6 +6,22 @@
   
 */
 
+"Cancel notifications for all events"="Otkaži obavijesti za sve događaje";
+
+"Log out of your account"="Odjavite se s vašeg računa";
+
+"This action will log you out of your KronoX account"="Ova radnja će vas odjaviti s vašeg KronoX računa";
+
+"Some schedules could not be updated. Either due to missing authorization or network errors."="Neke rasporede nije bilo moguće ažurirati. Bilo zbog nedostatka autorizacije ili grešaka u mreži.";
+
+"Bad server response."="Loš odgovor servera.";
+
+"The server seems to be offline."="Čini se da je server van mreže.";
+
+"Something went wrong on our end."="Nešto je pošlo po zlu s naše strane.";
+
+"Not connected to the internet."="Niste povezani na internet.";
+
 "%@ at %@"="%@ u %@ sati";
 
 "Your visible schedules do not contain any events"="Vaši vidljivi rasporedi ne sadrže događaje";
@@ -36,7 +52,7 @@
 
 "Error"="Greška";
 
-"Could not log out from your account"="Ne mogu se odjaviti s vašeg računa";
+"Could not log out of your account"="Ne mogu se odjaviti s vašeg računa";
 
 "There are no schedules that match your search"="Nema rasporeda koji odgovaraju vašoj pretrazi";
 

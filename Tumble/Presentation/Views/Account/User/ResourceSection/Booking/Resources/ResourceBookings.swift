@@ -59,10 +59,14 @@ struct ResourceBookings: View {
         )
         .background(Color.background)
         .onAppear {
-            viewModel.getAllResourceData(date: viewModel.selectedPickerDate)
+            Task {
+                await viewModel.getAllResourceData(date: viewModel.selectedPickerDate)
+            }
         }
         .onChange(of: viewModel.selectedPickerDate, perform: { _ in
-            viewModel.getAllResourceData(date: viewModel.selectedPickerDate)
+            Task {
+                await viewModel.getAllResourceData(date: viewModel.selectedPickerDate)
+            }
         })
     }
 }

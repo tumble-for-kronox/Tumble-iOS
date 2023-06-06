@@ -38,6 +38,7 @@ struct ToastView: View {
                 } label: {
                     Image(systemName: "xmark")
                         .foregroundColor(.onBackground)
+                        .font(.system(size: 14, weight: .semibold))
                 }
             }
             .padding()
