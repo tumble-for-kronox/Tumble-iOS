@@ -1,5 +1,5 @@
 //
-//  ToastFactory.swift
+//  popupFactory.swift
 //  Tumble
 //
 //  Created by Adis Veletanlic on 2023-05-31.
@@ -7,116 +7,116 @@
 
 import Foundation
 
-class ToastFactory {
+class PopupFactory {
     
-    static let shared = ToastFactory()
+    static let shared = PopupFactory()
     
-    func setNotificationsAllEventsSuccess() -> Toast {
-        Toast (
+    func setNotificationsAllEventsSuccess() -> Popup {
+        Popup (
             type: .success,
             title: NSLocalizedString("Scheduled notifications", comment: ""),
             message: NSLocalizedString("Scheduled notifications for all available events", comment: "")
         )
     }
     
-    func logOutSuccess() -> Toast {
-        Toast(
+    func logOutSuccess() -> Popup {
+        Popup(
             type: .success,
             title: NSLocalizedString("Logged out", comment: ""),
             message: NSLocalizedString("You have successfully logged out of your account", comment: "")
         )
     }
     
-    func logInSuccess(as username: String) -> Toast {
-        Toast(
+    func logInSuccess(as username: String) -> Popup {
+        Popup(
             type: .success,
             title: NSLocalizedString("Logged in", comment: ""),
             message: String(format: NSLocalizedString("Successfully logged in as %@", comment: ""), username)
         )
     }
     
-    func unBookedResourceSuccess() -> Toast {
-        Toast(
+    func unBookedResourceSuccess() -> Popup {
+        Popup(
             type: .success,
             title: NSLocalizedString("Unbooked resource", comment: ""),
             message: NSLocalizedString("You have unbooked the selected resource", comment: "")
         )
     }
     
-    func bookedResourceSuccess() -> Toast {
-        Toast(
+    func bookedResourceSuccess() -> Popup {
+        Popup(
             type: .success,
             title: NSLocalizedString("Booked", comment: ""),
             message: NSLocalizedString("Successfully booked resource", comment: "")
         )
     }
     
-    func clearNotificationsAllEventsSuccess() -> Toast {
-        Toast(
+    func clearNotificationsAllEventsSuccess() -> Popup {
+        Popup(
             type: .success,
             title: NSLocalizedString("Cancelled notifications", comment: ""),
             message: NSLocalizedString("Cancelled all available notifications set for events", comment: "")
         )
     }
     
-    func unBookedResourceFailed() -> Toast {
-        Toast(
+    func unBookedResourceFailed() -> Popup {
+        Popup(
             type: .error,
             title: NSLocalizedString("Error", comment: ""),
             message: NSLocalizedString("We couldn't unbook the specified resource", comment: "")
         )
     }
     
-    func logOutFailed() -> Toast {
-        Toast(
+    func logOutFailed() -> Popup {
+        Popup(
             type: .error,
             title: NSLocalizedString("Error", comment: ""),
             message: NSLocalizedString("Could not log out of your account", comment: "")
         )
     }
     
-    func logInFailed() -> Toast {
-        Toast(
+    func logInFailed() -> Popup {
+        Popup(
             type: .error,
             title: NSLocalizedString("Error", comment: ""),
             message: NSLocalizedString("Something went wrong when logging in to your account", comment: "")
         )
     }
     
-    func bookResourceFailed() -> Toast {
-        Toast(
+    func bookResourceFailed() -> Popup {
+        Popup(
             type: .error,
             title: NSLocalizedString("Not booked", comment: ""),
             message: NSLocalizedString("Failed to book the specified resource", comment: "")
         )
     }
     
-    func updateBookmarksFailed() -> Toast {
-        Toast(
+    func updateBookmarksFailed() -> Popup {
+        Popup(
             type: .info,
             title: NSLocalizedString("Information", comment: ""),
             message: NSLocalizedString("Some schedules could not be updated. Either due to missing authorization or network errors.", comment: "")
         )
     }
     
-    func noAvailableBookmarks() -> Toast {
-        Toast(
+    func noAvailableBookmarks() -> Popup {
+        Popup(
             type: .info,
             title: NSLocalizedString("No available bookmarks", comment: ""),
             message: NSLocalizedString("It looks like there's no available bookmarks", comment: "")
         )
     }
     
-    func setNotificationsAllEventsFailed() -> Toast {
-        Toast(
+    func setNotificationsAllEventsFailed() -> Popup {
+        Popup(
             type: .error,
             title: NSLocalizedString("Error", comment: ""),
             message: NSLocalizedString("Failed to set notifications for all available events", comment: "")
         )
     }
     
-    func autoSignupEnabled() -> Toast {
-        Toast(
+    func autoSignupEnabled() -> Popup {
+        Popup(
             type: .info,
             title: NSLocalizedString("Automatic signup", comment: ""),
             message: NSLocalizedString(
@@ -125,8 +125,8 @@ class ToastFactory {
         )
     }
     
-    func autoSignupDisabled() -> Toast {
-        Toast(
+    func autoSignupDisabled() -> Popup {
+        Popup(
             type: .info,
             title: NSLocalizedString("Automatic signup", comment: ""),
             message: NSLocalizedString("Automatic exam/event signup has been disabled.", comment: "")

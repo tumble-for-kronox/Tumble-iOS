@@ -120,7 +120,7 @@ struct Settings: View {
         if schedulesAvailable {
             viewModel.clearAllNotifications()
         } else {
-            AppController.shared.toast = ToastFactory.shared.noAvailableBookmarks()
+            AppController.shared.popup = PopupFactory.shared.noAvailableBookmarks()
         }
     }
     
@@ -135,7 +135,7 @@ struct Settings: View {
                 await viewModel.scheduleNotificationsForAllEvents(allEvents: allEvents)
             }
         } else {
-            AppController.shared.toast = ToastFactory.shared.noAvailableBookmarks()
+            AppController.shared.popup = PopupFactory.shared.noAvailableBookmarks()
         }
     }
     

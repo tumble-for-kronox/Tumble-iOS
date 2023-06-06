@@ -26,8 +26,8 @@ final class HomeViewModel: ObservableObject {
     
     init() {
         setupRealmListener()
-        Task {
-            await fetchNews()
+        Task.detached(priority: .background) { [weak self] in
+            await self?.fetchNews()
         }
     }
     
@@ -46,16 +46,20 @@ final class HomeViewModel: ObservableObject {
     }
     
     private func fetchNews() async {
-        newsSectionStatus = .loading
+        DispatchQueue.main.async { [weak self] in
+            self?.newsSectionStatus = .loading
+        }
         do {
             let news: Response.NewsItems = try await kronoxManager.get(.news)
-            DispatchQueue.main.async {
-                self.news = news
-                self.newsSectionStatus = .loaded
+            DispatchQueue.main.async { [weak self] in
+                self?.news = news
+                self?.newsSectionStatus = .loaded
             }
         } catch (let error) {
             AppLogger.shared.critical("Failed to retrieve news items: \(error)")
-            self.newsSectionStatus = .error
+            DispatchQueue.main.async { [weak self] in
+                self?.newsSectionStatus = .error
+            }
         }
     }
     

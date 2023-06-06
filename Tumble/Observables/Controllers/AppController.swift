@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 // Observable state from views to open sheets from
 // pressing external notifications in order to navigate
@@ -16,5 +17,10 @@ class AppController: ObservableObject {
     
     @Published var eventSheet: EventDetailsSheetModel?
     @Published var selectedAppTab: TabbarTabType = .home
-    @Published var toast: Toast? = nil
+    @Published var showPopup = false
+    @Published var popup: Popup? = nil {
+        didSet {
+            self.showPopup.toggle()
+        }
+    }
 }

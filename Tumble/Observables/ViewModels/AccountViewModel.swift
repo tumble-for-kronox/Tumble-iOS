@@ -33,7 +33,7 @@ final class AccountViewModel: ObservableObject {
     
     private var resourceSectionDataTask: URLSessionDataTask? = nil
     private var eventSectionDataTask: URLSessionDataTask? = nil
-    private let toastFactory: ToastFactory = ToastFactory.shared
+    private let popupFactory: PopupFactory = PopupFactory.shared
     
     var userDisplayName: String? {
         return userController.user?.name
@@ -138,11 +138,11 @@ final class AccountViewModel: ObservableObject {
         do {
             try await userController.logIn(authSchoolId: authSchoolId, username: username, password: password)
             if let username = userController.user?.username {
-                AppController.shared.toast = toastFactory.logInSuccess(as: username)
+                AppController.shared.popup = popupFactory.logInSuccess(as: username)
             }
         } catch {
             AppLogger.shared.critical("Failed to log in user")
-            AppController.shared.toast = toastFactory.logInFailed()
+            AppController.shared.popup = popupFactory.logInFailed()
         }
     }
     

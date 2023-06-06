@@ -27,10 +27,6 @@
 		D40CC161292AFB9F00664776 /* Bookmarks.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40CC160292AFB9F00664776 /* Bookmarks.swift */; };
 		D40CC163292AFE7200664776 /* BookmarksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40CC162292AFE7200664776 /* BookmarksViewModel.swift */; };
 		D40D808929247123008CA68D /* Root.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40D808829247123008CA68D /* Root.swift */; };
-		D40D809829251EEF008CA68D /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40D809729251EEF008CA68D /* ToastView.swift */; };
-		D40D809B29251FD7008CA68D /* ToastStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40D809A29251FD7008CA68D /* ToastStyle.swift */; };
-		D40D809D29251FF6008CA68D /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40D809C29251FF6008CA68D /* Toast.swift */; };
-		D40D80A0292520C5008CA68D /* ToastModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40D809F292520C5008CA68D /* ToastModifier.swift */; };
 		D40D80A629252165008CA68D /* ViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40D80A529252165008CA68D /* ViewExtensions.swift */; };
 		D40D80A929252688008CA68D /* ParentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40D80A829252688008CA68D /* ParentViewModel.swift */; };
 		D40D80B429252A5A008CA68D /* PreferenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40D80B329252A5A008CA68D /* PreferenceService.swift */; };
@@ -103,7 +99,7 @@
 		D454DECE29D3B900005BDAE3 /* BookmarksSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D454DECD29D3B900005BDAE3 /* BookmarksSettings.swift */; };
 		D454DED029D3B953005BDAE3 /* BookmarksSettingsRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D454DECF29D3B953005BDAE3 /* BookmarksSettingsRow.swift */; };
 		D455E04B29D58F7D00770910 /* NotificationOffsetSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D455E04A29D58F7D00770910 /* NotificationOffsetSettings.swift */; };
-		D4562E0B2A27E9020059ED36 /* ToastFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4562E0A2A27E9020059ED36 /* ToastFactory.swift */; };
+		D4562E0B2A27E9020059ED36 /* PopupFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4562E0A2A27E9020059ED36 /* PopupFactory.swift */; };
 		D4563E7E2985F96C003261FA /* NetworkSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4563E7D2985F96C003261FA /* NetworkSettings.swift */; };
 		D4563E802985FBFB003261FA /* NetworkExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4563E7F2985FBFB003261FA /* NetworkExtensions.swift */; };
 		D458604E29DC9D6200B77513 /* NextClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D458604D29DC9D6200B77513 /* NextClass.swift */; };
@@ -121,7 +117,6 @@
 		D45DAB2E29DB4FCA00FCA5AC /* TodaysEventsCarousel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45DAB2D29DB4FCA00FCA5AC /* TodaysEventsCarousel.swift */; };
 		D4607632292AA39400DE9590 /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4607631292AA39400DE9590 /* Types.swift */; };
 		D4607634292AA83F00DE9590 /* AppParent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4607633292AA83F00DE9590 /* AppParent.swift */; };
-		D460763B292AAD5400DE9590 /* PopupToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D460763A292AAD5400DE9590 /* PopupToastView.swift */; };
 		D4607641292AB18D00DE9590 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4607640292AB18D00DE9590 /* Home.swift */; };
 		D4607643292AB1C000DE9590 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4607642292AB1C000DE9590 /* HomeViewModel.swift */; };
 		D4607645292AC41D00DE9590 /* SearchResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4607644292AC41D00DE9590 /* SearchResults.swift */; };
@@ -228,6 +223,9 @@
 		D4EEFB5A29DA4E490007A209 /* AppearanceTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EEFB5929DA4E490007A209 /* AppearanceTypes.swift */; };
 		D4F0C7FC2A2F7E16002F8376 /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F0C7FB2A2F7E16002F8376 /* ShareSheet.swift */; };
 		D4F0C7FE2A2F8373002F8376 /* OutlinedButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F0C7FD2A2F8373002F8376 /* OutlinedButtonStyle.swift */; };
+		D4F0C8012A2F9855002F8376 /* PopupView in Frameworks */ = {isa = PBXBuildFile; productRef = D4F0C8002A2F9855002F8376 /* PopupView */; };
+		D4F0C8032A2F9A70002F8376 /* Popup.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F0C8022A2F9A70002F8376 /* Popup.swift */; };
+		D4F0C8062A2F9B0B002F8376 /* PopupContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F0C8052A2F9B0B002F8376 /* PopupContainer.swift */; };
 		D4F532642A2A3FF2009DC8B8 /* Notification+NameExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F532632A2A3FF2009DC8B8 /* Notification+NameExtension.swift */; };
 		D4FCD14B2995AD64009D2987 /* UIColorWellExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FCD14A2995AD64009D2987 /* UIColorWellExtension.swift */; };
 		D4FCD14E2995ADFE009D2987 /* UIColorWellHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FCD14D2995ADFE009D2987 /* UIColorWellHelper.swift */; };
@@ -262,10 +260,6 @@
 		D40CC160292AFB9F00664776 /* Bookmarks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bookmarks.swift; sourceTree = "<group>"; };
 		D40CC162292AFE7200664776 /* BookmarksViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksViewModel.swift; sourceTree = "<group>"; };
 		D40D808829247123008CA68D /* Root.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Root.swift; sourceTree = "<group>"; };
-		D40D809729251EEF008CA68D /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
-		D40D809A29251FD7008CA68D /* ToastStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastStyle.swift; sourceTree = "<group>"; };
-		D40D809C29251FF6008CA68D /* Toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
-		D40D809F292520C5008CA68D /* ToastModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastModifier.swift; sourceTree = "<group>"; };
 		D40D80A529252165008CA68D /* ViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtensions.swift; sourceTree = "<group>"; };
 		D40D80A829252688008CA68D /* ParentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentViewModel.swift; sourceTree = "<group>"; };
 		D40D80B329252A5A008CA68D /* PreferenceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceService.swift; sourceTree = "<group>"; };
@@ -337,7 +331,7 @@
 		D454DECD29D3B900005BDAE3 /* BookmarksSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksSettings.swift; sourceTree = "<group>"; };
 		D454DECF29D3B953005BDAE3 /* BookmarksSettingsRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksSettingsRow.swift; sourceTree = "<group>"; };
 		D455E04A29D58F7D00770910 /* NotificationOffsetSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationOffsetSettings.swift; sourceTree = "<group>"; };
-		D4562E0A2A27E9020059ED36 /* ToastFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastFactory.swift; sourceTree = "<group>"; };
+		D4562E0A2A27E9020059ED36 /* PopupFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupFactory.swift; sourceTree = "<group>"; };
 		D4563E7D2985F96C003261FA /* NetworkSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkSettings.swift; sourceTree = "<group>"; };
 		D4563E7F2985FBFB003261FA /* NetworkExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkExtensions.swift; sourceTree = "<group>"; };
 		D458604D29DC9D6200B77513 /* NextClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextClass.swift; sourceTree = "<group>"; };
@@ -355,7 +349,6 @@
 		D45DAB2D29DB4FCA00FCA5AC /* TodaysEventsCarousel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodaysEventsCarousel.swift; sourceTree = "<group>"; };
 		D4607631292AA39400DE9590 /* Types.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Types.swift; sourceTree = "<group>"; };
 		D4607633292AA83F00DE9590 /* AppParent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppParent.swift; sourceTree = "<group>"; };
-		D460763A292AAD5400DE9590 /* PopupToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupToastView.swift; sourceTree = "<group>"; };
 		D4607640292AB18D00DE9590 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 		D4607642292AB1C000DE9590 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		D4607644292AC41D00DE9590 /* SearchResults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResults.swift; sourceTree = "<group>"; };
@@ -467,6 +460,8 @@
 		D4EEFB5929DA4E490007A209 /* AppearanceTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceTypes.swift; sourceTree = "<group>"; };
 		D4F0C7FB2A2F7E16002F8376 /* ShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheet.swift; sourceTree = "<group>"; };
 		D4F0C7FD2A2F8373002F8376 /* OutlinedButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutlinedButtonStyle.swift; sourceTree = "<group>"; };
+		D4F0C8022A2F9A70002F8376 /* Popup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Popup.swift; sourceTree = "<group>"; };
+		D4F0C8052A2F9B0B002F8376 /* PopupContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupContainer.swift; sourceTree = "<group>"; };
 		D4F532632A2A3FF2009DC8B8 /* Notification+NameExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+NameExtension.swift"; sourceTree = "<group>"; };
 		D4FCD14A2995AD64009D2987 /* UIColorWellExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorWellExtension.swift; sourceTree = "<group>"; };
 		D4FCD14D2995ADFE009D2987 /* UIColorWellHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorWellHelper.swift; sourceTree = "<group>"; };
@@ -483,6 +478,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4F0C8012A2F9855002F8376 /* PopupView in Frameworks */,
 				D4FFCC1D29EDA9A700708CC0 /* Realm in Frameworks */,
 				D473870129C88E4F0035CD4C /* FirebaseMessaging in Frameworks */,
 				D4FFCC1F29EDA9A700708CC0 /* RealmSwift in Frameworks */,
@@ -582,21 +578,10 @@
 			path = General;
 			sourceTree = "<group>";
 		};
-		D40D809929251FC5008CA68D /* Toast */ = {
-			isa = PBXGroup;
-			children = (
-				D40D809F292520C5008CA68D /* ToastModifier.swift */,
-				D4607639292AAD3B00DE9590 /* PopupViewToast */,
-				D4607638292AAD3100DE9590 /* CustomToast */,
-			);
-			path = Toast;
-			sourceTree = "<group>";
-		};
 		D40D809E292520AA008CA68D /* ViewModifiers */ = {
 			isa = PBXGroup;
 			children = (
 				D4D04DFE29FB3DE4008858F0 /* Actions */,
-				D40D809929251FC5008CA68D /* Toast */,
 			);
 			path = ViewModifiers;
 			sourceTree = "<group>";
@@ -757,12 +742,12 @@
 			children = (
 				D400F3DB29D794720050622E /* SheetModels */,
 				D4BAE5F72924636500143717 /* School.swift */,
-				D40D809C29251FF6008CA68D /* Toast.swift */,
 				D421EAEF2993FB660045D438 /* EventDetailsSheetModel.swift */,
 				D4A550D029946B8200028BCF /* Bookmark.swift */,
 				D46400072A1EAD5F00456FE7 /* Pill.swift */,
 				D43294E129E0ABC800842884 /* DayEventCardModel.swift */,
 				D4CEFA392A216DDF001E94CF /* OnBoardingScreen.swift */,
+				D4F0C8022A2F9A70002F8376 /* Popup.swift */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -930,23 +915,6 @@
 			path = News;
 			sourceTree = "<group>";
 		};
-		D4607638292AAD3100DE9590 /* CustomToast */ = {
-			isa = PBXGroup;
-			children = (
-				D40D809729251EEF008CA68D /* ToastView.swift */,
-				D40D809A29251FD7008CA68D /* ToastStyle.swift */,
-			);
-			path = CustomToast;
-			sourceTree = "<group>";
-		};
-		D4607639292AAD3B00DE9590 /* PopupViewToast */ = {
-			isa = PBXGroup;
-			children = (
-				D460763A292AAD5400DE9590 /* PopupToastView.swift */,
-			);
-			path = PopupViewToast;
-			sourceTree = "<group>";
-		};
 		D460763E292AB16300DE9590 /* Types */ = {
 			isa = PBXGroup;
 			children = (
@@ -1075,6 +1043,7 @@
 		D47221592924549B0063BDB7 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				D4F0C8042A2F9AFF002F8376 /* Popup */,
 				D4607633292AA83F00DE9590 /* AppParent.swift */,
 				D40D808829247123008CA68D /* Root.swift */,
 				D416D33329CA29F9009A4FB8 /* TabBar */,
@@ -1365,7 +1334,7 @@
 		D4EAD3BA298D8A8E00678DF8 /* Factories */ = {
 			isa = PBXGroup;
 			children = (
-				D4562E0A2A27E9020059ED36 /* ToastFactory.swift */,
+				D4562E0A2A27E9020059ED36 /* PopupFactory.swift */,
 				D46ABF13298443AC00B059F6 /* ViewModelFactory.swift */,
 			);
 			path = Factories;
@@ -1396,6 +1365,14 @@
 				D4EEFB5729DA1BD10007A209 /* SettingsListGroup.swift */,
 			);
 			path = List;
+			sourceTree = "<group>";
+		};
+		D4F0C8042A2F9AFF002F8376 /* Popup */ = {
+			isa = PBXGroup;
+			children = (
+				D4F0C8052A2F9B0B002F8376 /* PopupContainer.swift */,
+			);
+			path = Popup;
 			sourceTree = "<group>";
 		};
 		D4F145E62982144C00C3A351 /* Calendar */ = {
@@ -1498,6 +1475,7 @@
 				D4FFCC1C29EDA9A700708CC0 /* Realm */,
 				D4FFCC1E29EDA9A700708CC0 /* RealmSwift */,
 				D4D04DFC29FB29BC008858F0 /* SwipeActions */,
+				D4F0C8002A2F9855002F8376 /* PopupView */,
 			);
 			productName = "tumble-ios";
 			productReference = D4722145292454560063BDB7 /* Tumble.app */;
@@ -1539,6 +1517,7 @@
 				D47386FD29C88E4F0035CD4C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				D4FFCC1B29EDA9A700708CC0 /* XCRemoteSwiftPackageReference "realm-swift" */,
 				D4D04DFB29FB29BC008858F0 /* XCRemoteSwiftPackageReference "SwipeActions" */,
+				D4F0C7FF2A2F9855002F8376 /* XCRemoteSwiftPackageReference "PopupView" */,
 			);
 			productRefGroup = D4722146292454560063BDB7 /* Products */;
 			projectDirPath = "";
@@ -1573,7 +1552,6 @@
 				D4607643292AB1C000DE9590 /* HomeViewModel.swift in Sources */,
 				D49B984E29CF461C0023DF75 /* URLSession.swift in Sources */,
 				D4E491F829EDCCE700E674CA /* VerboseEventResponseButtonLabel.swift in Sources */,
-				D40D809829251EEF008CA68D /* ToastView.swift in Sources */,
 				D430F74029C613DB00E30E48 /* BookmarkCalendarView.swift in Sources */,
 				D443962829CB3BEA0069D66A /* UpcomingEventCardButton.swift in Sources */,
 				D4E39E372989CE27004C30DF /* Utilities.swift in Sources */,
@@ -1612,6 +1590,7 @@
 				D4DDE59129CBBC6A0030607B /* ResourceTimeDropdown.swift in Sources */,
 				D4722149292454560063BDB7 /* TumbleApp.swift in Sources */,
 				D441B10D298A8CEC00D22142 /* EventDetailsSheetViewModel.swift in Sources */,
+				D4F0C8032A2F9A70002F8376 /* Popup.swift in Sources */,
 				D4644A29298DD79D00B0BB28 /* EventNotification.swift in Sources */,
 				D4EACB3629CB99540096ADD2 /* ResourceTimeButtonStyle.swift in Sources */,
 				D4EEFB5429DA177D0007A209 /* SettingsList.swift in Sources */,
@@ -1643,7 +1622,6 @@
 				D4A433BA29952A8A00BFEB7A /* EventExtension.swift in Sources */,
 				D4EEFB5629DA1B050007A209 /* SettingsExternalButton.swift in Sources */,
 				D419EDF4299A662400479DCE /* UserAvatar.swift in Sources */,
-				D460763B292AAD5400DE9590 /* PopupToastView.swift in Sources */,
 				D4D4DD032927C7DA0083BB7F /* ProgrammeCard.swift in Sources */,
 				D4D4CD17299CE57C00D48180 /* EventCardButton.swift in Sources */,
 				D4EE5B6E29D50FD3002A1399 /* SettingsRadioButton.swift in Sources */,
@@ -1671,7 +1649,6 @@
 				D43294E229E0ABC800842884 /* DayEventCardModel.swift in Sources */,
 				D4FFCC2429EDA9F000708CC0 /* Day.swift in Sources */,
 				D47A1AF729C00C0E004F03DB /* HomePageOptionStyle.swift in Sources */,
-				D40D809B29251FD7008CA68D /* ToastStyle.swift in Sources */,
 				D40D80CA29265B98008CA68D /* Search.swift in Sources */,
 				D400F3DF29D794970050622E /* EventDetailSheetModel.swift in Sources */,
 				D41ED5502984350A009DCF8B /* Endpoint.swift in Sources */,
@@ -1679,6 +1656,7 @@
 				D41172B52985DA740082BB4F /* TextFieldExtensions.swift in Sources */,
 				D4E83EB629994D5F002E5F88 /* AccountLogin.swift in Sources */,
 				D458605B29DCE66100B77513 /* SheetTitle.swift in Sources */,
+				D4F0C8062A2F9B0B002F8376 /* PopupContainer.swift in Sources */,
 				D41ED5522984351F009DCF8B /* Method.swift in Sources */,
 				D4A433B829951F2B00BFEB7A /* AppDelegate.swift in Sources */,
 				D4607645292AC41D00DE9590 /* SearchResults.swift in Sources */,
@@ -1722,7 +1700,7 @@
 				D42DFD5E29BD5BC9002942D7 /* PillStyle.swift in Sources */,
 				D4CD0EFF29D5B00A00AB5FD0 /* UIApplicationExtension.swift in Sources */,
 				D44ABF0729BFE89D00344792 /* SchoolRowStyle.swift in Sources */,
-				D4562E0B2A27E9020059ED36 /* ToastFactory.swift in Sources */,
+				D4562E0B2A27E9020059ED36 /* PopupFactory.swift in Sources */,
 				D4EEFB5829DA1BD10007A209 /* SettingsListGroup.swift in Sources */,
 				D447EA922A238E0100E50A92 /* FlowStack.swift in Sources */,
 				D400F3D629D794010050622E /* BookmarksViewStatus.swift in Sources */,
@@ -1768,11 +1746,9 @@
 				D426E3A4299C39DE00A8D7AE /* ResourceBookings.swift in Sources */,
 				D40E843D2981C8B200C2CF2E /* AccountViewModel.swift in Sources */,
 				D4CEFA3A2A216DDF001E94CF /* OnBoardingScreen.swift in Sources */,
-				D40D80A0292520C5008CA68D /* ToastModifier.swift in Sources */,
 				D4644A26298DAA4F00B0BB28 /* NotificationManagerProtocol.swift in Sources */,
 				D4607647292AE06600DE9590 /* SearchInfo.swift in Sources */,
 				D44B44D029E99BBF005164CA /* SearchPreviewViewModel.swift in Sources */,
-				D40D809D29251FF6008CA68D /* Toast.swift in Sources */,
 				D4CF9B2C293572BE00DDB5F0 /* Info.swift in Sources */,
 				D41ED54A29843460009DCF8B /* Request.swift in Sources */,
 				D475626F29CE09A600B72008 /* ResourceDetailSheet.swift in Sources */,
@@ -2177,6 +2153,14 @@
 				minimumVersion = 1.0.0;
 			};
 		};
+		D4F0C7FF2A2F9855002F8376 /* XCRemoteSwiftPackageReference "PopupView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/exyte/PopupView.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
 		D4FFCC1B29EDA9A700708CC0 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/realm/realm-swift.git";
@@ -2212,6 +2196,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D4D04DFB29FB29BC008858F0 /* XCRemoteSwiftPackageReference "SwipeActions" */;
 			productName = SwipeActions;
+		};
+		D4F0C8002A2F9855002F8376 /* PopupView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D4F0C7FF2A2F9855002F8376 /* XCRemoteSwiftPackageReference "PopupView" */;
+			productName = PopupView;
 		};
 		D4FFCC1C29EDA9A700708CC0 /* Realm */ = {
 			isa = XCSwiftPackageProductDependency;

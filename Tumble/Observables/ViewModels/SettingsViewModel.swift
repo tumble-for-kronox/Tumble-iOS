@@ -23,7 +23,7 @@ final class SettingsViewModel: ObservableObject {
     @Published var authSchoolId: Int = -1
     @Published var schoolName: String = ""
     
-    let toastFactory: ToastFactory = ToastFactory.shared
+    let popupFactory: PopupFactory = PopupFactory.shared
     lazy var schools: [School] = schoolManager.getSchools()
     var cancellables = Set<AnyCancellable>()
     
@@ -54,11 +54,11 @@ final class SettingsViewModel: ObservableObject {
             do {
                 try await userController.logOut()
                 DispatchQueue.main.async { [weak self] in
-                    AppController.shared.toast = self?.toastFactory.logOutSuccess()
+                    AppController.shared.popup = self?.popupFactory.logOutSuccess()
                 }
             } catch {
                 DispatchQueue.main.async { [weak self] in
-                    AppController.shared.toast = self?.toastFactory.logOutFailed()
+                    AppController.shared.popup = self?.popupFactory.logOutFailed()
                 }
             }
         }
@@ -73,7 +73,7 @@ final class SettingsViewModel: ObservableObject {
             guard let self else { return }
             self.notificationManager.cancelNotifications()
         }
-        AppController.shared.toast = toastFactory.clearNotificationsAllEventsSuccess()
+        AppController.shared.popup = popupFactory.clearNotificationsAllEventsSuccess()
     }
     
     func rescheduleNotifications(previousOffset: Int, newOffset: Int) {
@@ -91,7 +91,7 @@ final class SettingsViewModel: ObservableObject {
     
     func scheduleNotificationsForAllEvents(allEvents: [Event]) async {
         guard !allEvents.isEmpty else {
-            AppController.shared.toast = toastFactory.setNotificationsAllEventsFailed()
+            AppController.shared.popup = popupFactory.setNotificationsAllEventsFailed()
             return
         }
         
@@ -103,7 +103,7 @@ final class SettingsViewModel: ObservableObject {
                 event: event
             ) else {
                 AppLogger.shared.critical("Could not set notification for event \(event._id)")
-                AppController.shared.toast = toastFactory.setNotificationsAllEventsFailed()
+                AppController.shared.popup = popupFactory.setNotificationsAllEventsFailed()
                 return
             }
             
@@ -118,7 +118,7 @@ final class SettingsViewModel: ObservableObject {
                 
                 if scheduledNotifications == totalNotifications {
                     DispatchQueue.main.async { [weak self] in
-                        AppController.shared.toast = self?.toastFactory.setNotificationsAllEventsSuccess()
+                        AppController.shared.popup = self?.popupFactory.setNotificationsAllEventsSuccess()
                     }
                 }
             } catch let failure {

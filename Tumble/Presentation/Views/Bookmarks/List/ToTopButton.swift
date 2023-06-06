@@ -13,6 +13,7 @@ struct ToTopButton: View {
     
     var body: some View {
         Button(action: {
+            HapticsController.triggerHapticMedium()
             withAnimation(.spring()) {
                 value.scrollTo("bookmarkScrollView", anchor: .top)
             }
