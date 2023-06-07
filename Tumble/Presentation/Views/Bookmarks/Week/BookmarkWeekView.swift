@@ -43,7 +43,18 @@ private struct WeekPage: View {
                 let daysForWeek = weekDays.normalizedToWeekDays()
 
                 if weekDays.isEmpty {
-                    Text("No days")
+                    VStack {
+                        Text(NSLocalizedString("No events for this week..", comment: ""))
+                            .foregroundColor(.onBackground)
+                            .info()
+                        Image("GirlRelaxing")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(height: 175)
+                            .padding(.top, 15)
+                    }
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+                    .padding(.top, 30)
                 } else {
                     ForEach(1...7, id: \.self) { dayOfWeek in
                         let weekDayDate = gregorianCalendar.date(byAdding: .day, value: dayOfWeek - 1, to: weekStart)!

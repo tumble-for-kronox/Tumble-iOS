@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct EventDetailsSheet: View {
-    @AppStorage(StoreKey.appearance.rawValue) private var appearance = AppearanceTypes.system.rawValue
     @ObservedObject var viewModel: EventDetailsSheetViewModel
     @State var presentColorPicker: Bool = false
         
@@ -30,7 +29,6 @@ struct EventDetailsSheet: View {
             .background(
                 ColorPicker(NSLocalizedString("Select course color", comment: ""), selection: $viewModel.color, supportsOpacity: false)
                     .labelsHidden().opacity(0)
-                    .preferredColorScheme(getThemeColorScheme(appearance: appearance))
             )
             .onDisappear(perform: {
                 viewModel.updateCourseColor()
