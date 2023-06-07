@@ -23,21 +23,29 @@ struct Bookmarks: View {
                     CustomProgressIndicator()
                         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
                 case .loaded:
-                    switch viewModel.defaultViewType {
-                    case .list:
+                    TabView (selection: $viewModel.defaultViewType) {
                         BookmarkListView(
                             days: $viewModel.days,
                             appController: appController
                         )
-                    case .calendar:
+                        .tag(ViewType.list)
+                        .gesture(DragGesture())
+                        
                         BookmarkCalendarView(
                             appController: appController,
                             calendarEventsByDate: $viewModel.calendarEventsByDate,
                             days: $viewModel.days
                         )
-                    case .week:
-                        BookmarkWeekView(scheduleWeeks: viewModel.weeks)
+                        .tag(ViewType.calendar)
+                        .gesture(DragGesture())
+                        
+                        BookmarkWeekView(
+                            scheduleWeeks: viewModel.weeks
+                        )
+                        .tag(ViewType.week)
+                        .gesture(DragGesture())
                     }
+                    .tabViewStyle(.page(indexDisplayMode: .never))
                 case .uninitialized:
                     Info(title: NSLocalizedString("No bookmarks yet", comment: ""), image: "bookmark.slash")
                 case .hiddenAll:

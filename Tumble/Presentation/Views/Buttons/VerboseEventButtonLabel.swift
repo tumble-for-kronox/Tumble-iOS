@@ -72,7 +72,7 @@ struct VerboseEventButtonLabel: View {
             .frame(maxWidth: .infinity)
             .background(event.isSpecial ? Color.red.opacity(0.2) : Color.surface)
             .background(Color.surface)
-            .cornerRadius(20)
+            .cornerRadius(10)
         }
     }
 }

@@ -55,6 +55,10 @@ final class BookmarksViewModel: ObservableObject {
     
     func createDaysAndCalendarEvents(schedules: [Schedule]) {
         
+        DispatchQueue.main.async { [weak self] in
+            self?.status = .loading
+        }
+        
         let hiddenScheduleIds = schedules.filter { !$0.toggled }.map { $0.scheduleId }
         
         let visibleSchedules = schedules.filter { $0.toggled }.map { $0 }
