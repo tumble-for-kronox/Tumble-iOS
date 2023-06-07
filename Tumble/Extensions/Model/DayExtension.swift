@@ -9,6 +9,16 @@ import Foundation
 
 extension [Day] {
     
+    func normalizedToWeekDays() -> [Int : [Day]] {
+        var daysForWeek = Dictionary(grouping: self) { day -> Int in
+            let isoString = day.isoString
+            let date = isoDateFormatterFract.date(from: day.isoString)! // Converts isoString to Date
+            let weekday = Calendar.current.component(.weekday, from: date) // Fetches weekday from Date
+            return weekday
+        }
+        return daysForWeek
+    }
+    
     /// Orderes the days in ascending order
     /// comparing the 'isoString' attribute
     func ordered() -> [Day] {

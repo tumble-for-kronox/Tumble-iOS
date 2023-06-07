@@ -178,6 +178,7 @@
 		D4BAE5F82924636500143717 /* School.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BAE5F72924636500143717 /* School.swift */; };
 		D4BAE614292466F700143717 /* SchoolManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BAE613292466F700143717 /* SchoolManager.swift */; };
 		D4BAE61929246AA200143717 /* Schools.json in Resources */ = {isa = PBXBuildFile; fileRef = D4BAE61829246AA200143717 /* Schools.json */; };
+		D4BD66AE2A30936700B823D2 /* DateCollections.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BD66AD2A30936700B823D2 /* DateCollections.swift */; };
 		D4CD0EFF29D5B00A00AB5FD0 /* UIApplicationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CD0EFE29D5B00A00AB5FD0 /* UIApplicationExtension.swift */; };
 		D4CD0F0529D5DC9D00AB5FD0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D4CD0F0729D5DC9D00AB5FD0 /* Localizable.strings */; };
 		D4CEFA382A216DBB001E94CF /* OnBoardingScreens.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CEFA372A216DBB001E94CF /* OnBoardingScreens.swift */; };
@@ -415,6 +416,7 @@
 		D4BAE5F72924636500143717 /* School.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = School.swift; sourceTree = "<group>"; };
 		D4BAE613292466F700143717 /* SchoolManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolManager.swift; sourceTree = "<group>"; };
 		D4BAE61829246AA200143717 /* Schools.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Schools.json; sourceTree = "<group>"; };
+		D4BD66AD2A30936700B823D2 /* DateCollections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCollections.swift; sourceTree = "<group>"; };
 		D4CD0EFE29D5B00A00AB5FD0 /* UIApplicationExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplicationExtension.swift; sourceTree = "<group>"; };
 		D4CD0F0629D5DC9D00AB5FD0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; wrapsLines = 1; };
 		D4CD0F0829D5DCA300AB5FD0 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -549,6 +551,7 @@
 			isa = PBXGroup;
 			children = (
 				D400F3E429D796A00050622E /* DateFormatters.swift */,
+				D4BD66AD2A30936700B823D2 /* DateCollections.swift */,
 			);
 			path = Formatters;
 			sourceTree = "<group>";
@@ -1745,6 +1748,7 @@
 				D42BAC25298D5EBC0025EAA9 /* Dependencies.swift in Sources */,
 				D42BAC23298D5BFA0025EAA9 /* DependencyInjector.swift in Sources */,
 				D430F74929C6558700E30E48 /* BookmarkCalendarDetailStyle.swift in Sources */,
+				D4BD66AE2A30936700B823D2 /* DateCollections.swift in Sources */,
 				D4E491F629EDC59300E674CA /* DayResponseExtension.swift in Sources */,
 				D45338FF2929805100198411 /* StringExtensions.swift in Sources */,
 				D41ED54C29843469009DCF8B /* Response.swift in Sources */,

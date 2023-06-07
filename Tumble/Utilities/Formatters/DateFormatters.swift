@@ -9,6 +9,11 @@ import Foundation
 
 /// Formatters used globally
 
+var gregorianCalendar: Calendar {
+    var calendar = Calendar(identifier: .gregorian)
+    calendar.firstWeekday = 1
+    return calendar
+}
 
 /// To convert API result date (ISO8601) to `Date`
 var isoDateFormatterFract: ISO8601DateFormatter = {
@@ -40,6 +45,22 @@ var dateFormatterFull: DateFormatter = {
     let dateFormatter = DateFormatter()
     let timeZone = TimeZone.current
     dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+    dateFormatter.timeZone = timeZone
+    return dateFormatter
+}()
+
+var dateFormatterDay: DateFormatter = {
+    let dateFormatter = DateFormatter()
+    let timeZone = TimeZone.current
+    dateFormatter.dateFormat = "EEEE"
+    dateFormatter.timeZone = timeZone
+    return dateFormatter
+}()
+
+var dateFormatterDayMonth: DateFormatter = {
+    let dateFormatter = DateFormatter()
+    let timeZone = TimeZone.current
+    dateFormatter.dateFormat = "dd/MM"
     dateFormatter.timeZone = timeZone
     return dateFormatter
 }()
