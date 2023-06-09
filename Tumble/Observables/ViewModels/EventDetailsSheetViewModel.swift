@@ -62,19 +62,18 @@ final class EventDetailsSheetViewModel: ObservableObject {
     @MainActor func scheduleNotificationForEvent() {
         let userOffset: Int = preferenceService.getNotificationOffset()
         
+        // Create notification for event without categoryIdentifier,
+        // since it does not need to be set for the entire course
+        let notification = EventNotification(
+            id: self.event.eventId,
+            dateComponents: self.event.dateComponents!,
+            categoryIdentifier: nil,
+            content: self.event.toDictionary()
+        )
+        
         Task.detached(priority: .userInitiated) { [weak self] in
             guard let self else { return }
             do {
-                
-                // Create notification for event without categoryIdentifier,
-                // since it does not need to be set for the entire course
-                let notification = EventNotification(
-                    id: self.event.eventId,
-                    dateComponents: self.event.dateComponents!,
-                    categoryIdentifier: nil,
-                    content: self.event.toDictionary()
-                )
-                
                 try await self.notificationManager.scheduleNotification(for: notification, type: .event, userOffset: userOffset)
                 DispatchQueue.main.async {
                     self.isNotificationSetForEvent = true

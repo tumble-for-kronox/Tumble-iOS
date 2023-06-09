@@ -104,8 +104,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/exyte/PopupView.git",
       "state" : {
-        "revision" : "b0637e364e226ace536ca07cc4b746a916ccfe65",
-        "version" : "2.4.2"
+        "revision" : "c382cb80e2148daf1da2d7077a6b0e11faae8269",
+        "version" : "2.5.0"
       }
     },
     {
@@ -131,8 +131,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/realm/realm-swift.git",
       "state" : {
-        "revision" : "9ce8cf2c6cc1a7539e9feb1b5b85da6d20219ff5",
-        "version" : "10.40.0"
+        "revision" : "45ea4a0ec4bb3161c807be0a9a4921161dbe60a2",
+        "version" : "10.40.1"
       }
     },
     {
