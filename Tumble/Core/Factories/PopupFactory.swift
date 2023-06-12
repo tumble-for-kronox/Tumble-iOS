@@ -133,4 +133,8 @@ class PopupFactory {
         )
     }
     
+    func genericError() -> Popup {
+        Popup(type: .error, title: NSLocalizedString("Something went wrong", comment: ""))
+    }
+    
 }

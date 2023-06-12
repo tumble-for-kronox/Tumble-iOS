@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-// Bottom tab bar
+/// Bottom tab bar
 enum TabbarTabType: String {
     case home = "house"
     case bookmarks = "bookmark"
@@ -31,6 +31,7 @@ enum TabbarTabType: String {
     }
 }
 
+/// Bookmarks page switcher options
 enum ViewType {
     case list
     case calendar

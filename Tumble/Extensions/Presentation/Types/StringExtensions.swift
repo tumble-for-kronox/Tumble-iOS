@@ -9,6 +9,9 @@ import Foundation
 import SwiftUI
 
 extension String {
+    
+    /// Abbreviates the users name into only
+    /// the first letters of each string
     func abbreviate() -> String {
         let formatter = PersonNameComponentsFormatter()
         if let components = formatter.personNameComponents(from: self) {
@@ -18,6 +21,8 @@ extension String {
         return ""
     }
     
+    /// For converting a string representing
+    /// a color in HEX into SwiftUI Color type
     func toColor() -> Color {
         var cString: String = trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
 
@@ -39,6 +44,8 @@ extension String {
         )
     }
     
+    /// Formats a string as a date in
+    /// the formate "YYYY-MM-DD"
     func formatDate() -> String? {
         if let date = isoDateFormatterDashed.date(from: self) {
             dateFormatterSemi.timeZone = TimeZone.current
@@ -46,8 +53,9 @@ extension String {
         }
         return nil
     }
-
-    // Should not be used with strings that are not ISO formatted
+    
+    /// Converts an ISO string into hours and minutes representation.
+    /// Should not be used with strings that are not ISO formatted
     func convertToHoursAndMinutesISOString() -> String? {
         guard let date = isoDateFormatter.date(from: self) else {
             return nil
@@ -62,6 +70,9 @@ extension String {
         return String(format: "%02d:%02d", hour, minute)
     }
     
+    /// Converts string into hours and minutes representation,
+    /// specifically used in for example `ResourceDetailSheet`,
+    /// `ExamDetailsSheet`, etc.
     func convertToHoursAndMinutes() -> String? {
         guard let date = dateFormatterFull.date(from: self) else {
             return nil
@@ -77,12 +88,15 @@ extension String {
         return String(format: "%02d:%02d", hour, minute)
     }
     
+    /// Checks if a given events last signup date
+    /// is valid and has not already passed
     func isValidSignupDate() -> Bool {
         guard let date = dateFormatterFull.date(from: self) else {
             return false
         }
         return date > Date()
     }
+    
     
     func toDate() -> String? {
         if let date = dateFormatterFull.date(from: self) {
@@ -91,6 +105,8 @@ extension String {
         return nil
     }
     
+    /// Makes sure event is at least three hours ahead
+    /// in order to successfully set notification
     func isAvailableNotificationDate() -> Bool {
         guard let eventDate = isoDateFormatter.date(from: self) else {
             return false
@@ -100,7 +116,4 @@ extension String {
         return eventDate > now && eventDate > threeHoursFromNow
     }
     
-    func capitalizingFirstLetter() -> String {
-        return prefix(1).uppercased() + lowercased().dropFirst()
-    }
 }

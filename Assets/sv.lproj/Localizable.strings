@@ -150,11 +150,11 @@
 
 "No events match your search"="Inga händelser matchar din sökning";
 
-"minutes"="Minuter";
+"minutes"="minuter";
 
-"hour"="Timme";
+"hour"="timme";
 
-"hours"="Timmar";
+"hours"="timmar";
 
 "Are you sure you want to set notifications for all events?"="Är du säker på att du vill ställa in aviseringar för alla händelser?";
 
@@ -163,6 +163,10 @@
 "Are you sure you want to cancel all set notifications?"="Är du säker på att du vill avbryta alla inställda aviseringar?";
 
 "Cancel all notifications"="Avbryt alla aviseringar";
+
+"Notifications set for the entire course"="Satte aviseringar för hela kursen";
+
+"Notification set for the event"="Satte avisering för händelsen";
 
 "No available bookmarks"="Inga tillgängliga bokmärken";
 

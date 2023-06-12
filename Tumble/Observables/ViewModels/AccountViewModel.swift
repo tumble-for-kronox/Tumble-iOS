@@ -159,7 +159,9 @@ final class AccountViewModel: ObservableObject {
         do {
             let request = Endpoint.userEvents(schoolId: String(authSchoolId))
             guard let refreshToken = userController.refreshToken else {
-                // TODO: Handle error
+                DispatchQueue.main.async { [weak self] in
+                    self?.registeredEventSectionState = .error
+                }
                 return
             }
             let events: Response.KronoxCompleteUserEvent? = try await kronoxManager.get(request, refreshToken: refreshToken.value)
@@ -183,7 +185,9 @@ final class AccountViewModel: ObservableObject {
         do {
             let request = Endpoint.userBookings(schoolId: String(authSchoolId))
             guard let refreshToken = userController.refreshToken else {
-                // TODO: Handle error
+                DispatchQueue.main.async {
+                    self.bookingSectionState = .error
+                }
                 return
             }
             let bookings: Response.KronoxUserBookings = try await kronoxManager.get(request, refreshToken: refreshToken.value)
@@ -204,7 +208,9 @@ final class AccountViewModel: ObservableObject {
         do {
             let request = Endpoint.unregisterEvent(eventId: eventId, schoolId: String(authSchoolId))
             guard let refreshToken = userController.refreshToken else {
-                // TODO: Handle error
+                DispatchQueue.main.async {
+                    self.registeredEventSectionState = .error
+                }
                 return
             }
             let _ : Response.Empty = try await kronoxManager.put(request, refreshToken: refreshToken.value, body: Request.Empty())
@@ -242,7 +248,9 @@ final class AccountViewModel: ObservableObject {
         do {
             let request = Endpoint.userBookings(schoolId: String(authSchoolId))
             guard let refreshToken = userController.refreshToken else {
-                // TODO: Handle error
+                DispatchQueue.main.async {
+                    self.bookingSectionState = .error
+                }
                 return
             }
             let bookings: Response.KronoxUserBookings = try await kronoxManager.get(request, refreshToken: refreshToken.value)
@@ -254,6 +262,41 @@ final class AccountViewModel: ObservableObject {
             DispatchQueue.main.async {
                 self.bookingSectionState = .error
             }
+        }
+    }
+    
+    func scheduleBookingNotifications(for bookings: Response.KronoxUserBookings) async {
+        for booking in bookings {
+            if let notification = notificationManager.createNotificationFromBooking(booking: booking) {
+                do {
+                    try await notificationManager.scheduleNotification(
+                        for: notification,
+                        type: .booking,
+                        userOffset: preferenceService.getNotificationOffset()
+                    )
+                    AppLogger.shared.debug("Scheduled one notification with id: \(notification.id)")
+                } catch let failure {
+                    AppLogger.shared.debug("Failed: \(failure)")
+                }
+            } else {
+                AppLogger.shared.critical("Failed to retrieve date components for booking")
+            }
+        }
+    }
+
+    
+    func registerAutoSignup() async {
+        AppLogger.shared.debug("Attempting to automatically sign up for exams")
+        do {
+            let request = Endpoint.registerAllEvents(schoolId: String(authSchoolId))
+            guard let refreshToken = userController.refreshToken else {
+                AppController.shared.popup = PopupFactory.shared.genericError()
+                return
+            }
+            let _: Response.KronoxEventRegistration?
+                = try await kronoxManager.put(request, refreshToken: refreshToken.value, body: Request.Empty())
+        } catch (let error) {
+            AppLogger.shared.critical("Failed to sign up for exams: \(error)")
         }
     }
 }

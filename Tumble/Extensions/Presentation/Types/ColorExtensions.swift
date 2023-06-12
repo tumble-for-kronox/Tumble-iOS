@@ -9,6 +9,7 @@ import Foundation
 import SwiftUI
 
 extension Color {
+    /// Custom defined colors found in Assets folder
     static let blue = Color("Blue")
     static let green = Color("Green")
     static let pink = Color("Pink")

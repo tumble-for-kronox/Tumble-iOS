@@ -18,7 +18,7 @@ final class HomeViewModel: ObservableObject {
     @Published var news: Response.NewsItems? = nil
     @Published var swipedCards: Int = 0
     @Published var status: HomeStatus = .loading
-    @Published var todaysEventsCards: [DayEventCardModel] = .init()
+    @Published var todaysEventsCards: [WeekEventCardModel] = .init()
     @Published var nextClass: Event? = nil
     
     private let viewModelFactory: ViewModelFactory = .shared
@@ -97,7 +97,7 @@ final class HomeViewModel: ObservableObject {
         let eventsForToday = schedules.filterEventsMatchingToday()
         
         let todaysEventsCards = eventsForToday.map {
-            DayEventCardModel(event: $0)
+            WeekEventCardModel(event: $0)
         }
         DispatchQueue.main.async { [weak self] in
             self?.todaysEventsCards = todaysEventsCards
