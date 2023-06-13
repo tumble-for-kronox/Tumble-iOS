@@ -56,7 +56,8 @@ struct TodaysEventsCarousel: View {
                     .clipShape(Circle())
                 
             })
-            .buttonStyle(AnimatedButtonStyle())
+            .buttonStyle(AnimatedButtonStyle(applyCornerRadius: true))
+            .cornerRadius(15)
         }
         .padding(.top, 10)
     }

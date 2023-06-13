@@ -12,7 +12,8 @@ extension [Day] {
     func normalizedToWeekDays() -> [Int : [Day]] {
         let daysForWeek = Dictionary(grouping: self) { day -> Int in
             let date = isoDateFormatterFract.date(from: day.isoString)! // Converts isoString to Date
-            let weekday = Calendar.current.component(.weekday, from: date) // Fetches weekday from Date
+            let adjustedDate = gregorianCalendar.date(byAdding: .day, value: -1, to: date)! // Adjust from default american date (starting on sundays), retract 1
+            let weekday = gregorianCalendar.component(.weekday, from: adjustedDate) // Fetches weekday from Date
             return weekday
         }
         return daysForWeek
