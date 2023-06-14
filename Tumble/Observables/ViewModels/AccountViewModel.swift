@@ -61,7 +61,7 @@ final class AccountViewModel: ObservableObject {
         }
     }
     
-    func setUpDataPublishers() {
+    private func setUpDataPublishers() {
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             guard let self else { return }
             let authStatusPublisher = self.userController.$authStatus.receive(on: RunLoop.main)
@@ -141,8 +141,21 @@ final class AccountViewModel: ObservableObject {
                 AppController.shared.popup = popupFactory.logInSuccess(as: username)
             }
         } catch {
-            AppLogger.shared.critical("Failed to log in user")
-            AppController.shared.popup = popupFactory.logInFailed()
+            AppLogger.shared.critical("Failed to log in user: \(error)")
+            DispatchQueue.main.async { [weak self] in
+                AppController.shared.popup = self?.popupFactory.logInFailed()
+            }
+        }
+    }
+    
+    func logOut() async {
+        do {
+            try await userController.logOut()
+        } catch {
+            AppLogger.shared.critical("Failed to log out user: \(error)")
+            DispatchQueue.main.async { [weak self] in
+                AppController.shared.popup = self?.popupFactory.logOutFailed()
+            }
         }
     }
     

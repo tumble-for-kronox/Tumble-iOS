@@ -62,7 +62,7 @@ class AuthManager {
                 
                 return TumbleUser(username: user.username, password: user.password, name: user.name)
             } catch {
-                AppLogger.shared.info("Could not decode object to KronoxUser or network request failed")
+                AppLogger.shared.critical("Could not decode object to KronoxUser or network request failed")
                 return try await retriveStoredUser()
             }
             

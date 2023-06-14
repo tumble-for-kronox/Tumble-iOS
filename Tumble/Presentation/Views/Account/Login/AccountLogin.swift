@@ -75,7 +75,7 @@ struct AccountLogin: View {
             }
         } label: {
             HStack {
-                Image(systemName: "plus")
+                Image(systemName: "chevron.up.chevron.down")
                     .font(.system(size: 14, weight: .semibold))
                     .foregroundColor(.primary)
                 Text(selectedSchool?.name ?? NSLocalizedString("Select university", comment: ""))

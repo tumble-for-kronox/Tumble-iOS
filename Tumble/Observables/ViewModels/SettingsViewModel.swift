@@ -136,4 +136,9 @@ final class SettingsViewModel: ObservableObject {
     private func deleteAllSchedules() {
         realmManager.deleteAllSchedules()
     }
+    
+    deinit {
+        cancellables.forEach { $0.cancel() }
+    }
+
 }

@@ -33,6 +33,7 @@
 		D41472FD29D832D500050BFF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D41472FC29D832D500050BFF /* Preview Assets.xcassets */; };
 		D414B23429D88C1100EA8F46 /* PullToRefreshIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D414B23329D88C1100EA8F46 /* PullToRefreshIndicator.swift */; };
 		D416D33929CA7C5B009A4FB8 /* CalendarViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D416D33829CA7C5B009A4FB8 /* CalendarViewRepresentable.swift */; };
+		D41896A22A3A0505007E151C /* SignOutButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41896A12A3A0505007E151C /* SignOutButton.swift */; };
 		D419EDF4299A662400479DCE /* UserAvatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D419EDF3299A662400479DCE /* UserAvatar.swift */; };
 		D419EDF6299A78C400479DCE /* ResourceSectionDivider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D419EDF5299A78C400479DCE /* ResourceSectionDivider.swift */; };
 		D41ADFEC299F8DBD0074E2C7 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41ADFEB299F8DBD0074E2C7 /* Token.swift */; };
@@ -126,7 +127,7 @@
 		D46ABF1229843D3000B059F6 /* StoreKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46ABF1129843D3000B059F6 /* StoreKey.swift */; };
 		D46ABF14298443AC00B059F6 /* ViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46ABF13298443AC00B059F6 /* ViewModelFactory.swift */; };
 		D46BB10A298AC31E00887A24 /* DetailsBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46BB109298AC31E00887A24 /* DetailsBuilder.swift */; };
-		D46BB112298B0E2800887A24 /* NavigationbarSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46BB111298B0E2800887A24 /* NavigationbarSettings.swift */; };
+		D46BB112298B0E2800887A24 /* SettingsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46BB111298B0E2800887A24 /* SettingsButton.swift */; };
 		D46BB118298B21DA00887A24 /* InfoLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46BB117298B21DA00887A24 /* InfoLoading.swift */; };
 		D4722149292454560063BDB7 /* TumbleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4722148292454560063BDB7 /* TumbleApp.swift */; };
 		D472214D292454570063BDB7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D472214C292454570063BDB7 /* Assets.xcassets */; };
@@ -257,6 +258,7 @@
 		D41472FC29D832D500050BFF /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		D414B23329D88C1100EA8F46 /* PullToRefreshIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullToRefreshIndicator.swift; sourceTree = "<group>"; };
 		D416D33829CA7C5B009A4FB8 /* CalendarViewRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewRepresentable.swift; sourceTree = "<group>"; };
+		D41896A12A3A0505007E151C /* SignOutButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignOutButton.swift; sourceTree = "<group>"; };
 		D419EDF3299A662400479DCE /* UserAvatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAvatar.swift; sourceTree = "<group>"; };
 		D419EDF5299A78C400479DCE /* ResourceSectionDivider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceSectionDivider.swift; sourceTree = "<group>"; };
 		D41ADFEB299F8DBD0074E2C7 /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
@@ -349,7 +351,7 @@
 		D46ABF1129843D3000B059F6 /* StoreKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreKey.swift; sourceTree = "<group>"; };
 		D46ABF13298443AC00B059F6 /* ViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelFactory.swift; sourceTree = "<group>"; };
 		D46BB109298AC31E00887A24 /* DetailsBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsBuilder.swift; sourceTree = "<group>"; };
-		D46BB111298B0E2800887A24 /* NavigationbarSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationbarSettings.swift; sourceTree = "<group>"; };
+		D46BB111298B0E2800887A24 /* SettingsButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsButton.swift; sourceTree = "<group>"; };
 		D46BB117298B21DA00887A24 /* InfoLoading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoLoading.swift; sourceTree = "<group>"; };
 		D4722145292454560063BDB7 /* Tumble.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tumble.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4722148292454560063BDB7 /* TumbleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TumbleApp.swift; sourceTree = "<group>"; };
@@ -747,7 +749,7 @@
 		D421EAEE2993F7F50045D438 /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
-				D46BB111298B0E2800887A24 /* NavigationbarSettings.swift */,
+				D46BB111298B0E2800887A24 /* SettingsButton.swift */,
 			);
 			path = Navigation;
 			sourceTree = "<group>";
@@ -1065,6 +1067,7 @@
 				D48CC59E29C7DB6E0028179A /* CompactEventButtonLabel.swift */,
 				D48CC5A029C7DBF90028179A /* VerboseEventButtonLabel.swift */,
 				D4E491F729EDCCE700E674CA /* VerboseEventResponseButtonLabel.swift */,
+				D41896A12A3A0505007E151C /* SignOutButton.swift */,
 			);
 			path = Buttons;
 			sourceTree = "<group>";
@@ -1422,7 +1425,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1420;
-				LastUpgradeCheck = 1420;
+				LastUpgradeCheck = 1500;
 				TargetAttributes = {
 					D4722144292454560063BDB7 = {
 						CreatedOnToolsVersion = 14.1;
@@ -1501,6 +1504,7 @@
 				D400F3D429D793E50050622E /* SchedulePreviewStatus.swift in Sources */,
 				D443962E29CB56040069D66A /* ResourceBookingButtonStyle.swift in Sources */,
 				D4761C4429CF222900B3BB0B /* WideAnimatedButtonStyle.swift in Sources */,
+				D41896A22A3A0505007E151C /* SignOutButton.swift in Sources */,
 				D481F15929CB84F10088C28E /* ResourceSelection.swift in Sources */,
 				D46BB118298B21DA00887A24 /* InfoLoading.swift in Sources */,
 				D40CC161292AFB9F00664776 /* Bookmarks.swift in Sources */,
@@ -1532,7 +1536,7 @@
 				D4A433BE29953AD300BFEB7A /* AppController.swift in Sources */,
 				D4B7F25629CC60EB006E2449 /* TimeslotCard.swift in Sources */,
 				D4ABD272298C2E32002FD8F5 /* DayExtension.swift in Sources */,
-				D46BB112298B0E2800887A24 /* NavigationbarSettings.swift in Sources */,
+				D46BB112298B0E2800887A24 /* SettingsButton.swift in Sources */,
 				D458605D29DCEFC200B77513 /* RecentNews.swift in Sources */,
 				D4607634292AA83F00DE9590 /* AppParent.swift in Sources */,
 				D4FFCC2829EDAEC200708CC0 /* Course.swift in Sources */,
@@ -1749,6 +1753,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -1801,7 +1806,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.2.85;
+				MARKETING_VERSION = 3.3;
 				NETWORK_SETTINGS = testing;
 				NEW_SETTING = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.tumble;
@@ -1853,6 +1858,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -1914,6 +1920,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -1960,7 +1967,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.2.85;
+				MARKETING_VERSION = 3.3;
 				NETWORK_SETTINGS = testing;
 				NEW_SETTING = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.tumble;
@@ -2004,7 +2011,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.2.85;
+				MARKETING_VERSION = 3.3;
 				NETWORK_SETTINGS = production;
 				NEW_SETTING = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.tumble;
