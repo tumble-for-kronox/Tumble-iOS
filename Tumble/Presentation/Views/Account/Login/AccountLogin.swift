@@ -26,8 +26,8 @@ struct AccountLogin: View {
                 LoginHeader()
                 VStack {
                     HStack {
-                        Spacer()
                         schoolSelectionMenu
+                        Spacer()
                     }
                     .frame(maxWidth: .infinity)
                     .padding(.bottom, 20)
