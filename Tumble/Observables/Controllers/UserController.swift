@@ -15,7 +15,7 @@ final class UserController: ObservableObject {
     @Inject var kronoxManager: KronoxManager
     @Inject var preferenceService: PreferenceService
     
-    @Published var authStatus: AuthStatus = .loading
+    @Published var authStatus: AuthStatus = .unAuthorized
     @Published var user: TumbleUser? = nil
     @Published var refreshToken: Token? = nil
     
@@ -46,9 +46,6 @@ final class UserController: ObservableObject {
         password: String
     ) async throws {
         do {
-            DispatchQueue.main.async {
-                self.authStatus = .loading
-            }
             let userRequest = Request.KronoxUserLogin(username: username, password: password)
             let user: TumbleUser = try await authManager.loginUser(authSchoolId: authSchoolId, user: userRequest)
             try await self.authManager.setUser(newValue: user)
@@ -70,9 +67,6 @@ final class UserController: ObservableObject {
     
     func autoLogin(authSchoolId: Int) async {
         AppLogger.shared.debug("Attempting auto login for user", source: "UserController")
-        DispatchQueue.main.async {
-            self.authStatus = .loading
-        }
         do {
             let user: TumbleUser = try await authManager.autoLoginUser(authSchoolId: authSchoolId)
             try await self.authManager.setUser(newValue: user)

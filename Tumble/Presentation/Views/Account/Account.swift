@@ -18,9 +18,7 @@ struct Account: View {
                 case .authenticated:
                     UserOverview(viewModel: viewModel)
                 case .unAuthenticated:
-                    AccountLogin(viewModel: viewModel)
-                case .loading:
-                    InfoLoading(title: NSLocalizedString("Attempting to log in user", comment: ""))
+                    AccountLogin()
                 case .error:
                     Info(title: NSLocalizedString("Something went wrong", comment: ""), image: nil)
                 }

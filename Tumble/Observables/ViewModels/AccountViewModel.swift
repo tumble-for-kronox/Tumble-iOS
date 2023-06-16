@@ -22,7 +22,7 @@ final class AccountViewModel: ObservableObject {
     
     @Published var authSchoolId: Int = -1
     @Published var schoolName: String = ""
-    @Published var status: AccountViewStatus = .loading
+    @Published var status: AccountViewStatus = .unAuthenticated
     @Published var completeUserEvent: Response.KronoxCompleteUserEvent? = nil
     @Published var userBookings: Response.KronoxUserBookings? = nil
     @Published var registeredEventSectionState: GenericPageStatus = .loading
@@ -81,8 +81,6 @@ final class AccountViewModel: ObservableObject {
                         self.status = .authenticated
                     case .unAuthorized:
                         self.status = .unAuthenticated
-                    case .loading:
-                        self.status = .loading
                     }
                 }
                 .store(in: &self.cancellables)
@@ -130,24 +128,6 @@ final class AccountViewModel: ObservableObject {
         }
     }
     
-    func login(
-        authSchoolId: Int,
-        username: String,
-        password: String
-    ) async {
-        do {
-            try await userController.logIn(authSchoolId: authSchoolId, username: username, password: password)
-            if let username = userController.user?.username {
-                AppController.shared.popup = popupFactory.logInSuccess(as: username)
-            }
-        } catch {
-            AppLogger.shared.critical("Failed to log in user: \(error)")
-            DispatchQueue.main.async { [weak self] in
-                AppController.shared.popup = self?.popupFactory.logInFailed()
-            }
-        }
-    }
-    
     func logOut() async {
         do {
             try await userController.logOut()
@@ -157,10 +137,6 @@ final class AccountViewModel: ObservableObject {
                 AppController.shared.popup = self?.popupFactory.logOutFailed()
             }
         }
-    }
-    
-    func setDefaultAuthSchool(schoolId: Int) {
-        preferenceService.setAuthSchool(id: schoolId)
     }
     
     // Retrieve user events for resource section

@@ -13,21 +13,17 @@ struct UsernameField: View {
     var body: some View {
         HStack {
             Image(systemName: "person")
-                .foregroundColor(.onBackground.opacity(0.75))
+                .foregroundColor(.onSurface.opacity(0.75))
             TextField(NSLocalizedString("Username/Email address", comment: ""), text: $username)
-                .foregroundColor(.onBackground)
+                .foregroundColor(.onSurface)
                 .autocapitalization(.none)
                 .disableAutocorrection(true)
                 .keyboardType(.emailAddress)
             Spacer()
         }
-        .padding(10)
-        .overlay(RoundedRectangle(
-            cornerRadius: 10)
-            .stroke(lineWidth: 0.5)
-            .foregroundColor(.onBackground.opacity(0.5)
-            )
-        )
+        .padding(15)
+        .background(Color.surface)
+        .cornerRadius(15)
         .padding(.bottom, 10)
     }
 }
