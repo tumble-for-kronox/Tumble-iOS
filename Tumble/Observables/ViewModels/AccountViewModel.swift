@@ -22,7 +22,7 @@ final class AccountViewModel: ObservableObject {
     
     @Published var authSchoolId: Int = -1
     @Published var schoolName: String = ""
-    @Published var status: AccountViewStatus = .loading
+    @Published var status: AccountViewStatus = .unAuthenticated
     @Published var completeUserEvent: Response.KronoxCompleteUserEvent? = nil
     @Published var userBookings: Response.KronoxUserBookings? = nil
     @Published var registeredEventSectionState: GenericPageStatus = .loading
@@ -61,7 +61,7 @@ final class AccountViewModel: ObservableObject {
         }
     }
     
-    func setUpDataPublishers() {
+    private func setUpDataPublishers() {
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             guard let self else { return }
             let authStatusPublisher = self.userController.$authStatus.receive(on: RunLoop.main)
@@ -81,8 +81,6 @@ final class AccountViewModel: ObservableObject {
                         self.status = .authenticated
                     case .unAuthorized:
                         self.status = .unAuthenticated
-                    case .loading:
-                        self.status = .loading
                     }
                 }
                 .store(in: &self.cancellables)
@@ -130,24 +128,15 @@ final class AccountViewModel: ObservableObject {
         }
     }
     
-    func login(
-        authSchoolId: Int,
-        username: String,
-        password: String
-    ) async {
+    func logOut() async {
         do {
-            try await userController.logIn(authSchoolId: authSchoolId, username: username, password: password)
-            if let username = userController.user?.username {
-                AppController.shared.popup = popupFactory.logInSuccess(as: username)
-            }
+            try await userController.logOut()
         } catch {
-            AppLogger.shared.critical("Failed to log in user")
-            AppController.shared.popup = popupFactory.logInFailed()
+            AppLogger.shared.critical("Failed to log out user: \(error)")
+            DispatchQueue.main.async { [weak self] in
+                AppController.shared.popup = self?.popupFactory.logOutFailed()
+            }
         }
-    }
-    
-    func setDefaultAuthSchool(schoolId: Int) {
-        preferenceService.setAuthSchool(id: schoolId)
     }
     
     // Retrieve user events for resource section
@@ -159,7 +148,9 @@ final class AccountViewModel: ObservableObject {
         do {
             let request = Endpoint.userEvents(schoolId: String(authSchoolId))
             guard let refreshToken = userController.refreshToken else {
-                // TODO: Handle error
+                DispatchQueue.main.async { [weak self] in
+                    self?.registeredEventSectionState = .error
+                }
                 return
             }
             let events: Response.KronoxCompleteUserEvent? = try await kronoxManager.get(request, refreshToken: refreshToken.value)
@@ -183,7 +174,9 @@ final class AccountViewModel: ObservableObject {
         do {
             let request = Endpoint.userBookings(schoolId: String(authSchoolId))
             guard let refreshToken = userController.refreshToken else {
-                // TODO: Handle error
+                DispatchQueue.main.async {
+                    self.bookingSectionState = .error
+                }
                 return
             }
             let bookings: Response.KronoxUserBookings = try await kronoxManager.get(request, refreshToken: refreshToken.value)
@@ -204,7 +197,9 @@ final class AccountViewModel: ObservableObject {
         do {
             let request = Endpoint.unregisterEvent(eventId: eventId, schoolId: String(authSchoolId))
             guard let refreshToken = userController.refreshToken else {
-                // TODO: Handle error
+                DispatchQueue.main.async {
+                    self.registeredEventSectionState = .error
+                }
                 return
             }
             let _ : Response.Empty = try await kronoxManager.put(request, refreshToken: refreshToken.value, body: Request.Empty())
@@ -242,7 +237,9 @@ final class AccountViewModel: ObservableObject {
         do {
             let request = Endpoint.userBookings(schoolId: String(authSchoolId))
             guard let refreshToken = userController.refreshToken else {
-                // TODO: Handle error
+                DispatchQueue.main.async {
+                    self.bookingSectionState = .error
+                }
                 return
             }
             let bookings: Response.KronoxUserBookings = try await kronoxManager.get(request, refreshToken: refreshToken.value)
@@ -254,6 +251,41 @@ final class AccountViewModel: ObservableObject {
             DispatchQueue.main.async {
                 self.bookingSectionState = .error
             }
+        }
+    }
+    
+    func scheduleBookingNotifications(for bookings: Response.KronoxUserBookings) async {
+        for booking in bookings {
+            if let notification = notificationManager.createNotificationFromBooking(booking: booking) {
+                do {
+                    try await notificationManager.scheduleNotification(
+                        for: notification,
+                        type: .booking,
+                        userOffset: preferenceService.getNotificationOffset()
+                    )
+                    AppLogger.shared.debug("Scheduled one notification with id: \(notification.id)")
+                } catch let failure {
+                    AppLogger.shared.debug("Failed: \(failure)")
+                }
+            } else {
+                AppLogger.shared.critical("Failed to retrieve date components for booking")
+            }
+        }
+    }
+
+    
+    func registerAutoSignup() async {
+        AppLogger.shared.debug("Attempting to automatically sign up for exams")
+        do {
+            let request = Endpoint.registerAllEvents(schoolId: String(authSchoolId))
+            guard let refreshToken = userController.refreshToken else {
+                AppController.shared.popup = PopupFactory.shared.genericError()
+                return
+            }
+            let _: Response.KronoxEventRegistration?
+                = try await kronoxManager.put(request, refreshToken: refreshToken.value, body: Request.Empty())
+        } catch (let error) {
+            AppLogger.shared.critical("Failed to sign up for exams: \(error)")
         }
     }
 }

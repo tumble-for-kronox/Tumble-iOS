@@ -94,7 +94,7 @@ extension Response.Schedule {
         return true
     }
 
-    // Returns dictionary of random colors for each course in a schedule
+    /// Returns dictionary of random colors for each course in a schedule
     func assignCoursesRandomColors() -> [String: String] {
         var courseColors: [String: String] = [:]
         var availableColors = Set(colors)
@@ -115,9 +115,4 @@ extension Response.Schedule {
             if $1.isValidDay() { $0.append($1) }
         }
     }
-
-    func courses() -> [String] {
-        return Array(Set(days.flatMap { $0.events.map { $0.course.id } }))
-    }
-    
 }

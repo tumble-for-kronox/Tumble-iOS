@@ -21,7 +21,7 @@ struct BookmarkCard: View {
         }, label: {
             VerboseEventButtonLabel(event: event)
         })
-        .buttonStyle(VerboseButtonStyle())
+        .buttonStyle(AnimatedButtonStyle(color: .surface, applyCornerRadius: true))
         .padding(.bottom, 10)
     }
 }

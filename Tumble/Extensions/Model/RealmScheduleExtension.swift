@@ -90,10 +90,6 @@ extension [Schedule] {
 
 extension Schedule {
     
-    func courses() -> [String] {
-        return Array(Set(days.flatMap { $0.events.compactMap { $0.course?.courseId } }))
-    }
-    
     func flatten() -> [Day] {
         return days.reduce(into: []) {
             if $1.isValidDay() { $0.append($1) }

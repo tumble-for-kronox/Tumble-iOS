@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TodaysEvents: View {
-    @Binding var eventsForToday: [DayEventCardModel]
+    @Binding var eventsForToday: [WeekEventCardModel]
     @Binding var swipedCards: Int
     
     var body: some View {

@@ -36,11 +36,10 @@ struct ResourceBookings: View {
                     )
                 case .error:
                     VStack {
-                        switch viewModel.error?.statusCode {
-                        case 404:
-                            Info(title: NSLocalizedString("No rooms available on weekends", comment: ""), image: "moon.stars")
-                        default:
-                            Info(title: NSLocalizedString("Could not contact the server, try again later", comment: ""), image: nil)
+                        if isDateWeekend() {
+                            Info(title: NSLocalizedString("No rooms available on weekends", comment: ""), image: "moon.zzz")
+                        } else {
+                            Info(title: NSLocalizedString("Could not contact the server, try again later", comment: ""), image: "arrow.clockwise")
                         }
                     }
                     .frame(
@@ -68,5 +67,11 @@ struct ResourceBookings: View {
                 await viewModel.getAllResourceData(date: viewModel.selectedPickerDate)
             }
         })
+    }
+    
+    func isDateWeekend() -> Bool {
+        let now = Date.now
+        let day = now.get(.weekday) - 1
+        return day == 6 || day == 7
     }
 }

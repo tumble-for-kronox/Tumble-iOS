@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-class PreferenceService: PreferenceServiceProtocol {
+class PreferenceService {
     @Published var userOnBoarded: Bool = false
     @Published var authSchoolId: Int = -1
     
@@ -60,15 +60,15 @@ class PreferenceService: PreferenceServiceProtocol {
         return UserDefaults.standard.object(forKey: key)
     }
     
-    func getDefaultViewType() -> BookmarksViewType {
+    func getDefaultViewType() -> ViewType {
         let hasView: Bool = isKeyPresentInUserDefaults(key: StoreKey.viewType.rawValue)
         if !hasView {
             setViewType(viewType: 0)
-            return BookmarksViewType.allValues[0]
+            return ViewType.allCases[0]
         }
         
         let viewType: Int = getDefault(key: StoreKey.viewType.rawValue) as! Int
-        return BookmarksViewType.allValues[viewType]
+        return ViewType.allCases[viewType]
     }
     
     func getDefaultAuthSchoolName(schools: [School]) -> String {
@@ -94,34 +94,5 @@ class PreferenceService: PreferenceServiceProtocol {
     
     func isKeyPresentInUserDefaults(key: String) -> Bool {
         return UserDefaults.standard.object(forKey: key) != nil
-    }
-    
-    func getUniversityName(schools: [School]) -> String {
-        let schoolName: String = schools.first(where: { $0.id == authSchoolId })!.name
-        return schoolName
-    }
-    
-    func getUniversityColor(schools: [School]) -> Color {
-        let school: School? = schools.first(where: { $0.id == authSchoolId })
-        let uniColor: Color
-        
-        switch school?.color {
-        case "blue":
-            uniColor = Color.blue
-        case "orange":
-            uniColor = Color.orange
-        case "green":
-            uniColor = Color.green
-        case "yellow":
-            uniColor = Color.yellow
-        case "brown":
-            uniColor = Color.brown
-        case "red":
-            uniColor = Color.red
-        default:
-            uniColor = Color.black
-        }
-
-        return uniColor
     }
 }

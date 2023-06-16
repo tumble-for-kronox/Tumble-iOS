@@ -8,8 +8,7 @@
 import Foundation
 import UIKit
 
-// For color picker custom button toggle
-
+/// For color picker custom button toggle
 extension UIColorWell {
     override open func didMoveToSuperview() {
         super.didMoveToSuperview()

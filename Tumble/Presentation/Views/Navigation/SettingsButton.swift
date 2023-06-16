@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-struct NavigationbarSettings: View {
-    @ObservedObject var viewModel: SettingsViewModel
+struct SettingsButton: View {
+    @StateObject var viewModel: SettingsViewModel = ViewModelFactory.shared.makeViewModelSettings()
     
     var body: some View {
         NavigationLink(destination:

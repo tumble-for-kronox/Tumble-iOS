@@ -20,7 +20,7 @@ struct BookmarkButton: View {
             HStack {
                 switch buttonState {
                 case .loading:
-                    CustomProgressIndicator(tint: .onPrimary)
+                    CustomProgressIndicator()
                 case .saved:
                     HStack(spacing: 10) {
                         Image(systemName: "bookmark.fill")

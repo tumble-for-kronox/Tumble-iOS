@@ -8,6 +8,9 @@
 import Foundation
 
 extension Response.Availabilities {
+    
+    /// Counts available 'availabilities' in a given
+    /// Kronox resource
     func countAvailable() -> Int {
         guard let availabilities = self else { return 0 }
         var count = 0
@@ -21,6 +24,7 @@ extension Response.Availabilities {
         return count
     }
     
+    /// Checks if a given timeslot in a resource is available
     func timeslotHasAvailable(for timeslotId: Int) -> Bool {
         guard let availabilities = self else { return false }
         for (_, availabilityValues) in availabilities {

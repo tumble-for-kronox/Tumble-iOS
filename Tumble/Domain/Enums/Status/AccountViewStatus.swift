@@ -8,7 +8,6 @@
 import Foundation
 
 enum AccountViewStatus {
-    case loading
     case error
     case authenticated
     case unAuthenticated

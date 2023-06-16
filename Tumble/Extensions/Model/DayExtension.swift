@@ -9,6 +9,16 @@ import Foundation
 
 extension [Day] {
     
+    func normalizedToWeekDays() -> [Int : [Day]] {
+        let daysForWeek = Dictionary(grouping: self) { day -> Int in
+            let date = isoDateFormatterFract.date(from: day.isoString)! // Converts isoString to Date
+            let adjustedDate = gregorianCalendar.date(byAdding: .day, value: -1, to: date)! // Adjust from default american date (starting on sundays), retract 1
+            let weekday = gregorianCalendar.component(.weekday, from: adjustedDate) // Fetches weekday from Date
+            return weekday
+        }
+        return daysForWeek
+    }
+    
     /// Orderes the days in ascending order
     /// comparing the 'isoString' attribute
     func ordered() -> [Day] {
@@ -29,6 +39,18 @@ extension [Day] {
     func filterValidDays() -> [Day] {
         self.filter { $0.isValidDay() }
     }
+    
+    func groupedByWeeks() -> [Int : [Day]] {
+        var weeks: [Int : [Day]] = [:]
+        for day in self {
+            if let date = isoDateFormatterFract.date(from: day.isoString) {
+                let weekOfYear: Int = Calendar.current.component(.weekOfYear, from: date)
+                weeks[weekOfYear, default: []].append(day)
+            }
+        }
+        return weeks
+    }
+
 }
 
 extension Day {
@@ -41,5 +63,15 @@ extension Day {
         guard let day = isoDateFormatterFract.date(from: dayIsoString) else { return false }
         let today = Date()
         return Calendar.current.startOfDay(for: day) >= Calendar.current.startOfDay(for: today)
+    }
+    
+    var dayOfWeek: Int? {
+        guard let date = isoDateFormatterFract.date(from: self.isoString) else {
+            return nil
+        }
+        
+        let weekday = Calendar.current.component(.weekday, from: date)
+        let offset = (weekday - Calendar.current.firstWeekday + 7) % 7
+        return offset
     }
 }

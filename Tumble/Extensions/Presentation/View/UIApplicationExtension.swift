@@ -10,32 +10,30 @@ import StoreKit
 import UIKit
 
 extension UIApplication {
-    // Override variable
+    /// Override variable
     private var keyWindow: UIWindow? {
-        // Get connected scenes
+        /// Get connected scenes
         return UIApplication.shared.connectedScenes
-            // Keep only active scenes, onscreen and visible to the user
+            /// Keep only active scenes, onscreen and visible to the user
             .filter { $0.activationState == .foregroundActive }
-            // Keep only the first `UIWindowScene`
+            /// Keep only the first `UIWindowScene`
             .first(where: { $0 is UIWindowScene })
-            // Get its associated windows
+            /// Get its associated windows
             .flatMap { $0 as? UIWindowScene }?.windows
-            // Finally, keep only the key window
+            /// Finally, keep only the key window
             .first(where: \.isKeyWindow)
     }
     
-    func requestReview() {
-        if let keyWindow = UIApplication.shared.keyWindow, let windowScene = keyWindow.windowScene {
-            SKStoreReviewController.requestReview(in: windowScene)
-        }
-    }
-    
+    /// Opens the default mail application on users
+    /// phones and allows them to send an email to support
     func shareFeedback() {
         if let url = URL(string: "mailto:tumbleapps.studios@gmail.com") {
             UIApplication.shared.open(url)
         }
     }
     
+    /// Opens the App Store application with the review
+    /// sheet already opened
     func openAppStoreForReview() {
         guard let writeReviewURL = URL(string: "https://apps.apple.com/app/1617642864?action=write-review")
         else { fatalError("Expected a valid URL") }

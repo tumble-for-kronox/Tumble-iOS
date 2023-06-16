@@ -8,6 +8,7 @@
 import Foundation
 
 extension Array {
+    /// Chooses first n elements from an array
     func pick(from: Int = 0, length: Int) -> [Element] {
         precondition(length >= 0, "length must not be negative")
         if length >= count { return self }

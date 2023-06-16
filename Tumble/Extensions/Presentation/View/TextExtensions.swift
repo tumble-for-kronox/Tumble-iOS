@@ -14,81 +14,8 @@ extension Text {
             .foregroundColor(.onBackground)
     }
     
-    func appHeader() -> some View {
-        font(.system(size: 24))
-            .bold()
-            .foregroundColor(.onBackground)
-            .padding(.leading, 15)
-    }
-
-    func onSurfaceSmall() -> some View {
-        font(.system(size: 15))
-            .foregroundColor(.onSurface)
-    }
-    
-    func titleInstructions() -> some View {
-        font(.system(size: 18))
-            .bold()
-            .padding(.bottom, 3)
-    }
-    
     func bodyInstructions() -> some View {
         font(.system(size: 14, weight: .medium))
-    }
-    
-    func titleSchool() -> some View {
-        font(.system(size: 18, weight: .medium))
-            .foregroundColor(.onSurface)
-    }
-    
-    func featureText() -> some View {
-        font(.system(size: 20, weight: .medium))
-            .foregroundColor(.onSurface)
-    }
-    
-    func onPrimaryMedium() -> some View {
-        font(.system(size: 20))
-            .padding(8)
-            .foregroundColor(.onPrimary)
-    }
-    
-    func onPrimaryMediumBold() -> some View {
-        font(.system(size: 20))
-            .bold()
-            .padding(8)
-            .foregroundColor(.onPrimary)
-    }
-    
-    func homePageOption() -> some View {
-        font(.system(size: 17))
-            .foregroundColor(.onSurface)
-            .padding(.trailing, 15)
-            .padding(.leading, 15)
-    }
-    
-    func dayOfWeek() -> some View {
-        frame(maxWidth: .infinity)
-            .padding(.top, 1)
-            .lineLimit(1)
-    }
-    
-    func mainHeaderBoldPrimary() -> some View {
-        font(.system(size: 26))
-            .bold()
-            .padding(.top, 20)
-            .foregroundColor(.primary)
-    }
-    
-    func subHeaderBold() -> some View {
-        font(.system(size: 22))
-            .foregroundColor(.onBackground)
-            .bold()
-            .padding([.leading, .trailing], 20)
-    }
-    
-    func bottomBarItem(selectedTab: TabbarTabType, thisTab: TabbarTabType) -> some View {
-        font(.system(size: 10))
-            .foregroundColor(selectedTab == thisTab ? .primary : .onBackground)
     }
     
     func info() -> some View {
@@ -117,65 +44,8 @@ extension Text {
             .padding(.bottom, 10)
     }
     
-    func backButton() -> some View {
-        font(.system(size: 16))
-            .foregroundColor(.primary)
-    }
-    
-    func timeSpanCard() -> some View {
-        font(.system(size: 16, weight: .semibold))
-            .foregroundColor(.onSurface)
-    }
-
-    func titleCard() -> some View {
-        font(.system(size: 24))
-            .foregroundColor(.onSurface)
-            .padding(.leading, 25)
-            .padding(.trailing, 25)
-            .padding(.bottom, 2.5)
-    }
-    
-    func courseNameCard() -> some View {
-        font(.system(size: 18))
-            .foregroundColor(.onSurface)
-            .padding(.leading, 25)
-            .padding(.bottom, 10)
-    }
-    
-    func courseNameCalendarDetail() -> some View {
-        font(.system(size: 20, weight: .semibold))
-            .foregroundColor(.onSurface)
-            .padding(.leading, 25)
-            .padding(.bottom, 10)
-    }
-    
-    func locationCard() -> some View {
-        font(.system(size: 18))
-            .bold()
-            .foregroundColor(.onSurface)
-    }
-    
     func dayHeader() -> some View {
         font(.system(size: 20, weight: .semibold))
             .padding(.trailing, 10)
-    }
-
-    func appVersionDrawer() -> some View {
-        padding(.bottom, 30)
-            .font(.system(size: 12))
-            .foregroundColor(.onSurface)
-    }
-    
-    func popupToast() -> some View {
-        font(.system(size: 16))
-            .padding(.leading, 15)
-            .padding(.trailing, 15)
-            .foregroundColor(.white)
-            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 45, alignment: .leading)
-            .background(.primary).opacity(0.75)
-            .cornerRadius(10)
-            .padding(.bottom, 165)
-            .padding(.leading, 15)
-            .padding(.trailing, 15)
     }
 }

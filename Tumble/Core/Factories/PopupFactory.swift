@@ -133,4 +133,12 @@ class PopupFactory {
         )
     }
     
+    func genericError() -> Popup {
+        Popup(type: .error, title: NSLocalizedString("Something went wrong", comment: ""))
+    }
+    
+    func loginRequiresSchool() -> Popup {
+        Popup(type: .error, title: NSLocalizedString("No university selected", comment: ""), message: NSLocalizedString("You must select a university before logging in", comment: ""))
+    }
+    
 }

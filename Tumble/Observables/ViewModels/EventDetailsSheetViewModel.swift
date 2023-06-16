@@ -29,13 +29,14 @@ final class EventDetailsSheetViewModel: ObservableObject {
         color = event.course?.color.toColor() ?? .white
         oldColor = event.course?.color.toColor() ?? .white
         notificationOffset = preferenceService.getNotificationOffset()
-        Task {
-            let allowed = await userAllowedNotifications()
-            DispatchQueue.main.async { [weak self] in
-                self?.notificationsAllowed = allowed
+        Task.detached(priority: .userInitiated) { [weak self] in
+            guard let self else { return }
+            let allowed = await self.userAllowedNotifications()
+            DispatchQueue.main.async {
+                self.notificationsAllowed = allowed
             }
-            await checkNotificationIsSetForEvent()
-            await checkNotificationIsSetForCourse()
+            await self.checkNotificationIsSetForEvent()
+            await self.checkNotificationIsSetForCourse()
         }
     }
     
@@ -64,15 +65,16 @@ final class EventDetailsSheetViewModel: ObservableObject {
         // Create notification for event without categoryIdentifier,
         // since it does not need to be set for the entire course
         let notification = EventNotification(
-            id: event.eventId,
-            dateComponents: event.dateComponents!,
+            id: self.event.eventId,
+            dateComponents: self.event.dateComponents!,
             categoryIdentifier: nil,
-            content: event.toDictionary()
+            content: self.event.toDictionary()
         )
         
-        Task {
+        Task.detached(priority: .userInitiated) { [weak self] in
+            guard let self else { return }
             do {
-                try await notificationManager.scheduleNotification(for: notification, type: .event, userOffset: userOffset)
+                try await self.notificationManager.scheduleNotification(for: notification, type: .event, userOffset: userOffset)
                 DispatchQueue.main.async {
                     self.isNotificationSetForEvent = true
                 }
@@ -98,9 +100,10 @@ final class EventDetailsSheetViewModel: ObservableObject {
             .flatMap { $0.events }
             .filter { !($0.dateComponents!.hasDatePassed()) }
             .filter { $0.course?.courseId == event.course?.courseId }
-        Task {
+        Task.detached(priority: .background) { [weak self] in
+            guard let self else { return }
             do {
-                let result = try await applyNotificationForScheduleEventsInCourse(events: events)
+                let result = try await self.applyNotificationForScheduleEventsInCourse(events: events)
                 if result {
                     DispatchQueue.main.async { [weak self] in
                         self?.isNotificationSetForCourse = true
@@ -108,7 +111,7 @@ final class EventDetailsSheetViewModel: ObservableObject {
                     }
                 }
             } catch {
-                // TODO: Error handling
+                // TODO: Display error popup
             }
         }
     }
@@ -118,6 +121,48 @@ final class EventDetailsSheetViewModel: ObservableObject {
             return try await notificationManager.notificationsAreAllowed()
         } catch {
             return false
+        }
+    }
+    
+    @MainActor
+    func applyNotificationForScheduleEventsInCourse(events: [Event]) async throws -> Bool {
+        for event in events {
+            if let notification = notificationManager.createNotificationFromEvent(event: event) {
+                try await notificationManager.scheduleNotification(
+                    for: notification,
+                    type: .event,
+                    userOffset: notificationOffset
+                )
+                AppLogger.shared.debug("Set notification for \(event.title)")
+            } else {
+                AppLogger.shared.error("Permission error: Not allowed")
+                return false
+            }
+        }
+        return true
+    }
+
+    @MainActor
+    func checkNotificationIsSetForCourse() {
+        if let course = event.course {
+            let courseId = course.courseId
+            Task {
+                let result = await notificationManager.isNotificationScheduled(categoryIdentifier: courseId)
+                DispatchQueue.main.async {
+                    self.isNotificationSetForCourse = result
+                }
+            }
+        }
+    }
+    
+    @MainActor
+    func checkNotificationIsSetForEvent() {
+        let eventId = event.eventId
+        Task {
+            let result = await notificationManager.isNotificationScheduled(eventId: eventId)
+            DispatchQueue.main.async {
+                self.isNotificationSetForEvent = result
+            }
         }
     }
 

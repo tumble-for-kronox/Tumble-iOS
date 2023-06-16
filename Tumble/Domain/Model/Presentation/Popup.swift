@@ -17,6 +17,13 @@ struct Popup {
     let type: PopupType
     let title: String
     let message: String?
+    
+    init(type: PopupType, title: String, message: String? = nil) {
+        self.type = type
+        self.title = title
+        self.message = message
+    }
+    
     var leadingIcon: String {
         switch self.type {
         case .error:

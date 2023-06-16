@@ -19,7 +19,6 @@ final class ResourceViewModel: ObservableObject {
     @Published var allResources: Response.KronoxResources? = nil
     @Published var resourceBookingPageState: GenericPageStatus = .loading
     @Published var eventBookingPageState: GenericPageStatus = .loading
-    @Published var error: Response.ErrorMessage? = nil
     @Published var selectedPickerDate: Date = .now
     
     @Published var authSchoolId: Int = -1
@@ -127,8 +126,8 @@ final class ResourceViewModel: ObservableObject {
                 self.allResources = resources
                 self.resourceBookingPageState = .loaded
             }
-        } catch (let error) {
-            AppLogger.shared.debug("\(error)")
+        } catch {
+            AppLogger.shared.critical("Error: \(error)")
             DispatchQueue.main.async {
                 self.resourceBookingPageState = .error
             }

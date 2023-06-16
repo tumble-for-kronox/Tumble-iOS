@@ -17,10 +17,10 @@ struct WideAnimatedButtonStyle: ButtonStyle {
     
     func makeBody(configuration: Self.Configuration) -> some View {
         configuration.label
-            .padding(10)
+            .padding(15)
             .frame(maxWidth: .infinity, alignment: .center)
             .background(color)
-            .cornerRadius(10)
+            .cornerRadius(15)
             .scaleEffect(configuration.isPressed ? 0.9 : 1)
             .animation(.easeOut(duration: 0.2), value: configuration.isPressed)
     }

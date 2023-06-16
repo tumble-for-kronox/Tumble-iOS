@@ -16,13 +16,13 @@ struct LoginButton: View {
         Button(action: login, label: {
             HStack {
                 Text(NSLocalizedString("Log in", comment: ""))
-                    .font(.system(size: 16, weight: .semibold))
+                    .font(.system(size: 18, weight: .semibold))
                     .foregroundColor(.onPrimary)
             }
         })
         .disabled(emptyCredentials())
         .buttonStyle(WideAnimatedButtonStyle())
-        .padding(.top, 25)
+        .padding(.top, 35)
         .ignoresSafeArea(.keyboard)
     }
     

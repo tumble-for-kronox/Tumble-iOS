@@ -44,7 +44,7 @@ actor KeyChainManager {
         // Delete item from keychain
         let status = SecItemDelete(query)
         
-        guard status == errSecSuccess else {
+        guard status == errSecSuccess || status == errSecItemNotFound else {
             throw Error.internal(reason: "Failed to delete keychain item")
         }
         

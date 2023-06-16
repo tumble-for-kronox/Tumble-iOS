@@ -9,7 +9,7 @@ import SwiftUI
 
 struct TodaysEventsCarousel: View {
     @Binding var swipedCards: Int
-    @Binding var weekEventCards: [DayEventCardModel]
+    @Binding var weekEventCards: [WeekEventCardModel]
     
     var body: some View {
         ZStack {
@@ -56,7 +56,8 @@ struct TodaysEventsCarousel: View {
                     .clipShape(Circle())
                 
             })
-            .buttonStyle(AnimatedButtonStyle())
+            .buttonStyle(AnimatedButtonStyle(applyCornerRadius: true))
+            .cornerRadius(15)
         }
         .padding(.top, 10)
     }
@@ -94,7 +95,7 @@ struct TodaysEventsCarousel: View {
 private struct CarouselCard: View {
     let event: Event
     let index: Int
-    let eventsForToday: [DayEventCardModel]
+    let eventsForToday: [WeekEventCardModel]
     @Binding var swipedCards: Int
     
     var body: some View {

@@ -13,40 +13,49 @@ struct Home: View {
     @ObservedObject var parentViewModel: ParentViewModel
     @ObservedResults(Schedule.self, configuration: realmConfig) var schedules
     
-    @Binding var selectedAppTab: TabbarTabType
+    @ObservedObject var appController: AppController = .shared
     @State private var showSheet: Bool = false
     
     var body: some View {
-        VStack {
-            if viewModel.newsSectionStatus == .loaded {
-                News(news: viewModel.news?.pick(length: 4), showOverlay: $showSheet)
-            }
-            Spacer()
-            VStack(alignment: .leading) {
-                switch viewModel.status {
-                case .available:
-                    HomeAvailable(
-                        eventsForToday: $viewModel.todaysEventsCards,
-                        nextClass: viewModel.nextClass,
-                        swipedCards: $viewModel.swipedCards
-                    )
-                case .loading:
-                    CustomProgressIndicator()
-                case .noBookmarks:
-                    HomeNoBookmarks()
-                case .notAvailable:
-                    HomeNotAvailable()
-                case .error:
-                    Info(title: NSLocalizedString("Something went wrong", comment: ""), image: nil)
+        
+        NavigationView {
+            VStack {
+                if viewModel.newsSectionStatus == .loaded {
+                    News(news: viewModel.news?.pick(length: 4), showOverlay: $showSheet)
                 }
+                Spacer()
+                VStack(alignment: .leading) {
+                    switch viewModel.status {
+                    case .available:
+                        HomeAvailable(
+                            eventsForToday: $viewModel.todaysEventsCards,
+                            nextClass: viewModel.nextClass,
+                            swipedCards: $viewModel.swipedCards
+                        )
+                    case .loading:
+                        CustomProgressIndicator()
+                    case .noBookmarks:
+                        HomeNoBookmarks()
+                    case .notAvailable:
+                        HomeNotAvailable()
+                    case .error:
+                        Info(title: NSLocalizedString("Something went wrong", comment: ""), image: nil)
+                    }
+                }
+                Spacer()
             }
-            Spacer()
+            .padding(.horizontal, 15)
+            .padding(.top, 10)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(Color.background)
+            .padding(.bottom, -10)
+            .sheet(isPresented: $showSheet, content: { NewsSheet(news: viewModel.news) })
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationTitle(NSLocalizedString("Home", comment: ""))
         }
-        .padding(.horizontal, 15)
-        .padding(.top, 10)
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color.background)
-        .padding(.bottom, -10)
-        .sheet(isPresented: $showSheet, content: { NewsSheet(news: viewModel.news) })
+        .tabItem {
+            TabItem(appTab: TabbarTabType.home, selectedAppTab: $appController.selectedAppTab)
+        }
+        .tag(TabbarTabType.home)
     }
 }

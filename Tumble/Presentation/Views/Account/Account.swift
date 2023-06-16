@@ -9,22 +9,40 @@ import SwiftUI
 
 struct Account: View {
     @ObservedObject var viewModel: AccountViewModel
+    @ObservedObject var appController: AppController = .shared
         
     var body: some View {
-        VStack(alignment: .center) {
-            switch viewModel.status {
-            case .authenticated:
-                UserOverview(viewModel: viewModel)
-            case .unAuthenticated:
-                AccountLogin(viewModel: viewModel)
-            case .loading:
-                InfoLoading(title: NSLocalizedString("Attempting to log in user", comment: ""))
-            case .error:
-                Info(title: NSLocalizedString("Something went wrong", comment: ""), image: nil)
+        NavigationView {
+            VStack(alignment: .center) {
+                switch viewModel.status {
+                case .authenticated:
+                    UserOverview(viewModel: viewModel)
+                case .unAuthenticated:
+                    AccountLogin()
+                case .error:
+                    Info(title: NSLocalizedString("Something went wrong", comment: ""), image: nil)
+                }
             }
+            .frame(maxHeight: .infinity)
+            .ignoresSafeArea(.keyboard)
+            .padding(.bottom, -10)
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationTitle(NSLocalizedString("Account", comment: ""))
+            .navigationBarItems(trailing: HStack {
+                if viewModel.status == .authenticated {
+                    SignOutButton(signOut: {
+                        Task {
+                            await viewModel.logOut()
+                        }
+                    })
+                }
+                SettingsButton()
+            })
+            
         }
-        .frame(maxHeight: .infinity)
-        .ignoresSafeArea(.keyboard)
-        .padding(.bottom, -10)
+        .tabItem {
+            TabItem(appTab: TabbarTabType.account, selectedAppTab: $appController.selectedAppTab)
+        }
+        .tag(TabbarTabType.account)
     }
 }

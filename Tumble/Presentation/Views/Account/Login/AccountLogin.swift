@@ -12,23 +12,22 @@ enum FocusedField {
 }
 
 struct AccountLogin: View {
-    @ObservedObject var viewModel: AccountViewModel
+    @ObservedObject var viewModel: LoginViewModel = .init()
     @ObservedObject var appController: AppController = .shared
     
     @State private var username: String = ""
     @State private var password: String = ""
     @State private var visiblePassword: Bool = false
     @State private var selectedSchool: School? = nil
-    @State private var blurSelection: Bool = true
-        
+    
     var body: some View {
         GeometryReader { _ in
-            VStack(spacing: 30) {
+            VStack {
                 LoginHeader()
                 VStack {
                     HStack {
-                        Spacer()
                         schoolSelectionMenu
+                        Spacer()
                     }
                     .frame(maxWidth: .infinity)
                     .padding(.bottom, 20)
@@ -36,30 +35,29 @@ struct AccountLogin: View {
                         UsernameField(username: $username)
                         PasswordField(password: $password, visiblePassword: $visiblePassword)
                     }
-                    .disabled(blurSelection)
-                    .blur(radius: blurSelection ? 2.5 : 0)
                 }
-                LoginButton(login: login, username: $username, password: $password)
-                    .disabled(blurSelection)
-                    .blur(radius: blurSelection ? 2.5 : 0)
+                if viewModel.attemptingLogin {
+                    CustomProgressIndicator()
+                        .padding(.top, 35)
+                } else {
+                    LoginButton(login: login, username: $username, password: $password)
+                }
                 Spacer()
             }
             .ignoresSafeArea(.keyboard)
             .padding(.horizontal, 20)
-            .padding(.top, 10)
+            .padding(.top, 35)
+            .frame(alignment: .center)
         }
         .background(Color.background)
     }
     
     var schoolSelectionMenu: some View {
         Menu {
-            ForEach(viewModel.schoolManager.getSchools(), id: \.self) { school in
+            ForEach(viewModel.schools, id: \.self) { school in
                 Button(action: {
                     selectedSchool = school
                     setSchoolForAuth()
-                    withAnimation(.easeIn) {
-                        blurSelection = false
-                    }
                 }, label: {
                     HStack {
                         Text(school.name)
@@ -75,7 +73,7 @@ struct AccountLogin: View {
             }
         } label: {
             HStack {
-                Image(systemName: "plus")
+                Image(systemName: "chevron.up.chevron.down")
                     .font(.system(size: 14, weight: .semibold))
                     .foregroundColor(.primary)
                 Text(selectedSchool?.name ?? NSLocalizedString("Select university", comment: ""))
@@ -93,6 +91,8 @@ struct AccountLogin: View {
                     password: password
                 )
             }
+        } else { /// No school selected, invalid
+            AppController.shared.popup = PopupFactory.shared.loginRequiresSchool()
         }
     }
     
