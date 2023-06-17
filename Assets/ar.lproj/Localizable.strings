@@ -6,6 +6,10 @@
   
 */
 
+"No university selected"="لم يتم اختيار جامعة";
+
+"You must select a university before logging in"="يجب عليك اختيار جامعة قبل تسجيل الدخول";
+
 "Share the app"="شارك التطبيق";
 
 "Copy link"="نسخ الرابط";

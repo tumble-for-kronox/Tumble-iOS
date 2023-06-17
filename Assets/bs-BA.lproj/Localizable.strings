@@ -6,6 +6,10 @@
   
 */
 
+"No university selected"="Univerzitet nije odabran";
+
+"You must select a university before logging in"="Morate odabrati univerzitet prije prijave";
+
 "Share the app"="Podijeli aplikaciju";
 
 "Copy link"="Kopiraj link";
