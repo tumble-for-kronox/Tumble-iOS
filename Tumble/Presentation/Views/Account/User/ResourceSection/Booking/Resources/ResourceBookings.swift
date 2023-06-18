@@ -36,7 +36,7 @@ struct ResourceBookings: View {
                     )
                 case .error:
                     VStack {
-                        if isDateWeekend() {
+                        if isDateWeekend(for: viewModel.selectedPickerDate) {
                             Info(title: NSLocalizedString("No rooms available on weekends", comment: ""), image: "moon.zzz")
                         } else {
                             Info(title: NSLocalizedString("Could not contact the server, try again later", comment: ""), image: "arrow.clockwise")
@@ -62,16 +62,6 @@ struct ResourceBookings: View {
                 await viewModel.getAllResourceData(date: viewModel.selectedPickerDate)
             }
         }
-        .onChange(of: viewModel.selectedPickerDate, perform: { _ in
-            Task {
-                await viewModel.getAllResourceData(date: viewModel.selectedPickerDate)
-            }
-        })
     }
-    
-    func isDateWeekend() -> Bool {
-        let now = Date.now
-        let day = now.get(.weekday) - 1
-        return day == 6 || day == 7
-    }
+
 }

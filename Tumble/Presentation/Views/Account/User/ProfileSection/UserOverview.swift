@@ -27,7 +27,7 @@ struct UserOverview: View {
                             Text(username)
                                 .font(.system(size: 16, weight: .regular))
                             Text(viewModel.schoolName)
-                                .font(.system(size: 16, weight: .regular))
+                                .font(.system(size: 14, weight: .semibold))
                                 .padding(.top, 10)
                         }
                     }

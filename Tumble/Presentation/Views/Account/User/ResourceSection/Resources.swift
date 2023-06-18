@@ -162,7 +162,7 @@ struct Resources: View {
             DispatchQueue.main.async {
                 if result {
                     AppController.shared.popup = popupFactory.unBookedResourceSuccess()
-                    parentViewModel.removeUserBooking(where: bookingId)
+                    parentViewModel.removeCachedUserBooking(where: bookingId)
                 } else {
                     AppController.shared.popup = popupFactory.unBookedResourceFailed()
                 }

@@ -22,7 +22,7 @@ final class EventDetailsSheetViewModel: ObservableObject {
     @Published var notificationOffset: Int = 60
     @Published var notificationsAllowed: Bool = false
     
-    var oldColor: Color
+    private let oldColor: Color
         
     init(event: Event) {
         self.event = event
@@ -124,8 +124,8 @@ final class EventDetailsSheetViewModel: ObservableObject {
         }
     }
     
-    @MainActor
-    func applyNotificationForScheduleEventsInCourse(events: [Event]) async throws -> Bool {
+    
+    @MainActor func applyNotificationForScheduleEventsInCourse(events: [Event]) async throws -> Bool {
         for event in events {
             if let notification = notificationManager.createNotificationFromEvent(event: event) {
                 try await notificationManager.scheduleNotification(
@@ -142,8 +142,8 @@ final class EventDetailsSheetViewModel: ObservableObject {
         return true
     }
 
-    @MainActor
-    func checkNotificationIsSetForCourse() {
+    
+    @MainActor func checkNotificationIsSetForCourse() {
         if let course = event.course {
             let courseId = course.courseId
             Task {
@@ -155,8 +155,8 @@ final class EventDetailsSheetViewModel: ObservableObject {
         }
     }
     
-    @MainActor
-    func checkNotificationIsSetForEvent() {
+    
+    @MainActor func checkNotificationIsSetForEvent() {
         let eventId = event.eventId
         Task {
             let result = await notificationManager.isNotificationScheduled(eventId: eventId)

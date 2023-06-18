@@ -114,9 +114,6 @@ final class SearchPreviewViewModel: ObservableObject {
             }
         }
     }
-}
-
-extension SearchPreviewViewModel {
     
     // Checks if a schedule based on its programme Id is already in the
     // local storage. if it is, we set the preview button for favoriting
