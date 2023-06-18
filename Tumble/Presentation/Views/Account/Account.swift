@@ -8,19 +8,18 @@
 import SwiftUI
 
 struct Account: View {
+    
     @ObservedObject var viewModel: AccountViewModel
     @ObservedObject var appController: AppController = .shared
         
     var body: some View {
         NavigationView {
             VStack(alignment: .center) {
-                switch viewModel.status {
-                case .authenticated:
+                switch viewModel.authStatus {
+                case .authorized:
                     UserOverview(viewModel: viewModel)
-                case .unAuthenticated:
+                case .unAuthorized:
                     AccountLogin()
-                case .error:
-                    Info(title: NSLocalizedString("Something went wrong", comment: ""), image: nil)
                 }
             }
             .frame(maxHeight: .infinity)
@@ -29,7 +28,7 @@ struct Account: View {
             .navigationBarTitleDisplayMode(.inline)
             .navigationTitle(NSLocalizedString("Account", comment: ""))
             .navigationBarItems(trailing: HStack {
-                if viewModel.status == .authenticated {
+                if viewModel.authStatus == .authorized {
                     SignOutButton(signOut: {
                         Task {
                             await viewModel.logOut()

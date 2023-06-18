@@ -8,6 +8,9 @@
 import Combine
 import Foundation
 
+/// ViewModel in charge of handling any bookings or
+/// confirmation for a specific users available Events or
+/// Resources for their specific account and school.
 final class ResourceViewModel: ObservableObject {
     @Inject var userController: UserController
     @Inject var kronoxManager: KronoxManager
@@ -19,31 +22,37 @@ final class ResourceViewModel: ObservableObject {
     @Published var allResources: Response.KronoxResources? = nil
     @Published var resourceBookingPageState: GenericPageStatus = .loading
     @Published var eventBookingPageState: GenericPageStatus = .loading
-    @Published var selectedPickerDate: Date = .now
-    
-    @Published var authSchoolId: Int = -1
-    private var allResourcesDataTask: URLSessionDataTask? = nil
-    private var cancellables = Set<AnyCancellable>()
-    
-    init() {
-        initialisePipelines()
-    }
-    
-    func initialisePipelines() {
-        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-            guard let self else { return }
-            self.preferenceService.$authSchoolId
-                .assign(to: \.authSchoolId, on: self)
-                .store(in: &self.cancellables)
+    @Published private var getBookingsTask: Task<Void, Never>? = nil
+    @Published var selectedPickerDate: Date = .now {
+        willSet {
+            willSetBookingDate(for: newValue)
         }
     }
     
+    lazy var authSchoolId: Int = preferenceService.authSchoolId
+    
+    /// When a user presses a date in the `ResourceDatePicker`
+    /// and waits for any available resources for this date
+    func willSetBookingDate(for newDate: Date) {
+        if isDateWeekend(for: newDate) {
+            DispatchQueue.main.async {
+                self.resourceBookingPageState = .error
+                self.getBookingsTask?.cancel()
+            }
+        } else {
+            getBookingsTask = Task {
+                await getAllResourceData(date: selectedPickerDate)
+            }
+        }
+    }
+
+    /// Retrieves the available user events that are viewed in the
+    /// `EventBookings` view
     func getUserEventsForPage() async {
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
             self.eventBookingPageState = .loading
         }
-        
         do {
             let request = Endpoint.userEvents(schoolId: String(authSchoolId))
             guard let refreshToken = userController.refreshToken else {
@@ -56,14 +65,16 @@ final class ResourceViewModel: ObservableObject {
                 self.completeUserEvent = events
                 self.eventBookingPageState = .loaded
             }
-        } catch (let error) {
-            AppLogger.shared.debug("\(error)")
+        } catch {
+            AppLogger.shared.critical("\(error)")
             DispatchQueue.main.async {
                 self.eventBookingPageState = .error
             }
         }
     }
     
+    /// Attempts to register the user for the specified event
+    /// through its `.eventId` parameter.
     func registerForEvent(eventId: String) async {
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
@@ -80,11 +91,13 @@ final class ResourceViewModel: ObservableObject {
                     request,
                     refreshToken: refreshToken.value,
                     body: Request.Empty())
-        } catch (let error) {
-            AppLogger.shared.debug("\(error)")
+        } catch {
+            AppLogger.shared.critical("\(error)")
         }
     }
     
+    /// Attempts to unregister the user for the specified event
+    /// through its `.eventId` parameter.
     func unregisterForEvent(eventId: String) async {
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
@@ -101,14 +114,16 @@ final class ResourceViewModel: ObservableObject {
                 refreshToken: refreshToken.value,
                 body: Request.Empty())
             
-        } catch (let error) {
-            AppLogger.shared.debug("\(error)")
+        } catch {
+            AppLogger.shared.critical("\(error)")
             DispatchQueue.main.async {
                 self.eventBookingPageState = .error
             }
         }
     }
     
+    /// Retrieves any available booking data for a specific date
+    /// triggered by the change of `selectedPickerDate`
     func getAllResourceData(date: Date) async {
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
@@ -126,7 +141,7 @@ final class ResourceViewModel: ObservableObject {
                 self.allResources = resources
                 self.resourceBookingPageState = .loaded
             }
-        } catch {
+        } catch { /// Catches CancellationError as well, if task is cancelled due to date change
             AppLogger.shared.critical("Error: \(error)")
             DispatchQueue.main.async {
                 self.resourceBookingPageState = .error
@@ -134,6 +149,9 @@ final class ResourceViewModel: ObservableObject {
         }
     }
     
+    /// Confirms the booked resource (room booking) for the user,
+    /// which is found in the list of their currently booked resources in
+    /// the `Resources` view.
     func confirmResource(resourceId: String, bookingId: String) async {
         do {
             let request = Endpoint.confirmResource(schoolId: String(authSchoolId))
@@ -146,11 +164,14 @@ final class ResourceViewModel: ObservableObject {
             }
             let _ : Response.Empty = try await kronoxManager.put(
                 request, refreshToken: refreshToken.value, body: requestBody)
-        } catch (let error) {
+        } catch {
             AppLogger.shared.critical("Failed to confirm resource: \(error)")
         }
     }
     
+    /// Attempts to book a resource found in the `TimeslotSelection` view,
+    /// once the user has successfully chosen a valid date to book resources.
+    /// Booking is done through the `.resourceId` parameter on the booking object.
     func bookResource(
         resourceId: String,
         date: Date,
@@ -175,6 +196,8 @@ final class ResourceViewModel: ObservableObject {
         return true
     }
     
+    /// Attempts to unbook a resource found in the `Resources` view.
+    /// Unbooking is done through the `.bookingId` parameter on the booking object.
     func unbookResource(bookingId: String) async -> Bool {
         do {
             let request: Endpoint = .unbookResource(schoolId: String(authSchoolId), bookingId: bookingId)
@@ -185,7 +208,7 @@ final class ResourceViewModel: ObservableObject {
                 request, refreshToken: refreshToken.value, body: Request.Empty())
             AppLogger.shared.debug("Unbooked resource")
             self.notificationManager.cancelNotification(for: bookingId)
-        } catch (let error) {
+        } catch {
             AppLogger.shared.critical("Failed to unbook resource: \(bookingId)\nError: \(error)")
             return false
         }

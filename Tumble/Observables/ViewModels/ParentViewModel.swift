@@ -10,7 +10,8 @@ import Foundation
 import RealmSwift
 import SwiftUI
 
-/// Also acts as container for other viewmodels
+/// ViewModel responsible for performing any startup code,
+/// as well as instantiating any other child viewmodels
 final class ParentViewModel: ObservableObject {
     var viewModelFactory: ViewModelFactory = .shared
     
@@ -23,23 +24,26 @@ final class ParentViewModel: ObservableObject {
     lazy var bookmarksViewModel: BookmarksViewModel = viewModelFactory.makeViewModelBookmarks()
     lazy var searchViewModel: SearchViewModel = viewModelFactory.makeViewModelSearch()
     lazy var settingsViewModel: SettingsViewModel = viewModelFactory.makeViewModelSettings()
+    lazy var accountPageViewModel: AccountViewModel = ViewModelFactory.shared.makeViewModelAccount()
     
-    let accountPageViewModel: AccountViewModel = ViewModelFactory.shared.makeViewModelAccount()
     let popupFactory: PopupFactory = PopupFactory.shared
     
     @Published var authSchoolId: Int = -1
     @Published var userNotOnBoarded: Bool = false
         
-    private var updatedDuringSession: Bool = false
+    private var updatedDuringSession: Bool = false /// Flag checking whether schedules have been attempted to update
     private var schedulesToken: NotificationToken? = nil
     private var cancellables = Set<AnyCancellable>()
     
     init() {
         setupNotificationObserver()
         setupPublishers()
-        setupRealmListener()
+        updateRealmSchedules()
     }
     
+    /// Creates an observer to listen for the press of a local
+    /// notification outside the app, which will then open the respective
+    /// event as soon as the user is transferred to the app.
     private func setupNotificationObserver() {
         NotificationCenter.default
             .addObserver(
@@ -50,6 +54,7 @@ final class ParentViewModel: ObservableObject {
             )
     }
     
+    /// Opens a specific `Event` sheet from a local notification
     @objc private func handleEventNotification(_ notification: Notification) {
         if let event = notification.object as? Event {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
@@ -59,6 +64,8 @@ final class ParentViewModel: ObservableObject {
         }
     }
     
+    /// Initializes any data publishers in order to register changes to comonly
+    /// used variables across the app
     private func setupPublishers() {
         let authSchoolIdPublisher = preferenceService.$authSchoolId.receive(on: RunLoop.main)
         let onBoardingPublisher = preferenceService.$userOnBoarded.receive(on: RunLoop.main)
@@ -71,31 +78,26 @@ final class ParentViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     
-    private func setupRealmListener() {
+    /// Updates any Realm schedules stored locally
+    private func updateRealmSchedules() {
         let schedules = realmManager.getAllLiveSchedules()
-        schedulesToken = schedules.observe { [weak self] changes in
-            guard let self = self else { return }
-            switch changes {
-            case .initial(let results), .update(let results, _, _, _):
-                if !results.isEmpty && !self.updatedDuringSession {
-                    let scheduleIds = Array(results).map { $0.scheduleId }
-                    Task {
-                        await self.updateBookmarks(scheduleIds: scheduleIds)
-                    }
-                }
-            case .error:
-                fatalError()
+        if !schedules.isEmpty && !self.updatedDuringSession {
+            let scheduleIds = Array(schedules).map { $0.scheduleId }
+            Task {
+                await self.updateBookmarks(scheduleIds: scheduleIds)
             }
         }
     }
 
-    
+    /// Toggles the onboarding preference parameter
     func finishOnboarding() {
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             self?.preferenceService.setUserOnboarded()
         }
     }
     
+    /// Attempts to update the locally stored schedules
+    /// by retrieving all the schedules from the Tumble backend.
     @MainActor
     func updateBookmarks(scheduleIds: [String]) async {
         defer { self.updatedDuringSession = true } /// Always claim update during startup, even if failed
@@ -126,14 +128,15 @@ final class ParentViewModel: ObservableObject {
     }
 
 
-
+    /// Checks if a requested update for a school is valid, since some
+    /// schools require authorization for viewing and fetching schedules
     func validUpdateRequest(schedule: Schedule) -> Bool {
         let validRequest: Bool = (schedule.requiresAuth && String(authSchoolId) == schedule.schoolId) || !schedule.requiresAuth
         return validRequest
     }
     
-    @MainActor
-    func updateSchedule(
+    /// Updates an individual schedule and its course colors.
+    @MainActor func updateSchedule(
         schedule: Response.Schedule,
         schoolId: String,
         existingSchedule: Schedule
@@ -151,6 +154,7 @@ final class ParentViewModel: ObservableObject {
     /// Cleanup
     deinit {
         NotificationCenter.default.removeObserver(self)
+        cancellables.forEach { $0.cancel() }
     }
 
 }

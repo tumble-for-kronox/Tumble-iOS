@@ -188,6 +188,7 @@ private extension NotificationManager {
         let content = UNMutableNotificationContent()
         content.title = "Booking confirmation"
         content.subtitle = "A booking needs to be confirmed"
+        content.categoryIdentifier = "Booking"
         content.sound = .default
         content.badge = 1
         let trigger = UNCalendarNotificationTrigger(dateMatching: notification.dateComponents, repeats: false)

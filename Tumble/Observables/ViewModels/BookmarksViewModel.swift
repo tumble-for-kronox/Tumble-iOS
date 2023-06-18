@@ -43,16 +43,21 @@ final class BookmarksViewModel: ObservableObject {
         }
     }
     
+    /// Instantiates viewmodel for viewing a specific `Event` object
     func createViewModelEventSheet(event: Event) -> EventDetailsSheetViewModel {
         return viewModelFactory.makeViewModelEventDetailsSheet(event: event)
     }
     
+    /// Whenever the user changes the bookmark viewtype `[.list, .calendar, .week]`,
+    /// this function stores it in `UserDefaults` and updates the local state
     func onChangeViewType(viewType: ViewType) {
         let viewTypeIndex: Int = scheduleViewTypes.firstIndex(of: viewType)!
         preferenceService.setViewType(viewType: viewTypeIndex)
         defaultViewType = viewType
     }
     
+    /// Creates any calendar and list events, parsing through the schedules that
+    /// should not be visible or any schedules that have missing events
     func createDaysAndCalendarEvents(schedules: [Schedule]) {
         
         DispatchQueue.main.async { [weak self] in
@@ -110,10 +115,12 @@ final class BookmarksViewModel: ObservableObject {
         }
     }
     
+    /// Checks if all schedules the user has bookmarked are toggled as `False`
     private func allSchedulesHidden(schedules: [Schedule]) -> Bool {
         return schedules.filter({ $0.toggled }).isEmpty
     }
     
+    /// Creates events for the `.calendar` viewtype
     private func makeCalendarEvents(days: [Day]) -> [Date: [Event]] {
         var dict = [Date: [Event]]()
         for day in days {

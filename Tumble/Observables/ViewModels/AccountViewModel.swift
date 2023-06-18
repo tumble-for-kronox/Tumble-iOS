@@ -20,9 +20,8 @@ final class AccountViewModel: ObservableObject {
     @Inject var preferenceService: PreferenceService
     @Inject var schoolManager: SchoolManager
     
-    @Published var authSchoolId: Int = -1
     @Published var schoolName: String = ""
-    @Published var status: AccountViewStatus = .unAuthenticated
+    @Published var authStatus: AuthStatus = .unAuthorized
     @Published var completeUserEvent: Response.KronoxCompleteUserEvent? = nil
     @Published var userBookings: Response.KronoxUserBookings? = nil
     @Published var registeredEventSectionState: GenericPageStatus = .loading
@@ -34,6 +33,7 @@ final class AccountViewModel: ObservableObject {
     private var resourceSectionDataTask: URLSessionDataTask? = nil
     private var eventSectionDataTask: URLSessionDataTask? = nil
     private let popupFactory: PopupFactory = PopupFactory.shared
+    private lazy var authSchoolId: Int = preferenceService.authSchoolId
     
     var userDisplayName: String? {
         return userController.user?.name
@@ -50,10 +50,11 @@ final class AccountViewModel: ObservableObject {
     /// AccountViewModel is responsible for instantiating
     /// the viewmodel used in its child views it navigates to
     lazy var resourceViewModel: ResourceViewModel = viewModelFactory.makeViewModelResource()
-    private var cancellables = Set<AnyCancellable>()
+    private var cancellable: AnyCancellable? = nil
     
     init() {
-        setUpDataPublishers()
+        setupPublishers()
+        schoolName = schoolManager.getSchools().first(where: { $0.id == authSchoolId})?.name ?? ""
         Task {
             if self.userController.autoSignup {
                 await self.registerAutoSignup()
@@ -61,33 +62,18 @@ final class AccountViewModel: ObservableObject {
         }
     }
     
-    private func setUpDataPublishers() {
-        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-            guard let self else { return }
-            let authStatusPublisher = self.userController.$authStatus.receive(on: RunLoop.main)
-            let schoolIdPublisher = self.preferenceService.$authSchoolId.receive(on: RunLoop.main)
-            
-            Publishers.CombineLatest(authStatusPublisher, schoolIdPublisher)
-                .sink { authStatus, authSchoolId in
-                    switch authStatus {
-                    case .authorized:
-                        self.authSchoolId = authSchoolId
-                        self.schoolName = self.schoolManager
-                            .getSchools().first(where: { $0.id == authSchoolId })?.name ?? ""
-                        Task {
-                            await self.getUserEventsForSection()
-                            await self.getUserBookingsForSection()
-                        }
-                        self.status = .authenticated
-                    case .unAuthorized:
-                        self.status = .unAuthenticated
-                    }
-                }
-                .store(in: &self.cancellables)
+    private func setupPublishers() {
+        let authStatusPublisher = userController.$authStatus.receive(on: RunLoop.main)
+        cancellable = authStatusPublisher.sink { [weak self] authStatus in
+            DispatchQueue.main.async {
+                self?.authStatus = authStatus
+            }
         }
     }
     
-    func removeUserBooking(where id: String) {
+    /// Removes a users resource booking in the locally cached
+    /// version. The actual network request is done in `ResourceViewModel`
+    func removeCachedUserBooking(where id: String) {
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
             self.notificationManager.cancelNotification(for: id)
@@ -95,20 +81,20 @@ final class AccountViewModel: ObservableObject {
         }
     }
     
-    // This is a caching approach to avoid a network call after user
-    // unregisters for an event in account page, and instead modify it in place,
-    // since network errors can occur.
-    func removeUserEvent(where id: String) {
+    /// Caching approach to avoid a network call after user
+    /// unregisters for an event in account page, and instead modify it in place,
+    /// since network errors can occur.
+    func removeUserEvent(for id: String) {
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             guard let self else { return }
             if var mutRegisteredEvents = self.completeUserEvent?.registeredEvents,
                var mutUnregisteredEvents = self.completeUserEvent?.unregisteredEvents
             {
-                // Find subject in current struct
+                /// Find subject in current struct
                 let eventRemoved = mutRegisteredEvents.first {
                     $0.eventId == id
                 }
-                // Add to new array
+                /// Add to new array
                 if let eventRemoved = eventRemoved {
                     mutUnregisteredEvents.append(eventRemoved)
                 }
@@ -128,9 +114,13 @@ final class AccountViewModel: ObservableObject {
         }
     }
     
+    /// Logs current user out, delegating work to
+    /// `UserController`. Also cancels any created notifications
+    /// that were done when any bookings were created.
     func logOut() async {
         do {
             try await userController.logOut()
+            await notificationManager.cancelNotifications(with: "Booking")
         } catch {
             AppLogger.shared.critical("Failed to log out user: \(error)")
             DispatchQueue.main.async { [weak self] in
@@ -139,7 +129,7 @@ final class AccountViewModel: ObservableObject {
         }
     }
     
-    // Retrieve user events for resource section
+    /// Retrieves user events for resource section in `UserOverview`
     func getUserEventsForSection() async {
         DispatchQueue.main.async { [weak self] in
             self?.registeredEventSectionState = .loading
@@ -158,14 +148,15 @@ final class AccountViewModel: ObservableObject {
                 self?.completeUserEvent = events
                 self?.registeredEventSectionState = .loaded
             }
-        } catch (let error) {
+        } catch {
             AppLogger.shared.critical("Could not get user events: \(error)")
             DispatchQueue.main.async { [weak self] in
                 self?.registeredEventSectionState = .error
             }
         }
     }
-
+    
+    /// Retrieves user bookings for resource section in `UserOverview`
     func getUserBookingsForSection() async {
         DispatchQueue.main.async {
             self.bookingSectionState = .loading
@@ -185,7 +176,7 @@ final class AccountViewModel: ObservableObject {
                 self.userBookings = bookings
             }
             await self.checkNotificationsForUserBookings(bookings: bookings)
-        } catch (let error) {
+        } catch {
             AppLogger.shared.debug("\(error)")
             DispatchQueue.main.async {
                 self.bookingSectionState = .error
@@ -193,6 +184,8 @@ final class AccountViewModel: ObservableObject {
         }
     }
     
+    /// Removes a registered event from the users account,
+    /// as well as the locally stored object
     func unregisterForEvent(eventId: String) async {
         do {
             let request = Endpoint.unregisterEvent(eventId: eventId, schoolId: String(authSchoolId))
@@ -203,10 +196,11 @@ final class AccountViewModel: ObservableObject {
                 return
             }
             let _ : Response.Empty = try await kronoxManager.put(request, refreshToken: refreshToken.value, body: Request.Empty())
+            self.removeUserEvent(for: eventId)
             DispatchQueue.main.async {
                 self.registeredEventSectionState = .loaded
             }
-        } catch (let error) {
+        } catch {
             AppLogger.shared.critical("Failed to unregister from event: \(error)")
             // TODO: Add toast
             DispatchQueue.main.async {
@@ -215,6 +209,8 @@ final class AccountViewModel: ObservableObject {
         }
     }
     
+    /// Registers the user for automatic event/exam signup,
+    /// and attempts to sign up for any currently available exams/events
     func toggleAutoSignup(value: Bool) {
         userController.autoSignup = value
         if value {
@@ -225,6 +221,8 @@ final class AccountViewModel: ObservableObject {
         }
     }
     
+    /// Decides if there are any user bookings for the current user, and if so attempts
+    /// to schedule any confirmation notifications for those bookings
     func checkNotificationsForUserBookings(bookings: Response.KronoxUserBookings? = nil) async {
         AppLogger.shared.debug("Checking for notifications to set for user booked resources ...")
         if let userBookings = bookings {
@@ -246,7 +244,7 @@ final class AccountViewModel: ObservableObject {
             Task {
                 await self.scheduleBookingNotifications(for: bookings)
             }
-        } catch (let error) {
+        } catch {
             AppLogger.shared.debug("\(error)")
             DispatchQueue.main.async {
                 self.bookingSectionState = .error
@@ -254,6 +252,7 @@ final class AccountViewModel: ObservableObject {
         }
     }
     
+    /// Schedules notifications for the given bookings
     func scheduleBookingNotifications(for bookings: Response.KronoxUserBookings) async {
         for booking in bookings {
             if let notification = notificationManager.createNotificationFromBooking(booking: booking) {
@@ -273,7 +272,7 @@ final class AccountViewModel: ObservableObject {
         }
     }
 
-    
+    /// Registers for any available events through auto signup
     func registerAutoSignup() async {
         AppLogger.shared.debug("Attempting to automatically sign up for exams")
         do {
@@ -284,8 +283,9 @@ final class AccountViewModel: ObservableObject {
             }
             let _: Response.KronoxEventRegistration?
                 = try await kronoxManager.put(request, refreshToken: refreshToken.value, body: Request.Empty())
-        } catch (let error) {
+        } catch {
             AppLogger.shared.critical("Failed to sign up for exams: \(error)")
         }
     }
+    
 }

@@ -26,11 +26,13 @@ final class HomeViewModel: ObservableObject {
     
     init() {
         setupRealmListener()
-        Task.detached(priority: .background) { [weak self] in
+        Task.detached(priority: .userInitiated) { [weak self] in
             await self?.fetchNews()
         }
     }
     
+    /// Initializes a listener that performs updates on the
+    /// visible cards and next upcoming event in the `Home` view
     private func setupRealmListener() {
         let schedules = realmManager.getAllLiveSchedules()
         schedulesToken = schedules.observe { [weak self] changes in
@@ -45,6 +47,8 @@ final class HomeViewModel: ObservableObject {
         }
     }
     
+    /// Attempts to retrieve news items published by
+    /// our team, i.e. server updates, general updates, etc.
     private func fetchNews() async {
         DispatchQueue.main.async { [weak self] in
             self?.newsSectionStatus = .loading

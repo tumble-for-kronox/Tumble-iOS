@@ -54,7 +54,7 @@ struct Search: View {
             }
             .sheet(item: $viewModel.searchPreviewModel) { model in
                 SearchPreview(
-                    viewModel: viewModel.createSearchPreviewViewModel(),
+                    viewModel: viewModel.searchPreviewViewModel,
                     programmeId: model.scheduleId,
                     schoolId: model.schoolId
                 )
@@ -76,8 +76,8 @@ struct Search: View {
     func search() {
         if let selectedSchool = viewModel.selectedSchool, searchBoxNotEmpty() {
             viewModel.universityImage = selectedSchool.logo
-            viewModel.onSearchProgrammes(
-                searchQuery: viewModel.searchBarText,
+            viewModel.search(
+                for: viewModel.searchBarText,
                 selectedSchoolId: selectedSchool.id
             )
         }

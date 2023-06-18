@@ -13,7 +13,6 @@ import SwiftUI
 final class SettingsViewModel: ObservableObject {
     @Inject var preferenceService: PreferenceService
     @Inject var notificationManager: NotificationManager
-    @Inject var userController: UserController
     @Inject var schoolManager: SchoolManager
     @Inject var realmManager: RealmManager
     
@@ -24,47 +23,25 @@ final class SettingsViewModel: ObservableObject {
     @Published var schoolName: String = ""
     
     let popupFactory: PopupFactory = PopupFactory.shared
-    lazy var schools: [School] = schoolManager.getSchools()
-    var cancellables = Set<AnyCancellable>()
+    private lazy var schools: [School] = schoolManager.getSchools()
+    private var cancellable: AnyCancellable? = nil
     
     init() { setUpDataPublishers() }
     
     private func setUpDataPublishers() {
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             guard let self else { return }
-            let authStatusPublisher = self.userController.$authStatus
-            let schoolIdPublisher = self.preferenceService.$authSchoolId
+            let schoolIdPublisher = self.preferenceService.$authSchoolId.receive(on: RunLoop.main)
             
-            Publishers.CombineLatest(
-                schoolIdPublisher,
-                authStatusPublisher
-            )
-            .receive(on: RunLoop.main)
-            .sink { schoolId, authStatus in
-                self.authStatus = authStatus
+            self.cancellable = schoolIdPublisher.sink { schoolId in
                 self.authSchoolId = schoolId
-                self.schoolName = self.schoolManager.getSchools().first(where: { $0.id == schoolId })?.name ?? ""
+                self.schoolName = self.schools.first(where: { $0.id == schoolId })?.name ?? ""
             }
-            .store(in: &self.cancellables)
+            
         }
     }
     
-    func logOut() {
-        Task {
-            do {
-                try await userController.logOut()
-                DispatchQueue.main.async { [weak self] in
-                    AppController.shared.popup = self?.popupFactory.logOutSuccess()
-                }
-            } catch {
-                DispatchQueue.main.async { [weak self] in
-                    AppController.shared.popup = self?.popupFactory.logOutFailed()
-                }
-            }
-        }
-    }
-    
-    func removeNotificationsFor(for id: String, referencing events: [Event]) {
+    func removeNotifications(for id: String, referencing events: [Event]) {
         events.forEach { notificationManager.cancelNotification(for: $0.eventId) }
     }
     
@@ -84,7 +61,7 @@ final class SettingsViewModel: ObservableObject {
                     userOffset: newOffset
                 )
             } catch {
-                // TODO: Error handling
+                // TODO: Show toast
             }
         }
     }
@@ -123,7 +100,7 @@ final class SettingsViewModel: ObservableObject {
                 }
             } catch let failure {
                 AppLogger.shared.critical("\(failure)")
-                // TODO: Error handling
+                // TODO: Show toast
             }
         }
     }
@@ -138,7 +115,7 @@ final class SettingsViewModel: ObservableObject {
     }
     
     deinit {
-        cancellables.forEach { $0.cancel() }
+        cancellable?.cancel()
     }
 
 }

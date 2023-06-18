@@ -9,9 +9,9 @@ import Combine
 import Foundation
 import SwiftUI
 
-/// Handles state and interaction with KronoxManager
+/// ViewModel handling interaction with KronoxManager
 /// for finding schedules for specific schools
-/// and displaying search results
+/// and displaying search results.
 final class SearchViewModel: ObservableObject {
     let viewModelFactory: ViewModelFactory = .shared
     
@@ -31,19 +31,18 @@ final class SearchViewModel: ObservableObject {
     @Published var searchBarText: String = ""
     
     lazy var schools: [School] = schoolManager.getSchools()
+    lazy var searchPreviewViewModel: SearchPreviewViewModel = viewModelFactory.makeViewModelSearchPreview()
     
-    func createSearchPreviewViewModel() -> SearchPreviewViewModel {
-        viewModelFactory.makeViewModelSearchPreview()
-    }
-    
-    func onSearchProgrammes(searchQuery: String, selectedSchoolId: Int) {
+    /// Searches for the input given by the user and attempts
+    /// to find matching university programmes and schedules
+    func search(for query: String, selectedSchoolId: Int) {
         self.status = .loading
-        let endpoint = Endpoint.searchProgramme(searchQuery: searchQuery, schoolId: String(selectedSchoolId))
+        let endpoint = Endpoint.searchProgramme(searchQuery: query, schoolId: String(selectedSchoolId))
         Task {
             do {
                 let searchResult: Response.Search = try await self.kronoxManager.get(endpoint)
                 await self.parseSearchResults(searchResult)
-            } catch (let error) {
+            } catch {
                 print(error.localizedDescription)
                 DispatchQueue.main.async {
                     self.errorMessageSearch = error.localizedDescription
@@ -54,14 +53,16 @@ final class SearchViewModel: ObservableObject {
         
     }
     
-    @MainActor
-    func resetSearchResults() {
+    /// Resets any fields and data in the `Search` and
+    /// `SearchResults` views
+    @MainActor func resetSearchResults() {
         programmeSearchResults = []
         status = .initial
     }
     
-    @MainActor
-    func parseSearchResults(_ results: Response.Search) {
+    /// Maps data given in `Response.Search` to
+    /// `[Response.Programme]` and updates view state
+    @MainActor func parseSearchResults(_ results: Response.Search) {
         programmeSearchResults = results.items.map { $0 }
         status = .loaded
     }
