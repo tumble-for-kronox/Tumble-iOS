@@ -616,13 +616,13 @@
 		D41172C02985EB2C0082BB4F /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				D4F0C7FB2A2F7E16002F8376 /* ShareSheet.swift */,
 				D454DEC929D35EF5005BDAE3 /* Settings.swift */,
 				D4F0C7FA2A2F7DFD002F8376 /* List */,
 				D4F0C7F92A2F7DE5002F8376 /* Buttons */,
 				D4EE5B6A29D50FAF002A1399 /* Appearance */,
 				D454DED329D3BB08005BDAE3 /* Notifications */,
 				D454DED129D3BAEA005BDAE3 /* Bookmarks */,
-				D4F0C7FB2A2F7E16002F8376 /* ShareSheet.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";

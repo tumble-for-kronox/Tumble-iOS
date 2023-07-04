@@ -20,7 +20,7 @@ struct BookmarkSettingsRow: View {
                 Toggle(isOn: $schedule.toggled) {
                     Text(schedule.scheduleId)
                         .font(.system(size: 16, weight: .regular))
-                }
+                }.tint(.primary)
             }
             .padding(10)
             .frame(maxWidth: .infinity)
