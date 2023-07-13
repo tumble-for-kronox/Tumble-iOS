@@ -40,6 +40,10 @@ struct AppParent: View {
             
             Account(viewModel: viewModel.accountPageViewModel)
         }
+        .ignoresSafeArea(.keyboard)
+        .fullScreenCover(isPresented: $viewModel.userNotOnBoarded, content: {
+            OnBoarding(finishOnBoarding: viewModel.finishOnboarding)
+        })
         .popup(isPresented: $appController.showPopup) {
             if let popup = appController.popup {
                 PopupContainer(popup: popup)
@@ -47,16 +51,12 @@ struct AppParent: View {
         } customize: {
             $0
                 .type(.floater())
-                .position(.bottom)
+                .position(.top)
                 .animation(.spring())
                 .closeOnTapOutside(true)
+                .backgroundColor(.black.opacity(0.5))
                 .autohideIn(5)
         }
-        .ignoresSafeArea(.keyboard)
-        .navigationViewStyle(StackNavigationViewStyle())
-        .fullScreenCover(isPresented: $viewModel.userNotOnBoarded, content: {
-            OnBoarding(finishOnBoarding: viewModel.finishOnboarding)
-        })
     }
 }
 

@@ -19,8 +19,8 @@ struct BookmarkButton: View {
         }) {
             HStack {
                 switch buttonState {
-                case .loading:
-                    CustomProgressIndicator()
+                case .loading, .disabled:
+                    CustomProgressIndicator(color: .onPrimary)
                 case .saved:
                     HStack(spacing: 10) {
                         Image(systemName: "bookmark.fill")
@@ -39,8 +39,6 @@ struct BookmarkButton: View {
                             .font(.system(size: 16, weight: .semibold))
                             .foregroundColor(.onPrimary)
                     }
-                case .disabled:
-                    Text("")
                 }
             }
         }

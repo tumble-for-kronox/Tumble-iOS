@@ -36,8 +36,8 @@ final class SearchPreviewViewModel: ObservableObject {
     ) {
         let isScheduleSaved = self.checkSavedSchedule(programmeId: programmeId, schedules: schedules)
         DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
-            self.isSaved = isScheduleSaved
+            self?.status = .loading
+            self?.isSaved = isScheduleSaved
         }
 
         Task {
@@ -46,9 +46,9 @@ final class SearchPreviewViewModel: ObservableObject {
                 let fetchedSchedule: Response.Schedule = try await kronoxManager.get(endpoint)
                 self.updateUIWithFetchedSchedule(fetchedSchedule, existingSchedules: schedules)
             } catch  {
-                DispatchQueue.main.async {
-                    self.status = .error
-                    self.errorMessage = "Could not contact the server, try again later"
+                DispatchQueue.main.async { [weak self] in
+                    self?.status = .error
+                    self?.errorMessage = NSLocalizedString("Could not contact the server, try again later", comment: "")
                 }
             }
         }

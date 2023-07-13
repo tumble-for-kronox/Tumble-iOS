@@ -17,7 +17,6 @@ struct Home: View {
     @State private var showSheet: Bool = false
     
     var body: some View {
-        
         NavigationView {
             VStack {
                 if viewModel.newsSectionStatus == .loaded {
@@ -48,10 +47,10 @@ struct Home: View {
             .padding(.top, 10)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color.background)
-            .padding(.bottom, -10)
             .sheet(isPresented: $showSheet, content: { NewsSheet(news: viewModel.news) })
             .navigationBarTitleDisplayMode(.inline)
             .navigationTitle(NSLocalizedString("Home", comment: ""))
+            .navigationViewStyle(StackNavigationViewStyle())
         }
         .tabItem {
             TabItem(appTab: TabbarTabType.home, selectedAppTab: $appController.selectedAppTab)

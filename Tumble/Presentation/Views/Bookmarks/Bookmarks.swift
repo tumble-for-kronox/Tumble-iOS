@@ -60,7 +60,6 @@ struct Bookmarks: View {
             }
             .padding(.top, 10)
             .background(Color.background)
-            .padding(.bottom, -10)
             .onAppear {
                 UIApplication.shared.applicationIconBadgeNumber = 0
             }
@@ -75,6 +74,7 @@ struct Bookmarks: View {
             }
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarTitle(NSLocalizedString("Bookmarks", comment: ""))
+            .navigationViewStyle(StackNavigationViewStyle())
         }
         .tabItem {
             TabItem(appTab: TabbarTabType.bookmarks, selectedAppTab: $appController.selectedAppTab)

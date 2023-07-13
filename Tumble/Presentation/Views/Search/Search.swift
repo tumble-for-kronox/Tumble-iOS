@@ -12,7 +12,6 @@ struct Search: View {
     @ObservedObject var appController: AppController = .shared
         
     var body: some View {
-        
         NavigationView {
             VStack(spacing: 0) {
                 switch viewModel.status {
@@ -29,7 +28,8 @@ struct Search: View {
                         onOpenProgramme: openProgramme, universityImage: viewModel.universityImage
                     )
                 case .error:
-                    Info(title: viewModel.errorMessageSearch ?? NSLocalizedString("Something went wrong", comment: ""), image: nil)
+                    Info(
+                        title: NSLocalizedString("Something went wrong", comment: ""), image: nil)
                 case .empty:
                     Info(title: NSLocalizedString("Schedule is empty", comment: ""), image: nil)
                 }
@@ -53,7 +53,7 @@ struct Search: View {
                 }
             }
             .sheet(item: $viewModel.searchPreviewModel) { model in
-                SearchPreview(
+                SearchPreviewSheet(
                     viewModel: viewModel.searchPreviewViewModel,
                     programmeId: model.scheduleId,
                     schoolId: model.schoolId
@@ -62,6 +62,7 @@ struct Search: View {
             }
             .navigationBarTitleDisplayMode(.inline)
             .navigationTitle(NSLocalizedString("Search", comment: ""))
+            .navigationViewStyle(StackNavigationViewStyle())
         }
         .tabItem {
             TabItem(appTab: TabbarTabType.search, selectedAppTab: $appController.selectedAppTab)
