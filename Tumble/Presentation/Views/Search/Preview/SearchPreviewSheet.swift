@@ -9,7 +9,7 @@ import RealmSwift
 import SwiftUI
 import WidgetKit
 
-struct SearchPreview: View {
+struct SearchPreviewSheet: View {
     @ObservedObject var viewModel: SearchPreviewViewModel
     @ObservedResults(Schedule.self, configuration: realmConfig) var schedules
     
@@ -19,7 +19,7 @@ struct SearchPreview: View {
     var body: some View {
         VStack {
             DraggingPill()
-            if viewModel.status == .loaded || viewModel.status == .loading {
+            if viewModel.status == .loaded {
                 HStack {
                     Spacer()
                     BookmarkButton(

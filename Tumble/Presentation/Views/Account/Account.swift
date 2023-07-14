@@ -24,9 +24,9 @@ struct Account: View {
             }
             .frame(maxHeight: .infinity)
             .ignoresSafeArea(.keyboard)
-            .padding(.bottom, -10)
             .navigationBarTitleDisplayMode(.inline)
             .navigationTitle(NSLocalizedString("Account", comment: ""))
+            .navigationViewStyle(StackNavigationViewStyle())
             .navigationBarItems(trailing: HStack {
                 if viewModel.authStatus == .authorized {
                     SignOutButton(signOut: {
