@@ -96,14 +96,14 @@ struct Resources: View {
         .onPreferenceChange(ResourcesScrollViewOffsetPreferenceKey.self, perform: handleScroll)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.background)
-        .sheet(item: $parentViewModel.examDetailSheetModel, content: { examDetails in
+        .fullScreenCover(item: $parentViewModel.examDetailSheetModel, content: { examDetails in
             ExamDetailsSheet(
                 event: examDetails.event,
                 getResourcesAndEvents: getResourcesAndEvents,
                 unregisterEvent: unregisterEvent
             )
         })
-        .sheet(item: $parentViewModel.resourceDetailsSheetModel, content: { resourceDetails in
+        .fullScreenCover(item: $parentViewModel.resourceDetailsSheetModel, content: { resourceDetails in
             ResourceDetailSheet(
                 resource: resourceDetails.resource,
                 unbookResource: unbookResource,
@@ -161,10 +161,10 @@ struct Resources: View {
             let result = await parentViewModel.resourceViewModel.unbookResource(bookingId: bookingId)
             DispatchQueue.main.async {
                 if result {
-                    AppController.shared.popup = popupFactory.unBookedResourceSuccess()
+                    PopupToast(popup: popupFactory.unBookedResourceSuccess()).showAndStack()
                     parentViewModel.removeCachedUserBooking(where: bookingId)
                 } else {
-                    AppController.shared.popup = popupFactory.unBookedResourceFailed()
+                    PopupToast(popup: popupFactory.unBookedResourceFailed()).showAndStack()
                 }
                 parentViewModel.bookingSectionState = .loaded
             }
@@ -174,9 +174,9 @@ struct Resources: View {
     fileprivate func toggleAutomaticExamSignup(value: Bool) {
         parentViewModel.toggleAutoSignup(value: value)
         if value {
-            AppController.shared.popup = popupFactory.autoSignupEnabled()
+            PopupToast(popup: popupFactory.autoSignupEnabled()).showAndStack()
         } else {
-            AppController.shared.popup = popupFactory.autoSignupDisabled()
+            PopupToast(popup: popupFactory.autoSignupDisabled()).showAndStack()
         }
         AppLogger.shared.debug("Toggled to \(value)")
     }

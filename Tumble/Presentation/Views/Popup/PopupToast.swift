@@ -1,17 +1,18 @@
 //
-//  PopupContainer.swift
+//  PopupToast.swift
 //  Tumble
 //
-//  Created by Adis Veletanlic on 2023-06-06.
+//  Created by Adis Veletanlic on 7/15/23.
 //
 
 import SwiftUI
+import PopupView
 
-struct PopupContainer: View {
+struct PopupToast: BottomPopup {
     
     let popup: Popup
     
-    var body: some View {
+    func createContent() -> some View {
         HStack {
             VStack (alignment: .leading, spacing: 0) {
                 Text(popup.title)
@@ -33,5 +34,11 @@ struct PopupContainer: View {
         .background(Color.primary)
         .cornerRadius(10.0)
         .padding(15)
+    }
+    
+    func configurePopup(popup: BottomPopupConfig) -> BottomPopupConfig {
+        popup
+            .tapOutsideToDismiss(true)
+            .backgroundColour(.black.opacity(0))
     }
 }

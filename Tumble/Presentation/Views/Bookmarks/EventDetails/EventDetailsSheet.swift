@@ -13,8 +13,6 @@ struct EventDetailsSheet: View {
         
     var body: some View {
         VStack {
-            DraggingPill()
-            SheetTitle(title: NSLocalizedString("Details", comment: ""))
             ScrollView(showsIndicators: false) {
                 EventDetailsCard(
                     parentViewModel: viewModel,
@@ -32,12 +30,24 @@ struct EventDetailsSheet: View {
                     selection: $viewModel.color, supportsOpacity: false)
                 .labelsHidden().opacity(0)
             )
-            .onDisappear(perform: {
-                viewModel.updateCourseColor()
-                AppController.shared.eventSheet = nil
-            })
+            .onDisappear(perform: onClose)
         }
+        .padding(.top, 60)
         .background(Color.background)
+        .overlay(
+            CloseCoverButton(onClick: onClose),
+            alignment: .topTrailing
+        )
+        .overlay(
+            Text(NSLocalizedString("Details", comment: ""))
+                .sheetTitle()
+            ,alignment: .top
+        )
+    }
+    
+    func onClose() {
+        viewModel.updateCourseColor()
+        AppController.shared.eventSheet = nil
     }
     
     func openColorPicker() {

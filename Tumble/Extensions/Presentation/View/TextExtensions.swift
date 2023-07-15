@@ -10,8 +10,9 @@ import SwiftUI
 
 extension Text {
     func sheetTitle() -> some View {
-        font(.system(size: 16, weight: .semibold))
+        font(.system(size: 18, weight: .semibold))
             .foregroundColor(.onBackground)
+            .padding(.top, 15)
     }
     
     func bodyInstructions() -> some View {

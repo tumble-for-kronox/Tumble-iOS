@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import PopupView
 
 @main
 struct TumbleApp: App {
@@ -23,7 +24,7 @@ struct TumbleApp: App {
     
     var body: some Scene {
         WindowGroup {
-            Root()
+            Root().implementPopupView()
         }
     }
 }

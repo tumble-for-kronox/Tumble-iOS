@@ -67,7 +67,7 @@ struct Bookmarks: View {
             // the application by the user and when triggered on click of event card.
             // The shared eventSheet value is changed from AppDelegate and launched here,
             // as well as in this view if an event is pressed.
-            .sheet(item: $appController.eventSheet) { (eventSheet: EventDetailsSheetModel) in
+            .fullScreenCover(item: $appController.eventSheet) { (eventSheet: EventDetailsSheetModel) in
                 EventDetailsSheet(
                     viewModel: viewModel.createViewModelEventSheet(
                         event: eventSheet.event))

@@ -44,19 +44,6 @@ struct AppParent: View {
         .fullScreenCover(isPresented: $viewModel.userNotOnBoarded, content: {
             OnBoarding(finishOnBoarding: viewModel.finishOnboarding)
         })
-        .popup(isPresented: $appController.showPopup) {
-            if let popup = appController.popup {
-                PopupContainer(popup: popup)
-            }
-        } customize: {
-            $0
-                .type(.floater())
-                .position(.top)
-                .animation(.spring())
-                .closeOnTapOutside(true)
-                .backgroundColor(.black.opacity(0.5))
-                .autohideIn(5)
-        }
     }
 }
 

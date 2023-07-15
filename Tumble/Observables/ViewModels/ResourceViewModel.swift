@@ -34,14 +34,14 @@ final class ResourceViewModel: ObservableObject {
     /// When a user presses a date in the `ResourceDatePicker`
     /// and waits for any available resources for this date
     func willSetBookingDate(for newDate: Date) {
-        if isDateWeekend(for: newDate) {
+        if isWeekend(on: newDate) {
             DispatchQueue.main.async {
                 self.resourceBookingPageState = .error
                 self.getBookingsTask?.cancel()
             }
         } else {
             getBookingsTask = Task {
-                await getAllResourceData(date: selectedPickerDate)
+                await getAllResourceData(date: newDate)
             }
         }
     }

@@ -57,13 +57,15 @@ final class LoginViewModel: ObservableObject {
             try await userController.logIn(authSchoolId: authSchoolId, username: username, password: password)
             if let username = userController.user?.username {
                 DispatchQueue.main.async { [weak self] in
-                    AppController.shared.popup = self?.popupFactory.logInSuccess(as: username)
+                    guard let self else { return }
+                    PopupToast(popup: self.popupFactory.logInSuccess(as: username)).showAndStack()
                 }
             }
         } catch {
             AppLogger.shared.critical("Failed to log in user: \(error)")
             DispatchQueue.main.async { [weak self] in
-                AppController.shared.popup = self?.popupFactory.logInFailed()
+                guard let self else { return }
+                PopupToast(popup: self.popupFactory.logInFailed()).showAndStack()
             }
         }
     }

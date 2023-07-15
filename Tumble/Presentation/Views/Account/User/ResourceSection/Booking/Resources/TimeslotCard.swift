@@ -25,7 +25,7 @@ struct TimeslotCard: View {
             }, label: {
                 switch bookingButtonState {
                 case .loading:
-                    CustomProgressIndicator()
+                    CustomProgressIndicator(color: .onPrimary)
                         .padding()
                 case .booked:
                     Text(NSLocalizedString("Booked", comment: ""))

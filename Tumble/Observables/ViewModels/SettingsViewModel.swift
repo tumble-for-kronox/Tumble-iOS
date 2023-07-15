@@ -50,7 +50,7 @@ final class SettingsViewModel: ObservableObject {
             guard let self else { return }
             self.notificationManager.cancelNotifications()
         }
-        AppController.shared.popup = popupFactory.clearNotificationsAllEventsSuccess()
+        PopupToast(popup: popupFactory.clearNotificationsAllEventsSuccess()).showAndStack()
     }
     
     func rescheduleNotifications(previousOffset: Int, newOffset: Int) {
@@ -68,7 +68,7 @@ final class SettingsViewModel: ObservableObject {
     
     func scheduleNotificationsForAllEvents(allEvents: [Event]) async {
         guard !allEvents.isEmpty else {
-            AppController.shared.popup = popupFactory.setNotificationsAllEventsFailed()
+            PopupToast(popup: popupFactory.setNotificationsAllEventsFailed()).showAndStack()
             return
         }
         
@@ -80,7 +80,7 @@ final class SettingsViewModel: ObservableObject {
                 event: event
             ) else {
                 AppLogger.shared.critical("Could not set notification for event \(event._id)")
-                AppController.shared.popup = popupFactory.setNotificationsAllEventsFailed()
+                PopupToast(popup: popupFactory.setNotificationsAllEventsFailed()).showAndStack()
                 return
             }
             
@@ -95,7 +95,8 @@ final class SettingsViewModel: ObservableObject {
                 
                 if scheduledNotifications == totalNotifications {
                     DispatchQueue.main.async { [weak self] in
-                        AppController.shared.popup = self?.popupFactory.setNotificationsAllEventsSuccess()
+                        guard let self else { return }
+                        PopupToast(popup: self.popupFactory.setNotificationsAllEventsSuccess()).showAndStack()
                     }
                 }
             } catch let failure {

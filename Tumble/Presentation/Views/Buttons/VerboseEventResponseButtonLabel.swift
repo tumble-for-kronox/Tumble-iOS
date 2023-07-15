@@ -72,7 +72,8 @@ struct VerboseEventResponseButtonLabel: View {
             .frame(height: 160, alignment: .leading)
             .frame(maxWidth: .infinity)
             .background(event.isSpecial ? Color.red.opacity(0.2) : Color.surface)
-            .cornerRadius(20)
+            .background(Color.surface)
+            .cornerRadius(15)
         }
     }
 }

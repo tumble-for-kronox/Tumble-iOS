@@ -10,6 +10,7 @@ import SwiftUI
 struct NewsSheet: View {
     let news: Response.NewsItems?
     
+    @Binding var showSheet: Bool
     @State private var searching: Bool = false
     @State private var searchText: String = ""
     @State private var closeButtonOffset: CGFloat = 300.0
@@ -25,8 +26,6 @@ struct NewsSheet: View {
     var body: some View {
         NavigationView {
             VStack {
-                DraggingPill()
-                SheetTitle(title: NSLocalizedString("News", comment: ""))
                 SearchField(
                     search: nil,
                     clearSearch: nil,
@@ -35,6 +34,7 @@ struct NewsSheet: View {
                     searching: $searching,
                     disabled: .constant(false)
                 )
+                .padding(.top, 55)
                 if !searching {
                     ScrollView(showsIndicators: false) {
                         RecentNews(news: news)
@@ -53,6 +53,19 @@ struct NewsSheet: View {
             }
             .frame(maxHeight: .infinity)
             .background(Color.background)
+            .overlay(
+                CloseCoverButton(onClick: onClose),
+                alignment: .topTrailing
+            )
+            .overlay(
+                Text(NSLocalizedString("News", comment: ""))
+                    .sheetTitle()
+                ,alignment: .top
+            )
         }
+    }
+    
+    func onClose() {
+        showSheet = false
     }
 }

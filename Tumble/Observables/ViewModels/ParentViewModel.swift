@@ -123,7 +123,7 @@ final class ParentViewModel: ObservableObject {
         }
 
         if updatedSchedules != scheduleCount {
-            AppController.shared.popup = popupFactory.updateBookmarksFailed()
+            PopupToast(popup: popupFactory.updateBookmarksFailed()).showAndStack()
         }
     }
 

@@ -42,7 +42,6 @@ final class UserController: ObservableObject {
         AppLogger.shared.debug("Successfully deleted items from KeyChain")
         DispatchQueue.main.async { [weak self] in
             self?.authStatus = .unAuthorized
-            print("Unauthorized user!")
         }
     }
     

@@ -31,7 +31,7 @@ struct NewsItemCard: View {
             .padding(10)
             .frame(maxWidth: .infinity)
             .background(Color.surface)
-            .cornerRadius(10)
+            .cornerRadius(15)
             .padding(.vertical, 7.5)
         })
     }

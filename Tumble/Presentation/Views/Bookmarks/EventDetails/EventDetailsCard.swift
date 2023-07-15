@@ -59,7 +59,7 @@ struct EventDetailsCard: View {
         }
         .padding(10)
         .background(event.isSpecial ? Color.red.opacity(0.2) : color.opacity(0.2))
-        .cornerRadius(10)
+        .cornerRadius(15)
         .padding([.horizontal, .bottom], 15)
     }
     

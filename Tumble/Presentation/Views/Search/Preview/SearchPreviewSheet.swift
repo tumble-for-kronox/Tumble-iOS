@@ -15,24 +15,16 @@ struct SearchPreviewSheet: View {
     
     let programmeId: String
     let schoolId: String
+    let closePreview: () -> Void
     
     var body: some View {
         VStack {
-            DraggingPill()
-            if viewModel.status == .loaded {
-                HStack {
-                    Spacer()
-                    BookmarkButton(
-                        bookmark: bookmark,
-                        buttonState: $viewModel.buttonState
-                    )
-                }
-            }
             switch viewModel.status {
             case .loaded:
                 SearchPreviewList(
                     viewModel: viewModel
                 )
+                .padding(.top, 60)
             case .loading:
                 CustomProgressIndicator()
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
@@ -54,6 +46,19 @@ struct SearchPreviewSheet: View {
             alignment: .center
         )
         .background(Color.background)
+        .overlay(
+            CloseCoverButton(onClick: closePreview),
+            alignment: .topTrailing
+        )
+        .if(viewModel.status == .loaded, transform: { view in
+            view.overlay(
+                BookmarkButton(
+                    bookmark: bookmark,
+                    buttonState: $viewModel.buttonState
+                )
+                ,alignment: .topLeading
+            )
+        })
         .onAppear {
             viewModel.getSchedule(
                 programmeId: programmeId,

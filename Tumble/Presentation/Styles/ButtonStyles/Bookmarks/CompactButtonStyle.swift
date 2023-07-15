@@ -19,7 +19,7 @@ struct CompactButtonStyle: ButtonStyle {
         configuration.label
             .frame(minWidth: 0, maxWidth: .infinity, minHeight: 100, maxHeight: 100, alignment: .center)
             .background(colored ? Color.surface : nil)
-            .cornerRadius(20)
+            .cornerRadius(15)
             .padding(.bottom, 10)
             .scaleEffect(configuration.isPressed ? 0.9 : 1)
             .animation(.easeOut(duration: 0.2), value: configuration.isPressed)
