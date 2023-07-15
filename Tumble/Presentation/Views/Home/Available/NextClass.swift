@@ -27,7 +27,7 @@ struct NextClass: View {
                 let color: Color = course.color.toColor()
                 CompactEventButtonLabel(event: nextClass, color: color)
                     .frame(maxWidth: .infinity, minHeight: 100, maxHeight: 100, alignment: .center)
-                    .cornerRadius(20)
+                    .cornerRadius(15)
                     .padding(.bottom, 10)
             } else {
                 Text(NSLocalizedString("No upcoming class", comment: ""))

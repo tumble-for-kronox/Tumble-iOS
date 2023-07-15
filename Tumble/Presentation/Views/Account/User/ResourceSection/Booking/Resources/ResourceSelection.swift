@@ -82,9 +82,9 @@ struct ResourceSelection: View {
             availabilityValue: availabilityValue
         )
         if result {
-            AppController.shared.popup = popupFactory.bookedResourceSuccess()
+            PopupToast(popup: popupFactory.bookedResourceSuccess()).showAndStack()
         } else {
-            AppController.shared.popup = popupFactory.bookResourceFailed()
+            PopupToast(popup: popupFactory.bookResourceFailed()).showAndStack()
         }
         return result
     }

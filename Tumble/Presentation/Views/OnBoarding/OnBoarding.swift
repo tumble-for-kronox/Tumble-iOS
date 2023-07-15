@@ -15,6 +15,8 @@ struct OnBoarding: View {
     @State private var animateButton: Bool = true
     @State private var buttonOffset: CGFloat = 900.0
     @State private var offset: CGFloat = .zero
+    @State private var shapeOffset: CGFloat = .zero
+
         
     init(finishOnBoarding: @escaping () -> Void) {
         UIPageControl.appearance().currentPageIndicatorTintColor = UIColor(Color.primary)
@@ -25,7 +27,7 @@ struct OnBoarding: View {
     var continueButton: some View {
         VStack {
             HStack {
-                Button(action: finishOnBoarding, label: {
+                Button(action: finishAnimation, label: {
                     Text(NSLocalizedString("Continue", comment: ""))
                         .fontWeight(.semibold)
                         .foregroundColor(.onBackground)
@@ -54,53 +56,47 @@ struct OnBoarding: View {
         .padding(.bottom, 20)
     }
     
-    var closeCoverButton: some View {
-        Button(action: finishOnBoarding, label: {
-            Image(systemName: "xmark")
-                .foregroundColor(.onBackground)
-                .font(.system(size: 24, weight: .medium))
-        })
-        .padding()
-    }
-    
     var body: some View {
-        OffsetPageTabView(offset: $offset) {
-            HStack {
-                ForEach(boardingScreens) { screen in
-                    VStack(spacing: 15) {
-                        Image(screen.image)
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: getRect().width - 160, height: getRect().width - 160)
-                            .offset(y: -100)
-                        VStack(alignment: .leading, spacing: 15) {
-                            Text(screen.title)
-                                .font(.largeTitle.bold())
-                                .foregroundColor(.onPrimary)
-                            Text(screen.description)
-                                .fontWeight(.semibold)
-                                .foregroundColor(.onPrimary)
-                                .padding(.trailing, 90)
-                        }
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding()
-                        .offset(y: -70)
-                    }
-                    .frame(width: getRect().width)
-                    .frame(maxHeight: .infinity)
-                }
-            }
-        }
-        .background(
+        ZStack {
+            // Geometric shape
             RoundedRectangle(cornerRadius: 50)
                 .fill(Color.background)
                 .frame(width: getRect().width - 120, height: getRect().width - 120)
                 .scaleEffect(2)
                 .rotationEffect(.init(degrees: 25))
                 .rotationEffect(.init(degrees: getRotation()))
-                .offset(y: -getRect().width + 20),
-            alignment: .leading
-        )
+                .offset(y: -getRect().width + 20 + shapeOffset)
+                .animation(.easeInOut, value: getIndex())
+
+            // Onboarding Content
+            OffsetPageTabView(offset: $offset) {
+                HStack {
+                    ForEach(boardingScreens) { screen in
+                        VStack(spacing: 15) {
+                            Image(screen.image)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: getRect().width - 160, height: getRect().width - 160)
+                                .offset(y: -100)
+                            VStack(alignment: .leading, spacing: 15) {
+                                Text(screen.title)
+                                    .font(.largeTitle.bold())
+                                    .foregroundColor(.onPrimary)
+                                Text(screen.description)
+                                    .fontWeight(.semibold)
+                                    .foregroundColor(.onPrimary)
+                                    .padding(.trailing, 90)
+                            }
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding()
+                            .offset(y: -70)
+                        }
+                        .frame(width: getRect().width)
+                        .frame(maxHeight: .infinity)
+                    }
+                }
+            }
+        }
         .background(
             Color.primary
                 .animation(.easeInOut, value: getIndex())
@@ -111,10 +107,18 @@ struct OnBoarding: View {
             alignment: .bottom
         )
         .overlay(
-            closeCoverButton,
+            CloseCoverButton(onClick: finishAnimation),
             alignment: .topTrailing
         )
     }
+    
+    func finishAnimation() {
+        withAnimation {
+                shapeOffset = UIScreen.main.bounds.height
+            }
+        finishOnBoarding()
+    }
+
     
     func getRotation() -> Double {
         let process = offset / (getRect().width * 4)

@@ -124,7 +124,8 @@ final class AccountViewModel: ObservableObject {
         } catch {
             AppLogger.shared.critical("Failed to log out user: \(error)")
             DispatchQueue.main.async { [weak self] in
-                AppController.shared.popup = self?.popupFactory.logOutFailed()
+                guard let self else { return }
+                PopupToast(popup: self.popupFactory.logOutFailed()).showAndStack()
             }
         }
     }
@@ -278,7 +279,7 @@ final class AccountViewModel: ObservableObject {
         do {
             let request = Endpoint.registerAllEvents(schoolId: String(authSchoolId))
             guard let refreshToken = userController.refreshToken else {
-                AppController.shared.popup = PopupFactory.shared.genericError()
+                AppLogger.shared.critical("Failed to sign up for exams due to user not being signed in or missing their token")
                 return
             }
             let _: Response.KronoxEventRegistration?

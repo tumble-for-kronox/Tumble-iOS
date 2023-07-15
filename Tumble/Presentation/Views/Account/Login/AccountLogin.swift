@@ -92,7 +92,7 @@ struct AccountLogin: View {
                 )
             }
         } else { /// No school selected, invalid
-            AppController.shared.popup = PopupFactory.shared.loginRequiresSchool()
+            PopupToast(popup: PopupFactory.shared.loginRequiresSchool()).showAndStack()
         }
     }
     

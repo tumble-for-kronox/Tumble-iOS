@@ -36,7 +36,7 @@ struct ResourceBookings: View {
                     )
                 case .error:
                     VStack {
-                        if isDateWeekend(for: viewModel.selectedPickerDate) {
+                        if isWeekend(on: viewModel.selectedPickerDate) {
                             Info(title: NSLocalizedString("No rooms available on weekends", comment: ""), image: "moon.zzz")
                         } else {
                             Info(title: NSLocalizedString("Could not contact the server, try again later", comment: ""), image: "arrow.clockwise")

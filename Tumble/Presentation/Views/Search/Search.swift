@@ -52,11 +52,12 @@ struct Search: View {
                     viewModel.schoolNotSelected = false
                 }
             }
-            .sheet(item: $viewModel.searchPreviewModel) { model in
+            .fullScreenCover(item: $viewModel.searchPreviewModel) { model in
                 SearchPreviewSheet(
                     viewModel: viewModel.searchPreviewViewModel,
                     programmeId: model.scheduleId,
-                    schoolId: model.schoolId
+                    schoolId: model.schoolId,
+                    closePreview: closePreview
                 )
                 .background(Color.background)
             }
@@ -68,6 +69,15 @@ struct Search: View {
             TabItem(appTab: TabbarTabType.search, selectedAppTab: $appController.selectedAppTab)
         }
         .tag(TabbarTabType.search)
+    }
+    
+    /// Clear the previous preview model and
+    /// set the state to loading upon next opening
+    func closePreview() {
+        viewModel.searchPreviewModel = nil
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            viewModel.searchPreviewViewModel.status = .loading
+        }
     }
 
     fileprivate func searchBoxNotEmpty() -> Bool {

@@ -17,10 +17,4 @@ class AppController: ObservableObject {
     
     @Published var eventSheet: EventDetailsSheetModel?
     @Published var selectedAppTab: TabbarTabType = .home
-    @Published var showPopup = false
-    @Published var popup: Popup? = nil {
-        didSet {
-            self.showPopup.toggle()
-        }
-    }
 }

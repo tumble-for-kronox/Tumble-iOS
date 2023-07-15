@@ -43,7 +43,6 @@ final class SearchViewModel: ObservableObject {
                 let searchResult: Response.Search = try await self.kronoxManager.get(endpoint)
                 await self.parseSearchResults(searchResult)
             } catch {
-                print(error.localizedDescription)
                 DispatchQueue.main.async {
                     self.errorMessageSearch = error.localizedDescription
                     self.status = SearchStatus.error

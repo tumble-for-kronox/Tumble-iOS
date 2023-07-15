@@ -87,7 +87,7 @@ func getThemeColorScheme(appearance: String) -> ColorScheme {
     }
 }
 
-func isDateWeekend(for date: Date) -> Bool {
+func isWeekend(on date: Date) -> Bool {
     let dayOfWeek = gregorianCalendar.component(.weekday, from: date)
     return dayOfWeek == 1 || dayOfWeek == 7
 }

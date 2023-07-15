@@ -66,7 +66,7 @@ struct EventCardButton: View {
             .padding()
             .frame(minWidth: 0, maxWidth: .infinity, minHeight: 100, maxHeight: 100, alignment: .center)
             .background(Color.surface)
-            .cornerRadius(20)
+            .cornerRadius(15)
             if event.lastSignupDate.isValidSignupDate() {
                 HStack {
                     Spacer()

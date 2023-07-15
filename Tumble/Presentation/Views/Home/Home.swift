@@ -47,7 +47,11 @@ struct Home: View {
             .padding(.top, 10)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color.background)
-            .sheet(isPresented: $showSheet, content: { NewsSheet(news: viewModel.news) })
+            .fullScreenCover(
+                isPresented: $showSheet,
+                content: {
+                    NewsSheet(news: viewModel.news, showSheet: $showSheet)
+            })
             .navigationBarTitleDisplayMode(.inline)
             .navigationTitle(NSLocalizedString("Home", comment: ""))
             .navigationViewStyle(StackNavigationViewStyle())

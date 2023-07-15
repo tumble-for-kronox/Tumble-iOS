@@ -15,7 +15,7 @@ struct ShareSheet: View {
     let websiteLink: String = "tumble.hkr.se"
     let appStoreLink: String = "https://apps.apple.com/se/app/tumble-for-kronox/id1617642864?l=en"
     
-    @State private var qrCodeImage: UIImage = UIImage()
+    @State private var qrCodeImage: UIImage? = nil
     
     var body: some View {
         VStack {
@@ -32,15 +32,19 @@ struct ShareSheet: View {
                         .font(.system(size: 16, weight: .semibold))
                         .foregroundColor(.onSurface)
                         .padding(.bottom, 7)
-                    Image(uiImage: qrCodeImage)
-                        .interpolation(.none)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 200, height: 200)
-                        .cornerRadius(10)
+                    if let qrCodeImage = qrCodeImage {
+                        Image(uiImage: qrCodeImage)
+                            .interpolation(.none)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 200, height: 200)
+                            .cornerRadius(10)
+                    } else {
+                        CustomProgressIndicator()
+                    }
                 }
                 .padding()
-                .background(Color.surface)
+                .background(Color.background)
                 .cornerRadius(10)
                 .overlay(RoundedRectangle(cornerRadius: 10)
                     .stroke(Color.onSurface.opacity(0.5), lineWidth: 2))
@@ -49,24 +53,12 @@ struct ShareSheet: View {
             Spacer()
         }
         .overlay(
-            Button(action: {
-                dismiss()
-            }, label: {
-                Circle()
-                    .fill(Color.surface)
-                    .frame(width: 35)
-                    .overlay(
-                        Image(systemName: "xmark")
-                            .font(.system(size: 16, weight: .semibold))
-                    )
-            })
-            .padding()
+            CloseCoverButton(onClick: { dismiss() })
             ,alignment: .topTrailing
         )
         .onAppear {
             DispatchQueue.global(qos: .userInitiated).async {
                 let image = generateQRCode(from: appStoreLink, in: colorScheme)
-                
                 DispatchQueue.main.async {
                     self.qrCodeImage = image
                 }

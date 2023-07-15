@@ -142,6 +142,9 @@
 		D478452629D64F0F00BDF7A3 /* LanguageTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = D478452529D64F0F00BDF7A3 /* LanguageTypes.swift */; };
 		D481F15729CB820D0088C28E /* AvailabilitiesExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D481F15629CB820D0088C28E /* AvailabilitiesExtension.swift */; };
 		D481F15929CB84F10088C28E /* ResourceSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D481F15829CB84F10088C28E /* ResourceSelection.swift */; };
+		D48456822A62CCA900F5B5C4 /* CloseCoverButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48456812A62CCA900F5B5C4 /* CloseCoverButton.swift */; };
+		D48456852A62DAA200F5B5C4 /* PopupView in Frameworks */ = {isa = PBXBuildFile; productRef = D48456842A62DAA200F5B5C4 /* PopupView */; };
+		D48456872A62DB2800F5B5C4 /* PopupToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48456862A62DB2800F5B5C4 /* PopupToast.swift */; };
 		D48CC59C29C7D1E70028179A /* CompactButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48CC59B29C7D1E70028179A /* CompactButtonStyle.swift */; };
 		D48CC59F29C7DB6E0028179A /* CompactEventButtonLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48CC59E29C7DB6E0028179A /* CompactEventButtonLabel.swift */; };
 		D48CC5A129C7DBF90028179A /* VerboseEventButtonLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48CC5A029C7DBF90028179A /* VerboseEventButtonLabel.swift */; };
@@ -216,9 +219,7 @@
 		D4EEFB5A29DA4E490007A209 /* AppearanceTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EEFB5929DA4E490007A209 /* AppearanceTypes.swift */; };
 		D4F0C7FC2A2F7E16002F8376 /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F0C7FB2A2F7E16002F8376 /* ShareSheet.swift */; };
 		D4F0C7FE2A2F8373002F8376 /* OutlinedButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F0C7FD2A2F8373002F8376 /* OutlinedButtonStyle.swift */; };
-		D4F0C8012A2F9855002F8376 /* PopupView in Frameworks */ = {isa = PBXBuildFile; productRef = D4F0C8002A2F9855002F8376 /* PopupView */; };
 		D4F0C8032A2F9A70002F8376 /* Popup.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F0C8022A2F9A70002F8376 /* Popup.swift */; };
-		D4F0C8062A2F9B0B002F8376 /* PopupContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F0C8052A2F9B0B002F8376 /* PopupContainer.swift */; };
 		D4F532642A2A3FF2009DC8B8 /* Notification+NameExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F532632A2A3FF2009DC8B8 /* Notification+NameExtension.swift */; };
 		D4FCD14B2995AD64009D2987 /* UIColorWellExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FCD14A2995AD64009D2987 /* UIColorWellExtension.swift */; };
 		D4FCD14E2995ADFE009D2987 /* UIColorWellHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FCD14D2995ADFE009D2987 /* UIColorWellHelper.swift */; };
@@ -371,6 +372,8 @@
 		D47A451C29D75D14008626E6 /* bs-BA */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "bs-BA"; path = "bs-BA.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		D481F15629CB820D0088C28E /* AvailabilitiesExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvailabilitiesExtension.swift; sourceTree = "<group>"; };
 		D481F15829CB84F10088C28E /* ResourceSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceSelection.swift; sourceTree = "<group>"; };
+		D48456812A62CCA900F5B5C4 /* CloseCoverButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloseCoverButton.swift; sourceTree = "<group>"; };
+		D48456862A62DB2800F5B5C4 /* PopupToast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupToast.swift; sourceTree = "<group>"; };
 		D48CC59B29C7D1E70028179A /* CompactButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompactButtonStyle.swift; sourceTree = "<group>"; };
 		D48CC59E29C7DB6E0028179A /* CompactEventButtonLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompactEventButtonLabel.swift; sourceTree = "<group>"; };
 		D48CC5A029C7DBF90028179A /* VerboseEventButtonLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerboseEventButtonLabel.swift; sourceTree = "<group>"; };
@@ -447,7 +450,6 @@
 		D4F0C7FB2A2F7E16002F8376 /* ShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheet.swift; sourceTree = "<group>"; };
 		D4F0C7FD2A2F8373002F8376 /* OutlinedButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutlinedButtonStyle.swift; sourceTree = "<group>"; };
 		D4F0C8022A2F9A70002F8376 /* Popup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Popup.swift; sourceTree = "<group>"; };
-		D4F0C8052A2F9B0B002F8376 /* PopupContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupContainer.swift; sourceTree = "<group>"; };
 		D4F532632A2A3FF2009DC8B8 /* Notification+NameExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+NameExtension.swift"; sourceTree = "<group>"; };
 		D4FCD14A2995AD64009D2987 /* UIColorWellExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorWellExtension.swift; sourceTree = "<group>"; };
 		D4FCD14D2995ADFE009D2987 /* UIColorWellHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorWellHelper.swift; sourceTree = "<group>"; };
@@ -464,7 +466,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D4F0C8012A2F9855002F8376 /* PopupView in Frameworks */,
+				D48456852A62DAA200F5B5C4 /* PopupView in Frameworks */,
 				D4FFCC1D29EDA9A700708CC0 /* Realm in Frameworks */,
 				D473870129C88E4F0035CD4C /* FirebaseMessaging in Frameworks */,
 				D4FFCC1F29EDA9A700708CC0 /* RealmSwift in Frameworks */,
@@ -991,9 +993,9 @@
 		D47221592924549B0063BDB7 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				D4F0C8042A2F9AFF002F8376 /* Popup */,
 				D4607633292AA83F00DE9590 /* AppParent.swift */,
 				D40D808829247123008CA68D /* Root.swift */,
+				D4F0C8042A2F9AFF002F8376 /* Popup */,
 				D416D33329CA29F9009A4FB8 /* TabBar */,
 				D48CC59D29C7DB5C0028179A /* Buttons */,
 				D421EAEE2993F7F50045D438 /* Navigation */,
@@ -1070,6 +1072,7 @@
 				D48CC5A029C7DBF90028179A /* VerboseEventButtonLabel.swift */,
 				D4E491F729EDCCE700E674CA /* VerboseEventResponseButtonLabel.swift */,
 				D41896A12A3A0505007E151C /* SignOutButton.swift */,
+				D48456812A62CCA900F5B5C4 /* CloseCoverButton.swift */,
 			);
 			path = Buttons;
 			sourceTree = "<group>";
@@ -1309,7 +1312,7 @@
 		D4F0C8042A2F9AFF002F8376 /* Popup */ = {
 			isa = PBXGroup;
 			children = (
-				D4F0C8052A2F9B0B002F8376 /* PopupContainer.swift */,
+				D48456862A62DB2800F5B5C4 /* PopupToast.swift */,
 			);
 			path = Popup;
 			sourceTree = "<group>";
@@ -1414,7 +1417,7 @@
 				D4FFCC1C29EDA9A700708CC0 /* Realm */,
 				D4FFCC1E29EDA9A700708CC0 /* RealmSwift */,
 				D4D04DFC29FB29BC008858F0 /* SwipeActions */,
-				D4F0C8002A2F9855002F8376 /* PopupView */,
+				D48456842A62DAA200F5B5C4 /* PopupView */,
 			);
 			productName = "tumble-ios";
 			productReference = D4722145292454560063BDB7 /* Tumble.app */;
@@ -1456,7 +1459,7 @@
 				D47386FD29C88E4F0035CD4C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				D4FFCC1B29EDA9A700708CC0 /* XCRemoteSwiftPackageReference "realm-swift" */,
 				D4D04DFB29FB29BC008858F0 /* XCRemoteSwiftPackageReference "SwipeActions" */,
-				D4F0C7FF2A2F9855002F8376 /* XCRemoteSwiftPackageReference "PopupView" */,
+				D48456832A62DAA200F5B5C4 /* XCRemoteSwiftPackageReference "PopupView" */,
 			);
 			productRefGroup = D4722146292454560063BDB7 /* Products */;
 			projectDirPath = "";
@@ -1582,6 +1585,7 @@
 				D458605629DCDEAE00B77513 /* DraggingPill.swift in Sources */,
 				D478452629D64F0F00BDF7A3 /* LanguageTypes.swift in Sources */,
 				D43294E229E0ABC800842884 /* WeekEventCardModel.swift in Sources */,
+				D48456822A62CCA900F5B5C4 /* CloseCoverButton.swift in Sources */,
 				D4FFCC2429EDA9F000708CC0 /* Day.swift in Sources */,
 				D40D80CA29265B98008CA68D /* Search.swift in Sources */,
 				D400F3DF29D794970050622E /* EventDetailSheetModel.swift in Sources */,
@@ -1590,7 +1594,6 @@
 				D41172B52985DA740082BB4F /* TextFieldExtensions.swift in Sources */,
 				D4E83EB629994D5F002E5F88 /* AccountLogin.swift in Sources */,
 				D458605B29DCE66100B77513 /* SheetTitle.swift in Sources */,
-				D4F0C8062A2F9B0B002F8376 /* PopupContainer.swift in Sources */,
 				D41ED5522984351F009DCF8B /* Method.swift in Sources */,
 				D4A433B829951F2B00BFEB7A /* AppDelegate.swift in Sources */,
 				D4607645292AC41D00DE9590 /* SearchResults.swift in Sources */,
@@ -1609,6 +1612,7 @@
 				D454DED029D3B953005BDAE3 /* BookmarksSettingsRow.swift in Sources */,
 				D4D04E0029FB3DF6008858F0 /* FirstAppear.swift in Sources */,
 				D4B4B62D29C37C130098D175 /* ProgrammeCardStyle.swift in Sources */,
+				D48456872A62DB2800F5B5C4 /* PopupToast.swift in Sources */,
 				D48F0D8A29367CAF0039CD0F /* Colors.swift in Sources */,
 				D400F3E329D795810050622E /* AuthStatus.swift in Sources */,
 				D4E83ED12999B1B1002E5F88 /* AuthManager.swift in Sources */,
@@ -2080,20 +2084,20 @@
 				minimumVersion = 9.0.0;
 			};
 		};
+		D48456832A62DAA200F5B5C4 /* XCRemoteSwiftPackageReference "PopupView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Mijick/PopupView.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
 		D4D04DFB29FB29BC008858F0 /* XCRemoteSwiftPackageReference "SwipeActions" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/aheze/SwipeActions.git";
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 1.0.0;
-			};
-		};
-		D4F0C7FF2A2F9855002F8376 /* XCRemoteSwiftPackageReference "PopupView" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/exyte/PopupView.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.0.0;
 			};
 		};
 		D4FFCC1B29EDA9A700708CC0 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
@@ -2127,15 +2131,15 @@
 			package = D47386FD29C88E4F0035CD4C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseMessaging;
 		};
+		D48456842A62DAA200F5B5C4 /* PopupView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D48456832A62DAA200F5B5C4 /* XCRemoteSwiftPackageReference "PopupView" */;
+			productName = PopupView;
+		};
 		D4D04DFC29FB29BC008858F0 /* SwipeActions */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D4D04DFB29FB29BC008858F0 /* XCRemoteSwiftPackageReference "SwipeActions" */;
 			productName = SwipeActions;
-		};
-		D4F0C8002A2F9855002F8376 /* PopupView */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D4F0C7FF2A2F9855002F8376 /* XCRemoteSwiftPackageReference "PopupView" */;
-			productName = PopupView;
 		};
 		D4FFCC1C29EDA9A700708CC0 /* Realm */ = {
 			isa = XCSwiftPackageProductDependency;
