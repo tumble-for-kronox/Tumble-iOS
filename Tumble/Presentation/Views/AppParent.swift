@@ -44,6 +44,7 @@ struct AppParent: View {
         .fullScreenCover(isPresented: $viewModel.userNotOnBoarded, content: {
             OnBoarding(finishOnBoarding: viewModel.finishOnboarding)
         })
+        .navigationViewStyle(StackNavigationViewStyle())
     }
 }
 
