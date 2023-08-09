@@ -77,7 +77,7 @@ private struct WeekDays: View {
     var body: some View {
         Section(
             header: HStack {
-                Text("\(dateFormatterDay.string(from: weekDayDate)) \(dateFormatterDayMonth.string(from: weekDayDate))")
+                Text("\(dateFormatterDay.string(from: weekDayDate)) \(dateFormatterDayMonth.string(from: weekDayDate))".capitalized)
                     .foregroundColor(.onBackground)
                     .font(.system(size: 18, weight: .semibold))
                 Rectangle()
@@ -122,7 +122,7 @@ private struct WeekEvent: View {
                         .font(.system(size: 16, weight: .semibold))
                         .foregroundColor(.onSurface)
                     Spacer()
-                    Text(event.title)
+                    Text(event.course?.englishName ?? NSLocalizedString("No title", comment: ""))
                         .font(.system(size: 16, weight: .regular))
                         .foregroundColor(.onSurface)
                 }

@@ -93,7 +93,6 @@ final class SearchPreviewViewModel: ObservableObject {
         schoolId: String
     ) {
         buttonState = .loading
-        
         // If the schedule isn't already saved in the local database
         if !isSaved {
             if let realmSchedule = schedule?.toRealmSchedule(

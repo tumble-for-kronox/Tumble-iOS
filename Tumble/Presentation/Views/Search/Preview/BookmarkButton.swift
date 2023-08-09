@@ -15,7 +15,9 @@ struct BookmarkButton: View {
     var body: some View {
         Button(action: {
             HapticsController.triggerHapticLight()
-            bookmark()
+            withAnimation {
+                bookmark()
+            }
         }) {
             HStack {
                 switch buttonState {
