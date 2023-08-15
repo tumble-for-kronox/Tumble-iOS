@@ -6,6 +6,12 @@
   
 */
 
+"No events this day"="Inga händelser denna dag";
+
+"Week"="Vecka";
+
+"w. %@"="v. %@";
+
 "No university selected"="Inget universitet valt";
 
 "You must select a university before logging in"="Du måste välja ett universitet innan du loggar in";

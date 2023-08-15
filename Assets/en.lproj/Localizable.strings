@@ -6,6 +6,12 @@
   
 */
 
+"No events this day"="No events this day";
+
+"Week"="Week";
+
+"w. %@"="w. %@";
+
 "No university selected"="No university selected";
 
 "You must select a university before logging in"="You must select a university before logging in";
