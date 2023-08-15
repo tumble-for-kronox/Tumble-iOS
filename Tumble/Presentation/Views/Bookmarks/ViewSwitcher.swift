@@ -20,10 +20,10 @@ struct ViewSwitcher: View {
                 }, label: {
                     HStack {
                         type.icon
-                            .font(.system(size: 14, weight: .semibold))
+                            .font(.system(size: 13, weight: .semibold))
                             .foregroundColor(isSelectedViewType(viewType: type) ? .onPrimary : .onSurface)
                         Text(NSLocalizedString(type.name, comment: ""))
-                            .font(.system(size: 14, weight: .semibold))
+                            .font(.system(size: 13, weight: .semibold))
                             .foregroundColor(isSelectedViewType(viewType: type) ? .onPrimary : .onSurface)
                     }
                 })

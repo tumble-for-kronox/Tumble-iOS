@@ -6,6 +6,12 @@
   
 */
 
+"No events this day"="Nema događaja tog dana";
+
+"Week"="Sedmica";
+
+"w. %@"="s. %@";
+
 "No university selected"="Univerzitet nije odabran";
 
 "You must select a university before logging in"="Morate odabrati univerzitet prije prijave";

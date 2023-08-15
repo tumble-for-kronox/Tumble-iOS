@@ -35,7 +35,7 @@ private struct WeekPage: View {
             VStack {
                 HStack {
                     Spacer()
-                    Text(NSLocalizedString("w. \(weekOfYear)", comment: ""))
+                    Text(String(format: NSLocalizedString("w. %@", comment: ""), "\(weekOfYear)"))
                         .font(.system(size: 22, weight: .semibold))
                         .foregroundColor(.onBackground)
                 }

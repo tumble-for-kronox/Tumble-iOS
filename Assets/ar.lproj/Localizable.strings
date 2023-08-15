@@ -6,6 +6,12 @@
   
 */
 
+"No events this day"="لا أحداث في ذلك اليوم";
+
+"Week"="أسبوع";
+
+"w. %@"="%@ .أ";
+
 "No university selected"="لم يتم اختيار جامعة";
 
 "You must select a university before logging in"="يجب عليك اختيار جامعة قبل تسجيل الدخول";

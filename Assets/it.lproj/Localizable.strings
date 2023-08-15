@@ -6,6 +6,12 @@
   
 */
 
+"No events this day"="Nessun evento quel giorno";
+
+"Week"="Settimana";
+
+"w. %@"="s. %@";
+
 "No university selected"="Nessuna università selezionata";
 
 "You must select a university before logging in"="Devi selezionare un'università prima di accedere";
