@@ -6,7 +6,7 @@
   
 */
 
-"No events this day"="لا أحداث في ذلك اليوم";
+"No events this day"="لا يوجد أحداث في هذا اليوم";
 
 "Week"="أسبوع";
 
@@ -20,7 +20,7 @@
 
 "Copy link"="نسخ الرابط";
 
-"Scan QR Code"="مسح الرمز الشريطي";
+"Scan QR Code"="مسح رمز الرد السريع";
 
 "Cancel notifications for all events"="إلغاء التنبيهات لجميع الأحداث";
 
@@ -40,27 +40,27 @@
 
 "%@ at %@"="%@ في %@";
 
-"Your visible schedules do not contain any events"="الجداول المرئية لديك لا تحتوي على أي أحداث";
+"Your visible schedules do not contain any events"="الجداول الظاهرة لديك لا تحتوي على أي أحداث";
 
 "Continue"="استمر";
 
 "Search events" = "ابحث عن الأحداث";
 
-"Tumble on GitHub"="تامبل على جيتهب";
+"Tumble on GitHub"="تامبل على غيت هاب";
 
-"Monday"="الاثنَين";
+"Monday"="الاثنين";
 
-"Tuesday"="الثلاثَاء";
+"Tuesday"="الثلاثاء";
 
-"Wednesday"="الأربعَاء";
+"Wednesday"="الأربعاء";
 
 "Thursday"="الخميس";
 
-"Friday"="الجُمعة";
+"Friday"="الجمعة";
 
-"Saturday"="السَبْت";
+"Saturday"="السبت";
 
-"Sunday"="الأحَد";
+"Sunday"="الأحد";
 
 "Logged out"="تسجيل الخروج";
 
@@ -72,7 +72,7 @@
 
 "There are no schedules that match your search"="لا توجد جداول تطابِق بحثك";
 
-"Important: "="مُهِمّ:";
+"Important: "="هام:";
 
 "Choose a university to begin your search"="اختر جامعة لبدء البحث";
 
@@ -82,35 +82,35 @@
 
 "Something went wrong"="حدث خَطَأ ما";
 
-"Automatic"="تَلقائِي";
+"Automatic"="تلقائي";
 
-"Light"="فاتِح";
+"Light"="فاتح";
 
-"Dark"="داكِن";
+"Dark"="داكن";
 
-"English"="الإنجلِيزيّة";
+"English"="الإنجليزية";
 
-"Swedish"="السُويدِيّة";
+"Swedish"="السويدية";
 
-"Italian"="الإيطالِيّة";
+"Italian"="الإيطالية";
 
-"French"="الفَرَنسِيّة";
+"French"="الفرنسية";
 
-"German"="الألمانِيّة";
+"German"="الألمانية";
 
-"Bosnian"="البوسنِيّة";
+"Bosnian"="البوسنية";
 
-"Home"="الصَّفْحَة الرئيسيَّة";
+"Home"="الصفحة الرئيسية";
 
-"Bookmarks"="المُفَضَّلَة";
+"Bookmarks"="المُفضلة";
 
-"Account"="الحِسَاب";
+"Account"="الحساب";
 
-"Calendar"="التَّقْوِيم";
+"Calendar"="التقويم";
 
-"List"="القَائِمَة";
+"List"="القائمة";
 
-"New school"="مَدْرَسَة جدِيدَة";
+"New school"="مدرسة جديدة";
 
 "Set %@ to default"="تعيين %@ كافتراضي";
 
@@ -192,7 +192,7 @@
 
 "Everything looks good for this week"="كل شيء يبدو جيداً لهذا الأسبوع";
 
-"Looks like you don't have any classes or exams in the coming week. Yay!"="يبدو أنه ليس لديك أي دروس أو امتحانات في الأسبوع المقبل. ياي!";
+"Looks like you don't have any classes or exams in the coming week. Yay!"="يبدو أنه ليس لديك أي حصص أو امتحانات في الأسبوع المقبل. ياي!";
 
 "We experienced an issue when trying to find your schedules. Try again later"="واجهنا مشكلة عند محاولة العثور على جداولك. حاول مرة أخرى لاحقًا";
 
@@ -222,7 +222,7 @@
 
 "News from us (%@)"="أخبار منا (%@)";
 
-"No teachers listed"="لا توجد معلمين مذكورين";
+"No teachers listed"="لا يوجد معلمين مذكورين";
 
 "Unknown"="غير معروف";
 
@@ -259,7 +259,7 @@
 
 "Teachers"="المعلمين";
 
-"No teachers listed at this time"="لا توجد معلمين مذكورين في الوقت الحالي";
+"No teachers listed at this time"="لا يوجد معلمين مذكورين في الوقت الحالي";
 
 "Date"="التاريخ";
 
@@ -275,7 +275,7 @@
 
 "Color"="اللون";
 
-"Attempting to log in user"="محاولة تسجيل دخول المستخدم";
+"Attempting to log in user"="جاري محاولة تسجيل دخول المستخدم";
 
 "(no date)"="(بدون تاريخ)";
 
@@ -377,7 +377,7 @@
 
 "Not booked"="لم يتم الحجز";
 
-"Failed to book the specified resource"="فشل في حجز المصدر المحدد";
+"Failed to book the specified resource"="تعذر حجز المصدر المحدد";
 
 "Rooms"="الغرف";
 
@@ -433,7 +433,7 @@
 
 "Save schedules"="حفظ الجداول";
 
-"Search for schedules from the search page and download them locally. View them as a list or in a dedicated calendar."="ابحث عن الجداول من صفحة البحث وقم بتنزيلها محليًا. عرضها كقائمة أو في تقويم مخصص.";
+"Search for schedules from the search page and download them locally. View them as a list or in a dedicated calendar."="ابحث عن الجداول من صفحة البحث وقم بتنزيلها محليًا. إعرضها كقائمة أو في تقويم مخصص.";
 
 "Set notifications"="تعيين التنبيهات";
 
