@@ -36,21 +36,21 @@ struct EventDetailsCard: View {
                         HStack(spacing: 5) {
                             if parentViewModel.notificationsAllowed {
                                 if event.from.isAvailableNotificationDate() {
-                                    EventDetailsPill(
-                                        title: !parentViewModel.isNotificationSetForEvent ?
-                                            NSLocalizedString("Event", comment: "") : NSLocalizedString("Remove", comment: ""),
+                                    NotificationPill(
+                                        state: $parentViewModel.isNotificationSetForEvent,
+                                        title: notificationEventTitle,
                                         image: "bell.badge",
-                                        onTap: !parentViewModel.isNotificationSetForEvent ? onSetNotificationEvent : onRemoveNotificationForEvent
+                                        onTap: notificationEventAction
                                     )
                                 }
-                                EventDetailsPill(
-                                    title: !parentViewModel.isNotificationSetForCourse ?
-                                        NSLocalizedString("Course", comment: "") : NSLocalizedString("Remove", comment: ""),
-                                    image: "bell.badge.fill",
-                                    onTap: !parentViewModel.isNotificationSetForCourse ? onSetNotificationForCourse : onRemoveNotificationForCourse
+                                NotificationPill(
+                                    state: $parentViewModel.isNotificationSetForEvent,
+                                    title: notificationCourseTitle,
+                                    image: "bell.badge",
+                                    onTap: notificationCourseAction
                                 )
                             }
-                            EventDetailsPill(title: NSLocalizedString("Color", comment: ""), image: "paintbrush", onTap: openColorPicker)
+                            ColorPickerPill(openColorPicker: openColorPicker)
                         }
                     }
                 }
@@ -63,19 +63,48 @@ struct EventDetailsCard: View {
         .padding([.horizontal, .bottom], 15)
     }
     
-    func onSetNotificationEvent() {
-        parentViewModel.scheduleNotificationForEvent()
+    var notificationEventTitle: String {
+        switch parentViewModel.isNotificationSetForEvent {
+        case .set:
+            return NSLocalizedString("Remove", comment: "")
+        case .notSet:
+            return NSLocalizedString("Event", comment: "")
+        default:
+            return ""
+        }
     }
     
-    func onSetNotificationForCourse() {
-        parentViewModel.scheduleNotificationsForCourse()
+    var notificationCourseTitle: String {
+        switch parentViewModel.isNotificationSetForCourse {
+        case .set:
+            return NSLocalizedString("Remove", comment: "")
+        case .notSet:
+            return NSLocalizedString("Course", comment: "")
+        default:
+            return ""
+        }
     }
     
-    func onRemoveNotificationForEvent() {
-        parentViewModel.cancelNotificationForEvent()
+    func notificationEventAction() {
+        switch parentViewModel.isNotificationSetForEvent {
+        case .set:
+            parentViewModel.cancelNotificationForEvent()
+        case .notSet:
+            parentViewModel.scheduleNotificationForEvent()
+        default:
+            return
+        }
     }
     
-    func onRemoveNotificationForCourse() {
-        parentViewModel.cancelNotificationsForCourse()
+    func notificationCourseAction() {
+        switch parentViewModel.isNotificationSetForCourse {
+        case .set:
+            parentViewModel.cancelNotificationsForCourse()
+        case .notSet:
+            parentViewModel.scheduleNotificationsForCourse()
+        default:
+            return
+        }
     }
+    
 }

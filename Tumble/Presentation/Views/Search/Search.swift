@@ -63,7 +63,6 @@ struct Search: View {
             }
             .navigationBarTitleDisplayMode(.inline)
             .navigationTitle(NSLocalizedString("Search", comment: ""))
-            .navigationViewStyle(StackNavigationViewStyle())
         }
         .tabItem {
             TabItem(appTab: TabbarTabType.search, selectedAppTab: $appController.selectedAppTab)
