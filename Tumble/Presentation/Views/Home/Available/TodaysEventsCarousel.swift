@@ -41,7 +41,9 @@ struct TodaysEventsCarousel: View {
                 }
             }
         }
-        resetButton
+        if weekEventCards.count > 1 {
+            resetButton
+        }
     }
         
     var resetButton: some View {

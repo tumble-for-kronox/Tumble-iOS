@@ -54,7 +54,6 @@ struct Home: View {
             })
             .navigationBarTitleDisplayMode(.inline)
             .navigationTitle(NSLocalizedString("Home", comment: ""))
-            .navigationViewStyle(StackNavigationViewStyle())
         }
         .tabItem {
             TabItem(appTab: TabbarTabType.home, selectedAppTab: $appController.selectedAppTab)

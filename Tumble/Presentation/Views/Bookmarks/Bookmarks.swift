@@ -74,7 +74,6 @@ struct Bookmarks: View {
             }
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarTitle(NSLocalizedString("Bookmarks", comment: ""))
-            .navigationViewStyle(StackNavigationViewStyle())
         }
         .tabItem {
             TabItem(appTab: TabbarTabType.bookmarks, selectedAppTab: $appController.selectedAppTab)

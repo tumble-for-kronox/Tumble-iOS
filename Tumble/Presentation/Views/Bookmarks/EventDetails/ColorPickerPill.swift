@@ -7,26 +7,22 @@
 
 import SwiftUI
 
-struct EventDetailsPill: View {
-    let title: String
-    let image: String
-    let onTap: () -> Void
-    @Namespace private var pillNamespace
+struct ColorPickerPill: View {
+    let openColorPicker: () -> Void
     
     var body: some View {
         Button(action: {
             HapticsController.triggerHapticLight()
-            onTap()
+            openColorPicker()
         }, label: {
             HStack {
-                Image(systemName: image)
+                Image(systemName: "paintbrush")
                     .font(.system(size: 14))
                     .foregroundColor(.onSurface)
-                Text(title)
+                Text(NSLocalizedString("Color", comment: ""))
                     .font(.system(size: 14, weight: .semibold))
                     .multilineTextAlignment(.leading)
                     .foregroundColor(.onSurface)
-                    .matchedGeometryEffect(id: title, in: pillNamespace)
             }
             .padding(.all, 10)
         })

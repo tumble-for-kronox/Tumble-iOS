@@ -10,6 +10,12 @@ import Foundation
 import RealmSwift
 import SwiftUI
 
+enum NotificationSetState {
+    case set
+    case loading
+    case notSet
+}
+
 final class EventDetailsSheetViewModel: ObservableObject {
     @Inject var notificationManager: NotificationManager
     @Inject var preferenceService: PreferenceService
@@ -17,8 +23,8 @@ final class EventDetailsSheetViewModel: ObservableObject {
     
     @Published var event: Event
     @Published var color: Color
-    @Published var isNotificationSetForEvent: Bool = false
-    @Published var isNotificationSetForCourse: Bool = false
+    @Published var isNotificationSetForEvent: NotificationSetState = .loading
+    @Published var isNotificationSetForCourse: NotificationSetState = .loading
     @Published var notificationOffset: Int = 60
     @Published var notificationsAllowed: Bool = false
     
@@ -45,13 +51,13 @@ final class EventDetailsSheetViewModel: ObservableObject {
     }
     
     @MainActor func cancelNotificationForEvent() {
-        isNotificationSetForEvent = false
+        isNotificationSetForEvent = .notSet
         notificationManager.cancelNotification(for: event.eventId)
     }
     
     @MainActor func cancelNotificationsForCourse() {
-        isNotificationSetForCourse = false
-        isNotificationSetForEvent = false
+        isNotificationSetForCourse = .notSet
+        isNotificationSetForEvent = .notSet
         if let course = event.course {
             Task {
                 await notificationManager.cancelNotifications(with: course.courseId)
@@ -60,6 +66,9 @@ final class EventDetailsSheetViewModel: ObservableObject {
     }
     
     @MainActor func scheduleNotificationForEvent() {
+        
+        isNotificationSetForEvent = .loading
+        
         let userOffset: Int = preferenceService.getNotificationOffset()
         
         // Create notification for event without categoryIdentifier,
@@ -76,7 +85,7 @@ final class EventDetailsSheetViewModel: ObservableObject {
             do {
                 try await self.notificationManager.scheduleNotification(for: notification, type: .event, userOffset: userOffset)
                 DispatchQueue.main.async {
-                    self.isNotificationSetForEvent = true
+                    self.isNotificationSetForEvent = .set
                 }
             } catch {
                 AppLogger.shared.critical("Failed to schedule notifications -> \(error)")
@@ -94,6 +103,10 @@ final class EventDetailsSheetViewModel: ObservableObject {
     }
 
     @MainActor func scheduleNotificationsForCourse() {
+        
+        isNotificationSetForCourse = .loading
+        isNotificationSetForEvent = .loading
+        
         let schedules = realmManager.getAllSchedules()
         let events = schedules
             .flatMap { $0.days }
@@ -106,8 +119,8 @@ final class EventDetailsSheetViewModel: ObservableObject {
                 let result = try await self.applyNotificationForScheduleEventsInCourse(events: events)
                 if result {
                     DispatchQueue.main.async { [weak self] in
-                        self?.isNotificationSetForCourse = true
-                        self?.isNotificationSetForEvent = true
+                        self?.isNotificationSetForCourse = .set
+                        self?.isNotificationSetForEvent = .set
                     }
                 }
             } catch {
@@ -149,7 +162,7 @@ final class EventDetailsSheetViewModel: ObservableObject {
             Task {
                 let result = await notificationManager.isNotificationScheduled(categoryIdentifier: courseId)
                 DispatchQueue.main.async {
-                    self.isNotificationSetForCourse = result
+                    self.isNotificationSetForCourse = result ? .set : .notSet
                 }
             }
         }
@@ -161,7 +174,7 @@ final class EventDetailsSheetViewModel: ObservableObject {
         Task {
             let result = await notificationManager.isNotificationScheduled(eventId: eventId)
             DispatchQueue.main.async {
-                self.isNotificationSetForEvent = result
+                self.isNotificationSetForEvent = result ? .set : .notSet
             }
         }
     }

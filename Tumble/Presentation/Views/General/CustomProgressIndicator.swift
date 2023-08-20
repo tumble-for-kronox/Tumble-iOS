@@ -10,35 +10,37 @@ import Combine
 
 struct CustomProgressIndicator: View {
     let timer: Publishers.Autoconnect<Timer.TimerPublisher>
-        let timing: Double
-        
-        let maxCounter = 3
-        @State var counter = 0
-        
-        let frame: CGSize
-        let primaryColor: Color
-        
-        init(color: Color = .primary, size: CGFloat = 25, speed: Double = 0.25) {
-            timing = speed
-            timer = Timer.publish(every: timing, on: .main, in: .common).autoconnect()
-            frame = CGSize(width: size, height: size)
-            primaryColor = color
-        }
-
-        var body: some View {
-            HStack(spacing: 0) {
-                ForEach(0..<3) { index in
-                    Circle()
-                        .scale(counter == index ? 1.0 : 0.5)
-                        .fill(primaryColor)
-                }
-            }
-            .frame(width: frame.width, height: frame.height, alignment: .center)
+    let timing: Double
+    
+    @State private var rotation: Double = 0
+    
+    let frame: CGSize
+    let primaryColor: Color
+    
+    init(color: Color = .primary, size: CGFloat = 20, speed: Double = 0.05) {
+        timing = speed
+        timer = Timer.publish(every: timing, on: .main, in: .common).autoconnect()
+        frame = CGSize(width: size, height: size)
+        primaryColor = color
+    }
+    
+    var body: some View {
+        Circle()
+            .trim(from: 0.1, to: 0.9)
+            .stroke(primaryColor, lineWidth: 4)
+            .frame(width: frame.width, height: frame.height)
+            .rotationEffect(Angle(degrees: rotation))
             .onReceive(timer, perform: { _ in
-                withAnimation(.linear(duration: timing)) {
-                    counter = counter == (maxCounter - 1) ? 0 : counter + 1
+                withAnimation {
+                    rotation += 45
                 }
             })
-        }
+    }
+}
+
+struct CustomProgressIndicator_Previews: PreviewProvider {
+    static var previews: some View {
+        CustomProgressIndicator()
+    }
 }
 
