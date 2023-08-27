@@ -55,7 +55,7 @@ final class LoginViewModel: ObservableObject {
                 }
             }
             try await userController.logIn(authSchoolId: authSchoolId, username: username, password: password)
-            if let username = userController.user?.username {
+            if userController.authStatus == .authorized {
                 DispatchQueue.main.async { [weak self] in
                     guard let self else { return }
                     PopupToast(popup: self.popupFactory.logInSuccess(as: username)).showAndStack()
