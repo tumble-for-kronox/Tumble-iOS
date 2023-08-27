@@ -19,6 +19,7 @@ final class ParentViewModel: ObservableObject {
     @Inject private var kronoxManager: KronoxManager
     @Inject private var schoolManager: SchoolManager
     @Inject private var realmManager: RealmManager
+    @Inject private var networkController: Network
     
     lazy var homeViewModel: HomeViewModel = viewModelFactory.makeViewModelHome()
     lazy var bookmarksViewModel: BookmarksViewModel = viewModelFactory.makeViewModelBookmarks()
@@ -31,14 +32,13 @@ final class ParentViewModel: ObservableObject {
     @Published var authSchoolId: Int = -1
     @Published var userNotOnBoarded: Bool = false
         
-    private var updatedDuringSession: Bool = false /// Flag checking whether schedules have been attempted to update
+    private var attemptedUpdateDuringSession: Bool = false
     private var schedulesToken: NotificationToken? = nil
     private var cancellables = Set<AnyCancellable>()
     
     init() {
         setupNotificationObserver()
         setupPublishers()
-        updateRealmSchedules()
     }
     
     /// Creates an observer to listen for the press of a local
@@ -69,25 +69,39 @@ final class ParentViewModel: ObservableObject {
     private func setupPublishers() {
         let authSchoolIdPublisher = preferenceService.$authSchoolId.receive(on: RunLoop.main)
         let onBoardingPublisher = preferenceService.$userOnBoarded.receive(on: RunLoop.main)
+        let networkConnectionPublisher = networkController.$connected.receive(on: RunLoop.main)
         
-        Publishers.CombineLatest(authSchoolIdPublisher, onBoardingPublisher)
-            .sink { [weak self] authSchoolId, userOnBoarded in
-                self?.userNotOnBoarded = !userOnBoarded
-                self?.authSchoolId = authSchoolId
+        Publishers.CombineLatest3(authSchoolIdPublisher, onBoardingPublisher, networkConnectionPublisher)
+            .sink { [weak self] authSchoolId, userOnBoarded, connected in
+                guard let self else { return }
+                self.userNotOnBoarded = !userOnBoarded
+                self.authSchoolId = authSchoolId
+                
+                if connected && !self.attemptedUpdateDuringSession {
+                    self.updateRealmSchedules()
+                }
+                
             }
             .store(in: &cancellables)
     }
     
     /// Updates any Realm schedules stored locally
     private func updateRealmSchedules() {
+        // Get schedules from Realm database
         let schedules = realmManager.getAllLiveSchedules()
-        if !schedules.isEmpty && !self.updatedDuringSession {
-            let scheduleIds = Array(schedules).map { $0.scheduleId }
-            Task {
-                await self.updateBookmarks(scheduleIds: scheduleIds)
+        if !schedules.isEmpty && !self.attemptedUpdateDuringSession {
+            // Filter out invalidated schedules and get their IDs
+            let scheduleIds = Array(schedules).filter { !$0.isInvalidated }.map { $0.scheduleId }
+            
+            // Only proceed if there are valid schedules
+            if !scheduleIds.isEmpty {
+                Task {
+                    await self.updateBookmarks(scheduleIds: scheduleIds)
+                }
             }
         }
     }
+
 
     /// Toggles the onboarding preference parameter
     func finishOnboarding() {
@@ -100,12 +114,16 @@ final class ParentViewModel: ObservableObject {
     /// by retrieving all the schedules from the Tumble backend.
     @MainActor
     func updateBookmarks(scheduleIds: [String]) async {
-        defer { self.updatedDuringSession = true } /// Always claim update during startup, even if failed
+        defer { self.attemptedUpdateDuringSession = true }
         var updatedSchedules = 0
+        
+        // Validate the count after filtering
         let scheduleCount: Int = scheduleIds.count
 
         for scheduleId in scheduleIds {
-            if let schedule = self.realmManager.getScheduleByScheduleId(scheduleId: scheduleId), self.validUpdateRequest(schedule: schedule) {
+            if let schedule = self.realmManager.getScheduleByScheduleId(scheduleId: scheduleId), !schedule.isInvalidated,
+                self.validUpdateRequest(schedule: schedule) {
+                
                 let scheduleId: String = schedule.scheduleId
                 let schoolId = schedule.schoolId
                 let endpoint: Endpoint = .schedule(scheduleId: scheduleId, schoolId: schoolId)

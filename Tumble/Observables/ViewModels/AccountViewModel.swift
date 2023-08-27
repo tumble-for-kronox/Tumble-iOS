@@ -20,7 +20,6 @@ final class AccountViewModel: ObservableObject {
     @Inject var preferenceService: PreferenceService
     @Inject var schoolManager: SchoolManager
     
-    @Published var schoolName: String = ""
     @Published var authStatus: AuthStatus = .unAuthorized
     @Published var completeUserEvent: Response.KronoxCompleteUserEvent? = nil
     @Published var userBookings: Response.KronoxUserBookings? = nil
@@ -29,11 +28,12 @@ final class AccountViewModel: ObservableObject {
     @Published var error: Response.ErrorMessage? = nil
     @Published var resourceDetailsSheetModel: ResourceDetailSheetModel? = nil
     @Published var examDetailSheetModel: ExamDetailSheetModel? = nil
+    @Published var authSchoolId: Int = -1
     
     private var resourceSectionDataTask: URLSessionDataTask? = nil
     private var eventSectionDataTask: URLSessionDataTask? = nil
     private let popupFactory: PopupFactory = PopupFactory.shared
-    private lazy var authSchoolId: Int = preferenceService.authSchoolId
+    
     
     var userDisplayName: String? {
         return userController.user?.name
@@ -47,14 +47,17 @@ final class AccountViewModel: ObservableObject {
         return userController.autoSignup
     }
     
+    var schoolName: String {
+        return schoolManager.getSchools().first(where: { $0.id == authSchoolId})?.name ?? ""
+    }
+    
     /// AccountViewModel is responsible for instantiating
     /// the viewmodel used in its child views it navigates to
     lazy var resourceViewModel: ResourceViewModel = viewModelFactory.makeViewModelResource()
-    private var cancellable: AnyCancellable? = nil
+    private var cancellables = Set<AnyCancellable>()
     
     init() {
         setupPublishers()
-        schoolName = schoolManager.getSchools().first(where: { $0.id == authSchoolId})?.name ?? ""
         Task {
             if self.userController.autoSignup {
                 await self.registerAutoSignup()
@@ -63,13 +66,17 @@ final class AccountViewModel: ObservableObject {
     }
     
     private func setupPublishers() {
-        let authStatusPublisher = userController.$authStatus.receive(on: RunLoop.main)
-        cancellable = authStatusPublisher.sink { [weak self] authStatus in
-            DispatchQueue.main.async {
-                self?.authStatus = authStatus
-            }
-        }
-    }
+           let authStatusPublisher = userController.$authStatus.receive(on: RunLoop.main)
+           let authSchoolIdPublisher = preferenceService.$authSchoolId.receive(on: RunLoop.main)
+           Publishers.CombineLatest(authStatusPublisher, authSchoolIdPublisher)
+               .sink { [weak self] authStatus, authSchoolId in
+               DispatchQueue.main.async {
+                   self?.authStatus = authStatus
+                   self?.authSchoolId = authSchoolId
+               }
+           }
+           .store(in: &cancellables)
+       }
     
     /// Removes a users resource booking in the locally cached
     /// version. The actual network request is done in `ResourceViewModel`
@@ -286,6 +293,12 @@ final class AccountViewModel: ObservableObject {
                 = try await kronoxManager.put(request, refreshToken: refreshToken.value, body: Request.Empty())
         } catch {
             AppLogger.shared.critical("Failed to sign up for exams: \(error)")
+        }
+    }
+    
+    deinit {
+        cancellables.forEach {
+            $0.cancel()
         }
     }
     
