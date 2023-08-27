@@ -141,6 +141,7 @@
 		D4761C4429CF222900B3BB0B /* WideAnimatedButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4761C4329CF222900B3BB0B /* WideAnimatedButtonStyle.swift */; };
 		D476BD2A293A31FD0027CFE8 /* SearchPreviewList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D476BD29293A31FD0027CFE8 /* SearchPreviewList.swift */; };
 		D478452629D64F0F00BDF7A3 /* LanguageTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = D478452529D64F0F00BDF7A3 /* LanguageTypes.swift */; };
+		D480B8DD2A9BC7AD00FD3D9F /* NetworkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D480B8DC2A9BC7AD00FD3D9F /* NetworkController.swift */; };
 		D481F15729CB820D0088C28E /* AvailabilitiesExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D481F15629CB820D0088C28E /* AvailabilitiesExtension.swift */; };
 		D481F15929CB84F10088C28E /* ResourceSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D481F15829CB84F10088C28E /* ResourceSelection.swift */; };
 		D48456822A62CCA900F5B5C4 /* CloseCoverButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48456812A62CCA900F5B5C4 /* CloseCoverButton.swift */; };
@@ -372,6 +373,7 @@
 		D478452429D64D8800BDF7A3 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D478452529D64F0F00BDF7A3 /* LanguageTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageTypes.swift; sourceTree = "<group>"; };
 		D47A451C29D75D14008626E6 /* bs-BA */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "bs-BA"; path = "bs-BA.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		D480B8DC2A9BC7AD00FD3D9F /* NetworkController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkController.swift; sourceTree = "<group>"; };
 		D481F15629CB820D0088C28E /* AvailabilitiesExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvailabilitiesExtension.swift; sourceTree = "<group>"; };
 		D481F15829CB84F10088C28E /* ResourceSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceSelection.swift; sourceTree = "<group>"; };
 		D48456812A62CCA900F5B5C4 /* CloseCoverButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloseCoverButton.swift; sourceTree = "<group>"; };
@@ -1150,6 +1152,7 @@
 			children = (
 				D4A433BD29953AD300BFEB7A /* AppController.swift */,
 				D49D24FF299A9495001D2751 /* UserController.swift */,
+				D480B8DC2A9BC7AD00FD3D9F /* NetworkController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1498,6 +1501,7 @@
 				D49B984E29CF461C0023DF75 /* URLSession.swift in Sources */,
 				D4E491F829EDCCE700E674CA /* VerboseEventResponseButtonLabel.swift in Sources */,
 				D430F74029C613DB00E30E48 /* BookmarkCalendarView.swift in Sources */,
+				D480B8DD2A9BC7AD00FD3D9F /* NetworkController.swift in Sources */,
 				D443962829CB3BEA0069D66A /* UpcomingEventCardButton.swift in Sources */,
 				D4E39E372989CE27004C30DF /* Utilities.swift in Sources */,
 				D48CC5A129C7DBF90028179A /* VerboseEventButtonLabel.swift in Sources */,
