@@ -62,7 +62,7 @@ final class LoginViewModel: ObservableObject {
                 }
             }
         } catch {
-            AppLogger.shared.critical("Failed to log in user: \(error)")
+            AppLogger.shared.error("Failed to log in user: \(error)")
             DispatchQueue.main.async { [weak self] in
                 guard let self else { return }
                 PopupToast(popup: self.popupFactory.logInFailed()).showAndStack()

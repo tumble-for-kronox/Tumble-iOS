@@ -83,12 +83,13 @@ final class EventDetailsSheetViewModel: ObservableObject {
         Task.detached(priority: .userInitiated) { [weak self] in
             guard let self else { return }
             do {
-                try await self.notificationManager.scheduleNotification(for: notification, type: .event, userOffset: userOffset)
+                try await self.notificationManager
+                    .scheduleNotification(for: notification, type: .event, userOffset: userOffset)
                 DispatchQueue.main.async {
                     self.isNotificationSetForEvent = .set
                 }
             } catch {
-                AppLogger.shared.critical("Failed to schedule notifications -> \(error)")
+                AppLogger.shared.error("Could not set notifications for event: \(error)")
             }
         }
     }
@@ -113,6 +114,7 @@ final class EventDetailsSheetViewModel: ObservableObject {
             .flatMap { $0.events }
             .filter { !($0.dateComponents!.hasDatePassed()) }
             .filter { $0.course?.courseId == event.course?.courseId }
+        
         Task.detached(priority: .background) { [weak self] in
             guard let self else { return }
             do {
@@ -125,6 +127,7 @@ final class EventDetailsSheetViewModel: ObservableObject {
                 }
             } catch {
                 // TODO: Display error popup
+                AppLogger.shared.error("Could not set notifications for course: \(error)")
             }
         }
     }

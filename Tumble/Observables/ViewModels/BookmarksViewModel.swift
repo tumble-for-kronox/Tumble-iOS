@@ -28,6 +28,10 @@ final class BookmarksViewModel: ObservableObject {
     
     init() {
         defaultViewType = preferenceService.getDefaultViewType()
+        setupRealmListener()
+    }
+    
+    private func setupRealmListener() {
         // Observe changes to schedules and update days
         let schedules = realmManager.getAllLiveSchedules()
         schedulesToken = schedules.observe { [weak self] changes in
