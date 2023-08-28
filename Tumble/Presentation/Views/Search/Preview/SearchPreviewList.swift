@@ -28,7 +28,7 @@ struct SearchPreviewList: View {
                             ForEach(day.events, id: \.id) { event in
                                 VerboseEventResponseButtonLabel(
                                     event: event,
-                                    color: viewModel.courseColorsForPreview[event.course.id]!.toColor()
+                                    color: viewModel.courseColorsForPreview[event.course.id]?.toColor() ?? .white
                                 )
                                 .padding(.bottom, 10)
                             }
