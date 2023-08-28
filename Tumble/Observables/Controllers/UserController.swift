@@ -66,7 +66,7 @@ final class UserController: ObservableObject {
             }
         } catch {
             DispatchQueue.main.async {
-                AppLogger.shared.critical("Failed to log in user -> \(error)")
+                AppLogger.shared.error("Failed to log in user -> \(error)")
                 self.authStatus = .unAuthorized
             }
             throw Error.generic(reason: "Failed to log in user")
@@ -87,7 +87,7 @@ final class UserController: ObservableObject {
                 self.authStatus = .authorized
             }
         } catch {
-            AppLogger.shared.critical("Failed to log in user: \(error)")
+            AppLogger.shared.error("Failed to log in user: \(error)")
             DispatchQueue.main.async {
                 self.authStatus = .unAuthorized
             }

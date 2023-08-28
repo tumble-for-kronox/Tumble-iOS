@@ -62,6 +62,7 @@ final class SettingsViewModel: ObservableObject {
                 )
             } catch {
                 // TODO: Show toast
+                AppLogger.shared.error("Could not reschedule notifications")
             }
         }
     }
@@ -79,7 +80,7 @@ final class SettingsViewModel: ObservableObject {
             guard let notification = notificationManager.createNotificationFromEvent(
                 event: event
             ) else {
-                AppLogger.shared.critical("Could not set notification for event \(event._id)")
+                AppLogger.shared.error("Could not set notification for event \(event._id)")
                 PopupToast(popup: popupFactory.setNotificationsAllEventsFailed()).showAndStack()
                 return
             }
@@ -100,7 +101,7 @@ final class SettingsViewModel: ObservableObject {
                     }
                 }
             } catch let failure {
-                AppLogger.shared.critical("\(failure)")
+                AppLogger.shared.error("\(failure)")
                 // TODO: Show toast
             }
         }

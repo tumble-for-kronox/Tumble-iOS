@@ -48,12 +48,13 @@ final class AccountViewModel: ObservableObject {
     }
     
     var schoolName: String {
-        return schoolManager.getSchools().first(where: { $0.id == authSchoolId})?.name ?? ""
+        return schools.first(where: { $0.id == authSchoolId})?.name ?? ""
     }
     
     /// AccountViewModel is responsible for instantiating
     /// the viewmodel used in its child views it navigates to
     lazy var resourceViewModel: ResourceViewModel = viewModelFactory.makeViewModelResource()
+    lazy var schools: [School] = schoolManager.getSchools()
     private var cancellables = Set<AnyCancellable>()
     
     init() {
@@ -129,7 +130,7 @@ final class AccountViewModel: ObservableObject {
             try await userController.logOut()
             await notificationManager.cancelNotifications(with: "Booking")
         } catch {
-            AppLogger.shared.critical("Failed to log out user: \(error)")
+            AppLogger.shared.error("Failed to log out user: \(error)")
             DispatchQueue.main.async { [weak self] in
                 guard let self else { return }
                 PopupToast(popup: self.popupFactory.logOutFailed()).showAndStack()
@@ -157,7 +158,7 @@ final class AccountViewModel: ObservableObject {
                 self?.registeredEventSectionState = .loaded
             }
         } catch {
-            AppLogger.shared.critical("Could not get user events: \(error)")
+            AppLogger.shared.error("Could not get user events: \(error)")
             DispatchQueue.main.async { [weak self] in
                 self?.registeredEventSectionState = .error
             }
@@ -209,7 +210,7 @@ final class AccountViewModel: ObservableObject {
                 self.registeredEventSectionState = .loaded
             }
         } catch {
-            AppLogger.shared.critical("Failed to unregister from event: \(error)")
+            AppLogger.shared.error("Failed to unregister from event: \(error)")
             // TODO: Add toast
             DispatchQueue.main.async {
                 self.registeredEventSectionState = .error
@@ -275,7 +276,7 @@ final class AccountViewModel: ObservableObject {
                     AppLogger.shared.debug("Failed: \(failure)")
                 }
             } else {
-                AppLogger.shared.critical("Failed to retrieve date components for booking")
+                AppLogger.shared.error("Failed to retrieve date components for booking")
             }
         }
     }
@@ -286,13 +287,13 @@ final class AccountViewModel: ObservableObject {
         do {
             let request = Endpoint.registerAllEvents(schoolId: String(authSchoolId))
             guard let refreshToken = userController.refreshToken else {
-                AppLogger.shared.critical("Failed to sign up for exams due to user not being signed in or missing their token")
+                AppLogger.shared.error("Failed to sign up for exams due to user not being signed in or missing their token")
                 return
             }
             let _: Response.KronoxEventRegistration?
                 = try await kronoxManager.put(request, refreshToken: refreshToken.value, body: Request.Empty())
         } catch {
-            AppLogger.shared.critical("Failed to sign up for exams: \(error)")
+            AppLogger.shared.error("Failed to sign up for exams: \(error)")
         }
     }
     

@@ -89,7 +89,7 @@ actor KeyChainManager {
         }
             
         if status != errSecSuccess {
-            AppLogger.shared.critical("Could not save item to keychain -> \(status)")
+            AppLogger.shared.error("Could not save item to keychain -> \(status)")
             throw Error.internal(reason: "Could not save item to keychain")
         }
             

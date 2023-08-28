@@ -80,10 +80,53 @@ final class ParentViewModel: ObservableObject {
                 if connected && !self.attemptedUpdateDuringSession {
                     self.updateRealmSchedules()
                 }
-                
             }
             .store(in: &cancellables)
     }
+    
+    /// Attempts to update the locally stored schedules
+    /// by retrieving all the schedules by id from the backend.
+    @MainActor
+    func updateBookmarks(scheduleIds: [String]) async {
+        defer { self.attemptedUpdateDuringSession = true }
+        var updatedSchedules = 0
+        let scheduleCount: Int = scheduleIds.count
+        
+        for scheduleId in scheduleIds {
+            do {
+                try await fetchAndUpdateSchedule(scheduleId: scheduleId)
+                updatedSchedules += 1
+            } catch {
+                AppLogger.shared.error("Updating could not finish due to network error or other issue")
+            }
+        }
+        
+        if updatedSchedules != scheduleCount {
+            PopupToast(popup: popupFactory.updateBookmarksFailed()).showAndStack()
+        }
+    }
+
+    
+    @MainActor
+    private func fetchAndUpdateSchedule(scheduleId: String) async throws {
+        guard let schedule = realmManager.getScheduleByScheduleId(scheduleId: scheduleId), !schedule.isInvalidated else {
+            throw UpdateBookmarkError.scheduleNotFound(scheduleId)
+        }
+
+        guard validUpdateRequest(schedule: schedule) else {
+            throw UpdateBookmarkError.unauthorizedAccess(schedule.schoolId)
+        }
+
+        let endpoint: Endpoint = .schedule(scheduleId: schedule.scheduleId, schoolId: schedule.schoolId)
+        do {
+            let fetchedSchedule: Response.Schedule = try await kronoxManager.get(endpoint)
+            updateSchedule(schedule: fetchedSchedule, schoolId: schedule.schoolId, existingSchedule: schedule)
+        } catch {
+            throw UpdateBookmarkError.networkError(error.localizedDescription)
+        }
+    }
+
+    
     
     /// Updates any Realm schedules stored locally
     private func updateRealmSchedules() {
@@ -107,41 +150,6 @@ final class ParentViewModel: ObservableObject {
     func finishOnboarding() {
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             self?.preferenceService.setUserOnboarded()
-        }
-    }
-    
-    /// Attempts to update the locally stored schedules
-    /// by retrieving all the schedules from the Tumble backend.
-    @MainActor
-    func updateBookmarks(scheduleIds: [String]) async {
-        defer { self.attemptedUpdateDuringSession = true }
-        var updatedSchedules = 0
-        
-        // Validate the count after filtering
-        let scheduleCount: Int = scheduleIds.count
-
-        for scheduleId in scheduleIds {
-            if let schedule = self.realmManager.getScheduleByScheduleId(scheduleId: scheduleId), !schedule.isInvalidated,
-                self.validUpdateRequest(schedule: schedule) {
-                
-                let scheduleId: String = schedule.scheduleId
-                let schoolId = schedule.schoolId
-                let endpoint: Endpoint = .schedule(scheduleId: scheduleId, schoolId: schoolId)
-
-                do {
-                    let fetchedSchedule: Response.Schedule = try await kronoxManager.get(endpoint)
-                    self.updateSchedule(schedule: fetchedSchedule, schoolId: schoolId, existingSchedule: schedule)
-                    updatedSchedules += 1
-                } catch {
-                    AppLogger.shared.error("Updating could not finish due to network error")
-                }
-            } else {
-                AppLogger.shared.error("Can not update schedule. Requires authentication against different university")
-            }
-        }
-
-        if updatedSchedules != scheduleCount {
-            PopupToast(popup: popupFactory.updateBookmarksFailed()).showAndStack()
         }
     }
 
@@ -169,7 +177,6 @@ final class ParentViewModel: ObservableObject {
     }
     
     
-    /// Cleanup
     deinit {
         NotificationCenter.default.removeObserver(self)
         cancellables.forEach { $0.cancel() }

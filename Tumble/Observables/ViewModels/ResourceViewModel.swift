@@ -66,7 +66,7 @@ final class ResourceViewModel: ObservableObject {
                 self.eventBookingPageState = .loaded
             }
         } catch {
-            AppLogger.shared.critical("\(error)")
+            AppLogger.shared.error("\(error)")
             DispatchQueue.main.async {
                 self.eventBookingPageState = .error
             }
@@ -92,7 +92,7 @@ final class ResourceViewModel: ObservableObject {
                     refreshToken: refreshToken.value,
                     body: Request.Empty())
         } catch {
-            AppLogger.shared.critical("\(error)")
+            AppLogger.shared.error("\(error)")
         }
     }
     
@@ -115,7 +115,7 @@ final class ResourceViewModel: ObservableObject {
                 body: Request.Empty())
             
         } catch {
-            AppLogger.shared.critical("\(error)")
+            AppLogger.shared.error("\(error)")
             DispatchQueue.main.async {
                 self.eventBookingPageState = .error
             }
@@ -142,7 +142,7 @@ final class ResourceViewModel: ObservableObject {
                 self.resourceBookingPageState = .loaded
             }
         } catch { /// Catches CancellationError as well, if task is cancelled due to date change
-            AppLogger.shared.critical("Error: \(error)")
+            AppLogger.shared.error("Error: \(error)")
             DispatchQueue.main.async {
                 self.resourceBookingPageState = .error
             }
@@ -165,7 +165,7 @@ final class ResourceViewModel: ObservableObject {
             let _ : Response.Empty = try await kronoxManager.put(
                 request, refreshToken: refreshToken.value, body: requestBody)
         } catch {
-            AppLogger.shared.critical("Failed to confirm resource: \(error)")
+            AppLogger.shared.error("Failed to confirm resource: \(error)")
         }
     }
     
@@ -189,8 +189,8 @@ final class ResourceViewModel: ObservableObject {
             }
             let _ : Response.KronoxUserBookingElement? = try await kronoxManager.put(
                 request, refreshToken: refreshToken.value, body: requestBody)
-        } catch (let error) {
-            AppLogger.shared.critical("Failed to book resource: \(error)")
+        } catch {
+            AppLogger.shared.error("Failed to book resource: \(error)")
             return false
         }
         return true
@@ -209,7 +209,7 @@ final class ResourceViewModel: ObservableObject {
             AppLogger.shared.debug("Unbooked resource")
             self.notificationManager.cancelNotification(for: bookingId)
         } catch {
-            AppLogger.shared.critical("Failed to unbook resource: \(bookingId)\nError: \(error)")
+            AppLogger.shared.error("Failed to unbook resource: \(bookingId)\nError: \(error)")
             return false
         }
         return true

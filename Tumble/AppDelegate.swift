@@ -58,7 +58,7 @@ extension AppDelegate: MessagingDelegate {
         if deviceToken["token"] != nil {
             Messaging.messaging().subscribe(toTopic: "updates") { error in
                 if let error = error {
-                    AppLogger.shared.critical("Failed to subscribe to updates topic: \(error.localizedDescription)", source: "AppDelegate")
+                    AppLogger.shared.error("Failed to subscribe to updates topic: \(error.localizedDescription)", source: "AppDelegate")
                 } else {
                     AppLogger.shared.debug("Subscribed to updates topic", source: "AppDelegate")
                 }
@@ -77,11 +77,11 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     }
 
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        AppLogger.shared.critical("Registered for remote notifications for the current device token: \(deviceToken)")
+        AppLogger.shared.error("Registered for remote notifications for the current device token: \(deviceToken)")
     }
 
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
-        AppLogger.shared.critical("Failed to register for remote notifications: \(error)")
+        AppLogger.shared.error("Failed to register for remote notifications: \(error)")
     }
     
     func userNotificationCenter(

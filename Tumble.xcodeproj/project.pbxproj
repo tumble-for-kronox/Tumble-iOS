@@ -19,6 +19,7 @@
 		D400F3EE29D797A80050622E /* TumbleUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D400F3ED29D797A80050622E /* TumbleUser.swift */; };
 		D4040EC429D310A800613144 /* Refreshable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4040EC329D310A800613144 /* Refreshable.swift */; };
 		D4077F6529F08B80000A3155 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D4077F6429F08B80000A3155 /* GoogleService-Info.plist */; };
+		D4095BBA2A9CAAAF005F55D0 /* UpdateBookmarkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4095BB92A9CAAAF005F55D0 /* UpdateBookmarkError.swift */; };
 		D40CC161292AFB9F00664776 /* Bookmarks.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40CC160292AFB9F00664776 /* Bookmarks.swift */; };
 		D40CC163292AFE7200664776 /* BookmarksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40CC162292AFE7200664776 /* BookmarksViewModel.swift */; };
 		D40D808929247123008CA68D /* Root.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40D808829247123008CA68D /* Root.swift */; };
@@ -248,6 +249,7 @@
 		D400F3ED29D797A80050622E /* TumbleUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TumbleUser.swift; sourceTree = "<group>"; };
 		D4040EC329D310A800613144 /* Refreshable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Refreshable.swift; sourceTree = "<group>"; };
 		D4077F6429F08B80000A3155 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../Documents/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		D4095BB92A9CAAAF005F55D0 /* UpdateBookmarkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateBookmarkError.swift; sourceTree = "<group>"; };
 		D40CC160292AFB9F00664776 /* Bookmarks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bookmarks.swift; sourceTree = "<group>"; };
 		D40CC162292AFE7200664776 /* BookmarksViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksViewModel.swift; sourceTree = "<group>"; };
 		D40D808829247123008CA68D /* Root.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Root.swift; sourceTree = "<group>"; };
@@ -543,6 +545,14 @@
 			path = Formatters;
 			sourceTree = "<group>";
 		};
+		D4095BB82A9CAA9F005F55D0 /* Errors */ = {
+			isa = PBXGroup;
+			children = (
+				D4095BB92A9CAAAF005F55D0 /* UpdateBookmarkError.swift */,
+			);
+			path = Errors;
+			sourceTree = "<group>";
+		};
 		D40D809629251EA5008CA68D /* General */ = {
 			isa = PBXGroup;
 			children = (
@@ -674,6 +684,7 @@
 		D41ED545298433A3009DCF8B /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				D4095BB82A9CAA9F005F55D0 /* Errors */,
 				D4FFCC2029EDA9C400708CC0 /* Realm */,
 				D4FCD14C2995ADE9009D2987 /* UIKit */,
 				D4A550CD299454E900028BCF /* Storage */,
@@ -1501,6 +1512,7 @@
 				D49B984E29CF461C0023DF75 /* URLSession.swift in Sources */,
 				D4E491F829EDCCE700E674CA /* VerboseEventResponseButtonLabel.swift in Sources */,
 				D430F74029C613DB00E30E48 /* BookmarkCalendarView.swift in Sources */,
+				D4095BBA2A9CAAAF005F55D0 /* UpdateBookmarkError.swift in Sources */,
 				D480B8DD2A9BC7AD00FD3D9F /* NetworkController.swift in Sources */,
 				D443962829CB3BEA0069D66A /* UpcomingEventCardButton.swift in Sources */,
 				D4E39E372989CE27004C30DF /* Utilities.swift in Sources */,

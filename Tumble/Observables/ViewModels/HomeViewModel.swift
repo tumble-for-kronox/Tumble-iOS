@@ -13,6 +13,7 @@ import SwiftUI
 final class HomeViewModel: ObservableObject {
     @Inject var kronoxManager: KronoxManager
     @Inject var realmManager: RealmManager
+    @Inject var networkController: Network
     
     @Published var newsSectionStatus: GenericPageStatus = .loading
     @Published var news: Response.NewsItems? = nil
@@ -21,14 +22,29 @@ final class HomeViewModel: ObservableObject {
     @Published var todaysEventsCards: [WeekEventCardModel] = .init()
     @Published var nextClass: Event? = nil
     
+    private var fetchedNewsDuringSession: Bool = false
     private let viewModelFactory: ViewModelFactory = .shared
     private var schedulesToken: NotificationToken?
+    private var cancellable: AnyCancellable? = nil
     
     init() {
         setupRealmListener()
-        Task.detached(priority: .userInitiated) { [weak self] in
-            await self?.fetchNews()
-        }
+        setupNetworkPublisher()
+    }
+    
+    /// Listen for change in network connection, if connected attempt
+    /// to fetch latest news from server
+    private func setupNetworkPublisher() {
+        let networkConnectionPublisher = networkController.$connected.receive(on: RunLoop.main)
+        cancellable = networkConnectionPublisher
+            .sink { [weak self] connected in
+                guard let self else { return }
+                if connected && !self.fetchedNewsDuringSession {
+                    Task.detached(priority: .userInitiated) {
+                        await self.fetchNews()
+                    }
+                }
+            }
     }
     
     /// Initializes a listener that performs updates on the
@@ -39,7 +55,7 @@ final class HomeViewModel: ObservableObject {
             guard let self = self else { return }
             switch changes {
             case .initial(let results), .update(let results, _, _, _):
-                self.createEventCardsForToday(schedules: Array(results))
+                self.createCarouselCards(schedules: Array(results))
                 self.findNextUpcomingEvent(schedules: Array(results))
             case .error:
                 self.status = .error
@@ -59,8 +75,8 @@ final class HomeViewModel: ObservableObject {
                 self?.news = news
                 self?.newsSectionStatus = .loaded
             }
-        } catch (let error) {
-            AppLogger.shared.critical("Failed to retrieve news items: \(error)")
+        } catch {
+            AppLogger.shared.error("Failed to retrieve news items: \(error)")
             DispatchQueue.main.async { [weak self] in
                 self?.newsSectionStatus = .error
             }
@@ -91,7 +107,7 @@ final class HomeViewModel: ObservableObject {
 
     /// Creates and assigns a list of `DayEventCardModel`
     /// that will be displayd on the home screen
-    private func createEventCardsForToday(schedules: [Schedule]) {
+    private func createCarouselCards(schedules: [Schedule]) {
         if schedules.isEmpty || schedules.filter({ $0.toggled }).isEmpty {
             return
         }
@@ -107,6 +123,10 @@ final class HomeViewModel: ObservableObject {
             self?.todaysEventsCards = todaysEventsCards
             self?.status = .available
         }
+    }
+    
+    deinit {
+        cancellable?.cancel()
     }
     
 }

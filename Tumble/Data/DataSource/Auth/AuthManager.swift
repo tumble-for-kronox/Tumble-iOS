@@ -47,7 +47,7 @@ class AuthManager {
                 endpoint: .login(schoolId: String(authSchoolId)),
                 body: userRequest
             ) else {
-                AppLogger.shared.critical("Could not create URLRequest object")
+                AppLogger.shared.error("Could not create URLRequest object")
                 throw Error.generic(reason: "Could not create URLRequest object")
             }
             
@@ -62,12 +62,12 @@ class AuthManager {
                 
                 return TumbleUser(username: user.username, password: user.password, name: user.name)
             } catch {
-                AppLogger.shared.critical("Could not decode object to KronoxUser or network request failed")
+                AppLogger.shared.error("Could not decode object to KronoxUser or network request failed")
                 return try await retriveStoredUser()
             }
             
         } else {
-            AppLogger.shared.critical("Missing school/keychain user ...")
+            AppLogger.shared.error("Missing school/keychain user ...")
             throw Error.internal(reason: "No user available")
         }
     }
@@ -150,14 +150,14 @@ class AuthManager {
     func getToken(tokenType: TokenType) async -> Token? {
         do {
             guard let data = try await keychainManager.readKeyChain(for: tokenType.rawValue, account: "Tumble for Kronox") else {
-                AppLogger.shared.critical("Token is nil")
+                AppLogger.shared.error("Token is nil")
                 return nil
             }
             let decoder = JSONDecoder()
             let token = try decoder.decode(Token.self, from: data)
             return token
         } catch {
-            AppLogger.shared.critical("Could not decode token")
+            AppLogger.shared.error("Could not decode token")
             return nil
         }
     }
@@ -165,7 +165,7 @@ class AuthManager {
     func getUser() async -> TumbleUser? {
         do {
             guard let data = try await keychainManager.readKeyChain(for: "tumble-user", account: "Tumble for Kronox") else {
-                AppLogger.shared.critical("User is nil")
+                AppLogger.shared.error("User is nil")
                 return nil
             }
             let decoder = JSONDecoder()
