@@ -9,10 +9,10 @@ import SwiftUI
 
 struct SignOutButton: View {
     
-    let signOut: () -> Void
+    let showConfirmationDialog: () -> Void
     
     var body: some View {
-        Button(action: signOut, label: {
+        Button(action: showConfirmationDialog, label: {
             Image(systemName: "rectangle.portrait.and.arrow.right")
                 .actionIcon()
         })

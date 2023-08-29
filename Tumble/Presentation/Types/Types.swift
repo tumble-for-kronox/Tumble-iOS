@@ -12,7 +12,7 @@ import SwiftUI
 enum TabbarTabType: String {
     case home = "house"
     case bookmarks = "bookmark"
-    case account = "person"
+    case account = "graduationcap"
     case search = "magnifyingglass"
     
     static let allValues = [home, bookmarks, account]

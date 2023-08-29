@@ -6,6 +6,10 @@
   
 */
 
+"Yes"="Oui";
+
+"Are you sure you want to log out of your account?"="Êtes-vous sûr de vouloir vous déconnecter de votre compte ?";
+
 "No events for this week.."="Pas d'événements pour cette semaine..";
 
 "No events this day"="Pas d'événements ce jour-là";
