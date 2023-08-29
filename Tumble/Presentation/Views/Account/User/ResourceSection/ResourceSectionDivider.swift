@@ -45,13 +45,9 @@ struct ResourceSectionDivider<Content: View>: View {
                         HStack {
                             switch resourceType! {
                             case .event:
-                                Text(NSLocalizedString("See all", comment: ""))
-                                    .font(.system(size: 16, weight: .semibold))
-                                    .foregroundColor(.primary)
+                                ResourceNavigationItem(title: "See all")
                             case .resource:
-                                Text(NSLocalizedString("Book more", comment: ""))
-                                    .font(.system(size: 16, weight: .semibold))
-                                    .foregroundColor(.primary)
+                                ResourceNavigationItem(title: "Book more", image: "plus")
                             }
                         }
                     })
@@ -63,4 +59,33 @@ struct ResourceSectionDivider<Content: View>: View {
         .padding(.vertical, 7.5)
         .padding(.horizontal, 17)
     }
+}
+
+
+private struct ResourceNavigationItem: View {
+    
+    let title: String
+    let image: String?
+    
+    init(title: String, image: String? = nil) {
+        self.title = title
+        self.image = image
+    }
+    
+    var body: some View {
+        HStack {
+            Text(LocalizedStringKey(title))
+                .font(.system(size: 14, weight: .semibold))
+                .foregroundColor(.onPrimary)
+            if let image = image {
+                Image(systemName: image)
+                    .font(.system(size: 14, weight: .semibold))
+                    .foregroundColor(.onPrimary)
+            }
+        }
+        .padding(10)
+        .background(Color.primary)
+        .cornerRadius(10)
+    }
+    
 }

@@ -39,12 +39,14 @@ struct SearchField: View {
                         Image(systemName: "magnifyingglass")
                             .foregroundColor(.onPrimary)
                             .font(.system(size: 16, weight: .semibold))
+                            .frame(width: 17, height: 17)
                     }
                     .buttonStyle(SearchMenuActionStyle())
                     Button(action: searchFieldAction) {
                         Image(systemName: "xmark")
                             .foregroundColor(.onPrimary)
                             .font(.system(size: 16, weight: .semibold))
+                            .frame(width: 17, height: 17)
                     }
                     .buttonStyle(SearchMenuActionStyle())
                 }
