@@ -30,6 +30,8 @@ final class SearchViewModel: ObservableObject {
     @Published var searching: Bool = false
     @Published var searchBarText: String = ""
     
+    var currentSearchTask: Task<Void, Never>? = nil
+    
     lazy var schools: [School] = schoolManager.getSchools()
     lazy var searchPreviewViewModel: SearchPreviewViewModel = viewModelFactory.makeViewModelSearchPreview()
     
@@ -37,25 +39,36 @@ final class SearchViewModel: ObservableObject {
     /// to find matching university programmes and schedules
     func search(for query: String, selectedSchoolId: Int) {
         self.status = .loading
-        let endpoint = Endpoint.searchProgramme(searchQuery: query, schoolId: String(selectedSchoolId))
-        Task {
-            do {
-                let searchResult: Response.Search = try await self.kronoxManager.get(endpoint)
-                await self.parseSearchResults(searchResult)
-            } catch {
-                DispatchQueue.main.async {
-                    self.errorMessageSearch = error.localizedDescription
-                    self.status = SearchStatus.error
+        
+        // Cancel the ongoing task if there is one
+       currentSearchTask?.cancel()
+        
+        currentSearchTask = Task {
+                do {
+                    let endpoint = Endpoint.searchProgramme(searchQuery: query, schoolId: String(selectedSchoolId))
+                    let searchResult: Response.Search = try await self.kronoxManager.get(endpoint)
+                    
+                    // Before parsing the results, check if the task should proceed
+                    if self.status != .loading {
+                        return
+                    }
+                    
+                    await self.parseSearchResults(searchResult)
+                } catch {
+                    DispatchQueue.main.async {
+                        if (error as? CancellationError) != nil {
+                            return
+                        }
+                    }
                 }
             }
-        }
-        
     }
-    
+
     /// Resets any fields and data in the `Search` and
     /// `SearchResults` views
     @MainActor func resetSearchResults() {
         programmeSearchResults = []
+        currentSearchTask?.cancel()
         status = .initial
     }
     
