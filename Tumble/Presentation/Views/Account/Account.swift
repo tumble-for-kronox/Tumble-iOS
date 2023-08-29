@@ -11,6 +11,8 @@ struct Account: View {
     
     @ObservedObject var viewModel: AccountViewModel
     @ObservedObject var appController: AppController = .shared
+    
+    @State private var isSigningOut: Bool = false
         
     var body: some View {
         NavigationView {
@@ -28,13 +30,16 @@ struct Account: View {
             .navigationTitle(NSLocalizedString("Account", comment: ""))
             .navigationBarItems(trailing: HStack {
                 if viewModel.authStatus == .authorized {
-                    SignOutButton(signOut: {
-                        Task {
-                            await viewModel.logOut()
-                        }
+                    SignOutButton(showConfirmationDialog: {
+                        isSigningOut = true
                     })
                 }
                 SettingsButton()
+            })
+            .confirmationDialog(LocalizedStringKey("Are you sure you want to log out of your account?"), isPresented: $isSigningOut, actions: {
+                Button(LocalizedStringKey("Yes"), action: logOut)
+            }, message: {
+                Text(LocalizedStringKey("Are you sure you want to log out of your account?"))
             })
             
         }
@@ -42,5 +47,11 @@ struct Account: View {
             TabItem(appTab: TabbarTabType.account, selectedAppTab: $appController.selectedAppTab)
         }
         .tag(TabbarTabType.account)
+    }
+    
+    func logOut() {
+        Task {
+            await viewModel.logOut()
+        }
     }
 }
