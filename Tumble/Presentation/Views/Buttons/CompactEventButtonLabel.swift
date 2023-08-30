@@ -30,7 +30,7 @@ struct CompactEventButtonLabel: View {
                 .foregroundColor(.onSurface)
             VStack(alignment: .leading, spacing: 10) {
                 HStack {
-                    Text(event.title)
+                    Text(event.course?.englishName ?? "")
                         .font(.system(size: 17, weight: .medium))
                         .foregroundColor(.onSurface)
                         .lineLimit(1)

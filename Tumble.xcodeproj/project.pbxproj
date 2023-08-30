@@ -225,6 +225,7 @@
 		D4F0C7FE2A2F8373002F8376 /* OutlinedButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F0C7FD2A2F8373002F8376 /* OutlinedButtonStyle.swift */; };
 		D4F0C8032A2F9A70002F8376 /* Popup.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F0C8022A2F9A70002F8376 /* Popup.swift */; };
 		D4F532642A2A3FF2009DC8B8 /* Notification+NameExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F532632A2A3FF2009DC8B8 /* Notification+NameExtension.swift */; };
+		D4F631922A9F5FBF00C87F5D /* CloseButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F631912A9F5FBF00C87F5D /* CloseButtonStyle.swift */; };
 		D4FCD14B2995AD64009D2987 /* UIColorWellExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FCD14A2995AD64009D2987 /* UIColorWellExtension.swift */; };
 		D4FCD14E2995ADFE009D2987 /* UIColorWellHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FCD14D2995ADFE009D2987 /* UIColorWellHelper.swift */; };
 		D4FFCC1D29EDA9A700708CC0 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = D4FFCC1C29EDA9A700708CC0 /* Realm */; };
@@ -459,6 +460,7 @@
 		D4F0C7FD2A2F8373002F8376 /* OutlinedButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutlinedButtonStyle.swift; sourceTree = "<group>"; };
 		D4F0C8022A2F9A70002F8376 /* Popup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Popup.swift; sourceTree = "<group>"; };
 		D4F532632A2A3FF2009DC8B8 /* Notification+NameExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+NameExtension.swift"; sourceTree = "<group>"; };
+		D4F631912A9F5FBF00C87F5D /* CloseButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloseButtonStyle.swift; sourceTree = "<group>"; };
 		D4FCD14A2995AD64009D2987 /* UIColorWellExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorWellExtension.swift; sourceTree = "<group>"; };
 		D4FCD14D2995ADFE009D2987 /* UIColorWellHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorWellHelper.swift; sourceTree = "<group>"; };
 		D4FFCC2129EDA9E200708CC0 /* Schedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Schedule.swift; sourceTree = "<group>"; };
@@ -1079,6 +1081,7 @@
 				D45DAB2129DB380E00FCA5AC /* AnimatedButtonStyle.swift */,
 				D4F0C7FD2A2F8373002F8376 /* OutlinedButtonStyle.swift */,
 				D483CC382A9DF21C0088C54A /* SearchMenuActionStyle.swift */,
+				D4F631912A9F5FBF00C87F5D /* CloseButtonStyle.swift */,
 			);
 			path = ButtonStyles;
 			sourceTree = "<group>";
@@ -1525,6 +1528,7 @@
 				D4BAE5F82924636500143717 /* School.swift in Sources */,
 				D439F8A329DBAA59006332AB /* HomeNotAvailable.swift in Sources */,
 				D430F74729C654A200E30E48 /* BookmarkCalendarDetail.swift in Sources */,
+				D4F631922A9F5FBF00C87F5D /* CloseButtonStyle.swift in Sources */,
 				D414B23429D88C1100EA8F46 /* PullToRefreshIndicator.swift in Sources */,
 				D4A328DE29CD10F300945AF4 /* NetworkUtilities.swift in Sources */,
 				D40D808929247123008CA68D /* Root.swift in Sources */,

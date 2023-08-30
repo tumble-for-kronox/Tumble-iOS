@@ -48,7 +48,7 @@ struct Settings: View {
                 SettingsListGroup {
                     SettingsNavigationButton(
                         title: NSLocalizedString("Notification offset", comment: ""),
-                        leadingIcon: "clock.badge",
+                        leadingIcon: "clock",
                         leadingIconBackgroundColor: .red,
                         destination: AnyView(NotificationOffsetSettings(
                             offset: $offset,

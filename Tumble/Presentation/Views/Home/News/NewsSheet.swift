@@ -24,44 +24,48 @@ struct NewsSheet: View {
     }
     
     var body: some View {
-        NavigationView {
-            VStack {
-                SearchField(
-                    search: nil,
-                    clearSearch: nil,
-                    title: "Search news",
-                    searchBarText: $searchText,
-                    searching: $searching,
-                    disabled: .constant(false)
-                )
-                .padding(.top, 55)
-                if !searching {
-                    ScrollView(showsIndicators: false) {
-                        RecentNews(news: news)
-                        AllNews(news: news)
-                    }
-                    .padding([.top, .horizontal], 15)
-                } else {
-                    ScrollView(showsIndicators: false) {
-                        ForEach(filteredNews, id: \.self) { newsItem in
-                            NewsItemCard(newsItem: newsItem)
+        ZStack {
+            NavigationView {
+                VStack {
+                    SearchField(
+                        search: nil,
+                        clearSearch: nil,
+                        title: "Search news",
+                        searchBarText: $searchText,
+                        searching: $searching,
+                        disabled: .constant(false)
+                    )
+                    .padding(.top, 100)
+                    if !searching {
+                        ScrollView(showsIndicators: false) {
+                            RecentNews(news: news)
+                            AllNews(news: news)
                         }
+                        .padding([.top, .horizontal], 15)
+                    } else {
+                        ScrollView(showsIndicators: false) {
+                            ForEach(filteredNews, id: \.self) { newsItem in
+                                NewsItemCard(newsItem: newsItem)
+                            }
+                        }
+                        .padding([.top, .horizontal], 15)
                     }
-                    .padding([.top, .horizontal], 15)
+                    Spacer()
+                }
+                .edgesIgnoringSafeArea(.all)
+                .frame(maxHeight: .infinity)
+                .background(Color.background)
+                .navigationTitle(NSLocalizedString("News", comment: ""))
+                .navigationBarTitleDisplayMode(.inline)
+            }
+            
+            VStack {
+                HStack {
+                    Spacer()
+                    CloseCoverButton(onClick: onClose)
                 }
                 Spacer()
             }
-            .frame(maxHeight: .infinity)
-            .background(Color.background)
-            .overlay(
-                CloseCoverButton(onClick: onClose),
-                alignment: .topTrailing
-            )
-            .overlay(
-                Text(NSLocalizedString("News", comment: ""))
-                    .sheetTitle()
-                ,alignment: .top
-            )
         }
     }
     
