@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import RealmSwift
 
 struct BookmarksListModel {
     var scrollViewOffset: CGFloat = .zero
@@ -14,7 +15,7 @@ struct BookmarksListModel {
 }
 
 struct BookmarkListView: View {
-    @Binding var days: [Day]
+    let days: [Day]
     @ObservedObject var appController: AppController
     @State private var bookmarksListModel: BookmarksListModel = .init()
     @State private var searching: Bool = false

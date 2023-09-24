@@ -9,6 +9,12 @@ import Combine
 import RealmSwift
 import SwiftUI
 
+struct BookmarkData {
+    let days: [Day]
+    let calendarEventsByDate: [Date : [Event]]
+    let weeks: [Int : [Day]]
+}
+
 final class BookmarksViewModel: ObservableObject {
     let viewModelFactory: ViewModelFactory = ViewModelFactory.shared
     let scheduleViewTypes: [ViewType] = ViewType.allCases
@@ -19,26 +25,28 @@ final class BookmarksViewModel: ObservableObject {
     
     @Published var defaultViewType: ViewType = .list
     @Published var eventSheet: EventDetailsSheetModel? = nil
-    @Published var days: [Day] = .init()
-    @Published var weeks: [Int : [Day]] = .init()
     @Published var status: BookmarksViewStatus = .loading
-    @Published var calendarEventsByDate: [Date : [Event]] = [:]
+    @Published var bookmarkData: BookmarkData = BookmarkData(days: [], calendarEventsByDate: [:], weeks: [:])
     
-    var schedulesToken: NotificationToken? = nil
+    private var schedulesToken: NotificationToken? = nil
+    private var workItem: DispatchWorkItem?
     
     init() {
         defaultViewType = preferenceService.getDefaultViewType()
         setupRealmListener()
     }
-    
+
     private func setupRealmListener() {
-        // Observe changes to schedules and update days
         let schedules = realmManager.getAllLiveSchedules()
         schedulesToken = schedules.observe { [weak self] changes in
             guard let self = self else { return }
             switch changes {
             case .initial(let results), .update(let results, _, _, _):
-                self.createDaysAndCalendarEvents(schedules: Array(results))
+                self.workItem?.cancel()
+                self.workItem = DispatchWorkItem { [weak self] in
+                    self?.createDaysAndCalendarEvents(schedules: Array(results))
+                }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: self.workItem!)
             case .error:
                 DispatchQueue.main.async {
                     self.status = .error
@@ -46,6 +54,7 @@ final class BookmarksViewModel: ObservableObject {
             }
         }
     }
+
     
     /// Instantiates viewmodel for viewing a specific `Event` object
     func createViewModelEventSheet(event: Event) -> EventDetailsSheetViewModel {
@@ -66,6 +75,7 @@ final class BookmarksViewModel: ObservableObject {
         
         DispatchQueue.main.async { [weak self] in
             self?.status = .loading
+            AppLogger.shared.info("Running function ...")
         }
         
         let hiddenScheduleIds = schedules.filter { !$0.toggled }.map { $0.scheduleId }
@@ -112,9 +122,7 @@ final class BookmarksViewModel: ObservableObject {
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
             AppLogger.shared.debug("Updating days ..", file: "BookmarksViewModel")
-            self.days = days
-            self.calendarEventsByDate = calendarEvents
-            self.weeks = days.groupedByWeeks()
+            self.bookmarkData = BookmarkData(days: days, calendarEventsByDate: calendarEvents, weeks: days.groupedByWeeks())
             self.status = .loaded
         }
     }

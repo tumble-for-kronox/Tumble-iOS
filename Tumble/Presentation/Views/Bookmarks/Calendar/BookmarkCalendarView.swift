@@ -14,15 +14,15 @@ struct BookmarkCalendarView: View {
     
     @State private var selectedDateEvents: [Event] = .init()
     @State private var selectedDate: Date = .init()
-    @Binding var calendarEventsByDate: [Date: [Event]]
-    @Binding var days: [Day]
+    var calendarEventsByDate: [Date: [Event]]
+    var days: [Day]
     
     var body: some View {
         ScrollView(showsIndicators: false) {
             CalendarViewRepresentable(
                 selectedDate: $selectedDate,
                 selectedDateEvents: $selectedDateEvents,
-                calendarEventsByDate: $calendarEventsByDate
+                calendarEventsByDate: calendarEventsByDate
             )
             .id(days)
             .onChange(of: days, perform: { _ in
