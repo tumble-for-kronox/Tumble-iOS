@@ -108,7 +108,7 @@ final class ParentViewModel: ObservableObject {
             PopupToast(popup: popupFactory.updateBookmarksFailed()).showAndStack()
         }
         
-        print("Finished updating schedules")
+        AppLogger.shared.debug("Finished updating schedules")
         AppController.shared.updatingBookmarks = false
     }
 

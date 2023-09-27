@@ -50,7 +50,6 @@ final class BookmarksViewModel: ObservableObject {
     }
     
     private func setupRealmListener() {
-        print("In setupRealmListener")
         let schedules = realmManager.getAllLiveSchedules()
         schedulesToken = schedules.observe { [weak self] changes in
             guard let self = self else { return }
