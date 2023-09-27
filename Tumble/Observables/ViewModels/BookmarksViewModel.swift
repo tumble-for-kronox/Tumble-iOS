@@ -32,13 +32,25 @@ final class BookmarksViewModel: ObservableObject {
     
     private var schedulesToken: NotificationToken? = nil
     private var workItem: DispatchWorkItem?
+    private var cancellables = Set<AnyCancellable>()
     
     init() {
         defaultViewType = preferenceService.getDefaultViewType()
-        setupRealmListener()
+        setupPublishers()
     }
 
+    private func setupPublishers() {
+        let updatingBookmarksPublisher = AppController.shared.$updatingBookmarks.receive(on: RunLoop.main)
+        updatingBookmarksPublisher.sink { [weak self] updatingBookmarks in
+            if !updatingBookmarks {
+                self?.setupRealmListener()
+            }
+        }
+        .store(in: &cancellables)
+    }
+    
     private func setupRealmListener() {
+        print("In setupRealmListener")
         let schedules = realmManager.getAllLiveSchedules()
         schedulesToken = schedules.observe { [weak self] changes in
             guard let self = self else { return }
@@ -51,7 +63,7 @@ final class BookmarksViewModel: ObservableObject {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: self.workItem!)
             case .error:
                 DispatchQueue.main.async {
-                    self.status = .error
+                    self.setStatusOnMainThread(to: .error)
                 }
             }
         }
@@ -138,7 +150,7 @@ final class BookmarksViewModel: ObservableObject {
             guard let self = self else { return }
             AppLogger.shared.debug("Updating days ..", file: "BookmarksViewModel")
             self.bookmarkData = BookmarkData(days: days, calendarEventsByDate: calendarEvents, weeks: days.groupedByWeeks())
-            self.status = .loaded
+            self.setStatusOnMainThread(to: .loaded)
         }
     }
 

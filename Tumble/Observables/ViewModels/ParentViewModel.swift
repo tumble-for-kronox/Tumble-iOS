@@ -88,6 +88,9 @@ final class ParentViewModel: ObservableObject {
     /// by retrieving all the schedules by id from the backend.
     @MainActor
     func updateBookmarks(scheduleIds: [String]) async {
+        
+        AppController.shared.updatingBookmarks = true
+        
         defer { self.attemptedUpdateDuringSession = true }
         var updatedSchedules = 0
         let scheduleCount: Int = scheduleIds.count
@@ -104,6 +107,9 @@ final class ParentViewModel: ObservableObject {
         if updatedSchedules != scheduleCount {
             PopupToast(popup: popupFactory.updateBookmarksFailed()).showAndStack()
         }
+        
+        print("Finished updating schedules")
+        AppController.shared.updatingBookmarks = false
     }
 
     
