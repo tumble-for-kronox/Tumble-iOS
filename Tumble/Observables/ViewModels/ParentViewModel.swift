@@ -27,7 +27,8 @@ final class ParentViewModel: ObservableObject {
     lazy var settingsViewModel: SettingsViewModel = viewModelFactory.makeViewModelSettings()
     lazy var accountPageViewModel: AccountViewModel = ViewModelFactory.shared.makeViewModelAccount()
     
-    let popupFactory: PopupFactory = PopupFactory.shared
+    let popupFactory: PopupFactory = .shared
+    let appController: AppController = .shared
     
     @Published var authSchoolId: Int = -1
     @Published var userNotOnBoarded: Bool = false
@@ -57,9 +58,9 @@ final class ParentViewModel: ObservableObject {
     /// Opens a specific `Event` sheet from a local notification
     @objc private func handleEventNotification(_ notification: Notification) {
         if let event = notification.object as? Event {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                AppController.shared.selectedAppTab = .bookmarks
-                AppController.shared.eventSheet = EventDetailsSheetModel(event: event)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+                self?.appController.selectedAppTab = .bookmarks
+                self?.appController.eventSheet = EventDetailsSheetModel(event: event)
             }
         }
     }
@@ -89,7 +90,7 @@ final class ParentViewModel: ObservableObject {
     @MainActor
     func updateBookmarks(scheduleIds: [String]) async {
         
-        AppController.shared.updatingBookmarks = true
+        appController.updatingBookmarks = true
         
         defer { self.attemptedUpdateDuringSession = true }
         var updatedSchedules = 0
@@ -109,7 +110,7 @@ final class ParentViewModel: ObservableObject {
         }
         
         AppLogger.shared.debug("Finished updating schedules")
-        AppController.shared.updatingBookmarks = false
+        appController.updatingBookmarks = false
     }
 
     

@@ -18,7 +18,8 @@ struct BookmarkData {
 }
 
 final class BookmarksViewModel: ObservableObject {
-    let viewModelFactory: ViewModelFactory = ViewModelFactory.shared
+    let viewModelFactory: ViewModelFactory = .shared
+    let appController: AppController = .shared
     let scheduleViewTypes: [ViewType] = ViewType.allCases
     
     @Inject var preferenceService: PreferenceService
@@ -40,7 +41,7 @@ final class BookmarksViewModel: ObservableObject {
     }
 
     private func setupPublishers() {
-        let updatingBookmarksPublisher = AppController.shared.$updatingBookmarks.receive(on: RunLoop.main)
+        let updatingBookmarksPublisher = appController.$updatingBookmarks.receive(on: RunLoop.main)
         updatingBookmarksPublisher.sink { [weak self] updatingBookmarks in
             if !updatingBookmarks {
                 self?.setupRealmListener()
