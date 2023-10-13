@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import PopupView
+import MijickPopupView
 
 struct PopupToast: BottomPopup {
     

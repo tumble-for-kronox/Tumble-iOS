@@ -87,7 +87,7 @@ final class ParentViewModel: ObservableObject {
     /// Attempts to update the locally stored schedules
     /// by retrieving all the schedules by id from the backend.
     @MainActor
-    func updateBookmarks(scheduleIds: [String]) async {
+    private func updateBookmarks(scheduleIds: [String]) async {
         defer { self.attemptedUpdateDuringSession = true }
         var updatedSchedules = 0
         let scheduleCount: Int = scheduleIds.count
@@ -113,19 +113,22 @@ final class ParentViewModel: ObservableObject {
             throw UpdateBookmarkError.scheduleNotFound(scheduleId)
         }
 
-        guard validUpdateRequest(schedule: schedule) else {
-            throw UpdateBookmarkError.unauthorizedAccess(schedule.schoolId)
-        }
-
-        let endpoint: Endpoint = .schedule(scheduleId: schedule.scheduleId, schoolId: schedule.schoolId)
         do {
+            let endpoint: Endpoint = .schedule(scheduleId: schedule.scheduleId, schoolId: schedule.schoolId)
             let fetchedSchedule: Response.Schedule = try await kronoxManager.get(endpoint)
             updateSchedule(schedule: fetchedSchedule, schoolId: schedule.schoolId, existingSchedule: schedule)
+            
+            guard !schedule.isInvalidated else {
+                throw UpdateBookmarkError.scheduleNotFound(scheduleId)
+            }
         } catch {
-            throw UpdateBookmarkError.networkError(error.localizedDescription)
+            if schedule.isInvalidated {
+                throw UpdateBookmarkError.scheduleNotFound(scheduleId)
+            } else {
+                throw UpdateBookmarkError.networkError(error.localizedDescription)
+            }
         }
     }
-
     
     
     /// Updates any Realm schedules stored locally
