@@ -120,19 +120,22 @@ final class ParentViewModel: ObservableObject {
             throw UpdateBookmarkError.scheduleNotFound(scheduleId)
         }
 
-        guard validUpdateRequest(schedule: schedule) else {
-            throw UpdateBookmarkError.unauthorizedAccess(schedule.schoolId)
-        }
-
-        let endpoint: Endpoint = .schedule(scheduleId: schedule.scheduleId, schoolId: schedule.schoolId)
         do {
+            let endpoint: Endpoint = .schedule(scheduleId: schedule.scheduleId, schoolId: schedule.schoolId)
             let fetchedSchedule: Response.Schedule = try await kronoxManager.get(endpoint)
             updateSchedule(schedule: fetchedSchedule, schoolId: schedule.schoolId, existingSchedule: schedule)
+            
+            guard !schedule.isInvalidated else {
+                throw UpdateBookmarkError.scheduleNotFound(scheduleId)
+            }
         } catch {
-            throw UpdateBookmarkError.networkError(error.localizedDescription)
+            if schedule.isInvalidated {
+                throw UpdateBookmarkError.scheduleNotFound(scheduleId)
+            } else {
+                throw UpdateBookmarkError.networkError(error.localizedDescription)
+            }
         }
     }
-
     
     
     /// Updates any Realm schedules stored locally

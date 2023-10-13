@@ -147,7 +147,6 @@
 		D481F15929CB84F10088C28E /* ResourceSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D481F15829CB84F10088C28E /* ResourceSelection.swift */; };
 		D483CC392A9DF21C0088C54A /* SearchMenuActionStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D483CC382A9DF21C0088C54A /* SearchMenuActionStyle.swift */; };
 		D48456822A62CCA900F5B5C4 /* CloseCoverButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48456812A62CCA900F5B5C4 /* CloseCoverButton.swift */; };
-		D48456852A62DAA200F5B5C4 /* PopupView in Frameworks */ = {isa = PBXBuildFile; productRef = D48456842A62DAA200F5B5C4 /* PopupView */; };
 		D48456872A62DB2800F5B5C4 /* PopupToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48456862A62DB2800F5B5C4 /* PopupToast.swift */; };
 		D48CC59C29C7D1E70028179A /* CompactButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48CC59B29C7D1E70028179A /* CompactButtonStyle.swift */; };
 		D48CC59F29C7DB6E0028179A /* CompactEventButtonLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48CC59E29C7DB6E0028179A /* CompactEventButtonLabel.swift */; };
@@ -170,6 +169,7 @@
 		D4A550D129946B8200028BCF /* Bookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A550D029946B8200028BCF /* Bookmark.swift */; };
 		D4A550D52994755900028BCF /* BookmarkButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A550D42994755900028BCF /* BookmarkButton.swift */; };
 		D4ABD272298C2E32002FD8F5 /* DayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4ABD271298C2E32002FD8F5 /* DayExtension.swift */; };
+		D4ACD86E2AD9436C00780998 /* MijickPopupView in Frameworks */ = {isa = PBXBuildFile; productRef = D4ACD86D2AD9436C00780998 /* MijickPopupView */; };
 		D4B4B62D29C37C130098D175 /* ProgrammeCardStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B4B62C29C37C130098D175 /* ProgrammeCardStyle.swift */; };
 		D4B7F25629CC60EB006E2449 /* TimeslotCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B7F25529CC60EB006E2449 /* TimeslotCard.swift */; };
 		D4B7F25829CC6135006E2449 /* BookButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B7F25729CC6135006E2449 /* BookButtonStyle.swift */; };
@@ -476,12 +476,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D48456852A62DAA200F5B5C4 /* PopupView in Frameworks */,
 				D4FFCC1D29EDA9A700708CC0 /* Realm in Frameworks */,
 				D473870129C88E4F0035CD4C /* FirebaseMessaging in Frameworks */,
 				D4FFCC1F29EDA9A700708CC0 /* RealmSwift in Frameworks */,
 				D47386FF29C88E4F0035CD4C /* FirebaseAnalytics in Frameworks */,
 				D4D04DFD29FB29BC008858F0 /* SwipeActions in Frameworks */,
+				D4ACD86E2AD9436C00780998 /* MijickPopupView in Frameworks */,
 				D430F74329C615DC00E30E48 /* FSCalendar in Frameworks */,
 				D42BAC1C298D3D590025EAA9 /* Logging in Frameworks */,
 			);
@@ -1440,7 +1440,7 @@
 				D4FFCC1C29EDA9A700708CC0 /* Realm */,
 				D4FFCC1E29EDA9A700708CC0 /* RealmSwift */,
 				D4D04DFC29FB29BC008858F0 /* SwipeActions */,
-				D48456842A62DAA200F5B5C4 /* PopupView */,
+				D4ACD86D2AD9436C00780998 /* MijickPopupView */,
 			);
 			productName = "tumble-ios";
 			productReference = D4722145292454560063BDB7 /* Tumble.app */;
@@ -1482,7 +1482,7 @@
 				D47386FD29C88E4F0035CD4C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				D4FFCC1B29EDA9A700708CC0 /* XCRemoteSwiftPackageReference "realm-swift" */,
 				D4D04DFB29FB29BC008858F0 /* XCRemoteSwiftPackageReference "SwipeActions" */,
-				D48456832A62DAA200F5B5C4 /* XCRemoteSwiftPackageReference "PopupView" */,
+				D4ACD86C2AD9436C00780998 /* XCRemoteSwiftPackageReference "PopupView" */,
 			);
 			productRefGroup = D4722146292454560063BDB7 /* Products */;
 			projectDirPath = "";
@@ -2112,12 +2112,12 @@
 				minimumVersion = 9.0.0;
 			};
 		};
-		D48456832A62DAA200F5B5C4 /* XCRemoteSwiftPackageReference "PopupView" */ = {
+		D4ACD86C2AD9436C00780998 /* XCRemoteSwiftPackageReference "PopupView" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Mijick/PopupView.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 2.0.0;
+				minimumVersion = 2.1.1;
 			};
 		};
 		D4D04DFB29FB29BC008858F0 /* XCRemoteSwiftPackageReference "SwipeActions" */ = {
@@ -2159,10 +2159,10 @@
 			package = D47386FD29C88E4F0035CD4C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseMessaging;
 		};
-		D48456842A62DAA200F5B5C4 /* PopupView */ = {
+		D4ACD86D2AD9436C00780998 /* MijickPopupView */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = D48456832A62DAA200F5B5C4 /* XCRemoteSwiftPackageReference "PopupView" */;
-			productName = PopupView;
+			package = D4ACD86C2AD9436C00780998 /* XCRemoteSwiftPackageReference "PopupView" */;
+			productName = MijickPopupView;
 		};
 		D4D04DFC29FB29BC008858F0 /* SwipeActions */ = {
 			isa = XCSwiftPackageProductDependency;

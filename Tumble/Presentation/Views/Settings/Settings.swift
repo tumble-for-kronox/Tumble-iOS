@@ -7,6 +7,7 @@
 
 import RealmSwift
 import SwiftUI
+import MijickPopupView
 
 struct Settings: View {
     
