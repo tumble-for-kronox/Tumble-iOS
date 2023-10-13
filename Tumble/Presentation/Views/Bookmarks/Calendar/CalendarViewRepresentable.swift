@@ -14,7 +14,7 @@ struct CalendarViewRepresentable: UIViewRepresentable {
     
     @Binding var selectedDate: Date
     @Binding var selectedDateEvents: [Event]
-    @Binding var calendarEventsByDate: [Date: [Event]]
+    var calendarEventsByDate: [Date: [Event]]
     
     let calendar = FSCalendar()
     
@@ -69,16 +69,16 @@ struct CalendarViewRepresentable: UIViewRepresentable {
     }
 
     func makeCoordinator() -> Coordinator {
-        Coordinator(self, calendarDayEvents: $calendarEventsByDate)
+        Coordinator(self, calendarDayEvents: calendarEventsByDate)
     }
     
     class Coordinator: NSObject, FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {
         var parent: CalendarViewRepresentable
-        @Binding var calendarDayEvents: [Date: [Event]]
+        var calendarDayEvents: [Date: [Event]]
         
-        init(_ parent: CalendarViewRepresentable, calendarDayEvents: Binding<[Date : [Event]]>) {
+        init(_ parent: CalendarViewRepresentable, calendarDayEvents: [Date : [Event]]) {
             self.parent = parent
-            self._calendarDayEvents = calendarDayEvents
+            self.calendarDayEvents = calendarDayEvents
         }
         
         /// Set cell indicators on individual calendar cells,

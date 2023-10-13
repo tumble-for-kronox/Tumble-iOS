@@ -9,13 +9,13 @@ import SwiftUI
 
 struct ToTopButton: View {
     var buttonOffsetX: CGFloat
-    var value: ScrollViewProxy
+    var proxy: ScrollViewProxy
     
     var body: some View {
         Button(action: {
             HapticsController.triggerHapticMedium()
             withAnimation(.spring()) {
-                value.scrollTo("bookmarkScrollView", anchor: .top)
+                proxy.scrollTo("bookmarkScrollView", anchor: .top)
             }
         }, label: {
             Image(systemName: "chevron.up")

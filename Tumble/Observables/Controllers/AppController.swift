@@ -17,4 +17,5 @@ class AppController: ObservableObject {
     
     @Published var eventSheet: EventDetailsSheetModel?
     @Published var selectedAppTab: TabbarTabType = .home
+    @Published var updatingBookmarks: Bool = true
 }

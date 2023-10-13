@@ -54,7 +54,6 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 extension AppDelegate: MessagingDelegate {
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
         let deviceToken: [String: String] = ["token": fcmToken ?? ""]
-        AppLogger.shared.debug("Device token: \(deviceToken)")
         if deviceToken["token"] != nil {
             Messaging.messaging().subscribe(toTopic: "updates") { error in
                 if let error = error {

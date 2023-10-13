@@ -27,7 +27,8 @@ final class ParentViewModel: ObservableObject {
     lazy var settingsViewModel: SettingsViewModel = viewModelFactory.makeViewModelSettings()
     lazy var accountPageViewModel: AccountViewModel = ViewModelFactory.shared.makeViewModelAccount()
     
-    let popupFactory: PopupFactory = PopupFactory.shared
+    let popupFactory: PopupFactory = .shared
+    let appController: AppController = .shared
     
     @Published var authSchoolId: Int = -1
     @Published var userNotOnBoarded: Bool = false
@@ -57,9 +58,9 @@ final class ParentViewModel: ObservableObject {
     /// Opens a specific `Event` sheet from a local notification
     @objc private func handleEventNotification(_ notification: Notification) {
         if let event = notification.object as? Event {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                AppController.shared.selectedAppTab = .bookmarks
-                AppController.shared.eventSheet = EventDetailsSheetModel(event: event)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+                self?.appController.selectedAppTab = .bookmarks
+                self?.appController.eventSheet = EventDetailsSheetModel(event: event)
             }
         }
     }
@@ -87,7 +88,10 @@ final class ParentViewModel: ObservableObject {
     /// Attempts to update the locally stored schedules
     /// by retrieving all the schedules by id from the backend.
     @MainActor
-    private func updateBookmarks(scheduleIds: [String]) async {
+    func updateBookmarks(scheduleIds: [String]) async {
+        
+        appController.updatingBookmarks = true
+        
         defer { self.attemptedUpdateDuringSession = true }
         var updatedSchedules = 0
         let scheduleCount: Int = scheduleIds.count
@@ -104,6 +108,9 @@ final class ParentViewModel: ObservableObject {
         if updatedSchedules != scheduleCount {
             PopupToast(popup: popupFactory.updateBookmarksFailed()).showAndStack()
         }
+        
+        AppLogger.shared.debug("Finished updating schedules")
+        appController.updatingBookmarks = false
     }
 
     

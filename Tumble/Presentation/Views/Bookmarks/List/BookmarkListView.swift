@@ -6,22 +6,28 @@
 //
 
 import SwiftUI
+import RealmSwift
+
+enum BookmarkListState {
+    case searching
+    case notSearching
+}
 
 struct BookmarksListModel {
     var scrollViewOffset: CGFloat = .zero
     var startOffset: CGFloat = .zero
-    var buttonOffsetX: CGFloat = 200
+    var buttonOffsetX: CGFloat = 0
+    var state: BookmarkListState = .notSearching
 }
 
 struct BookmarkListView: View {
-    @Binding var days: [Day]
+    let days: [Day]
     @ObservedObject var appController: AppController
     @State private var bookmarksListModel: BookmarksListModel = .init()
     @State private var searching: Bool = false
     @State private var searchText: String = ""
     @State private var showSearchField: Bool = true
     
-    var scrollSpace: String = "bookmarksRefreshable"
     
     var filteredEvents: [Event] {
         if searchText.isEmpty {
@@ -36,48 +42,24 @@ struct BookmarkListView: View {
     }
     
     var body: some View {
-        VStack {
-            if showSearchField {
-                SearchField(
-                    search: nil,
-                    clearSearch: nil,
-                    title: "Search events",
-                    searchBarText: $searchText,
-                    searching: $searching,
-                    disabled: .constant(false)
-                )
-            }
-            if !searching {
-                listNotSearching
-            } else {
-                listSearching
-            }
-        }
-        .ignoresSafeArea(.keyboard)
-    }
-    
-    var listNotSearching: some View {
-        ScrollViewReader { value in
-            ScrollView(.vertical, showsIndicators: false) {
-                listUnfiltered
-                .padding(.top, 15)
-                .overlay(
-                    GeometryReader { proxy -> Color in
-                        DispatchQueue.main.async {
-                            handleScrollOffset(value: proxy.frame(in: .global).minY)
-                            handleButtonAnimation()
-                            handleSearchFieldVisibility()
-                        }
-                        return Color.clear
+        ScrollViewReader { proxy in
+            ScrollView {
+                VStack {
+                    switch bookmarksListModel.state {
+                    case .searching:
+                        listSearching
+                    case .notSearching:
+                        listUnfiltered
                     }
-                )
+                }
                 .id("bookmarkScrollView")
             }
             .overlay(
-                ToTopButton(buttonOffsetX: bookmarksListModel.buttonOffsetX, value: value),
+                ToTopButton(buttonOffsetX: bookmarksListModel.buttonOffsetX, proxy: proxy),
                 alignment: .bottomTrailing
             )
         }
+        .ignoresSafeArea(.keyboard)
     }
     
     var listUnfiltered: some View {
@@ -104,23 +86,21 @@ struct BookmarkListView: View {
     }
     
     var listSearching: some View {
-        ScrollView(.vertical, showsIndicators: false) {
-            LazyVStack(alignment: .center) {
-                if filteredEvents.isEmpty {
-                    Info(title: NSLocalizedString("No events match your search", comment: ""), image: nil)
-                } else {
-                    ForEach(filteredEvents, id: \._id) { event in
-                        BookmarkCard(
-                            onTapCard: onTapCard,
-                            event: event,
-                            isLast: true
-                        )
-                        .padding(.horizontal, 7.5)
-                    }
+        LazyVStack(alignment: .center) {
+            if filteredEvents.isEmpty {
+                Info(title: NSLocalizedString("No events match your search", comment: ""), image: nil)
+            } else {
+                ForEach(filteredEvents, id: \._id) { event in
+                    BookmarkCard(
+                        onTapCard: onTapCard,
+                        event: event,
+                        isLast: true
+                    )
+                    .padding(.horizontal, 7.5)
                 }
             }
-            .padding(7.5)
         }
+        .padding(7.5)
     }
     
     fileprivate func onTapCard(event: Event) {

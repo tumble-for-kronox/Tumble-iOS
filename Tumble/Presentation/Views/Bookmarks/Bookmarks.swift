@@ -12,7 +12,6 @@ struct Bookmarks: View {
     @ObservedObject var viewModel: BookmarksViewModel
     @ObservedObject var parentViewModel: ParentViewModel
     @ObservedObject var appController: AppController = .shared
-    @ObservedResults(Schedule.self, configuration: realmConfig) var schedules
     
     var body: some View {
         NavigationView {
@@ -26,7 +25,7 @@ struct Bookmarks: View {
                     case .loaded:
                         TabView (selection: $viewModel.defaultViewType) {
                             BookmarkListView(
-                                days: $viewModel.days,
+                                days: viewModel.bookmarkData.days,
                                 appController: appController
                             )
                             .tag(ViewType.list)
@@ -34,14 +33,14 @@ struct Bookmarks: View {
                             
                             BookmarkCalendarView(
                                 appController: appController,
-                                calendarEventsByDate: $viewModel.calendarEventsByDate,
-                                days: $viewModel.days
+                                calendarEventsByDate: viewModel.bookmarkData.calendarEventsByDate,
+                                days: viewModel.bookmarkData.days
                             )
                             .tag(ViewType.calendar)
                             .gesture(DragGesture())
                             
                             BookmarkWeekView(
-                                scheduleWeeks: viewModel.weeks
+                                scheduleWeeks: viewModel.bookmarkData.weeks
                             )
                             .tag(ViewType.week)
                             .gesture(DragGesture())

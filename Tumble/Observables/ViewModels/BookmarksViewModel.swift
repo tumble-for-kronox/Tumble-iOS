@@ -9,8 +9,17 @@ import Combine
 import RealmSwift
 import SwiftUI
 
+typealias CalendarEvents = [Date : [Event]]
+
+struct BookmarkData {
+    let days: [Day]
+    let calendarEventsByDate: CalendarEvents
+    let weeks: [Int : [Day]]
+}
+
 final class BookmarksViewModel: ObservableObject {
-    let viewModelFactory: ViewModelFactory = ViewModelFactory.shared
+    let viewModelFactory: ViewModelFactory = .shared
+    let appController: AppController = .shared
     let scheduleViewTypes: [ViewType] = ViewType.allCases
     
     @Inject var preferenceService: PreferenceService
@@ -19,33 +28,47 @@ final class BookmarksViewModel: ObservableObject {
     
     @Published var defaultViewType: ViewType = .list
     @Published var eventSheet: EventDetailsSheetModel? = nil
-    @Published var days: [Day] = .init()
-    @Published var weeks: [Int : [Day]] = .init()
     @Published var status: BookmarksViewStatus = .loading
-    @Published var calendarEventsByDate: [Date : [Event]] = [:]
+    @Published var bookmarkData: BookmarkData = BookmarkData(days: [], calendarEventsByDate: [:], weeks: [:])
     
-    var schedulesToken: NotificationToken? = nil
+    private var schedulesToken: NotificationToken? = nil
+    private var workItem: DispatchWorkItem?
+    private var cancellables = Set<AnyCancellable>()
     
     init() {
         defaultViewType = preferenceService.getDefaultViewType()
-        setupRealmListener()
+        setupPublishers()
+    }
+
+    private func setupPublishers() {
+        let updatingBookmarksPublisher = appController.$updatingBookmarks.receive(on: RunLoop.main)
+        updatingBookmarksPublisher.sink { [weak self] updatingBookmarks in
+            if !updatingBookmarks {
+                self?.setupRealmListener()
+            }
+        }
+        .store(in: &cancellables)
     }
     
     private func setupRealmListener() {
-        // Observe changes to schedules and update days
         let schedules = realmManager.getAllLiveSchedules()
         schedulesToken = schedules.observe { [weak self] changes in
             guard let self = self else { return }
             switch changes {
             case .initial(let results), .update(let results, _, _, _):
-                self.createDaysAndCalendarEvents(schedules: Array(results))
+                self.workItem?.cancel()
+                self.workItem = DispatchWorkItem { [weak self] in
+                    self?.createDaysAndCalendarEvents(schedules: Array(results))
+                }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: self.workItem!)
             case .error:
                 DispatchQueue.main.async {
-                    self.status = .error
+                    self.setStatusOnMainThread(to: .error)
                 }
             }
         }
     }
+
     
     /// Instantiates viewmodel for viewing a specific `Event` object
     func createViewModelEventSheet(event: Event) -> EventDetailsSheetViewModel {
@@ -62,62 +85,75 @@ final class BookmarksViewModel: ObservableObject {
     
     /// Creates any calendar and list events, parsing through the schedules that
     /// should not be visible or any schedules that have missing events
-    func createDaysAndCalendarEvents(schedules: [Schedule]) {
+    private func createDaysAndCalendarEvents(schedules: [Schedule]) {
         
-        DispatchQueue.main.async { [weak self] in
-            self?.status = .loading
-        }
+        setStatusOnMainThread(to: .loading)
         
-        let hiddenScheduleIds = schedules.filter { !$0.toggled }.map { $0.scheduleId }
-        
-        let visibleSchedules = schedules.filter { $0.toggled }.map { $0 }
-        
-        /// If user has not saved any schedules
+        let hiddenScheduleIds = extractHiddenScheduleIds(from: schedules)
+        let visibleSchedules = extractVisibleSchedules(from: schedules)
+
         if schedules.isEmpty {
-            DispatchQueue.main.async { [weak self] in
-                guard let self else { return }
-                self.status = .uninitialized
-            }
+            setStatusOnMainThread(to: .uninitialized)
             return
         }
         
-        if allSchedulesHidden(schedules: schedules) {
-            DispatchQueue.main.async { [weak self] in
-                guard let self else { return }
-                self.status = .hiddenAll
-            }
+        if areAllSchedulesHidden(schedules: schedules) {
+            setStatusOnMainThread(to: .hiddenAll)
             return
         }
         
-        /// If the visible schedules do not contain anything
-        if visibleSchedules.allSatisfy({ $0.isMissingEvents() }) {
-            DispatchQueue.main.async { [weak self] in
-                guard let self else { return }
-                self.status = .empty
-            }
+        if areVisibleSchedulesEmpty(visibleSchedules: visibleSchedules) {
+            setStatusOnMainThread(to: .empty)
             return
         }
         
-        let days = filterHiddenBookmarks(
-            schedules: Array(schedules),
-            hiddenBookmarks: hiddenScheduleIds
-        )
-        .flattenAndMerge()
-        .ordered()
-        .filterEmptyDays()
-        .filterValidDays()
-        
+        let days = processSchedules(schedules: schedules, hiddenScheduleIds: hiddenScheduleIds)
         let calendarEvents = makeCalendarEvents(days: days)
         
+        updateView(with: days, calendarEvents: calendarEvents)
+    }
+
+    // MARK: - Helper Functions
+
+    private func setStatusOnMainThread(to status: BookmarksViewStatus) {
         DispatchQueue.main.async { [weak self] in
-            guard let self else { return }
-            AppLogger.shared.debug("Updating days ..", file: "BookmarksViewModel")
-            self.days = days
-            self.calendarEventsByDate = calendarEvents
-            self.weeks = days.groupedByWeeks()
-            self.status = .loaded
+            self?.status = status
         }
     }
+
+    private func extractHiddenScheduleIds(from schedules: [Schedule]) -> [String] {
+        return schedules.filter { !$0.toggled }.map { $0.scheduleId }
+    }
+
+    private func extractVisibleSchedules(from schedules: [Schedule]) -> [Schedule] {
+        return schedules.filter { $0.toggled }
+    }
+
+    private func areAllSchedulesHidden(schedules: [Schedule]) -> Bool {
+        return schedules.allSatisfy { !$0.toggled }
+    }
+
+    private func areVisibleSchedulesEmpty(visibleSchedules: [Schedule]) -> Bool {
+        return visibleSchedules.allSatisfy { $0.isMissingEvents() }
+    }
+
+    private func processSchedules(schedules: [Schedule], hiddenScheduleIds: [String]) -> [Day] {
+        return filterHiddenBookmarks(schedules: schedules, hiddenBookmarks: hiddenScheduleIds)
+            .flattenAndMerge()
+            .ordered()
+            .filterEmptyDays()
+            .filterValidDays()
+    }
+
+    private func updateView(with days: [Day], calendarEvents: CalendarEvents) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            AppLogger.shared.debug("Updating days ..", file: "BookmarksViewModel")
+            self.bookmarkData = BookmarkData(days: days, calendarEventsByDate: calendarEvents, weeks: days.groupedByWeeks())
+            self.setStatusOnMainThread(to: .loaded)
+        }
+    }
+
     
     /// Checks if all schedules the user has bookmarked are toggled as `False`
     private func allSchedulesHidden(schedules: [Schedule]) -> Bool {
