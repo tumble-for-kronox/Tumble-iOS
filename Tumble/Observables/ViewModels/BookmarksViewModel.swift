@@ -29,6 +29,7 @@ final class BookmarksViewModel: ObservableObject {
     @Published var defaultViewType: ViewType = .list
     @Published var eventSheet: EventDetailsSheetModel? = nil
     @Published var status: BookmarksViewStatus = .loading
+    
     @Published var bookmarkData: BookmarkData = BookmarkData(days: [], calendarEventsByDate: [:], weeks: [:])
     
     private var schedulesToken: NotificationToken? = nil

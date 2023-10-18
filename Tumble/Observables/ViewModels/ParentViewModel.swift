@@ -33,7 +33,6 @@ final class ParentViewModel: ObservableObject {
     @Published var authSchoolId: Int = -1
     @Published var userNotOnBoarded: Bool = false
         
-    private var attemptedUpdateDuringSession: Bool = false
     private var schedulesToken: NotificationToken? = nil
     private var cancellables = Set<AnyCancellable>()
     
@@ -78,11 +77,24 @@ final class ParentViewModel: ObservableObject {
                 self.userNotOnBoarded = !userOnBoarded
                 self.authSchoolId = authSchoolId
                 
-                if connected && !self.attemptedUpdateDuringSession {
+                if connected && updateShouldOccur() {
                     self.updateRealmSchedules()
                 }
             }
             .store(in: &cancellables)
+    }
+    
+    func updateShouldOccur() -> Bool {
+        if let lastUpdate = preferenceService.getLastUpdated() {
+            if let threeHoursAgo = Calendar.current.date(byAdding: .hour, value: -3, to: Date()) {
+                if lastUpdate <= threeHoursAgo {
+                    return true
+                } else {
+                    return false
+                }
+            }
+        }
+        return true
     }
     
     /// Attempts to update the locally stored schedules
@@ -92,7 +104,7 @@ final class ParentViewModel: ObservableObject {
         
         appController.updatingBookmarks = true
         
-        defer { self.attemptedUpdateDuringSession = true }
+        defer { self.preferenceService.setLastUpdated(time: Date()) }
         var updatedSchedules = 0
         let scheduleCount: Int = scheduleIds.count
         
@@ -142,7 +154,7 @@ final class ParentViewModel: ObservableObject {
     private func updateRealmSchedules() {
         // Get schedules from Realm database
         let schedules = realmManager.getAllLiveSchedules()
-        if !schedules.isEmpty && !self.attemptedUpdateDuringSession {
+        if !schedules.isEmpty {
             // Filter out invalidated schedules and get their IDs
             let scheduleIds = Array(schedules).filter { !$0.isInvalidated }.map { $0.scheduleId }
             

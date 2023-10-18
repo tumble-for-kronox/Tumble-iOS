@@ -55,9 +55,18 @@ class PreferenceService {
         UserDefaults.standard.synchronize()
     }
     
+    func setLastUpdated(time: Date) {
+        UserDefaults.standard.set(time, forKey: StoreKey.lastUpdated.rawValue)
+        UserDefaults.standard.synchronize()
+    }
+    
     // ----------- GET -----------
     func getDefault(key: String) -> Any? {
         return UserDefaults.standard.object(forKey: key)
+    }
+    
+    func getLastUpdated() -> Date? {
+        return UserDefaults.standard.object(forKey: StoreKey.lastUpdated.rawValue) as? Date
     }
     
     func getDefaultViewType() -> ViewType {

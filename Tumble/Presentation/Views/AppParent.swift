@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import PopupView
+import MijickPopupView
 
 /// All navigation occurs from this view
 struct AppParent: View {
