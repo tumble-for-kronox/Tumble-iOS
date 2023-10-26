@@ -19,7 +19,7 @@ struct SearchInfo: View {
                 Text(NSLocalizedString(
                     "Choose a university to begin your search", comment: ""
                 ))
-                .info()
+                .infoHeaderSmall()
                 .multilineTextAlignment(.leading)
                 .padding(.bottom, 10)
             }

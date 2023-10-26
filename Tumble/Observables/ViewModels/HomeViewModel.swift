@@ -22,29 +22,30 @@ final class HomeViewModel: ObservableObject {
     @Published var todaysEventsCards: [WeekEventCardModel] = .init()
     @Published var nextClass: Event? = nil
     
-    private var fetchedNewsDuringSession: Bool = false
+    private var initialisedSession: Bool = false
     private let viewModelFactory: ViewModelFactory = .shared
+    private let appController: AppController = .shared
     private var schedulesToken: NotificationToken?
-    private var cancellable: AnyCancellable? = nil
+    private var cancellables = Set<AnyCancellable>()
     
     init() {
-        setupRealmListener()
-        setupNetworkPublisher()
+        setupPublishers()
     }
     
-    /// Listen for change in network connection, if connected attempt
-    /// to fetch latest news from server
-    private func setupNetworkPublisher() {
+    private func setupPublishers() {
         let networkConnectionPublisher = networkController.$connected.receive(on: RunLoop.main)
-        cancellable = networkConnectionPublisher
-            .sink { [weak self] connected in
+        let isUpdatingBookmarksPublisher = appController.$isUpdatingBookmarks.receive(on: RunLoop.main)
+        Publishers.CombineLatest(networkConnectionPublisher, isUpdatingBookmarksPublisher)
+            .sink { [weak self] connected, isUpdating in
                 guard let self else { return }
-                if connected && !self.fetchedNewsDuringSession {
+                if connected && !self.initialisedSession && !isUpdating {
                     Task.detached(priority: .userInitiated) {
                         await self.fetchNews()
                     }
                 }
+                self.setupRealmListener()
             }
+            .store(in: &cancellables)
     }
     
     /// Initializes a listener that performs updates on the
@@ -126,7 +127,7 @@ final class HomeViewModel: ObservableObject {
     }
     
     deinit {
-        cancellable?.cancel()
+        cancellables.forEach({ $0.cancel() })
     }
     
 }

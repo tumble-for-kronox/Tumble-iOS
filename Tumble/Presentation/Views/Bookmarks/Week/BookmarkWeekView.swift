@@ -46,7 +46,7 @@ private struct WeekPage: View {
                     VStack {
                         Text(NSLocalizedString("No events for this week..", comment: ""))
                             .foregroundColor(.onBackground)
-                            .info()
+                            .infoBodyMedium()
                         Image("GirlRelaxing")
                             .resizable()
                             .scaledToFit()

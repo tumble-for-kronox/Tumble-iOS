@@ -35,6 +35,7 @@ enum KronoxManagerError: LocalizedError {
 class KronoxManager {
     private let urlRequestUtils = NetworkUtilities.shared
     private let session = URLSession.shared
+    private let decoder = JSONDecoder()
     
     func get<NetworkResponse: Decodable>(
         _ endpoint: Endpoint,
@@ -83,7 +84,6 @@ class KronoxManager {
             
             if statusCode == 200 {
                 do {
-                    let decoder = JSONDecoder()
                     let decodedData = try decoder.decode(NetworkResponse.self, from: data)
                     return decodedData
                 } catch {

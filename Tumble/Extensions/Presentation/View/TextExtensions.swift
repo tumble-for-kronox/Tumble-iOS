@@ -19,12 +19,25 @@ extension Text {
         font(.system(size: 14, weight: .medium))
     }
     
-    func info() -> some View {
+    func infoBodyMedium(opacity: Double = 1.0) -> some View {
         font(.system(size: 20))
+            .fontWeight(.semibold)
+            .foregroundColor(.onBackground.opacity(opacity))
+            .padding(.bottom, 25)
+            .padding([.leading, .trailing], 15)
+    }
+    
+    func infoHeaderSmall() -> some View {
+        font(.system(size: 24))
             .fontWeight(.semibold)
             .foregroundColor(.onBackground)
             .padding(.bottom, 25)
             .padding([.leading, .trailing], 15)
+    }
+    
+    func infoHeaderMedium() -> some View {
+        font(.system(size: 34, weight: .semibold))
+        .foregroundColor(.onBackground)
     }
     
     func programmeTitle() -> some View {
