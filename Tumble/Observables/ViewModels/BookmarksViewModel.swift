@@ -42,7 +42,7 @@ final class BookmarksViewModel: ObservableObject {
     }
 
     private func setupPublishers() {
-        let updatingBookmarksPublisher = appController.$updatingBookmarks.receive(on: RunLoop.main)
+        let updatingBookmarksPublisher = appController.$isUpdatingBookmarks.receive(on: RunLoop.main)
         updatingBookmarksPublisher.sink { [weak self] updatingBookmarks in
             if !updatingBookmarks {
                 self?.setupRealmListener()

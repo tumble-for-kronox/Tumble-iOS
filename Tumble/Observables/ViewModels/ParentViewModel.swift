@@ -73,18 +73,20 @@ final class ParentViewModel: ObservableObject {
         
         Publishers.CombineLatest3(authSchoolIdPublisher, onBoardingPublisher, networkConnectionPublisher)
             .sink { [weak self] authSchoolId, userOnBoarded, connected in
-                guard let self else { return }
+                guard let self = self else { return }
                 self.userNotOnBoarded = !userOnBoarded
                 self.authSchoolId = authSchoolId
-                
-                if connected && updateShouldOccur() {
+
+                if connected && self.updateShouldOccur() && !appController.isUpdatingBookmarks {
+                    AppLogger.shared.info("Updating all bookmarks ...")
                     self.updateRealmSchedules()
                 }
             }
             .store(in: &cancellables)
+
     }
     
-    func updateShouldOccur() -> Bool {
+    private func updateShouldOccur() -> Bool {
         if let lastUpdate = preferenceService.getLastUpdated() {
             if let threeHoursAgo = Calendar.current.date(byAdding: .hour, value: -3, to: Date()) {
                 if lastUpdate <= threeHoursAgo {
@@ -102,7 +104,7 @@ final class ParentViewModel: ObservableObject {
     @MainActor
     func updateBookmarks(scheduleIds: [String]) async {
         
-        appController.updatingBookmarks = true
+        appController.isUpdatingBookmarks = true
         
         defer { self.preferenceService.setLastUpdated(time: Date()) }
         var updatedSchedules = 0
@@ -122,7 +124,7 @@ final class ParentViewModel: ObservableObject {
         }
         
         AppLogger.shared.debug("Finished updating schedules")
-        appController.updatingBookmarks = false
+        appController.isUpdatingBookmarks = false
     }
 
     

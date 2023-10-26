@@ -43,6 +43,16 @@ struct BookmarkListView: View {
     
     var body: some View {
         ScrollViewReader { proxy in
+            if showSearchField {
+                SearchField(
+                    search: nil,
+                    clearSearch: nil,
+                    title: "Search events",
+                    searchBarText: $searchText,
+                    searching: $searching,
+                    disabled: .constant(false)
+                ).onChange(of: searching, perform: onChangeSearch)
+            }
             ScrollView {
                 VStack {
                     switch bookmarksListModel.state {
@@ -107,35 +117,12 @@ struct BookmarkListView: View {
         appController.eventSheet = EventDetailsSheetModel(event: event)
     }
     
-    fileprivate func handleButtonAnimation() {
-        if -bookmarksListModel.scrollViewOffset > 450 {
-            withAnimation(.spring()) {
-                bookmarksListModel.buttonOffsetX = .zero
-            }
-        } else if -bookmarksListModel.scrollViewOffset < 450 {
-            withAnimation(.spring()) {
-                bookmarksListModel.buttonOffsetX = 200
-            }
-        }
-    }
     
-    fileprivate func handleSearchFieldVisibility() {
-        if -bookmarksListModel.scrollViewOffset > 100 && !searching {
-            withAnimation(.easeInOut) {
-                showSearchField = false
-            }
-        } else if -bookmarksListModel.scrollViewOffset < 100 && !searching {
-            withAnimation(.easeInOut) {
-                showSearchField = true
-            }
+    fileprivate func onChangeSearch(searching: Bool) {
+        if searching {
+            bookmarksListModel.state = .searching
+        } else {
+            bookmarksListModel.state = .notSearching
         }
-    }
-    
-    fileprivate func handleScrollOffset(value: CGFloat) {
-        if bookmarksListModel.startOffset == 0 {
-            bookmarksListModel.startOffset = value
-        }
-        let offset = value
-        bookmarksListModel.scrollViewOffset = offset - bookmarksListModel.startOffset
     }
 }
