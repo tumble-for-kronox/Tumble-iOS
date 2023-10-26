@@ -78,7 +78,7 @@ final class ParentViewModel: ObservableObject {
                 self.authSchoolId = authSchoolId
 
                 if connected && self.updateShouldOccur() && !appController.isUpdatingBookmarks {
-                    AppLogger.shared.info("Updating all bookmarks ...")
+                    AppLogger.shared.debug("Updating all bookmarks ...")
                     self.updateRealmSchedules()
                 }
             }
@@ -105,8 +105,8 @@ final class ParentViewModel: ObservableObject {
     func updateBookmarks(scheduleIds: [String]) async {
         
         appController.isUpdatingBookmarks = true
-        
         defer { self.preferenceService.setLastUpdated(time: Date()) }
+        
         var updatedSchedules = 0
         let scheduleCount: Int = scheduleIds.count
         

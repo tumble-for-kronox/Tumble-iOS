@@ -33,6 +33,7 @@ final class AccountViewModel: ObservableObject {
     private var resourceSectionDataTask: URLSessionDataTask? = nil
     private var eventSectionDataTask: URLSessionDataTask? = nil
     private let popupFactory: PopupFactory = PopupFactory.shared
+    private var registeredForExams: Bool = false
     
     
     var userDisplayName: String? {
@@ -59,11 +60,6 @@ final class AccountViewModel: ObservableObject {
     
     init() {
         setupPublishers()
-        Task {
-            if self.userController.autoSignup {
-                await self.registerAutoSignup()
-            }
-        }
     }
     
     private func setupPublishers() {
@@ -71,10 +67,16 @@ final class AccountViewModel: ObservableObject {
            let authSchoolIdPublisher = preferenceService.$authSchoolId.receive(on: RunLoop.main)
            Publishers.CombineLatest(authStatusPublisher, authSchoolIdPublisher)
                .sink { [weak self] authStatus, authSchoolId in
-               DispatchQueue.main.async {
-                   self?.authStatus = authStatus
-                   self?.authSchoolId = authSchoolId
-               }
+                   guard let self else { return }
+                   DispatchQueue.main.async {
+                       self.authStatus = authStatus
+                       self.authSchoolId = authSchoolId
+                   }
+                   if authStatus == .authorized && !self.registeredForExams {
+                       Task.detached(priority: .userInitiated) {
+                           await self.registerAutoSignup()
+                       }
+                   }
            }
            .store(in: &cancellables)
        }
@@ -292,6 +294,7 @@ final class AccountViewModel: ObservableObject {
             }
             let _: Response.KronoxEventRegistration?
                 = try await kronoxManager.put(request, refreshToken: refreshToken.value, body: Request.Empty())
+            self.registeredForExams = true
         } catch {
             AppLogger.shared.error("Failed to sign up for exams: \(error)")
         }
