@@ -39,11 +39,11 @@ final class HomeViewModel: ObservableObject {
             .sink { [weak self] connected, isUpdating in
                 guard let self else { return }
                 if connected && !self.initialisedSession && !isUpdating {
-                    self.setupRealmListener()
                     Task.detached(priority: .userInitiated) {
                         await self.fetchNews()
                     }
                 }
+                self.setupRealmListener()
             }
             .store(in: &cancellables)
     }
