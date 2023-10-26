@@ -626,9 +626,9 @@
 		D40E84392981C84700C2CF2E /* Account */ = {
 			isa = PBXGroup;
 			children = (
+				D4E83EBF299960EB002E5F88 /* Login */,
 				D4E83ECC2999B01C002E5F88 /* User */,
 				D40E843A2981C85400C2CF2E /* Account.swift */,
-				D4E83EBF299960EB002E5F88 /* Login */,
 			);
 			path = Account;
 			sourceTree = "<group>";

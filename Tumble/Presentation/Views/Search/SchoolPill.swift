@@ -53,7 +53,7 @@ struct SchoolPill: View, Pill {
     }
     
     var fontSize: CGFloat {
-        isSelected() ? 16 : 14
+        isSelected() ? 18 : 16
     }
     
     func isSelected() -> Bool {
