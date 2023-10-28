@@ -119,10 +119,12 @@ struct BookmarkListView: View {
     
     
     fileprivate func onChangeSearch(searching: Bool) {
-        if searching {
-            bookmarksListModel.state = .searching
-        } else {
-            bookmarksListModel.state = .notSearching
+        withAnimation(.easeInOut) {
+            if searching {
+                bookmarksListModel.state = .searching
+            } else {
+                bookmarksListModel.state = .notSearching
+            }
         }
     }
 }
