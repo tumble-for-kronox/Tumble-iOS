@@ -15,6 +15,8 @@ struct WeekPage: View {
         let weekOfYear = weekStart.get(.weekOfYear)
 
         ScrollView (showsIndicators: false) {
+            Spacer()
+                .frame(height: 60)
             VStack {
                 HStack {
                     Spacer()
