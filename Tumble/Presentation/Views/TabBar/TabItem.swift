@@ -13,11 +13,14 @@ struct TabItem: View {
     @Binding var selectedAppTab: TabbarTabType
     
     var body: some View {
-        let uiImage = UIImage(systemName: imageName())?.resizeImage(targetSize: CGSize(width: 25, height: 25))
-        VStack {
-            Image(uiImage: uiImage!)
-            Text(appTab.displayName)
-        }
+        Image(systemName: imageName())
+            .resizable()
+            .aspectRatio(contentMode: .fit)
+            .frame(width: 30, height: 30)
+            .background(Color.red)
+            .scaleEffect(isSelected() ? 1.5 : 1.0) // Enlarging by 17% when selected
+            .padding(.top, 15)
+            .animation(.bouncy, value: isSelected())
     }
     
     func isSelected() -> Bool {
