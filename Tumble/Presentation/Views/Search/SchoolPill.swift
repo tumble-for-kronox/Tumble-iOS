@@ -42,11 +42,12 @@ struct SchoolPill: View, Pill {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: fontSize, height: fontSize)
-                    .cornerRadius(40)
+                    .cornerRadius(50)
                 Text(title)
                     .font(.system(size: fontSize, weight: .semibold))
                     .foregroundColor(isSelected() ? .onPrimary : .onSurface)
             }
+            .padding(2)
         })
         .buttonStyle(PillStyle(color: isSelected() ? .primary : .surface))
         .padding(5)

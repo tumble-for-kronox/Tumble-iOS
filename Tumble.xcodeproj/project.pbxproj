@@ -69,6 +69,7 @@
 		D434FDD12B0A13E100BD2404 /* WeekEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D434FDD02B0A13E100BD2404 /* WeekEvent.swift */; };
 		D434FDD32B0A13FB00BD2404 /* EmptyEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D434FDD22B0A13FB00BD2404 /* EmptyEvent.swift */; };
 		D434FDD52B0A188800BD2404 /* PageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = D434FDD42B0A188800BD2404 /* PageControl.swift */; };
+		D434FDD92B0A9BE900BD2404 /* CustomTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D434FDD82B0A9BE900BD2404 /* CustomTabBar.swift */; };
 		D439F89F29DB8952006332AB /* OffsetPageTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D439F89E29DB8952006332AB /* OffsetPageTabView.swift */; };
 		D439F8A129DBA96B006332AB /* HomeAvailable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D439F8A029DBA96B006332AB /* HomeAvailable.swift */; };
 		D439F8A329DBAA59006332AB /* HomeNotAvailable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D439F8A229DBAA59006332AB /* HomeNotAvailable.swift */; };
@@ -89,7 +90,6 @@
 		D44ABF0729BFE89D00344792 /* SchoolRowStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44ABF0629BFE89D00344792 /* SchoolRowStyle.swift */; };
 		D44B44D029E99BBF005164CA /* SearchPreviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44B44CF29E99BBF005164CA /* SearchPreviewViewModel.swift */; };
 		D44FBFEB29CB1CC500CAAD39 /* ResourceDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44FBFEA29CB1CC500CAAD39 /* ResourceDatePicker.swift */; };
-		D45268D12A052F97004F1642 /* TabItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45268D02A052F97004F1642 /* TabItem.swift */; };
 		D45268D32A052FC5004F1642 /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45268D22A052FC5004F1642 /* UIImageExtension.swift */; };
 		D45338F629280E8400198411 /* ScheduleResponseExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45338F529280E8400198411 /* ScheduleResponseExtension.swift */; };
 		D45338F9292825B200198411 /* BookmarkCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45338F8292825B200198411 /* BookmarkCard.swift */; };
@@ -305,6 +305,7 @@
 		D434FDD02B0A13E100BD2404 /* WeekEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekEvent.swift; sourceTree = "<group>"; };
 		D434FDD22B0A13FB00BD2404 /* EmptyEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyEvent.swift; sourceTree = "<group>"; };
 		D434FDD42B0A188800BD2404 /* PageControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageControl.swift; sourceTree = "<group>"; };
+		D434FDD82B0A9BE900BD2404 /* CustomTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBar.swift; sourceTree = "<group>"; };
 		D439F89E29DB8952006332AB /* OffsetPageTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffsetPageTabView.swift; sourceTree = "<group>"; };
 		D439F8A029DBA96B006332AB /* HomeAvailable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeAvailable.swift; sourceTree = "<group>"; };
 		D439F8A229DBAA59006332AB /* HomeNotAvailable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNotAvailable.swift; sourceTree = "<group>"; };
@@ -325,7 +326,6 @@
 		D44ABF0629BFE89D00344792 /* SchoolRowStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolRowStyle.swift; sourceTree = "<group>"; };
 		D44B44CF29E99BBF005164CA /* SearchPreviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPreviewViewModel.swift; sourceTree = "<group>"; };
 		D44FBFEA29CB1CC500CAAD39 /* ResourceDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceDatePicker.swift; sourceTree = "<group>"; };
-		D45268D02A052F97004F1642 /* TabItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabItem.swift; sourceTree = "<group>"; };
 		D45268D22A052FC5004F1642 /* UIImageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageExtension.swift; sourceTree = "<group>"; };
 		D45338F529280E8400198411 /* ScheduleResponseExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleResponseExtension.swift; sourceTree = "<group>"; };
 		D45338F8292825B200198411 /* BookmarkCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkCard.swift; sourceTree = "<group>"; };
@@ -660,7 +660,7 @@
 		D416D33329CA29F9009A4FB8 /* TabBar */ = {
 			isa = PBXGroup;
 			children = (
-				D45268D02A052F97004F1642 /* TabItem.swift */,
+				D434FDD82B0A9BE900BD2404 /* CustomTabBar.swift */,
 			);
 			path = TabBar;
 			sourceTree = "<group>";
@@ -1560,12 +1560,12 @@
 				D400F3DD29D794840050622E /* ResourceDetailSheetModel.swift in Sources */,
 				D400F3D229D793CF0050622E /* SearchStatus.swift in Sources */,
 				D434FDD52B0A188800BD2404 /* PageControl.swift in Sources */,
-				D45268D12A052F97004F1642 /* TabItem.swift in Sources */,
 				D421EAF02993FB660045D438 /* EventDetailsSheetModel.swift in Sources */,
 				D46ABF1229843D3000B059F6 /* StoreKey.swift in Sources */,
 				D458605029DC9DA000B77513 /* TodaysEvents.swift in Sources */,
 				D443962A29CB40C70069D66A /* ToTopButtonStyle.swift in Sources */,
 				D41684812A9121220064A81E /* NotificationPill.swift in Sources */,
+				D434FDD92B0A9BE900BD2404 /* CustomTabBar.swift in Sources */,
 				D40D80B429252A5A008CA68D /* PreferenceService.swift in Sources */,
 				D41ED53B2983F393009DCF8B /* DateExtensions.swift in Sources */,
 				D4E83EBC299960AD002E5F88 /* UsernameField.swift in Sources */,

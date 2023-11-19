@@ -15,13 +15,13 @@ struct BookmarkWeekView: View {
         ZStack(alignment: .bottom) {
             TabView(selection: $currentPage) {
                 ForEach(weekStartDates.indices, id: \.self) { index in
-                        WeekPage(
-                            weekStart: weekStartDates[index],
-                            weekDays: scheduleWeeks[weekStartDates[index].get(.weekOfYear)] ?? []
-                        )
-                        .tag(index)
-                        .preference(key: CurrentPagePreferenceKey.self, value: index)
-                    }
+                    WeekPage(
+                        weekStart: weekStartDates[index],
+                        weekDays: scheduleWeeks[weekStartDates[index].get(.weekOfYear)] ?? []
+                    )
+                    .tag(index)
+                    .preference(key: CurrentPagePreferenceKey.self, value: index)
+                }
             }
             .tabViewStyle(.page(indexDisplayMode: .always))
             .onPreferenceChange(CurrentPagePreferenceKey.self) { value in
@@ -30,7 +30,7 @@ struct BookmarkWeekView: View {
 
             CustomPageControlView(numberOfPages: weekStartDates.count, currentPage: $currentPage)
                 .frame(width: 100, height: 20)
-                .padding(.bottom, 10)
+                .padding(.bottom, 20)
         }
     }
 }

@@ -15,7 +15,7 @@ enum TabbarTabType: String {
     case account = "graduationcap"
     case search = "magnifyingglass"
     
-    static let allValues = [home, bookmarks, account]
+    static let allValues = [home, bookmarks, search, account]
     
     var displayName: String {
         switch self {

@@ -40,8 +40,9 @@ struct SearchInfo: View {
                                 Text(NSLocalizedString(
                                     "This university requires you to log in to their institution before you can see some of their schedules",
                                     comment: ""))
-                        }.font(.system(size: 14))
-                            .foregroundColor(.red)
+                        }
+                        .font(.system(size: 14))
+                        .foregroundColor(.red)
                     }
                 }
             }

@@ -55,9 +55,6 @@ struct Home: View {
             .navigationBarTitleDisplayMode(.inline)
             .navigationTitle(NSLocalizedString("Home", comment: ""))
         }
-        .tabItem {
-            TabItem(appTab: TabbarTabType.home, selectedAppTab: $appController.selectedAppTab)
-        }
         .tag(TabbarTabType.home)
     }
 }

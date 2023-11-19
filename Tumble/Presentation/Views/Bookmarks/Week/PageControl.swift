@@ -32,7 +32,7 @@ class CustomPageControl: UIPageControl {
         self.backgroundColor = UIColor(named: "SurfaceColor")
         self.currentPageIndicatorTintColor = UIColor(named: "PrimaryColor")
         self.pageIndicatorTintColor = UIColor(named: "PrimaryColor")?.withAlphaComponent(0.3)
-        self.layer.cornerRadius = 10
+        self.layer.cornerRadius = 13
         self.clipsToBounds = true
         self.isUserInteractionEnabled = false
     }

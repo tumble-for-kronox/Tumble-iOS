@@ -34,6 +34,7 @@ struct PopupToast: BottomPopup {
         .background(Color.primary)
         .cornerRadius(10.0)
         .padding(15)
+        .padding(.bottom, 40)
     }
     
     func configurePopup(popup: BottomPopupConfig) -> BottomPopupConfig {

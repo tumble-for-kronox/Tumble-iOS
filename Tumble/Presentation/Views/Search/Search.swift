@@ -9,7 +9,7 @@ import SwiftUI
 
 struct Search: View {
     @ObservedObject var viewModel: SearchViewModel
-    @ObservedObject var appController: AppController = .shared
+    let appController: AppController = .shared
         
     var body: some View {
         NavigationView {
@@ -63,9 +63,6 @@ struct Search: View {
             }
             .navigationBarTitleDisplayMode(.inline)
             .navigationTitle(NSLocalizedString("Search", comment: ""))
-        }
-        .tabItem {
-            TabItem(appTab: TabbarTabType.search, selectedAppTab: $appController.selectedAppTab)
         }
         .tag(TabbarTabType.search)
     }
