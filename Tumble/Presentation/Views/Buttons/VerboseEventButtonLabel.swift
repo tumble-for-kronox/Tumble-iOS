@@ -24,7 +24,7 @@ struct VerboseEventButtonLabel: View {
                         .foregroundColor(.onSurface.opacity(0.7))
                 }
                 HStack {
-                    Image(systemName: "person.3.sequence")
+                    Image(systemName: "person.2")
                         .font(.system(size: 15))
                         .foregroundColor(.onSurface.opacity(0.7))
                     if let teacher = event.teachers.first {

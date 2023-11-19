@@ -15,15 +15,12 @@ struct Resources: View {
     var scrollSpace: String = "resourceRefreshable"
     @State var scrollOffset: CGFloat = .zero
     @Binding var collapsedHeader: Bool
-    
-    @State private var isAutoSignupEnabled: Bool
         
     init(
         parentViewModel: AccountViewModel,
         getResourcesAndEvents: @escaping () -> Void,
         collapsedHeader: Binding<Bool>
     ) {
-        _isAutoSignupEnabled = State(initialValue: parentViewModel.autoSignupEnabled)
         self.parentViewModel = parentViewModel
         self.getResourcesAndEvents = getResourcesAndEvents
         _collapsedHeader = collapsedHeader
@@ -37,11 +34,11 @@ struct Resources: View {
                     PullToRefreshIndicator()
                         .padding(.bottom, -15)
                     ResourceSectionDivider(title: NSLocalizedString("User options", comment: "")) {
-                        Toggle(isOn: $isAutoSignupEnabled) {
+                        Toggle(isOn: $parentViewModel.autoSignupEnabled) {
                             Text(NSLocalizedString("Automatic exam signup", comment: ""))
                                 .sectionDividerEmpty()
                         }
-                        .onChange(of: isAutoSignupEnabled, perform: toggleAutomaticExamSignup)
+                        .onChange(of: parentViewModel.autoSignupEnabled, perform: toggleAutomaticExamSignup)
                         .padding(.bottom)
                         .toggleStyle(SwitchToggleStyle(tint: .primary))
                     }
@@ -178,7 +175,7 @@ struct Resources: View {
         } else {
             PopupToast(popup: popupFactory.autoSignupDisabled()).showAndStack()
         }
-        AppLogger.shared.debug("Toggled to \(value)")
+        AppLogger.shared.info("Toggled to \(value)")
     }
 }
 

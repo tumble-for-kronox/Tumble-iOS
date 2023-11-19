@@ -29,7 +29,6 @@ struct Bookmarks: View {
                                 appController: appController
                             )
                             .tag(ViewType.list)
-                            .gesture(DragGesture())
                             
                             BookmarkCalendarView(
                                 appController: appController,
@@ -37,13 +36,11 @@ struct Bookmarks: View {
                                 days: viewModel.bookmarkData.days
                             )
                             .tag(ViewType.calendar)
-                            .gesture(DragGesture())
                             
                             BookmarkWeekView(
                                 scheduleWeeks: viewModel.bookmarkData.weeks
                             )
                             .tag(ViewType.week)
-                            .gesture(DragGesture())
                         }
                         .tabViewStyle(.page(indexDisplayMode: .never))
                     case .uninitialized:

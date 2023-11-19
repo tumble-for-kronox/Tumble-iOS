@@ -28,13 +28,6 @@ final class UserController: ObservableObject {
         }
     }
     
-    /// Handles the preference setting locally for whether a user
-    /// has signed up for automatic event registration (exams, any other events)
-    var autoSignup: Bool {
-        get { preferenceService.getDefault(key: StoreKey.autoSignup.rawValue) as? Bool ?? false }
-        set { preferenceService.setAutoSignup(autoSignup: newValue) }
-    }
-    
     /// Attempts to log out user, and also remove any keychain items
     /// saved that are related to authorization - tokens, passwords, etc.
     func logOut() async throws {

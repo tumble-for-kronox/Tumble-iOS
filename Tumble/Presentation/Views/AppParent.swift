@@ -19,11 +19,6 @@ struct AppParent: View {
         navigationBarAppearance.titleTextAttributes = [.font: navigationBarFont()]
         navigationBarAppearance.titleTextAttributes = [.foregroundColor: UIColor(named: "OnSurface")!]
         self.viewModel = viewModel
-        
-        let barAppearance = UIBarAppearance()
-        let tabBarAppearance = UITabBar.appearance()
-        barAppearance.configureWithDefaultBackground()
-        tabBarAppearance.scrollEdgeAppearance = .init(barAppearance: barAppearance)
     }
     
     var body: some View {
