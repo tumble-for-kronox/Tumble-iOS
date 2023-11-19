@@ -39,7 +39,7 @@ struct CustomTabButton: View {
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 27, height: 27)
                 .scaleEffect(isAnimating ? 1.25 : 1.0)
-                .foregroundColor(isSelected() ? .onBackground : .onBackground.opacity(0.3))
+                .foregroundColor(isSelected() ? .primary : .onBackground.opacity(0.3))
         })
         .frame(height: 60, alignment: .top)
         .padding(.top, 5)

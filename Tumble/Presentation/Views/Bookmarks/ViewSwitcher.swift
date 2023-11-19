@@ -22,7 +22,7 @@ struct ViewSwitcher: View {
                     ZStack {
                         if isSelectedViewType(viewType: type) {
                             RoundedRectangle(cornerRadius: 30)
-                                .fill(Color.primary.opacity(0.8))
+                                .fill(Color.primary)
                                 .matchedGeometryEffect(id: "tabSelection", in: namespace)
                                 .frame(height: 30)
                         }
