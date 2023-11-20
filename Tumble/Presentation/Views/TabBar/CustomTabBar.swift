@@ -19,7 +19,7 @@ struct CustomTabBar: View {
                         .frame(maxWidth: .infinity)
                 }
             }
-            .frame(height: 80)
+            .frame(height: 85)
             .padding(.horizontal)
         }
         .padding(0)

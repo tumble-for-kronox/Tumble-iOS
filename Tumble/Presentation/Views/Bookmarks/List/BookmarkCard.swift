@@ -7,9 +7,7 @@
 
 import SwiftUI
 
-struct BookmarkCard: View {
-    @State private var isDisclosed: Bool = false
-    
+struct BookmarkCard: View {    
     let onTapCard: (Event) -> Void
     let event: Event
     let isLast: Bool
@@ -21,7 +19,7 @@ struct BookmarkCard: View {
         }, label: {
             VerboseEventButtonLabel(event: event)
         })
-        .buttonStyle(AnimatedButtonStyle(color: .surface, applyCornerRadius: true))
+        .buttonStyle(ScalingButtonStyle())
         .padding(.bottom, 10)
     }
 }
