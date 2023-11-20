@@ -5,6 +5,15 @@
   Created by Adis Veletanlic on 2023-03-30.
   
 */
+
+"Confirm Unregistration"="Bekräfta avregistrering";
+
+"Are you sure you want to unregister from this event?"="Är du säker på att du vill avregistrera dig från denna händelse?";
+
+"Confirm Activation"="Bekräfta aktivering";
+
+"Are you sure you want to enable this experimental feature?"="Är du säker på att du vill aktivera denna experimentella funktion?";
+
 "Yes"="Ja";
 
 "Are you sure you want to log out of your account?"="Är du säker på att du vill logga ut från ditt konto?";

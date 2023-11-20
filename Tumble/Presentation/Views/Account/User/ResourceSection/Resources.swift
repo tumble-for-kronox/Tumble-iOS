@@ -14,6 +14,7 @@ struct Resources: View {
     
     var scrollSpace: String = "resourceRefreshable"
     @State var scrollOffset: CGFloat = .zero
+    @State private var showingConfirmationDialog = false
     @Binding var collapsedHeader: Bool
         
     init(
@@ -38,9 +39,27 @@ struct Resources: View {
                             Text(NSLocalizedString("Automatic exam signup", comment: ""))
                                 .sectionDividerEmpty()
                         }
-                        .onChange(of: parentViewModel.autoSignupEnabled, perform: toggleAutomaticExamSignup)
+                        .onChange(of: parentViewModel.autoSignupEnabled, perform: { newValue in
+                            if newValue {
+                                showingConfirmationDialog = true
+                            } else {
+                                toggleAutomaticExamSignup(newValue)
+                            }
+                        })
                         .padding(.bottom)
                         .toggleStyle(SwitchToggleStyle(tint: .primary))
+                        .alert(isPresented: $showingConfirmationDialog) {
+                            Alert(
+                                title: Text(NSLocalizedString("Confirm Activation", comment: "")),
+                                message: Text(NSLocalizedString("Are you sure you want to enable this experimental feature?", comment: "")),
+                                primaryButton: .default(Text(NSLocalizedString("Yes", comment: ""))) {
+                                    toggleAutomaticExamSignup(true)
+                                },
+                                secondaryButton: .cancel(Text(NSLocalizedString("Cancel", comment: ""))) {
+                                    parentViewModel.autoSignupEnabled = false
+                                }
+                            )
+                        }
                     }
                     .padding(.top)
                     ResourceSectionDivider(title: NSLocalizedString("Your bookings", comment: ""), resourceType: .resource,
@@ -86,7 +105,7 @@ struct Resources: View {
                 })
             }
         }
-        .onAppear {
+        .onFirstAppear {
             getResourcesAndEvents()
         }
         .coordinateSpace(name: scrollSpace)
@@ -168,7 +187,7 @@ struct Resources: View {
         }
     }
     
-    fileprivate func toggleAutomaticExamSignup(value: Bool) {
+    fileprivate func toggleAutomaticExamSignup(_ value: Bool) {
         parentViewModel.toggleAutoSignup(value: value)
         if value {
             PopupToast(popup: popupFactory.autoSignupEnabled()).showAndStack()

@@ -49,7 +49,7 @@ struct EventCardButton: View {
                         Image(systemName: "signature")
                             .font(.system(size: 15))
                             .foregroundColor(.onSurface.opacity(0.7))
-                        if event.lastSignupDate.isValidSignupDate() {
+                        if event.lastSignupDate.isValidRegistrationDate() {
                             Text("\(NSLocalizedString("Available until", comment: "")) \(event.lastSignupDate.toDate() ?? NSLocalizedString("(no date set)", comment: ""))")
                                 .font(.system(size: 15))
                                 .foregroundColor(.onSurface.opacity(0.7))
@@ -67,7 +67,7 @@ struct EventCardButton: View {
             .frame(minWidth: 0, maxWidth: .infinity, minHeight: 100, maxHeight: 100, alignment: .center)
             .background(Color.surface)
             .cornerRadius(15)
-            if event.lastSignupDate.isValidSignupDate() {
+            if event.lastSignupDate.isValidRegistrationDate() {
                 HStack {
                     Spacer()
                     Button(action: {

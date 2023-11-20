@@ -13,6 +13,7 @@ struct ExamDetailsSheet: View {
     let unregisterEvent: (String) -> Void
     
     @Environment(\.dismiss) var dismiss
+    @State private var showingUnregisterConfirmationDialog = false
     
     var body: some View {
         VStack {
@@ -41,13 +42,11 @@ struct ExamDetailsSheet: View {
                     .foregroundColor(.onSurface)
             })
             Spacer()
-            if event.lastSignupDate.isValidSignupDate() {
+            
+            if event.lastSignupDate.isValidRegistrationDate() {
                 Button(action: {
                     HapticsController.triggerHapticLight()
-                    self.dismiss()
-                    if let id = event.eventId {
-                        unregisterEvent(id)
-                    }
+                    showingUnregisterConfirmationDialog = true
                 }, label: {
                     HStack {
                         Text(NSLocalizedString("Unregister event", comment: ""))
@@ -58,6 +57,19 @@ struct ExamDetailsSheet: View {
                 .buttonStyle(WideAnimatedButtonStyle(color: .red))
                 .padding(.horizontal, 15)
                 .padding(.top, 20)
+                .alert(isPresented: $showingUnregisterConfirmationDialog) {
+                    Alert(
+                        title: Text(NSLocalizedString("Confirm Unregistration", comment: "")),
+                        message: Text(NSLocalizedString("Are you sure you want to unregister from this event?", comment: "")),
+                        primaryButton: .destructive(Text(NSLocalizedString("Unregister", comment: ""))) {
+                            dismiss()
+                            if let id = event.eventId {
+                                unregisterEvent(id)
+                            }
+                        },
+                        secondaryButton: .cancel(Text(NSLocalizedString("Cancel", comment: "")))
+                    )
+                }
             }
         }
         .padding(.top, 55)
