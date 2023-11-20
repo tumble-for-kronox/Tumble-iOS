@@ -10,25 +10,26 @@ import SwiftUI
 struct TodaysEventsCarousel: View {
     @Binding var swipedCards: Int
     @Binding var weekEventCards: [WeekEventCardModel]
+    @State private var showWiggleAnimation = true
     
     var body: some View {
         ZStack {
             if weekEventCards.isEmpty {
                 Text(NSLocalizedString("No events for today", comment: ""))
-                    .font(.system(size: 16))
+                    .font(.system(size: 18))
                     .foregroundColor(.onBackground)
             } else {
                 ForEach(weekEventCards.indices.reversed(), id: \.self) { index in
-                    let event = weekEventCards[index].event
                     CarouselCard(
-                        event: event,
+                        event: weekEventCards[index].event,
                         index: index,
                         eventsForToday: weekEventCards,
-                        swipedCards: $swipedCards
+                        swipedCards: $swipedCards,
+                        showWiggleAnimation: index == 0 && showWiggleAnimation
                     )
                     .frame(height: 160)
                     .contentShape(Rectangle())
-                    .offset(x: weekEventCards[index].offset + 2.5)
+                    .offset(x: weekEventCards[index].offset + 5)
                     .gesture(
                         DragGesture(minimumDistance: 0)
                             .onChanged { value in
@@ -50,7 +51,7 @@ struct TodaysEventsCarousel: View {
         HStack {
             Spacer()
             Button(action: resetCards, label: {
-                Image(systemName: "chevron.left")
+                Image(systemName: "arrow.uturn.backward")
                     .font(.system(size: 18, weight: .semibold))
                     .foregroundColor(.onPrimary)
                     .padding(15)
@@ -58,8 +59,8 @@ struct TodaysEventsCarousel: View {
                     .clipShape(Circle())
                 
             })
-            .buttonStyle(AnimatedButtonStyle(applyCornerRadius: true))
-            .cornerRadius(15)
+            .cornerRadius(30)
+            .buttonStyle(ScalingButtonStyle())
         }
         .padding(.top, 10)
     }
@@ -77,7 +78,11 @@ struct TodaysEventsCarousel: View {
         if value.translation.width < 0 && weekEventCards.count > 1 {
             weekEventCards[index].offset = value.translation.width
         }
+        if showWiggleAnimation {
+            showWiggleAnimation = false
+        }
     }
+
     
     func onEnded(value: DragGesture.Value, index: Int) {
         withAnimation {
@@ -99,6 +104,7 @@ private struct CarouselCard: View {
     let index: Int
     let eventsForToday: [WeekEventCardModel]
     @Binding var swipedCards: Int
+    var showWiggleAnimation: Bool
     
     var body: some View {
         HStack {
@@ -109,6 +115,9 @@ private struct CarouselCard: View {
                 )
                 .offset(x: getCardOffset(index: index))
                 .rotationEffect(.init(degrees: getCardRotation(index: index)))
+                .if(showWiggleAnimation, transform: { view in
+                    view.modifier(WiggleModifier())
+                })
                 .if(index != eventsForToday.count - 1, transform: { view in
                     view.shadow(
                         color: Color.black.opacity(0.1),
@@ -138,6 +147,27 @@ private struct CarouselCard: View {
     }
     
     func getCardOffset(index: Int) -> CGFloat {
-        return (index - swipedCards) <= 2 ? CGFloat(index - swipedCards) * 10 : 0
+        return (index - swipedCards) <= 2 ? CGFloat(index - swipedCards) * 13 : 0
+    }
+}
+
+struct WiggleModifier: ViewModifier {
+    @State private var isAnimating = false
+
+    func body(content: Content) -> some View {
+        content
+            .rotationEffect(.degrees(isAnimating ? -2 : 0))
+            .offset(x: isAnimating ? -15 : 0)
+            .onAppear {
+                withAnimation(Animation.easeInOut(duration: 0.2).repeatCount(3, autoreverses: true).delay(0.2)) {
+                    isAnimating.toggle()
+                }
+
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
+                    withAnimation(Animation.easeInOut(duration: 0.2).repeatCount(3, autoreverses: true).delay(0.2)) {
+                        isAnimating.toggle()
+                    }
+                }
+            }
     }
 }

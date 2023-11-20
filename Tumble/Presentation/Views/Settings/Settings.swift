@@ -71,18 +71,14 @@ struct Settings: View {
                         title: NSLocalizedString("Review the app", comment: ""),
                         leadingIcon: "star.leadinghalf.filled",
                         leadingIconBackgroundColor: .yellow,
-                        action: {
-                            UIApplication.shared.openAppStoreForReview()
-                        }
+                        action: UIApplication.shared.openAppStoreForReview
                     )
                     Divider()
                     SettingsExternalButton(
                         title: NSLocalizedString("Share feedback", comment: ""),
                         leadingIcon: "envelope",
                         leadingIconBackgroundColor: .blue,
-                        action: {
-                            UIApplication.shared.shareFeedback()
-                        }
+                        action: UIApplication.shared.shareFeedback
                     )
                     Divider()
                     SettingsExternalButton(
@@ -92,6 +88,13 @@ struct Settings: View {
                         action: {
                             showShareSheet = true
                     })
+                }
+                SettingsListGroup {
+                    SettingsExternalButton(
+                        title: NSLocalizedString("Tumble on GitHub", comment: ""),
+                        leadingIcon: "chevron.left.forwardslash.chevron.right",
+                        leadingIconBackgroundColor: .primary,
+                        action: UIApplication.shared.openSourceCode)
                 }
                 
                 if let appVersion = appVersion {

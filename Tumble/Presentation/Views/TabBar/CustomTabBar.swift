@@ -19,7 +19,7 @@ struct CustomTabBar: View {
                         .frame(maxWidth: .infinity)
                 }
             }
-            .frame(height: 85)
+            .frame(height: 80)
             .padding(.horizontal)
         }
         .padding(0)
@@ -37,11 +37,11 @@ struct CustomTabButton: View {
             Image(systemName: imageName)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
-                .frame(width: 27, height: 27)
+                .frame(width: 25, height: 25)
                 .scaleEffect(isAnimating ? 1.25 : 1.0)
                 .foregroundColor(isSelected() ? .primary : .onBackground.opacity(0.3))
         })
-        .frame(height: 60, alignment: .top)
+        .frame(height: 55, alignment: .top)
         .padding(.top, 5)
         .animation(.easeInOut(duration: 0.2), value: isAnimating)
     }

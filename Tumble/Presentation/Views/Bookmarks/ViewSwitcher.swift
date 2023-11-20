@@ -16,7 +16,7 @@ struct ViewSwitcher: View {
             ForEach(ViewType.allCases, id: \.self) { type in
                 Button(action: {
                     withAnimation {
-                        parentViewModel.onChangeViewType(viewType: type)
+                        parentViewModel.setViewType(viewType: type)
                     }
                 }, label: {
                     ZStack {
@@ -28,19 +28,21 @@ struct ViewSwitcher: View {
                         }
                         HStack {
                             Text(NSLocalizedString(type.name, comment: ""))
-                                .font(.system(size: 13, weight: .bold))
+                                .font(.system(size: 14, weight: .bold))
                         }
                         .frame(minWidth: 0, maxWidth: .infinity)
                         .padding(.vertical, 5)
+                        .padding(.horizontal, 2)
                         .foregroundColor(isSelectedViewType(viewType: type) ? .onPrimary : .onSurface)
                     }
                 })
                 .frame(height: 30)
                 .background(Color.clear)
+                .buttonStyle(ScalingButtonStyle())
             }
         }
-        .padding(8)
-        .frame(width: 250)
+        .padding(5)
+        .frame(width: 280)
         .background(Color.surface)
         .cornerRadius(30)
     }

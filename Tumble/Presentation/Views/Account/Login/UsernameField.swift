@@ -13,8 +13,10 @@ struct UsernameField: View {
     var body: some View {
         HStack {
             Image(systemName: "person")
+                .font(.system(size: 18, weight: .semibold))
                 .foregroundColor(.onSurface.opacity(0.75))
             TextField(NSLocalizedString("Username/Email address", comment: ""), text: $username)
+                .font(.system(size: 18))
                 .foregroundColor(.onSurface)
                 .autocapitalization(.none)
                 .disableAutocorrection(true)

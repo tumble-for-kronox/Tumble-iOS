@@ -49,7 +49,7 @@ struct ResourceDetailSheet: View {
                 }, label: {
                     HStack {
                         Text(NSLocalizedString("Confirm booking", comment: ""))
-                            .font(.system(size: 16, weight: .semibold))
+                            .font(.system(size: 18, weight: .semibold))
                             .foregroundColor(.onPrimary)
                     }
                 })
@@ -65,7 +65,7 @@ struct ResourceDetailSheet: View {
                 }, label: {
                     HStack {
                         Text(NSLocalizedString("Remove booking", comment: ""))
-                            .font(.system(size: 16, weight: .semibold))
+                            .font(.system(size: 18, weight: .semibold))
                             .foregroundColor(.onPrimary)
                     }
                 })

@@ -51,7 +51,7 @@ struct ExamDetailsSheet: View {
                 }, label: {
                     HStack {
                         Text(NSLocalizedString("Unregister event", comment: ""))
-                            .font(.system(size: 17, weight: .semibold))
+                            .font(.system(size: 18, weight: .semibold))
                             .foregroundColor(.onPrimary)
                     }
                 })

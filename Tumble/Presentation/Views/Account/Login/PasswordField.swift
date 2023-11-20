@@ -15,9 +15,11 @@ struct PasswordField: View {
     var body: some View {
         HStack {
             Image(systemName: "lock")
+                .font(.system(size: 18, weight: .semibold))
                 .foregroundColor(.onSurface.opacity(0.75))
             ZStack {
                 TextField(NSLocalizedString("Password", comment: ""), text: $password)
+                    .font(.system(size: 18))
                     .autocapitalization(.none)
                     .disableAutocorrection(true)
                     .focused($focused, equals: .unSecure)
@@ -25,6 +27,7 @@ struct PasswordField: View {
                     .foregroundColor(.onSurface)
                     .opacity(visiblePassword ? 1 : 0)
                 SecureField(NSLocalizedString("Password", comment: ""), text: $password)
+                    .font(.system(size: 18))
                     .autocapitalization(.none)
                     .disableAutocorrection(true)
                     .focused($focused, equals: .secure)
@@ -36,8 +39,10 @@ struct PasswordField: View {
                 focused = focused == .unSecure ? .unSecure : .secure
             }) {
                 Image(systemName: visiblePassword ? "eye" : "eye.slash")
+                    .font(.system(size: 18, weight: .semibold))
                     .foregroundColor(.onSurface.opacity(0.75))
             }
+            .buttonStyle(ScalingButtonStyle())
             Spacer()
         }
         .padding(15)
