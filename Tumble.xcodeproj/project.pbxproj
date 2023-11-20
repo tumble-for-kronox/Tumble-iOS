@@ -209,6 +209,7 @@
 		D4E491F629EDC59300E674CA /* DayResponseExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E491F529EDC59300E674CA /* DayResponseExtension.swift */; };
 		D4E491F829EDCCE700E674CA /* VerboseEventResponseButtonLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E491F729EDCCE700E674CA /* VerboseEventResponseButtonLabel.swift */; };
 		D4E491FA29EDCD8B00E674CA /* DayResponseHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E491F929EDCD8B00E674CA /* DayResponseHeader.swift */; };
+		D4E6BC1C2B0B946000F41E8F /* EventSorting.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E6BC1B2B0B946000F41E8F /* EventSorting.swift */; };
 		D4E83EB629994D5F002E5F88 /* AccountLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E83EB529994D5F002E5F88 /* AccountLogin.swift */; };
 		D4E83EB8299959AF002E5F88 /* LoginButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E83EB7299959AF002E5F88 /* LoginButton.swift */; };
 		D4E83EBA29996026002E5F88 /* PasswordField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E83EB929996026002E5F88 /* PasswordField.swift */; };
@@ -450,6 +451,7 @@
 		D4E491F529EDC59300E674CA /* DayResponseExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayResponseExtension.swift; sourceTree = "<group>"; };
 		D4E491F729EDCCE700E674CA /* VerboseEventResponseButtonLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerboseEventResponseButtonLabel.swift; sourceTree = "<group>"; };
 		D4E491F929EDCD8B00E674CA /* DayResponseHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayResponseHeader.swift; sourceTree = "<group>"; };
+		D4E6BC1B2B0B946000F41E8F /* EventSorting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventSorting.swift; sourceTree = "<group>"; };
 		D4E83EB529994D5F002E5F88 /* AccountLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountLogin.swift; sourceTree = "<group>"; };
 		D4E83EB7299959AF002E5F88 /* LoginButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginButton.swift; sourceTree = "<group>"; };
 		D4E83EB929996026002E5F88 /* PasswordField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordField.swift; sourceTree = "<group>"; };
@@ -817,6 +819,14 @@
 				D4CEFA372A216DBB001E94CF /* OnBoardingScreens.swift */,
 			);
 			path = OnBoarding;
+			sourceTree = "<group>";
+		};
+		D434FDDC2B0B90F500BD2404 /* Sorting+Filtering */ = {
+			isa = PBXGroup;
+			children = (
+				D4E6BC1B2B0B946000F41E8F /* EventSorting.swift */,
+			);
+			path = "Sorting+Filtering";
 			sourceTree = "<group>";
 		};
 		D43F76FE2A2FCA1000AB75F0 /* Week */ = {
@@ -1261,6 +1271,7 @@
 		D4E39E352989CE1D004C30DF /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				D434FDDC2B0B90F500BD2404 /* Sorting+Filtering */,
 				D4D3368429F66E2A00933D38 /* Config */,
 				D400F3E929D797340050622E /* Formatters */,
 				D400F3E829D796F00050622E /* Logging */,
@@ -1719,6 +1730,7 @@
 				D42BAC23298D5BFA0025EAA9 /* DependencyInjector.swift in Sources */,
 				D430F74929C6558700E30E48 /* BookmarkCalendarDetailStyle.swift in Sources */,
 				D4BD66AE2A30936700B823D2 /* DateCollections.swift in Sources */,
+				D4E6BC1C2B0B946000F41E8F /* EventSorting.swift in Sources */,
 				D483CC392A9DF21C0088C54A /* SearchMenuActionStyle.swift in Sources */,
 				D4E491F629EDC59300E674CA /* DayResponseExtension.swift in Sources */,
 				D45338FF2929805100198411 /* StringExtensions.swift in Sources */,

@@ -59,7 +59,7 @@ private struct EventList: View {
     let events: RealmSwift.List<Event>
     
     var body: some View {
-        ForEach(events.sorted(by: sortedOrder), id: \._id) { event in
+        ForEach(events.sorted(by: EventSorting.sortedEventOrder), id: \._id) { event in
             BookmarkCard(
                 onTapCard: onTapCard,
                 event: event,
@@ -71,14 +71,6 @@ private struct EventList: View {
     
     fileprivate func onTapCard(event: Event) {
         AppController.shared.eventSheet = EventDetailsSheetModel(event: event)
-    }
-    
-    fileprivate func sortedOrder(event1: Event, event2: Event) -> Bool {
-        guard let firstDate = Calendar.current.date(from: event1.dateComponents!),
-             let secondDate = Calendar.current.date(from: event2.dateComponents!) else {
-           return false
-       }
-       return firstDate < secondDate
     }
 }
 

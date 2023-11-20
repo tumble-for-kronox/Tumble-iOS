@@ -27,7 +27,7 @@ struct WeekDays: View {
             content: {
                 if let days = days {
                     ForEach(days, id: \.self) { day in
-                        ForEach(day.events.sorted(by: sortedOrder), id: \.self) { event in
+                        ForEach(day.events.sorted(by: EventSorting.sortedEventOrder), id: \.self) { event in
                             WeekEvent(event: event)
                         }
                     }
@@ -37,13 +37,5 @@ struct WeekDays: View {
             }
         )
         .padding(.vertical, 10)
-    }
-    
-    fileprivate func sortedOrder(event1: Event, event2: Event) -> Bool {
-        guard let firstDate = Calendar.current.date(from: event1.dateComponents!),
-             let secondDate = Calendar.current.date(from: event2.dateComponents!) else {
-           return false
-       }
-       return firstDate < secondDate
     }
 }
