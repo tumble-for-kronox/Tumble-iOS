@@ -44,7 +44,7 @@ struct SchoolPill: View, Pill {
                     .frame(width: fontSize, height: fontSize)
                     .cornerRadius(50)
                 Text(title)
-                    .font(.system(size: fontSize, weight: .semibold))
+                    .font(.system(size: fontSize, weight: isSelected() ? .semibold : .regular))
                     .foregroundColor(isSelected() ? .onPrimary : .onSurface)
             }
             .padding(2)

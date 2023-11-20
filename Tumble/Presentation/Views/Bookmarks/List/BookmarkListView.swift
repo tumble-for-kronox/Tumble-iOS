@@ -31,23 +31,7 @@ struct BookmarkListView: View {
                 VStack {
                     Spacer()
                         .frame(height: 60)
-                    ForEach(days, id: \._id) { day in
-                        LazyVStack {
-                            VStack {
-                                Section(header: DayHeader(day: day), content: {
-                                    ForEach(day.events, id: \._id) { event in
-                                        BookmarkCard(
-                                            onTapCard: onTapCard,
-                                            event: event,
-                                            isLast: event == day.events.last
-                                        )
-                                        .padding(.horizontal, 15)
-                                    }
-                                })
-                            }
-                            .padding(.vertical, 15)
-                        }
-                    }
+                    DaysList(days: days)
                 }
                 .padding(.top, 2.5)
                 .id("bookmarkScrollView")
@@ -60,17 +44,56 @@ struct BookmarkListView: View {
         .ignoresSafeArea(.keyboard)
     }
     
-    fileprivate func onTapCard(event: Event) {
-        appController.eventSheet = EventDetailsSheetModel(event: event)
-    }
-    
-    
     fileprivate func onChangeSearch(searching: Bool) {
         withAnimation(.easeInOut) {
             if searching {
                 bookmarksListModel.state = .searching
             } else {
                 bookmarksListModel.state = .notSearching
+            }
+        }
+    }
+}
+
+private struct EventList: View {
+    let events: RealmSwift.List<Event>
+    
+    var body: some View {
+        ForEach(events.sorted(by: sortedOrder), id: \._id) { event in
+            BookmarkCard(
+                onTapCard: onTapCard,
+                event: event,
+                isLast: event == events.last
+            )
+            .padding(.horizontal, 15)
+        }
+    }
+    
+    fileprivate func onTapCard(event: Event) {
+        AppController.shared.eventSheet = EventDetailsSheetModel(event: event)
+    }
+    
+    fileprivate func sortedOrder(event1: Event, event2: Event) -> Bool {
+        guard let firstDate = Calendar.current.date(from: event1.dateComponents!),
+             let secondDate = Calendar.current.date(from: event2.dateComponents!) else {
+           return false
+       }
+       return firstDate < secondDate
+    }
+}
+
+private struct DaysList: View {
+    let days: [Day]
+    
+    var body: some View {
+        ForEach(days, id: \._id) { day in
+            LazyVStack {
+                VStack {
+                    Section(header: DayHeader(day: day), content: {
+                        EventList(events: day.events)
+                    })
+                }
+                .padding(.vertical, 15)
             }
         }
     }
