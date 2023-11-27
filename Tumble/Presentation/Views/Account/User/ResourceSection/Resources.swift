@@ -14,16 +14,14 @@ struct Resources: View {
     
     var scrollSpace: String = "resourceRefreshable"
     @State var scrollOffset: CGFloat = .zero
+    @State private var showingConfirmationDialog = false
     @Binding var collapsedHeader: Bool
-    
-    @State private var isAutoSignupEnabled: Bool
         
     init(
         parentViewModel: AccountViewModel,
         getResourcesAndEvents: @escaping () -> Void,
         collapsedHeader: Binding<Bool>
     ) {
-        _isAutoSignupEnabled = State(initialValue: parentViewModel.autoSignupEnabled)
         self.parentViewModel = parentViewModel
         self.getResourcesAndEvents = getResourcesAndEvents
         _collapsedHeader = collapsedHeader
@@ -37,13 +35,31 @@ struct Resources: View {
                     PullToRefreshIndicator()
                         .padding(.bottom, -15)
                     ResourceSectionDivider(title: NSLocalizedString("User options", comment: "")) {
-                        Toggle(isOn: $isAutoSignupEnabled) {
+                        Toggle(isOn: $parentViewModel.autoSignupEnabled) {
                             Text(NSLocalizedString("Automatic exam signup", comment: ""))
                                 .sectionDividerEmpty()
                         }
-                        .onChange(of: isAutoSignupEnabled, perform: toggleAutomaticExamSignup)
+                        .onChange(of: parentViewModel.autoSignupEnabled, perform: { newValue in
+                            if newValue {
+                                showingConfirmationDialog = true
+                            } else {
+                                toggleAutomaticExamSignup(newValue)
+                            }
+                        })
                         .padding(.bottom)
                         .toggleStyle(SwitchToggleStyle(tint: .primary))
+                        .alert(isPresented: $showingConfirmationDialog) {
+                            Alert(
+                                title: Text(NSLocalizedString("Confirm Activation", comment: "")),
+                                message: Text(NSLocalizedString("Are you sure you want to enable this experimental feature?", comment: "")),
+                                primaryButton: .default(Text(NSLocalizedString("Yes", comment: ""))) {
+                                    toggleAutomaticExamSignup(true)
+                                },
+                                secondaryButton: .cancel(Text(NSLocalizedString("Cancel", comment: ""))) {
+                                    parentViewModel.autoSignupEnabled = false
+                                }
+                            )
+                        }
                     }
                     .padding(.top)
                     ResourceSectionDivider(title: NSLocalizedString("Your bookings", comment: ""), resourceType: .resource,
@@ -89,7 +105,7 @@ struct Resources: View {
                 })
             }
         }
-        .onAppear {
+        .onFirstAppear {
             getResourcesAndEvents()
         }
         .coordinateSpace(name: scrollSpace)
@@ -171,14 +187,14 @@ struct Resources: View {
         }
     }
     
-    fileprivate func toggleAutomaticExamSignup(value: Bool) {
+    fileprivate func toggleAutomaticExamSignup(_ value: Bool) {
         parentViewModel.toggleAutoSignup(value: value)
         if value {
             PopupToast(popup: popupFactory.autoSignupEnabled()).showAndStack()
         } else {
             PopupToast(popup: popupFactory.autoSignupDisabled()).showAndStack()
         }
-        AppLogger.shared.debug("Toggled to \(value)")
+        AppLogger.shared.info("Toggled to \(value)")
     }
 }
 

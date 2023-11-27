@@ -117,7 +117,7 @@ final class HomeViewModel: ObservableObject {
         }
         let eventsForToday = schedules.filterEventsMatchingToday()
         
-        let todaysEventsCards = eventsForToday.map {
+        let todaysEventsCards = eventsForToday.sorted(by: EventSorting.sortedEventOrder).map {
             WeekEventCardModel(event: $0)
         }
         DispatchQueue.main.async { [weak self] in

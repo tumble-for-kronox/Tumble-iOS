@@ -43,9 +43,6 @@ struct Account: View {
             })
             
         }
-        .tabItem {
-            TabItem(appTab: TabbarTabType.account, selectedAppTab: $appController.selectedAppTab)
-        }
         .tag(TabbarTabType.account)
     }
     

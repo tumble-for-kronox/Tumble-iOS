@@ -6,6 +6,14 @@
   
 */
 
+"Confirm Unregistration"="Potvrdi odjavu";
+
+"Are you sure you want to unregister from this event?"="Jeste li sigurni da se želite odjaviti s ovog događaja?";
+
+"Confirm Activation"="Potvrdi aktivaciju";
+
+"Are you sure you want to enable this experimental feature?"="Jeste li sigurni da želite omogućiti ovu eksperimentalnu funkciju?";
+
 "Yes"="Da";
 
 "Are you sure you want to log out of your account?"="Jeste li sigurni da želite da se odjavite sa vašeg računa?";

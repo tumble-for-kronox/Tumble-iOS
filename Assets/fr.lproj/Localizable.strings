@@ -6,9 +6,17 @@
   
 */
 
+"Confirm Unregistration"="Confirmer la désinscription";
+
+"Are you sure you want to unregister from this event?"="Êtes-vous sûr de vouloir vous désinscrire de cet événement?";
+
+"Confirm Activation"="Confirmer l'activation";
+
+"Are you sure you want to enable this experimental feature?"="Êtes-vous sûr de vouloir activer cette fonctionnalité expérimentale?";
+
 "Yes"="Oui";
 
-"Are you sure you want to log out of your account?"="Êtes-vous sûr de vouloir vous déconnecter de votre compte ?";
+"Are you sure you want to log out of your account?"="Êtes-vous sûr de vouloir vous déconnecter de votre compte?";
 
 "No events for this week.."="Pas d'événements pour cette semaine..";
 

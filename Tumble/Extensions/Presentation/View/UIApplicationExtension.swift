@@ -32,6 +32,12 @@ extension UIApplication {
         }
     }
     
+    func openSourceCode() {
+        if let url = URL(string: "https://github.com/adisve/Tumble-iOS") {
+            UIApplication.shared.open(url)
+        }
+    }
+    
     /// Opens the App Store application with the review
     /// sheet already opened
     func openAppStoreForReview() {

@@ -20,6 +20,7 @@ struct UserOverview: View {
                    let username = viewModel.username
                 {
                     UserAvatar(name: name, collapsedHeader: $collapsedHeader)
+                        .padding(.trailing, 5)
                     VStack(alignment: .leading, spacing: 0) {
                         Text(name)
                             .font(.system(size: collapsedHeader ? 20 : 22, weight: .semibold))

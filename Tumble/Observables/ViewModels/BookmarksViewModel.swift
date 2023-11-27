@@ -26,10 +26,11 @@ final class BookmarksViewModel: ObservableObject {
     @Inject var schoolManager: SchoolManager
     @Inject var realmManager: RealmManager
     
-    @Published var defaultViewType: ViewType = .list
+    @Published var defaultViewType: ViewType {
+        didSet { self.updatePreferenceViewType() }
+    }
     @Published var eventSheet: EventDetailsSheetModel? = nil
     @Published var status: BookmarksViewStatus = .loading
-    
     @Published var bookmarkData: BookmarkData = BookmarkData(days: [], calendarEventsByDate: [:], weeks: [:])
     
     private var schedulesToken: NotificationToken? = nil
@@ -37,6 +38,7 @@ final class BookmarksViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     
     init() {
+        defaultViewType = .list
         defaultViewType = preferenceService.getDefaultViewType()
         setupPublishers()
     }
@@ -76,12 +78,13 @@ final class BookmarksViewModel: ObservableObject {
         return viewModelFactory.makeViewModelEventDetailsSheet(event: event)
     }
     
-    /// Whenever the user changes the bookmark viewtype `[.list, .calendar, .week]`,
-    /// this function stores it in `UserDefaults` and updates the local state
-    func onChangeViewType(viewType: ViewType) {
-        let viewTypeIndex: Int = scheduleViewTypes.firstIndex(of: viewType)!
+    func setViewType(viewType: ViewType) {
+        self.defaultViewType = viewType
+    }
+    
+    private func updatePreferenceViewType() {
+        let viewTypeIndex: Int = scheduleViewTypes.firstIndex(of: defaultViewType)!
         preferenceService.setViewType(viewType: viewTypeIndex)
-        defaultViewType = viewType
     }
     
     /// Creates any calendar and list events, parsing through the schedules that

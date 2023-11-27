@@ -61,7 +61,7 @@ struct AccountLogin: View {
                 }, label: {
                     HStack {
                         Text(school.name)
-                            .font(.system(size: 12, weight: .semibold))
+                            .font(.system(size: 13, weight: .semibold))
                             .foregroundColor(.onBackground)
                         if school == selectedSchool {
                             Image(systemName: "checkmark")
@@ -74,10 +74,10 @@ struct AccountLogin: View {
         } label: {
             HStack {
                 Image(systemName: "chevron.up.chevron.down")
-                    .font(.system(size: 14, weight: .semibold))
+                    .font(.system(size: 16, weight: .semibold))
                     .foregroundColor(.primary)
                 Text(selectedSchool?.name ?? NSLocalizedString("Select university", comment: ""))
-                    .font(.system(size: 16, weight: .semibold))
+                    .font(.system(size: 18, weight: .semibold))
             }
         }
     }

@@ -90,7 +90,7 @@ extension String {
     
     /// Checks if a given events last signup date
     /// is valid and has not already passed
-    func isValidSignupDate() -> Bool {
+    func isValidRegistrationDate() -> Bool {
         guard let date = dateFormatterFull.date(from: self) else {
             return false
         }

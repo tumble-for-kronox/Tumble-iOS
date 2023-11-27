@@ -17,7 +17,7 @@ struct EventDetailsBody: View {
                     .font(.system(size: 16))
                     .foregroundColor(.onSurface)
             }
-            DetailsBuilder(title: NSLocalizedString("Teachers", comment: ""), image: "person.3.sequence") {
+            DetailsBuilder(title: NSLocalizedString("Teachers", comment: ""), image: "person.2") {
                 if !event.teachers.isEmpty {
                     if !event.teachers.first!.firstName.isEmpty && !event.teachers.first!.lastName.isEmpty {
                         ForEach(event.teachers, id: \.self) { teacher in

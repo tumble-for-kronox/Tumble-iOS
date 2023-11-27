@@ -11,7 +11,7 @@ struct PullToRefreshIndicator: View {
     var body: some View {
         HStack {
             Text(NSLocalizedString("Pull to refresh", comment: ""))
-                .font(.system(size: 13, weight: .medium))
+                .font(.system(size: 13, weight: .semibold))
                 .foregroundColor(.primary)
             Image(systemName: "arrow.clockwise")
                 .font(.system(size: 13, weight: .medium))

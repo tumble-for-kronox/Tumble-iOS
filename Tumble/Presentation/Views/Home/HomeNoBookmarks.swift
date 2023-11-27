@@ -17,7 +17,7 @@ struct HomeNoBookmarks: View {
                     .padding(.bottom, 20)
                     .padding(.trailing, 10)
                 Text(NSLocalizedString("Schedules are bookmarked from the search page, which you can access from the search tab.", comment: ""))
-                    .font(.system(size: 15, weight: .medium))
+                    .font(.system(size: 16, weight: .medium))
                     .foregroundColor(.onBackground)
                     .padding(.trailing, 30)
             }

@@ -14,18 +14,22 @@ struct ColorfulIconLabelStyle: LabelStyle {
     func makeBody(configuration: Configuration) -> some View {
         Label {
             configuration.title
+                .font(.system(size: 18, weight: .regular))
                 .foregroundColor(.onSurface)
                 .padding(.leading, 20)
         } icon: {
             configuration.icon
+                .font(.system(size: 16, weight: .semibold))
                 .frame(width: 2, height: 2)
-                .foregroundColor(.white)
+                .padding(2.5)
+                .foregroundColor(.onPrimary)
                 .background(
                     RoundedRectangle(cornerRadius: 7)
-                        .frame(width: 30, height: 30)
+                        .frame(width: 35, height: 35)
                         .foregroundColor(color)
                 )
         }
         .padding(.leading, 10)
+        .padding(.vertical, 2.5)
     }
 }

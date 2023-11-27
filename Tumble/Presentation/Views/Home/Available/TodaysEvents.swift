@@ -24,7 +24,7 @@ struct TodaysEvents: View {
                     )
                 } else {
                     Text(NSLocalizedString("No events for today", comment: ""))
-                        .font(.system(size: 16))
+                        .font(.system(size: 18))
                         .foregroundColor(.onBackground)
                 }
             }

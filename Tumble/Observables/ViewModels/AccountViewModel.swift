@@ -29,11 +29,12 @@ final class AccountViewModel: ObservableObject {
     @Published var resourceDetailsSheetModel: ResourceDetailSheetModel? = nil
     @Published var examDetailSheetModel: ExamDetailSheetModel? = nil
     @Published var authSchoolId: Int = -1
+    @Published var autoSignupEnabled: Bool = false
     
     private var resourceSectionDataTask: URLSessionDataTask? = nil
     private var eventSectionDataTask: URLSessionDataTask? = nil
     private let popupFactory: PopupFactory = PopupFactory.shared
-    private var registeredForExams: Bool = false
+    @Published var registeredForExams: Bool = false
     
     
     var userDisplayName: String? {
@@ -42,10 +43,6 @@ final class AccountViewModel: ObservableObject {
     
     var username: String? {
         return userController.user?.username
-    }
-    
-    var autoSignupEnabled: Bool {
-        return userController.autoSignup
     }
     
     var schoolName: String {
@@ -63,23 +60,27 @@ final class AccountViewModel: ObservableObject {
     }
     
     private func setupPublishers() {
-           let authStatusPublisher = userController.$authStatus.receive(on: RunLoop.main)
-           let authSchoolIdPublisher = preferenceService.$authSchoolId.receive(on: RunLoop.main)
-           Publishers.CombineLatest(authStatusPublisher, authSchoolIdPublisher)
-               .sink { [weak self] authStatus, authSchoolId in
-                   guard let self else { return }
-                   DispatchQueue.main.async {
-                       self.authStatus = authStatus
-                       self.authSchoolId = authSchoolId
-                   }
-                   if authStatus == .authorized && !self.registeredForExams {
-                       Task.detached(priority: .userInitiated) {
-                           await self.registerAutoSignup()
-                       }
-                   }
-           }
-           .store(in: &cancellables)
-       }
+        let authStatusPublisher = userController.$authStatus.receive(on: RunLoop.main)
+        let authSchoolIdPublisher = preferenceService.$authSchoolId.receive(on: RunLoop.main)
+        let autoSignupPublisher = preferenceService.$autoSignupEnabled.receive(on: RunLoop.main)
+        
+        Publishers.CombineLatest3(authStatusPublisher, authSchoolIdPublisher, autoSignupPublisher)
+            .sink { [weak self] authStatus, authSchoolId, autoSignupEnabled in
+                guard let self else { return }
+                DispatchQueue.main.async {
+                    self.authStatus = authStatus
+                    self.authSchoolId = authSchoolId
+                    self.autoSignupEnabled = autoSignupEnabled
+                    AppLogger.shared.info("Auto signup is: \(autoSignupEnabled)")
+                }
+                if authStatus == .authorized && !self.registeredForExams && self.autoSignupEnabled {
+                    Task.detached(priority: .userInitiated) {
+                        await self.registerAutoSignup()
+                    }
+                }
+            }
+            .store(in: &cancellables)
+    }
     
     /// Removes a users resource booking in the locally cached
     /// version. The actual network request is done in `ResourceViewModel`
@@ -223,8 +224,8 @@ final class AccountViewModel: ObservableObject {
     /// Registers the user for automatic event/exam signup,
     /// and attempts to sign up for any currently available exams/events
     func toggleAutoSignup(value: Bool) {
-        userController.autoSignup = value
-        if value {
+        preferenceService.setAutoSignup(autoSignup: value)
+        if value && !self.registeredForExams {
             Task {
                 await registerAutoSignup()
                 await getUserEventsForSection()

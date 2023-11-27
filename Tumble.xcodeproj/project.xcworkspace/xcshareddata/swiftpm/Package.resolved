@@ -104,8 +104,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Mijick/PopupView.git",
       "state" : {
-        "revision" : "594b9d25a50e3fef0c2d4fee9b0f3675da01b9a5",
-        "version" : "2.0.0"
+        "revision" : "a579ddd42603de9f44014dc0faa7c797a51e4bd8",
+        "version" : "2.2.0"
       }
     },
     {

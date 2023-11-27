@@ -6,6 +6,14 @@
   
 */
 
+"Confirm Unregistration"="Conferma disiscrizione";
+
+"Are you sure you want to unregister from this event?"="Sei sicuro di volerti disiscrivere da questo evento?";
+
+"Confirm Activation"="Conferma attivazione";
+
+"Are you sure you want to enable this experimental feature?"="Sei sicuro di voler abilitare questa funzionalità sperimentale?";
+
 "Yes"="Sì";
 
 "Are you sure you want to log out of your account?"="Sei sicuro di voler uscire dal tuo account?";

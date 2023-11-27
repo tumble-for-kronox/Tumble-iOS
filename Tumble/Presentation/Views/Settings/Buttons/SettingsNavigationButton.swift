@@ -36,7 +36,7 @@ struct SettingsNavigationButton: View {
                 Spacer()
                 if let current = current {
                     Text(current)
-                        .font(.system(size: 16, weight: .regular))
+                        .font(.system(size: 18, weight: .regular))
                         .foregroundColor(.onSurface.opacity(0.4))
                         .padding(.trailing, 10)
                 }

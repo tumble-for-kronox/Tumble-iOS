@@ -17,6 +17,10 @@ extension View {
         }
     }
     
+    func eraseToAnyView() -> AnyView {
+        AnyView(self)
+    }
+    
     func onFirstAppear(_ action: @escaping () -> ()) -> some View {
         modifier(FirstAppear(action: action))
     }

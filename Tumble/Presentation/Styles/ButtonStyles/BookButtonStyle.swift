@@ -18,9 +18,10 @@ struct BookButtonStyle: ButtonStyle {
     
     func makeBody(configuration: Self.Configuration) -> some View {
         configuration.label
+            .padding()
             .frame(minWidth: 85, maxHeight: 40)
             .background(Color.primary)
-            .cornerRadius(10)
+            .cornerRadius(20)
             .scaleEffect(configuration.isPressed ? 0.9 : 1)
             .animation(.easeOut(duration: 0.2), value: configuration.isPressed)
     }

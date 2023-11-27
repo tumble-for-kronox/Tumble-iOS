@@ -32,6 +32,7 @@ final class ParentViewModel: ObservableObject {
     
     @Published var authSchoolId: Int = -1
     @Published var userNotOnBoarded: Bool = false
+    @Published var updateAttempted: Bool = false
         
     private var schedulesToken: NotificationToken? = nil
     private var cancellables = Set<AnyCancellable>()
@@ -77,18 +78,17 @@ final class ParentViewModel: ObservableObject {
                 self.userNotOnBoarded = !userOnBoarded
                 self.authSchoolId = authSchoolId
 
-                if connected && self.updateShouldOccur() && !appController.isUpdatingBookmarks {
+                if connected && self.updateShouldOccur() && !appController.isUpdatingBookmarks && !updateAttempted {
                     AppLogger.shared.debug("Updating all bookmarks ...")
                     self.updateRealmSchedules()
                 }
             }
             .store(in: &cancellables)
-
     }
     
     private func updateShouldOccur() -> Bool {
         if let lastUpdate = preferenceService.getLastUpdated() {
-            if let threeHoursAgo = Calendar.current.date(byAdding: .hour, value: -3, to: Date()) {
+            if let threeHoursAgo = Calendar.current.date(byAdding: .hour, value: -3, to: Date.now) {
                 if lastUpdate <= threeHoursAgo {
                     return true
                 } else {
@@ -105,7 +105,12 @@ final class ParentViewModel: ObservableObject {
     func updateBookmarks(scheduleIds: [String]) async {
         
         appController.isUpdatingBookmarks = true
-        defer { self.preferenceService.setLastUpdated(time: Date()) }
+        
+        defer {
+            self.preferenceService.setLastUpdated(time: Date())
+            self.appController.isUpdatingBookmarks = false
+            self.updateAttempted = true
+        }
         
         var updatedSchedules = 0
         let scheduleCount: Int = scheduleIds.count
@@ -124,7 +129,6 @@ final class ParentViewModel: ObservableObject {
         }
         
         AppLogger.shared.debug("Finished updating schedules")
-        appController.isUpdatingBookmarks = false
     }
 
     

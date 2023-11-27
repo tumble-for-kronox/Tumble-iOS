@@ -37,7 +37,7 @@ struct ResourceSectionDivider<Content: View>: View {
         VStack(alignment: .leading, spacing: 0) {
             HStack {
                 Text(title)
-                    .font(.system(size: 17, weight: .semibold))
+                    .font(.system(size: 18, weight: .semibold))
                     .foregroundColor(.onBackground)
                 Spacer()
                 if let destination = destination {
@@ -47,7 +47,7 @@ struct ResourceSectionDivider<Content: View>: View {
                             case .event:
                                 ResourceNavigationItem(title: "See all")
                             case .resource:
-                                ResourceNavigationItem(title: "Book more", image: "plus")
+                                ResourceNavigationItem(title: "Book more")
                             }
                         }
                     })
@@ -65,27 +65,19 @@ struct ResourceSectionDivider<Content: View>: View {
 private struct ResourceNavigationItem: View {
     
     let title: String
-    let image: String?
-    
-    init(title: String, image: String? = nil) {
-        self.title = title
-        self.image = image
-    }
     
     var body: some View {
         HStack {
             Text(LocalizedStringKey(title))
+                .font(.system(size: 16, weight: .semibold))
+                .foregroundColor(.onPrimary)
+            Image(systemName: "chevron.right")
                 .font(.system(size: 14, weight: .semibold))
                 .foregroundColor(.onPrimary)
-            if let image = image {
-                Image(systemName: image)
-                    .font(.system(size: 14, weight: .semibold))
-                    .foregroundColor(.onPrimary)
-            }
         }
         .padding(10)
         .background(Color.primary)
-        .cornerRadius(10)
+        .cornerRadius(15)
     }
     
 }

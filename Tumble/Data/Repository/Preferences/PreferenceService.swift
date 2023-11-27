@@ -11,10 +11,12 @@ import SwiftUI
 class PreferenceService {
     @Published var userOnBoarded: Bool = false
     @Published var authSchoolId: Int = -1
+    @Published var autoSignupEnabled: Bool = false
     
     init() {
         authSchoolId = getDefaultAuthSchool() ?? -1
         userOnBoarded = isKeyPresentInUserDefaults(key: StoreKey.userOnboarded.rawValue)
+        autoSignupEnabled = getAutoSignup()
     }
     
     // ----------- SET -----------
@@ -46,6 +48,7 @@ class PreferenceService {
     }
     
     func setAutoSignup(autoSignup: Bool) {
+        autoSignupEnabled = autoSignup
         UserDefaults.standard.set(autoSignup, forKey: StoreKey.autoSignup.rawValue)
         UserDefaults.standard.synchronize()
     }
@@ -99,6 +102,13 @@ class PreferenceService {
             return 60
         }
         return getDefault(key: StoreKey.notificationOffset.rawValue) as! Int
+    }
+    
+    func getAutoSignup() -> Bool {
+        if let autoSignup = getDefault(key: StoreKey.autoSignup.rawValue) as? Bool {
+            return autoSignup
+        }
+        return false
     }
     
     func isKeyPresentInUserDefaults(key: String) -> Bool {
