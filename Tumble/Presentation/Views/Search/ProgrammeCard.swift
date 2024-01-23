@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ProgrammeCard: View {
-    let programme: NetworkResponse.Programme
+    let programme: Response.Programme
     let universityImage: Image?
     let onOpenProgramme: (String) -> Void
     var body: some View {

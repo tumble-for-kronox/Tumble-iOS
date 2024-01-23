@@ -13,7 +13,7 @@ enum EventType: String {
 }
 
 struct EventCardButton: View {
-    let event: NetworkResponse.AvailableKronoxUserEvent
+    let event: Response.AvailableKronoxUserEvent
     let eventType: EventType
     let onTap: (String, EventType) -> Void
     

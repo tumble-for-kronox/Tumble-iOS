@@ -8,15 +8,15 @@
 import SwiftUI
 
 struct Events: View {
-    let registeredEvents: [NetworkResponse.AvailableKronoxUserEvent]?
-    let unregisteredEvents: [NetworkResponse.AvailableKronoxUserEvent]?
-    let upcomingEvents: [NetworkResponse.UpcomingKronoxUserEvent]?
+    let registeredEvents: [Response.AvailableKronoxUserEvent]?
+    let unregisteredEvents: [Response.AvailableKronoxUserEvent]?
+    let upcomingEvents: [Response.UpcomingKronoxUserEvent]?
     let onTapEventAction: ((String, EventType) -> Void)?
     
     init(
-        registeredEvents: [NetworkResponse.AvailableKronoxUserEvent]? = nil,
-        unregisteredEvents: [NetworkResponse.AvailableKronoxUserEvent]? = nil,
-        upcomingEvents: [NetworkResponse.UpcomingKronoxUserEvent]? = nil,
+        registeredEvents: [Response.AvailableKronoxUserEvent]? = nil,
+        unregisteredEvents: [Response.AvailableKronoxUserEvent]? = nil,
+        upcomingEvents: [Response.UpcomingKronoxUserEvent]? = nil,
         onTapEventAction: ((String, EventType) -> Void)? = nil
     ) {
         self.registeredEvents = registeredEvents

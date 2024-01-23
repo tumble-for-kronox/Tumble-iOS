@@ -10,23 +10,23 @@ import Realm
 import RealmSwift
 import SwiftUI
 
-extension [NetworkResponse.Schedule] {
-    func flatten() -> [NetworkResponse.Day] {
-        var days = [NetworkResponse.Day]()
+extension [Response.Schedule] {
+    func flatten() -> [Response.Day] {
+        var days = [Response.Day]()
         for schedule in self {
             days += schedule.days
         }
         return days
     }
         
-    func removeDuplicateEvents() -> [NetworkResponse.Schedule] {
+    func removeDuplicateEvents() -> [Response.Schedule] {
         var eventIds = Set<String>()
         return map { schedule in
             let uniqueDays = schedule.days.map { day in
                 let uniqueEvents = day.events.filter { event in
                     eventIds.insert(event.id).inserted
                 }
-                return NetworkResponse.Day(
+                return Response.Day(
                     name: day.name,
                     date: day.date,
                     isoString: day.isoString,
@@ -34,12 +34,12 @@ extension [NetworkResponse.Schedule] {
                     events: uniqueEvents
                 )
             }
-            return NetworkResponse.Schedule(id: schedule.id, cachedAt: schedule.cachedAt, days: uniqueDays)
+            return Response.Schedule(id: schedule.id, cachedAt: schedule.cachedAt, days: uniqueDays)
         }
     }
 }
 
-extension NetworkResponse.Schedule {
+extension Response.Schedule {
     func toRealmSchedule(scheduleRequiresAuth: Bool, schoolId: String, existingCourseColors: [String: String] = [:]) -> Schedule {
         let realmDays = RealmSwift.List<Day>()
         var colors = Set(colors)
@@ -83,17 +83,6 @@ extension NetworkResponse.Schedule {
         return realmSchedule
     }
 
-    func isEmpty() -> Bool {
-        for day in days {
-            for event in day.events {
-                if !event.title.isEmpty {
-                    return false
-                }
-            }
-        }
-        return true
-    }
-
     /// Returns dictionary of random colors for each course in a schedule
     func assignCoursesRandomColors() -> [String: String] {
         var courseColors: [String: String] = [:]
@@ -110,7 +99,7 @@ extension NetworkResponse.Schedule {
         return courseColors
     }
     
-    func flatten() -> [NetworkResponse.Day] {
+    func flatten() -> [Response.Day] {
         return days.reduce(into: []) {
             if $1.isValidDay() { $0.append($1) }
         }

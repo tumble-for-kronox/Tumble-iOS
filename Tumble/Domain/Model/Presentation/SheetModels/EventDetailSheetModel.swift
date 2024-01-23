@@ -9,5 +9,5 @@ import Foundation
 
 struct ExamDetailSheetModel: Identifiable {
     var id: UUID = .init()
-    let event: NetworkResponse.AvailableKronoxUserEvent
+    let event: Response.AvailableKronoxUserEvent
 }

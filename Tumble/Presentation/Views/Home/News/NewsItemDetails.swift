@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct NewsItemDetails: View {
-    let newsItem: NetworkResponse.NotificationContent
+    let newsItem: Response.NotificationContent
     
     var body: some View {
         ScrollView(showsIndicators: false) {

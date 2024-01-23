@@ -100,7 +100,7 @@ class NotificationManager {
         return nil
     }
     
-    func createNotificationFromBooking(booking: NetworkResponse.KronoxUserBookingElement) -> BookingNotification? {
+    func createNotificationFromBooking(booking: Response.KronoxUserBookingElement) -> BookingNotification? {
         guard let dateComponents = booking.dateComponentsConfirmation else { return nil }
         let notification = BookingNotification(
             id: booking.id,

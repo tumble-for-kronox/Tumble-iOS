@@ -21,11 +21,11 @@ final class AccountViewModel: ObservableObject {
     @Inject var schoolManager: SchoolManager
     
     @Published var authStatus: AuthStatus = .unAuthorized
-    @Published var completeUserEvent: NetworkResponse.KronoxCompleteUserEvent? = nil
-    @Published var userBookings: NetworkResponse.KronoxUserBookings? = nil
+    @Published var completeUserEvent: Response.KronoxCompleteUserEvent? = nil
+    @Published var userBookings: Response.KronoxUserBookings? = nil
     @Published var registeredEventSectionState: GenericPageStatus = .loading
     @Published var bookingSectionState: GenericPageStatus = .loading
-    @Published var error: NetworkResponse.ErrorMessage? = nil
+    @Published var error: Response.ErrorMessage? = nil
     @Published var resourceDetailsSheetModel: ResourceDetailSheetModel? = nil
     @Published var examDetailSheetModel: ExamDetailSheetModel? = nil
     @Published var authSchoolId: Int = -1
@@ -114,7 +114,7 @@ final class AccountViewModel: ObservableObject {
                 }
                 DispatchQueue.main.async {
                     // Rebuild user events
-                    self.completeUserEvent = NetworkResponse.KronoxCompleteUserEvent(
+                    self.completeUserEvent = Response.KronoxCompleteUserEvent(
                         upcomingEvents: self.completeUserEvent?.upcomingEvents,
                         registeredEvents: mutRegisteredEvents, // Insert modified events
                         availableEvents: self.completeUserEvent?.availableEvents,
@@ -155,7 +155,7 @@ final class AccountViewModel: ObservableObject {
                 }
                 return
             }
-            let events: NetworkResponse.KronoxCompleteUserEvent? = try await kronoxManager.get(request, refreshToken: refreshToken.value)
+            let events: Response.KronoxCompleteUserEvent? = try await kronoxManager.get(request, refreshToken: refreshToken.value)
             DispatchQueue.main.async { [weak self] in
                 self?.completeUserEvent = events
                 self?.registeredEventSectionState = .loaded
@@ -182,7 +182,7 @@ final class AccountViewModel: ObservableObject {
                 }
                 return
             }
-            let bookings: NetworkResponse.KronoxUserBookings = try await kronoxManager.get(request, refreshToken: refreshToken.value)
+            let bookings: Response.KronoxUserBookings = try await kronoxManager.get(request, refreshToken: refreshToken.value)
             DispatchQueue.main.async {
                 self.bookingSectionState = .loaded
                 self.userBookings = bookings
@@ -207,7 +207,7 @@ final class AccountViewModel: ObservableObject {
                 }
                 return
             }
-            let _ : NetworkResponse.Empty = try await kronoxManager.put(request, refreshToken: refreshToken.value, body: NetworkRequest.Empty())
+            let _ : Response.Empty = try await kronoxManager.put(request, refreshToken: refreshToken.value, body: NetworkRequest.Empty())
             self.removeUserEvent(for: eventId)
             DispatchQueue.main.async {
                 self.registeredEventSectionState = .loaded
@@ -235,7 +235,7 @@ final class AccountViewModel: ObservableObject {
     
     /// Decides if there are any user bookings for the current user, and if so attempts
     /// to schedule any confirmation notifications for those bookings
-    func checkNotificationsForUserBookings(bookings: NetworkResponse.KronoxUserBookings? = nil) async {
+    func checkNotificationsForUserBookings(bookings: Response.KronoxUserBookings? = nil) async {
         AppLogger.shared.debug("Checking for notifications to set for user booked resources ...")
         if let userBookings = bookings {
             Task {
@@ -252,7 +252,7 @@ final class AccountViewModel: ObservableObject {
                 }
                 return
             }
-            let bookings: NetworkResponse.KronoxUserBookings = try await kronoxManager.get(request, refreshToken: refreshToken.value)
+            let bookings: Response.KronoxUserBookings = try await kronoxManager.get(request, refreshToken: refreshToken.value)
             Task {
                 await self.scheduleBookingNotifications(for: bookings)
             }
@@ -265,7 +265,7 @@ final class AccountViewModel: ObservableObject {
     }
     
     /// Schedules notifications for the given bookings
-    func scheduleBookingNotifications(for bookings: NetworkResponse.KronoxUserBookings) async {
+    func scheduleBookingNotifications(for bookings: Response.KronoxUserBookings) async {
         for booking in bookings {
             if let notification = notificationManager.createNotificationFromBooking(booking: booking) {
                 do {
@@ -293,7 +293,7 @@ final class AccountViewModel: ObservableObject {
                 AppLogger.shared.error("Failed to sign up for exams due to user not being signed in or missing their token")
                 return
             }
-            let _: NetworkResponse.KronoxEventRegistration?
+            let _: Response.KronoxEventRegistration?
                 = try await kronoxManager.put(request, refreshToken: refreshToken.value, body: NetworkRequest.Empty())
             self.registeredForExams = true
         } catch {

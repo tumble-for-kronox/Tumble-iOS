@@ -21,7 +21,7 @@ final class SearchViewModel: ObservableObject {
     @Inject var schoolManager: SchoolManager
     
     @Published var status: SearchStatus = .initial
-    @Published var programmeSearchResults: [NetworkResponse.Programme] = []
+    @Published var programmeSearchResults: [Response.Programme] = []
     @Published var errorMessageSearch: String? = nil
     @Published var searchPreviewModel: SearchPreviewModel? = nil
     @Published var schoolNotSelected: Bool = true
@@ -46,7 +46,7 @@ final class SearchViewModel: ObservableObject {
         currentSearchTask = Task {
                 do {
                     let endpoint = Endpoint.searchProgramme(searchQuery: query, schoolId: String(selectedSchoolId))
-                    let searchResult: NetworkResponse.Search = try await self.kronoxManager.get(endpoint)
+                    let searchResult: Response.Search = try await self.kronoxManager.get(endpoint)
                     
                     // Before parsing the results, check if the task should proceed
                     if self.status != .loading {
@@ -74,7 +74,7 @@ final class SearchViewModel: ObservableObject {
     
     /// Maps data given in `Response.Search` to
     /// `[Response.Programme]` and updates view state
-    @MainActor func parseSearchResults(_ results: NetworkResponse.Search) {
+    @MainActor func parseSearchResults(_ results: Response.Search) {
         programmeSearchResults = results.items.map { $0 }
         status = .loaded
     }

@@ -10,7 +10,7 @@ import SwiftUI
 struct SearchResults: View {
     let searchText: String
     let numberOfSearchResults: Int
-    let searchResults: [NetworkResponse.Programme]
+    let searchResults: [Response.Programme]
     let onOpenProgramme: (String) -> Void
     
     let universityImage: Image?

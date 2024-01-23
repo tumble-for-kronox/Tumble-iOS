@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct TimeslotDropdown: View {
-    let resource: NetworkResponse.KronoxResourceElement
-    let timeslots: [NetworkResponse.TimeSlot]
+    let resource: Response.KronoxResourceElement
+    let timeslots: [Response.TimeSlot]
     
     @State var isSelecting: Bool = false
     @State var selectionTitle: String = ""

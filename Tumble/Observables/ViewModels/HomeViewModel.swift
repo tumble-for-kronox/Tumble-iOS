@@ -16,7 +16,7 @@ final class HomeViewModel: ObservableObject {
     @Inject var networkController: Network
     
     @Published var newsSectionStatus: GenericPageStatus = .loading
-    @Published var news: NetworkResponse.NewsItems? = nil
+    @Published var news: Response.NewsItems? = nil
     @Published var swipedCards: Int = 0
     @Published var status: HomeStatus = .loading
     @Published var todaysEventsCards: [WeekEventCardModel] = .init()
@@ -71,7 +71,7 @@ final class HomeViewModel: ObservableObject {
             self?.newsSectionStatus = .loading
         }
         do {
-            let news: NetworkResponse.NewsItems = try await kronoxManager.get(.news)
+            let news: Response.NewsItems = try await kronoxManager.get(.news)
             DispatchQueue.main.async { [weak self] in
                 self?.news = news
                 self?.newsSectionStatus = .loaded

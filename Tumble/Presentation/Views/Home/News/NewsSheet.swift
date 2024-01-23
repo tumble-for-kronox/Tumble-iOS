@@ -8,14 +8,14 @@
 import SwiftUI
 
 struct NewsSheet: View {
-    let news: NetworkResponse.NewsItems?
+    let news: Response.NewsItems?
     
     @Binding var showSheet: Bool
     @State private var searching: Bool = false
     @State private var searchText: String = ""
     @State private var closeButtonOffset: CGFloat = 300.0
     
-    var filteredNews: [NetworkResponse.NotificationContent] {
+    var filteredNews: [Response.NotificationContent] {
         guard let news = news, !searchText.isEmpty else {
             return news ?? []
         }

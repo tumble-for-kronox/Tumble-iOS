@@ -35,7 +35,7 @@ enum NetworkRequest {
     struct BookKronoxResource: Encodable {
         let resourceId: String
         let date: String
-        let slot: NetworkResponse.AvailabilityValue
+        let slot: Response.AvailabilityValue
     }
     
     struct ConfirmKronoxResource: Encodable {

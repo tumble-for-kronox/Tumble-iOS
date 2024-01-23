@@ -41,7 +41,7 @@ struct SearchPreviewList: View {
         }
     }
     
-    func createDays() -> [NetworkResponse.Day]? {
+    func createDays() -> [Response.Day]? {
         return viewModel.schedule?.flatten().ordered()
     }
 }

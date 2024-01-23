@@ -26,16 +26,16 @@ class AuthManager {
     
     func logOutUser() async throws {
         AppLogger.shared.info("Logging out user")
-        try await clearKeychainData(for: [TokenType.refreshToken.rawValue, TokenType.sessionToken.rawValue, "tumble-user"])
+        try await clearKeychainData(for: [TokenType.refreshToken.rawValue, TokenType.sessionDetails.rawValue, "tumble-user"])
     }
 
     func autoLoginUser(authSchoolId: Int) async throws -> TumbleUser {
         guard let refreshToken = await getToken(.refreshToken),
-              let sessionToken = await getToken(.sessionToken),
+              let sessionDetails = await getToken(.sessionDetails),
               let user = await getUser() else {
             throw AuthError.tokenError
         }
-        let urlRequest = try createAutoLoginRequest(authSchoolId: authSchoolId, refreshToken: refreshToken, sessionToken: sessionToken)
+        let urlRequest = try createAutoLoginRequest(authSchoolId: authSchoolId, refreshToken: refreshToken, sessionDetails: sessionDetails)
         return try await performAutoLoginRequest(urlRequest, with: user)
     }
 
@@ -75,34 +75,36 @@ class AuthManager {
     }
 
     private func storeUpdatedTokensIfNeeded(from httpResponse: HTTPURLResponse?) async throws {
-        if let refreshToken = httpResponse?.allHeaderFields["X-auth-header"] as? String {
+        if let refreshToken = httpResponse?.allHeaderFields["X-auth-header"] as? String,
+           let sessionDetails = httpResponse?.allHeaderFields["X-session-token"] as? String {
             try await setToken(Token(value: refreshToken, createdDate: Date.now), for: .refreshToken)
-        }
-        if let sessionTokenJson = httpResponse?.allHeaderFields["X-session-token"] as? String,
-           let sessionDetails = try? JSONDecoder().decode(NetworkRequest.SessionDetails.self, from: Data(sessionTokenJson.utf8)) {
-            try await setToken(Token(value: sessionDetails.sessionToken, createdDate: Date.now), for: .sessionToken)
+            try await setToken(Token(value: sessionDetails, createdDate: Date.now), for: .sessionDetails)
         }
     }
 
-    private func decodeKronoxUser(from data: Data) throws -> NetworkResponse.KronoxUser {
+    private func decodeKronoxUser(from data: Data) throws -> Response.KronoxUser {
         let decoder = JSONDecoder()
-        guard let result = try? decoder.decode(NetworkResponse.KronoxUser.self, from: data) else {
+        guard let result = try? decoder.decode(Response.KronoxUser.self, from: data) else {
             throw AuthError.decodingError
         }
         return result
     }
 
-    private func storeTokens(from kronoxUser: NetworkResponse.KronoxUser) async throws {
+    private func storeTokens(from kronoxUser: Response.KronoxUser) async throws {
+        let sessionDetailsData = try JSONEncoder().encode(kronoxUser.sessionDetails)
+        guard let sessionDetailsString = String(data: sessionDetailsData, encoding: .utf8) else {
+            throw AuthError.decodingError
+        }
         try await setToken(Token(value: kronoxUser.refreshToken, createdDate: Date.now), for: .refreshToken)
-        try await setToken(Token(value: kronoxUser.sessionDetails.sessionToken, createdDate: Date.now), for: .sessionToken)
+        try await setToken(Token(value: sessionDetailsString, createdDate: Date.now), for: .sessionDetails)
     }
 
-    private func createAutoLoginRequest(authSchoolId: Int, refreshToken: Token, sessionToken: Token) throws -> URLRequest {
+    private func createAutoLoginRequest(authSchoolId: Int, refreshToken: Token, sessionDetails: Token) throws -> URLRequest {
         return try urlRequestUtils.createUrlRequest(
             method: .get,
             endpoint: .users(schoolId: String(authSchoolId)),
             refreshToken: refreshToken.value,
-            sessionToken: sessionToken.value,
+            sessionDetails: sessionDetails.value,
             body: nil as String?
         )
     }
@@ -118,6 +120,7 @@ class AuthManager {
     func getUser() async -> TumbleUser? {
         guard let data = try? await keychainManager.readKeyChain(for: "tumble-user", account: "Tumble for Kronox"),
               let user = try? JSONDecoder().decode(TumbleUser.self, from: data) else {
+            AppLogger.shared.info("Could not decode Tumble user")
             return nil
         }
         return user
@@ -126,6 +129,7 @@ class AuthManager {
     func getToken(_ tokenType: TokenType) async -> Token? {
         guard let data = try? await keychainManager.readKeyChain(for: tokenType.rawValue, account: "Tumble for Kronox"),
               let token = try? JSONDecoder().decode(Token.self, from: data) else {
+            AppLogger.shared.info("Could not decode token")
             return nil
         }
         return token

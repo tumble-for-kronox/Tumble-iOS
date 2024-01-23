@@ -15,13 +15,13 @@ struct NetworkUtilities {
         method: Method,
         endpoint: Endpoint,
         refreshToken: String? = nil,
-        sessionToken: String? = nil,
+        sessionDetails: String? = nil,
         body: Request? = nil
     ) throws -> URLRequest {
         var urlRequest = URLRequest(url: endpoint.url)
         urlRequest.httpMethod = method.rawValue
 
-        try setHeaders(for: &urlRequest, refreshToken: refreshToken, sessionToken: sessionToken)
+        try setHeaders(for: &urlRequest, refreshToken: refreshToken, sessionDetails: sessionDetails)
         try setRequestBody(for: &urlRequest, with: body)
 
         return urlRequest
@@ -30,14 +30,15 @@ struct NetworkUtilities {
     private func setHeaders(
         for urlRequest: inout URLRequest,
         refreshToken: String?,
-        sessionToken: String?
+        sessionDetails: String?
     ) throws {
         urlRequest.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
         urlRequest.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")
 
         urlRequest.setValue(refreshToken, forHTTPHeaderField: "X-auth-token")
-        urlRequest.setValue(sessionToken, forHTTPHeaderField: "X-session-token")
+        urlRequest.setValue(sessionDetails, forHTTPHeaderField: "X-session-token")
     }
+
 
     private func setRequestBody<Request: Encodable>(
         for urlRequest: inout URLRequest,

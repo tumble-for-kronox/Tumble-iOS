@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct News: View {
-    let news: NetworkResponse.NewsItems?
+    let news: Response.NewsItems?
     @Binding var showOverlay: Bool
     
     var body: some View {
