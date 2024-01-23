@@ -36,7 +36,7 @@ Tumble is made by [adisve](https://github.com/adisve) and [BlieNuckel](https://g
 ```
 MIT License
 
-Copyright (c) 2023 A. Veletanlic
+Copyright (c) 2023 A. Veletanlic, Lasse Poulsen
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
