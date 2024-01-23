@@ -140,7 +140,7 @@ final class ParentViewModel: ObservableObject {
 
         do {
             let endpoint: Endpoint = .schedule(scheduleId: schedule.scheduleId, schoolId: schedule.schoolId)
-            let fetchedSchedule: Response.Schedule = try await kronoxManager.get(endpoint)
+            let fetchedSchedule: NetworkResponse.Schedule = try await kronoxManager.get(endpoint)
             updateSchedule(schedule: fetchedSchedule, schoolId: schedule.schoolId, existingSchedule: schedule)
             
             guard !schedule.isInvalidated else {
@@ -191,7 +191,7 @@ final class ParentViewModel: ObservableObject {
     
     /// Updates an individual schedule and its course colors.
     @MainActor func updateSchedule(
-        schedule: Response.Schedule,
+        schedule: NetworkResponse.Schedule,
         schoolId: String,
         existingSchedule: Schedule
     ) {

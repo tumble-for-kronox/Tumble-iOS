@@ -10,23 +10,23 @@ import Realm
 import RealmSwift
 import SwiftUI
 
-extension [Response.Schedule] {
-    func flatten() -> [Response.Day] {
-        var days = [Response.Day]()
+extension [NetworkResponse.Schedule] {
+    func flatten() -> [NetworkResponse.Day] {
+        var days = [NetworkResponse.Day]()
         for schedule in self {
             days += schedule.days
         }
         return days
     }
         
-    func removeDuplicateEvents() -> [Response.Schedule] {
+    func removeDuplicateEvents() -> [NetworkResponse.Schedule] {
         var eventIds = Set<String>()
         return map { schedule in
             let uniqueDays = schedule.days.map { day in
                 let uniqueEvents = day.events.filter { event in
                     eventIds.insert(event.id).inserted
                 }
-                return Response.Day(
+                return NetworkResponse.Day(
                     name: day.name,
                     date: day.date,
                     isoString: day.isoString,
@@ -34,12 +34,12 @@ extension [Response.Schedule] {
                     events: uniqueEvents
                 )
             }
-            return Response.Schedule(id: schedule.id, cachedAt: schedule.cachedAt, days: uniqueDays)
+            return NetworkResponse.Schedule(id: schedule.id, cachedAt: schedule.cachedAt, days: uniqueDays)
         }
     }
 }
 
-extension Response.Schedule {
+extension NetworkResponse.Schedule {
     func toRealmSchedule(scheduleRequiresAuth: Bool, schoolId: String, existingCourseColors: [String: String] = [:]) -> Schedule {
         let realmDays = RealmSwift.List<Day>()
         var colors = Set(colors)
@@ -110,7 +110,7 @@ extension Response.Schedule {
         return courseColors
     }
     
-    func flatten() -> [Response.Day] {
+    func flatten() -> [NetworkResponse.Day] {
         return days.reduce(into: []) {
             if $1.isValidDay() { $0.append($1) }
         }

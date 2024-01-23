@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct RegisteredBookings: View {
-    let onClickResource: (Response.KronoxUserBookingElement) -> Void
+    let onClickResource: (NetworkResponse.KronoxUserBookingElement) -> Void
     @Binding var state: GenericPageStatus
-    let bookings: Response.KronoxUserBookings?
+    let bookings: NetworkResponse.KronoxUserBookings?
     
     var body: some View {
         VStack {

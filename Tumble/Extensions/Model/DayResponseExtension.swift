@@ -7,8 +7,8 @@
 
 import Foundation
 
-extension [Response.Day] {
-    func ordered() -> [Response.Day] {
+extension [NetworkResponse.Day] {
+    func ordered() -> [NetworkResponse.Day] {
         return compactMap { $0 }.sorted(by: {
             // Ascending order
             if let fromFirst = isoDateFormatterFract.date(from: $0.isoString), let fromSecond = isoDateFormatterFract.date(from: $1.isoString) {
@@ -19,7 +19,7 @@ extension [Response.Day] {
     }
 }
 
-extension Response.Day {
+extension NetworkResponse.Day {
     func isValidDay() -> Bool {
         isoDateFormatterFract.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
         let dayIsoString: String = isoString

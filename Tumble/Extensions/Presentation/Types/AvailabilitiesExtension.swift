@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension Response.Availabilities {
+extension NetworkResponse.Availabilities {
     
     /// Counts available 'availabilities' in a given
     /// Kronox resource
@@ -36,9 +36,9 @@ extension Response.Availabilities {
         return false
     }
     
-    func getAvailabilityValues(for timeslotId: Int) -> [Response.AvailabilityValue] {
+    func getAvailabilityValues(for timeslotId: Int) -> [NetworkResponse.AvailabilityValue] {
         guard let availabilities = self else { return [] }
-        var availabilityValuesResult: [Response.AvailabilityValue] = []
+        var availabilityValuesResult: [NetworkResponse.AvailabilityValue] = []
         for (_, availabilityValues) in availabilities {
             guard let availabilityValue = availabilityValues[timeslotId] else { continue }
             if availabilityValue.availability == .available {

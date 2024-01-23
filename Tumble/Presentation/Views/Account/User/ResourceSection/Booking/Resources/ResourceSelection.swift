@@ -11,10 +11,10 @@ struct ResourceSelection: View {
     
     @ObservedObject var parentViewModel: ResourceViewModel
     @State private var selectedTimeIndex: Int = 0
-    @State private var availabilityValues: [Response.AvailabilityValue] = .init()
+    @State private var availabilityValues: [NetworkResponse.AvailabilityValue] = .init()
     let popupFactory: PopupFactory = PopupFactory.shared
     
-    let resource: Response.KronoxResourceElement
+    let resource: NetworkResponse.KronoxResourceElement
     let selectedPickerDate: Date
     let updateBookingNotifications: () -> Void
     
@@ -74,7 +74,7 @@ struct ResourceSelection: View {
     fileprivate func bookResource(
         resourceId: String,
         date: Date,
-        availabilityValue: Response.AvailabilityValue
+        availabilityValue: NetworkResponse.AvailabilityValue
     ) async -> Bool {
         let result = await parentViewModel.bookResource(
             resourceId: resourceId,

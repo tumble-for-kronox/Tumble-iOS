@@ -47,10 +47,10 @@ final class UserController: ObservableObject {
         password: String
     ) async throws {
         do {
-            let userRequest = Request.KronoxUserLogin(username: username, password: password)
+            let userRequest = NetworkRequest.KronoxUserLogin(username: username, password: password)
             let user: TumbleUser = try await authManager.loginUser(authSchoolId: authSchoolId, user: userRequest)
-            try await self.authManager.setUser(newValue: user)
-            let token: Token? = await authManager.getToken(tokenType: .refreshToken)
+            try await self.authManager.setUser(user)
+            let token: Token? = await authManager.getToken(.refreshToken)
             DispatchQueue.main.async {
                 AppLogger.shared.debug("Successfully logged in user \(user.username)")
                 self.user = user
@@ -72,8 +72,8 @@ final class UserController: ObservableObject {
         AppLogger.shared.debug("Attempting auto login for user", source: "UserController")
         do {
             let user: TumbleUser = try await authManager.autoLoginUser(authSchoolId: authSchoolId)
-            try await self.authManager.setUser(newValue: user)
-            let token: Token? = await authManager.getToken(tokenType: .refreshToken)
+            try await self.authManager.setUser(user)
+            let token: Token? = await authManager.getToken(.refreshToken)
             DispatchQueue.main.async {
                 self.user = user
                 self.refreshToken = token

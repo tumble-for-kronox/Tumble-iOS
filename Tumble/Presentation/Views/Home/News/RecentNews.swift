@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct RecentNews: View {
-    let news: Response.NewsItems?
+    let news: NetworkResponse.NewsItems?
     
     var body: some View {
         VStack(alignment: .leading) {

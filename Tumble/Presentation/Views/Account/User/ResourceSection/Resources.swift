@@ -135,11 +135,11 @@ struct Resources: View {
         }
     }
     
-    fileprivate func onClickResource(resource: Response.KronoxUserBookingElement) {
+    fileprivate func onClickResource(resource: NetworkResponse.KronoxUserBookingElement) {
         parentViewModel.resourceDetailsSheetModel = ResourceDetailSheetModel(resource: resource)
     }
     
-    fileprivate func onClickEvent(event: Response.AvailableKronoxUserEvent) {
+    fileprivate func onClickEvent(event: NetworkResponse.AvailableKronoxUserEvent) {
         parentViewModel.examDetailSheetModel = ExamDetailSheetModel(event: event)
     }
     

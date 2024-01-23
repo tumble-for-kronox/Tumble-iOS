@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct DayResponseHeader: View {
-    let day: Response.Day
+    let day: NetworkResponse.Day
     var body: some View {
         HStack(spacing: 0) {
             Text(NSLocalizedString(localizedKey(for: day.name), comment: ""))

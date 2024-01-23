@@ -41,7 +41,7 @@ class KronoxManager {
         _ endpoint: Endpoint,
         refreshToken: String? = nil
     ) async throws -> NetworkResponse {
-        let body: Request.Empty? = nil
+        let body: NetworkRequest.Empty? = nil
         let urlRequest = try makeUrlRequest(method: .get, endpoint: endpoint, refreshToken: refreshToken, body: body)
         return try await fetchRequest(urlRequest: urlRequest)
     }
@@ -61,14 +61,12 @@ class KronoxManager {
         refreshToken: String?,
         body: Request?
     ) throws -> URLRequest {
-        guard let urlRequest = urlRequestUtils.createUrlRequest(
+        let urlRequest = try urlRequestUtils.createUrlRequest(
             method: method,
             endpoint: endpoint,
             refreshToken: refreshToken,
             body: body
-        ) else {
-            throw KronoxManagerError.decodingError
-        }
+        )
         return urlRequest
     }
     
@@ -87,14 +85,14 @@ class KronoxManager {
                     let decodedData = try decoder.decode(NetworkResponse.self, from: data)
                     return decodedData
                 } catch {
-                    if let result = Response.Empty() as? NetworkResponse {
+                    if let result = NetworkResponse.Empty() as? NetworkResponse {
                         return result
                     } else {
                         throw KronoxManagerError.decodingError
                     }
                 }
             } else if statusCode == 202 {
-                if let result = Response.Empty() as? NetworkResponse {
+                if let result = NetworkResponse.Empty() as? NetworkResponse {
                     return result
                 } else {
                     throw KronoxManagerError.emptyResponse

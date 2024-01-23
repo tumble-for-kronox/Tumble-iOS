@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct VerboseEventResponseButtonLabel: View {
-    let event: Response.Event
+    let event: NetworkResponse.Event
     let color: Color
     
     var body: some View {

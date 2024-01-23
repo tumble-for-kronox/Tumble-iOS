@@ -24,7 +24,7 @@ final class SearchPreviewViewModel: ObservableObject {
     @Published var buttonState: ButtonState = .loading
     @Published var courseColorsForPreview: [String: String] = [:]
     
-    var schedule: Response.Schedule? = nil
+    var schedule: NetworkResponse.Schedule? = nil
     private lazy var schools: [School] = schoolManager.getSchools()
     
     /// Retrieve the schedule that was pressed on
@@ -43,7 +43,7 @@ final class SearchPreviewViewModel: ObservableObject {
         Task {
             do {
                 let endpoint: Endpoint = .schedule(scheduleId: programmeId, schoolId: schoolId)
-                let fetchedSchedule: Response.Schedule = try await kronoxManager.get(endpoint)
+                let fetchedSchedule: NetworkResponse.Schedule = try await kronoxManager.get(endpoint)
                 self.updateUIWithFetchedSchedule(fetchedSchedule, existingSchedules: schedules)
             } catch  {
                 DispatchQueue.main.async { [weak self] in
@@ -55,7 +55,7 @@ final class SearchPreviewViewModel: ObservableObject {
     }
     
     /// Perform UI updates based on the retrieved schedule data
-    private func updateUIWithFetchedSchedule(_ fetchedSchedule: Response.Schedule, existingSchedules: [Schedule]) {
+    private func updateUIWithFetchedSchedule(_ fetchedSchedule: NetworkResponse.Schedule, existingSchedules: [Schedule]) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             if fetchedSchedule.isEmpty() {

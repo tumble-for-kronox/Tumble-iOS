@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct UpcomingEventCardButton: View {
-    let event: Response.UpcomingKronoxUserEvent
+    let event: NetworkResponse.UpcomingKronoxUserEvent
     
     var body: some View {
         HStack {

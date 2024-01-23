@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum Response {
+public enum NetworkResponse {
     // MARK: - Message
 
     struct Message: Codable {
@@ -22,7 +22,7 @@ public enum Response {
     // MARK: - Schedule
 
     struct Schedule: Encodable, Decodable, Hashable {
-        static func == (lhs: Response.Schedule, rhs: Response.Schedule) -> Bool {
+        static func == (lhs: NetworkResponse.Schedule, rhs: NetworkResponse.Schedule) -> Bool {
             return lhs.id == rhs.id
         }
         
@@ -33,7 +33,7 @@ public enum Response {
     // MARK: - Day
 
     struct Day: Encodable, Decodable, Hashable {
-        static func == (lhs: Response.Day, rhs: Response.Day) -> Bool {
+        static func == (lhs: NetworkResponse.Day, rhs: NetworkResponse.Day) -> Bool {
             return lhs.name == rhs.name && lhs.isoString == rhs.isoString && lhs.weekNumber == rhs.weekNumber
         }
 
@@ -50,7 +50,7 @@ public enum Response {
     // MARK: - Event
 
     struct Event: Encodable, Decodable, Equatable, Hashable, Identifiable {
-        static func == (lhs: Response.Event, rhs: Response.Event) -> Bool {
+        static func == (lhs: NetworkResponse.Event, rhs: NetworkResponse.Event) -> Bool {
             return lhs.id == rhs.id
         }
         
@@ -110,7 +110,13 @@ public enum Response {
     // MARK: - UserSession
 
     struct KronoxUser: Encodable, Decodable {
-        let name, username, refreshToken, sessionToken: String
+        let name, username, refreshToken: String
+        let sessionDetails: SessionDetails
+    }
+    
+    struct SessionDetails: Encodable, Decodable {
+        let sessionToken: String
+        let sessionLocation: String
     }
     
     // ------ KronoX events ------
@@ -192,7 +198,7 @@ public enum Response {
     // MARK: - AvailabilityValue
 
     struct AvailabilityValue: Codable, Hashable {
-        static func == (lhs: Response.AvailabilityValue, rhs: Response.AvailabilityValue) -> Bool {
+        static func == (lhs: NetworkResponse.AvailabilityValue, rhs: NetworkResponse.AvailabilityValue) -> Bool {
             return lhs.hashValue == rhs.hashValue
         }
         
@@ -217,7 +223,7 @@ public enum Response {
     // MARK: - TimeSlot
 
     struct TimeSlot: Codable, Hashable {
-        static func == (lhs: Response.TimeSlot, rhs: Response.TimeSlot) -> Bool {
+        static func == (lhs: NetworkResponse.TimeSlot, rhs: NetworkResponse.TimeSlot) -> Bool {
             return lhs.id == rhs.id
         }
         
@@ -291,7 +297,7 @@ public enum Response {
     // MARK: - NotificationContent
 
     struct NotificationContent: Codable, Hashable {
-        static func == (lhs: Response.NotificationContent, rhs: Response.NotificationContent) -> Bool {
+        static func == (lhs: NetworkResponse.NotificationContent, rhs: NetworkResponse.NotificationContent) -> Bool {
             return lhs.hashValue == rhs.hashValue
         }
         

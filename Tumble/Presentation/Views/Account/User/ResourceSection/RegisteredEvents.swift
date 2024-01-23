@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct RegisteredEvents: View {
-    let onClickEvent: (Response.AvailableKronoxUserEvent) -> Void
+    let onClickEvent: (NetworkResponse.AvailableKronoxUserEvent) -> Void
     @Binding var state: GenericPageStatus
-    let registeredEvents: [Response.AvailableKronoxUserEvent]?
+    let registeredEvents: [NetworkResponse.AvailableKronoxUserEvent]?
     
     var body: some View {
         VStack {

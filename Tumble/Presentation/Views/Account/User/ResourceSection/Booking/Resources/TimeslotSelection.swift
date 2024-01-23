@@ -15,18 +15,18 @@ enum BookingButtonState {
 
 struct TimeslotSelection: View {
     let resourceId: String
-    let bookResource: (String, Date, Response.AvailabilityValue) async -> Bool
+    let bookResource: (String, Date, NetworkResponse.AvailabilityValue) async -> Bool
     let selectedPickerDate: Date
     let updateBookingNotifications: () -> Void
     @State var buttonStateMap: [String: BookingButtonState] = [:]
-    @Binding var availabilityValues: [Response.AvailabilityValue]
+    @Binding var availabilityValues: [NetworkResponse.AvailabilityValue]
     
     init(
         resourceId: String,
-        bookResource: @escaping (String, Date, Response.AvailabilityValue) async -> Bool,
+        bookResource: @escaping (String, Date, NetworkResponse.AvailabilityValue) async -> Bool,
         selectedPickerDate: Date,
         updateBookingNotifications: @escaping () -> Void,
-        availabilityValues: Binding<[Response.AvailabilityValue]>) {
+        availabilityValues: Binding<[NetworkResponse.AvailabilityValue]>) {
             self.resourceId = resourceId
             self.bookResource = bookResource
             self.selectedPickerDate = selectedPickerDate
@@ -58,7 +58,7 @@ struct TimeslotSelection: View {
         }
     }
     
-    private func setupButtons(for availabilityValues: Binding<[Response.AvailabilityValue]>) {
+    private func setupButtons(for availabilityValues: Binding<[NetworkResponse.AvailabilityValue]>) {
         for availabilityValue in availabilityValues.wrappedValue {
             if let locationId = availabilityValue.locationID {
                 buttonStateMap[locationId] = .available
@@ -68,7 +68,7 @@ struct TimeslotSelection: View {
     
     private func handleBooking(
         for locationId: String,
-        with availabilityValue: Response.AvailabilityValue
+        with availabilityValue: NetworkResponse.AvailabilityValue
     ) {
         buttonStateMap[locationId] = .loading
         Task {

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct NewsItemCard: View {
-    let newsItem: Response.NotificationContent
+    let newsItem: NetworkResponse.NotificationContent
     
     var body: some View {
         NavigationLink(destination: AnyView(NewsItemDetails(newsItem: newsItem)), label: {

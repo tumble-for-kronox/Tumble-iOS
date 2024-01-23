@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ExamDetailsSheet: View {
-    let event: Response.AvailableKronoxUserEvent
+    let event: NetworkResponse.AvailableKronoxUserEvent
     let getResourcesAndEvents: () -> Void
     let unregisterEvent: (String) -> Void
     

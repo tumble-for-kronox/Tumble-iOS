@@ -40,8 +40,8 @@
 		D419EDF6299A78C400479DCE /* ResourceSectionDivider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D419EDF5299A78C400479DCE /* ResourceSectionDivider.swift */; };
 		D41ADFEC299F8DBD0074E2C7 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41ADFEB299F8DBD0074E2C7 /* Token.swift */; };
 		D41ED53B2983F393009DCF8B /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41ED53A2983F393009DCF8B /* DateExtensions.swift */; };
-		D41ED54A29843460009DCF8B /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41ED54929843460009DCF8B /* Request.swift */; };
-		D41ED54C29843469009DCF8B /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41ED54B29843469009DCF8B /* Response.swift */; };
+		D41ED54A29843460009DCF8B /* NetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41ED54929843460009DCF8B /* NetworkRequest.swift */; };
+		D41ED54C29843469009DCF8B /* NetworkResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41ED54B29843469009DCF8B /* NetworkResponse.swift */; };
 		D41ED54E298434C1009DCF8B /* Nullable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41ED54D298434C1009DCF8B /* Nullable.swift */; };
 		D41ED5502984350A009DCF8B /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41ED54F2984350A009DCF8B /* Endpoint.swift */; };
 		D41ED5522984351F009DCF8B /* Method.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41ED5512984351F009DCF8B /* Method.swift */; };
@@ -279,8 +279,8 @@
 		D419EDF5299A78C400479DCE /* ResourceSectionDivider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceSectionDivider.swift; sourceTree = "<group>"; };
 		D41ADFEB299F8DBD0074E2C7 /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
 		D41ED53A2983F393009DCF8B /* DateExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
-		D41ED54929843460009DCF8B /* Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
-		D41ED54B29843469009DCF8B /* Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
+		D41ED54929843460009DCF8B /* NetworkRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRequest.swift; sourceTree = "<group>"; };
+		D41ED54B29843469009DCF8B /* NetworkResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResponse.swift; sourceTree = "<group>"; };
 		D41ED54D298434C1009DCF8B /* Nullable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Nullable.swift; sourceTree = "<group>"; };
 		D41ED54F2984350A009DCF8B /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		D41ED5512984351F009DCF8B /* Method.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Method.swift; sourceTree = "<group>"; };
@@ -726,8 +726,8 @@
 		D41ED553298436C3009DCF8B /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				D41ED54929843460009DCF8B /* Request.swift */,
-				D41ED54B29843469009DCF8B /* Response.swift */,
+				D41ED54929843460009DCF8B /* NetworkRequest.swift */,
+				D41ED54B29843469009DCF8B /* NetworkResponse.swift */,
 				D41ED54D298434C1009DCF8B /* Nullable.swift */,
 				D41ED5512984351F009DCF8B /* Method.swift */,
 				D41ADFEB299F8DBD0074E2C7 /* Token.swift */,
@@ -1734,7 +1734,7 @@
 				D483CC392A9DF21C0088C54A /* SearchMenuActionStyle.swift in Sources */,
 				D4E491F629EDC59300E674CA /* DayResponseExtension.swift in Sources */,
 				D45338FF2929805100198411 /* StringExtensions.swift in Sources */,
-				D41ED54C29843469009DCF8B /* Response.swift in Sources */,
+				D41ED54C29843469009DCF8B /* NetworkResponse.swift in Sources */,
 				D400F3E529D796A00050622E /* DateFormatters.swift in Sources */,
 				D4E39E3C2989D1B5004C30DF /* EventDetailsCard.swift in Sources */,
 				D498290D299D910F0017D636 /* RegisteredEvents.swift in Sources */,
@@ -1747,7 +1747,7 @@
 				D4607647292AE06600DE9590 /* SearchInfo.swift in Sources */,
 				D44B44D029E99BBF005164CA /* SearchPreviewViewModel.swift in Sources */,
 				D4CF9B2C293572BE00DDB5F0 /* Info.swift in Sources */,
-				D41ED54A29843460009DCF8B /* Request.swift in Sources */,
+				D41ED54A29843460009DCF8B /* NetworkRequest.swift in Sources */,
 				D434FDCF2B0A13CF00BD2404 /* WeekDays.swift in Sources */,
 				D475626F29CE09A600B72008 /* ResourceDetailSheet.swift in Sources */,
 				D40CC163292AFE7200664776 /* BookmarksViewModel.swift in Sources */,

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ResourceDetailSheet: View {
-    let resource: Response.KronoxUserBookingElement
+    let resource: NetworkResponse.KronoxUserBookingElement
     let unbookResource: (String) -> Void
     let confirmResource: (String, String) -> Void
     let getResourcesAndEvents: () -> Void
