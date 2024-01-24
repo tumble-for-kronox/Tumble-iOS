@@ -73,15 +73,21 @@ final class UserController: ObservableObject {
     /// information in the keychain storage of the phone.
     func autoLogin(authSchoolId: Int) async {
         AppLogger.shared.debug("Attempting auto login for user", source: "UserController")
+        let refreshToken: Token? = await authManager.getToken(.refreshToken)
+        let sessionDetails: Token? = await authManager.getToken(.sessionDetails)
         do {
             let user: TumbleUser = try await authManager.autoLoginUser(authSchoolId: authSchoolId)
             try await self.authManager.setUser(user)
-            let refreshToken: Token? = await authManager.getToken(.refreshToken)
-            let sessionDetails: Token? = await authManager.getToken(.sessionDetails)
+            
             DispatchQueue.main.async {
                 self.user = user
                 self.refreshToken = refreshToken
                 self.sessionDetails = sessionDetails
+                self.authStatus = .authorized
+            }
+        } catch AuthManager.AuthError.autoLoginError(let user) {
+            DispatchQueue.main.async {
+                self.user = user
                 self.authStatus = .authorized
             }
         } catch {

@@ -13,6 +13,7 @@ class AuthManager {
     private let urlSession: URLSession = URLSession.shared
     
     enum AuthError: Swift.Error {
+        case autoLoginError(user: TumbleUser)
         case httpResponseError
         case tokenError
         case decodingError
@@ -64,20 +65,25 @@ class AuthManager {
     }
 
     private func performAutoLoginRequest(_ urlRequest: URLRequest, with user: TumbleUser) async throws -> TumbleUser {
-        let (data, response) = try await urlSession.data(for: urlRequest)
-        if let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode > 299 {
-            try await logOutUser()
-            throw AuthError.httpResponseError
+        do {
+            let (data, response) = try await urlSession.data(for: urlRequest)
+            
+            if let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode > 299 {
+                try await logOutUser()
+                throw AuthError.httpResponseError
+            }
+
+            try await storeUpdatedTokensIfNeeded(from: response as? HTTPURLResponse)
+            let kronoxUser = try decodeKronoxUser(from: data)
+
+            return TumbleUser(username: user.username, name: kronoxUser.name)
+        } catch {
+            throw AuthError.autoLoginError(user: user) /// Show latest stored user info
         }
-
-        try await storeUpdatedTokensIfNeeded(from: response as? HTTPURLResponse)
-        let kronoxUser = try decodeKronoxUser(from: data)
-
-        return TumbleUser(username: user.username, name: kronoxUser.name)
     }
 
     private func storeUpdatedTokensIfNeeded(from httpResponse: HTTPURLResponse?) async throws {
-        if let refreshToken = httpResponse?.allHeaderFields["X-auth-header"] as? String,
+        if let refreshToken = httpResponse?.allHeaderFields["X-auth-token"] as? String,
            let sessionDetails = httpResponse?.allHeaderFields["X-session-token"] as? String {
             try await setToken(Token(value: refreshToken, createdDate: Date.now), for: .refreshToken)
             try await setToken(Token(value: sessionDetails, createdDate: Date.now), for: .sessionDetails)
