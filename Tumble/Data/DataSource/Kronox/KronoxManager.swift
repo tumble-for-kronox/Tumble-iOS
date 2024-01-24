@@ -39,18 +39,32 @@ class KronoxManager {
     
     func get<NetworkResponse: Decodable>(
         _ endpoint: Endpoint,
-        refreshToken: String? = nil
+        refreshToken: String? = nil,
+        sessionDetails: String? = nil
     ) async throws -> NetworkResponse {
-        let urlRequest = try makeUrlRequest(method: .get, endpoint: endpoint, refreshToken: refreshToken, body: nil as String?)
+        let urlRequest = try makeUrlRequest(
+            method: .get,
+            endpoint: endpoint,
+            refreshToken: refreshToken,
+            sessionDetails: sessionDetails,
+            body: nil as String?
+        )
         return try await executeRequest(urlRequest)
     }
     
     func put<NetworkResponse : Decodable, Request : Encodable>(
         _ endpoint: Endpoint,
         refreshToken: String? = nil,
+        sessionDetails: String? = nil,
         body: Request? = nil
     ) async throws -> NetworkResponse {
-        let urlRequest = try makeUrlRequest(method: .put, endpoint: endpoint, refreshToken: refreshToken, body: body)
+        let urlRequest = try makeUrlRequest(
+            method: .put,
+            endpoint: endpoint,
+            refreshToken: refreshToken,
+            sessionDetails: sessionDetails,
+            body: body
+        )
         return try await executeRequest(urlRequest)
     }
     
@@ -58,6 +72,7 @@ class KronoxManager {
         method: Method,
         endpoint: Endpoint,
         refreshToken: String?,
+        sessionDetails: String?,
         body: Request? = nil
     ) throws -> URLRequest {
         return try urlRequestUtils.createUrlRequest(

@@ -30,12 +30,14 @@ class AuthManager {
     }
 
     func autoLoginUser(authSchoolId: Int) async throws -> TumbleUser {
-        guard let refreshToken = await getToken(.refreshToken),
-              let sessionDetails = await getToken(.sessionDetails),
-              let user = await getUser() else {
-            throw AuthError.tokenError
+        guard let user = await getUser() else {
+            throw AuthError.decodingError
         }
+        let refreshToken = await getToken(.refreshToken)
+        let sessionDetails = await getToken(.sessionDetails)
+        
         let urlRequest = try createAutoLoginRequest(authSchoolId: authSchoolId, refreshToken: refreshToken, sessionDetails: sessionDetails)
+        
         return try await performAutoLoginRequest(urlRequest, with: user)
     }
 
@@ -54,11 +56,11 @@ class AuthManager {
         guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
             throw AuthError.httpResponseError
         }
-
+        
+        try await storeUpdatedTokensIfNeeded(from: httpResponse)
         let kronoxUser = try decodeKronoxUser(from: data)
-        try await storeTokens(from: kronoxUser)
 
-        return TumbleUser(username: user.username, name: kronoxUser.name)
+        return TumbleUser(username: kronoxUser.username, name: kronoxUser.name)
     }
 
     private func performAutoLoginRequest(_ urlRequest: URLRequest, with user: TumbleUser) async throws -> TumbleUser {
@@ -85,26 +87,18 @@ class AuthManager {
     private func decodeKronoxUser(from data: Data) throws -> Response.KronoxUser {
         let decoder = JSONDecoder()
         guard let result = try? decoder.decode(Response.KronoxUser.self, from: data) else {
+            AppLogger.shared.debug("Could not decode user. Data is: \(data)")
             throw AuthError.decodingError
         }
         return result
     }
 
-    private func storeTokens(from kronoxUser: Response.KronoxUser) async throws {
-        let sessionDetailsData = try JSONEncoder().encode(kronoxUser.sessionDetails)
-        guard let sessionDetailsString = String(data: sessionDetailsData, encoding: .utf8) else {
-            throw AuthError.decodingError
-        }
-        try await setToken(Token(value: kronoxUser.refreshToken, createdDate: Date.now), for: .refreshToken)
-        try await setToken(Token(value: sessionDetailsString, createdDate: Date.now), for: .sessionDetails)
-    }
-
-    private func createAutoLoginRequest(authSchoolId: Int, refreshToken: Token, sessionDetails: Token) throws -> URLRequest {
+    private func createAutoLoginRequest(authSchoolId: Int, refreshToken: Token? = nil, sessionDetails: Token? = nil) throws -> URLRequest {
         return try urlRequestUtils.createUrlRequest(
             method: .get,
             endpoint: .users(schoolId: String(authSchoolId)),
-            refreshToken: refreshToken.value,
-            sessionDetails: sessionDetails.value,
+            refreshToken: refreshToken?.value,
+            sessionDetails: sessionDetails?.value,
             body: nil as String?
         )
     }

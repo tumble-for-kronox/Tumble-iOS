@@ -19,6 +19,7 @@ final class UserController: ObservableObject {
     @Published var authStatus: AuthStatus = .unAuthorized
     @Published var user: TumbleUser? = nil
     @Published var refreshToken: Token? = nil
+    @Published var sessionDetails: Token? = nil
     
     init() {
         Task.detached(priority: .userInitiated) { [weak self] in
@@ -50,11 +51,13 @@ final class UserController: ObservableObject {
             let userRequest = NetworkRequest.KronoxUserLogin(username: username, password: password)
             let user: TumbleUser = try await authManager.loginUser(authSchoolId: authSchoolId, user: userRequest)
             try await self.authManager.setUser(user)
-            let token: Token? = await authManager.getToken(.refreshToken)
+            let refreshToken: Token? = await authManager.getToken(.refreshToken)
+            let sessionDetails: Token? = await authManager.getToken(.sessionDetails)
             DispatchQueue.main.async {
                 AppLogger.shared.debug("Successfully logged in user \(user.username)")
                 self.user = user
-                self.refreshToken = token
+                self.refreshToken = refreshToken
+                self.sessionDetails = sessionDetails
                 self.authStatus = .authorized
             }
         } catch {
@@ -73,10 +76,12 @@ final class UserController: ObservableObject {
         do {
             let user: TumbleUser = try await authManager.autoLoginUser(authSchoolId: authSchoolId)
             try await self.authManager.setUser(user)
-            let token: Token? = await authManager.getToken(.refreshToken)
+            let refreshToken: Token? = await authManager.getToken(.refreshToken)
+            let sessionDetails: Token? = await authManager.getToken(.sessionDetails)
             DispatchQueue.main.async {
                 self.user = user
-                self.refreshToken = token
+                self.refreshToken = refreshToken
+                self.sessionDetails = sessionDetails
                 self.authStatus = .authorized
             }
         } catch {

@@ -114,8 +114,7 @@ public enum Response {
     // MARK: - UserSession
 
     struct KronoxUser: Encodable, Decodable {
-        let name, username, refreshToken: String
-        let sessionDetails: SessionDetails
+        let name, username: String
     }
     
     struct SessionDetails: Encodable, Decodable {
