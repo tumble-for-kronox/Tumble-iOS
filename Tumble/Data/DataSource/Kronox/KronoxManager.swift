@@ -49,7 +49,7 @@ class KronoxManager {
             sessionDetails: sessionDetails,
             body: nil as String?
         )
-        return try await executeRequest(urlRequest)
+        return try await executeRequest(urlRequest, .get)
     }
     
     func put<NetworkResponse : Decodable, Request : Encodable>(
@@ -65,7 +65,7 @@ class KronoxManager {
             sessionDetails: sessionDetails,
             body: body
         )
-        return try await executeRequest(urlRequest)
+        return try await executeRequest(urlRequest, .put)
     }
     
     private func makeUrlRequest<Request : Encodable>(
@@ -83,15 +83,18 @@ class KronoxManager {
         )
     }
     
-    private func executeRequest<NetworkResponse : Decodable>(_ urlRequest: URLRequest) async throws -> NetworkResponse {
+    private func executeRequest<NetworkResponse : Decodable>(
+        _ urlRequest: URLRequest, _ method: Method
+    ) async throws -> NetworkResponse {
+        
         let (data, response) = try await session.data(for: urlRequest)
         guard let httpResponse = response as? HTTPURLResponse else {
             throw KronoxManagerError.badServerResponse
         }
-        
+            
         switch httpResponse.statusCode {
         case 200:
-            return try decode(data)
+            return !data.isEmpty ? try decode(data) : try decodeEmptyResponse()
         case 202:
             return try decodeEmptyResponse()
         default:

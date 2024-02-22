@@ -93,7 +93,7 @@ struct Settings: View {
                     SettingsExternalButton(
                         title: NSLocalizedString("Tumble on GitHub", comment: ""),
                         leadingIcon: "chevron.left.forwardslash.chevron.right",
-                        leadingIconBackgroundColor: .primary,
+                        leadingIconBackgroundColor: .black,
                         action: UIApplication.shared.openSourceCode)
                 }
                 
