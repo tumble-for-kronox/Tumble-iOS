@@ -189,6 +189,7 @@ final class ResourceViewModel: ObservableObject {
             }
             let _ : Response.KronoxUserBookingElement? = try await kronoxManager.put(
                 request, refreshToken: refreshToken.value, body: requestBody)
+            NotificationCenter.default.post(name: .resourceBooked, object: nil)
         } catch {
             AppLogger.shared.error("Failed to book resource: \(error)")
             return false

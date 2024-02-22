@@ -21,7 +21,7 @@ struct BookButtonStyle: ButtonStyle {
             .padding()
             .frame(minWidth: 85, maxHeight: 40)
             .background(Color.primary)
-            .cornerRadius(20)
+            .cornerRadius(15)
             .scaleEffect(configuration.isPressed ? 0.9 : 1)
             .animation(.easeOut(duration: 0.2), value: configuration.isPressed)
     }

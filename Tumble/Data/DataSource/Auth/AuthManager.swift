@@ -87,8 +87,8 @@ class AuthManager {
     }
 
     private func storeUpdatedTokensIfNeeded(from httpResponse: HTTPURLResponse?) async throws {
-        if let refreshToken = httpResponse?.allHeaderFields["X-auth-token"] as? String,
-           let sessionDetails = httpResponse?.allHeaderFields["X-session-token"] as? String {
+        if let refreshToken = httpResponse?.allHeaderFields["x-auth-token"] as? String,
+           let sessionDetails = httpResponse?.allHeaderFields["x-session-token"] as? String {
             try await setToken(Token(value: refreshToken, createdDate: Date.now), for: .refreshToken)
             try await setToken(Token(value: sessionDetails, createdDate: Date.now), for: .sessionDetails)
         }

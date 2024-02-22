@@ -57,6 +57,21 @@ final class AccountViewModel: ObservableObject {
     
     init() {
         setupPublishers()
+        addNotificationObserver()
+    }
+    
+    private func addNotificationObserver() {
+        NotificationCenter.default
+            .addObserver(
+                self,
+                selector: #selector(handleResourceBooked(_:)),
+                name: .resourceBooked,
+                object: nil
+            )
+    }
+    
+    @objc private func handleResourceBooked(_ notification: Notification) {
+        Task { await self.getUserBookingsForSection() }
     }
     
     private func setupPublishers() {
@@ -71,7 +86,6 @@ final class AccountViewModel: ObservableObject {
                     self.authStatus = authStatus
                     self.authSchoolId = authSchoolId
                     self.autoSignupEnabled = autoSignupEnabled
-                    AppLogger.shared.info("Auto signup is: \(autoSignupEnabled)")
                 }
                 if authStatus == .authorized && !self.registeredForExams && self.autoSignupEnabled {
                     Task.detached(priority: .userInitiated) {
@@ -282,9 +296,8 @@ final class AccountViewModel: ObservableObject {
     }
     
     deinit {
-        cancellables.forEach {
-            $0.cancel()
-        }
+        NotificationCenter.default.removeObserver(self)
+        cancellables.forEach { $0.cancel() }
     }
     
 }
