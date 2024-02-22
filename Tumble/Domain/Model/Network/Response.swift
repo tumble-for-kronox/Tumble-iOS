@@ -28,6 +28,10 @@ public enum Response {
         
         let id, cachedAt: String
         let days: [Day]
+        
+        var hasEvents: Bool {
+            return days.contains { !$0.events.isEmpty }
+        }
     }
 
     // MARK: - Day
@@ -110,7 +114,12 @@ public enum Response {
     // MARK: - UserSession
 
     struct KronoxUser: Encodable, Decodable {
-        let name, username, refreshToken, sessionToken: String
+        let name, username: String
+    }
+    
+    struct SessionDetails: Encodable, Decodable {
+        let sessionToken: String
+        let sessionLocation: String
     }
     
     // ------ KronoX events ------

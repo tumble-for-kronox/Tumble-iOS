@@ -149,13 +149,8 @@ final class AccountViewModel: ObservableObject {
         
         do {
             let request = Endpoint.userEvents(schoolId: String(authSchoolId))
-            guard let refreshToken = userController.refreshToken else {
-                DispatchQueue.main.async { [weak self] in
-                    self?.registeredEventSectionState = .error
-                }
-                return
-            }
-            let events: Response.KronoxCompleteUserEvent? = try await kronoxManager.get(request, refreshToken: refreshToken.value)
+            let events: Response.KronoxCompleteUserEvent? = try await kronoxManager.get(
+                request, refreshToken: userController.refreshToken?.value, sessionDetails: userController.sessionDetails?.value)
             DispatchQueue.main.async { [weak self] in
                 self?.completeUserEvent = events
                 self?.registeredEventSectionState = .loaded
@@ -176,13 +171,8 @@ final class AccountViewModel: ObservableObject {
         
         do {
             let request = Endpoint.userBookings(schoolId: String(authSchoolId))
-            guard let refreshToken = userController.refreshToken else {
-                DispatchQueue.main.async {
-                    self.bookingSectionState = .error
-                }
-                return
-            }
-            let bookings: Response.KronoxUserBookings = try await kronoxManager.get(request, refreshToken: refreshToken.value)
+            let bookings: Response.KronoxUserBookings = try await kronoxManager.get(
+                request, refreshToken: userController.refreshToken?.value, sessionDetails: userController.sessionDetails?.value)
             DispatchQueue.main.async {
                 self.bookingSectionState = .loaded
                 self.userBookings = bookings
@@ -201,13 +191,10 @@ final class AccountViewModel: ObservableObject {
     func unregisterForEvent(eventId: String) async {
         do {
             let request = Endpoint.unregisterEvent(eventId: eventId, schoolId: String(authSchoolId))
-            guard let refreshToken = userController.refreshToken else {
-                DispatchQueue.main.async {
-                    self.registeredEventSectionState = .error
-                }
-                return
-            }
-            let _ : Response.Empty = try await kronoxManager.put(request, refreshToken: refreshToken.value, body: Request.Empty())
+            let _ : Response.Empty = try await kronoxManager.put(
+                request,
+                refreshToken: userController.refreshToken?.value,
+                sessionDetails: userController.sessionDetails?.value, body: NetworkRequest.Empty())
             self.removeUserEvent(for: eventId)
             DispatchQueue.main.async {
                 self.registeredEventSectionState = .loaded
@@ -246,13 +233,8 @@ final class AccountViewModel: ObservableObject {
         
         do {
             let request = Endpoint.userBookings(schoolId: String(authSchoolId))
-            guard let refreshToken = userController.refreshToken else {
-                DispatchQueue.main.async {
-                    self.bookingSectionState = .error
-                }
-                return
-            }
-            let bookings: Response.KronoxUserBookings = try await kronoxManager.get(request, refreshToken: refreshToken.value)
+            let bookings: Response.KronoxUserBookings = try await kronoxManager.get(
+                request, refreshToken: userController.refreshToken?.value, sessionDetails: userController.sessionDetails?.value)
             Task {
                 await self.scheduleBookingNotifications(for: bookings)
             }
@@ -289,12 +271,10 @@ final class AccountViewModel: ObservableObject {
         AppLogger.shared.debug("Attempting to automatically sign up for exams")
         do {
             let request = Endpoint.registerAllEvents(schoolId: String(authSchoolId))
-            guard let refreshToken = userController.refreshToken else {
-                AppLogger.shared.error("Failed to sign up for exams due to user not being signed in or missing their token")
-                return
-            }
             let _: Response.KronoxEventRegistration?
-                = try await kronoxManager.put(request, refreshToken: refreshToken.value, body: Request.Empty())
+            = try await kronoxManager.put(
+                request, refreshToken: userController.refreshToken?.value,
+                sessionDetails: userController.sessionDetails?.value, body: NetworkRequest.Empty())
             self.registeredForExams = true
         } catch {
             AppLogger.shared.error("Failed to sign up for exams: \(error)")

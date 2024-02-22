@@ -29,11 +29,7 @@ final class SearchPreviewViewModel: ObservableObject {
     
     /// Retrieve the schedule that was pressed on
     /// from the list of search results
-    func getSchedule(
-        programmeId: String,
-        schoolId: String,
-        schedules: [Schedule]
-    ) {
+    func getSchedule(programmeId: String, schoolId: String, schedules: [Schedule]) {
         let isScheduleSaved = self.checkSavedSchedule(programmeId: programmeId, schedules: schedules)
         DispatchQueue.main.async { [weak self] in
             self?.status = .loading
@@ -45,10 +41,15 @@ final class SearchPreviewViewModel: ObservableObject {
                 let endpoint: Endpoint = .schedule(scheduleId: programmeId, schoolId: schoolId)
                 let fetchedSchedule: Response.Schedule = try await kronoxManager.get(endpoint)
                 self.updateUIWithFetchedSchedule(fetchedSchedule, existingSchedules: schedules)
-            } catch  {
+            } catch {
                 DispatchQueue.main.async { [weak self] in
                     self?.status = .error
-                    self?.errorMessage = NSLocalizedString("Could not contact the server, try again later", comment: "")
+                    if let error = error as? KronoxManagerError {
+                        self?.errorMessage = error.localizedDescription
+                    } else {
+                        self?.errorMessage = NSLocalizedString("An unexpected error occurred. Please try again later.", comment: "")
+                    }
+                    AppLogger.shared.info("Error occured: \(error)")
                 }
             }
         }
@@ -58,7 +59,7 @@ final class SearchPreviewViewModel: ObservableObject {
     private func updateUIWithFetchedSchedule(_ fetchedSchedule: Response.Schedule, existingSchedules: [Schedule]) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
-            if fetchedSchedule.isEmpty() {
+            if !fetchedSchedule.hasEvents {
                 self.status = .empty
                 self.buttonState = .disabled
             } else if (existingSchedules.map { $0.scheduleId }).contains(fetchedSchedule.id) {

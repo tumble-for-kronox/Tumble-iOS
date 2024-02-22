@@ -9,40 +9,43 @@ import Foundation
 
 struct NetworkUtilities {
     static let shared = NetworkUtilities()
+    private let encoder = JSONEncoder()
     
-    /// Creates a URLRequest with necessary headers and body
-    /// based on method type
     func createUrlRequest<Request: Encodable>(
         method: Method,
         endpoint: Endpoint,
         refreshToken: String? = nil,
+        sessionDetails: String? = nil,
         body: Request? = nil
-    ) -> URLRequest? {
-        let encoder = JSONEncoder()
+    ) throws -> URLRequest {
         var urlRequest = URLRequest(url: endpoint.url)
         urlRequest.httpMethod = method.rawValue
-            
-        urlRequest.setValue(refreshToken, forHTTPHeaderField: "X-auth-token")
-        urlRequest.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
-        urlRequest.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")
-            
-        if let body = body {
-            do {
-                urlRequest.httpBody = try encoder.encode(body)
-            } catch {
-                return nil
-            }
-        }
+
+        try setHeaders(for: &urlRequest, refreshToken: refreshToken, sessionDetails: sessionDetails)
+        try setRequestBody(for: &urlRequest, with: body)
+
         return urlRequest
     }
-    
-    /// Overload function in case no body is given,
-    /// as in for example GET requests
-    func createUrlRequest(
-        method: Method,
-        endpoint: Endpoint,
-        refreshToken: String? = nil
-    ) -> URLRequest? {
-        return createUrlRequest(method: method, endpoint: endpoint, refreshToken: refreshToken, body: String?.none)
+
+    private func setHeaders(
+        for urlRequest: inout URLRequest,
+        refreshToken: String?,
+        sessionDetails: String?
+    ) throws {
+        urlRequest.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
+        urlRequest.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")
+
+        urlRequest.setValue(refreshToken, forHTTPHeaderField: "X-auth-token")
+        urlRequest.setValue(sessionDetails, forHTTPHeaderField: "X-session-token")
+    }
+
+
+    private func setRequestBody<Request: Encodable>(
+        for urlRequest: inout URLRequest,
+        with body: Request?
+    ) throws {
+        guard let body = body else { return }
+        let encoder = JSONEncoder()
+        urlRequest.httpBody = try encoder.encode(body)
     }
 }

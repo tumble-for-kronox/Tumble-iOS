@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum Request {
+enum NetworkRequest {
     struct Empty: Encodable {}
     
     struct RegisterUserEvent: Encodable {
@@ -51,6 +51,11 @@ enum Request {
     struct KronoxUserLogin: Encodable {
         let username: String
         let password: String
+    }
+    
+    struct SessionDetails: Encodable, Decodable {
+        let sessionToken: String
+        let sessionLocation: String
     }
 }
 

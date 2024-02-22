@@ -83,17 +83,6 @@ extension Response.Schedule {
         return realmSchedule
     }
 
-    func isEmpty() -> Bool {
-        for day in days {
-            for event in day.events {
-                if !event.title.isEmpty {
-                    return false
-                }
-            }
-        }
-        return true
-    }
-
     /// Returns dictionary of random colors for each course in a schedule
     func assignCoursesRandomColors() -> [String: String] {
         var courseColors: [String: String] = [:]

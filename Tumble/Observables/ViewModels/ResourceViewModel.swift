@@ -90,7 +90,7 @@ final class ResourceViewModel: ObservableObject {
                 = try await kronoxManager.put(
                     request,
                     refreshToken: refreshToken.value,
-                    body: Request.Empty())
+                    body: NetworkRequest.Empty())
         } catch {
             AppLogger.shared.error("\(error)")
         }
@@ -112,7 +112,7 @@ final class ResourceViewModel: ObservableObject {
             let _ : Response.Empty = try await kronoxManager.put(
                 request,
                 refreshToken: refreshToken.value,
-                body: Request.Empty())
+                body: NetworkRequest.Empty())
             
         } catch {
             AppLogger.shared.error("\(error)")
@@ -155,7 +155,7 @@ final class ResourceViewModel: ObservableObject {
     func confirmResource(resourceId: String, bookingId: String) async {
         do {
             let request = Endpoint.confirmResource(schoolId: String(authSchoolId))
-            let requestBody = Request.ConfirmKronoxResource(
+            let requestBody = NetworkRequest.ConfirmKronoxResource(
                 resourceId: resourceId,
                 bookingId: bookingId
             )
@@ -179,7 +179,7 @@ final class ResourceViewModel: ObservableObject {
     ) async -> Bool {
         do {
             let request = Endpoint.bookResource(schoolId: String(authSchoolId))
-            let requestBody = Request.BookKronoxResource(
+            let requestBody = NetworkRequest.BookKronoxResource(
                 resourceId: resourceId,
                 date: isoDateFormatterFract.string(from: date),
                 slot: availabilityValue
@@ -205,7 +205,7 @@ final class ResourceViewModel: ObservableObject {
                 return false
             }
             let _ : Response.Empty = try await kronoxManager.put(
-                request, refreshToken: refreshToken.value, body: Request.Empty())
+                request, refreshToken: refreshToken.value, body: NetworkRequest.Empty())
             AppLogger.shared.debug("Unbooked resource")
             self.notificationManager.cancelNotification(for: bookingId)
         } catch {
