@@ -78,6 +78,10 @@ class AuthManager {
 
             return TumbleUser(username: user.username, name: kronoxUser.name)
         } catch {
+            if Network.shared.connected {
+                try await logOutUser()
+                throw AuthError.requestError
+            }
             throw AuthError.autoLoginError(user: user) /// Show latest stored user info
         }
     }
