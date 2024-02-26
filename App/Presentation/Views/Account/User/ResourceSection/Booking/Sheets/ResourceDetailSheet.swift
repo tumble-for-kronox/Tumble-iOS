@@ -35,7 +35,7 @@ struct ResourceDetailSheet: View {
                     let date = confirmationOpen.toDate() ?? "(missing)"
                     let from = confirmationOpen.convertToHoursAndMinutes() ?? NSLocalizedString("(missing)", comment: "")
                     let to = confirmationClosed.convertToHoursAndMinutes() ?? NSLocalizedString("(missing)", comment: "")
-                    Text(String(format: NSLocalizedString("%@, from %@ - %@", comment: ""), date, from, to))
+                    Text(String(format: NSLocalizedString("%@, from %@ to %@", comment: ""), date, from, to))
                         .font(.system(size: 16))
                         .foregroundColor(.onSurface)
                 })

@@ -356,7 +356,7 @@
 
 "No date"="No date";
 
-"%@, from %@ - %@"="%@, from %@ - %@";
+"%@, from %@ to %@"="%@, from %@ to %@";
 
 "Available until"="Available until";
 
@@ -373,8 +373,6 @@
 "Confirmation"="Confirmation";
 
 "(missing)"="(missing)";
-
-"%@, from %@ - %@"="%@, from %@ - %@";
 
 "Confirm booking"="Confirm booking";
 

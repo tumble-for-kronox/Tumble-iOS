@@ -40,40 +40,17 @@ struct ResourceCard: View {
             onClick()
         }, label: {
             HStack {
-                VStack(alignment: .leading, spacing: 10) {
-                    Text(title ?? NSLocalizedString("No title", comment: ""))
-                        .font(.system(size: 17, weight: .medium))
-                        .foregroundColor(.onSurface)
-                        .lineLimit(1)
-                        .truncationMode(.tail)
+                VStack(alignment: .leading, spacing: 0) {
+                    TitleView(title: title)
+                    
                     if let type = type {
-                        HStack {
-                            Image(systemName: "info.circle")
-                                .font(.system(size: 15))
-                                .foregroundColor(.onSurface.opacity(0.7))
-                            Text(type)
-                                .font(.system(size: 15))
-                                .foregroundColor(.onSurface.opacity(0.7))
-                        }
+                        InformationView(imageName: "info.circle", text: type)
                     }
                     if let location = location {
-                        HStack {
-                            Image(systemName: "mappin.and.ellipse")
-                                .font(.system(size: 15))
-                                .foregroundColor(.onSurface.opacity(0.7))
-                            Text(location)
-                                .font(.system(size: 15))
-                                .foregroundColor(.onSurface.opacity(0.7))
-                        }
+                        InformationView(imageName: "mappin.and.ellipse", text: location)
                     }
-                    HStack {
-                        Image(systemName: "calendar.badge.clock")
-                            .font(.system(size: 15))
-                            .foregroundColor(.onSurface.opacity(0.7))
-                        Text(String(format: NSLocalizedString("%@, from %@ - %@", comment: ""), date, eventStart, eventEnd))
-                            .font(.system(size: 15))
-                            .foregroundColor(.onSurface.opacity(0.7))
-                    }
+                    
+                    DateView(date: date, start: eventStart, end: eventEnd)
                 }
                 .padding()
                 Spacer()
@@ -81,5 +58,56 @@ struct ResourceCard: View {
         })
         .padding(.top)
         .buttonStyle(CompactButtonStyle(colored: true))
+    }
+}
+
+struct TitleView: View {
+    let title: String?
+    
+    var body: some View {
+        Text(title ?? NSLocalizedString("No title", comment: ""))
+            .font(.system(size: 17, weight: .medium))
+            .foregroundColor(.onSurface)
+            .lineLimit(1)
+            .truncationMode(.tail)
+    }
+}
+
+struct InformationView: View {
+    let imageName: String
+    let text: String
+    
+    var body: some View {
+        VStack (spacing: 0) {
+            Spacer()
+            HStack (alignment: .top) {
+                Image(systemName: imageName)
+                    .font(.system(size: 15))
+                    .foregroundColor(.onSurface.opacity(0.7))
+                Text(text)
+                    .font(.system(size: 15))
+                    .foregroundColor(.onSurface.opacity(0.7))
+            }
+        }
+    }
+}
+
+struct DateView: View {
+    let date: String
+    let start: String
+    let end: String
+    
+    var body: some View {
+        VStack (spacing: 0) {
+            Spacer()
+            HStack (alignment: .top) {
+                Image(systemName: "calendar.badge.clock")
+                    .font(.system(size: 15))
+                    .foregroundColor(.onSurface.opacity(0.7))
+                Text(String(format: NSLocalizedString("%@, from %@ to %@", comment: ""), date, start, end))
+                    .font(.system(size: 15))
+                    .foregroundColor(.onSurface.opacity(0.7))
+            }
+        }
     }
 }

@@ -36,7 +36,7 @@ struct EventCardButton: View {
                            let eventEnd = event.eventEnd.convertToHoursAndMinutes(),
                            let eventStart = event.eventStart.convertToHoursAndMinutes()
                         {
-                            Text(String(format: NSLocalizedString("%@, from %@ - %@", comment: ""), eventDate, eventStart, eventEnd))
+                            Text(String(format: NSLocalizedString("%@, from %@ to %@", comment: ""), eventDate, eventStart, eventEnd))
                                 .font(.system(size: 15))
                                 .foregroundColor(.onSurface.opacity(0.7))
                         } else {

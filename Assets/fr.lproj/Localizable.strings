@@ -360,7 +360,7 @@
 
 "No date"="Pas de date";
 
-"%@, from %@ - %@"="%@, de %@ - %@";
+"%@, from %@ to %@"="%@, de %@ à %@";
 
 "Available until"="Disponible jusqu'au";
 
@@ -377,8 +377,6 @@
 "Confirmation"="Confirmation";
 
 "(missing)"="(manquant)";
-
-"%@, from %@ - %@"="%@, depuis %@ - %@";
 
 "Confirm booking"="Confirmer la réservation";
 

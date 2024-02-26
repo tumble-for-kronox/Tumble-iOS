@@ -14,12 +14,12 @@ struct MediumEvent: View {
     
     var body: some View {
         HStack {
-            VStack(alignment: .leading, spacing: 20) {
+            VStack(alignment: .leading, spacing: 25) {
                 VStack(alignment: .leading, spacing: 2) {
-                    Text(event.course?.englishName ?? "")
+                    Text(event.title)
                         .font(.system(size: 17, weight: .semibold))
                         .foregroundColor(.onSurface)
-                    Text(event.title)
+                    Text(event.course?.englishName ?? "")
                         .lineLimit(1)
                         .truncationMode(.tail)
                         .font(.system(size: 15))
@@ -103,6 +103,5 @@ struct MediumEvent_Previews: PreviewProvider {
             lastModified: "2024-01-30T10:14:04Z"
         ))
         .previewContext(WidgetPreviewContext(family: .systemMedium))
-        .widgetBackground(Color.surface)
     }
 }
