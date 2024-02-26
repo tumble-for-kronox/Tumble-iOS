@@ -138,7 +138,7 @@
 		D46BB10A298AC31E00887A24 /* DetailsBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46BB109298AC31E00887A24 /* DetailsBuilder.swift */; };
 		D46BB112298B0E2800887A24 /* SettingsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46BB111298B0E2800887A24 /* SettingsButton.swift */; };
 		D46BB118298B21DA00887A24 /* InfoLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46BB117298B21DA00887A24 /* InfoLoading.swift */; };
-		D4722149292454560063BDB7 /* TumbleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4722148292454560063BDB7 /* TumbleApp.swift */; };
+		D4722149292454560063BDB7 /* tumble_iosApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4722148292454560063BDB7 /* tumble_iosApp.swift */; };
 		D472214D292454570063BDB7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D472214C292454570063BDB7 /* Assets.xcassets */; };
 		D4722161292455710063BDB7 /* KronoxManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D472215E292455710063BDB7 /* KronoxManager.swift */; };
 		D47386FF29C88E4F0035CD4C /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = D47386FE29C88E4F0035CD4C /* FirebaseAnalytics */; };
@@ -197,6 +197,12 @@
 		D4D4CD17299CE57C00D48180 /* EventCardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D4CD16299CE57C00D48180 /* EventCardButton.swift */; };
 		D4D4CD1A299CE5FF00D48180 /* SectionDivider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D4CD19299CE5FF00D48180 /* SectionDivider.swift */; };
 		D4D4DD032927C7DA0083BB7F /* ProgrammeCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D4DD022927C7DA0083BB7F /* ProgrammeCard.swift */; };
+		D4D778DE2B8CE6DD00D82C94 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4D778DD2B8CE6DC00D82C94 /* WidgetKit.framework */; };
+		D4D778E02B8CE6DD00D82C94 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4D778DF2B8CE6DD00D82C94 /* SwiftUI.framework */; };
+		D4D778E32B8CE6DD00D82C94 /* tumble_widgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D778E22B8CE6DD00D82C94 /* tumble_widgetBundle.swift */; };
+		D4D778E52B8CE6DD00D82C94 /* tumble_widget.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D778E42B8CE6DD00D82C94 /* tumble_widget.swift */; };
+		D4D778E72B8CE6DE00D82C94 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D4D778E62B8CE6DE00D82C94 /* Assets.xcassets */; };
+		D4D778EB2B8CE6DE00D82C94 /* WidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = D4D778DB2B8CE6DC00D82C94 /* WidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		D4D7B45B29F1505A0032AEEF /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = D4D7B45A29F1505A0032AEEF /* README.md */; };
 		D4DDE59129CBBC6A0030607B /* ResourceTimeDropdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4DDE59029CBBC6A0030607B /* ResourceTimeDropdown.swift */; };
 		D4E39E322989BBD9004C30DF /* ColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E39E312989BBD9004C30DF /* ColorExtensions.swift */; };
@@ -244,6 +250,30 @@
 		D4FFCC2A29EDAEC900708CC0 /* Teacher.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FFCC2929EDAEC900708CC0 /* Teacher.swift */; };
 		D4FFCC2C29EDAEF200708CC0 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FFCC2B29EDAEF200708CC0 /* Location.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		D4D778E92B8CE6DE00D82C94 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D472213D292454560063BDB7 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D4D778DA2B8CE6DC00D82C94;
+			remoteInfo = "tumble-widgetExtension";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		D4D778EC2B8CE6DE00D82C94 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				D4D778EB2B8CE6DE00D82C94 /* WidgetExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		D400F3D129D793CF0050622E /* SearchStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchStatus.swift; sourceTree = "<group>"; };
@@ -377,10 +407,10 @@
 		D46BB111298B0E2800887A24 /* SettingsButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsButton.swift; sourceTree = "<group>"; };
 		D46BB117298B21DA00887A24 /* InfoLoading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoLoading.swift; sourceTree = "<group>"; };
 		D4722145292454560063BDB7 /* Tumble.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tumble.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		D4722148292454560063BDB7 /* TumbleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TumbleApp.swift; sourceTree = "<group>"; };
+		D4722148292454560063BDB7 /* tumble_iosApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tumble_iosApp.swift; sourceTree = "<group>"; };
 		D472214C292454570063BDB7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D472215E292455710063BDB7 /* KronoxManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KronoxManager.swift; sourceTree = "<group>"; };
-		D473870229C895510035CD4C /* Tumble.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Tumble.entitlements; sourceTree = "<group>"; };
+		D473870229C895510035CD4C /* App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = App.entitlements; sourceTree = "<group>"; };
 		D475626E29CE09A600B72008 /* ResourceDetailSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceDetailSheet.swift; sourceTree = "<group>"; };
 		D475627029CE20A700B72008 /* ExamDetailsSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExamDetailsSheet.swift; sourceTree = "<group>"; };
 		D4761C4329CF222900B3BB0B /* WideAnimatedButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WideAnimatedButtonStyle.swift; sourceTree = "<group>"; };
@@ -439,6 +469,14 @@
 		D4D4CD19299CE5FF00D48180 /* SectionDivider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionDivider.swift; sourceTree = "<group>"; };
 		D4D4DD022927C7DA0083BB7F /* ProgrammeCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgrammeCard.swift; sourceTree = "<group>"; };
 		D4D4DD212927CFFA0083BB7F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D4D778DB2B8CE6DC00D82C94 /* WidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = WidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		D4D778DD2B8CE6DC00D82C94 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		D4D778DF2B8CE6DD00D82C94 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		D4D778E22B8CE6DD00D82C94 /* tumble_widgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tumble_widgetBundle.swift; sourceTree = "<group>"; };
+		D4D778E42B8CE6DD00D82C94 /* tumble_widget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tumble_widget.swift; sourceTree = "<group>"; };
+		D4D778E62B8CE6DE00D82C94 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D4D778E82B8CE6DE00D82C94 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D4D778F12B8CE7E100D82C94 /* WidgetExtensionRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WidgetExtensionRelease.entitlements; sourceTree = "<group>"; };
 		D4D7B45A29F1505A0032AEEF /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		D4DDE59029CBBC6A0030607B /* ResourceTimeDropdown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceTimeDropdown.swift; sourceTree = "<group>"; };
 		D4E39E312989BBD9004C30DF /* ColorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtensions.swift; sourceTree = "<group>"; };
@@ -498,6 +536,15 @@
 				D4ACD86E2AD9436C00780998 /* MijickPopupView in Frameworks */,
 				D430F74329C615DC00E30E48 /* FSCalendar in Frameworks */,
 				D42BAC1C298D3D590025EAA9 /* Logging in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D4D778D82B8CE6DC00D82C94 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D4D778E02B8CE6DD00D82C94 /* SwiftUI.framework in Frameworks */,
+				D4D778DE2B8CE6DD00D82C94 /* WidgetKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1000,11 +1047,14 @@
 		D472213C292454560063BDB7 = {
 			isa = PBXGroup;
 			children = (
+				D4D778F12B8CE7E100D82C94 /* WidgetExtensionRelease.entitlements */,
 				D466E4BE2B07810300E78AD9 /* GoogleService-Info.plist */,
 				D4D7B45A29F1505A0032AEEF /* README.md */,
 				D4938BAD29D762DE00029F88 /* Preview Content */,
 				D47A451129D74C68008626E6 /* Assets */,
-				D47221582924548A0063BDB7 /* Tumble */,
+				D47221582924548A0063BDB7 /* App */,
+				D4D778E12B8CE6DD00D82C94 /* Widget */,
+				D4D778DC2B8CE6DC00D82C94 /* Frameworks */,
 				D4722146292454560063BDB7 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -1013,16 +1063,17 @@
 			isa = PBXGroup;
 			children = (
 				D4722145292454560063BDB7 /* Tumble.app */,
+				D4D778DB2B8CE6DC00D82C94 /* WidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		D47221582924548A0063BDB7 /* Tumble */ = {
+		D47221582924548A0063BDB7 /* App */ = {
 			isa = PBXGroup;
 			children = (
 				D4A433B729951F2B00BFEB7A /* AppDelegate.swift */,
-				D4722148292454560063BDB7 /* TumbleApp.swift */,
-				D473870229C895510035CD4C /* Tumble.entitlements */,
+				D4722148292454560063BDB7 /* tumble_iosApp.swift */,
+				D473870229C895510035CD4C /* App.entitlements */,
 				D4D4DD212927CFFA0083BB7F /* Info.plist */,
 				D4E39E352989CE1D004C30DF /* Utilities */,
 				D40D80A429252156008CA68D /* Extensions */,
@@ -1033,7 +1084,7 @@
 				D41ED54229843366009DCF8B /* Domain */,
 				D472215B292454F60063BDB7 /* Resources */,
 			);
-			path = Tumble;
+			path = App;
 			sourceTree = "<group>";
 		};
 		D47221592924549B0063BDB7 /* Views */ = {
@@ -1268,6 +1319,26 @@
 			path = Config;
 			sourceTree = "<group>";
 		};
+		D4D778DC2B8CE6DC00D82C94 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D4D778DD2B8CE6DC00D82C94 /* WidgetKit.framework */,
+				D4D778DF2B8CE6DD00D82C94 /* SwiftUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D4D778E12B8CE6DD00D82C94 /* Widget */ = {
+			isa = PBXGroup;
+			children = (
+				D4D778E22B8CE6DD00D82C94 /* tumble_widgetBundle.swift */,
+				D4D778E42B8CE6DD00D82C94 /* tumble_widget.swift */,
+				D4D778E62B8CE6DE00D82C94 /* Assets.xcassets */,
+				D4D778E82B8CE6DE00D82C94 /* Info.plist */,
+			);
+			path = Widget;
+			sourceTree = "<group>";
+		};
 		D4E39E352989CE1D004C30DF /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
@@ -1448,19 +1519,21 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		D4722144292454560063BDB7 /* Tumble */ = {
+		D4722144292454560063BDB7 /* App */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D4722153292454570063BDB7 /* Build configuration list for PBXNativeTarget "Tumble" */;
+			buildConfigurationList = D4722153292454570063BDB7 /* Build configuration list for PBXNativeTarget "App" */;
 			buildPhases = (
 				D4722141292454560063BDB7 /* Sources */,
 				D4722142292454560063BDB7 /* Frameworks */,
 				D4722143292454560063BDB7 /* Resources */,
+				D4D778EC2B8CE6DE00D82C94 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				D4D778EA2B8CE6DE00D82C94 /* PBXTargetDependency */,
 			);
-			name = Tumble;
+			name = App;
 			packageProductDependencies = (
 				D42BAC1B298D3D590025EAA9 /* Logging */,
 				D430F74229C615DC00E30E48 /* FSCalendar */,
@@ -1475,6 +1548,23 @@
 			productReference = D4722145292454560063BDB7 /* Tumble.app */;
 			productType = "com.apple.product-type.application";
 		};
+		D4D778DA2B8CE6DC00D82C94 /* WidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D4D778F02B8CE6DE00D82C94 /* Build configuration list for PBXNativeTarget "WidgetExtension" */;
+			buildPhases = (
+				D4D778D72B8CE6DC00D82C94 /* Sources */,
+				D4D778D82B8CE6DC00D82C94 /* Frameworks */,
+				D4D778D92B8CE6DC00D82C94 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = WidgetExtension;
+			productName = "tumble-widgetExtension";
+			productReference = D4D778DB2B8CE6DC00D82C94 /* WidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -1482,11 +1572,14 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1420;
+				LastSwiftUpdateCheck = 1520;
 				LastUpgradeCheck = 1500;
 				TargetAttributes = {
 					D4722144292454560063BDB7 = {
 						CreatedOnToolsVersion = 14.1;
+					};
+					D4D778DA2B8CE6DC00D82C94 = {
+						CreatedOnToolsVersion = 15.2;
 					};
 				};
 			};
@@ -1517,7 +1610,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				D4722144292454560063BDB7 /* Tumble */,
+				D4722144292454560063BDB7 /* App */,
+				D4D778DA2B8CE6DC00D82C94 /* WidgetExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -1533,6 +1627,14 @@
 				D41472FD29D832D500050BFF /* Preview Assets.xcassets in Resources */,
 				D472214D292454570063BDB7 /* Assets.xcassets in Resources */,
 				D466E4BF2B07810300E78AD9 /* GoogleService-Info.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D4D778D92B8CE6DC00D82C94 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D4D778E72B8CE6DE00D82C94 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1585,7 +1687,7 @@
 				D4E83EBC299960AD002E5F88 /* UsernameField.swift in Sources */,
 				D4FCD14E2995ADFE009D2987 /* UIColorWellHelper.swift in Sources */,
 				D4DDE59129CBBC6A0030607B /* ResourceTimeDropdown.swift in Sources */,
-				D4722149292454560063BDB7 /* TumbleApp.swift in Sources */,
+				D4722149292454560063BDB7 /* tumble_iosApp.swift in Sources */,
 				D441B10D298A8CEC00D22142 /* EventDetailsSheetViewModel.swift in Sources */,
 				D4F0C8032A2F9A70002F8376 /* Popup.swift in Sources */,
 				D4644A29298DD79D00B0BB28 /* Notifications+Types.swift in Sources */,
@@ -1768,7 +1870,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D4D778D72B8CE6DC00D82C94 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D4D778E52B8CE6DD00D82C94 /* tumble_widget.swift in Sources */,
+				D4D778E32B8CE6DD00D82C94 /* tumble_widgetBundle.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D4D778EA2B8CE6DE00D82C94 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D4D778DA2B8CE6DC00D82C94 /* WidgetExtension */;
+			targetProxy = D4D778E92B8CE6DE00D82C94 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		D4CD0F0729D5DC9D00AB5FD0 /* Localizable.strings */ = {
@@ -1853,10 +1972,11 @@
 		D4563E822985FE9A003261FA /* Debug copy */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
-				CODE_SIGN_ENTITLEMENTS = Tumble/Tumble.entitlements;
+				CODE_SIGN_ENTITLEMENTS = App/App.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1865,7 +1985,7 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_TESTING_SEARCH_PATHS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Tumble/Info.plist;
+				INFOPLIST_FILE = App/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Tumble;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Camera is used for scanning QR codes for room booking functionality in Universities";
@@ -1882,11 +2002,12 @@
 				NETWORK_SETTINGS = testing;
 				NEW_SETTING = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.tumble;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Tumble;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -2014,10 +2135,11 @@
 		D4722154292454570063BDB7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
-				CODE_SIGN_ENTITLEMENTS = Tumble/Tumble.entitlements;
+				CODE_SIGN_ENTITLEMENTS = App/App.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -2026,7 +2148,7 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_TESTING_SEARCH_PATHS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Tumble/Info.plist;
+				INFOPLIST_FILE = App/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Tumble;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Camera is used for scanning QR codes for room booking functionality in Universities";
@@ -2043,11 +2165,12 @@
 				NETWORK_SETTINGS = testing;
 				NEW_SETTING = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.tumble;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Tumble;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -2057,10 +2180,11 @@
 		D4722155292454570063BDB7 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
-				CODE_SIGN_ENTITLEMENTS = Tumble/Tumble.entitlements;
+				CODE_SIGN_ENTITLEMENTS = App/App.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -2070,7 +2194,7 @@
 				ENABLE_TESTABILITY = YES;
 				ENABLE_TESTING_SEARCH_PATHS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Tumble/Info.plist;
+				INFOPLIST_FILE = App/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Tumble;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Camera is used for scanning QR codes for room booking functionality in Universities";
@@ -2087,11 +2211,123 @@
 				NETWORK_SETTINGS = production;
 				NEW_SETTING = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.tumble;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Tumble;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		D4D778ED2B8CE6DE00D82C94 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5QHM3X75YP;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Widget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Tumble Widget";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.example.tumble.tumble-widget";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		D4D778EE2B8CE6DE00D82C94 /* Debug copy */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5QHM3X75YP;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Widget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Tumble Widget";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.example.tumble.tumble-widget";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = "Debug copy";
+		};
+		D4D778EF2B8CE6DE00D82C94 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = WidgetExtensionRelease.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5QHM3X75YP;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Widget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Tumble Widget";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.example.tumble.tumble-widget";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -2111,12 +2347,22 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		D4722153292454570063BDB7 /* Build configuration list for PBXNativeTarget "Tumble" */ = {
+		D4722153292454570063BDB7 /* Build configuration list for PBXNativeTarget "App" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D4722154292454570063BDB7 /* Debug */,
 				D4563E822985FE9A003261FA /* Debug copy */,
 				D4722155292454570063BDB7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		D4D778F02B8CE6DE00D82C94 /* Build configuration list for PBXNativeTarget "WidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D4D778ED2B8CE6DE00D82C94 /* Debug */,
+				D4D778EE2B8CE6DE00D82C94 /* Debug copy */,
+				D4D778EF2B8CE6DE00D82C94 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;

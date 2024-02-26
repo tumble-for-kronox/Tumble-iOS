@@ -9,7 +9,7 @@ import SwiftUI
 import MijickPopupView
 
 @main
-struct TumbleApp: App {
+struct tumble_iosApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     
     init() {
