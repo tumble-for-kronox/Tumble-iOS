@@ -138,6 +138,7 @@
 		D46BB10A298AC31E00887A24 /* DetailsBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46BB109298AC31E00887A24 /* DetailsBuilder.swift */; };
 		D46BB112298B0E2800887A24 /* SettingsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46BB111298B0E2800887A24 /* SettingsButton.swift */; };
 		D46BB118298B21DA00887A24 /* InfoLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46BB117298B21DA00887A24 /* InfoLoading.swift */; };
+		D46CE0842B8D4C530069207A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D4CD0F0729D5DC9D00AB5FD0 /* Localizable.strings */; };
 		D4722149292454560063BDB7 /* tumble_iosApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4722148292454560063BDB7 /* tumble_iosApp.swift */; };
 		D472214D292454570063BDB7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D472214C292454570063BDB7 /* Assets.xcassets */; };
 		D4722161292455710063BDB7 /* KronoxManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D472215E292455710063BDB7 /* KronoxManager.swift */; };
@@ -1364,7 +1365,6 @@
 			children = (
 				D4D778E62B8CE6DE00D82C94 /* Assets.xcassets */,
 				D4D779142B8D12C000D82C94 /* Extensions */,
-				D4D779112B8D0F6400D82C94 /* Intents */,
 				D4D7790E2B8D0F5200D82C94 /* Model */,
 				D4D779082B8CFE0900D82C94 /* Views */,
 				D4D778E22B8CE6DD00D82C94 /* tumble_iosWidgetBundle.swift */,
@@ -1399,13 +1399,6 @@
 				D4D7790F2B8D0F5E00D82C94 /* EventEntry.swift */,
 			);
 			path = Model;
-			sourceTree = "<group>";
-		};
-		D4D779112B8D0F6400D82C94 /* Intents */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Intents;
 			sourceTree = "<group>";
 		};
 		D4D779142B8D12C000D82C94 /* Extensions */ = {
@@ -1715,6 +1708,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D46CE0842B8D4C530069207A /* Localizable.strings in Resources */,
 				D4D778E72B8CE6DE00D82C94 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

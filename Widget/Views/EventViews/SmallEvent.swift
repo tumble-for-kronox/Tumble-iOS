@@ -11,15 +11,19 @@ import WidgetKit
 
 struct SmallEvent: View {
     let event: Event
-    
     var body: some View {
         HStack {
-            VStack(alignment: .leading, spacing: 10) {
-                VStack(alignment: .leading) {
+            VStack(alignment: .leading, spacing: 7.5) {
+                VStack(alignment: .leading, spacing: 7.5) {
                     Text(event.title)
-                        .font(.system(size: 16, weight: .semibold))
+                        .font(.system(size: 14, weight: .semibold))
                         .foregroundColor(.onSurface)
-                        .lineLimit(4)
+                        .lineLimit(3)
+                    Text(event.course?.englishName ?? "")
+                        .lineLimit(3)
+                        .truncationMode(.tail)
+                        .font(.system(size: 12))
+                        .foregroundColor(.onSurface.opacity(0.7))
                 }
                 Spacer()
                 if let timeFrom = event.from.convertToHoursAndMinutesISOString(),
@@ -78,6 +82,5 @@ struct SmallEvent_Previews: PreviewProvider {
             lastModified: "2024-01-30T10:14:04Z"
         ))
         .previewContext(WidgetPreviewContext(family: .systemSmall))
-        .widgetBackground(Color.surface)
     }
 }
