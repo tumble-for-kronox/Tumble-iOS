@@ -62,9 +62,17 @@ struct MediumEvent: View {
                             Circle()
                                 .foregroundColor(event.isSpecial ? Color.red : event.course?.color.toColor())
                                 .frame(width: 7, height: 7)
-                            Text("\(timeFrom) - \(timeTo)")
-                                .font(.system(size: 14, weight: .semibold))
-                                .foregroundColor(.onSurface)
+                            HStack {
+                                Text("\(timeFrom)")
+                                    .font(.system(size: 14, weight: .semibold))
+                                    .foregroundColor(.onSurface)
+                                Image(systemName: "arrow.right")
+                                    .font(.system(size: 10, weight: .semibold))
+                                    .foregroundColor(.onSurface)
+                                Text("\(timeTo)")
+                                    .font(.system(size: 14, weight: .semibold))
+                                    .foregroundColor(.onSurface)
+                            }
                         }
                     }
                 }

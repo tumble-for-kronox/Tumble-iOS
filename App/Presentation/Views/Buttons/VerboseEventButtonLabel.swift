@@ -14,10 +14,10 @@ struct VerboseEventButtonLabel: View {
         HStack {
             VStack(alignment: .leading, spacing: 20) {
                 VStack(alignment: .leading, spacing: 2) {
-                    Text(event.course?.englishName ?? "")
+                    Text(event.title)
                         .font(.system(size: 17, weight: .semibold))
                         .foregroundColor(.onSurface)
-                    Text(event.title)
+                    Text(event.course?.englishName ?? "")
                         .lineLimit(1)
                         .truncationMode(.tail)
                         .font(.system(size: 15))
@@ -60,9 +60,17 @@ struct VerboseEventButtonLabel: View {
                             Circle()
                                 .foregroundColor(event.isSpecial ? Color.red : event.course?.color.toColor())
                                 .frame(width: 7, height: 7)
-                            Text("\(timeFrom) - \(timeTo)")
-                                .font(.system(size: 14, weight: .semibold))
-                                .foregroundColor(.onSurface)
+                            HStack {
+                                Text("\(timeFrom)")
+                                    .font(.system(size: 14, weight: .semibold))
+                                    .foregroundColor(.onSurface)
+                                Image(systemName: "arrow.right")
+                                    .font(.system(size: 10, weight: .semibold))
+                                    .foregroundColor(.onSurface)
+                                Text("\(timeTo)")
+                                    .font(.system(size: 14, weight: .semibold))
+                                    .foregroundColor(.onSurface)
+                            }
                         }
                     }
                 }

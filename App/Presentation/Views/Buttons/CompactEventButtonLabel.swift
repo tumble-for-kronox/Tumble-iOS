@@ -13,15 +13,22 @@ struct CompactEventButtonLabel: View {
     
     var body: some View {
         HStack(spacing: 0) {
-            if let time = event.from.convertToHoursAndMinutesISOString() {
+            if let timeFrom = event.from.convertToHoursAndMinutesISOString(),
+               let timeTo = event.to.convertToHoursAndMinutesISOString() {
                 HStack {
-                    Circle()
-                        .foregroundColor(event.isSpecial ? Color.red : color)
-                        .frame(width: 7, height: 7)
-                        .padding(.trailing, 0)
-                    Text(time)
-                        .font(.system(size: 16, weight: .semibold))
-                        .foregroundColor(.onSurface)
+                    
+                    VStack (alignment: .center, spacing: 0) {
+                        Text("\(timeFrom)")
+                            .font(.system(size: 14, weight: .semibold))
+                            .foregroundColor(.onSurface)
+                        Image(systemName: "arrow.down")
+                            .font(.system(size: 10, weight: .semibold))
+                            .foregroundColor(.onSurface)
+                            .padding(.vertical, 5)
+                        Text("\(timeTo)")
+                            .font(.system(size: 14, weight: .semibold))
+                            .foregroundColor(.onSurface)
+                    }
                 }
                 .frame(width: 65)
                 .padding(.horizontal)
@@ -30,7 +37,7 @@ struct CompactEventButtonLabel: View {
                 .foregroundColor(.onSurface)
             VStack(alignment: .leading, spacing: 10) {
                 HStack {
-                    Text(event.course?.englishName ?? "")
+                    Text(event.title)
                         .font(.system(size: 17, weight: .medium))
                         .foregroundColor(.onSurface)
                         .lineLimit(1)
