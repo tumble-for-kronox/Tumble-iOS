@@ -7,6 +7,7 @@
 
 import RealmSwift
 import SwiftUI
+import WidgetKit
 
 struct BookmarksSettings: View {
     @ObservedObject var parentViewModel: SettingsViewModel
@@ -33,5 +34,6 @@ struct BookmarksSettings: View {
         let assignedEvents = Array(schedules).flatMap { $0.days }.flatMap { $0.events }
         parentViewModel.removeNotifications(for: id, referencing: assignedEvents)
         $schedules.remove(atOffsets: offsets)
+        WidgetCenter.shared.reloadAllTimelines()
     }
 }

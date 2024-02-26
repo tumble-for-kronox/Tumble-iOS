@@ -1,23 +1,24 @@
 //
-//  VerboseEventButtonLabel.swift
+//  VerboseEventResponseButtonLabel.swift
 //  Tumble
 //
-//  Created by Adis Veletanlic on 2023-03-20.
+//  Created by Adis Veletanlic on 2023-04-17.
 //
 
 import SwiftUI
 
-struct VerboseEventButtonLabel: View {
-    let event: Event
+struct VerboseEventResponseButtonLabel: View {
+    let event: Response.Event
+    let color: Color
     
     var body: some View {
         HStack {
             VStack(alignment: .leading, spacing: 20) {
                 VStack(alignment: .leading, spacing: 2) {
-                    Text(event.course?.englishName ?? "")
+                    Text(event.title)
                         .font(.system(size: 17, weight: .semibold))
                         .foregroundColor(.onSurface)
-                    Text(event.title)
+                    Text(event.course.englishName)
                         .lineLimit(1)
                         .truncationMode(.tail)
                         .font(.system(size: 15))
@@ -48,7 +49,7 @@ struct VerboseEventButtonLabel: View {
                         Image(systemName: "mappin.and.ellipse")
                             .font(.system(size: 15))
                             .foregroundColor(.onSurface)
-                        Text(event.locations.first?.locationId.capitalized ?? NSLocalizedString("Unknown", comment: ""))
+                        Text(event.locations.first?.id.capitalized ?? NSLocalizedString("Unknown", comment: ""))
                             .font(.system(size: 15, weight: .semibold))
                             .foregroundColor(.onSurface)
                     }
@@ -58,11 +59,19 @@ struct VerboseEventButtonLabel: View {
                     {
                         HStack {
                             Circle()
-                                .foregroundColor(event.isSpecial ? Color.red : event.course?.color.toColor())
+                                .foregroundColor(event.isSpecial ? Color.red : color)
                                 .frame(width: 7, height: 7)
-                            Text("\(timeFrom) - \(timeTo)")
-                                .font(.system(size: 14, weight: .semibold))
-                                .foregroundColor(.onSurface)
+                            HStack {
+                                Text("\(timeFrom)")
+                                    .font(.system(size: 14, weight: .semibold))
+                                    .foregroundColor(.onSurface)
+                                Image(systemName: "arrow.right")
+                                    .font(.system(size: 10, weight: .semibold))
+                                    .foregroundColor(.onSurface)
+                                Text("\(timeTo)")
+                                    .font(.system(size: 14, weight: .semibold))
+                                    .foregroundColor(.onSurface)
+                            }
                         }
                     }
                 }

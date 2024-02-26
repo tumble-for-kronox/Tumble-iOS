@@ -1,21 +1,22 @@
 //
-//  VerboseEventResponseButtonLabel.swift
-//  Tumble
+//  Medium.swift
+//  WidgetExtension
 //
-//  Created by Adis Veletanlic on 2023-04-17.
+//  Created by Adis Veletanlic on 2/26/24.
 //
 
 import SwiftUI
+import RealmSwift
+import WidgetKit
 
-struct VerboseEventResponseButtonLabel: View {
-    let event: Response.Event
-    let color: Color
+struct MediumEvent: View {
+    let event: Event
     
     var body: some View {
         HStack {
             VStack(alignment: .leading, spacing: 20) {
                 VStack(alignment: .leading, spacing: 2) {
-                    Text(event.course.englishName)
+                    Text(event.course?.englishName ?? "")
                         .font(.system(size: 17, weight: .semibold))
                         .foregroundColor(.onSurface)
                     Text(event.title)
@@ -49,7 +50,7 @@ struct VerboseEventResponseButtonLabel: View {
                         Image(systemName: "mappin.and.ellipse")
                             .font(.system(size: 15))
                             .foregroundColor(.onSurface)
-                        Text(event.locations.first?.id.capitalized ?? NSLocalizedString("Unknown", comment: ""))
+                        Text(event.locations.first?.locationId.capitalized ?? NSLocalizedString("Unknown", comment: ""))
                             .font(.system(size: 15, weight: .semibold))
                             .foregroundColor(.onSurface)
                     }
@@ -59,21 +60,49 @@ struct VerboseEventResponseButtonLabel: View {
                     {
                         HStack {
                             Circle()
-                                .foregroundColor(event.isSpecial ? Color.red : color)
+                                .foregroundColor(event.isSpecial ? Color.red : event.course?.color.toColor())
                                 .frame(width: 7, height: 7)
-                            Text("\(timeFrom) - \(timeTo)")
-                                .font(.system(size: 14, weight: .semibold))
-                                .foregroundColor(.onSurface)
+                            HStack {
+                                Text("\(timeFrom)")
+                                    .font(.system(size: 14, weight: .semibold))
+                                    .foregroundColor(.onSurface)
+                                Image(systemName: "arrow.right")
+                                    .font(.system(size: 10, weight: .semibold))
+                                    .foregroundColor(.onSurface)
+                                Text("\(timeTo)")
+                                    .font(.system(size: 14, weight: .semibold))
+                                    .foregroundColor(.onSurface)
+                            }
                         }
                     }
                 }
             }
-            .padding()
-            .frame(height: 160, alignment: .leading)
+            .frame(alignment: .leading)
             .frame(maxWidth: .infinity)
-            .background(event.isSpecial ? Color.red.opacity(0.2) : Color.surface)
             .background(Color.surface)
-            .cornerRadius(15)
         }
+    }
+}
+
+struct MediumEvent_Previews: PreviewProvider {
+    static var previews: some View {
+        MediumEvent(event: Event(
+            eventId: "BokningsId_20230627_000000085",
+            title: "DA381A, Test 2 Big data – theory. Written Re-re-exam",
+            course: Course(
+                courseId: "DA381A 2023 45 50 DAG NML en-",
+                swedishName: "Analys av stora datamängder",
+                englishName: "Analys av stora datamängder",
+                color: "#8B0000"
+            ),
+            from: "2024-06-14T07:00:00Z",
+            to: "2024-06-14T12:00:00Z",
+            locations: RealmSwift.List<Location>(),
+            teachers: RealmSwift.List<Teacher>(),
+            isSpecial: true,
+            lastModified: "2024-01-30T10:14:04Z"
+        ))
+        .previewContext(WidgetPreviewContext(family: .systemMedium))
+        .widgetBackground(Color.surface)
     }
 }
