@@ -9,8 +9,8 @@ import WidgetKit
 import SwiftUI
 
 @main
-struct tumble_widgetBundle: WidgetBundle {
+struct tumble_iosWidgetBundle: WidgetBundle {
     var body: some Widget {
-        tumble_widget()
+        tumble_iosWidget()
     }
 }
