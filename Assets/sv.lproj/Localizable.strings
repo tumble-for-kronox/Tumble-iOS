@@ -360,7 +360,7 @@
 
 "No date"="Inget datum";
 
-"%@, from %@ - %@"="%@, från %@ - %@";
+"%@, from %@ to %@"="%@, från %@ till %@";
 
 "Available until"="Tillgänglig till";
 
@@ -377,8 +377,6 @@
 "Confirmation"="Bekräftelse";
 
 "(missing)"="(saknas)";
-
-"%@, from %@ - %@"="%@, från %@ - %@";
 
 "Confirm booking"="Bekräfta bokningen";
 

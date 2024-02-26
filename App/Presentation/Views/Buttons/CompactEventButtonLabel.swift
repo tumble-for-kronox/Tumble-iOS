@@ -24,7 +24,7 @@ struct CompactEventButtonLabel: View {
                         Image(systemName: "arrow.down")
                             .font(.system(size: 10, weight: .semibold))
                             .foregroundColor(.onSurface)
-                            .padding(.vertical, 5)
+                            .padding(.vertical, 7.5)
                         Text("\(timeTo)")
                             .font(.system(size: 14, weight: .semibold))
                             .foregroundColor(.onSurface)

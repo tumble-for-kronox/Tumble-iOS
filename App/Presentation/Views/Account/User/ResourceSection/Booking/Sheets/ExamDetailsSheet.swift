@@ -31,7 +31,7 @@ struct ExamDetailsSheet: View {
                 let date = event.eventStart.toDate() ?? NSLocalizedString("No date", comment: "")
                 let start = event.eventStart.convertToHoursAndMinutes() ?? NSLocalizedString("(no time)", comment: "")
                 let end = event.eventEnd.convertToHoursAndMinutes() ?? NSLocalizedString("(no time)", comment: "")
-                Text(String(format: NSLocalizedString("%@, from %@ - %@", comment: ""), date, start, end))
+                Text(String(format: NSLocalizedString("%@, from %@ to %@", comment: ""), date, start, end))
                     .font(.system(size: 16))
                     .foregroundColor(.onSurface)
 

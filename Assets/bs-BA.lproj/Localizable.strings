@@ -360,7 +360,7 @@
 
 "No date"="Nema datuma";
 
-"%@, from %@ - %@"="%@, od %@ - %@";
+"%@, from %@ to %@"="%@, od %@ do %@";
 
 "Available until"="Dostupno do";
 
@@ -377,8 +377,6 @@
 "Confirmation"="Potvrda";
 
 "(missing)"="(nedostaje)";
-
-"%@, from %@ - %@"="%@, od %@ - %@";
 
 "Confirm booking"="Potvrdite rezervaciju";
 
