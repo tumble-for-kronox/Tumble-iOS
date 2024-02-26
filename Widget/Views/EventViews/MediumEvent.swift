@@ -69,7 +69,6 @@ struct MediumEvent: View {
                     }
                 }
             }
-            .padding(.horizontal, 10)
             .frame(alignment: .leading)
             .frame(maxWidth: .infinity)
             .background(Color.surface)

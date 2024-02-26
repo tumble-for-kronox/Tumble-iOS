@@ -13,35 +13,38 @@ struct SmallEvent: View {
     let event: Event
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 10) {
-            VStack(alignment: .leading, spacing: 2) {
-                Text(event.course?.englishName ?? "")
-                    .font(.system(size: 16, weight: .semibold))
-                    .foregroundColor(.onSurface)
+        HStack {
+            VStack(alignment: .leading, spacing: 10) {
+                VStack(alignment: .leading) {
+                    Text(event.title)
+                        .font(.system(size: 16, weight: .semibold))
+                        .foregroundColor(.onSurface)
+                        .lineLimit(4)
+                }
+                Spacer()
+                if let timeFrom = event.from.convertToHoursAndMinutesISOString(),
+                   let timeTo = event.to.convertToHoursAndMinutesISOString()
+                {
+                    HStack {
+                        Image(systemName: "mappin.and.ellipse")
+                            .font(.system(size: 12))
+                            .foregroundColor(.onSurface)
+                        Text(event.locations.first?.locationId.capitalized ?? NSLocalizedString("Unknown", comment: ""))
+                            .font(.system(size: 12, weight: .semibold))
+                            .foregroundColor(.onSurface)
+                    }
+                    HStack {
+                        Circle()
+                            .foregroundColor(event.isSpecial ? Color.red : event.course?.color.toColor())
+                            .frame(width: 7, height: 7)
+                        Text("\(timeFrom) - \(timeTo)")
+                            .font(.system(size: 12, weight: .semibold))
+                            .foregroundColor(.onSurface)
+                        }
+                    }
             }
             Spacer()
-            if let timeFrom = event.from.convertToHoursAndMinutesISOString(),
-               let timeTo = event.to.convertToHoursAndMinutesISOString()
-            {
-                HStack {
-                    Image(systemName: "mappin.and.ellipse")
-                        .font(.system(size: 12))
-                        .foregroundColor(.onSurface)
-                    Text(event.locations.first?.locationId.capitalized ?? NSLocalizedString("Unknown", comment: ""))
-                        .font(.system(size: 14, weight: .semibold))
-                        .foregroundColor(.onSurface)
-                }
-                HStack {
-                    Circle()
-                        .foregroundColor(event.isSpecial ? Color.red : event.course?.color.toColor())
-                        .frame(width: 7, height: 7)
-                    Text("\(timeFrom) - \(timeTo)")
-                        .font(.system(size: 14, weight: .semibold))
-                        .foregroundColor(.onSurface)
-                    }
-                }
         }
-        .padding(5)
         .frame(alignment: .leading)
         .frame(maxWidth: .infinity)
         .background(Color.surface)

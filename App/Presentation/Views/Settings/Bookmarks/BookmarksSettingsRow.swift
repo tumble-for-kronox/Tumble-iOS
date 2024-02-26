@@ -8,6 +8,7 @@
 import RealmSwift
 import SwiftUI
 import SwipeActions
+import WidgetKit
 
 struct BookmarkSettingsRow: View {
     @ObservedRealmObject var schedule: Schedule
@@ -20,7 +21,11 @@ struct BookmarkSettingsRow: View {
                 Toggle(isOn: $schedule.toggled) {
                     Text(schedule.scheduleId)
                         .font(.system(size: 18, weight: .regular))
-                }.tint(.primary)
+                }
+                .tint(.primary)
+                .onChange(of: schedule.toggled) { _ in
+                    WidgetCenter.shared.reloadAllTimelines()
+                }
             }
             .padding(10)
             .frame(maxWidth: .infinity)

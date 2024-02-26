@@ -6,12 +6,13 @@
 //
 
 import SwiftUI
+import RealmSwift
 import WidgetKit
 
 struct WidgetView : View {
-    let family: WidgetFamily
+    @Environment(\.widgetFamily) var family
     let event: Event
-
+    
     @ViewBuilder
     var body: some View {
         switch family {
@@ -22,6 +23,5 @@ struct WidgetView : View {
         default:
             Text("Some other WidgetFamily in the future.")
         }
-
     }
 }
