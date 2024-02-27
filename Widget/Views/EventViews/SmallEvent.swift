@@ -36,7 +36,7 @@ struct SmallEvent: View {
                                 .font(.system(size: 12))
                                 .foregroundColor(.onSurface)
                             Text(dateFormatterSemi.string(from: date))
-                                .font(.system(size: 12))
+                                .font(.system(size: 12, weight: .semibold))
                                 .foregroundColor(.onSurface)
                             }
                         }

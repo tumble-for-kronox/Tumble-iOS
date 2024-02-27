@@ -28,11 +28,21 @@ struct Provider: TimelineProvider {
         let realmManager = RealmManager()
         let schedules = realmManager.getAllSchedules().filter { $0.toggled }
         let allEvents = schedules.flatMap { $0.days.flatMap { $0.events } }
-        let dateFormatter = dateFormatterEvent
+        let currentDateTime = Date()
         
-        return allEvents.min(by: { (event1, event2) -> Bool in
-            guard let date1 = dateFormatter.date(from: event1.from),
-                  let date2 = dateFormatter.date(from: event2.from) else {
+        let futureEvents = allEvents.filter {
+            guard let dateComponents = $0.dateComponents,
+                  let eventDate = Calendar.current.date(from: dateComponents) else {
+                return false
+            }
+            return eventDate > currentDateTime
+        }
+        
+        return futureEvents.min(by: { (event1, event2) -> Bool in
+            guard let dateComponents1 = event1.dateComponents,
+                  let dateComponents2 = event2.dateComponents,
+                  let date1 = Calendar.current.date(from: dateComponents1),
+                  let date2 = Calendar.current.date(from: dateComponents2) else {
                 return false
             }
             return date1 < date2
