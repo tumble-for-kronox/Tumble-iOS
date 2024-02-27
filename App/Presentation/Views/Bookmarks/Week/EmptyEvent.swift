@@ -15,6 +15,8 @@ struct EmptyEvent: View {
                 .frame(width: 7, height: 7)
                 .padding(.trailing, 0)
             Text(NSLocalizedString("No events this day", comment: ""))
+                .font(.system(size: 14, weight: .regular))
+                .foregroundColor(.onSurface)
             Spacer()
         }
         .padding()
