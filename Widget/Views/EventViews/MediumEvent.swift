@@ -14,7 +14,7 @@ struct MediumEvent: View {
     
     var body: some View {
         HStack {
-            VStack(alignment: .leading, spacing: 15) {
+            VStack(alignment: .leading, spacing: 10) {
                 VStack(alignment: .leading, spacing: 2) {
                     Text(event.title)
                         .font(.system(size: 16, weight: .semibold))
