@@ -33,6 +33,7 @@ final class ParentViewModel: ObservableObject {
     @Published var authSchoolId: Int = -1
     @Published var userNotOnBoarded: Bool = false
     @Published var updateAttempted: Bool = false
+    @Published var showingOneTimePopup: Bool = false
         
     private var schedulesToken: NotificationToken? = nil
     private var cancellables = Set<AnyCancellable>()
@@ -40,6 +41,15 @@ final class ParentViewModel: ObservableObject {
     init() {
         setupNotificationObserver()
         setupPublishers()
+        checkOneTimeDevPopup()
+    }
+    
+    private func checkOneTimeDevPopup() {
+        if preferenceService.showOneTimePopup() {
+            showingOneTimePopup = true
+            OneTimePopup().showAndStack()
+            preferenceService.setShowOneTimePopup(show: false)
+        }
     }
     
     /// Creates an observer to listen for the press of a local
@@ -49,10 +59,24 @@ final class ParentViewModel: ObservableObject {
         NotificationCenter.default
             .addObserver(
                 self,
+                selector: #selector(handleUnBlurPopup(_:)),
+                name: .unBlurOneTimePopup,
+                object: nil
+            )
+        NotificationCenter.default
+            .addObserver(
+                self,
                 selector: #selector(handleEventNotification(_:)),
                 name: .eventReceived,
                 object: nil
             )
+    }
+    
+    /// De-blurs background after popup
+    @objc private func handleUnBlurPopup(_ notifcation: Notification) {
+        DispatchQueue.main.async { [weak self] in
+            self?.showingOneTimePopup = false
+        }
     }
     
     /// Opens a specific `Event` sheet from a local notification

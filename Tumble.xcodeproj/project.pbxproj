@@ -177,6 +177,7 @@
 		D4A550D52994755900028BCF /* BookmarkButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A550D42994755900028BCF /* BookmarkButton.swift */; };
 		D4ABD272298C2E32002FD8F5 /* DayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4ABD271298C2E32002FD8F5 /* DayExtension.swift */; };
 		D4ACD86E2AD9436C00780998 /* MijickPopupView in Frameworks */ = {isa = PBXBuildFile; productRef = D4ACD86D2AD9436C00780998 /* MijickPopupView */; };
+		D4B20A802BDD1F8B001817F0 /* OneTimePopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B20A7F2BDD1F8B001817F0 /* OneTimePopup.swift */; };
 		D4B4B62D29C37C130098D175 /* ProgrammeCardStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B4B62C29C37C130098D175 /* ProgrammeCardStyle.swift */; };
 		D4B7F25629CC60EB006E2449 /* TimeslotCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B7F25529CC60EB006E2449 /* TimeslotCard.swift */; };
 		D4B7F25829CC6135006E2449 /* BookButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B7F25729CC6135006E2449 /* BookButtonStyle.swift */; };
@@ -469,6 +470,7 @@
 		D4A550D029946B8200028BCF /* Bookmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bookmark.swift; sourceTree = "<group>"; };
 		D4A550D42994755900028BCF /* BookmarkButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkButton.swift; sourceTree = "<group>"; };
 		D4ABD271298C2E32002FD8F5 /* DayExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayExtension.swift; sourceTree = "<group>"; };
+		D4B20A7F2BDD1F8B001817F0 /* OneTimePopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneTimePopup.swift; sourceTree = "<group>"; };
 		D4B4B62C29C37C130098D175 /* ProgrammeCardStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgrammeCardStyle.swift; sourceTree = "<group>"; };
 		D4B7F25529CC60EB006E2449 /* TimeslotCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeslotCard.swift; sourceTree = "<group>"; };
 		D4B7F25729CC6135006E2449 /* BookButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookButtonStyle.swift; sourceTree = "<group>"; };
@@ -1506,6 +1508,7 @@
 			isa = PBXGroup;
 			children = (
 				D48456862A62DB2800F5B5C4 /* PopupToast.swift */,
+				D4B20A7F2BDD1F8B001817F0 /* OneTimePopup.swift */,
 			);
 			path = Popup;
 			sourceTree = "<group>";
@@ -1734,6 +1737,7 @@
 				D4BAE5F82924636500143717 /* School.swift in Sources */,
 				D439F8A329DBAA59006332AB /* HomeNotAvailable.swift in Sources */,
 				D430F74729C654A200E30E48 /* BookmarkCalendarDetail.swift in Sources */,
+				D4B20A802BDD1F8B001817F0 /* OneTimePopup.swift in Sources */,
 				D4F631922A9F5FBF00C87F5D /* CloseButtonStyle.swift in Sources */,
 				D414B23429D88C1100EA8F46 /* PullToRefreshIndicator.swift in Sources */,
 				D4A328DE29CD10F300945AF4 /* NetworkUtilities.swift in Sources */,

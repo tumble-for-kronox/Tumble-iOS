@@ -10,4 +10,5 @@ import Foundation
 extension Notification.Name {
     static let eventReceived = Notification.Name("eventReceived")
     static let resourceBooked = Notification.Name("resourceBooked")
+    static let unBlurOneTimePopup = Notification.Name("unBlurPopup")
 }

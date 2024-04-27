@@ -63,6 +63,11 @@ class PreferenceService {
         UserDefaults.standard.synchronize()
     }
     
+    func setShowOneTimePopup(show: Bool = false) {
+        UserDefaults.standard.set(show, forKey: StoreKey.showOneTimePopup.rawValue)
+        UserDefaults.standard.synchronize()
+    }
+    
     // ----------- GET -----------
     func getDefault(key: String) -> Any? {
         return UserDefaults.standard.object(forKey: key)
@@ -70,6 +75,10 @@ class PreferenceService {
     
     func getLastUpdated() -> Date? {
         return UserDefaults.standard.object(forKey: StoreKey.lastUpdated.rawValue) as? Date
+    }
+    
+    func showOneTimePopup() -> Bool {
+        return UserDefaults.standard.object(forKey: StoreKey.showOneTimePopup.rawValue) as? Bool ?? true
     }
     
     func getDefaultViewType() -> ViewType {
