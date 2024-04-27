@@ -39,7 +39,7 @@ final class ParentViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     
     init() {
-        setupNotificationObserver()
+        setupNotificationObservers()
         setupPublishers()
         checkOneTimeDevPopup()
     }
@@ -52,10 +52,8 @@ final class ParentViewModel: ObservableObject {
         }
     }
     
-    /// Creates an observer to listen for the press of a local
-    /// notification outside the app, which will then open the respective
-    /// event as soon as the user is transferred to the app.
-    private func setupNotificationObserver() {
+    /// Creates two observers for event notifications
+    private func setupNotificationObservers() {
         NotificationCenter.default
             .addObserver(
                 self,
