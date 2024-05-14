@@ -33,19 +33,34 @@ final class ParentViewModel: ObservableObject {
     @Published var authSchoolId: Int = -1
     @Published var userNotOnBoarded: Bool = false
     @Published var updateAttempted: Bool = false
+    @Published var showingOneTimePopup: Bool = false
         
     private var schedulesToken: NotificationToken? = nil
     private var cancellables = Set<AnyCancellable>()
     
     init() {
-        setupNotificationObserver()
+        setupNotificationObservers()
         setupPublishers()
+        checkOneTimeDevPopup()
     }
     
-    /// Creates an observer to listen for the press of a local
-    /// notification outside the app, which will then open the respective
-    /// event as soon as the user is transferred to the app.
-    private func setupNotificationObserver() {
+    private func checkOneTimeDevPopup() {
+        if preferenceService.showOneTimePopup() {
+            showingOneTimePopup = true
+            OneTimePopup().showAndStack()
+            preferenceService.setShowOneTimePopup(show: false)
+        }
+    }
+    
+    /// Creates two observers for event notifications
+    private func setupNotificationObservers() {
+        NotificationCenter.default
+            .addObserver(
+                self,
+                selector: #selector(handleUnBlurPopup(_:)),
+                name: .unBlurOneTimePopup,
+                object: nil
+            )
         NotificationCenter.default
             .addObserver(
                 self,
@@ -53,6 +68,13 @@ final class ParentViewModel: ObservableObject {
                 name: .eventReceived,
                 object: nil
             )
+    }
+    
+    /// De-blurs background after popup
+    @objc private func handleUnBlurPopup(_ notifcation: Notification) {
+        DispatchQueue.main.async { [weak self] in
+            self?.showingOneTimePopup = false
+        }
     }
     
     /// Opens a specific `Event` sheet from a local notification
