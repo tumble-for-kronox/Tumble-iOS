@@ -213,7 +213,6 @@
 		D4D778F82B8CF52600D82C94 /* Course.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FFCC2729EDAEC200708CC0 /* Course.swift */; };
 		D4D778F92B8CF52600D82C94 /* Teacher.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FFCC2929EDAEC900708CC0 /* Teacher.swift */; };
 		D4D778FA2B8CF52600D82C94 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FFCC2B29EDAEF200708CC0 /* Location.swift */; };
-		D4D778FC2B8CF53800D82C94 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = D4D778FB2B8CF53800D82C94 /* Realm */; };
 		D4D778FE2B8CF53800D82C94 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = D4D778FD2B8CF53800D82C94 /* RealmSwift */; };
 		D4D778FF2B8CF67E00D82C94 /* RealmConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D3368529F66E3900933D38 /* RealmConfig.swift */; };
 		D4D779002B8CF67E00D82C94 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D3368229F66E0000933D38 /* RealmManager.swift */; };
@@ -264,7 +263,6 @@
 		D4F631922A9F5FBF00C87F5D /* CloseButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F631912A9F5FBF00C87F5D /* CloseButtonStyle.swift */; };
 		D4FCD14B2995AD64009D2987 /* UIColorWellExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FCD14A2995AD64009D2987 /* UIColorWellExtension.swift */; };
 		D4FCD14E2995ADFE009D2987 /* UIColorWellHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FCD14D2995ADFE009D2987 /* UIColorWellHelper.swift */; };
-		D4FFCC1D29EDA9A700708CC0 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = D4FFCC1C29EDA9A700708CC0 /* Realm */; };
 		D4FFCC1F29EDA9A700708CC0 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = D4FFCC1E29EDA9A700708CC0 /* RealmSwift */; };
 		D4FFCC2229EDA9E200708CC0 /* Schedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FFCC2129EDA9E200708CC0 /* Schedule.swift */; };
 		D4FFCC2429EDA9F000708CC0 /* Day.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FFCC2329EDA9F000708CC0 /* Day.swift */; };
@@ -559,7 +557,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D4FFCC1D29EDA9A700708CC0 /* Realm in Frameworks */,
 				D473870129C88E4F0035CD4C /* FirebaseMessaging in Frameworks */,
 				D4FFCC1F29EDA9A700708CC0 /* RealmSwift in Frameworks */,
 				D47386FF29C88E4F0035CD4C /* FirebaseAnalytics in Frameworks */,
@@ -575,7 +572,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D4D778FE2B8CF53800D82C94 /* RealmSwift in Frameworks */,
-				D4D778FC2B8CF53800D82C94 /* Realm in Frameworks */,
 				D4D778E02B8CE6DD00D82C94 /* SwiftUI.framework in Frameworks */,
 				D4D778DE2B8CE6DD00D82C94 /* WidgetKit.framework in Frameworks */,
 			);
@@ -1612,7 +1608,6 @@
 				D430F74229C615DC00E30E48 /* FSCalendar */,
 				D47386FE29C88E4F0035CD4C /* FirebaseAnalytics */,
 				D473870029C88E4F0035CD4C /* FirebaseMessaging */,
-				D4FFCC1C29EDA9A700708CC0 /* Realm */,
 				D4FFCC1E29EDA9A700708CC0 /* RealmSwift */,
 				D4D04DFC29FB29BC008858F0 /* SwipeActions */,
 				D4ACD86D2AD9436C00780998 /* MijickPopupView */,
@@ -1635,7 +1630,6 @@
 			);
 			name = WidgetExtension;
 			packageProductDependencies = (
-				D4D778FB2B8CF53800D82C94 /* Realm */,
 				D4D778FD2B8CF53800D82C94 /* RealmSwift */,
 			);
 			productName = "tumble-widgetExtension";
@@ -2096,7 +2090,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.6.2;
+				MARKETING_VERSION = 3.7.0;
 				NETWORK_SETTINGS = testing;
 				NEW_SETTING = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.tumble;
@@ -2259,7 +2253,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.6.2;
+				MARKETING_VERSION = 3.7.0;
 				NETWORK_SETTINGS = testing;
 				NEW_SETTING = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.tumble;
@@ -2305,7 +2299,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.6.2;
+				MARKETING_VERSION = 3.7.0;
 				NETWORK_SETTINGS = production;
 				NEW_SETTING = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.tumble;
@@ -2475,7 +2469,7 @@
 			repositoryURL = "https://github.com/apple/swift-log";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
+				minimumVersion = 1.6.1;
 			};
 		};
 		D430F74129C615DC00E30E48 /* XCRemoteSwiftPackageReference "FSCalendar" */ = {
@@ -2491,7 +2485,7 @@
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 9.0.0;
+				minimumVersion = 11.0.0;
 			};
 		};
 		D4ACD86C2AD9436C00780998 /* XCRemoteSwiftPackageReference "PopupView" */ = {
@@ -2499,7 +2493,7 @@
 			repositoryURL = "https://github.com/Mijick/PopupView.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 2.1.1;
+				minimumVersion = 2.7.0;
 			};
 		};
 		D4D04DFB29FB29BC008858F0 /* XCRemoteSwiftPackageReference "SwipeActions" */ = {
@@ -2515,7 +2509,7 @@
 			repositoryURL = "https://github.com/realm/realm-swift.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 10.38.0;
+				minimumVersion = 10.53.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -2551,20 +2545,10 @@
 			package = D4D04DFB29FB29BC008858F0 /* XCRemoteSwiftPackageReference "SwipeActions" */;
 			productName = SwipeActions;
 		};
-		D4D778FB2B8CF53800D82C94 /* Realm */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D4FFCC1B29EDA9A700708CC0 /* XCRemoteSwiftPackageReference "realm-swift" */;
-			productName = Realm;
-		};
 		D4D778FD2B8CF53800D82C94 /* RealmSwift */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D4FFCC1B29EDA9A700708CC0 /* XCRemoteSwiftPackageReference "realm-swift" */;
 			productName = RealmSwift;
-		};
-		D4FFCC1C29EDA9A700708CC0 /* Realm */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D4FFCC1B29EDA9A700708CC0 /* XCRemoteSwiftPackageReference "realm-swift" */;
-			productName = Realm;
 		};
 		D4FFCC1E29EDA9A700708CC0 /* RealmSwift */ = {
 			isa = XCSwiftPackageProductDependency;
