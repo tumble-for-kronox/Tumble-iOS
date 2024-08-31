@@ -13,8 +13,10 @@ extension NetworkSettings {
         let storedEnvironment = UserDefaults.standard.value(forKey: StoreKey.networkSettings.rawValue) as? String
         let resolvedEnvironment = storedEnvironment ?? defaultEnvironment
         switch resolvedEnvironment {
-        case "testing":
+        case "development":
             self = Environments.development
+        case "kubernetes":
+            self = Environments.kubernetes
         default:
             self = Environments.production
         }

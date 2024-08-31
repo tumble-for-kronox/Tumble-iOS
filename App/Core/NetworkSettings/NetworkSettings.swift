@@ -15,12 +15,17 @@ struct NetworkSettings {
     enum Environments {
         // Production URL
         static let production = NetworkSettings(
-            port: 443, scheme: "https", tumbleUrl: "tumble.hkr.se"
+            port: 443, scheme: "https", tumbleUrl: "app.tumbleforkronox.com"
         )
 
         // Debug URL
         static let development = NetworkSettings(
             port: 7036, scheme: "https", tumbleUrl: "localhost"
+        )
+        
+        // Port forward whatever the backend service is to port 80
+        static let kubernetes = NetworkSettings(
+            port: 80, scheme: "http", tumbleUrl: "localhost"
         )
     }
 
