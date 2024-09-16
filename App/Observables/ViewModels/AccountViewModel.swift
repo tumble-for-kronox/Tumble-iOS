@@ -131,7 +131,6 @@ final class AccountViewModel: ObservableObject {
                     self.completeUserEvent = Response.KronoxCompleteUserEvent(
                         upcomingEvents: self.completeUserEvent?.upcomingEvents,
                         registeredEvents: mutRegisteredEvents, // Insert modified events
-                        availableEvents: self.completeUserEvent?.availableEvents,
                         unregisteredEvents: mutUnregisteredEvents
                     )
                 }

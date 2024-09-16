@@ -129,7 +129,7 @@ public enum Response {
 
     struct KronoxCompleteUserEvent: Encodable, Decodable {
         let upcomingEvents: [UpcomingKronoxUserEvent]?
-        let registeredEvents, availableEvents, unregisteredEvents: [AvailableKronoxUserEvent]?
+        let registeredEvents, unregisteredEvents: [AvailableKronoxUserEvent]?
     }
 
     // MARK: - AvailableKronoxUserEvent
