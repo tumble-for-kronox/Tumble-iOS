@@ -20,12 +20,12 @@ struct NetworkSettings {
 
         // Debug URL
         static let development = NetworkSettings(
-            port: 7036, scheme: "https", tumbleUrl: "localhost"
+            port: 7036, scheme: "http", tumbleUrl: "localhost"
         )
         
         // Port forward whatever the backend service is to port 80
         static let kubernetes = NetworkSettings(
-            port: 80, scheme: "http", tumbleUrl: "localhost"
+            port: 32157, scheme: "http", tumbleUrl: "localhost"
         )
     }
 

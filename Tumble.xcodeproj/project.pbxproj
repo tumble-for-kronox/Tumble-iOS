@@ -199,6 +199,7 @@
 		D4D4CD17299CE57C00D48180 /* EventCardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D4CD16299CE57C00D48180 /* EventCardButton.swift */; };
 		D4D4CD1A299CE5FF00D48180 /* SectionDivider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D4CD19299CE5FF00D48180 /* SectionDivider.swift */; };
 		D4D4DD032927C7DA0083BB7F /* ProgrammeCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D4DD022927C7DA0083BB7F /* ProgrammeCard.swift */; };
+		D4D5F1202C860D1200301A90 /* RealmSwift in Embed Frameworks */ = {isa = PBXBuildFile; productRef = D4FFCC1E29EDA9A700708CC0 /* RealmSwift */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		D4D778DE2B8CE6DD00D82C94 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4D778DD2B8CE6DC00D82C94 /* WidgetKit.framework */; };
 		D4D778E02B8CE6DD00D82C94 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4D778DF2B8CE6DD00D82C94 /* SwiftUI.framework */; };
 		D4D778E32B8CE6DD00D82C94 /* tumble_iosWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D778E22B8CE6DD00D82C94 /* tumble_iosWidgetBundle.swift */; };
@@ -283,6 +284,27 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		D4D5F1212C860D1200301A90 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				D4D5F1202C860D1200301A90 /* RealmSwift in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D4D5F1232C860D1800301A90 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D4D778EC2B8CE6DE00D82C94 /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1596,6 +1618,7 @@
 				D4722142292454560063BDB7 /* Frameworks */,
 				D4722143292454560063BDB7 /* Resources */,
 				D4D778EC2B8CE6DE00D82C94 /* Embed Foundation Extensions */,
+				D4D5F1212C860D1200301A90 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1623,6 +1646,7 @@
 				D4D778D72B8CE6DC00D82C94 /* Sources */,
 				D4D778D82B8CE6DC00D82C94 /* Frameworks */,
 				D4D778D92B8CE6DC00D82C94 /* Resources */,
+				D4D5F1232C860D1800301A90 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);

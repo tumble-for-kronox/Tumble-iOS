@@ -8,12 +8,6 @@
 	<false/>
 	<key>Scene Configuration</key>
 	<dict/>
-	<key>UIAppFonts</key>
-	<array>
-		<string>Montserrat-Regular.ttf</string>
-		<string>Satoshi-Variable.ttf</string>
-		<string>VarelaRound-Regular.ttf</string>
-	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
