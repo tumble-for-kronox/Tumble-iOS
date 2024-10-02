@@ -14,6 +14,7 @@ struct LoginHeader: View {
                 .infoHeaderMedium()
             Text(NSLocalizedString("Please log in to continue", comment: ""))
                 .infoBodyMedium(opacity: 0.75)
+                .multilineTextAlignment(.center)
         }
         .frame(maxWidth: .infinity, alignment: .center)
         .padding(.bottom, 35)

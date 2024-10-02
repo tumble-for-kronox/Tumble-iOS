@@ -1,0 +1,22 @@
+
+<svg viewBox="0 0 100 130">
+
+<path id="building-p" d="m18 92L25 92L25 95L18 95L18 92Z" fill="#333333" fill-rule="nonzero" opacity="1" stroke="none"/>
+<path id="building-m" d="M18 81L21 81L21 91L18 91L18 81Z" fill="#333333" fill-rule="nonzero" opacity="1" stroke="none"/>
+<path id="building-l" d="m22 81L25 81L25 91L22 91L22 81Z" fill="#333333" fill-rule="nonzero" opacity="1" stroke="none"/>
+<path id="building-k" d="M21 33L26 33L26 39L21 39L21 33Z" fill="#333333" fill-rule="nonzero" opacity="1" stroke="none"/>
+<path id="building-o" d="m35 35L43 35L43 37L35 37L35 35Z" fill="#333333" fill-rule="nonzero" opacity="1" stroke="none"/>
+<path id="building-n" d="m34.822 111.553L42.1058 105.622L44 107.949L36.7162 113.88L34.822 111.553Z" fill="#333333" fill-rule="nonzero" opacity="1" stroke="none"/>
+<path id="building-e" d="m32 42L37 42L37 48L41 48L41 42L48 42L48 47L49 47L49 42L52 42L52 69L51 70L50 70L50 69L49 69L49 64L48 64L47 65L43 65L43 69L41 69L41 63L39 63L39 69L32 69L32 42Z" fill="#333333" fill-rule="nonzero" opacity="1" stroke="none"/>
+<path id="building-b" d="M57 47L62 47L62 50L64 50L64 53L58 53L58 54L65 54L65 55L66 55L66 58L61 59L61 61L65 61L65 60L66 59L67 59L68 58L74 58L74 59L79 59L79 61L78 62L75 62L76 64L75 64L76 66L75 66L76 68L75 69L67 69L67 68L66 67L65 67L65 65L64 64L64 63L62 63L62 68L61 69L61 70L58 70L58 68L57 68L56 64L56 49L57 49L57 47Z" fill="#333333" fill-rule="nonzero" opacity="1" stroke="none"/>
+<path id="building-d" d="m33 78L33 76L35 76L36 78L40 78L40 73L43 73L43 79L45 79L45 73L48 73L48 79L49 79L49 73L52 73L52 100L51 101L49 101L49 103L50 103L51 112L47 113L46 104L48 103L48 101L44 101L42 104L40 103L40 104L38 103L36 108L32 108L32 81L31 80L31 79L32 79L33 78Z" fill="#333333" fill-rule="nonzero" opacity="1" stroke="none"/>
+<path id="building-c" d="m61 13L61 12L66 12L66 18L69 18L69 12L74 12L74 32L73 32L73 33L56 33L56 19L57 19L57 18L60 18L60 13L61 13Z" fill="#333333" fill-rule="nonzero" opacity="1" stroke="none"/>
+<path id="building-f" d="M28 13L29 13L29 12L34 12L34 18L41 18L41 17L43 17L43 18L45 18L45 13L46 13L46 12L52 12L52 39L51 39L51 40L43 40L43 38L45 38L45 33L34 33L34 39L33 39L33 40L28 40L28 13Z" fill="#333333" fill-rule="nonzero" opacity="1" stroke="none"/>
+<path id="building-a" d="M56 75L57 75L57 74L60 74L60 75L68 75L68 77L70 77L72 74L78 74L78 75L80 75L80 80L79 81L80 82L79 83L80 84L80 88L79 89L79 90L80 90L80 96L79 96L79 97L75 97L73 98L68 98L65 97L56 97L56 75Z" fill="#333333" fill-rule="nonzero" opacity="1" stroke="none"/>
+<path d="M58 101L69 101L69 104L65 104L64 108L65 112L57 111L58 101Z" fill="#333333" fill-rule="nonzero" opacity="1" stroke="none"/>
+<path d="m16 71L18 72L20 68L18 67L16 71Z" fill="#333333" fill-rule="nonzero" opacity="1" stroke="none"/>
+<path d="m30 116L32 116L32 120L30 120L30 116Z" fill="#333333" fill-rule="nonzero" opacity="1" stroke="none"/>
+<path d="m30 122L36 122L36 124L30 124L30 122Z" fill="#333333" fill-rule="nonzero" opacity="1" stroke="none"/>
+<path d="m37 116L37 119L41 119L41 121L40 121L40 122L37 122L37 124L45 124L49 120L49 119L50 118L50 116L37 116Z" fill="#333333" fill-rule="nonzero" opacity="1" stroke="none"/>
+
+</svg>

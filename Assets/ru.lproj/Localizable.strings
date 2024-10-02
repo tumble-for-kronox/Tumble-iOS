@@ -1,0 +1,461 @@
+/* 
+  Localizable.strings
+  Tumble
+
+  Created by Adis Veletanlic on 2023-03-30.
+  
+*/
+
+"An unexpected error occurred. Please try again later."="Произошла ошибка. Повторите попытку позже.";
+
+"Confirm Activation"="Подтвердить Активацию";
+
+"Are you sure you want to enable this experimental feature?"="Вы уверены, что хотите включить эксперементальные функции?";
+
+"Yes"="Да";
+
+"Are you sure you want to log out of your account?"="Вы уверены, что хотите выйти из вашего аккаунта?";
+
+"No events for this week.."="Нет событий на этой неделе..";
+
+"No events this day"="Нет событий на сегодня";
+
+"Week"="Неделя";
+
+"w. %@"="н. %@";
+
+"No university selected"="Университет не выбран";
+
+"You must select a university before logging in"="Необходимо выбрать университет перед тем, как войти в аккаунт";
+
+"Share the app"="Поделиться приложением";
+
+"Copy link"="Скопировать ссылку";
+
+"Scan QR Code"="Отсканировать QR-код";
+
+"Cancel notifications for all events"="Выключить уведомления для всех событий";
+
+"Log out of your account"="Выйти из аккаунта";
+
+"This action will log you out of your KronoX account"="Это действие приведет к выходу из вашего аккаунта Kronox";
+
+"Some schedules could not be updated. Either due to missing authorization or network errors."="Некоторые расписания не удалось обновить. Либо из-за отсутствия авторизации, либо из-за сетевых ошибок.";
+
+"Bad server response."="Плохой ответ сервера.";
+
+"The server seems to be offline."="Похоже, что сервер выключен.";
+
+"Something went wrong on our end."="Что-то пошло не так на нашей стороне.";
+
+"Not connected to the internet."="Нет подключения к интернету.";
+
+"%@ at %@"="%@ в %@";
+
+"Your visible schedules do not contain any events"="Ваши видимые расписания не содержат никаких событий";
+
+"Continue"="Продолжить";
+
+"Search events"="Искать события";
+
+"Tumble on GitHub"="Tumble на Гитхабе";
+
+"Monday"="Понедельник";
+
+"Tuesday"="Вторник";
+
+"Wednesday"="Среда";
+
+"Thursday"="Четверг";
+
+"Friday"="Пятница";
+
+"Saturday"="Суббота";
+
+"Sunday"="Воскресенье";
+
+"Logged out"="Вышел";
+
+"You have successfully logged out of your account"="Вы успешно вышли из своего аккаунта";
+
+"Error"="Ошибка";
+
+"Could not log out of your account"="Не удалось выйти из аккаунта";
+
+"There are no schedules that match your search"="По вашему запросу расписания не найдены";
+
+"Important: "="Важно: ";
+
+"Choose a university to begin your search"="Выберите университет, чтобы начать поиск";
+
+"Information"="Информация";
+
+"This university requires you to log in to their institution before you can see some of their schedules"="Этот университет требует, чтобы вы вошли, прежде чем вы сможете увидеть некоторые из их расписаний.";
+
+"Something went wrong"="Что-то пошло не так";
+
+"Automatic"="Авто";
+
+"Light"="Светлая";
+
+"Dark"="Тёмная";
+
+"English"="Английский";
+
+"Swedish"="Шведский";
+
+"Italian"="Итальянский";
+
+"French"="Французский";
+
+"German"="Немецкий";
+
+"Bosnian"="Боснийский";
+
+"Home"="Главная";
+
+"Bookmarks"="Закладки";
+
+"Account"="Аккаунт";
+
+"Calendar"="Календарь";
+
+"List"="Список";
+
+"New school"="Новая школа";
+
+"Set %@ to default"="Установить %@ по умолчанию";
+
+"School already selected"="Школа уже выбрана";
+
+"You already have '%@' as your default school"="Вы уже выбрали '%@' как вашу школу по умолчанию";
+
+"Removed schedule"="Удалить расписание";
+
+"Successfully removed the schedule '%@' from your bookmarks"="Расписание '%@' успешно удалено из ваших закладок";
+
+"Could not remove schedule"="Не удалось удалить расписание";
+
+"The schedule '%@' could not be removed from your bookmarks"="Расписание '%@' не удалось удалить из ваших закладок";
+
+"Appearance"="Тема";
+
+"App language"="Язык приложения";
+
+"Notifications"="Уведомления";
+
+"School"="Школа";
+
+"Review the app"="Оценить приложение";
+
+"Share feedback"="Оставить отзыв";
+
+"Settings"="Настройки";
+
+"Cancelled notifications"="Отменённые уведомления";
+
+"Cancelled all available notifications set for events"="Все установленные уведомления для событий выключены";
+
+"Scheduled notifications"="Запланированные уведомления";
+
+"Scheduled notifications for all available events"="Запланированные уведомления для всех доступных событий";
+
+"Failed to set notifications for all available events"="Не удалось включить уведомления для всех доступных событий";
+
+"Are you sure you want to log out of your account?"="Вы уверены, что хотите выйти из своего аккаунта?";
+
+"Log out"="Выйти";
+
+"Log in"="Войти";
+
+"No bookmarks yet"="Пока нет закладок";
+
+"No events match your search"="Нет событий по вашему запросу";
+
+"minutes"="минут";
+
+"hour"="час";
+
+"hours"="часа";
+
+"Are you sure you want to set notifications for all events?"="Вы уверены, что хотите включить уведомления для всех событий?";
+
+"Set notifications for all events"="Включить уведомления для всех событий";
+
+"Are you sure you want to cancel all set notifications?"="Вы уверены, что хотите выключить все установленные уведомления?";
+
+"Cancel all notifications"="Выключить все уведомления";
+
+"Notifications set for the entire course"="Уведомления для всего курса включены";
+
+"Notification set for the event"="Уведомление для события включено";
+
+"Cancel"="Отмена";
+
+"No available bookmarks"="Нет доступных закладок";
+
+"It looks like there's no available bookmarks"="Похоже, что нет доступных закладок";
+
+"Notification offset"="Смещение уведомлений";
+
+"Looks like you don't have anything saved yet"="Похоже, что вы еще ничего не сохранили";
+
+"Schedules are bookmarked from the search page, which you can access from the search tab."="Расписания добавляются в закладки на странице поиска, доступ к которой можно получить с вкладки поиска.";
+
+"Everything looks good for this week"="На этой неделе все выглядит хорошо";
+
+"Looks like you don't have any classes or exams in the coming week. Yay!"="Похоже, на следующей неделе у вас не будет занятий и экзаменов. Ура!";
+
+"We experienced an issue when trying to find your schedules. Try again later"="У нас возникла проблема при попытке найти ваши расписания. Повторите попытку позже.";
+
+"Today's events"="События на сегодня";
+
+"No events for today"="Нет событий на сегодня";
+
+"Next class"="Следующее занятие";
+
+"No upcoming class"="Нет предстоящих событий";
+
+"No classes for today"="Нет занятий на сегодня";
+
+"Other news"="Другие новости";
+
+"No other news"="Нет других новостей";
+
+"Details"="Подробности";
+
+"Recent news"="Недавние новости";
+
+"No recent news"="Нет недавних новостей";
+
+"News"="Новости";
+
+"Search news"="Искать новости";
+
+"News from us (%@)"="Новости от нас (%@)";
+
+"No teachers listed"="Нет назначенных учителей";
+
+"Unknown"="Неизвестно";
+
+"Pull to refresh"="Потяните, чтобы обновить";
+
+"Search"="Поиск";
+
+"%@ results"="%@ результатов";
+
+"This is where you find your schedules"="Здесь вы найдете свои расписания";
+
+"Looks like something went wrong"="Похоже, что что-то пошло не так";
+
+"Schedule is empty"="Расписание пустое";
+
+"Schedule"="Расписание";
+
+"Search schedules"="Искать расписания";
+
+"Remove"="Убрать";
+
+"Save"="Сохранить";
+
+"Schedule seems to be empty"="Похоже, что расписание пустое";
+
+"There was an error retrieving your schedules"="Произошла ошибка при получении ваших расписаний";
+
+"All your bookmarks are hidden"="Все ваши закладки скрыты";
+
+"No events for this date"="Нет событий на эту дату";
+
+"Course"="Курс";
+
+"Teachers"="Учителя";
+
+"No teachers listed at this time"="Учителя пока не назначены";
+
+"Date"="Дата";
+
+"Time"="Время";
+
+"Locations"="Место";
+
+"No locations listed at this time"="Место пока не назначено";
+
+"Select course color"="Выберите цвет курса";
+
+"Event"="Событие";
+
+"Color"="Цвет";
+
+"Attempting to log in user"="Попытка войти";
+
+"(no date)"="(нет даты)";
+
+"No registered events yet"="Пока нет зарегистрированных событий";
+
+"Could not contact the server, try again later"="Не удалось связаться с сервером, повторите попытку позже";
+
+"Booked resource"="Забронированные ресурсы";
+
+"(no time)"="(нет времени)";
+
+"No booked resources yet"="Пока нет забронированных ресурсов";
+
+"No title"="Нет названия";
+
+"Date:"="Дата:";
+
+"Time:"="Время:";
+
+"User options"="Параметры пользователя";
+
+"Automatic exam signup"="Автоматический вход";
+
+"Your bookings"="Ваши бронирования";
+
+"Resources"="Ресурсы";
+
+"Your events"="Выши события";
+
+"Events"="События";
+
+"Unregistered from event"="Регистрация отменена";
+
+"You have been unregistered from the specified event"="Вы были удалены из указанного мероприятия";
+
+"We couldn't unregister you for the specified event"="Мы не смогли отменить вашу регистрацию на указанное мероприятие";
+
+"Confirmed resource"="Подтверждённые ресурсы";
+
+"You have confirmed the selected resource"="Вы подтвердили выбранный ресурс";
+
+"We couldn't confirm the specified resource"="Мы не смогли подтвердить указанный ресурс";
+
+"Unbooked resource"="Отменённые ресурсы";
+
+"You have unbooked the selected resource"="Вы отменили бронирование выбранного ресурса";
+
+"We couldn't unbook the specified resource"="Мы не смогли отменить выбранный ресурс";
+
+"Automatic signup"="Автоматическая запись";
+
+"Automatic exam/event signup has been enabled, but make sure you are always registered for exams through your institution."="Автоматическая регистрация на экзамены/события включена, но убедитесь, что вы всегда регистрируетесь на экзамены через своё учебное заведение.";
+
+"Automatic exam/event signup has been disabled."="Автоматическая регистрация на экзамены/события отменена";
+
+"See all"="Посмотреть все";
+
+"Book more"="Добавить ещё";
+
+"Event details"="Подробности мероприятия";
+
+"Title"="Название";
+
+"Type"="Тип";
+
+"No type"="Нет типа";
+
+"No date"="Нет даты";
+
+"%@, from %@ to %@"="%@, с %@ до %@";
+
+"Available until"="Доступно до";
+
+"(no date set)"="(нет назначенной даты)";
+
+"Unregister event"="Отменить событие";
+
+"Resource details"="Подробности ресурса";
+
+"Location"="Место";
+
+"Timeslot"="Время";
+
+"Confirmation"="Подтверждение";
+
+"(missing)"="(отсутствует)";
+
+"Confirm booking"="Подтвердить бронирование";
+
+"Remove booking"="Отменить бронирование";
+
+"No available timeslots"="Нет доступного времени";
+
+"Booked"="Забронировано";
+
+"Successfully booked resource"="Ресурс успешно забронирован";
+
+"Not booked"="Не забронировано";
+
+"Failed to book the specified resource"="Не удалось забронировать выбранный ресурс";
+
+"Rooms"="Комныты";
+
+"No name"="Нет имени";
+
+"Available timeslots: %d"="Доступное время: %d";
+
+"Pick a date"="Выбрать дату";
+
+"No rooms available on weekends"="Нет комнат, доступных в выходные";
+
+"Book"="Забронировать";
+
+"at"="В";
+
+"No date at this time"="Нет даты на это время";
+
+"Available at:"="Доступно в:";
+
+"Registered"="Зарегистрировано";
+
+"No registered events available"="Нет доступных зарегистрированных событий";
+
+"Unregistered"="Регистрация отменена";
+
+"No unregistered events available"="Нет доступных незарегистрированных событий";
+
+"Upcoming"="Предстоящие";
+
+"No upcoming events available"="Нет доступных предстоящих событий";
+
+"Signup has passed"="Регистрация прошла";
+
+"Unregister"="Отменить регистрацию";
+
+"Register"="Регистрация";
+
+"Password"="Пароль";
+
+"Use your university credentials for %@ to sign in to your KronoX account"="Используйте данные вашего университета для %@, чтобы войти в свою учетную запись Kronox";
+
+"Need help?"="Нужна помощь?";
+
+"Logged in"="Вошёл";
+
+"Successfully logged in as %@"="Успешно вошёл как %@";
+
+"Something went wrong when logging in to your account"="Что-то пошло не так при входе в ваш аккаунт";
+
+"Username/Email address"="Имя пользователя/Почта";
+
+"Please log in to continue"="Пожалуйста, войдите, чтобы продолжить";
+
+"Save schedules"="Сохранённые расписания";
+
+"Search for schedules from the search page and download them locally. View them as a list or a in a dedicated calendar."="Найдите расписания на странице поиска и загрузите их локально. Просматривайте их в виде списка или в специальном календаре.";
+
+"Set notifications"="Устанавливайте напоминания";
+
+"Get notified before important events and dates. Just press an event and set notifications for either a course or a single event."="Получайте уведомления о важных событиях и датах. Просто нажмите на событие и настройте уведомления для курса или отдельного события.";
+
+"Be creative"="Будьте креативным";
+
+"Set custom colors for the courses in your schedules. Just press an event and modify the color to your liking."="Установите индивидуальные цвета для курсов в своих расписаниях. Просто нажмите на событие и измените цвет по своему вкусу.";
+
+"Booking"="Брониванние";
+
+"Log in to your KronoX account and book resources and exams. Booking is easy, and notifications remind you to confirm the bookings you've created."="Войдите в свою учетную запись Kronox и забронируйте ресурсы и экзамены. Бронирование осуществляется легко, а уведомления напоминают вам о необходимости подтвердить созданные вами бронирования.";
+
+"Select university"="Выбрать университет";
+
+"Universities"="Университеты";
