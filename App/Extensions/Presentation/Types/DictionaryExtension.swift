@@ -19,7 +19,8 @@ extension Dictionary where Key == String, Value == Any {
               let lastModified = self["lastModified"] as? String,
               let courseDict = self["course"] as? [String: String],
               let locationsArray = self["locations"] as? [[String: Any]],
-              let teachersArray = self["teachers"] as? [[String: String]]
+              let teachersArray = self["teachers"] as? [[String: String]],
+              let schoolId = self["schoolId"] as? String
         else {
             return nil
         }
@@ -71,7 +72,8 @@ extension Dictionary where Key == String, Value == Any {
                      locations: locations,
                      teachers: teachers,
                      isSpecial: isSpecial,
-                     lastModified: lastModified)
+                     lastModified: lastModified,
+                     schoolId: schoolId)
     }
 }
 

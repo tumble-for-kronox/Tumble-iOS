@@ -67,7 +67,7 @@ extension Response.Schedule {
                     let teacher = Teacher(teacherId: responseTeacher.id, firstName: responseTeacher.firstName, lastName: responseTeacher.lastName)
                     teachers.append(teacher)
                 }
-                let event = Event(eventId: responseEvent.id, title: responseEvent.title, course: course, from: responseEvent.from, to: responseEvent.to, locations: locations, teachers: teachers, isSpecial: responseEvent.isSpecial, lastModified: responseEvent.lastModified)
+                let event = Event(eventId: responseEvent.id, title: responseEvent.title, course: course, from: responseEvent.from, to: responseEvent.to, locations: locations, teachers: teachers, isSpecial: responseEvent.isSpecial, lastModified: responseEvent.lastModified, schoolId: schoolId)
                 realmEvents.append(event)
             }
             let realmDay = Day(name: responseDay.name, date: responseDay.date, isoString: responseDay.isoString, weekNumber: responseDay.weekNumber, events: realmEvents)

@@ -86,7 +86,8 @@ struct SmallEvent_Previews: PreviewProvider {
             locations: RealmSwift.List<Location>(),
             teachers: RealmSwift.List<Teacher>(),
             isSpecial: true,
-            lastModified: "2024-01-30T10:14:04Z"
+            lastModified: "2024-01-30T10:14:04Z",
+            schoolId: "0"
         ))
         .previewContext(WidgetPreviewContext(family: .systemSmall))
     }

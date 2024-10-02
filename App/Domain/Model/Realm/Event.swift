@@ -19,6 +19,7 @@ class Event: Object {
     @Persisted var teachers: RealmSwift.List<Teacher>
     @Persisted var isSpecial: Bool
     @Persisted var lastModified: String
+    @Persisted var schoolId: String
     
     var dateComponents: DateComponents? {
         guard let fromDate = isoDateFormatter.date(from: from) else {
@@ -45,7 +46,8 @@ class Event: Object {
         locations: RealmSwift.List<Location>,
         teachers: RealmSwift.List<Teacher>,
         isSpecial: Bool,
-        lastModified: String
+        lastModified: String,
+        schoolId: String
     ) {
         self.init()
         self.eventId = eventId
@@ -57,5 +59,6 @@ class Event: Object {
         self.teachers = teachers
         self.isSpecial = isSpecial
         self.lastModified = lastModified
+        self.schoolId = schoolId
     }
 }

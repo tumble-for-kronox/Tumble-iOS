@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1CB1962E2CA5F78600B747BF /* EventLocationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB1962D2CA5F78600B747BF /* EventLocationsView.swift */; };
+		1CB196312CA600FE00B747BF /* SwiftSVG in Frameworks */ = {isa = PBXBuildFile; productRef = 1CB196302CA600FE00B747BF /* SwiftSVG */; };
+		1CB196342CA743C500B747BF /* CampusMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB196332CA743C500B747BF /* CampusMapView.swift */; };
+		1CB196382CA80CA700B747BF /* EventLocationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB196372CA80CA600B747BF /* EventLocationsViewModel.swift */; };
+		1CB1963A2CA85C6100B747BF /* EventLocationsViewStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB196392CA85C6100B747BF /* EventLocationsViewStatus.swift */; };
 		D400F3D229D793CF0050622E /* SearchStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = D400F3D129D793CF0050622E /* SearchStatus.swift */; };
 		D400F3D429D793E50050622E /* SchedulePreviewStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = D400F3D329D793E50050622E /* SchedulePreviewStatus.swift */; };
 		D400F3D629D794010050622E /* BookmarksViewStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = D400F3D529D794010050622E /* BookmarksViewStatus.swift */; };
@@ -132,7 +137,6 @@
 		D4644A29298DD79D00B0BB28 /* Notifications+Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4644A28298DD79D00B0BB28 /* Notifications+Types.swift */; };
 		D4644A2B298DD7B000B0BB28 /* NotificatonError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4644A2A298DD7B000B0BB28 /* NotificatonError.swift */; };
 		D4644A2D298DE35F00B0BB28 /* DateComponentsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4644A2C298DE35F00B0BB28 /* DateComponentsExtension.swift */; };
-		D466E4BF2B07810300E78AD9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D466E4BE2B07810300E78AD9 /* GoogleService-Info.plist */; };
 		D46ABF1229843D3000B059F6 /* StoreKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46ABF1129843D3000B059F6 /* StoreKey.swift */; };
 		D46ABF14298443AC00B059F6 /* ViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46ABF13298443AC00B059F6 /* ViewModelFactory.swift */; };
 		D46BB10A298AC31E00887A24 /* DetailsBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46BB109298AC31E00887A24 /* DetailsBuilder.swift */; };
@@ -319,6 +323,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1CB1962C2CA598A300B747BF /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
+		1CB1962D2CA5F78600B747BF /* EventLocationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventLocationsView.swift; sourceTree = "<group>"; };
+		1CB196332CA743C500B747BF /* CampusMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampusMapView.swift; sourceTree = "<group>"; };
+		1CB196372CA80CA600B747BF /* EventLocationsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventLocationsViewModel.swift; sourceTree = "<group>"; };
+		1CB196392CA85C6100B747BF /* EventLocationsViewStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventLocationsViewStatus.swift; sourceTree = "<group>"; };
 		D400F3D129D793CF0050622E /* SearchStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchStatus.swift; sourceTree = "<group>"; };
 		D400F3D329D793E50050622E /* SchedulePreviewStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulePreviewStatus.swift; sourceTree = "<group>"; };
 		D400F3D529D794010050622E /* BookmarksViewStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksViewStatus.swift; sourceTree = "<group>"; };
@@ -443,7 +452,6 @@
 		D4644A28298DD79D00B0BB28 /* Notifications+Types.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notifications+Types.swift"; sourceTree = "<group>"; };
 		D4644A2A298DD7B000B0BB28 /* NotificatonError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificatonError.swift; sourceTree = "<group>"; };
 		D4644A2C298DE35F00B0BB28 /* DateComponentsExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateComponentsExtension.swift; sourceTree = "<group>"; };
-		D466E4BE2B07810300E78AD9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D46ABF1129843D3000B059F6 /* StoreKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreKey.swift; sourceTree = "<group>"; };
 		D46ABF13298443AC00B059F6 /* ViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelFactory.swift; sourceTree = "<group>"; };
 		D46BB109298AC31E00887A24 /* DetailsBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsBuilder.swift; sourceTree = "<group>"; };
@@ -584,6 +592,7 @@
 				D47386FF29C88E4F0035CD4C /* FirebaseAnalytics in Frameworks */,
 				D4D04DFD29FB29BC008858F0 /* SwipeActions in Frameworks */,
 				D4ACD86E2AD9436C00780998 /* MijickPopupView in Frameworks */,
+				1CB196312CA600FE00B747BF /* SwiftSVG in Frameworks */,
 				D430F74329C615DC00E30E48 /* FSCalendar in Frameworks */,
 				D42BAC1C298D3D590025EAA9 /* Logging in Frameworks */,
 			);
@@ -631,6 +640,7 @@
 				D400F3D929D7944E0050622E /* GenericPageStatus.swift */,
 				D400F3E229D795810050622E /* AuthStatus.swift */,
 				D43294DF29E0ABAA00842884 /* HomeStatus.swift */,
+				1CB196392CA85C6100B747BF /* EventLocationsViewStatus.swift */,
 			);
 			path = Status;
 			sourceTree = "<group>";
@@ -951,9 +961,9 @@
 		D45338F7292825A400198411 /* Bookmarks */ = {
 			isa = PBXGroup;
 			children = (
+				D4F145E62982144C00C3A351 /* Calendar */,
 				D43F76FE2A2FCA1000AB75F0 /* Week */,
 				D4E39E382989CE76004C30DF /* EventDetails */,
-				D4F145E62982144C00C3A351 /* Calendar */,
 				D460764F292AF5BB00DE9590 /* List */,
 				D40CC160292AFB9F00664776 /* Bookmarks.swift */,
 				D440F40129E73B3E003E4CAA /* ViewSwitcher.swift */,
@@ -1100,7 +1110,6 @@
 			children = (
 				D4D779052B8CF9F900D82C94 /* WidgetExtensionDebug.entitlements */,
 				D4D778F12B8CE7E100D82C94 /* WidgetExtensionRelease.entitlements */,
-				D466E4BE2B07810300E78AD9 /* GoogleService-Info.plist */,
 				D4D7B45A29F1505A0032AEEF /* README.md */,
 				D4938BAD29D762DE00029F88 /* Preview Content */,
 				D47A451129D74C68008626E6 /* Assets */,
@@ -1291,6 +1300,7 @@
 				D49FCAD529CFCA5400E3CE6E /* ResourceViewModel.swift */,
 				D44B44CF29E99BBF005164CA /* SearchPreviewViewModel.swift */,
 				D40F96B02A3C7F49006AD4A9 /* LoginViewModel.swift */,
+				1CB196372CA80CA600B747BF /* EventLocationsViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -1445,6 +1455,8 @@
 		D4E39E382989CE76004C30DF /* EventDetails */ = {
 			isa = PBXGroup;
 			children = (
+				1CB1962D2CA5F78600B747BF /* EventLocationsView.swift */,
+				1CB196332CA743C500B747BF /* CampusMapView.swift */,
 				D4E39E392989CE84004C30DF /* EventDetailsSheet.swift */,
 				D4E39E3B2989D1B5004C30DF /* EventDetailsCard.swift */,
 				D4E39E3D2989D79B004C30DF /* ColorPickerPill.swift */,
@@ -1634,6 +1646,7 @@
 				D4FFCC1E29EDA9A700708CC0 /* RealmSwift */,
 				D4D04DFC29FB29BC008858F0 /* SwipeActions */,
 				D4ACD86D2AD9436C00780998 /* MijickPopupView */,
+				1CB196302CA600FE00B747BF /* SwiftSVG */,
 			);
 			productName = "tumble-ios";
 			productReference = D4722145292454560063BDB7 /* Tumble.app */;
@@ -1691,6 +1704,7 @@
 				it,
 				"bs-BA",
 				ar,
+				ru,
 			);
 			mainGroup = D472213C292454560063BDB7;
 			packageReferences = (
@@ -1700,6 +1714,7 @@
 				D4FFCC1B29EDA9A700708CC0 /* XCRemoteSwiftPackageReference "realm-swift" */,
 				D4D04DFB29FB29BC008858F0 /* XCRemoteSwiftPackageReference "SwipeActions" */,
 				D4ACD86C2AD9436C00780998 /* XCRemoteSwiftPackageReference "PopupView" */,
+				1CB1962F2CA600FE00B747BF /* XCRemoteSwiftPackageReference "SwiftSVG" */,
 			);
 			productRefGroup = D4722146292454560063BDB7 /* Products */;
 			projectDirPath = "";
@@ -1721,7 +1736,6 @@
 				D4BAE61929246AA200143717 /* Schools.json in Resources */,
 				D41472FD29D832D500050BFF /* Preview Assets.xcassets in Resources */,
 				D472214D292454570063BDB7 /* Assets.xcassets in Resources */,
-				D466E4BF2B07810300E78AD9 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1773,6 +1787,7 @@
 				D400F3DD29D794840050622E /* ResourceDetailSheetModel.swift in Sources */,
 				D400F3D229D793CF0050622E /* SearchStatus.swift in Sources */,
 				D434FDD52B0A188800BD2404 /* PageControl.swift in Sources */,
+				1CB196382CA80CA700B747BF /* EventLocationsViewModel.swift in Sources */,
 				D421EAF02993FB660045D438 /* EventDetailsSheetModel.swift in Sources */,
 				D46ABF1229843D3000B059F6 /* StoreKey.swift in Sources */,
 				D458605029DC9DA000B77513 /* TodaysEvents.swift in Sources */,
@@ -1782,6 +1797,7 @@
 				D40D80B429252A5A008CA68D /* PreferenceService.swift in Sources */,
 				D41ED53B2983F393009DCF8B /* DateExtensions.swift in Sources */,
 				D4E83EBC299960AD002E5F88 /* UsernameField.swift in Sources */,
+				1CB1962E2CA5F78600B747BF /* EventLocationsView.swift in Sources */,
 				D4FCD14E2995ADFE009D2987 /* UIColorWellHelper.swift in Sources */,
 				D4DDE59129CBBC6A0030607B /* ResourceTimeDropdown.swift in Sources */,
 				D4722149292454560063BDB7 /* tumble_iosApp.swift in Sources */,
@@ -1859,6 +1875,7 @@
 				D4FCD14B2995AD64009D2987 /* UIColorWellExtension.swift in Sources */,
 				D426E3A6299C39EA00A8D7AE /* EventBookings.swift in Sources */,
 				D400F3EE29D797A80050622E /* TumbleUser.swift in Sources */,
+				1CB1963A2CA85C6100B747BF /* EventLocationsViewStatus.swift in Sources */,
 				D481F15729CB820D0088C28E /* AvailabilitiesExtension.swift in Sources */,
 				D40F96B12A3C7F49006AD4A9 /* LoginViewModel.swift in Sources */,
 				D4E39E322989BBD9004C30DF /* ColorExtensions.swift in Sources */,
@@ -1876,6 +1893,7 @@
 				D4E83ED12999B1B1002E5F88 /* AuthManager.swift in Sources */,
 				D4EE5B6C29D50FC0002A1399 /* AppearanceSettings.swift in Sources */,
 				D458604E29DC9D6200B77513 /* NextClass.swift in Sources */,
+				1CB196342CA743C500B747BF /* CampusMapView.swift in Sources */,
 				D458605229DC9FAC00B77513 /* News.swift in Sources */,
 				D4040EC429D310A800613144 /* Refreshable.swift in Sources */,
 				D454DECA29D35EF5005BDAE3 /* Settings.swift in Sources */,
@@ -2016,6 +2034,7 @@
 				D478452429D64D8800BDF7A3 /* it */,
 				D47A451C29D75D14008626E6 /* bs-BA */,
 				D42554332A2C9A4700256550 /* ar */,
+				1CB1962C2CA598A300B747BF /* ru */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -2488,6 +2507,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		1CB1962F2CA600FE00B747BF /* XCRemoteSwiftPackageReference "SwiftSVG" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mchoe/SwiftSVG";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		D42BAC1A298D3D590025EAA9 /* XCRemoteSwiftPackageReference "swift-log" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apple/swift-log";
@@ -2539,6 +2566,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		1CB196302CA600FE00B747BF /* SwiftSVG */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1CB1962F2CA600FE00B747BF /* XCRemoteSwiftPackageReference "SwiftSVG" */;
+			productName = SwiftSVG;
+		};
 		D42BAC1B298D3D590025EAA9 /* Logging */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D42BAC1A298D3D590025EAA9 /* XCRemoteSwiftPackageReference "swift-log" */;
