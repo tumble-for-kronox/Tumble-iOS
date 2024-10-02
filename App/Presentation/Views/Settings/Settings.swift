@@ -23,94 +23,90 @@ struct Settings: View {
     @State private var showShareSheet: Bool = false
     
     var body: some View {
-        VStack {
-            SettingsList {
-                SettingsListGroup {
-                    SettingsNavigationButton(
-                        title: NSLocalizedString("Appearance", comment: ""),
-                        current: NSLocalizedString($appearance.wrappedValue, comment: ""),
-                        leadingIcon: "moon",
-                        leadingIconBackgroundColor: .purple,
-                        destination: AnyView(AppearanceSettings(appearance: $appearance))
-                    )
-                    Divider()
-                    SettingsExternalButton(
-                        title: NSLocalizedString("App language", comment: ""),
-                        current: currentLocale != nil ? LanguageTypes.fromLocaleName(currentLocale!)?.displayName : nil,
-                        leadingIcon: "globe",
-                        leadingIconBackgroundColor: .blue,
-                        action: {
-                            if let settingsURL = URL(string: UIApplication.openSettingsURLString) {
-                                UIApplication.shared.open(settingsURL)
-                            }
+        SettingsList {
+            SettingsListGroup {
+                SettingsNavigationButton(
+                    title: NSLocalizedString("Appearance", comment: ""),
+                    current: NSLocalizedString($appearance.wrappedValue, comment: ""),
+                    leadingIcon: "moon",
+                    leadingIconBackgroundColor: .purple,
+                    destination: AnyView(AppearanceSettings(appearance: $appearance))
+                )
+                Divider()
+                SettingsExternalButton(
+                    title: NSLocalizedString("App language", comment: ""),
+                    current: currentLocale != nil ? LanguageTypes.fromLocaleName(currentLocale!)?.displayName : nil,
+                    leadingIcon: "globe",
+                    leadingIconBackgroundColor: .blue,
+                    action: {
+                        if let settingsURL = URL(string: UIApplication.openSettingsURLString) {
+                            UIApplication.shared.open(settingsURL)
                         }
-                    )
-                }
-                SettingsListGroup {
-                    SettingsNavigationButton(
-                        title: NSLocalizedString("Notification offset", comment: ""),
-                        leadingIcon: "clock",
-                        leadingIconBackgroundColor: .red,
-                        destination: AnyView(NotificationOffsetSettings(
-                            offset: $offset,
-                            rescheduleNotifications: rescheduleNotifications
-                        ))
-                    )
-                    Divider()
-                    SettingsNavigationButton(
-                        title: NSLocalizedString("Bookmarks", comment: ""),
-                        leadingIcon: "bookmark",
-                        leadingIconBackgroundColor: .primary,
-                        destination: AnyView(BookmarksSettings(
-                            parentViewModel: viewModel
-                        ))
-                    )
-                }
-                SettingsListGroup {
-                    SettingsExternalButton(
-                        title: NSLocalizedString("Review the app", comment: ""),
-                        leadingIcon: "star.leadinghalf.filled",
-                        leadingIconBackgroundColor: .yellow,
-                        action: UIApplication.shared.openAppStoreForReview
-                    )
-                    Divider()
-                    SettingsExternalButton(
-                        title: NSLocalizedString("Share feedback", comment: ""),
-                        leadingIcon: "envelope",
-                        leadingIconBackgroundColor: .blue,
-                        action: UIApplication.shared.shareFeedback
-                    )
-                    Divider()
-                    SettingsExternalButton(
-                        title: NSLocalizedString("Share the app", comment: ""),
-                        leadingIcon: "square.and.arrow.up",
-                        leadingIconBackgroundColor: .green,
-                        action: {
-                            showShareSheet = true
-                    })
-                }
-                SettingsListGroup {
-                    SettingsExternalButton(
-                        title: NSLocalizedString("Tumble on GitHub", comment: ""),
-                        leadingIcon: "chevron.left.forwardslash.chevron.right",
-                        leadingIconBackgroundColor: .black,
-                        action: UIApplication.shared.openSourceCode)
-                }
-                
-                if let appVersion = appVersion {
-                    Text("Tumble, iOS v.\(appVersion)")
-                        .font(.system(size: 12, weight: .regular))
-                        .foregroundColor(.onBackground.opacity(0.7))
-                        .padding(35)
-                }
+                    }
+                )
             }
-            .padding(.top, 20)
-            .background(Color.background)
-            .sheet(isPresented: $showShareSheet, content: {
-                ShareSheet()
-            })
+            SettingsListGroup {
+                SettingsNavigationButton(
+                    title: NSLocalizedString("Notification offset", comment: ""),
+                    leadingIcon: "clock",
+                    leadingIconBackgroundColor: .red,
+                    destination: AnyView(NotificationOffsetSettings(
+                        offset: $offset,
+                        rescheduleNotifications: rescheduleNotifications
+                    ))
+                )
+                Divider()
+                SettingsNavigationButton(
+                    title: NSLocalizedString("Bookmarks", comment: ""),
+                    leadingIcon: "bookmark",
+                    leadingIconBackgroundColor: .primary,
+                    destination: AnyView(BookmarksSettings(
+                        parentViewModel: viewModel
+                    ))
+                )
+            }
+            SettingsListGroup {
+                SettingsExternalButton(
+                    title: NSLocalizedString("Review the app", comment: ""),
+                    leadingIcon: "star.leadinghalf.filled",
+                    leadingIconBackgroundColor: .yellow,
+                    action: UIApplication.shared.openAppStoreForReview
+                )
+                Divider()
+                SettingsExternalButton(
+                    title: NSLocalizedString("Share feedback", comment: ""),
+                    leadingIcon: "envelope",
+                    leadingIconBackgroundColor: .blue,
+                    action: UIApplication.shared.shareFeedback
+                )
+                Divider()
+                SettingsExternalButton(
+                    title: NSLocalizedString("Share the app", comment: ""),
+                    leadingIcon: "square.and.arrow.up",
+                    leadingIconBackgroundColor: .green,
+                    action: {
+                        showShareSheet = true
+                    }
+                )
+            }
+            SettingsListGroup {
+                SettingsExternalButton(
+                    title: NSLocalizedString("Tumble on GitHub", comment: ""),
+                    leadingIcon: "chevron.left.forwardslash.chevron.right",
+                    leadingIconBackgroundColor: .black,
+                    action: UIApplication.shared.openSourceCode
+                )
+            }
+            if let appVersion = appVersion {
+                Text("Tumble, iOS v.\(appVersion)")
+                    .font(.system(size: 12, weight: .regular))
+                    .foregroundColor(.onBackground.opacity(0.7))
+                    .padding(35)
+            }
         }
-        .background(Color.background)
+        .sheet(isPresented: $showShareSheet, content: {
+            ShareSheet()
+        })
         .navigationTitle(NSLocalizedString("Settings", comment: ""))
         .navigationBarTitleDisplayMode(.inline)
     }

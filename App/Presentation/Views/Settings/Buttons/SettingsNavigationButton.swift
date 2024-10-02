@@ -29,7 +29,11 @@ struct SettingsNavigationButton: View {
     }
     
     var body: some View {
-        NavigationLink(destination: destination, label: {
+        NavigationLink(destination: {
+            destination
+                .navigationTitle(title)
+                .navigationBarTitleDisplayMode(.inline)
+        }, label: {
             HStack {
                 Label(title, systemImage: leadingIcon)
                     .labelStyle(ColorfulIconLabelStyle(color: leadingIconBackgroundColor))
