@@ -25,14 +25,16 @@ struct TimeslotDropdown: View {
                 Image(systemName: "chevron.down")
                     .font(.system(size: 18, weight: .semibold))
                     .foregroundColor(.onSurface)
+                    .rotationEffect(isSelecting ? .degrees(180) : .zero)
             }
             .padding(.horizontal, 15)
             if isSelecting {
                 Divider()
                     .background(.white)
                     .padding(.horizontal)
+                    .padding(.bottom, 10)
 
-                VStack(spacing: 5) {
+                VStack(spacing: 30) {
                     ForEach(Array(timeslots.enumerated()), id: \.offset) { index, timeslot in
                         if let timeslotId = timeslot.id,
                            resource.availabilities.timeslotHasAvailable(for: timeslotId),
@@ -52,6 +54,7 @@ struct TimeslotDropdown: View {
                         }
                     }
                 }
+                .padding(.vertical, 10)
             }
         }
         .onAppear {
@@ -107,7 +110,7 @@ private struct DropdownMenuItemView: View {
                         .foregroundColor(.onSurface)
                 }
             }
-            .padding()
+            .padding(.horizontal)
             .foregroundColor(.onBackground)
         }
     }

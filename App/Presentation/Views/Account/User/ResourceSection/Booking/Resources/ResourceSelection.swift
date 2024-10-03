@@ -20,7 +20,7 @@ struct ResourceSelection: View {
     
     var body: some View {
         if let timeslots = resource.timeSlots {
-            VStack(alignment: .leading) {
+            VStack(alignment: .leading, spacing: 0) {
                 Text(selectedPickerDate.formatDate())
                     .font(.system(size: 22, weight: .semibold))
                     .foregroundColor(.onBackground)

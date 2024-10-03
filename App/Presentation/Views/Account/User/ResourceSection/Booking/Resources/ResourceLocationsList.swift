@@ -65,6 +65,6 @@ struct ResourceLocationsList: View {
                 .padding(.horizontal)
             }
         }
-        .padding(.top)
+        .padding(.top, 7.5)
     }
 }

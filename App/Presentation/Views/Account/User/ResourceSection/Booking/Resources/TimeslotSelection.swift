@@ -43,17 +43,20 @@ struct TimeslotSelection: View {
             }.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
         } else {
             ScrollView(showsIndicators: false) {
-                ForEach(availabilityValues, id: \.self) { availabilityValue in
-                    if let locationId = availabilityValue.locationID {
-                        TimeslotCard(
-                            onBook: { handleBooking(for: locationId, with: availabilityValue) },
-                            locationId: locationId,
-                            bookingButtonState: Binding(
-                            get: { buttonStateMap[locationId] ?? .available },
-                            set: { buttonStateMap[locationId] = $0 }
-                        ))
+                VStack(spacing: 15) {
+                    ForEach(availabilityValues, id: \.self) { availabilityValue in
+                        if let locationId = availabilityValue.locationID {
+                            TimeslotCard(
+                                onBook: { handleBooking(for: locationId, with: availabilityValue) },
+                                locationId: locationId,
+                                bookingButtonState: Binding(
+                                    get: { buttonStateMap[locationId] ?? .available },
+                                    set: { buttonStateMap[locationId] = $0 }
+                                ))
+                        }
                     }
                 }
+                .padding(15)
             }
         }
     }

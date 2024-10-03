@@ -46,7 +46,5 @@ struct TimeslotCard: View {
         .frame(maxWidth: .infinity, maxHeight: 70)
         .background(Color.surface)
         .cornerRadius(10)
-        .padding(.horizontal, 15)
-        .padding(.vertical, 10)
     }
 }
