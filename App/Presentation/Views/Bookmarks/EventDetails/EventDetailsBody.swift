@@ -24,9 +24,11 @@ struct EventDetailsBody: View {
                 if !event.teachers.isEmpty {
                     if !event.teachers.first!.firstName.isEmpty && !event.teachers.first!.lastName.isEmpty {
                         ForEach(event.teachers, id: \.self) { teacher in
-                            Text("\(teacher.firstName) \(teacher.lastName)")
-                                .font(.system(size: 16))
-                                .foregroundColor(.onSurface)
+                            if !teacher.firstName.isEmpty {
+                                Text("\(teacher.firstName) \(teacher.lastName)")
+                                    .font(.system(size: 16))
+                                    .foregroundColor(.onSurface)
+                            }
                         }
                     } else {
                         Text(NSLocalizedString("No teachers listed at this time", comment: ""))
@@ -61,7 +63,7 @@ struct EventDetailsBody: View {
                         }
                         Spacer()
                         Image(systemName: "chevron.right")
-                            .foregroundColor(.onSurface.opacity(0.4))
+                            .foregroundColor(.onSurface)
                             .font(.system(size: 14, weight: .semibold))
                     }
                 } else {
