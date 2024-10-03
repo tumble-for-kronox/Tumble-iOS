@@ -20,7 +20,7 @@ struct SearchField: View {
     @State private var closeButtonOffset: CGFloat = 300.0
     
     var body: some View {
-        HStack {
+        HStack(spacing: 15) {
             TextField(NSLocalizedString(
                 title, comment: ""
             ), text: $searchBarText)
@@ -50,8 +50,6 @@ struct SearchField: View {
                     }
                     .buttonStyle(SearchMenuActionStyle())
                 }
-                .padding(.trailing, 20)
-                .padding(.top, 5)
             }
         }
     }

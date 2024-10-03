@@ -47,6 +47,5 @@ struct SearchInfo: View {
                 }
             }
         }
-        .padding()
     }
 }

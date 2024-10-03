@@ -33,5 +33,6 @@ struct RecentNews: View {
                 }
             }
         }
+        .padding(.top, 15)
     }
 }
