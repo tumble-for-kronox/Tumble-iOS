@@ -9,6 +9,11 @@ import SwiftUI
 
 struct NewsItemDetails: View {
     let newsItem: Response.NotificationContent
+    @Environment(\.dismiss) var dismiss
+    
+    func close() -> Void {
+        dismiss()
+    }
     
     var body: some View {
         ScrollView(showsIndicators: false) {
@@ -33,9 +38,17 @@ struct NewsItemDetails: View {
             .padding(.trailing, 10)
             Spacer()
         }
-        .padding([.horizontal, .top], 15)
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+        .padding(.horizontal, 15)
+        .padding(.top, 55)
         .background(Color.background)
-        .navigationTitle(NSLocalizedString("Details", comment: ""))
+        .overlay(
+            CloseCoverButton(onClick: close),
+            alignment: .topTrailing
+        )
+        .overlay(
+            Text(NSLocalizedString("Details", comment: ""))
+                .sheetTitle(),
+            alignment: .top
+        )
     }
 }

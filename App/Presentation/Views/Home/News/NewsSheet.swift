@@ -24,49 +24,41 @@ struct NewsSheet: View {
     }
     
     var body: some View {
-        ZStack {
-            NavigationView {
-                VStack {
-                    SearchField(
-                        search: nil,
-                        clearSearch: nil,
-                        title: "Search news",
-                        searchBarText: $searchText,
-                        searching: $searching,
-                        disabled: .constant(false)
-                    )
-                    .padding(.top, 100)
-                    if !searching {
-                        ScrollView(showsIndicators: false) {
-                            RecentNews(news: news)
-                            AllNews(news: news)
-                        }
-                        .padding([.top, .horizontal], 15)
-                    } else {
-                        ScrollView(showsIndicators: false) {
-                            ForEach(filteredNews, id: \.self) { newsItem in
-                                NewsItemCard(newsItem: newsItem)
-                            }
-                        }
-                        .padding([.top, .horizontal], 15)
+        VStack(spacing: 15) {
+            SearchField(
+                search: nil,
+                clearSearch: nil,
+                title: "Search news",
+                searchBarText: $searchText,
+                searching: $searching,
+                disabled: .constant(false)
+            )
+            if !searching {
+                ScrollView(showsIndicators: false) {
+                    RecentNews(news: news)
+                    AllNews(news: news)
+                }
+            } else {
+                ScrollView(showsIndicators: false) {
+                    ForEach(filteredNews, id: \.self) { newsItem in
+                        NewsItemCard(newsItem: newsItem)
                     }
-                    Spacer()
                 }
-                .edgesIgnoringSafeArea(.all)
-                .frame(maxHeight: .infinity)
-                .background(Color.background)
-                .navigationTitle(NSLocalizedString("News", comment: ""))
-                .navigationBarTitleDisplayMode(.inline)
             }
-            
-            VStack {
-                HStack {
-                    Spacer()
-                    CloseCoverButton(onClick: onClose)
-                }
-                Spacer()
-            }
+            Spacer()
         }
+        .padding(.top, 60)
+        .padding(.horizontal, 15)
+        .background(Color.background)
+        .overlay(
+            CloseCoverButton(onClick: onClose),
+            alignment: .topTrailing
+        )
+        .overlay(
+            Text(NSLocalizedString("News", comment: ""))
+                .sheetTitle(),
+            alignment: .top
+        )
     }
     
     func onClose() {
