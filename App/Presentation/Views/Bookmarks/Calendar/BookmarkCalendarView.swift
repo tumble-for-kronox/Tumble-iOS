@@ -19,8 +19,6 @@ struct BookmarkCalendarView: View {
     
     var body: some View {
         ScrollView(showsIndicators: false) {
-            Spacer()
-                .frame(height: 60)
             CalendarViewRepresentable(
                 selectedDate: $selectedDate,
                 selectedDateEvents: $selectedDateEvents,

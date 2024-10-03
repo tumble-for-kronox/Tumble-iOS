@@ -28,13 +28,8 @@ struct BookmarkListView: View {
     var body: some View {
         ScrollViewReader { proxy in
             ScrollView {
-                VStack {
-                    Spacer()
-                        .frame(height: 60)
-                    DaysList(days: days)
-                }
-                .padding(.top, 2.5)
-                .id("bookmarkScrollView")
+                DaysList(days: days)
+                    .id("bookmarkScrollView")
             }
             .overlay(
                 ToTopButton(buttonOffsetX: bookmarksListModel.buttonOffsetX, proxy: proxy),

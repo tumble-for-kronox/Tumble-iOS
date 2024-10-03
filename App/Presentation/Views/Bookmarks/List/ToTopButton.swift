@@ -21,11 +21,10 @@ struct ToTopButton: View {
             Image(systemName: "chevron.up")
                 .font(.system(size: 24, weight: .semibold))
                 .foregroundColor(.onPrimary)
-                .padding(20)
+                .padding(12)
         })
         .buttonStyle(ToTopButtonStyle())
-        .padding()
-        .padding(.bottom, 10)
+        .padding(.bottom, 15)
         .offset(x: buttonOffsetX)
     }
 }
