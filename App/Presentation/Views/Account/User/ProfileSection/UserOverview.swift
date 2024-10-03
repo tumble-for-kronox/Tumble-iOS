@@ -14,7 +14,7 @@ struct UserOverview: View {
     @State private var collapsedHeader: Bool = false
     
     var body: some View {
-        VStack {
+        VStack(spacing: 0) {
             HStack {
                 if let name = viewModel.userDisplayName,
                    let username = viewModel.username
@@ -39,7 +39,7 @@ struct UserOverview: View {
             .frame(maxWidth: .infinity, alignment: .leading)
             Divider()
                 .foregroundColor(.onBackground)
-                .padding(.horizontal, 15)
+                .padding(.top, 15)
             Resources(
                 parentViewModel: viewModel,
                 getResourcesAndEvents: getResourcesAndEvents,
