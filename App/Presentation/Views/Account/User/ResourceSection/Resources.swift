@@ -34,6 +34,7 @@ struct Resources: View {
                 VStack {
                     PullToRefreshIndicator()
                         .padding(.bottom, -15)
+                        .padding(.top, 10)
                     ResourceSectionDivider(title: NSLocalizedString("User options", comment: "")) {
                         Toggle(isOn: $parentViewModel.autoSignupEnabled) {
                             Text(NSLocalizedString("Automatic exam signup", comment: ""))

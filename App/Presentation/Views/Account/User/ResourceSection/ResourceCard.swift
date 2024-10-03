@@ -56,7 +56,6 @@ struct ResourceCard: View {
                 Spacer()
             }
         })
-        .padding(.top)
         .buttonStyle(CompactButtonStyle(colored: true))
     }
 }
