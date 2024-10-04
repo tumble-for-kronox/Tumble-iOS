@@ -14,40 +14,42 @@ struct ResourceBookings: View {
     var body: some View {
         VStack {
             ScrollView(showsIndicators: false) {
-                ResourceDatePicker(date: $viewModel.selectedPickerDate)
-                Divider()
-                    .foregroundColor(.onBackground)
-                switch viewModel.resourceBookingPageState {
-                case .loading:
-                    VStack {
-                        CustomProgressIndicator()
-                    }
-                    .frame(
-                        maxWidth: .infinity,
-                        minHeight: 200,
-                        maxHeight: .infinity,
-                        alignment: .center
-                    )
-                case .loaded:
-                    ResourceLocationsList(
-                        parentViewModel: viewModel,
-                        selectedPickerDate: $viewModel.selectedPickerDate,
-                        updateBookingNotifications: updateBookingNotifications
-                    )
-                case .error:
-                    VStack {
-                        if isWeekend(on: viewModel.selectedPickerDate) {
-                            Info(title: NSLocalizedString("No rooms available on weekends", comment: ""), image: "moon.zzz")
-                        } else {
-                            Info(title: NSLocalizedString("Could not contact the server, try again later", comment: ""), image: "arrow.clockwise")
+                VStack(spacing: Spacing.medium) {
+                    ResourceDatePicker(date: $viewModel.selectedPickerDate)
+                    Divider()
+                        .foregroundColor(.onBackground)
+                    switch viewModel.resourceBookingPageState {
+                    case .loading:
+                        VStack {
+                            CustomProgressIndicator()
                         }
+                        .frame(
+                            maxWidth: .infinity,
+                            minHeight: 200,
+                            maxHeight: .infinity,
+                            alignment: .center
+                        )
+                    case .loaded:
+                        ResourceLocationsList(
+                            parentViewModel: viewModel,
+                            selectedPickerDate: $viewModel.selectedPickerDate,
+                            updateBookingNotifications: updateBookingNotifications
+                        )
+                    case .error:
+                        VStack {
+                            if isWeekend(on: viewModel.selectedPickerDate) {
+                                Info(title: NSLocalizedString("No rooms available on weekends", comment: ""), image: "moon.zzz")
+                            } else {
+                                Info(title: NSLocalizedString("Could not contact the server, try again later", comment: ""), image: "arrow.clockwise")
+                            }
+                        }
+                        .frame(
+                            maxWidth: .infinity,
+                            minHeight: 200,
+                            maxHeight: .infinity,
+                            alignment: .center
+                        )
                     }
-                    .frame(
-                        maxWidth: .infinity,
-                        minHeight: 200,
-                        maxHeight: .infinity,
-                        alignment: .center
-                    )
                 }
             }
         }

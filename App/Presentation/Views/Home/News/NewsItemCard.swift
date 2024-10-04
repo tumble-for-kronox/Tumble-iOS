@@ -23,17 +23,16 @@ struct NewsItemCard: View {
                     .font(.system(size: 14, weight: .medium))
                     .foregroundColor(.onSurface.opacity(0.8))
             }
-            .padding(.bottom, 7.5)
+            .padding(.bottom, Spacing.medium / 2)
             Text(newsItem.body)
                 .font(.system(size: 14, weight: .medium))
                 .foregroundColor(.onSurface)
                 .multilineTextAlignment(.leading)
         }
-        .padding(10)
+        .padding(Spacing.card)
         .frame(maxWidth: .infinity)
         .background(Color.surface)
         .cornerRadius(15)
-        .padding(.vertical, 7.5)
         .onTapGesture {
             HapticsController.triggerHapticLight()
             detailsSheetOpen = true

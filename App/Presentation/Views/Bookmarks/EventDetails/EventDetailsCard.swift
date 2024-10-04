@@ -23,8 +23,8 @@ struct EventDetailsCard: View {
                     .fontWeight(.semibold)
                     .foregroundColor(.onSurface)
                     .fixedSize(horizontal: false, vertical: true)
-                    .padding(.vertical, 7)
-                HStack(spacing: 5) {
+                    .padding(.vertical, Spacing.medium / 2)
+                HStack(spacing: Spacing.extraSmall) {
                     if parentViewModel.notificationsAllowed {
                         if event.from.isAvailableNotificationDate() {
                             NotificationPill(
@@ -46,10 +46,10 @@ struct EventDetailsCard: View {
             }
             Spacer()
         }
-        .padding(10)
+        .padding(Spacing.small)
         .background(event.isSpecial ? Color.red.opacity(0.2) : color.opacity(0.2))
         .cornerRadius(15)
-        .padding(.horizontal, 15)
+        .padding(.horizontal, Spacing.medium)
     }
     
     var notificationEventTitle: String {

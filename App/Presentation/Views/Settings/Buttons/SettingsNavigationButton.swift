@@ -42,13 +42,13 @@ struct SettingsNavigationButton: View {
                     Text(current)
                         .font(.system(size: 18, weight: .regular))
                         .foregroundColor(.onSurface.opacity(0.4))
-                        .padding(.trailing, 10)
+                        .padding(.trailing, Spacing.medium)
                 }
                 Image(systemName: "chevron.right")
                     .foregroundColor(.onSurface.opacity(0.4))
                     .font(.system(size: 14, weight: .semibold))
             }
-            .padding(10)
+            .padding(Spacing.settingsButton)
         })
     }
 }

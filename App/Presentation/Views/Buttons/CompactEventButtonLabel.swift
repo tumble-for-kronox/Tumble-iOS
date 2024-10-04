@@ -16,7 +16,6 @@ struct CompactEventButtonLabel: View {
             if let timeFrom = event.from.convertToHoursAndMinutesISOString(),
                let timeTo = event.to.convertToHoursAndMinutesISOString() {
                 HStack {
-                    
                     VStack (alignment: .center, spacing: 0) {
                         Text("\(timeFrom)")
                             .font(.system(size: 13, weight: .semibold))
@@ -78,7 +77,7 @@ struct CompactEventButtonLabel: View {
                     }
                 }
             }
-            .padding()
+            .padding(Spacing.card)
             Spacer()
         }
         .background(event.isSpecial ? Color.red.opacity(0.2) : color.opacity(0.2))

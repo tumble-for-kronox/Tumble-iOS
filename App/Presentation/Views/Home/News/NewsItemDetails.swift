@@ -21,7 +21,7 @@ struct NewsItemDetails: View {
                 Text(newsItem.title)
                     .font(.system(size: 30, weight: .semibold))
                     .foregroundColor(.onBackground)
-                    .padding(.bottom, 20)
+                    .padding(.bottom, Spacing.large)
                 Text(newsItem.timestamp.formatDate() ?? "")
                     .font(.system(size: 20, weight: .medium))
                     .foregroundColor(.onBackground.opacity(0.8))
@@ -30,16 +30,16 @@ struct NewsItemDetails: View {
             VStack(alignment: .leading) {
                 Divider()
                     .opacity(0.8)
-                    .padding(.vertical, 15)
+                    .padding(.vertical, Spacing.medium)
                 Text(newsItem.body)
                     .font(.system(size: 16, weight: .regular))
                     .foregroundColor(.onBackground)
             }
-            .padding(.trailing, 10)
+            .padding(.trailing, Spacing.small)
             Spacer()
         }
-        .padding(.horizontal, 15)
-        .padding(.top, 55)
+        .padding(.horizontal, Spacing.medium)
+        .padding(.top, Spacing.header)
         .background(Color.background)
         .overlay(
             CloseCoverButton(onClick: close),

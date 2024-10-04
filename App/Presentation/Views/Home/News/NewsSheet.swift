@@ -24,7 +24,7 @@ struct NewsSheet: View {
     }
     
     var body: some View {
-        VStack(spacing: 15) {
+        VStack(spacing: Spacing.medium) {
             SearchField(
                 search: nil,
                 clearSearch: nil,
@@ -47,8 +47,8 @@ struct NewsSheet: View {
             }
             Spacer()
         }
-        .padding(.top, 60)
-        .padding(.horizontal, 15)
+        .padding(.top, Spacing.header)
+        .padding(.horizontal, Spacing.medium)
         .background(Color.background)
         .overlay(
             CloseCoverButton(onClick: onClose),

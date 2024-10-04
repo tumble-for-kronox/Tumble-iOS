@@ -43,8 +43,8 @@ struct Home: View {
                 }
                 Spacer()
             }
-            .padding(.horizontal, 15)
-            .padding(.top, 10)
+            .padding(.horizontal, Spacing.medium)
+            .padding(.top, Spacing.small)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color.background)
             .fullScreenCover(

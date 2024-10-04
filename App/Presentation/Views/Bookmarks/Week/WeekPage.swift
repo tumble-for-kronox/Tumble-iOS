@@ -34,7 +34,7 @@ struct WeekPage: View {
                             .resizable()
                             .scaledToFit()
                             .frame(height: 175)
-                            .padding(.top, 15)
+                            .padding(.top, Spacing.medium)
                     }
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
                     .padding(.top, 30)
@@ -48,7 +48,7 @@ struct WeekPage: View {
                 Spacer()
             }
             .frame(maxWidth: .infinity)
-            .padding([.top, .horizontal], 15)
+            .padding([.top, .horizontal], Spacing.medium)
         }
     }
 }

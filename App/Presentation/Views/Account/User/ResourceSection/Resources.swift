@@ -34,7 +34,7 @@ struct Resources: View {
                 VStack {
                     PullToRefreshIndicator()
                         .padding(.bottom, -15)
-                        .padding(.top, 10)
+                        .padding(.top, Spacing.small)
                     ResourceSectionDivider(title: NSLocalizedString("User options", comment: "")) {
                         Toggle(isOn: $parentViewModel.autoSignupEnabled) {
                             Text(NSLocalizedString("Automatic exam signup", comment: ""))
@@ -74,8 +74,8 @@ struct Resources: View {
                                                    }
                                                )
                                                .navigationTitle(NSLocalizedString("Resources", comment: ""))
-                                               .navigationBarTitleDisplayMode(.inline)
-                                           )) {
+                                               .navigationBarTitleDisplayMode(.inline)))
+                    {
                         RegisteredBookings(
                             onClickResource: onClickResource,
                             state: $parentViewModel.bookingSectionState,

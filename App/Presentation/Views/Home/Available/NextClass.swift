@@ -11,7 +11,7 @@ struct NextClass: View {
     let nextClass: Event?
     
     var body: some View {
-        VStack(alignment: .leading) {
+        VStack(alignment: .leading, spacing: Spacing.medium) {
             HStack {
                 if let nextClass = nextClass {
                     Text(nextClass.from.formatDate() ?? "")
@@ -36,6 +36,5 @@ struct NextClass: View {
             }
         }
         .frame(maxWidth: .infinity, minHeight: 100)
-        .padding(.top, 20)
     }
 }

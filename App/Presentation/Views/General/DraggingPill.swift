@@ -12,7 +12,7 @@ struct DraggingPill: View {
         RoundedRectangle(cornerRadius: 2)
             .fill(Color.gray)
             .frame(width: 40, height: 4)
-            .padding(.top, 10)
+            .padding(.top, Spacing.small)
     }
 }
 

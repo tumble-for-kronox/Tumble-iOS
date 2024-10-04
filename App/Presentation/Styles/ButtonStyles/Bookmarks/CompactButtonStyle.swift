@@ -17,10 +17,9 @@ struct CompactButtonStyle: ButtonStyle {
     
     func makeBody(configuration: Self.Configuration) -> some View {
         configuration.label
-            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 100, maxHeight: 100, alignment: .center)
+            .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
             .background(colored ? Color.surface : nil)
             .cornerRadius(15)
-            .padding(.bottom, 10)
             .scaleEffect(configuration.isPressed ? 0.9 : 1)
             .animation(.easeOut(duration: 0.2), value: configuration.isPressed)
     }

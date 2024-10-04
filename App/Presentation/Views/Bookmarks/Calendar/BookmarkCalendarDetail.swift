@@ -21,6 +21,6 @@ struct BookmarkCalendarDetail: View {
             }
         })
         .buttonStyle(CompactButtonStyle())
-        .padding(.horizontal, 15)
+        .padding(.horizontal, Spacing.medium)
     }
 }

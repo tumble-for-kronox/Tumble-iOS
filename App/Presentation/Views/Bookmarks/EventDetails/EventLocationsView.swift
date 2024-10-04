@@ -41,7 +41,7 @@ struct EventLocationsView: View {
                             schoolColor: viewModel.school!.color
                         )
                         .frame(minHeight: UIScreen.main.bounds.width * 1.33)
-                        .padding(.top, 20)
+                        .padding(.top, Spacing.large)
                     }
                 }
             }
@@ -53,7 +53,7 @@ struct EventLocationsView: View {
             }
         }
         
-        .padding(.top, 55)
+        .padding(.top, Spacing.header)
         .background(Color.background)
         .overlay(
             CloseCoverButton(onClick: close),

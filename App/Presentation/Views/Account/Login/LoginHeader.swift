@@ -9,7 +9,7 @@ import SwiftUI
 
 struct LoginHeader: View {
     var body: some View {
-        VStack(alignment: .center, spacing: 10) {
+        VStack(alignment: .center, spacing: Spacing.small) {
             Text(NSLocalizedString("Log in", comment: ""))
                 .infoHeaderMedium()
             Text(NSLocalizedString("Please log in to continue", comment: ""))

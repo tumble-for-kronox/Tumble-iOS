@@ -43,7 +43,7 @@ struct TimeslotSelection: View {
             }.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
         } else {
             ScrollView(showsIndicators: false) {
-                VStack(spacing: 15) {
+                VStack(spacing: Spacing.medium) {
                     ForEach(availabilityValues, id: \.self) { availabilityValue in
                         if let locationId = availabilityValue.locationID {
                             TimeslotCard(
@@ -56,7 +56,7 @@ struct TimeslotSelection: View {
                         }
                     }
                 }
-                .padding(15)
+                .padding(Spacing.medium)
             }
         }
     }

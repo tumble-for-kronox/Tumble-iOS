@@ -16,7 +16,7 @@ struct Info: View {
                 Image(systemName: image!)
                     .font(.system(size: 24))
                     .foregroundColor(.onSurface)
-                    .padding(.bottom, 15)
+                    .padding(.bottom, Spacing.medium)
             }
             Text(title)
                 .infoBodyMedium()

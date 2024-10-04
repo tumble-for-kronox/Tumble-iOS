@@ -34,7 +34,7 @@ struct Events: View {
     var registeredEventsView: some View {
         VStack {
             if let events = registeredEvents, let onTapEventAction = onTapEventAction {
-                VStack(alignment: .leading, spacing: 5) {
+                VStack(alignment: .leading, spacing: Spacing.medium) {
                     ForEach(events, id: \.id) { event in
                         EventCardButton(event: event, eventType: .unregister, onTap: onTapEventAction)
                     }
@@ -51,7 +51,7 @@ struct Events: View {
     var unregisteredEventsView: some View {
         VStack {
             if let events = unregisteredEvents, let onTapEventAction = onTapEventAction {
-                VStack(alignment: .leading) {
+                VStack(alignment: .leading, spacing: Spacing.medium) {
                     ForEach(events, id: \.id) { event in
                         EventCardButton(event: event, eventType: .register, onTap: onTapEventAction)
                     }
@@ -68,7 +68,7 @@ struct Events: View {
     var upcomingEventsView: some View {
         VStack {
             if let upcomingEvents = upcomingEvents {
-                VStack(alignment: .leading, spacing: 15) {
+                VStack(alignment: .leading, spacing: Spacing.medium) {
                     ForEach(upcomingEvents, id: \.id) { event in
                         UpcomingEventCardButton(event: event)
                     }

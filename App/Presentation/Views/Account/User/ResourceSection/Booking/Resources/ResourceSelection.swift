@@ -24,8 +24,8 @@ struct ResourceSelection: View {
                 Text(selectedPickerDate.formatDate())
                     .font(.system(size: 22, weight: .semibold))
                     .foregroundColor(.onBackground)
-                    .padding(.horizontal, 15)
-                    .padding(.vertical, 20)
+                    .padding(.horizontal, Spacing.medium)
+                    .padding(.vertical, Spacing.large)
                 TimeslotDropdown(
                     resource: resource,
                     timeslots: timeslots,

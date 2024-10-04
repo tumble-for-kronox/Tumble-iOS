@@ -12,7 +12,7 @@ struct InfoLoading: View {
     var body: some View {
         VStack(alignment: .center) {
             CustomProgressIndicator()
-                .padding(.bottom, 15)
+                .padding(.bottom, Spacing.medium)
             Text(title)
                 .infoBodyMedium()
                 .multilineTextAlignment(.center)

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1C6049E62CAFEA0400E110C4 /* Spacings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6049E52CAFEA0400E110C4 /* Spacings.swift */; };
 		1CB1962E2CA5F78600B747BF /* EventLocationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB1962D2CA5F78600B747BF /* EventLocationsView.swift */; };
 		1CB196312CA600FE00B747BF /* SwiftSVG in Frameworks */ = {isa = PBXBuildFile; productRef = 1CB196302CA600FE00B747BF /* SwiftSVG */; };
 		1CB196342CA743C500B747BF /* CampusMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB196332CA743C500B747BF /* CampusMapView.swift */; };
@@ -323,6 +324,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1C6049E52CAFEA0400E110C4 /* Spacings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spacings.swift; sourceTree = "<group>"; };
 		1CB1962C2CA598A300B747BF /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		1CB1962D2CA5F78600B747BF /* EventLocationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventLocationsView.swift; sourceTree = "<group>"; };
 		1CB196332CA743C500B747BF /* CampusMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampusMapView.swift; sourceTree = "<group>"; };
@@ -1173,6 +1175,7 @@
 			children = (
 				D4BAE61829246AA200143717 /* Schools.json */,
 				D48F0D8929367CAF0039CD0F /* Colors.swift */,
+				1C6049E52CAFEA0400E110C4 /* Spacings.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -1828,6 +1831,7 @@
 				D4FFCC2229EDA9E200708CC0 /* Schedule.swift in Sources */,
 				D4E83EB8299959AF002E5F88 /* LoginButton.swift in Sources */,
 				D4A550D52994755900028BCF /* BookmarkButton.swift in Sources */,
+				1C6049E62CAFEA0400E110C4 /* Spacings.swift in Sources */,
 				D423F6AE29F0085D00C04123 /* SchoolPill.swift in Sources */,
 				D454DECE29D3B900005BDAE3 /* BookmarksSettings.swift in Sources */,
 				D4A433BA29952A8A00BFEB7A /* EventExtension.swift in Sources */,

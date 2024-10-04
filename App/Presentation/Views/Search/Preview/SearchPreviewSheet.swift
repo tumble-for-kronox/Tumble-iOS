@@ -24,7 +24,7 @@ struct SearchPreviewSheet: View {
                 SearchPreviewList(
                     viewModel: viewModel
                 )
-                .padding(.top, 60)
+                .padding(.top, Spacing.header)
             case .loading:
                 CustomProgressIndicator()
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)

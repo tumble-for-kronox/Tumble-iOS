@@ -26,7 +26,7 @@ struct WeekDays: View {
             },
             content: {
                 if let days = days {
-                    VStack(spacing: 15) {
+                    VStack(spacing: Spacing.medium) {
                         ForEach(days, id: \.self) { day in
                             ForEach(day.events.sorted(by: EventSorting.sortedEventOrder), id: \.self) { event in
                                 WeekEvent(event: event)
@@ -38,6 +38,6 @@ struct WeekDays: View {
                 }
             }
         )
-        .padding(.vertical, 10)
+        .padding(.vertical, Spacing.small)
     }
 }

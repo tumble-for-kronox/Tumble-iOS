@@ -13,7 +13,7 @@ struct HomeAvailable: View {
     @Binding var swipedCards: Int
     
     var body: some View {
-        VStack {
+        VStack(spacing: Spacing.extraLarge) {
             TodaysEvents(
                 eventsForToday: $eventsForToday,
                 swipedCards: $swipedCards
@@ -21,6 +21,5 @@ struct HomeAvailable: View {
             NextClass(nextClass: nextClass)
             Spacer()
         }
-        .frame(width: getRect().width - 35)
     }
 }

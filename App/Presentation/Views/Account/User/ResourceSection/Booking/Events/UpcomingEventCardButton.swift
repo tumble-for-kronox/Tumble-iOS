@@ -49,9 +49,9 @@ struct UpcomingEventCardButton: View {
             }
             Spacer()
         }
-        .padding()
-        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 100, maxHeight: 100, alignment: .center)
+        .padding(Spacing.card)
+        .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
         .background(Color.surface)
-        .cornerRadius(20)
+        .cornerRadius(15)
     }
 }

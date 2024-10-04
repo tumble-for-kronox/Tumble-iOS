@@ -18,10 +18,10 @@ struct SettingsListGroup<Content: View>: View {
         VStack {
             content()
         }
-        .padding(10)
+        .padding(Spacing.small)
         .frame(maxWidth: .infinity)
         .background(Color.surface)
         .cornerRadius(10)
-        .padding([.horizontal, .vertical], 15)
+        .padding([.horizontal, .vertical], Spacing.medium)
     }
 }

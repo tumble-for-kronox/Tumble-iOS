@@ -21,7 +21,7 @@ struct SearchInfo: View {
                 ))
                 .infoHeaderSmall()
                 .multilineTextAlignment(.leading)
-                .padding(.bottom, 10)
+                .padding(.bottom, Spacing.small)
             }
             
             FlowStack(items: schools, viewGenerator: { school in

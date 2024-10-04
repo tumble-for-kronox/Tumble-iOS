@@ -53,11 +53,11 @@ struct ResourceSectionDivider<Content: View>: View {
                     })
                 }
             }
-            .padding(.bottom, 10)
+            .padding(.bottom, Spacing.small)
             content
         }
-        .padding(.vertical, 7.5)
-        .padding(.horizontal, 17)
+        .padding(.vertical, Spacing.medium / 2)
+        .padding(.horizontal, Spacing.medium)
     }
 }
 

@@ -13,11 +13,11 @@ struct Search: View {
         
     var body: some View {
         NavigationView {
-            VStack(spacing: 15) {
+            VStack(spacing: Spacing.medium) {
                 switch viewModel.status {
                 case .initial:
                     SearchInfo(schools: viewModel.schools, selectedSchool: $viewModel.selectedSchool)
-                        .padding(.bottom, 15)
+                        .padding(.bottom, Spacing.medium)
                 case .loading:
                     CustomProgressIndicator()
                         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
@@ -61,7 +61,7 @@ struct Search: View {
                 )
                 .background(Color.background)
             }
-            .padding([.horizontal, .bottom], 15)
+            .padding([.horizontal, .bottom], Spacing.medium)
             .navigationBarTitleDisplayMode(.inline)
             .navigationTitle(NSLocalizedString("Search", comment: ""))
         }

@@ -14,14 +14,16 @@ struct EventDetailsSheet: View {
     var body: some View {
         VStack {
             ScrollView(showsIndicators: false) {
-                EventDetailsCard(
-                    parentViewModel: viewModel,
-                    openColorPicker: openColorPicker,
-                    event: viewModel.event,
-                    color: viewModel.color
-                )
-                EventDetailsBody(event: viewModel.event)
-                Spacer()
+                VStack(spacing: Spacing.medium) {
+                    EventDetailsCard(
+                        parentViewModel: viewModel,
+                        openColorPicker: openColorPicker,
+                        event: viewModel.event,
+                        color: viewModel.color
+                    )
+                    EventDetailsBody(event: viewModel.event)
+                    Spacer()
+                }
             }
             .background(Color.background)
             .background(
@@ -32,7 +34,7 @@ struct EventDetailsSheet: View {
             )
             .onDisappear(perform: onClose)
         }
-        .padding(.top, 60)
+        .padding(.top, Spacing.header)
         .background(Color.background)
         .overlay(
             CloseCoverButton(onClick: onClose),

@@ -30,7 +30,7 @@ struct BookmarkWeekView: View {
 
             CustomPageControlView(numberOfPages: weekStartDates.count, currentPage: $currentPage)
                 .frame(width: 100, height: 20)
-                .padding(.bottom, 70)
+                .padding(.bottom, 55 + Spacing.medium)
                 .shadow(color: .black.opacity(0.1), radius: 1)
         }
     }

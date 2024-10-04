@@ -19,13 +19,13 @@ struct AllNews: View {
                 Spacer()
             }
             if let news = news {
-                VStack(alignment: .leading) {
+                VStack(alignment: .leading, spacing: Spacing.medium) {
                     if news.count >= 4 {
                         if news[4...].isEmpty {
                             Text(NSLocalizedString("No other news", comment: ""))
                                 .font(.system(size: 16))
                                 .foregroundColor(.onBackground)
-                                .padding(.top, 7.5)
+                                .padding(.top, Spacing.medium / 2)
                         } else {
                             ForEach(news[4...], id: \.self) { newsItem in
                                 NewsItemCard(newsItem: newsItem)
@@ -35,11 +35,11 @@ struct AllNews: View {
                         Text(NSLocalizedString("No other news", comment: ""))
                             .font(.system(size: 16))
                             .foregroundColor(.onBackground)
-                            .padding(.top, 7.5)
+                            .padding(.top, Spacing.medium / 2)
                     }
                 }
             }
         }
-        .padding(.top, 30)
+        .padding(.top, Spacing.medium * 2)
     }
 }

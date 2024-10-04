@@ -14,7 +14,7 @@ struct EventDetailsBody: View {
     @State private var locationSheetOpen = false
     
     var body: some View {
-        VStack(alignment: .leading) {
+        VStack(alignment: .leading, spacing: Spacing.medium) {
             DetailsBuilder(title: NSLocalizedString("Course", comment: ""), image: "text.book.closed") {
                 Text(event.course?.englishName ?? "")
                     .font(.system(size: 16))

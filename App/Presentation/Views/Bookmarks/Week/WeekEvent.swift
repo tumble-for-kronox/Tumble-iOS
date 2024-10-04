@@ -38,7 +38,7 @@ struct WeekEvent: View {
                         .font(.system(size: 16, weight: .regular))
                         .foregroundColor(.onSurface)
                 }
-                .padding()
+                .padding(Spacing.card)
                 .frame(maxWidth: .infinity, maxHeight: 50)
                 .background(Color.surface)
                 .cornerRadius(10)

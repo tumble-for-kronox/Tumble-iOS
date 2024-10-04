@@ -18,7 +18,7 @@ struct ResourceDatePicker: View {
             displayedComponents: [.date]
         )
         .frame(minHeight: 300)
-        .padding(.horizontal, 15)
+        .padding(.horizontal, Spacing.medium)
         .datePickerStyle(.graphical)
         .accentColor(Color.primary)
         .background(Color.background)

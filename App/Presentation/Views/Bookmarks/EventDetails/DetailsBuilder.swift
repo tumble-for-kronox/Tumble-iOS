@@ -20,8 +20,8 @@ struct DetailsBuilder<Content: View>: View {
     
     var body: some View {
         HStack {
-            VStack(alignment: .leading, spacing: 0) {
-                HStack(alignment: .center, spacing: 10) {
+            VStack(alignment: .leading, spacing: Spacing.card) {
+                HStack(alignment: .center, spacing: Spacing.small) {
                     Image(systemName: image)
                         .font(.system(size: 17))
                         .foregroundColor(.onSurface)
@@ -30,18 +30,15 @@ struct DetailsBuilder<Content: View>: View {
                         .bold()
                         .foregroundColor(.onBackground)
                 }
-                .padding(.bottom, 5)
                 VStack(alignment: .leading) {
                     content
                 }
-                .padding(.top, 7.5)
             }
             Spacer()
         }
-        .padding(15)
+        .padding(Spacing.card)
         .background(Color.surface)
         .cornerRadius(15)
-        .padding(.top, 10)
-        .padding(.horizontal, 15)
+        .padding(.horizontal, Spacing.medium)
     }
 }

@@ -45,7 +45,7 @@ struct AccountLogin: View {
                 Spacer()
             }
             .ignoresSafeArea(.keyboard)
-            .padding(.horizontal, 20)
+            .padding(.horizontal, Spacing.medium)
             .padding(.top, 35)
             .frame(alignment: .center)
         }
