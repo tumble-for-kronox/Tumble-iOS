@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct NextClass: View {
+    @ObservedObject var appController: AppController = .shared
     let nextClass: Event?
     
     var body: some View {
@@ -25,10 +26,14 @@ struct NextClass: View {
             }
             if let nextClass = nextClass, let course = nextClass.course {
                 let color: Color = course.color.toColor()
-                CompactEventButtonLabel(event: nextClass, color: color)
-                    .frame(maxWidth: .infinity, minHeight: 100, maxHeight: 100, alignment: .center)
-                    .cornerRadius(15)
-                    .padding(.bottom, 10)
+                Button(action: {
+                    HapticsController.triggerHapticLight()
+                    appController.eventSheet = EventDetailsSheetModel(event: nextClass)
+                }, label: {
+                    CompactEventButtonLabel(event: nextClass, color: color)
+                        .frame(maxWidth: .infinity, minHeight: 100, maxHeight: 100, alignment: .center)
+                })
+                .buttonStyle(CompactButtonStyle())
             } else {
                 Text(NSLocalizedString("No upcoming class", comment: ""))
                     .font(.system(size: 16))
