@@ -31,7 +31,7 @@ struct ShareSheet: View {
                     Text(NSLocalizedString("Scan QR Code", comment: ""))
                         .font(.system(size: 16, weight: .semibold))
                         .foregroundColor(.onSurface)
-                        .padding(.bottom, 7)
+                        .padding(.bottom, Spacing.medium / 2)
                     if let qrCodeImage = qrCodeImage {
                         Image(uiImage: qrCodeImage)
                             .interpolation(.none)
@@ -49,7 +49,7 @@ struct ShareSheet: View {
                 .overlay(RoundedRectangle(cornerRadius: 10)
                     .stroke(Color.onSurface.opacity(0.5), lineWidth: 2))
             }
-            .padding(.top, 20)
+            .padding(.top, Spacing.large)
             Spacer()
         }
         .overlay(
@@ -73,7 +73,7 @@ struct ShareSheet: View {
                     Text(NSLocalizedString("Copy link", comment: ""))
                         .font(.system(size: 16, weight: .semibold))
                         .foregroundColor(.onSurface)
-                        .padding(.bottom, 7)
+                        .padding(.bottom, Spacing.medium / 2)
                     Text(websiteLink)
                         .font(.system(size: 12))
                         .foregroundColor(.onSurface.opacity(0.7))

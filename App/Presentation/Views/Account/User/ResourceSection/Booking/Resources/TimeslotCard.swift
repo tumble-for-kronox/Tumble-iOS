@@ -31,22 +31,20 @@ struct TimeslotCard: View {
                     Text(NSLocalizedString("Booked", comment: ""))
                         .font(.system(size: 18, weight: .semibold))
                         .foregroundColor(.onPrimary)
-                        .padding(7.5)
+                        .padding(Spacing.medium / 2)
                 case .available:
                     Text(NSLocalizedString("Book", comment: ""))
                         .font(.system(size: 18, weight: .semibold))
                         .foregroundColor(.onPrimary)
-                        .padding(7.5)
+                        .padding(Spacing.medium / 2)
                 }
             })
             .disabled(bookingButtonState == .booked)
             .buttonStyle(BookButtonStyle())
         }
-        .padding()
+        .padding(Spacing.medium)
         .frame(maxWidth: .infinity, maxHeight: 70)
         .background(Color.surface)
         .cornerRadius(10)
-        .padding(.horizontal, 15)
-        .padding(.vertical, 10)
     }
 }

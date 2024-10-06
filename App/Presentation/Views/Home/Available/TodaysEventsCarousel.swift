@@ -62,7 +62,7 @@ struct TodaysEventsCarousel: View {
             .cornerRadius(30)
             .buttonStyle(ScalingButtonStyle())
         }
-        .padding(.top, 10)
+        .padding(.top, Spacing.small)
     }
     
     func resetCards() {

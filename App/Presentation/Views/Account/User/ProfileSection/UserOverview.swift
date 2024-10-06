@@ -14,7 +14,7 @@ struct UserOverview: View {
     @State private var collapsedHeader: Bool = false
     
     var body: some View {
-        VStack {
+        VStack(spacing: 0) {
             HStack {
                 if let name = viewModel.userDisplayName,
                    let username = viewModel.username
@@ -29,17 +29,17 @@ struct UserOverview: View {
                                 .font(.system(size: 16, weight: .regular))
                             Text(viewModel.schoolName)
                                 .font(.system(size: 14, weight: .semibold))
-                                .padding(.top, 10)
+                                .padding(.top, Spacing.small)
                         }
                     }
-                    .padding(10)
+                    .padding(Spacing.small)
                 }
             }
-            .padding(.horizontal, 15)
+            .padding(.horizontal, Spacing.medium)
             .frame(maxWidth: .infinity, alignment: .leading)
             Divider()
                 .foregroundColor(.onBackground)
-                .padding(.horizontal, 15)
+                .padding(.top, Spacing.medium)
             Resources(
                 parentViewModel: viewModel,
                 getResourcesAndEvents: getResourcesAndEvents,

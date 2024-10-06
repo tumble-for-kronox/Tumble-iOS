@@ -12,11 +12,11 @@ struct TodaysEvents: View {
     @Binding var swipedCards: Int
     
     var body: some View {
-        VStack(alignment: .leading) {
+        VStack(alignment: .leading, spacing: Spacing.medium) {
             Text(NSLocalizedString("Today's events", comment: ""))
                 .font(.system(size: 18, weight: .semibold))
                 .foregroundColor(.onBackground)
-            VStack {
+            VStack(alignment: .center) {
                 if !eventsForToday.isEmpty {
                     TodaysEventsCarousel(
                         swipedCards: $swipedCards,

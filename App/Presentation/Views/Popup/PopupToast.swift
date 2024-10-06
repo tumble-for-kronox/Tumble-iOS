@@ -33,7 +33,7 @@ struct PopupToast: BottomPopup {
         .frame(maxWidth: .infinity, minHeight: 50)
         .background(Color.primary)
         .cornerRadius(10.0)
-        .padding(15)
+        .padding(Spacing.medium)
         .padding(.bottom, 40)
     }
     

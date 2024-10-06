@@ -13,15 +13,15 @@ struct SearchError: View {
             Spacer()
             Image(systemName: "wifi.exclamationmark")
                 .font(.system(size: 24))
-                .padding(.bottom, 20)
+                .padding(.bottom, Spacing.large)
             Text(NSLocalizedString("Looks like something went wrong", comment: ""))
                 .font(.headline)
                 .foregroundColor(.onBackground)
-                .padding(.bottom, 25)
+                .padding(.bottom, Spacing.extraLarge)
             Spacer()
         }
-        .padding(.bottom, 10)
-        .padding(.leading, 15)
-        .padding(.trailing, 15)
+        .padding(.bottom, Spacing.small)
+        .padding(.leading, Spacing.medium)
+        .padding(.trailing, Spacing.medium)
     }
 }

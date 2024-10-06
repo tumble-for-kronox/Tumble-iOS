@@ -55,8 +55,8 @@ struct ExamDetailsSheet: View {
                     }
                 })
                 .buttonStyle(WideAnimatedButtonStyle(color: .red))
-                .padding(.horizontal, 15)
-                .padding(.top, 20)
+                .padding(.horizontal, Spacing.medium)
+                .padding(.top, Spacing.large)
                 .alert(isPresented: $showingUnregisterConfirmationDialog) {
                     Alert(
                         title: Text(NSLocalizedString("Confirm Unregistration", comment: "")),
@@ -72,7 +72,7 @@ struct ExamDetailsSheet: View {
                 }
             }
         }
-        .padding(.top, 55)
+        .padding(.top, Spacing.header)
         .background(Color.background)
         .overlay(
             CloseCoverButton(onClick: {

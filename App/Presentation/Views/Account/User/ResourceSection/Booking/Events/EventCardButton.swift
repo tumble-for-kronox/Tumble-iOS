@@ -18,9 +18,9 @@ struct EventCardButton: View {
     let onTap: (String, EventType) -> Void
     
     var body: some View {
-        VStack {
+        VStack(spacing: Spacing.small) {
             HStack {
-                VStack(alignment: .leading, spacing: 10) {
+                VStack(alignment: .leading, spacing: Spacing.small) {
                     HStack {
                         Text(event.title ?? NSLocalizedString("No title", comment: ""))
                             .font(.system(size: 17, weight: .medium))
@@ -63,8 +63,8 @@ struct EventCardButton: View {
                 }
                 Spacer()
             }
-            .padding()
-            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 100, maxHeight: 100, alignment: .center)
+            .padding(Spacing.card)
+            .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
             .background(Color.surface)
             .cornerRadius(15)
             if event.lastSignupDate.isValidRegistrationDate() {
@@ -83,13 +83,12 @@ struct EventCardButton: View {
                                 .font(.system(size: 16, weight: .semibold))
                                 .foregroundColor(.onPrimary)
                         }
-                        .padding(10)
+                        .padding(Spacing.small)
                         .background(Color.primary)
                         .cornerRadius(10)
                     })
                 }
             }
         }
-        .padding(.bottom, 10)
     }
 }

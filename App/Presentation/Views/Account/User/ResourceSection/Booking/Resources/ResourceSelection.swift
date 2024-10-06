@@ -20,12 +20,12 @@ struct ResourceSelection: View {
     
     var body: some View {
         if let timeslots = resource.timeSlots {
-            VStack(alignment: .leading) {
+            VStack(alignment: .leading, spacing: 0) {
                 Text(selectedPickerDate.formatDate())
                     .font(.system(size: 22, weight: .semibold))
                     .foregroundColor(.onBackground)
-                    .padding(.horizontal, 15)
-                    .padding(.vertical, 20)
+                    .padding(.horizontal, Spacing.medium)
+                    .padding(.vertical, Spacing.large)
                 TimeslotDropdown(
                     resource: resource,
                     timeslots: timeslots,

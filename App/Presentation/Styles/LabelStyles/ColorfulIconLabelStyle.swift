@@ -16,7 +16,7 @@ struct ColorfulIconLabelStyle: LabelStyle {
             configuration.title
                 .font(.system(size: 18, weight: .regular))
                 .foregroundColor(.onSurface)
-                .padding(.leading, 20)
+                .padding(.leading, Spacing.large)
         } icon: {
             configuration.icon
                 .font(.system(size: 16, weight: .semibold))
@@ -29,7 +29,7 @@ struct ColorfulIconLabelStyle: LabelStyle {
                         .foregroundColor(color)
                 )
         }
-        .padding(.leading, 10)
+        .padding(.leading, Spacing.small)
         .padding(.vertical, 2.5)
     }
 }

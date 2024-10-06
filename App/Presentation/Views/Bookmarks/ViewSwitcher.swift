@@ -45,6 +45,7 @@ struct ViewSwitcher: View {
         .frame(width: 280)
         .background(Color.surface)
         .cornerRadius(30)
+        .shadow(radius: 10)
     }
     
     func isSelectedViewType(viewType: ViewType) -> Bool {

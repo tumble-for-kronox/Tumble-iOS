@@ -22,20 +22,22 @@ struct RegisteredEvents: View {
             case .loaded:
                 if let events = registeredEvents {
                     if !events.isEmpty {
-                        ForEach(events) { event in
-                            if let eventStart = event.eventStart.convertToHoursAndMinutes(),
-                               let eventEnd = event.eventEnd.convertToHoursAndMinutes()
-                            {
-                                ResourceCard(
-                                    eventStart: eventStart,
-                                    eventEnd: eventEnd,
-                                    type: event.type,
-                                    title: event.title,
-                                    date: event.eventStart.toDate() ?? NSLocalizedString("(no date)", comment: ""),
-                                    onClick: {
-                                        onClickEvent(event)
-                                    }
-                                )
+                        VStack(spacing: Spacing.medium) {
+                            ForEach(events) { event in
+                                if let eventStart = event.eventStart.convertToHoursAndMinutes(),
+                                   let eventEnd = event.eventEnd.convertToHoursAndMinutes()
+                                {
+                                    ResourceCard(
+                                        eventStart: eventStart,
+                                        eventEnd: eventEnd,
+                                        type: event.type,
+                                        title: event.title,
+                                        date: event.eventStart.toDate() ?? NSLocalizedString("(no date)", comment: ""),
+                                        onClick: {
+                                            onClickEvent(event)
+                                        }
+                                    )
+                                }
                             }
                         }
                     } else {

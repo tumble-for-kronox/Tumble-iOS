@@ -20,24 +20,25 @@ struct SearchPreviewList: View {
     
     var body: some View {
         ScrollView(showsIndicators: false) {
-            VStack(spacing: 10) {
+            VStack(spacing: Spacing.small) {
                 ForEach(createDays() ?? [], id: \.id) { day in
                     if !day.events.isEmpty {
                         VStack {
                             DayResponseHeader(day: day)
-                            ForEach(day.events, id: \.id) { event in
-                                VerboseEventResponseButtonLabel(
-                                    event: event,
-                                    color: viewModel.courseColorsForPreview[event.course.id]?.toColor() ?? .white
-                                )
-                                .padding(.bottom, 10)
+                            VStack(spacing: Spacing.medium) {
+                                ForEach(day.events, id: \.id) { event in
+                                    VerboseEventResponseButtonLabel(
+                                        event: event,
+                                        color: viewModel.courseColorsForPreview[event.course.id]?.toColor() ?? .white
+                                    )
+                                }
                             }
                         }
-                        .padding(.vertical, 20)
+                        .padding(.vertical, Spacing.large)
                     }
                 }
             }
-            .padding(.horizontal, 15)
+            .padding(.horizontal, Spacing.medium)
         }
     }
     

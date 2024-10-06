@@ -50,7 +50,7 @@ struct SchoolPill: View, Pill {
             .padding(2)
         })
         .buttonStyle(PillStyle(color: isSelected() ? .primary : .surface))
-        .padding(5)
+        .padding(Spacing.extraSmall)
     }
     
     var fontSize: CGFloat {

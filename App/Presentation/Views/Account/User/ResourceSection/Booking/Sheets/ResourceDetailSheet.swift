@@ -16,7 +16,7 @@ struct ResourceDetailSheet: View {
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
-        VStack {
+        VStack(spacing: Spacing.medium) {
             DetailsBuilder(title: NSLocalizedString("Location", comment: ""), image: "mappin.and.ellipse", content: {
                 Text(resource.locationID)
                     .font(.system(size: 16))
@@ -54,8 +54,8 @@ struct ResourceDetailSheet: View {
                     }
                 })
                 .buttonStyle(WideAnimatedButtonStyle())
-                .padding(.horizontal, 15)
-                .padding(.top, 20)
+                .padding(.horizontal, Spacing.medium)
+                .padding(.top, Spacing.large)
             }
             if resource.showUnbookButton {
                 Button(action: {
@@ -70,11 +70,11 @@ struct ResourceDetailSheet: View {
                     }
                 })
                 .buttonStyle(WideAnimatedButtonStyle(color: .red))
-                .padding(.horizontal, 15)
-                .padding(.top, 20)
+                .padding(.horizontal, Spacing.medium)
+                .padding(.top, Spacing.large)
             }
         }
-        .padding(.top, 55)
+        .padding(.top, Spacing.header)
         .background(Color.background)
         .overlay(
             CloseCoverButton(onClick: {

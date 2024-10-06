@@ -34,7 +34,7 @@ struct News: View {
             })
             .buttonStyle(WideAnimatedButtonStyle())
         }
-        .padding(.bottom, 20)
+        .padding(.bottom, Spacing.large)
         .frame(maxWidth: .infinity)
     }
 }

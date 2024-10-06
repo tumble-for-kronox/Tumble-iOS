@@ -19,12 +19,12 @@ struct RecentNews: View {
                 Spacer()
             }
             if let news = news {
-                VStack(alignment: .leading) {
+                VStack(alignment: .leading, spacing: Spacing.medium) {
                     if news.isEmpty {
                         Text(NSLocalizedString("No recent news", comment: ""))
                             .font(.system(size: 16))
                             .foregroundColor(.onBackground)
-                            .padding(.top, 7.5)
+                            .padding(.top, Spacing.medium / 2)
                     } else {
                         ForEach(news.pick(length: 4), id: \.self) { newsItem in
                             NewsItemCard(newsItem: newsItem)
@@ -33,5 +33,6 @@ struct RecentNews: View {
                 }
             }
         }
+        .padding(.top, Spacing.medium)
     }
 }

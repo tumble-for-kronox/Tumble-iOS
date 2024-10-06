@@ -24,7 +24,7 @@ struct BookmarkButton: View {
                 case .loading, .disabled:
                     CustomProgressIndicator(color: .onPrimary)
                 case .saved:
-                    HStack(spacing: 10) {
+                    HStack(spacing: Spacing.small) {
                         Image(systemName: "bookmark.fill")
                             .font(.system(size: 16))
                             .foregroundColor(.onPrimary)
@@ -33,7 +33,7 @@ struct BookmarkButton: View {
                             .foregroundColor(.onPrimary)
                     }
                 case .notSaved:
-                    HStack(spacing: 10) {
+                    HStack(spacing: Spacing.small) {
                         Image(systemName: "bookmark")
                             .font(.system(size: 16))
                             .foregroundColor(.onPrimary)
@@ -45,6 +45,6 @@ struct BookmarkButton: View {
             }
         }
         .buttonStyle(PillStyle(color: .primary))
-        .padding()
+        .padding(Spacing.medium)
     }
 }

@@ -21,7 +21,7 @@ struct Bookmarks: View {
                     CustomProgressIndicator()
                         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
                 case .loaded:
-                    ZStack (alignment: .top) {
+                    ZStack (alignment: .bottom) {
                         TabView (selection: $viewModel.defaultViewType) {
                             BookmarkListView(
                                 days: viewModel.bookmarkData.days,
@@ -43,7 +43,7 @@ struct Bookmarks: View {
                         }
                         .tabViewStyle(.page(indexDisplayMode: .never))
                         ViewSwitcher(parentViewModel: viewModel)
-                            .padding(.top, 5)
+                            .padding(.bottom, Spacing.medium)
                     }
                 case .uninitialized:
                     Info(title: NSLocalizedString("No bookmarks yet", comment: ""), image: "bookmark.slash")

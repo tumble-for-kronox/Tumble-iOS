@@ -27,7 +27,7 @@ struct BookmarkSettingsRow: View {
                     WidgetCenter.shared.reloadAllTimelines()
                 }
             }
-            .padding(10)
+            .padding(Spacing.small)
             .frame(maxWidth: .infinity)
             .background(Color.surface)
             .cornerRadius(10)
@@ -39,6 +39,6 @@ struct BookmarkSettingsRow: View {
             .background(Color.red)
         }
         .swipeActionCornerRadius(5)
-        .padding(15)
+        .padding(Spacing.medium)
     }
 }

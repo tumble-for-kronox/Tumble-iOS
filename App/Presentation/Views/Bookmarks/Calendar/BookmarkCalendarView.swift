@@ -19,8 +19,6 @@ struct BookmarkCalendarView: View {
     
     var body: some View {
         ScrollView(showsIndicators: false) {
-            Spacer()
-                .frame(height: 60)
             CalendarViewRepresentable(
                 selectedDate: $selectedDate,
                 selectedDateEvents: $selectedDateEvents,
@@ -38,14 +36,16 @@ struct BookmarkCalendarView: View {
             VStack {
                 if selectedDateEvents.isEmpty {
                     HStack {
+                        Spacer()
                         Text(NSLocalizedString("No events for this date", comment: ""))
                             .foregroundColor(.onBackground)
                             .font(.system(size: 20, weight: .semibold))
                         Spacer()
                     }
-                    .padding([.top, .leading], 15)
+                    .padding(.top, Spacing.extraLarge)
+                    .padding(.horizontal, Spacing.medium)
                 } else {
-                    VStack {
+                    VStack(spacing: Spacing.medium) {
                         ForEach(selectedDateEvents.sorted(), id: \.self) { event in
                             BookmarkCalendarDetail(
                                 onTapDetail: onTapDetail,
@@ -53,8 +53,8 @@ struct BookmarkCalendarView: View {
                             )
                         }
                     }
-                    .padding(.vertical, 20)
-                }
+                    .padding(.vertical, Spacing.large)
+               }
             }
         }
         .onFirstAppear {

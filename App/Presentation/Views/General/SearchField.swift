@@ -20,7 +20,7 @@ struct SearchField: View {
     @State private var closeButtonOffset: CGFloat = 300.0
     
     var body: some View {
-        HStack {
+        HStack(spacing: Spacing.medium) {
             TextField(NSLocalizedString(
                 title, comment: ""
             ), text: $searchBarText)
@@ -34,7 +34,7 @@ struct SearchField: View {
                 .onSubmit(searchAction)
                 .searchBox()
             if searching {
-                HStack (spacing: 15) {
+                HStack (spacing: Spacing.medium) {
                     Button(action: searchAction) {
                         Image(systemName: "magnifyingglass")
                             .foregroundColor(.onPrimary)
@@ -50,8 +50,6 @@ struct SearchField: View {
                     }
                     .buttonStyle(SearchMenuActionStyle())
                 }
-                .padding(.trailing, 20)
-                .padding(.top, 5)
             }
         }
     }

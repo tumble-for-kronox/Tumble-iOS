@@ -36,6 +36,6 @@ struct SectionDivider<Content: View>: View {
             .padding(.bottom)
             content
         }
-        .padding(25)
+        .padding(Spacing.medium)
     }
 }

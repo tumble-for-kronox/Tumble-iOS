@@ -17,6 +17,6 @@ struct SheetTitle: View {
                 .sheetTitle()
             Spacer()
         }
-        .padding(.bottom, 15)
+        .padding(.bottom, Spacing.medium)
     }
 }

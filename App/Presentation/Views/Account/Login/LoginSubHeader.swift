@@ -11,7 +11,7 @@ struct LoginSubHeader: View {
     let schoolName: String
     
     var body: some View {
-        VStack(spacing: 15) {
+        VStack(spacing: Spacing.medium) {
             Text(String(format: NSLocalizedString("Use your university credentials for %@ to sign in to your KronoX account", comment: ""), schoolName))
                 .font(.system(size: 16))
                 .foregroundColor(.onSurface.opacity(0.75))

@@ -22,7 +22,7 @@ struct DayResponseHeader: View {
                 .cornerRadius(20)
             Spacer()
         }
-        .padding(.bottom, 7.5)
+        .padding(.bottom, Spacing.medium / 2)
     }
     
     fileprivate func localizedKey(for inputString: String) -> String {

@@ -16,7 +16,7 @@ struct ResourceLocationsList: View {
     var body: some View {
         /// List of all available buildings that
         /// allow for booking rooms
-        VStack {
+        VStack(spacing: Spacing.medium) {
             ForEach(parentViewModel.allResources!, id: \.self.id) { resource in
                 let availableCounts = resource.availabilities.countAvailable()
                 NavigationLink(destination: {
@@ -30,7 +30,7 @@ struct ResourceLocationsList: View {
                     .navigationBarTitleDisplayMode(.inline)
                 }, label: {
                     HStack(spacing: 0) {
-                        VStack(alignment: .leading, spacing: 10) {
+                        VStack(alignment: .leading, spacing: Spacing.small) {
                             HStack {
                                 Text(resource.name ?? NSLocalizedString("No name", comment: ""))
                                     .font(.system(size: 18, weight: .medium))
@@ -56,15 +56,14 @@ struct ResourceLocationsList: View {
                                     .foregroundColor(.onSurface.opacity(0.7))
                             }
                         }
-                        .padding()
+                        .padding(Spacing.card)
                         Spacer()
                     }
                 })
                 .disabled(!(availableCounts > 0))
                 .buttonStyle(ResourceBookingButtonStyle())
-                .padding(.horizontal)
+                .padding(.horizontal, Spacing.medium)
             }
         }
-        .padding(.top)
     }
 }

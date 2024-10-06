@@ -13,10 +13,11 @@ struct Search: View {
         
     var body: some View {
         NavigationView {
-            VStack(spacing: 0) {
+            VStack(spacing: Spacing.medium) {
                 switch viewModel.status {
                 case .initial:
                     SearchInfo(schools: viewModel.schools, selectedSchool: $viewModel.selectedSchool)
+                        .padding(.bottom, Spacing.medium)
                 case .loading:
                     CustomProgressIndicator()
                         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
@@ -42,7 +43,6 @@ struct Search: View {
                     disabled: $viewModel.schoolNotSelected
                 )
                 .blur(radius: viewModel.schoolNotSelected ? 2.5 : 0)
-                .padding(.bottom, 15)
             }
             .background(Color.background)
             .onChange(of: viewModel.selectedSchool) { school in
@@ -61,6 +61,7 @@ struct Search: View {
                 )
                 .background(Color.background)
             }
+            .padding([.horizontal, .bottom], Spacing.medium)
             .navigationBarTitleDisplayMode(.inline)
             .navigationTitle(NSLocalizedString("Search", comment: ""))
         }

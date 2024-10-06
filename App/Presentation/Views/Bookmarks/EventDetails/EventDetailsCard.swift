@@ -16,51 +16,40 @@ struct EventDetailsCard: View {
     let color: Color
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            HStack {
-                VStack(alignment: .leading) {
-                    HStack {
-                        VStack(alignment: .leading, spacing: 0) {
-                            Text(event.course?.englishName ?? "")
-                                .font(.system(size: 20, weight: .semibold))
-                                .foregroundColor(.onSurface)
-                                .fixedSize(horizontal: false, vertical: true)
-                                .padding(.bottom, 7)
-                            Text(event.title)
-                                .font(.system(size: 18))
-                                .foregroundColor(.onSurface)
+        HStack {
+            VStack(alignment: .leading) {
+                Text(event.title)
+                    .font(.title2)
+                    .fontWeight(.semibold)
+                    .foregroundColor(.onSurface)
+                    .fixedSize(horizontal: false, vertical: true)
+                    .padding(.vertical, Spacing.medium / 2)
+                HStack(spacing: Spacing.extraSmall) {
+                    if parentViewModel.notificationsAllowed {
+                        if event.from.isAvailableNotificationDate() {
+                            NotificationPill(
+                                state: $parentViewModel.isNotificationSetForEvent,
+                                title: notificationEventTitle,
+                                image: "bell.badge",
+                                onTap: notificationEventAction
+                            )
                         }
-                        .padding(.bottom, 20)
+                        NotificationPill(
+                            state: $parentViewModel.isNotificationSetForEvent,
+                            title: notificationCourseTitle,
+                            image: "bell.badge",
+                            onTap: notificationCourseAction
+                        )
                     }
-                    VStack(alignment: .leading) {
-                        HStack(spacing: 5) {
-                            if parentViewModel.notificationsAllowed {
-                                if event.from.isAvailableNotificationDate() {
-                                    NotificationPill(
-                                        state: $parentViewModel.isNotificationSetForEvent,
-                                        title: notificationEventTitle,
-                                        image: "bell.badge",
-                                        onTap: notificationEventAction
-                                    )
-                                }
-                                NotificationPill(
-                                    state: $parentViewModel.isNotificationSetForEvent,
-                                    title: notificationCourseTitle,
-                                    image: "bell.badge",
-                                    onTap: notificationCourseAction
-                                )
-                            }
-                            ColorPickerPill(openColorPicker: openColorPicker)
-                        }
-                    }
+                    ColorPickerPill(openColorPicker: openColorPicker)
                 }
-                Spacer()
             }
+            Spacer()
         }
-        .padding(10)
+        .padding(Spacing.small)
         .background(event.isSpecial ? Color.red.opacity(0.2) : color.opacity(0.2))
         .cornerRadius(15)
-        .padding([.horizontal, .bottom], 15)
+        .padding(.horizontal, Spacing.medium)
     }
     
     var notificationEventTitle: String {

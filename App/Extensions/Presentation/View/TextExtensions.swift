@@ -24,7 +24,7 @@ extension Text {
             .fontWeight(.semibold)
             .foregroundColor(.onBackground.opacity(opacity))
             .padding(.bottom, 25)
-            .padding([.leading, .trailing], 15)
+            .padding([.leading, .trailing], Spacing.medium)
     }
     
     func infoHeaderSmall() -> some View {

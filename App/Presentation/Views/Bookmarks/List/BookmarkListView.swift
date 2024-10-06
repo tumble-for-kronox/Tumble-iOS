@@ -28,13 +28,8 @@ struct BookmarkListView: View {
     var body: some View {
         ScrollViewReader { proxy in
             ScrollView {
-                VStack {
-                    Spacer()
-                        .frame(height: 60)
-                    DaysList(days: days)
-                }
-                .padding(.top, 2.5)
-                .id("bookmarkScrollView")
+                DaysList(days: days)
+                    .id("bookmarkScrollView")
             }
             .overlay(
                 ToTopButton(buttonOffsetX: bookmarksListModel.buttonOffsetX, proxy: proxy),
@@ -59,13 +54,15 @@ private struct EventList: View {
     let events: RealmSwift.List<Event>
     
     var body: some View {
-        ForEach(events.sorted(by: EventSorting.sortedEventOrder), id: \._id) { event in
-            BookmarkCard(
-                onTapCard: onTapCard,
-                event: event,
-                isLast: event == events.last
-            )
-            .padding(.horizontal, 15)
+        VStack(spacing: Spacing.medium) {
+            ForEach(events.sorted(by: EventSorting.sortedEventOrder), id: \._id) { event in
+                BookmarkCard(
+                    onTapCard: onTapCard,
+                    event: event,
+                    isLast: event == events.last
+                )
+                .padding(.horizontal, Spacing.medium)
+            }
         }
     }
     
@@ -85,7 +82,7 @@ private struct DaysList: View {
                         EventList(events: day.events)
                     })
                 }
-                .padding(.vertical, 15)
+                .padding(.vertical, Spacing.medium)
             }
         }
     }

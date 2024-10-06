@@ -45,7 +45,7 @@ struct PasswordField: View {
             .buttonStyle(ScalingButtonStyle())
             Spacer()
         }
-        .padding(15)
+        .padding(Spacing.medium)
         .background(Color.surface)
         .cornerRadius(15)
     }

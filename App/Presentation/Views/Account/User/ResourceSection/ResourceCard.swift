@@ -40,7 +40,7 @@ struct ResourceCard: View {
             onClick()
         }, label: {
             HStack {
-                VStack(alignment: .leading, spacing: 0) {
+                VStack(alignment: .leading, spacing: Spacing.small) {
                     TitleView(title: title)
                     
                     if let type = type {
@@ -52,11 +52,10 @@ struct ResourceCard: View {
                     
                     DateView(date: date, start: eventStart, end: eventEnd)
                 }
-                .padding()
+                .padding(Spacing.card)
                 Spacer()
             }
         })
-        .padding(.top)
         .buttonStyle(CompactButtonStyle(colored: true))
     }
 }
@@ -78,16 +77,13 @@ struct InformationView: View {
     let text: String
     
     var body: some View {
-        VStack (spacing: 0) {
-            Spacer()
-            HStack (alignment: .top) {
-                Image(systemName: imageName)
-                    .font(.system(size: 15))
-                    .foregroundColor(.onSurface.opacity(0.7))
-                Text(text)
-                    .font(.system(size: 15))
-                    .foregroundColor(.onSurface.opacity(0.7))
-            }
+        HStack (alignment: .center) {
+            Image(systemName: imageName)
+                .font(.system(size: 15))
+                .foregroundColor(.onSurface.opacity(0.7))
+            Text(text.trimmingCharacters(in: .whitespacesAndNewlines))
+                .font(.system(size: 15))
+                .foregroundColor(.onSurface.opacity(0.7))
         }
     }
 }
@@ -98,16 +94,13 @@ struct DateView: View {
     let end: String
     
     var body: some View {
-        VStack (spacing: 0) {
-            Spacer()
-            HStack (alignment: .top) {
-                Image(systemName: "calendar.badge.clock")
-                    .font(.system(size: 15))
-                    .foregroundColor(.onSurface.opacity(0.7))
-                Text(String(format: NSLocalizedString("%@, from %@ to %@", comment: ""), date, start, end))
-                    .font(.system(size: 15))
-                    .foregroundColor(.onSurface.opacity(0.7))
-            }
+        HStack (alignment: .center) {
+            Image(systemName: "calendar.badge.clock")
+                .font(.system(size: 15))
+                .foregroundColor(.onSurface.opacity(0.7))
+            Text(String(format: NSLocalizedString("%@, from %@ to %@", comment: ""), date, start, end))
+                .font(.system(size: 15))
+                .foregroundColor(.onSurface.opacity(0.7))
         }
     }
 }

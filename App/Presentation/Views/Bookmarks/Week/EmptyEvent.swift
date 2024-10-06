@@ -19,7 +19,7 @@ struct EmptyEvent: View {
                 .foregroundColor(.onSurface)
             Spacer()
         }
-        .padding()
+        .padding(Spacing.card)
         .frame(maxWidth: .infinity, maxHeight: 50)
         .background(Color.surface)
         .cornerRadius(10)

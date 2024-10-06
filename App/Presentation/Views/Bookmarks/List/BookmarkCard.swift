@@ -20,6 +20,5 @@ struct BookmarkCard: View {
             VerboseEventButtonLabel(event: event)
         })
         .buttonStyle(ScalingButtonStyle())
-        .padding(.bottom, 10)
     }
 }

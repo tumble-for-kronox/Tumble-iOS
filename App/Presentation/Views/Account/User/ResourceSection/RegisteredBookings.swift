@@ -22,17 +22,19 @@ struct RegisteredBookings: View {
             case .loaded:
                 if let bookings = bookings {
                     if !bookings.isEmpty {
-                        ForEach(bookings) { resource in
-                            ResourceCard(
-                                eventStart: resource.timeSlot.from?.convertToHoursAndMinutes() ?? NSLocalizedString("(no time)", comment: ""),
-                                eventEnd: resource.timeSlot.to?.convertToHoursAndMinutes() ?? NSLocalizedString("(no time)", comment: ""),
-                                title: NSLocalizedString("Booked resource", comment: ""),
-                                location: resource.locationID,
-                                date: resource.timeSlot.from?.toDate() ?? NSLocalizedString("(no date)", comment: ""),
-                                onClick: {
-                                    onClickResource(resource)
-                                }
-                            )
+                        VStack(spacing: Spacing.medium) {
+                            ForEach(bookings) { resource in
+                                ResourceCard(
+                                    eventStart: resource.timeSlot.from?.convertToHoursAndMinutes() ?? NSLocalizedString("(no time)", comment: ""),
+                                    eventEnd: resource.timeSlot.to?.convertToHoursAndMinutes() ?? NSLocalizedString("(no time)", comment: ""),
+                                    title: NSLocalizedString("Booked resource", comment: ""),
+                                    location: resource.locationID,
+                                    date: resource.timeSlot.from?.toDate() ?? NSLocalizedString("(no date)", comment: ""),
+                                    onClick: {
+                                        onClickResource(resource)
+                                    }
+                                )
+                            }
                         }
                     } else {
                         Text(NSLocalizedString("No booked resources yet", comment: ""))

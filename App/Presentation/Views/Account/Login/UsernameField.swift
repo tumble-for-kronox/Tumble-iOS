@@ -23,9 +23,9 @@ struct UsernameField: View {
                 .keyboardType(.emailAddress)
             Spacer()
         }
-        .padding(15)
+        .padding(Spacing.medium)
         .background(Color.surface)
         .cornerRadius(15)
-        .padding(.bottom, 10)
+        .padding(.bottom, Spacing.small)
     }
 }
