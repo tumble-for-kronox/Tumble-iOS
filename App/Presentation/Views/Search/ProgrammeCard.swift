@@ -10,10 +10,10 @@ import SwiftUI
 struct ProgrammeCard: View {
     let programme: Response.Programme
     let universityImage: Image?
-    let onOpenProgramme: (String) -> Void
+    let onOpenProgramme: (String, String) -> Void
     var body: some View {
         Button(action: {
-            onOpenProgramme(programme.id)
+            onOpenProgramme(programme.id, programme.subtitle)
         }, label: {
             HStack {
                 VStack(alignment: .leading) {

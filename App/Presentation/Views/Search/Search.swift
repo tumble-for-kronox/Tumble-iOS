@@ -26,7 +26,8 @@ struct Search: View {
                         searchText: viewModel.searchBarText,
                         numberOfSearchResults: viewModel.programmeSearchResults.count,
                         searchResults: viewModel.programmeSearchResults,
-                        onOpenProgramme: openProgramme, universityImage: viewModel.universityImage
+                        onOpenProgramme: openProgramme, 
+                        universityImage: viewModel.universityImage
                     )
                 case .error:
                     Info(
@@ -44,6 +45,7 @@ struct Search: View {
                 )
                 .blur(radius: viewModel.schoolNotSelected ? 2.5 : 0)
             }
+            .padding([.horizontal, .bottom], Spacing.medium)
             .background(Color.background)
             .onChange(of: viewModel.selectedSchool) { school in
                 if school == nil {
@@ -57,11 +59,11 @@ struct Search: View {
                     viewModel: viewModel.searchPreviewViewModel,
                     programmeId: model.scheduleId,
                     schoolId: model.schoolId,
+                    scheduleTitle: model.scheduleTitle,
                     closePreview: closePreview
                 )
                 .background(Color.background)
             }
-            .padding([.horizontal, .bottom], Spacing.medium)
             .navigationBarTitleDisplayMode(.inline)
             .navigationTitle(NSLocalizedString("Search", comment: ""))
         }
@@ -97,10 +99,10 @@ struct Search: View {
         }
     }
     
-    func openProgramme(programmeId: String) {
+    func openProgramme(programmeId: String, scheduleTitle: String) {
         if let selectedSchoolId = viewModel.selectedSchool?.id {
             viewModel.searchPreviewModel = SearchPreviewModel(
-                scheduleId: programmeId, schoolId: String(selectedSchoolId)
+                scheduleId: programmeId, scheduleTitle: scheduleTitle.trimmingCharacters(in: .whitespacesAndNewlines), schoolId: String(selectedSchoolId)
             )
         }
     }

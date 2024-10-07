@@ -19,8 +19,13 @@ struct BookmarkSettingsRow: View {
         SwipeView {
             HStack {
                 Toggle(isOn: $schedule.toggled) {
-                    Text(schedule.scheduleId)
-                        .font(.system(size: 18, weight: .regular))
+                    VStack(alignment: .leading, spacing: Spacing.small) {
+                        Text(schedule.title)
+                            .font(.system(size: 16, weight: .semibold))
+                        Text(schedule.scheduleId)
+                            .font(.system(size: 14, weight: .regular))
+                            .foregroundStyle(.secondary)
+                    }
                 }
                 .tint(.primary)
                 .onChange(of: schedule.toggled) { _ in
@@ -39,6 +44,8 @@ struct BookmarkSettingsRow: View {
             .background(Color.red)
         }
         .swipeActionCornerRadius(5)
-        .padding(Spacing.medium)
+        .padding(.horizontal, Spacing.medium)
+        .padding(.vertical, Spacing.medium / 2)
+        .id(schedule._id)
     }
 }
