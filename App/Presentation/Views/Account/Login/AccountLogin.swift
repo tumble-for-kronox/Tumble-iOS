@@ -8,7 +8,8 @@
 import SwiftUI
 
 enum FocusedField {
-    case secure, unSecure
+    case username
+    case password
 }
 
 struct AccountLogin: View {
@@ -20,36 +21,47 @@ struct AccountLogin: View {
     @State private var visiblePassword: Bool = false
     @State private var selectedSchool: School? = nil
     
+    @FocusState private var focusedField: FocusedField?
+
     var body: some View {
         GeometryReader { _ in
-            VStack {
-                LoginHeader()
+            ZStack {
+                Color.background // Ensure background covers the full area
+                    .ignoresSafeArea() // Allow tapping outside the content to dismiss the keyboard
+                
                 VStack {
-                    HStack {
-                        schoolSelectionMenu
-                        Spacer()
-                    }
-                    .frame(maxWidth: .infinity)
-                    .padding(.bottom, 20)
+                    LoginHeader()
                     VStack {
-                        UsernameField(username: $username)
-                        PasswordField(password: $password, visiblePassword: $visiblePassword)
+                        HStack {
+                            schoolSelectionMenu
+                            Spacer()
+                        }
+                        .frame(maxWidth: .infinity)
+                        .padding(.bottom, 20)
+                        VStack {
+                            UsernameField(username: $username)
+                                .focused($focusedField, equals: .username)
+                            PasswordField(password: $password, visiblePassword: $visiblePassword)
+                                .focused($focusedField, equals: .password)
+                        }
                     }
+                    if viewModel.attemptingLogin {
+                        CustomProgressIndicator()
+                            .padding(.top, 35)
+                    } else {
+                        LoginButton(login: login, username: $username, password: $password)
+                    }
+                    Spacer()
                 }
-                if viewModel.attemptingLogin {
-                    CustomProgressIndicator()
-                        .padding(.top, 35)
-                } else {
-                    LoginButton(login: login, username: $username, password: $password)
+                .padding(.horizontal, Spacing.medium)
+                .padding(.top, 35)
+                .contentShape(Rectangle()) // This allows the whole area to be tappable
+                .onTapGesture {
+                    // Dismiss the keyboard by unfocusing the fields
+                    focusedField = nil
                 }
-                Spacer()
             }
-            .ignoresSafeArea(.keyboard)
-            .padding(.horizontal, Spacing.medium)
-            .padding(.top, 35)
-            .frame(alignment: .center)
         }
-        .background(Color.background)
     }
     
     var schoolSelectionMenu: some View {

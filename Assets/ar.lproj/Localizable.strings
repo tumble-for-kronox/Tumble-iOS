@@ -464,3 +464,9 @@
 "Select university"="اختر الجامعة";
 
 "Universities"="الجامعات";
+
+"Looking for the event's school"="البحث عن مدرسة الحدث";
+
+"Could not find the event's location"="تعذر العثور على موقع الحدث";
+
+"The map for this campus is not available yet"="خريطة هذا الحرم الجامعي غير متاحة بعد";

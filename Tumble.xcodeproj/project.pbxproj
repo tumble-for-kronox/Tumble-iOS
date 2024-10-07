@@ -37,7 +37,6 @@
 		D40E843D2981C8B200C2CF2E /* AccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40E843C2981C8B200C2CF2E /* AccountViewModel.swift */; };
 		D40F96B12A3C7F49006AD4A9 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40F96B02A3C7F49006AD4A9 /* LoginViewModel.swift */; };
 		D41172B52985DA740082BB4F /* TextFieldExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41172B42985DA740082BB4F /* TextFieldExtensions.swift */; };
-		D41472FD29D832D500050BFF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D41472FC29D832D500050BFF /* Preview Assets.xcassets */; };
 		D414B23429D88C1100EA8F46 /* PullToRefreshIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D414B23329D88C1100EA8F46 /* PullToRefreshIndicator.swift */; };
 		D41684812A9121220064A81E /* NotificationPill.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41684802A9121220064A81E /* NotificationPill.swift */; };
 		D416D33929CA7C5B009A4FB8 /* CalendarViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D416D33829CA7C5B009A4FB8 /* CalendarViewRepresentable.swift */; };
@@ -53,6 +52,7 @@
 		D41ED5522984351F009DCF8B /* Method.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41ED5512984351F009DCF8B /* Method.swift */; };
 		D41F152B299C699500E13264 /* Events.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41F152A299C699500E13264 /* Events.swift */; };
 		D421EAF02993FB660045D438 /* EventDetailsSheetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D421EAEF2993FB660045D438 /* EventDetailsSheetModel.swift */; };
+		D4221FED2CB44F8C00B056B8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D4221FEC2CB44F8C00B056B8 /* GoogleService-Info.plist */; };
 		D423F6AE29F0085D00C04123 /* SchoolPill.swift in Sources */ = {isa = PBXBuildFile; fileRef = D423F6AD29F0085D00C04123 /* SchoolPill.swift */; };
 		D426E3A4299C39DE00A8D7AE /* ResourceBookings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D426E3A3299C39DE00A8D7AE /* ResourceBookings.swift */; };
 		D426E3A6299C39EA00A8D7AE /* EventBookings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D426E3A5299C39EA00A8D7AE /* EventBookings.swift */; };
@@ -354,7 +354,6 @@
 		D40E843C2981C8B200C2CF2E /* AccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewModel.swift; sourceTree = "<group>"; };
 		D40F96B02A3C7F49006AD4A9 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		D41172B42985DA740082BB4F /* TextFieldExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldExtensions.swift; sourceTree = "<group>"; };
-		D41472FC29D832D500050BFF /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		D414B23329D88C1100EA8F46 /* PullToRefreshIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullToRefreshIndicator.swift; sourceTree = "<group>"; };
 		D41684802A9121220064A81E /* NotificationPill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationPill.swift; sourceTree = "<group>"; };
 		D416D33829CA7C5B009A4FB8 /* CalendarViewRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewRepresentable.swift; sourceTree = "<group>"; };
@@ -370,6 +369,7 @@
 		D41ED5512984351F009DCF8B /* Method.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Method.swift; sourceTree = "<group>"; };
 		D41F152A299C699500E13264 /* Events.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Events.swift; sourceTree = "<group>"; };
 		D421EAEF2993FB660045D438 /* EventDetailsSheetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailsSheetModel.swift; sourceTree = "<group>"; };
+		D4221FEC2CB44F8C00B056B8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D423F6AD29F0085D00C04123 /* SchoolPill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolPill.swift; sourceTree = "<group>"; };
 		D42554332A2C9A4700256550 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D426E3A3299C39DE00A8D7AE /* ResourceBookings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceBookings.swift; sourceTree = "<group>"; };
@@ -1110,10 +1110,10 @@
 		D472213C292454560063BDB7 = {
 			isa = PBXGroup;
 			children = (
+				D4221FEC2CB44F8C00B056B8 /* GoogleService-Info.plist */,
 				D4D779052B8CF9F900D82C94 /* WidgetExtensionDebug.entitlements */,
 				D4D778F12B8CE7E100D82C94 /* WidgetExtensionRelease.entitlements */,
 				D4D7B45A29F1505A0032AEEF /* README.md */,
-				D4938BAD29D762DE00029F88 /* Preview Content */,
 				D47A451129D74C68008626E6 /* Assets */,
 				D47221582924548A0063BDB7 /* App */,
 				D4D778E12B8CE6DD00D82C94 /* Widget */,
@@ -1258,14 +1258,6 @@
 				D42BAC24298D5EBC0025EAA9 /* Dependencies.swift */,
 			);
 			path = DependencyInjection;
-			sourceTree = "<group>";
-		};
-		D4938BAD29D762DE00029F88 /* Preview Content */ = {
-			isa = PBXGroup;
-			children = (
-				D41472FC29D832D500050BFF /* Preview Assets.xcassets */,
-			);
-			path = "Preview Content";
 			sourceTree = "<group>";
 		};
 		D4982910299DA0400017D636 /* ResourceSection */ = {
@@ -1736,8 +1728,8 @@
 			files = (
 				D4D7B45B29F1505A0032AEEF /* README.md in Resources */,
 				D4CD0F0529D5DC9D00AB5FD0 /* Localizable.strings in Resources */,
+				D4221FED2CB44F8C00B056B8 /* GoogleService-Info.plist in Resources */,
 				D4BAE61929246AA200143717 /* Schools.json in Resources */,
-				D41472FD29D832D500050BFF /* Preview Assets.xcassets in Resources */,
 				D472214D292454570063BDB7 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2119,7 +2111,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 5QHM3X75YP;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_TESTING_SEARCH_PATHS = YES;
@@ -2282,7 +2274,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 5QHM3X75YP;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_TESTING_SEARCH_PATHS = YES;
@@ -2327,7 +2319,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 5QHM3X75YP;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_TESTABILITY = YES;

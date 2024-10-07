@@ -9,7 +9,7 @@ import SwiftUI
 
 struct PasswordField: View {
     @Binding var password: String
-    @FocusState var focused: FocusedField?
+    @FocusState private var isFocused: Bool
     @Binding var visiblePassword: Bool
     
     var body: some View {
@@ -22,21 +22,21 @@ struct PasswordField: View {
                     .font(.system(size: 18))
                     .autocapitalization(.none)
                     .disableAutocorrection(true)
-                    .focused($focused, equals: .unSecure)
+                    .focused($isFocused)
+                    .opacity(visiblePassword ? 1 : 0)
                     .keyboardType(.alphabet)
                     .foregroundColor(.onSurface)
-                    .opacity(visiblePassword ? 1 : 0)
+
                 SecureField(NSLocalizedString("Password", comment: ""), text: $password)
                     .font(.system(size: 18))
                     .autocapitalization(.none)
                     .disableAutocorrection(true)
-                    .focused($focused, equals: .secure)
-                    .foregroundColor(.onSurface)
+                    .focused($isFocused)
                     .opacity(visiblePassword ? 0 : 1)
+                    .foregroundColor(.onSurface)
             }
             Button(action: {
                 visiblePassword.toggle()
-                focused = focused == .unSecure ? .unSecure : .secure
             }) {
                 Image(systemName: visiblePassword ? "eye" : "eye.slash")
                     .font(.system(size: 18, weight: .semibold))
