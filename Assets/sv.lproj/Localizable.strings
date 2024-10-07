@@ -465,3 +465,9 @@
 "Select university"="Välj universitet";
 
 "Universities"="Universitet";
+
+"Looking for the event's school"="Letar efter evenemangets skola";
+
+"Could not find the event's location"="Kunde inte hitta evenemangets plats";
+
+"The map for this campus is not available yet"="Kartan för detta campus är inte tillgänglig ännu";

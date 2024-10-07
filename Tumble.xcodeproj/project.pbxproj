@@ -1110,6 +1110,7 @@
 		D472213C292454560063BDB7 = {
 			isa = PBXGroup;
 			children = (
+				D4221FEC2CB44F8C00B056B8 /* GoogleService-Info.plist */,
 				D4D779052B8CF9F900D82C94 /* WidgetExtensionDebug.entitlements */,
 				D4221FEE2CB45F5500B056B8 /* GoogleService-Info.plist */,
 				D4D778F12B8CE7E100D82C94 /* WidgetExtensionRelease.entitlements */,

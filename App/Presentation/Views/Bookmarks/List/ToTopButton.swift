@@ -21,7 +21,7 @@ struct ToTopButton: View {
             Image(systemName: "chevron.up")
                 .font(.system(size: 24, weight: .semibold))
                 .foregroundColor(.onPrimary)
-                .padding(12)
+                .padding(13)
         })
         .buttonStyle(ToTopButtonStyle())
         .padding(.bottom, Spacing.medium)
