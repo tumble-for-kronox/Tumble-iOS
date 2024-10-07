@@ -10,5 +10,6 @@ import Foundation
 struct SearchPreviewModel: Identifiable {
     let id: UUID = .init()
     let scheduleId: String
+    let scheduleTitle: String
     let schoolId: String
 }

@@ -16,13 +16,15 @@ class Schedule: Object, Identifiable {
     @Persisted var toggled: Bool = true // When a schedule is added, default to showing
     @Persisted var schoolId: String
     @Persisted var requiresAuth: Bool
+    @Persisted var title: String
     
     convenience init(
         scheduleId: String,
         cachedAt: String,
         days: RealmSwift.List<Day>,
         schoolId: String,
-        requiresAuth: Bool
+        requiresAuth: Bool,
+        title: String
     ) {
         self.init()
         self.scheduleId = scheduleId
@@ -30,5 +32,6 @@ class Schedule: Object, Identifiable {
         self.days = days
         self.schoolId = schoolId
         self.requiresAuth = requiresAuth
+        self.title = title
     }
 }

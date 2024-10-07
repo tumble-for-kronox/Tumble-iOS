@@ -91,13 +91,14 @@ final class SearchPreviewViewModel: ObservableObject {
     @MainActor func bookmark(
         scheduleId: String,
         schedules: [Schedule],
-        schoolId: String
+        schoolId: String,
+        scheduleTitle: String
     ) {
         buttonState = .loading
         // If the schedule isn't already saved in the local database
         if !isSaved {
             if let realmSchedule = schedule?.toRealmSchedule(
-                scheduleRequiresAuth: scheduleRequiresAuth(schoolId: schoolId), schoolId: schoolId
+                scheduleRequiresAuth: scheduleRequiresAuth(schoolId: schoolId), schoolId: schoolId, scheduleTitle: scheduleTitle
             ) {
                 realmManager.saveSchedule(schedule: realmSchedule)
                 isSaved = true

@@ -15,6 +15,7 @@ struct SearchPreviewSheet: View {
     
     let programmeId: String
     let schoolId: String
+    let scheduleTitle: String
     let closePreview: () -> Void
     
     var body: some View {
@@ -72,7 +73,8 @@ struct SearchPreviewSheet: View {
         viewModel.bookmark(
             scheduleId: programmeId,
             schedules: Array(schedules),
-            schoolId: schoolId
+            schoolId: schoolId,
+            scheduleTitle: scheduleTitle
         )
         WidgetCenter.shared.reloadAllTimelines()
     }

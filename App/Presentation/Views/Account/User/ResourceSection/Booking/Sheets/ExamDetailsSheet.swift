@@ -16,7 +16,7 @@ struct ExamDetailsSheet: View {
     @State private var showingUnregisterConfirmationDialog = false
     
     var body: some View {
-        VStack {
+        VStack(spacing: Spacing.medium) {
             DetailsBuilder(title: NSLocalizedString("Title", comment: ""), image: "a.magnify", content: {
                 Text(event.title ?? NSLocalizedString("No title", comment: ""))
                     .font(.system(size: 16))

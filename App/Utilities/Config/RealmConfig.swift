@@ -11,11 +11,17 @@ import RealmSwift
 var realmConfig: Realm.Configuration {
     let container = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.com.example.tumble")
     let realmURL = container?.appendingPathComponent("realm.db")
-    let config = Realm.Configuration(fileURL: realmURL, schemaVersion: 2, migrationBlock: { migration, oldSchemaVersion in
+    let config = Realm.Configuration(fileURL: realmURL, schemaVersion: 3, migrationBlock: { migration, oldSchemaVersion in
         if oldSchemaVersion < 2 {
             /// Migration for schema version 2 (add `schoolId` to `Event`)
             migration.enumerateObjects(ofType: Event.className()) { _, newObject in
                 newObject!["schoolId"] = ""
+            }
+        }
+        if oldSchemaVersion < 3 {
+            /// Migration for schema version 2 (add `schoolId` to `Event`)
+            migration.enumerateObjects(ofType: Schedule.className()) { _, newObject in
+                newObject!["title"] = ""
             }
         }
     })
