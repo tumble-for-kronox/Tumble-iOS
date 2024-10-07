@@ -92,9 +92,15 @@ struct Settings: View {
             SettingsListGroup {
                 SettingsExternalButton(
                     title: NSLocalizedString("Tumble on GitHub", comment: ""),
-                    leadingIcon: "chevron.left.forwardslash.chevron.right",
-                    leadingIconBackgroundColor: .black,
-                    action: UIApplication.shared.openSourceCode
+                    leadingCustomImage: "github-logo",
+                    leadingIconBackgroundColor: .white,
+                    action: UIApplication.shared.openGitHub
+                )
+                SettingsExternalButton(
+                    title: NSLocalizedString("Tumble on Discord", comment: ""),
+                    leadingCustomImage: "discord-logo",
+                    leadingIconBackgroundColor: .blue,
+                    action: UIApplication.shared.openDiscord
                 )
             }
             if let appVersion = appVersion {

@@ -18,13 +18,15 @@ struct SettingsExternalButton: View {
     let current: String?
     let action: () -> Void
     let trailingIcon: String
-    let leadingIcon: String
-    let leadingIconBackgroundColor: Color
+    let leadingIcon: String?
+    let leadingCustomImage: String?
+    let leadingIconBackgroundColor: Color?
     
     init(
         title: String,
         current: String? = nil,
-        leadingIcon: String,
+        leadingIcon: String? = nil,
+        leadingCustomImage: String? = nil,
         trailingIcon: String = "arrow.up.right",
         leadingIconBackgroundColor: Color = Color.onSurface,
         action: @escaping () -> Void
@@ -33,6 +35,7 @@ struct SettingsExternalButton: View {
         self.current = current
         self.leadingIcon = leadingIcon
         self.trailingIcon = trailingIcon
+        self.leadingCustomImage = leadingCustomImage
         self.leadingIconBackgroundColor = leadingIconBackgroundColor
         self.action = action
     }
@@ -43,14 +46,36 @@ struct SettingsExternalButton: View {
             action()
         }, label: {
             HStack {
-                Label(title, systemImage: leadingIcon)
-                    .labelStyle(ColorfulIconLabelStyle(color: leadingIconBackgroundColor))
+                if let leadingCustomImage = leadingCustomImage {
+                    Image(leadingCustomImage)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 18, height: 18)
+                        .padding(8)
+                        .foregroundColor(.white)
+                        .background(
+                            RoundedRectangle(cornerRadius: 7)
+                                .frame(width: 35, height: 35)
+                                .foregroundColor(leadingIconBackgroundColor)
+                        )
+                } else if let leadingIcon = leadingIcon, let leadingIconBackgroundColor = leadingIconBackgroundColor {
+                    Label(title, systemImage: leadingIcon)
+                        .labelStyle(ColorfulIconLabelStyle(color: leadingIconBackgroundColor))
+                }
+                
+                if let _ = leadingCustomImage {
+                    Text(title)
+                        .font(.system(size: 18, weight: .regular))
+                        .foregroundColor(.onSurface)
+                        .padding(.leading, Spacing.extraSmall)
+                }
+                
                 Spacer()
+                
                 if let current = current {
                     Text(current)
-                        .font(.system(size: 18, weight: .regular))
+                        .font(.system(size: 14))
                         .foregroundColor(.onSurface.opacity(0.4))
-                        .padding(.trailing, Spacing.medium)
                 }
                 Image(systemName: trailingIcon)
                     .font(.system(size: 15, weight: .medium))
@@ -60,3 +85,4 @@ struct SettingsExternalButton: View {
         .padding(Spacing.settingsButton)
     }
 }
+
