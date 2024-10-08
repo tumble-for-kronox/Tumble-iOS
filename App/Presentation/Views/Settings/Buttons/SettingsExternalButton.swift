@@ -20,7 +20,7 @@ struct SettingsExternalButton: View {
     let trailingIcon: String
     let leadingIcon: String?
     let leadingCustomImage: String?
-    let leadingIconBackgroundColor: Color?
+    let leadingIconBackgroundColor: Color
     
     init(
         title: String,
@@ -47,42 +47,44 @@ struct SettingsExternalButton: View {
         }, label: {
             HStack {
                 if let leadingCustomImage = leadingCustomImage {
-                    Image(leadingCustomImage)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 18, height: 18)
-                        .padding(8)
-                        .foregroundColor(.white)
-                        .background(
-                            RoundedRectangle(cornerRadius: 7)
-                                .frame(width: 35, height: 35)
-                                .foregroundColor(leadingIconBackgroundColor)
-                        )
-                } else if let leadingIcon = leadingIcon, let leadingIconBackgroundColor = leadingIconBackgroundColor {
+                    Label {
+                        Text(title)
+                            .font(.system(size: 18, weight: .regular))
+                            .foregroundColor(.onSurface)
+                            .padding(.leading, Spacing.large)
+                    } icon: {
+                        Image(leadingCustomImage)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 18, height: 18)
+                            .foregroundColor(.white)
+                            .frame(width: 2, height: 2)
+                            .padding(2.5)
+                            .foregroundColor(.onPrimary)
+                            .background(
+                                RoundedRectangle(cornerRadius: 7)
+                                    .frame(width: 35, height: 35)
+                                    .foregroundColor(leadingIconBackgroundColor)
+                            )
+                    }
+                } else if let leadingIcon = leadingIcon {
                     Label(title, systemImage: leadingIcon)
                         .labelStyle(ColorfulIconLabelStyle(color: leadingIconBackgroundColor))
                 }
                 
-                if let _ = leadingCustomImage {
-                    Text(title)
-                        .font(.system(size: 18, weight: .regular))
-                        .foregroundColor(.onSurface)
-                        .padding(.leading, Spacing.extraSmall)
-                }
-                
                 Spacer()
-                
                 if let current = current {
                     Text(current)
-                        .font(.system(size: 14))
+                        .font(.system(size: 18, weight: .regular))
                         .foregroundColor(.onSurface.opacity(0.4))
+                        .padding(.trailing, Spacing.small)
                 }
                 Image(systemName: trailingIcon)
                     .font(.system(size: 15, weight: .medium))
                     .foregroundColor(.onSurface.opacity(0.4))
             }
+            .padding(Spacing.settingsButton)
         })
-        .padding(Spacing.settingsButton)
     }
 }
 

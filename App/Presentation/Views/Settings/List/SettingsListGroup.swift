@@ -15,13 +15,15 @@ struct SettingsListGroup<Content: View>: View {
     }
     
     var body: some View {
-        VStack {
+        VStack(spacing: 0) {
             content()
         }
-        .padding(Spacing.small)
         .frame(maxWidth: .infinity)
+        .padding(.leading, Spacing.small)
         .background(Color.surface)
         .cornerRadius(10)
-        .padding([.horizontal, .vertical], Spacing.medium)
+        .padding(.horizontal, Spacing.medium)
+        .padding(.top, Spacing.medium)
+        .padding(.bottom, Spacing.large)
     }
 }

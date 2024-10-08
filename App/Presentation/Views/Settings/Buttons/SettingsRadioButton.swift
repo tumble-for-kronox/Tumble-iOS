@@ -20,6 +20,7 @@ struct SettingsRadioButton: View {
                 Text(title)
                     .font(.system(size: 18, weight: .regular))
                     .foregroundColor(.onSurface)
+                    .padding(.leading, Spacing.extraSmall)
                 Spacer()
                 if isSelected {
                     Image(systemName: "checkmark")
@@ -35,7 +36,7 @@ struct SettingsRadioButton: View {
                         .frame(width: 25, height: 25)
                 }
             }
-            .padding(7)
+            .padding([.top, .bottom, .trailing], Spacing.medium)
         }
     }
 }

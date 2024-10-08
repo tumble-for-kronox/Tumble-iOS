@@ -96,6 +96,7 @@ struct Settings: View {
                     leadingIconBackgroundColor: .white,
                     action: UIApplication.shared.openGitHub
                 )
+                Divider()
                 SettingsExternalButton(
                     title: NSLocalizedString("Tumble on Discord", comment: ""),
                     leadingCustomImage: "discord-logo",
