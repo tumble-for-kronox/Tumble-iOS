@@ -68,6 +68,17 @@ final class ParentViewModel: ObservableObject {
                 name: .eventReceived,
                 object: nil
             )
+        NotificationCenter.default
+            .addObserver(
+                self,
+                selector: #selector(updateAllSchedulesToNewFormat(_:)),
+                name: .updateSchedulesToNewFormat,
+                object: nil
+            )
+    }
+    
+    @objc private func updateAllSchedulesToNewFormat(_ notification: Notification) {
+        self.updateRealmSchedules()
     }
     
     /// De-blurs background after popup
