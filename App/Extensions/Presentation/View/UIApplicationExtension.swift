@@ -32,8 +32,14 @@ extension UIApplication {
         }
     }
     
-    func openSourceCode() {
-        if let url = URL(string: "https://github.com/adisve/Tumble-iOS") {
+    func openGitHub() {
+        if let url = URL(string: "https://github.com/tumble-for-kronox/Tumble-iOS") {
+            UIApplication.shared.open(url)
+        }
+    }
+    
+    func openDiscord() {
+        if let url = URL(string: "https://discord.gg/g4QQFuwRFT") {
             UIApplication.shared.open(url)
         }
     }

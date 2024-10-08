@@ -29,7 +29,5 @@ struct ColorfulIconLabelStyle: LabelStyle {
                         .foregroundColor(color)
                 )
         }
-        .padding(.leading, Spacing.small)
-        .padding(.vertical, 2.5)
     }
 }

@@ -22,5 +22,5 @@ struct Spacing {
     static let card: CGFloat = 15
     
     /// Inner padding for settings buttons
-    static let settingsButton: CGFloat = 10
+    static let settingsButton: CGFloat = 20
 }
