@@ -20,7 +20,7 @@ var realmConfig: Realm.Configuration {
             NotificationCenter.default.post(name: .updateSchedulesToNewFormat, object: nil)
         }
         if oldSchemaVersion < 3 {
-            /// Migration for schema version 2 (add `title` to `Schedule`)
+            /// Migration for schema version 3 (add `title` to `Schedule`)
             migration.enumerateObjects(ofType: Schedule.className()) { _, newObject in
                 newObject!["title"] = ""
             }
