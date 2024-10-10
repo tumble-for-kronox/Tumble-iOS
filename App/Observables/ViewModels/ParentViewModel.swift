@@ -240,7 +240,7 @@ final class ParentViewModel: ObservableObject {
     }
     
     /// Gets human readable title for Schedule
-    private func getScheduleTitle(for schedule: Schedule, schoolId: String) async -> String {
+    @MainActor private func getScheduleTitle(for schedule: Schedule, schoolId: String) async -> String {
         let scheduleId = schedule.scheduleId
             .replacingOccurrences(of: "p.", with: "")
             .replacingOccurrences(of: "k.", with: "")
