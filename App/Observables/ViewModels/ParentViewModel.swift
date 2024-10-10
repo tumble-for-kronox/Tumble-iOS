@@ -174,7 +174,7 @@ final class ParentViewModel: ObservableObject {
         do {
             let endpoint: Endpoint = .schedule(scheduleId: schedule.scheduleId, schoolId: schedule.schoolId)
             let fetchedSchedule: Response.Schedule = try await kronoxManager.get(endpoint)
-            updateSchedule(schedule: fetchedSchedule, schoolId: schedule.schoolId, existingSchedule: schedule)
+            await updateSchedule(schedule: fetchedSchedule, schoolId: schedule.schoolId, existingSchedule: schedule)
             
             guard !schedule.isInvalidated else {
                 throw UpdateBookmarkError.scheduleNotFound(scheduleId)
@@ -227,14 +227,32 @@ final class ParentViewModel: ObservableObject {
         schedule: Response.Schedule,
         schoolId: String,
         existingSchedule: Schedule
-    ) {
+    ) async {
         let scheduleRequiresAuth = existingSchedule.requiresAuth
+        let scheduleTitle = await getScheduleTitle(for: existingSchedule, schoolId: schoolId)
         let realmSchedule: Schedule = schedule.toRealmSchedule(
             scheduleRequiresAuth: scheduleRequiresAuth,
             schoolId: schoolId,
-            existingCourseColors: self.realmManager.getCourseColors()
+            existingCourseColors: self.realmManager.getCourseColors(),
+            scheduleTitle: scheduleTitle
         )
         self.realmManager.updateSchedule(scheduleId: schedule.id, newSchedule: realmSchedule)
+    }
+    
+    /// Gets human readable title for Schedule
+    @MainActor private func getScheduleTitle(for schedule: Schedule, schoolId: String) async -> String {
+        let scheduleId = schedule.scheduleId
+            .replacingOccurrences(of: "p.", with: "")
+            .replacingOccurrences(of: "k.", with: "")
+        
+        do {
+            let endpoint: Endpoint = .searchProgramme(searchQuery: scheduleId, schoolId: schoolId)
+            let searchResult: Response.Search = try await self.kronoxManager.get(endpoint)
+            
+            return searchResult.items.first?.subtitle ?? ""
+        } catch {
+            return ""
+        }
     }
     
     
