@@ -47,12 +47,11 @@ struct Bookmarks: View {
                         }
                         .tabViewStyle(.page(indexDisplayMode: .never))
                         
-                        if viewModel.viewSwitcherVisible {
-                            ViewSwitcher(parentViewModel: viewModel)
-                                .padding(.bottom, Spacing.medium)
-                                .matchedGeometryEffect(id: "viewSwitcher", in: animationNamespace)
-                                .transition(.move(edge: .bottom))
-                        }
+                        ViewSwitcher(parentViewModel: viewModel)
+                            .padding(.bottom, Spacing.medium)
+                            .offset(y: viewModel.viewSwitcherVisible ? 0: 100)
+                            .scaleEffect(viewModel.viewSwitcherVisible ? 1 : 0.8, anchor: .bottom)
+                            .opacity(viewModel.viewSwitcherVisible ? 1 : 0.5)
                     }
                 case .uninitialized:
                     Info(title: NSLocalizedString("No bookmarks yet", comment: ""), image: "bookmark.slash")

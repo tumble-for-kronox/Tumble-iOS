@@ -75,7 +75,9 @@ final class BookmarksViewModel: ObservableObject {
     
     
     func toggleViewSwitcherVisibility() {
-        viewSwitcherVisible.toggle()
+        withAnimation {
+            viewSwitcherVisible.toggle()
+        }
     }
     
     /// Instantiates viewmodel for viewing a specific `Event` object

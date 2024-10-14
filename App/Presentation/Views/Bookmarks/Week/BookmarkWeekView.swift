@@ -29,6 +29,16 @@ struct BookmarkWeekView: View {
             .onPreferenceChange(CurrentPagePreferenceKey.self) { value in
                 currentPage = value
             }
+            
+            VStack {
+                CustomPageControlView(numberOfPages: weekStartDates.count, currentPage: $currentPage)
+                    .frame(width: 100, height: 20)
+                    .padding(.bottom, 55 + Spacing.medium)
+                    .shadow(color: .black.opacity(0.1), radius: 1)
+            }
+            .offset(y: viewModel.viewSwitcherVisible ? 0: 100)
+            .scaleEffect(viewModel.viewSwitcherVisible ? 1 : 0.8, anchor: .bottom)
+            .opacity(viewModel.viewSwitcherVisible ? 1 : 0.5)
         }
     }
 }

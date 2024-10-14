@@ -53,6 +53,7 @@ struct WeekPage: View {
             }
             .frame(maxWidth: .infinity)
             .padding([.top, .horizontal], Spacing.medium)
+            .padding(.bottom, Spacing.extraLarge)
         }
     }
 }
