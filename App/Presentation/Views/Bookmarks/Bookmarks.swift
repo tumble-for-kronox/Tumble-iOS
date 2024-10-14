@@ -13,6 +13,8 @@ struct Bookmarks: View {
     @ObservedObject var parentViewModel: ParentViewModel
     @ObservedObject var appController: AppController = .shared
     
+    @Namespace private var animationNamespace
+    
     var body: some View {
         NavigationView {
             VStack(alignment: .center) {
@@ -25,7 +27,8 @@ struct Bookmarks: View {
                         TabView (selection: $viewModel.defaultViewType) {
                             BookmarkListView(
                                 days: viewModel.bookmarkData.days,
-                                appController: appController
+                                appController: appController,
+                                viewModel: viewModel
                             )
                             .tag(ViewType.list)
                             
@@ -37,13 +40,19 @@ struct Bookmarks: View {
                             .tag(ViewType.calendar)
                             
                             BookmarkWeekView(
-                                scheduleWeeks: viewModel.bookmarkData.weeks
+                                scheduleWeeks: viewModel.bookmarkData.weeks,
+                                viewModel: viewModel
                             )
                             .tag(ViewType.week)
                         }
                         .tabViewStyle(.page(indexDisplayMode: .never))
-                        ViewSwitcher(parentViewModel: viewModel)
-                            .padding(.bottom, Spacing.medium)
+                        
+                        if viewModel.viewSwitcherVisible {
+                            ViewSwitcher(parentViewModel: viewModel)
+                                .padding(.bottom, Spacing.medium)
+                                .matchedGeometryEffect(id: "viewSwitcher", in: animationNamespace)
+                                .transition(.move(edge: .bottom))
+                        }
                     }
                 case .uninitialized:
                     Info(title: NSLocalizedString("No bookmarks yet", comment: ""), image: "bookmark.slash")
@@ -59,10 +68,6 @@ struct Bookmarks: View {
             .onAppear {
                 UIApplication.shared.applicationIconBadgeNumber = 0
             }
-            // Event sheet for both when a notification has been opened outside
-            // the application by the user and when triggered on click of event card.
-            // The shared eventSheet value is changed from AppDelegate and launched here,
-            // as well as in this view if an event is pressed.
             .fullScreenCover(item: $appController.eventSheet) { (eventSheet: EventDetailsSheetModel) in
                 EventDetailsSheet(
                     viewModel: viewModel.createViewModelEventSheet(
@@ -74,3 +79,4 @@ struct Bookmarks: View {
         .tag(TabbarTabType.bookmarks)
     }
 }
+

@@ -10,20 +10,20 @@ import SwiftUI
 struct WeekPage: View {
     let weekStart: Date
     let weekDays: [Day]
+    let toggleViewSwitcherVisibility: () -> Void
     
     var body: some View {
         let weekOfYear = weekStart.get(.weekOfYear)
+        let daysForWeek = weekDays.normalizedToWeekDays()
 
         ScrollView (showsIndicators: false) {
-            VStack {
+            LazyVStack {
                 HStack {
                     Spacer()
                     Text(String(format: NSLocalizedString("w. %@", comment: ""), "\(weekOfYear)"))
                         .font(.system(size: 22, weight: .semibold))
                         .foregroundColor(.onBackground)
                 }
-
-                let daysForWeek = weekDays.normalizedToWeekDays()
 
                 if weekDays.isEmpty {
                     VStack {
@@ -41,8 +41,12 @@ struct WeekPage: View {
                 } else {
                     ForEach(1...7, id: \.self) { dayOfWeek in
                         let weekDayDate = gregorianCalendar.date(byAdding: .day, value: dayOfWeek - 1, to: weekStart)!
-                        WeekDays(days: daysForWeek[dayOfWeek], weekDayDate: weekDayDate)
-                            .frame(maxWidth: .infinity)
+                        WeekDays(
+                            days: daysForWeek[dayOfWeek],
+                            weekDayDate: weekDayDate,
+                            toggleViewSwitcherVisibility: toggleViewSwitcherVisibility
+                        )
+                        .frame(maxWidth: .infinity)
                     }
                 }
                 Spacer()
