@@ -33,7 +33,6 @@ final class ParentViewModel: ObservableObject {
     @Published var authSchoolId: Int = -1
     @Published var userNotOnBoarded: Bool = false
     @Published var updateAttempted: Bool = false
-    @Published var showingOneTimePopup: Bool = false
         
     private var schedulesToken: NotificationToken? = nil
     private var cancellables = Set<AnyCancellable>()
@@ -41,26 +40,11 @@ final class ParentViewModel: ObservableObject {
     init() {
         setupNotificationObservers()
         setupPublishers()
-        checkOneTimeDevPopup()
-    }
-    
-    private func checkOneTimeDevPopup() {
-        if preferenceService.showOneTimePopup() {
-            showingOneTimePopup = true
-            OneTimePopup().showAndStack()
-            preferenceService.setShowOneTimePopup(show: false)
-        }
+        logOutIfFirstOpen()
     }
     
     /// Creates two observers for event notifications
     private func setupNotificationObservers() {
-        NotificationCenter.default
-            .addObserver(
-                self,
-                selector: #selector(handleUnBlurPopup(_:)),
-                name: .unBlurOneTimePopup,
-                object: nil
-            )
         NotificationCenter.default
             .addObserver(
                 self,
@@ -77,15 +61,16 @@ final class ParentViewModel: ObservableObject {
             )
     }
     
-    @objc private func updateAllSchedulesToNewFormat(_ notification: Notification) {
-        self.updateRealmSchedules()
+    private func logOutIfFirstOpen() {
+        if preferenceService.getIsFirstOpen() {
+            AppLogger.shared.info("First open detected")
+            NotificationCenter.default.post(name: .logOutFirstOpen, object: nil)
+            preferenceService.setFirstOpen()
+        }
     }
     
-    /// De-blurs background after popup
-    @objc private func handleUnBlurPopup(_ notifcation: Notification) {
-        DispatchQueue.main.async { [weak self] in
-            self?.showingOneTimePopup = false
-        }
+    @objc private func updateAllSchedulesToNewFormat(_ notification: Notification) {
+        self.updateRealmSchedules()
     }
     
     /// Opens a specific `Event` sheet from a local notification

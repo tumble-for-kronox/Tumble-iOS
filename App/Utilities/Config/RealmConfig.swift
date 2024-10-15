@@ -17,14 +17,18 @@ var realmConfig: Realm.Configuration {
             migration.enumerateObjects(ofType: Event.className()) { _, newObject in
                 newObject!["schoolId"] = ""
             }
-            NotificationCenter.default.post(name: .updateSchedulesToNewFormat, object: nil)
+            DispatchQueue.main.async {
+                NotificationCenter.default.post(name: .updateSchedulesToNewFormat, object: nil)
+            }
         }
         if oldSchemaVersion < 3 {
             /// Migration for schema version 3 (add `title` to `Schedule`)
             migration.enumerateObjects(ofType: Schedule.className()) { _, newObject in
                 newObject!["title"] = ""
             }
-            NotificationCenter.default.post(name: .updateSchedulesToNewFormat, object: nil)
+            DispatchQueue.main.async {
+                NotificationCenter.default.post(name: .updateSchedulesToNewFormat, object: nil)
+            }
         }
     })
     return config

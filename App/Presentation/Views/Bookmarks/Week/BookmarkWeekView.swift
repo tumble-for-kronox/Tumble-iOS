@@ -12,6 +12,15 @@ struct BookmarkWeekView: View {
     @State private var currentPage = 0
     @ObservedObject var viewModel: BookmarksViewModel
     
+    init(scheduleWeeks: [Int : [Day]], currentPage: Int = 0, viewModel: BookmarksViewModel) {
+        self.scheduleWeeks = scheduleWeeks
+        self.currentPage = currentPage
+        self.viewModel = viewModel
+        
+        UIPageControl.appearance().currentPageIndicatorTintColor = .clear
+        UIPageControl.appearance().pageIndicatorTintColor = .clear
+    }
+    
     var body: some View {
         ZStack(alignment: .bottom) {
             TabView(selection: $currentPage) {

@@ -50,7 +50,6 @@ struct AppParent: View {
             }
             CustomTabBar(selectedTab: $appController.selectedAppTab)
         }
-        .blur(radius: viewModel.showingOneTimePopup ? 1 : 0)
         .ignoresSafeArea(.keyboard)
         .fullScreenCover(isPresented: $viewModel.userNotOnBoarded, content: {
             OnBoarding(finishOnBoarding: viewModel.finishOnboarding)

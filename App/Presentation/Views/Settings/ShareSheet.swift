@@ -12,7 +12,7 @@ struct ShareSheet: View {
     
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.dismiss) var dismiss
-    let websiteLink: String = "tumble.hkr.se"
+    let websiteLink: String = "app.tumbleforkronox.com"
     let appStoreLink: String = "https://apps.apple.com/se/app/tumble-for-kronox/id1617642864?l=en"
     
     @State private var qrCodeImage: UIImage? = nil

@@ -28,7 +28,6 @@ struct WeekDays: View {
                 if isLastDayOfWeek(dayName: dayName) {
                     Color.clear
                         .onAppear {
-                            print("Day is \(dayName)")
                             withAnimation {
                                 toggleViewSwitcherVisibility()
                             }

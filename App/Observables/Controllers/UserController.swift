@@ -16,16 +16,41 @@ final class UserController: ObservableObject {
     @Inject var kronoxManager: KronoxManager
     @Inject var preferenceService: PreferenceService
     
-    @Published var authStatus: AuthStatus = .unAuthorized
+    @Published var authStatus: AuthStatus = .unAuthorized {
+        didSet {
+            AppLogger.shared.info("Auth Status: \(authStatus)")
+        }
+    }
     @Published var user: TumbleUser? = nil
     @Published var refreshToken: Token? = nil
     @Published var sessionDetails: Token? = nil
     
     init() {
-        Task.detached(priority: .userInitiated) { [weak self] in
-            guard let self else { return }
-            let authSchoolId = self.preferenceService.authSchoolId
-            await self.autoLogin(authSchoolId: authSchoolId)
+        setupNotificationObservers()
+        /// If the user isn't opening the app for the first time,
+        /// try logging them in automatically
+        if !preferenceService.getIsFirstOpen() {
+            Task.detached(priority: .userInitiated) { [weak self] in
+                guard let self else { return }
+                let authSchoolId = self.preferenceService.authSchoolId
+                await self.autoLogin(authSchoolId: authSchoolId)
+            }
+        }
+    }
+    
+    func setupNotificationObservers() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(shouldLogOutOnFirstOpen),
+            name: .logOutFirstOpen,
+            object: nil
+        )
+    }
+    
+    @objc func shouldLogOutOnFirstOpen() {
+        AppLogger.shared.info("Logging out user entirely, in case one exists on first opening the app")
+        Task.detached(priority: .high) { [weak self] in
+            try await self?.logOut()
         }
     }
     
@@ -75,6 +100,14 @@ final class UserController: ObservableObject {
         AppLogger.shared.debug("Attempting auto login for user", source: "UserController")
         let refreshToken: Token? = await authManager.getToken(.refreshToken)
         let sessionDetails: Token? = await authManager.getToken(.sessionDetails)
+        
+        guard refreshToken != nil, sessionDetails != nil else {
+            DispatchQueue.main.async {
+                self.authStatus = .unAuthorized
+            }
+            return
+        }
+        
         do {
             let user: TumbleUser = try await authManager.autoLoginUser(authSchoolId: authSchoolId)
             try await self.authManager.setUser(user)

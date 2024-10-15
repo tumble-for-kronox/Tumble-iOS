@@ -92,7 +92,7 @@ class AuthManager {
             try await setToken(Token(value: refreshToken, createdDate: Date.now), for: .refreshToken)
             try await setToken(Token(value: sessionDetails, createdDate: Date.now), for: .sessionDetails)
         } else {
-            AppLogger.shared.info("Could not store token")
+            AppLogger.shared.debug("No new tokens in call or token could not be stored")
         }
     }
 
@@ -135,9 +135,10 @@ class AuthManager {
     func getToken(_ tokenType: TokenType) async -> Token? {
         guard let data = try? await keychainManager.readKeyChain(for: tokenType.rawValue, account: "Tumble for Kronox"),
               let token = try? JSONDecoder().decode(Token.self, from: data) else {
-            AppLogger.shared.error("Could not decode token")
+            AppLogger.shared.error("Could not retrieve token")
             return nil
         }
+        AppLogger.shared.debug("Token is \(token.value)")
         return token
     }
 
@@ -147,7 +148,6 @@ class AuthManager {
     }
 
     func setToken(_ newValue: Token?, for tokenType: TokenType) async throws {
-        //AppLogger.shared.info("Storing token: \(String(describing: newValue?.value))")
         guard let newValue = newValue, let data = try? JSONEncoder().encode(newValue) else { return }
         try await keychainManager.saveKeyChain(data, for: tokenType.rawValue, account: "Tumble for Kronox")
     }
