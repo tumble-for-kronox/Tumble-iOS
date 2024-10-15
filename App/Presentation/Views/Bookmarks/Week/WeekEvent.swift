@@ -24,18 +24,18 @@ struct WeekEvent: View {
                         .padding(.trailing, 0)
                     HStack {
                         Text("\(from)")
-                            .font(.system(size: 16, weight: .semibold))
+                            .font(.system(size: 14, weight: .semibold))
                             .foregroundColor(.onSurface)
                         Image(systemName: "arrow.right")
                             .font(.system(size: 12, weight: .semibold))
                             .foregroundColor(.onSurface)
                         Text("\(to)")
-                            .font(.system(size: 16, weight: .semibold))
+                            .font(.system(size: 14, weight: .semibold))
                             .foregroundColor(.onSurface)
                     }
                     Spacer()
                     Text(event.title)
-                        .font(.system(size: 16, weight: .regular))
+                        .font(.system(size: 14, weight: .regular))
                         .foregroundColor(.onSurface)
                 }
                 .padding(Spacing.card)

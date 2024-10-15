@@ -56,6 +56,7 @@
 		D426E3A4299C39DE00A8D7AE /* ResourceBookings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D426E3A3299C39DE00A8D7AE /* ResourceBookings.swift */; };
 		D426E3A6299C39EA00A8D7AE /* EventBookings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D426E3A5299C39EA00A8D7AE /* EventBookings.swift */; };
 		D4294B3429C91CF700007747 /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4294B3329C91CF700007747 /* ArrayExtension.swift */; };
+		D42AC6262CBADFED007D1C40 /* Notification+NameExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F532632A2A3FF2009DC8B8 /* Notification+NameExtension.swift */; };
 		D42BAC1C298D3D590025EAA9 /* Logging in Frameworks */ = {isa = PBXBuildFile; productRef = D42BAC1B298D3D590025EAA9 /* Logging */; };
 		D42BAC1E298D3D6A0025EAA9 /* AppLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42BAC1D298D3D6A0025EAA9 /* AppLogger.swift */; };
 		D42BAC23298D5BFA0025EAA9 /* DependencyInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42BAC22298D5BFA0025EAA9 /* DependencyInjector.swift */; };
@@ -182,7 +183,6 @@
 		D4A550D52994755900028BCF /* BookmarkButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A550D42994755900028BCF /* BookmarkButton.swift */; };
 		D4ABD272298C2E32002FD8F5 /* DayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4ABD271298C2E32002FD8F5 /* DayExtension.swift */; };
 		D4ACD86E2AD9436C00780998 /* MijickPopupView in Frameworks */ = {isa = PBXBuildFile; productRef = D4ACD86D2AD9436C00780998 /* MijickPopupView */; };
-		D4B20A802BDD1F8B001817F0 /* OneTimePopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B20A7F2BDD1F8B001817F0 /* OneTimePopup.swift */; };
 		D4B4B62D29C37C130098D175 /* ProgrammeCardStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B4B62C29C37C130098D175 /* ProgrammeCardStyle.swift */; };
 		D4B7F25629CC60EB006E2449 /* TimeslotCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B7F25529CC60EB006E2449 /* TimeslotCard.swift */; };
 		D4B7F25829CC6135006E2449 /* BookButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B7F25729CC6135006E2449 /* BookButtonStyle.swift */; };
@@ -500,7 +500,6 @@
 		D4A550D029946B8200028BCF /* Bookmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bookmark.swift; sourceTree = "<group>"; };
 		D4A550D42994755900028BCF /* BookmarkButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkButton.swift; sourceTree = "<group>"; };
 		D4ABD271298C2E32002FD8F5 /* DayExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayExtension.swift; sourceTree = "<group>"; };
-		D4B20A7F2BDD1F8B001817F0 /* OneTimePopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneTimePopup.swift; sourceTree = "<group>"; };
 		D4B4B62C29C37C130098D175 /* ProgrammeCardStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgrammeCardStyle.swift; sourceTree = "<group>"; };
 		D4B7F25529CC60EB006E2449 /* TimeslotCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeslotCard.swift; sourceTree = "<group>"; };
 		D4B7F25729CC6135006E2449 /* BookButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookButtonStyle.swift; sourceTree = "<group>"; };
@@ -1533,7 +1532,6 @@
 			isa = PBXGroup;
 			children = (
 				D48456862A62DB2800F5B5C4 /* PopupToast.swift */,
-				D4B20A7F2BDD1F8B001817F0 /* OneTimePopup.swift */,
 			);
 			path = Popup;
 			sourceTree = "<group>";
@@ -1764,7 +1762,6 @@
 				D4BAE5F82924636500143717 /* School.swift in Sources */,
 				D439F8A329DBAA59006332AB /* HomeNotAvailable.swift in Sources */,
 				D430F74729C654A200E30E48 /* BookmarkCalendarDetail.swift in Sources */,
-				D4B20A802BDD1F8B001817F0 /* OneTimePopup.swift in Sources */,
 				D4F631922A9F5FBF00C87F5D /* CloseButtonStyle.swift in Sources */,
 				D414B23429D88C1100EA8F46 /* PullToRefreshIndicator.swift in Sources */,
 				D4A328DE29CD10F300945AF4 /* NetworkUtilities.swift in Sources */,
@@ -1985,6 +1982,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D42AC6262CBADFED007D1C40 /* Notification+NameExtension.swift in Sources */,
 				D4D779042B8CF98C00D82C94 /* StringExtensions.swift in Sources */,
 				D4D779022B8CF93D00D82C94 /* HapticsController.swift in Sources */,
 				D4D7790D2B8D03A000D82C94 /* SmallEvent.swift in Sources */,

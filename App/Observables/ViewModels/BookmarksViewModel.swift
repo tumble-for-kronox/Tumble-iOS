@@ -29,6 +29,7 @@ final class BookmarksViewModel: ObservableObject {
     @Published var defaultViewType: ViewType {
         didSet { self.updatePreferenceViewType() }
     }
+    @Published var viewSwitcherVisible: Bool = true
     @Published var eventSheet: EventDetailsSheetModel? = nil
     @Published var status: BookmarksViewStatus = .loading
     @Published var bookmarkData: BookmarkData = BookmarkData(days: [], calendarEventsByDate: [:], weeks: [:])
@@ -71,7 +72,13 @@ final class BookmarksViewModel: ObservableObject {
             }
         }
     }
-
+    
+    
+    func toggleViewSwitcherVisibility() {
+        withAnimation {
+            viewSwitcherVisible.toggle()
+        }
+    }
     
     /// Instantiates viewmodel for viewing a specific `Event` object
     func createViewModelEventSheet(event: Event) -> EventDetailsSheetViewModel {

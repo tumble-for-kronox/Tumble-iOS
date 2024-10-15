@@ -65,6 +65,20 @@ extension Day {
         return Calendar.current.startOfDay(for: day) >= Calendar.current.startOfDay(for: today)
     }
     
+    /// Checks if this day is the last day of the week.
+    /// - Returns: `true` if the day is the last day of the week (Sunday), `false` otherwise.
+    func isLastDayOfWeek() -> Bool {
+        guard let date = isoDateFormatterFract.date(from: self.isoString) else {
+            return false
+        }
+        
+        // Get the weekday from the date (Sunday is 1, Saturday is 7 in default calendar)
+        let weekday = Calendar.current.component(.weekday, from: date)
+        
+        // Assuming Sunday is the last day of the week (change the condition if using a different locale)
+        return weekday == 1
+    }
+    
     var dayOfWeek: Int? {
         guard let date = isoDateFormatterFract.date(from: self.isoString) else {
             return nil

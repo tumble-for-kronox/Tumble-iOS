@@ -23,32 +23,19 @@ struct BookmarksListModel {
 struct BookmarkListView: View {
     let days: [Day]
     @ObservedObject var appController: AppController
-    @State private var bookmarksListModel: BookmarksListModel = .init()
-    
+    @ObservedObject var viewModel: BookmarksViewModel
+
     var body: some View {
         ScrollViewReader { proxy in
             ScrollView {
-                DaysList(days: days)
+                DaysList(days: days, toggleViewSwitcherVisibility: viewModel.toggleViewSwitcherVisibility)
                     .id("bookmarkScrollView")
             }
-            .overlay(
-                ToTopButton(buttonOffsetX: bookmarksListModel.buttonOffsetX, proxy: proxy),
-                alignment: .bottomTrailing
-            )
         }
         .ignoresSafeArea(.keyboard)
     }
-    
-    fileprivate func onChangeSearch(searching: Bool) {
-        withAnimation(.easeInOut) {
-            if searching {
-                bookmarksListModel.state = .searching
-            } else {
-                bookmarksListModel.state = .notSearching
-            }
-        }
-    }
 }
+
 
 private struct EventList: View {
     let events: RealmSwift.List<Event>
@@ -73,16 +60,30 @@ private struct EventList: View {
 
 private struct DaysList: View {
     let days: [Day]
+    let toggleViewSwitcherVisibility: () -> Void
     
     var body: some View {
-        ForEach(days, id: \._id) { day in
-            LazyVStack {
+        LazyVStack {
+            ForEach(days, id: \._id) { day in
                 VStack {
                     Section(header: DayHeader(day: day), content: {
                         EventList(events: day.events)
                     })
                 }
                 .padding(.vertical, Spacing.medium)
+                if day == days.last {
+                    Color.clear
+                        .onAppear {
+                            withAnimation {
+                                toggleViewSwitcherVisibility()
+                            }
+                        }
+                        .onDisappear {
+                            withAnimation {
+                                toggleViewSwitcherVisibility()
+                            }
+                        }
+                }
             }
         }
     }

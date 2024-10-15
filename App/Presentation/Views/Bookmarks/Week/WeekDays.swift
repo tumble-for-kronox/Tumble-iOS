@@ -10,11 +10,13 @@ import SwiftUI
 struct WeekDays: View {
     let days: [Day]?
     let weekDayDate: Date
+    let toggleViewSwitcherVisibility: () -> Void
     
     var body: some View {
         Section(
             header: HStack {
-                Text("\(dateFormatterDay.string(from: weekDayDate)) \(dateFormatterDayMonth.string(from: weekDayDate))".capitalized)
+                let dayName: String = "\(dateFormatterDay.string(from: weekDayDate)) \(dateFormatterDayMonth.string(from: weekDayDate))".capitalized
+                Text(dayName)
                     .foregroundColor(.onBackground)
                     .font(.system(size: 18, weight: .semibold))
                 Rectangle()
@@ -23,12 +25,26 @@ struct WeekDays: View {
                     .frame(height: 1)
                     .cornerRadius(20)
                 Spacer()
+                if isLastDayOfWeek(dayName: dayName) {
+                    Color.clear
+                        .onAppear {
+                            withAnimation {
+                                toggleViewSwitcherVisibility()
+                            }
+                        }
+                        .onDisappear {
+                            withAnimation {
+                                toggleViewSwitcherVisibility()
+                            }
+                        }
+                }
             },
             content: {
                 if let days = days {
-                    VStack(spacing: Spacing.medium) {
+                    LazyVStack(spacing: Spacing.medium) {
                         ForEach(days, id: \.self) { day in
-                            ForEach(day.events.sorted(by: EventSorting.sortedEventOrder), id: \.self) { event in
+                            let sortedEvents = day.events.sorted(by: EventSorting.sortedEventOrder)
+                            ForEach(sortedEvents, id: \.self) { event in
                                 WeekEvent(event: event)
                             }
                         }
@@ -39,5 +55,9 @@ struct WeekDays: View {
             }
         )
         .padding(.vertical, Spacing.small)
+    }
+    
+    fileprivate func isLastDayOfWeek(dayName: String) -> Bool {
+        return dayName.components(separatedBy: " ").first == NSLocalizedString("Sunday", comment: "")
     }
 }

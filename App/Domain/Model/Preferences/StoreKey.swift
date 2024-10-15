@@ -17,5 +17,5 @@ enum StoreKey: String {
     case userOnboarded = "user_onboarded"
     case networkSettings = "network_settings"
     case lastUpdated = "last_updated"
-    case showOneTimePopup = "show_one_time_popup"
+    case firstOpen = "first_open"
 }

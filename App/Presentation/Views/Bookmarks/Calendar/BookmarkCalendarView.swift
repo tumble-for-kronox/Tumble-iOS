@@ -25,14 +25,12 @@ struct BookmarkCalendarView: View {
                 calendarEventsByDate: calendarEventsByDate
             )
             .id(days)
-            .onChange(of: days, perform: { _ in
-                // Update selected date to be date now
+            .onChange(of: days) { _ in
                 selectedDate = Date.now
                 updateDisplayedDayEvents(for: selectedDate)
-            })
+            }
             .frame(height: 375)
             
-            // Add other views below the calendar view inside a VStack
             VStack {
                 if selectedDateEvents.isEmpty {
                     HStack {
@@ -45,16 +43,18 @@ struct BookmarkCalendarView: View {
                     .padding(.top, Spacing.extraLarge)
                     .padding(.horizontal, Spacing.medium)
                 } else {
-                    VStack(spacing: Spacing.medium) {
-                        ForEach(selectedDateEvents.sorted(), id: \.self) { event in
+                    LazyVStack(spacing: Spacing.medium) {
+                        let sortedDateEvents = selectedDateEvents.sorted()
+                        ForEach(sortedDateEvents, id: \.self) { event in
                             BookmarkCalendarDetail(
                                 onTapDetail: onTapDetail,
                                 event: event
                             )
                         }
                     }
-                    .padding(.vertical, Spacing.large)
-               }
+                    .padding(.bottom, Spacing.extraLarge*2)
+                    .padding(.top, Spacing.medium)
+                }
             }
         }
         .onFirstAppear {
@@ -66,12 +66,11 @@ struct BookmarkCalendarView: View {
         appController.eventSheet = EventDetailsSheetModel(event: event)
     }
     
-    
     private func updateDisplayedDayEvents(for date: Date) {
         selectedDateEvents = days.filter { day in
             let dayDate = isoDateFormatterFract.date(from: day.isoString) ?? Date()
             return Calendar.current.isDate(dayDate, inSameDayAs: date) && day.isValidDay()
         }.flatMap { $0.events }.removeDuplicates()
     }
-    
 }
+
