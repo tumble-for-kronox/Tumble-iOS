@@ -34,6 +34,7 @@ struct NextClass: View {
                         .frame(maxWidth: .infinity, minHeight: 100, maxHeight: 100, alignment: .center)
                 })
                 .buttonStyle(CompactButtonStyle())
+                NextLocation(nextEvent: nextClass)
             } else {
                 Text(NSLocalizedString("No upcoming class", comment: ""))
                     .font(.system(size: 16))
