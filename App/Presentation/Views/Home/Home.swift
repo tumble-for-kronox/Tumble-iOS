@@ -18,7 +18,7 @@ struct Home: View {
     
     var body: some View {
         NavigationView {
-            VStack {
+            ScrollView {
                 if viewModel.newsSectionStatus == .loaded {
                     News(news: viewModel.news?.pick(length: 4), showOverlay: $showSheet)
                 }
