@@ -18,40 +18,48 @@ struct Home: View {
     
     var body: some View {
         NavigationView {
-            ScrollView {
-                if viewModel.newsSectionStatus == .loaded {
-                    News(news: viewModel.news?.pick(length: 4), showOverlay: $showSheet)
-                }
-                Spacer()
-                VStack(alignment: .leading) {
-                    switch viewModel.status {
-                    case .available:
-                        HomeAvailable(
-                            eventsForToday: $viewModel.todaysEventsCards,
-                            nextClass: viewModel.nextClass,
-                            swipedCards: $viewModel.swipedCards
-                        )
-                    case .loading:
-                        CustomProgressIndicator()
-                    case .noBookmarks:
-                        HomeNoBookmarks()
-                    case .notAvailable:
-                        HomeNotAvailable()
-                    case .error:
-                        Info(title: NSLocalizedString("Something went wrong", comment: ""), image: nil)
+            GeometryReader { geo in
+                ScrollView(.vertical) {
+                    if viewModel.newsSectionStatus == .loaded {
+                        News(news: viewModel.news?.pick(length: 4), showOverlay: $showSheet)
+                            .padding(.horizontal, Spacing.medium)
+                            .padding(.top, Spacing.small)
                     }
+                    Spacer()
+                    VStack {
+                        switch viewModel.status {
+                        case .available:
+                            HomeAvailable(
+                                eventsForToday: $viewModel.todaysEventsCards,
+                                nextClass: viewModel.nextClass,
+                                swipedCards: $viewModel.swipedCards
+                            )
+                        case .loading:
+                            VStack {
+                                CustomProgressIndicator()
+                            }
+                            .frame(width: geo.size.width)
+                            .frame(minHeight: geo.size.height)
+                        case .noBookmarks:
+                            HomeNoBookmarks()
+                        case .notAvailable:
+                            HomeNotAvailable()
+                        case .error:
+                            Info(title: NSLocalizedString("Something went wrong", comment: ""), image: nil)
+                        }
+                    }
+                    .padding(.horizontal, Spacing.medium)
+                    .padding(.top, Spacing.small)
+                    Spacer()
                 }
-                Spacer()
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .background(Color.background)
+                .fullScreenCover(
+                    isPresented: $showSheet,
+                    content: {
+                        NewsSheet(news: viewModel.news, showSheet: $showSheet)
+                })
             }
-            .padding(.horizontal, Spacing.medium)
-            .padding(.top, Spacing.small)
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(Color.background)
-            .fullScreenCover(
-                isPresented: $showSheet,
-                content: {
-                    NewsSheet(news: viewModel.news, showSheet: $showSheet)
-            })
             .navigationBarTitleDisplayMode(.inline)
             .navigationTitle(NSLocalizedString("Home", comment: ""))
         }
