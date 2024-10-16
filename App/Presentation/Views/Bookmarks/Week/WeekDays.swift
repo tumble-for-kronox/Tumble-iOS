@@ -25,19 +25,21 @@ struct WeekDays: View {
                     .frame(height: 1)
                     .cornerRadius(20)
                 Spacer()
-                if isLastDayOfWeek(dayName: dayName) {
-                    Color.clear
-                        .onAppear {
-                            withAnimation {
-                                toggleViewSwitcherVisibility()
-                            }
+                    .overlay {
+                        if isLastDayOfWeek(dayName: dayName) {
+                            Color.clear
+                                .onAppear {
+                                    withAnimation {
+                                        toggleViewSwitcherVisibility()
+                                    }
+                                }
+                                .onDisappear {
+                                    withAnimation {
+                                        toggleViewSwitcherVisibility()
+                                    }
+                                }
                         }
-                        .onDisappear {
-                            withAnimation {
-                                toggleViewSwitcherVisibility()
-                            }
-                        }
-                }
+                    }
             },
             content: {
                 if let days = days {
