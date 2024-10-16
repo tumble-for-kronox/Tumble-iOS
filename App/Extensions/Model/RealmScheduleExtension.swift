@@ -80,7 +80,7 @@ extension [Schedule] {
         
         /// Find the first event that is not today and after now
         let nextUpcomingEvent = sortedEventDatePairs.first(where: {
-            !Calendar.current.isDate(now, inSameDayAs: $0.date) && $0.date > now
+            $0.date > now
         })?.event
         
         return nextUpcomingEvent
