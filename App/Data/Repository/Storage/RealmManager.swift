@@ -49,6 +49,8 @@ class RealmManager {
             try! realm.write {
                 scheduleToUpdate.days = newSchedule.days
                 scheduleToUpdate.cachedAt = newSchedule.cachedAt
+                scheduleToUpdate.schoolId = newSchedule.schoolId
+                scheduleToUpdate.title = newSchedule.title
             }
         }
     }
