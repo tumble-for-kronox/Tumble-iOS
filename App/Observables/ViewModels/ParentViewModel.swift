@@ -34,7 +34,6 @@ final class ParentViewModel: ObservableObject {
     @Published var userNotOnBoarded: Bool = false
     @Published var updateAttempted: Bool = false
         
-    private var schedulesToken: NotificationToken? = nil
     private var cancellables = Set<AnyCancellable>()
     
     init() {
@@ -69,7 +68,7 @@ final class ParentViewModel: ObservableObject {
         }
     }
     
-    @objc private func updateAllSchedulesToNewFormat(_ notification: Notification) {
+    @MainActor @objc private func updateAllSchedulesToNewFormat(_ notification: Notification) {
         self.updateRealmSchedules()
     }
     
@@ -96,9 +95,11 @@ final class ParentViewModel: ObservableObject {
                 self.userNotOnBoarded = !userOnBoarded
                 self.authSchoolId = authSchoolId
 
-                if connected && self.updateShouldOccur() && !appController.isUpdatingBookmarks && !updateAttempted {
+                if connected && self.updateShouldOccur() && !updateAttempted {
                     AppLogger.shared.debug("Updating all bookmarks ...")
-                    self.updateRealmSchedules()
+                    DispatchQueue.main.async { [weak self] in
+                        self?.updateRealmSchedules()
+                    }
                 }
             }
             .store(in: &cancellables)
@@ -107,11 +108,7 @@ final class ParentViewModel: ObservableObject {
     private func updateShouldOccur() -> Bool {
         if let lastUpdate = preferenceService.getLastUpdated() {
             if let threeHoursAgo = Calendar.current.date(byAdding: .hour, value: -3, to: Date.now) {
-                if lastUpdate <= threeHoursAgo {
-                    return true
-                } else {
-                    return false
-                }
+                return lastUpdate <= threeHoursAgo
             }
         }
         return true
@@ -120,26 +117,13 @@ final class ParentViewModel: ObservableObject {
     /// Attempts to update the locally stored schedules
     /// by retrieving all the schedules by id from the backend.
     @MainActor
-    func updateBookmarks(scheduleIds: [String]) async {
-        
-        appController.isUpdatingBookmarks = true
-        
-        defer {
-            self.preferenceService.setLastUpdated(time: Date())
-            self.appController.isUpdatingBookmarks = false
-            self.updateAttempted = true
-        }
-        
+    func updateBookmarks(scheduleIds: [String]) async throws {
         var updatedSchedules = 0
         let scheduleCount: Int = scheduleIds.count
         
         for scheduleId in scheduleIds {
-            do {
-                try await fetchAndUpdateSchedule(scheduleId: scheduleId)
-                updatedSchedules += 1
-            } catch {
-                AppLogger.shared.error("Updating could not finish due to network error or other issue")
-            }
+            try await fetchAndUpdateSchedule(scheduleId: scheduleId)
+            updatedSchedules += 1
         }
         
         if updatedSchedules != scheduleCount {
@@ -174,22 +158,52 @@ final class ParentViewModel: ObservableObject {
     }
     
     
-    /// Updates any Realm schedules stored locally
+    @MainActor
     private func updateRealmSchedules() {
-        // Get schedules from Realm database
+        guard !appController.isUpdatingBookmarks else {
+            AppLogger.shared.debug("Update already in progress, skipping...")
+            return
+        }
+
+        appController.isUpdatingBookmarks = true
         let schedules = realmManager.getAllLiveSchedules()
+
         if !schedules.isEmpty {
-            // Filter out invalidated schedules and get their IDs
             let scheduleIds = Array(schedules).filter { !$0.isInvalidated }.map { $0.scheduleId }
-            
-            // Only proceed if there are valid schedules
+
             if !scheduleIds.isEmpty {
                 Task {
-                    await self.updateBookmarks(scheduleIds: scheduleIds)
+                    do {
+                        try await self.updateBookmarks(scheduleIds: scheduleIds)
+                        
+                        DispatchQueue.main.async {
+                            self.appController.isUpdatingBookmarks = false
+                            self.preferenceService.setLastUpdated(time: Date())
+                            self.updateAttempted = true
+                        }
+                    } catch {
+                        DispatchQueue.main.async {
+                            self.appController.isUpdatingBookmarks = false
+                            AppLogger.shared.error("Failed to update schedules: \(error.localizedDescription)")
+                        }
+                    }
                 }
+            } else {
+                DispatchQueue.main.async {
+                    self.appController.isUpdatingBookmarks = false
+                    self.preferenceService.setLastUpdated(time: Date())
+                    self.updateAttempted = true
+                }
+            }
+        } else {
+            DispatchQueue.main.async {
+                self.appController.isUpdatingBookmarks = false
+                self.preferenceService.setLastUpdated(time: Date())
+                self.updateAttempted = true
             }
         }
     }
+
 
 
     /// Toggles the onboarding preference parameter

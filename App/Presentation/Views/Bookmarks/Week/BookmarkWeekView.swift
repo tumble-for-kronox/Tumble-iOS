@@ -45,7 +45,7 @@ struct BookmarkWeekView: View {
                     .padding(.bottom, 55 + Spacing.medium)
                     .shadow(color: .black.opacity(0.1), radius: 1)
             }
-            .offset(y: viewModel.viewSwitcherVisible ? 0: 100)
+            .offset(y: viewModel.viewSwitcherVisible ? 0: 150)
             .scaleEffect(viewModel.viewSwitcherVisible ? 1 : 0.8, anchor: .bottom)
             .opacity(viewModel.viewSwitcherVisible ? 1 : 0.5)
         }

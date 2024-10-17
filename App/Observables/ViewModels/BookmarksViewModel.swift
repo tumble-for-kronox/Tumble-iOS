@@ -27,9 +27,17 @@ final class BookmarksViewModel: ObservableObject {
     @Inject var realmManager: RealmManager
     
     @Published var defaultViewType: ViewType {
-        didSet { self.updatePreferenceViewType() }
+        didSet {
+            self.updatePreferenceViewType()
+            if defaultViewType == .list {
+                toTopButtonVisible = true
+            } else {
+                toTopButtonVisible = false
+            }
+        }
     }
     @Published var viewSwitcherVisible: Bool = true
+    @Published var toTopButtonVisible: Bool = false
     @Published var eventSheet: EventDetailsSheetModel? = nil
     @Published var status: BookmarksViewStatus = .loading
     @Published var bookmarkData: BookmarkData = BookmarkData(days: [], calendarEventsByDate: [:], weeks: [:])

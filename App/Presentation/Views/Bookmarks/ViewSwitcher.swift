@@ -52,5 +52,3 @@ struct ViewSwitcher: View {
         return parentViewModel.defaultViewType == viewType
     }
 }
-
-

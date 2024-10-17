@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct ToTopButton: View {
-    var buttonOffsetX: CGFloat
     var proxy: ScrollViewProxy
     
     var body: some View {
@@ -24,7 +23,5 @@ struct ToTopButton: View {
                 .padding(13)
         })
         .buttonStyle(ToTopButtonStyle())
-        .padding(.bottom, Spacing.medium)
-        .offset(x: buttonOffsetX)
     }
 }
