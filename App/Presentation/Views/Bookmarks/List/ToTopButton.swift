@@ -23,6 +23,5 @@ struct ToTopButton: View {
                 .padding(13)
         })
         .buttonStyle(ToTopButtonStyle())
-        .padding(.bottom, Spacing.medium)
     }
 }

@@ -50,7 +50,6 @@ struct Bookmarks: View {
                             
                             HStack(alignment: .center, spacing: 12.5) {
                                 ViewSwitcher(parentViewModel: viewModel)
-                                    .matchedGeometryEffect(id: "viewSwitcher", in: animationNamespace)
                                     .offset(y: viewModel.viewSwitcherVisible ? 0 : 100)
                                     .scaleEffect(viewModel.viewSwitcherVisible ? 1 : 0.8, anchor: .bottom)
                                     .opacity(viewModel.viewSwitcherVisible ? 1 : 0)
@@ -59,7 +58,6 @@ struct Bookmarks: View {
 
                                 if viewModel.toTopButtonVisible {
                                     ToTopButton(proxy: proxy)
-                                        .matchedGeometryEffect(id: "toTopButton", in: animationNamespace)
                                         .offset(x: 0, y: viewModel.toTopButtonVisible ? 0 : 200)
                                         .scaleEffect(viewModel.toTopButtonVisible ? 1 : 0.8, anchor: .trailing)
                                         .opacity(viewModel.toTopButtonVisible ? 1 : 0)
