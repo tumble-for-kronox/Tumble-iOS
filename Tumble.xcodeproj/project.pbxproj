@@ -1113,8 +1113,8 @@
 			isa = PBXGroup;
 			children = (
 				D4D779052B8CF9F900D82C94 /* WidgetExtensionDebug.entitlements */,
-				D433F0142CB5B10D0097F561 /* GoogleService-Info.plist */,
 				D4D778F12B8CE7E100D82C94 /* WidgetExtensionRelease.entitlements */,
+				D433F0142CB5B10D0097F561 /* GoogleService-Info.plist */,
 				D4D7B45A29F1505A0032AEEF /* README.md */,
 				D47A451129D74C68008626E6 /* Assets */,
 				D47221582924548A0063BDB7 /* App */,
