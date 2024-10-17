@@ -23,35 +23,53 @@ struct Bookmarks: View {
                     CustomProgressIndicator()
                         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
                 case .loaded:
-                    ZStack (alignment: .bottom) {
-                        TabView (selection: $viewModel.defaultViewType) {
-                            BookmarkListView(
-                                days: viewModel.bookmarkData.days,
-                                appController: appController,
-                                viewModel: viewModel
-                            )
-                            .tag(ViewType.list)
+                    ScrollViewReader { proxy in
+                        ZStack (alignment: .bottom) {
+                            TabView (selection: $viewModel.defaultViewType) {
+                                BookmarkListView(
+                                    days: viewModel.bookmarkData.days,
+                                    appController: appController,
+                                    viewModel: viewModel
+                                )
+                                .tag(ViewType.list)
+                                
+                                BookmarkCalendarView(
+                                    appController: appController,
+                                    calendarEventsByDate: viewModel.bookmarkData.calendarEventsByDate,
+                                    days: viewModel.bookmarkData.days
+                                )
+                                .tag(ViewType.calendar)
+                                
+                                BookmarkWeekView(
+                                    scheduleWeeks: viewModel.bookmarkData.weeks,
+                                    viewModel: viewModel
+                                )
+                                .tag(ViewType.week)
+                            }
+                            .tabViewStyle(.page(indexDisplayMode: .never))
                             
-                            BookmarkCalendarView(
-                                appController: appController,
-                                calendarEventsByDate: viewModel.bookmarkData.calendarEventsByDate,
-                                days: viewModel.bookmarkData.days
-                            )
-                            .tag(ViewType.calendar)
-                            
-                            BookmarkWeekView(
-                                scheduleWeeks: viewModel.bookmarkData.weeks,
-                                viewModel: viewModel
-                            )
-                            .tag(ViewType.week)
-                        }
-                        .tabViewStyle(.page(indexDisplayMode: .never))
-                        
-                        ViewSwitcher(parentViewModel: viewModel)
+                            HStack(alignment: .center, spacing: 12.5) {
+                                ViewSwitcher(parentViewModel: viewModel)
+                                    .matchedGeometryEffect(id: "viewSwitcher", in: animationNamespace)
+                                    .offset(y: viewModel.viewSwitcherVisible ? 0 : 100)
+                                    .scaleEffect(viewModel.viewSwitcherVisible ? 1 : 0.8, anchor: .bottom)
+                                    .opacity(viewModel.viewSwitcherVisible ? 1 : 0)
+                                    .animation(.easeInOut(duration: 0.4), value: viewModel.viewSwitcherVisible)
+                                    .transition(AnyTransition.move(edge: .leading).combined(with: .opacity))
+
+                                if viewModel.toTopButtonVisible {
+                                    ToTopButton(proxy: proxy)
+                                        .matchedGeometryEffect(id: "toTopButton", in: animationNamespace)
+                                        .offset(x: 0, y: viewModel.toTopButtonVisible ? 0 : 200)
+                                        .scaleEffect(viewModel.toTopButtonVisible ? 1 : 0.8, anchor: .trailing)
+                                        .opacity(viewModel.toTopButtonVisible ? 1 : 0)
+                                        .animation(.easeInOut(duration: 0.4), value: viewModel.toTopButtonVisible)
+                                        .transition(AnyTransition.move(edge: .trailing).combined(with: .opacity))
+                                }
+                            }
                             .padding(.bottom, Spacing.medium)
-                            .offset(y: viewModel.viewSwitcherVisible ? 0: 100)
-                            .scaleEffect(viewModel.viewSwitcherVisible ? 1 : 0.8, anchor: .bottom)
-                            .opacity(viewModel.viewSwitcherVisible ? 1 : 0.5)
+
+                        }
                     }
                 case .uninitialized:
                     Info(title: NSLocalizedString("No bookmarks yet", comment: ""), image: "bookmark.slash")
@@ -78,4 +96,3 @@ struct Bookmarks: View {
         .tag(TabbarTabType.bookmarks)
     }
 }
-
