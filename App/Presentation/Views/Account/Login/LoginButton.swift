@@ -22,7 +22,6 @@ struct LoginButton: View {
         })
         .disabled(emptyCredentials())
         .buttonStyle(WideAnimatedButtonStyle())
-        .padding(.top, 35)
         .ignoresSafeArea(.keyboard)
     }
     

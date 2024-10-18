@@ -36,8 +36,8 @@ extension Text {
     }
     
     func infoHeaderMedium() -> some View {
-        font(.system(size: 34, weight: .semibold))
-        .foregroundColor(.onBackground)
+        font(.system(size: 34, weight: .black))
+            .foregroundColor(.onBackground)
     }
     
     func programmeTitle() -> some View {
