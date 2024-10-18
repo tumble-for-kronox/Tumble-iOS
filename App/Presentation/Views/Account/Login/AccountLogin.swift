@@ -29,32 +29,33 @@ struct AccountLogin: View {
                 Color.background // Ensure background covers the full area
                     .ignoresSafeArea() // Allow tapping outside the content to dismiss the keyboard
                 
-                VStack {
+                VStack(alignment: .leading) {
                     LoginHeader()
-                    VStack {
+                    VStack(spacing: Spacing.extraLarge) {
                         HStack {
                             schoolSelectionMenu
                             Spacer()
                         }
                         .frame(maxWidth: .infinity)
-                        .padding(.bottom, 20)
                         VStack {
                             UsernameField(username: $username)
                                 .focused($focusedField, equals: .username)
                             PasswordField(password: $password, visiblePassword: $visiblePassword)
                                 .focused($focusedField, equals: .password)
                         }
+                        if viewModel.attemptingLogin {
+                            CustomProgressIndicator()
+                                .padding(.top, 15)
+                        } else {
+                            LoginButton(login: login, username: $username, password: $password)
+                        }
                     }
-                    if viewModel.attemptingLogin {
-                        CustomProgressIndicator()
-                            .padding(.top, 35)
-                    } else {
-                        LoginButton(login: login, username: $username, password: $password)
-                    }
+                    .padding(.horizontal, Spacing.medium)
+                    
                     Spacer()
                 }
                 .padding(.horizontal, Spacing.medium)
-                .padding(.top, 35)
+                .padding(.top, 55)
                 .contentShape(Rectangle()) // This allows the whole area to be tappable
                 .onTapGesture {
                     // Dismiss the keyboard by unfocusing the fields

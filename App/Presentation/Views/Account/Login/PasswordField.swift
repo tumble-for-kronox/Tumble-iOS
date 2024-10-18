@@ -17,6 +17,7 @@ struct PasswordField: View {
             Image(systemName: "lock")
                 .font(.system(size: 18, weight: .semibold))
                 .foregroundColor(.onSurface.opacity(0.75))
+                .padding(.trailing, 5)
             ZStack {
                 TextField(NSLocalizedString("Password", comment: ""), text: $password)
                     .font(.system(size: 18))

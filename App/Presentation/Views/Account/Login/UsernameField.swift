@@ -15,6 +15,7 @@ struct UsernameField: View {
             Image(systemName: "person")
                 .font(.system(size: 18, weight: .semibold))
                 .foregroundColor(.onSurface.opacity(0.75))
+                .padding(.trailing, 5)
             TextField(NSLocalizedString("Username/Email address", comment: ""), text: $username)
                 .font(.system(size: 18))
                 .foregroundColor(.onSurface)

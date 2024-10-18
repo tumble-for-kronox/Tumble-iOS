@@ -9,15 +9,15 @@ import SwiftUI
 
 struct LoginHeader: View {
     var body: some View {
-        VStack(alignment: .center, spacing: Spacing.small) {
+        VStack(alignment: .leading, spacing: Spacing.small) {
             Text(NSLocalizedString("Log in", comment: ""))
                 .infoHeaderMedium()
+                .padding(.leading, Spacing.medium)
             Text(NSLocalizedString("Please log in to continue", comment: ""))
                 .infoBodyMedium(opacity: 0.75)
                 .multilineTextAlignment(.center)
         }
-        .frame(maxWidth: .infinity, alignment: .center)
-        .padding(.bottom, 35)
+        .padding(.bottom, Spacing.medium)
     }
 }
 
