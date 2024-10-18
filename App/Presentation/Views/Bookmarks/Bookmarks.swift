@@ -61,7 +61,9 @@ struct Bookmarks: View {
                                 }
                             }
                             .onChange(of: viewModel.defaultViewType) { newValue in
-                                viewType = newValue
+                                withAnimation {
+                                    viewType = newValue
+                                }
                             }
                             
                             HStack(alignment: .center, spacing: 12.5) {
