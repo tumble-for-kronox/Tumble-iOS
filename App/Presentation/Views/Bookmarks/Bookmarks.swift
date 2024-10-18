@@ -13,7 +13,15 @@ struct Bookmarks: View {
     @ObservedObject var parentViewModel: ParentViewModel
     @ObservedObject var appController: AppController = .shared
     
+    @State var viewType: ViewType
+    
     @Namespace private var animationNamespace
+    
+    init(viewModel: BookmarksViewModel, parentViewModel: ParentViewModel) {
+        self.viewModel = viewModel
+        self.parentViewModel = parentViewModel
+        self.viewType = viewModel.defaultViewType
+    }
     
     var body: some View {
         NavigationView {
@@ -25,7 +33,7 @@ struct Bookmarks: View {
                 case .loaded:
                     ScrollViewReader { proxy in
                         ZStack (alignment: .bottom) {
-                            TabView (selection: $viewModel.defaultViewType) {
+                            TabView (selection: $viewType) {
                                 BookmarkListView(
                                     days: viewModel.bookmarkData.days,
                                     appController: appController,
@@ -47,6 +55,14 @@ struct Bookmarks: View {
                                 .tag(ViewType.week)
                             }
                             .tabViewStyle(.page(indexDisplayMode: .never))
+                            .onChange(of: viewType) { newValue in
+                                withAnimation {
+                                    viewModel.setViewType(viewType: newValue)
+                                }
+                            }
+                            .onChange(of: viewModel.defaultViewType) { newValue in
+                                viewType = newValue
+                            }
                             
                             HStack(alignment: .center, spacing: 12.5) {
                                 ViewSwitcher(parentViewModel: viewModel)
