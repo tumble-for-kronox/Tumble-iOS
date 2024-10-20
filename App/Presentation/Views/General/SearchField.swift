@@ -23,13 +23,8 @@ struct SearchField: View {
         HStack(spacing: Spacing.medium) {
             TextField(NSLocalizedString(
                 title, comment: ""
-            ), text: $searchBarText)
+            ), text: $searchBarText, onEditingChanged: getFocus)
                 .searchBoxText()
-                .onTapGesture {
-                    withAnimation(.spring()) {
-                        self.searching = true
-                    }
-                }
                 .disabled(disabled)
                 .onSubmit(searchAction)
                 .searchBox()
@@ -72,4 +67,11 @@ struct SearchField: View {
         hideKeyboard()
     }
     
+    func getFocus(focused: Bool) {
+        if focused {
+            withAnimation(.spring()) {
+                self.searching = true
+            }
+        }
+    }
 }
