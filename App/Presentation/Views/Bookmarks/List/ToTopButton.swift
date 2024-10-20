@@ -21,6 +21,7 @@ struct ToTopButton: View {
                 .font(.system(size: 24, weight: .semibold))
                 .foregroundColor(.onPrimary)
                 .padding(13)
+                .frame(maxWidth: 38, maxHeight: 38)
         })
         .buttonStyle(ToTopButtonStyle())
     }
