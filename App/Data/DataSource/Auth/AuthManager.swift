@@ -46,7 +46,7 @@ class AuthManager {
     // MARK: - Private Methods
 
     private func createLoginRequest(authSchoolId: Int, user: NetworkRequest.KronoxUserLogin) throws -> URLRequest {
-        return try urlRequestUtils.createUrlRequest(
+        return try urlRequestUtils.createTumbleUrlRequest(
             method: .post,
             endpoint: .login(schoolId: String(authSchoolId)),
             body: user
@@ -107,7 +107,7 @@ class AuthManager {
     }
 
     private func createAutoLoginRequest(authSchoolId: Int, refreshToken: Token? = nil, sessionDetails: Token? = nil) throws -> URLRequest {
-        return try urlRequestUtils.createUrlRequest(
+        return try urlRequestUtils.createTumbleUrlRequest(
             method: .get,
             endpoint: .users(schoolId: String(authSchoolId)),
             refreshToken: refreshToken?.value,

@@ -77,7 +77,7 @@ struct Settings: View {
                     title: NSLocalizedString("Contributors", comment: ""),
                     leadingIcon: "person.2.fill",
                     leadingIconBackgroundColor: .purple,
-                    destination: AnyView(EmptyView())
+                    destination: AnyView(Contributors(viewModel: viewModel))
                 )
             }
             if let appVersion = appVersion {

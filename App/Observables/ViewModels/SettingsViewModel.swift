@@ -15,11 +15,14 @@ final class SettingsViewModel: ObservableObject {
     @Inject var notificationManager: NotificationManager
     @Inject var schoolManager: SchoolManager
     @Inject var realmManager: RealmManager
+    @Inject var githubApiManager: GithubApiManager
     
     @Published var bookmarks: [Bookmark]?
     @Published var presentSidebarSheet: Bool = false
     @Published var authStatus: AuthStatus = .unAuthorized
+    @Published var contributorPageStatus: GenericPageStatus = .loading
     @Published var schoolName: String = ""
+    @Published var contributors: [Contributor] = []
     
     @Published var authSchoolId: Int = -1
     @Published var appearance: String = AppearanceTypes.system.rawValue
@@ -29,6 +32,7 @@ final class SettingsViewModel: ObservableObject {
     let popupFactory: PopupFactory = PopupFactory.shared
     private lazy var schools: [School] = schoolManager.getSchools()
     private var cancellables: Set<AnyCancellable> = []
+    private var cancellableTask: Task<Void, Never>?
     
     init() { setUpDataPublishers() }
     
@@ -50,6 +54,34 @@ final class SettingsViewModel: ObservableObject {
                 
             }
             .store(in: &cancellables)
+    }
+    
+    func getRepoContributors() {
+        if !contributors.isEmpty {
+            return
+        }
+            
+        cancellableTask?.cancel()
+        cancellableTask = Task.detached(priority: .userInitiated) { [weak self] in
+            do {
+                let contributors = try await self?.githubApiManager.getRepoContributors()
+                DispatchQueue.main.async { [weak self] in
+                    AppLogger.shared.info("Retrieved all contributors")
+                    self?.contributors = contributors ?? []
+                    self?.contributorPageStatus = .loaded
+                }
+            } catch {
+                AppLogger.shared.info("Error retrieving contributors: \(error)")
+                DispatchQueue.main.async { [weak self] in
+                    self?.contributorPageStatus = .error
+                }
+            }
+        }
+    }
+    
+    func cancelContributorFetch() {
+        cancellableTask?.cancel()
+        AppLogger.shared.info("Contributor fetch task cancelled")
     }
     
     func removeNotifications(for id: String, referencing events: [Event]) {
@@ -136,6 +168,7 @@ final class SettingsViewModel: ObservableObject {
     }
     
     deinit {
+        cancellableTask?.cancel()
         cancellables.forEach { $0.cancel() }
     }
 

@@ -1,5 +1,5 @@
 //
-//  NetworkManager.swift
+//  NetworkController.swift
 //  Tumble
 //
 //  Created by Adis Veletanlic on 2023-08-27.

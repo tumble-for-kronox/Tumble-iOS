@@ -17,5 +17,6 @@ actor Dependencies {
         @Provider var authManager = AuthManager()
         @Provider var schoolManager = SchoolManager()
         @Provider var realmManager = RealmManager()
+        @Provider var githubApiManager = GithubApiManager()
     }
 }

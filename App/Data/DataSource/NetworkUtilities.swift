@@ -11,7 +11,7 @@ struct NetworkUtilities {
     static let shared = NetworkUtilities()
     private let encoder = JSONEncoder()
     
-    func createUrlRequest<Request: Encodable>(
+    func createTumbleUrlRequest<Request: Encodable>(
         method: Method,
         endpoint: Endpoint,
         refreshToken: String? = nil,
@@ -24,6 +24,14 @@ struct NetworkUtilities {
         try setHeaders(for: &urlRequest, refreshToken: refreshToken, sessionDetails: sessionDetails)
         try setRequestBody(for: &urlRequest, with: body)
 
+        return urlRequest
+    }
+    
+    func createGenericGetRequest(
+        url: URL
+    ) throws -> URLRequest {
+        var urlRequest = URLRequest(url: url)
+        urlRequest.httpMethod = Method.get.rawValue
         return urlRequest
     }
 

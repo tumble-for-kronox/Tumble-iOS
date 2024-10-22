@@ -75,7 +75,7 @@ class KronoxManager {
         sessionDetails: String?,
         body: Request? = nil
     ) throws -> URLRequest {
-        return try urlRequestUtils.createUrlRequest(
+        return try urlRequestUtils.createTumbleUrlRequest(
             method: method,
             endpoint: endpoint,
             refreshToken: refreshToken,
