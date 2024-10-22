@@ -30,6 +30,7 @@ final class SettingsViewModel: ObservableObject {
     @Published var autoSignup: Bool = false
     
     let popupFactory: PopupFactory = PopupFactory.shared
+    private let userController: UserController = .shared
     private lazy var schools: [School] = schoolManager.getSchools()
     private var cancellables: Set<AnyCancellable> = []
     private var cancellableTask: Task<Void, Never>?
@@ -42,6 +43,7 @@ final class SettingsViewModel: ObservableObject {
         let appearancePublisher = preferenceManager.$appearance.receive(on: RunLoop.main)
         let notificationOffsetPublisher = preferenceManager.$notificationOffset.receive(on: RunLoop.main)
         let autoSignupPublisher = preferenceManager.$autoSignup.receive(on: RunLoop.main)
+        let authStatusPublisher = userController.$authStatus.receive(on: RunLoop.main)
         
         Publishers.CombineLatest4(authSchoolIdPublisher, appearancePublisher, notificationOffsetPublisher, autoSignupPublisher)
             .sink { [weak self] authSchoolId, appearance, notificationOffset, autoSignup in
@@ -54,6 +56,11 @@ final class SettingsViewModel: ObservableObject {
                 
             }
             .store(in: &cancellables)
+        
+        authStatusPublisher.sink { [weak self] authStatus in
+            self?.authStatus = authStatus
+        }
+        .store(in: &cancellables)
     }
     
     func getRepoContributors() {

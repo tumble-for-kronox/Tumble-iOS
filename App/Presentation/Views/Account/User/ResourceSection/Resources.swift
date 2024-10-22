@@ -31,10 +31,9 @@ struct Resources: View {
         ScrollView(showsIndicators: false) {
             ScrollViewReader { _ in
                 Refreshable(coordinateSpaceName: scrollSpace, onRefresh: getResourcesAndEvents)
+                    .padding(.top, Spacing.small)
                 VStack {
                     PullToRefreshIndicator()
-                        .padding(.bottom, -15)
-                        .padding(.top, Spacing.small)
                     ResourceSectionDivider(title: NSLocalizedString("Your bookings", comment: ""), resourceType: .resource,
                                            destination: AnyView(
                                                ResourceBookings(
