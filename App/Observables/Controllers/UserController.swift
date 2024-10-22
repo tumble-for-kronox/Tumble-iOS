@@ -21,7 +21,7 @@ final class UserController: ObservableObject {
     
     @Published var authStatus: AuthStatus = .unAuthorized {
         didSet {
-            AppLogger.shared.info("Auth Status: \(authStatus)")
+            AppLogger.shared.debug("Auth Status: \(authStatus)")
         }
     }
     @Published var user: TumbleUser? = nil
@@ -51,7 +51,7 @@ final class UserController: ObservableObject {
     }
     
     @objc func shouldLogOutOnFirstOpen() {
-        AppLogger.shared.info("Logging out user entirely, in case one exists on first opening the app")
+        AppLogger.shared.debug("Logging out user entirely, in case one exists on first opening the app")
         Task.detached(priority: .high) { [weak self] in
             try await self?.logOut()
         }

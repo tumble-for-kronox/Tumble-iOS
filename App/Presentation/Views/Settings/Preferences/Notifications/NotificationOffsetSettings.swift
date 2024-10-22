@@ -7,17 +7,15 @@
 
 import SwiftUI
 
-enum NotificationOffset: Int, Identifiable {
-    var id: UUID {
-        return UUID()
+struct OptionEnumerateSettings {
+    let typeOfPreference: 
+    var body: some View {
+        SettingsList {
+            SettingsListGroup {
+                ForEach
+            }
+        }
     }
-    
-    case fifteen = 15
-    case thirty = 30
-    case hour = 60
-    case threeHours = 180
-    
-    static var allCases = [fifteen, thirty, hour, threeHours]
 }
 
 struct NotificationOffsetSettings: View {
@@ -25,42 +23,40 @@ struct NotificationOffsetSettings: View {
     let rescheduleNotifications: (Int, Int) -> Void
     let setNewOffset: (Int) -> Void
     
+    @State private var selectedOffset: NotificationOffset
+    
+    init(offset: Binding<Int>, rescheduleNotifications: @escaping (Int, Int) -> Void, setNewOffset: @escaping (Int) -> Void) {
+        self._offset = offset
+        self.rescheduleNotifications = rescheduleNotifications
+        self.setNewOffset = setNewOffset
+        
+        // Initialize selectedOffset based on the bound offset value
+        if let matchedOffset = NotificationOffset(rawValue: offset.wrappedValue) {
+            self._selectedOffset = State(initialValue: matchedOffset)
+        } else {
+            self._selectedOffset = State(initialValue: .fifteen) // default if no match found
+        }
+    }
+    
     var body: some View {
         SettingsList {
             SettingsListGroup {
-                ForEach(NotificationOffset.allCases) { type in
+                ForEach(NotificationOffset.allCases, id: \.id) { type in
                     SettingsRadioButton(
-                        title: getOffsetDisplayName(offset: type),
-                        isSelected: Binding<Bool>(
-                            get: { offset == type.rawValue },
-                            set: { selected in
-                                if selected {
-                                    let previousOffset = offset
-                                    offset = type.rawValue
-                                    rescheduleNotifications(previousOffset, offset)
-                                    setNewOffset(offset)
-                                }
-                            }
-                        )
+                        option: type,
+                        selectedOption: $selectedOffset
                     )
+                    .onChange(of: selectedOffset) { newValue in
+                        let previousOffset = offset
+                        offset = newValue.rawValue
+                        rescheduleNotifications(previousOffset, offset)
+                        setNewOffset(offset)
+                    }
+                    
                     if !(NotificationOffset.allCases.last?.rawValue == type.rawValue) {
                         Divider()
                     }
                 }
-            }
-        }
-    }
-    
-    func getOffsetDisplayName(offset: NotificationOffset) -> String {
-        let minutes = offset.rawValue
-        if minutes < 60 {
-            return "\(minutes) \(NSLocalizedString("minutes", comment: ""))"
-        } else {
-            let hours = minutes / 60
-            if hours == 1 {
-                return "\(hours) \(NSLocalizedString("hour", comment: ""))"
-            } else {
-                return "\(hours) \(NSLocalizedString("hours", comment: ""))"
             }
         }
     }

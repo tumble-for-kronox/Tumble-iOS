@@ -62,7 +62,7 @@ final class ParentViewModel: ObservableObject {
     
     private func logOutIfFirstOpen() {
         if preferenceManager.firstOpen {
-            AppLogger.shared.info("First open detected")
+            AppLogger.shared.debug("First open detected")
             preferenceManager.firstOpen.toggle()
             NotificationCenter.default.post(name: .logOutFirstOpen, object: nil)
         }

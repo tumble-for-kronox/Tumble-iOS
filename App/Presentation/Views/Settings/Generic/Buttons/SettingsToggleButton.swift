@@ -12,15 +12,17 @@ struct SettingsToggleButton: View {
     let title: String
     let leadingIcon: String
     let leadingIconBackgroundColor: Color
-    var condition: Binding<Bool>
-    var callback: (_: Bool) -> Void
+    @Binding var condition: Bool
     
     var body: some View {
         HStack {
-            Toggle(isOn: condition) {
+            Toggle(isOn: $condition) {
                 Label(title, systemImage: leadingIcon)
                     .labelStyle(ColorfulIconLabelStyle(color: leadingIconBackgroundColor))
             }
+            .onChange(of: condition, perform: { value in
+                AppLogger.shared.debug("Changed \(title) to \(value)")
+            })
             .toggleStyle(SwitchToggleStyle(tint: .primary))
         }
         .padding(Spacing.settingsButton)

@@ -1,15 +1,14 @@
 //
-//  AppearanceSettings.swift
+//  SettingsOptions.swift
 //  Tumble
 //
-//  Created by Adis Veletanlic on 3/30/23.
+//  Created by Adis Veletanlic on 10/22/24.
 //
 
 import SwiftUI
 
-struct SettingsOptionView<T: SettingsOption & Equatable>: View {
+struct SettingsOptions<T: SettingsOption & Equatable>: View {
     @Binding var selectedOption: T
-    let updateOption: (T) -> Void
     let allOptions: [T]
     
     var body: some View {
@@ -20,10 +19,6 @@ struct SettingsOptionView<T: SettingsOption & Equatable>: View {
                         option: option,
                         selectedOption: $selectedOption
                     )
-                    .onChange(of: selectedOption) { newValue in
-                        updateOption(newValue)
-                    }
-
                     if !(allOptions.last?.id == option.id) {
                         Divider()
                     }

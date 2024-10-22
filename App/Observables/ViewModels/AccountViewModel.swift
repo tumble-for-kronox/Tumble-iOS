@@ -77,23 +77,27 @@ final class AccountViewModel: ObservableObject {
         let authStatusPublisher = userController.$authStatus.receive(on: RunLoop.main)
         let authSchoolIdPublisher = preferenceManager.$authSchoolId.receive(on: RunLoop.main)
         let autoSignupPublisher = preferenceManager.$autoSignup.receive(on: RunLoop.main)
-        
+
         Publishers.CombineLatest3(authStatusPublisher, authSchoolIdPublisher, autoSignupPublisher)
             .sink { [weak self] authStatus, authSchoolId, autoSignupEnabled in
                 guard let self else { return }
+                
                 DispatchQueue.main.async {
                     self.authStatus = authStatus
                     self.authSchoolId = authSchoolId
                     self.autoSignupEnabled = autoSignupEnabled
-                }
-                if authStatus == .authorized && !self.registeredForExams && self.autoSignupEnabled {
-                    Task.detached(priority: .userInitiated) {
-                        await self.registerAutoSignup()
+
+                    if authStatus == .authorized && !self.registeredForExams && self.autoSignupEnabled {
+                        Task.detached(priority: .userInitiated) {
+                            AppLogger.shared.debug("Auto signup is \(autoSignupEnabled), registering for exams")
+                            await self.registerAutoSignup()
+                        }
                     }
                 }
             }
             .store(in: &cancellables)
     }
+
     
     /// Removes a users resource booking in the locally cached
     /// version. The actual network request is done in `ResourceViewModel`
@@ -266,7 +270,7 @@ final class AccountViewModel: ObservableObject {
                     try await notificationManager.scheduleNotification(
                         for: notification,
                         type: .booking,
-                        userOffset: preferenceManager.notificationOffset
+                        userOffset: preferenceManager.notificationOffset.rawValue
                     )
                     AppLogger.shared.debug("Scheduled one notification with id: \(notification.id)")
                 } catch let failure {

@@ -12,10 +12,11 @@ class AppearancePreference: PreferenceStorable {
     var key: SharedPreferenceKey = .appearance
     
     func get() -> String {
-        return UserDefaults.standard.string(forKey: key.rawValue) ?? AppearanceTypes.system.rawValue
+        return UserDefaults.standard.string(forKey: key.rawValue) ?? AppearanceType.system.rawValue
     }
     
     func set(_ value: String) {
+        AppLogger.shared.debug("Setting appearance to \(value)")
         UserDefaults.standard.set(value, forKey: key.rawValue)
     }
 }

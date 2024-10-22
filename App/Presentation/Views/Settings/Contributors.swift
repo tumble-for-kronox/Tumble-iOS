@@ -15,11 +15,17 @@ struct Contributors: View {
         VStack {
             switch viewModel.contributorPageStatus {
             case .loading:
-                CustomProgressIndicator(color: .primary)
-            case .error:
                 VStack {
-                    Info(title: NSLocalizedString("Could not contact the server, try again later", comment: ""), image: nil)
+                    CustomProgressIndicator()
                 }
+                .frame(
+                    maxWidth: .infinity,
+                    minHeight: 200,
+                    maxHeight: .infinity,
+                    alignment: .center
+                )
+            case .error:
+                Info(title: NSLocalizedString("Could not contact the server, try again later", comment: ""), image: nil)
             case .loaded:
                 ScrollView {
                     ForEach(viewModel.contributors, id: \.id) { contributor in

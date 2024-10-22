@@ -25,9 +25,29 @@ final class SettingsViewModel: ObservableObject {
     @Published var contributors: [Contributor] = []
     
     @Published var authSchoolId: Int = -1
-    @Published var appearance: String = AppearanceTypes.system.rawValue
-    @Published var notificationOffset: Int = 60
-    @Published var autoSignup: Bool = false
+    @Published var appearance: AppearanceType = AppearanceType.system {
+        didSet {
+            if oldValue != appearance {
+                self.setAppearance(appearance: appearance)
+            }
+        }
+    }
+    @Published var notificationOffset: NotificationOffset = .hour {
+        didSet {
+            if oldValue != notificationOffset {
+                self.rescheduleNotifications(previousOffset: oldValue.rawValue, newOffset: notificationOffset.rawValue)
+                self.setNotificationOffset(offset: notificationOffset)
+            }
+        }
+    }
+    @Published var autoSignup: Bool = false {
+        didSet {
+            if oldValue != autoSignup {
+                AppLogger.shared.debug("Auto signup is \(autoSignup)")
+                self.setAutoSignup(value: autoSignup)
+            }
+        }
+    }
     
     let popupFactory: PopupFactory = PopupFactory.shared
     private let userController: UserController = .shared
@@ -73,12 +93,12 @@ final class SettingsViewModel: ObservableObject {
             do {
                 let contributors = try await self?.githubApiManager.getRepoContributors()
                 DispatchQueue.main.async { [weak self] in
-                    AppLogger.shared.info("Retrieved all contributors")
+                    AppLogger.shared.debug("Retrieved all contributors")
                     self?.contributors = contributors ?? []
                     self?.contributorPageStatus = .loaded
                 }
             } catch {
-                AppLogger.shared.info("Error retrieving contributors: \(error)")
+                AppLogger.shared.debug("Error retrieving contributors: \(error)")
                 DispatchQueue.main.async { [weak self] in
                     self?.contributorPageStatus = .error
                 }
@@ -88,7 +108,7 @@ final class SettingsViewModel: ObservableObject {
     
     func cancelContributorFetch() {
         cancellableTask?.cancel()
-        AppLogger.shared.info("Contributor fetch task cancelled")
+        AppLogger.shared.debug("Contributor fetch task cancelled")
     }
     
     func removeNotifications(for id: String, referencing events: [Event]) {
@@ -139,7 +159,7 @@ final class SettingsViewModel: ObservableObject {
                 try await notificationManager.scheduleNotification(
                     for: notification,
                     type: .event,
-                    userOffset: preferenceManager.notificationOffset
+                    userOffset: preferenceManager.notificationOffset.rawValue
                 )
                 scheduledNotifications += 1
                 AppLogger.shared.debug("One notification set")
@@ -157,12 +177,16 @@ final class SettingsViewModel: ObservableObject {
         }
     }
     
-    func setAppearance(appearance: String) {
+    func setAppearance(appearance: AppearanceType) {
         preferenceManager.appearance = appearance
     }
     
-    func setNotificationOffset(offset: Int) {
+    func setNotificationOffset(offset: NotificationOffset) {
         preferenceManager.notificationOffset = offset
+    }
+    
+    func setAutoSignup(value: Bool) {
+        preferenceManager.autoSignup = value
     }
 
     

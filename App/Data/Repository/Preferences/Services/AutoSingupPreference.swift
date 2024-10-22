@@ -16,6 +16,7 @@ class AutoSignupPreference: PreferenceStorable {
     }
     
     func set(_ value: Bool) {
+        AppLogger.shared.debug("Setting auto signup to \(value).")
         UserDefaults.standard.set(value, forKey: key.rawValue)
     }
 }

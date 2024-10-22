@@ -49,7 +49,7 @@ final class SearchPreviewViewModel: ObservableObject {
                     } else {
                         self?.errorMessage = NSLocalizedString("An unexpected error occurred. Please try again later.", comment: "")
                     }
-                    AppLogger.shared.info("Error occured: \(error)")
+                    AppLogger.shared.debug("Error occured: \(error)")
                 }
             }
         }

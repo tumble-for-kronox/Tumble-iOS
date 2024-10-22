@@ -134,7 +134,8 @@ class NotificationManager {
             let trigger = request.trigger as! UNCalendarNotificationTrigger
             let newTrigger = UNCalendarNotificationTrigger(
                 dateMatching: self.dateComponentsAfterSubtractingUserOffset(
-                    date: dateAfterAddingUserOffset(date: trigger.nextTriggerDate()!, userOffset: previousOffset),
+                    date: dateAfterAddingUserOffset(date: trigger.nextTriggerDate()!,
+                    userOffset: previousOffset),
                     userOffset: userOffset
                 ),
                 repeats: false

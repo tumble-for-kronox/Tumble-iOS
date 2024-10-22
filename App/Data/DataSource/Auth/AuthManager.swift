@@ -27,7 +27,7 @@ class AuthManager {
     }
     
     func logOutUser() async throws {
-        AppLogger.shared.info("Logging out user")
+        AppLogger.shared.debug("Logging out user")
         try await clearKeychainData(for: [TokenType.refreshToken.rawValue, TokenType.sessionDetails.rawValue, "tumble-user"])
     }
 
@@ -127,7 +127,7 @@ class AuthManager {
     func getUser() async -> TumbleUser? {
         guard let data = try? await keychainManager.readKeyChain(for: "tumble-user", account: "Tumble for Kronox"),
               let user = try? JSONDecoder().decode(TumbleUser.self, from: data) else {
-            AppLogger.shared.info("Could not decode Tumble user")
+            AppLogger.shared.debug("Could not decode Tumble user")
             return nil
         }
         return user

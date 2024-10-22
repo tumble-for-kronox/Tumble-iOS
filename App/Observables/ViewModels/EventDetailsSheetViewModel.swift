@@ -25,7 +25,7 @@ final class EventDetailsSheetViewModel: ObservableObject {
     @Published var color: Color
     @Published var isNotificationSetForEvent: NotificationSetState = .loading
     @Published var isNotificationSetForCourse: NotificationSetState = .loading
-    @Published var notificationOffset: Int = 60
+    @Published var notificationOffset: NotificationOffset = .hour
     @Published var notificationsAllowed: Bool = false
     
     private let oldColor: Color
@@ -69,7 +69,7 @@ final class EventDetailsSheetViewModel: ObservableObject {
         
         isNotificationSetForEvent = .loading
         
-        let userOffset: Int = preferenceManager.notificationOffset
+        let userOffset: NotificationOffset = preferenceManager.notificationOffset
         
         // Create notification for event without categoryIdentifier,
         // since it does not need to be set for the entire course
@@ -84,7 +84,7 @@ final class EventDetailsSheetViewModel: ObservableObject {
             guard let self else { return }
             do {
                 try await self.notificationManager
-                    .scheduleNotification(for: notification, type: .event, userOffset: userOffset)
+                    .scheduleNotification(for: notification, type: .event, userOffset: userOffset.rawValue)
                 DispatchQueue.main.async {
                     self.isNotificationSetForEvent = .set
                 }
@@ -147,7 +147,7 @@ final class EventDetailsSheetViewModel: ObservableObject {
                 try await notificationManager.scheduleNotification(
                     for: notification,
                     type: .event,
-                    userOffset: notificationOffset
+                    userOffset: notificationOffset.rawValue
                 )
                 AppLogger.shared.debug("Set notification for \(event.title)")
             } else {
