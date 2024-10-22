@@ -19,10 +19,12 @@ final class SettingsViewModel: ObservableObject {
     @Published var bookmarks: [Bookmark]?
     @Published var presentSidebarSheet: Bool = false
     @Published var authStatus: AuthStatus = .unAuthorized
+    @Published var schoolName: String = ""
+    
     @Published var authSchoolId: Int = -1
     @Published var appearance: String = AppearanceTypes.system.rawValue
     @Published var notificationOffset: Int = 60
-    @Published var schoolName: String = ""
+    @Published var autoSignup: Bool = false
     
     let popupFactory: PopupFactory = PopupFactory.shared
     private lazy var schools: [School] = schoolManager.getSchools()
@@ -35,12 +37,15 @@ final class SettingsViewModel: ObservableObject {
         let authSchoolIdPublisher = preferenceManager.$authSchoolId.receive(on: RunLoop.main)
         let appearancePublisher = preferenceManager.$appearance.receive(on: RunLoop.main)
         let notificationOffsetPublisher = preferenceManager.$notificationOffset.receive(on: RunLoop.main)
+        let autoSignupPublisher = preferenceManager.$autoSignup.receive(on: RunLoop.main)
         
-        Publishers.CombineLatest3(authSchoolIdPublisher, appearancePublisher, notificationOffsetPublisher)
-            .sink { [weak self] authSchoolId, appearance, notificationOffset in
+        Publishers.CombineLatest4(authSchoolIdPublisher, appearancePublisher, notificationOffsetPublisher, autoSignupPublisher)
+            .sink { [weak self] authSchoolId, appearance, notificationOffset, autoSignup in
                 self?.authSchoolId = authSchoolId
                 self?.notificationOffset = notificationOffset
                 self?.appearance = appearance
+                self?.autoSignup = autoSignup
+                
                 self?.schoolName = self?.schools.first(where: { $0.id == authSchoolId })?.name ?? ""
                 
             }
@@ -111,6 +116,14 @@ final class SettingsViewModel: ObservableObject {
                 // TODO: Show toast
             }
         }
+    }
+    
+    func setAppearance(appearance: String) {
+        preferenceManager.appearance = appearance
+    }
+    
+    func setNotificationOffset(offset: Int) {
+        preferenceManager.notificationOffset = offset
     }
 
     

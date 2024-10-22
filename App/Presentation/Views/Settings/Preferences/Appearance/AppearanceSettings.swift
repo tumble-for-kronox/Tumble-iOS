@@ -9,6 +9,7 @@ import SwiftUI
 
 struct AppearanceSettings: View {
     @Binding var appearance: String
+    let updateAppearance: (String) -> Void
     
     var body: some View {
         SettingsList {
@@ -21,6 +22,7 @@ struct AppearanceSettings: View {
                             set: { selected in
                                 if selected {
                                     appearance = type.rawValue
+                                    updateAppearance(appearance)
                                 }
                             }
                         )

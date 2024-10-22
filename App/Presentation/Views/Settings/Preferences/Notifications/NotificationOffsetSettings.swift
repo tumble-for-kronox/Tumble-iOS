@@ -23,6 +23,7 @@ enum NotificationOffset: Int, Identifiable {
 struct NotificationOffsetSettings: View {
     @Binding var offset: Int
     let rescheduleNotifications: (Int, Int) -> Void
+    let setNewOffset: (Int) -> Void
     
     var body: some View {
         SettingsList {
@@ -37,6 +38,7 @@ struct NotificationOffsetSettings: View {
                                     let previousOffset = offset
                                     offset = type.rawValue
                                     rescheduleNotifications(previousOffset, offset)
+                                    setNewOffset(offset)
                                 }
                             }
                         )

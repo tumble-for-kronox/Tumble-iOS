@@ -16,24 +16,35 @@ struct PreferenceSettings: View {
         SettingsList {
             SettingsListGroup {
                 SettingsNavigationButton(
-                    title: NSLocalizedString("Appearance", comment: ""),
-                    current: NSLocalizedString($viewModel.appearance.wrappedValue, comment: ""),
-                    leadingIcon: "moon",
-                    leadingIconBackgroundColor: .purple,
-                    destination: AnyView(AppearanceSettings(appearance: $viewModel.appearance))
-                )
-                Divider()
-                SettingsNavigationButton(
                     title: NSLocalizedString("Notification offset", comment: ""),
                     leadingIcon: "clock",
                     leadingIconBackgroundColor: .red,
                     destination: AnyView(NotificationOffsetSettings(
                         offset: $viewModel.notificationOffset,
-                        rescheduleNotifications: rescheduleNotifications
+                        rescheduleNotifications: rescheduleNotifications,
+                        setNewOffset: viewModel.setNotificationOffset
                     ))
                 )
+                if viewModel.authStatus == .authorized {
+                    Divider()
+                    SettingsToggleButton(
+                        title: NSLocalizedString("Automatic exam signup", comment: ""),
+                        leadingIcon: "paperclip",
+                        leadingIconBackgroundColor: .primary,
+                        condition: $viewModel.autoSignup,
+                        callback: toggleAutoSignup
+                    )
+                }
             }
             SettingsListGroup {
+                SettingsNavigationButton(
+                    title: NSLocalizedString("Appearance", comment: ""),
+                    current: NSLocalizedString($viewModel.appearance.wrappedValue, comment: ""),
+                    leadingIcon: "moon",
+                    leadingIconBackgroundColor: .purple,
+                    destination: AnyView(AppearanceSettings(appearance: $viewModel.appearance, updateAppearance: viewModel.setAppearance))
+                )
+                Divider()
                 SettingsExternalButton(
                     title: NSLocalizedString("App language", comment: ""),
                     current: currentLocale != nil ? LanguageTypes.fromLocaleName(currentLocale!)?.displayName : nil,
@@ -47,6 +58,10 @@ struct PreferenceSettings: View {
                 )
             }
         }
+    }
+    
+    fileprivate func toggleAutoSignup(_: Bool) {
+        viewModel.autoSignup.toggle()
     }
     
     fileprivate func rescheduleNotifications(previousOffset: Int, newOffset: Int) {

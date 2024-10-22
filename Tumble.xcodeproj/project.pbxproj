@@ -44,6 +44,7 @@
 		D40DEEF22CC7C24B00FBBA87 /* LastUpdatedPreference.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40DEEF12CC7C24700FBBA87 /* LastUpdatedPreference.swift */; };
 		D40DEEF42CC7C2CB00FBBA87 /* FirstOpenPreference.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40DEEF32CC7C2C800FBBA87 /* FirstOpenPreference.swift */; };
 		D40DEEF92CC7CFD300FBBA87 /* PreferenceSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40DEEF82CC7CFCF00FBBA87 /* PreferenceSettings.swift */; };
+		D40DEEFB2CC7D61200FBBA87 /* SettingsToggleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40DEEFA2CC7D60E00FBBA87 /* SettingsToggleButton.swift */; };
 		D40E843B2981C85400C2CF2E /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40E843A2981C85400C2CF2E /* Account.swift */; };
 		D40E843D2981C8B200C2CF2E /* AccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40E843C2981C8B200C2CF2E /* AccountViewModel.swift */; };
 		D40F96B12A3C7F49006AD4A9 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40F96B02A3C7F49006AD4A9 /* LoginViewModel.swift */; };
@@ -373,6 +374,7 @@
 		D40DEEF12CC7C24700FBBA87 /* LastUpdatedPreference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastUpdatedPreference.swift; sourceTree = "<group>"; };
 		D40DEEF32CC7C2C800FBBA87 /* FirstOpenPreference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstOpenPreference.swift; sourceTree = "<group>"; };
 		D40DEEF82CC7CFCF00FBBA87 /* PreferenceSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceSettings.swift; sourceTree = "<group>"; };
+		D40DEEFA2CC7D60E00FBBA87 /* SettingsToggleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsToggleButton.swift; sourceTree = "<group>"; };
 		D40E843A2981C85400C2CF2E /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		D40E843C2981C8B200C2CF2E /* AccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewModel.swift; sourceTree = "<group>"; };
 		D40F96B02A3C7F49006AD4A9 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
@@ -1572,6 +1574,7 @@
 		D4F0C7F92A2F7DE5002F8376 /* Buttons */ = {
 			isa = PBXGroup;
 			children = (
+				D40DEEFA2CC7D60E00FBBA87 /* SettingsToggleButton.swift */,
 				D4EE5B6D29D50FD3002A1399 /* SettingsRadioButton.swift */,
 				D4EEFB4F29DA15440007A209 /* SettingsNavigationButton.swift */,
 				D4EEFB5529DA1B050007A209 /* SettingsExternalButton.swift */,
@@ -1972,6 +1975,7 @@
 				D454204129BE982000EF0FC9 /* HapticsController.swift in Sources */,
 				D43294E029E0ABAA00842884 /* HomeStatus.swift in Sources */,
 				D42DFD5E29BD5BC9002942D7 /* PillStyle.swift in Sources */,
+				D40DEEFB2CC7D61200FBBA87 /* SettingsToggleButton.swift in Sources */,
 				D4CD0EFF29D5B00A00AB5FD0 /* UIApplicationExtension.swift in Sources */,
 				D44ABF0729BFE89D00344792 /* SchoolRowStyle.swift in Sources */,
 				D4562E0B2A27E9020059ED36 /* PopupFactory.swift in Sources */,
