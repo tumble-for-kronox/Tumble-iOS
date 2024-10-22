@@ -10,6 +10,7 @@ struct tumble_iosWidget: Widget {
             VStack {
                 if let event = entry.event {
                     WidgetView(event: event)
+                        .widgetURL(URL(string: event.eventId))
                 } else {
                     Text(NSLocalizedString("No upcoming events available", comment: ""))
                 }
@@ -18,6 +19,15 @@ struct tumble_iosWidget: Widget {
         }
         .configurationDisplayName("Upcoming event")
         .description("Shows the earliest upcoming event.")
-        .supportedFamilies([.systemSmall, .systemMedium])
+        .supportedFamilies(getSupportedFamilies())
+    }
+    
+    /// Helper function to handle supported families
+    private func getSupportedFamilies() -> [WidgetFamily] {
+        if #available(iOSApplicationExtension 16.0, *) {
+            return [.systemSmall, .systemMedium, .accessoryRectangular, .accessoryInline]
+        } else {
+            return [.systemSmall, .systemMedium]
+        }
     }
 }

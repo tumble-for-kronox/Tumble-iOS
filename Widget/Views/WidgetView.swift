@@ -20,6 +20,10 @@ struct WidgetView : View {
             SmallEvent(event: event)
         case .systemMedium:
             MediumEvent(event: event)
+        case .accessoryInline:
+            InlineEvent(event: event)
+        case .accessoryRectangular:
+            RectangularEvent(event: event)
         default:
             Text("Some other WidgetFamily in the future.")
         }

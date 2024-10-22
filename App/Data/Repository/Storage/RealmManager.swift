@@ -82,5 +82,8 @@ class RealmManager {
         return realm.objects(Schedule.self).filter("scheduleId == %@", scheduleId).first
     }
 
+    func getEventByEventId(eventId: String) -> Event? {
+        return realm.objects(Event.self).filter("eventId == %@", eventId).first
+    }
 
 }
