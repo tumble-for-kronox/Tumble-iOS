@@ -13,11 +13,11 @@ import Foundation
 /// for KronoX events, and booking and unbooking of resources.
 final class AccountViewModel: ObservableObject {
     let viewModelFactory: ViewModelFactory = .shared
+    let userController: UserController = .shared
     
-    @Inject var userController: UserController
     @Inject var kronoxManager: KronoxManager
     @Inject var notificationManager: NotificationManager
-    @Inject var preferenceService: PreferenceService
+    @Inject var preferenceManager: PreferenceManager
     @Inject var schoolManager: SchoolManager
     
     @Published var authStatus: AuthStatus = .unAuthorized
@@ -30,12 +30,11 @@ final class AccountViewModel: ObservableObject {
     @Published var examDetailSheetModel: ExamDetailSheetModel? = nil
     @Published var authSchoolId: Int = -1
     @Published var autoSignupEnabled: Bool = false
+    @Published var registeredForExams: Bool = false
     
     private var resourceSectionDataTask: URLSessionDataTask? = nil
     private var eventSectionDataTask: URLSessionDataTask? = nil
     private let popupFactory: PopupFactory = PopupFactory.shared
-    @Published var registeredForExams: Bool = false
-    
     
     var userDisplayName: String? {
         return userController.user?.name
@@ -76,8 +75,8 @@ final class AccountViewModel: ObservableObject {
     
     private func setupPublishers() {
         let authStatusPublisher = userController.$authStatus.receive(on: RunLoop.main)
-        let authSchoolIdPublisher = preferenceService.$authSchoolId.receive(on: RunLoop.main)
-        let autoSignupPublisher = preferenceService.$autoSignupEnabled.receive(on: RunLoop.main)
+        let authSchoolIdPublisher = preferenceManager.$authSchoolId.receive(on: RunLoop.main)
+        let autoSignupPublisher = preferenceManager.$autoSignup.receive(on: RunLoop.main)
         
         Publishers.CombineLatest3(authStatusPublisher, authSchoolIdPublisher, autoSignupPublisher)
             .sink { [weak self] authStatus, authSchoolId, autoSignupEnabled in
@@ -224,7 +223,7 @@ final class AccountViewModel: ObservableObject {
     /// Registers the user for automatic event/exam signup,
     /// and attempts to sign up for any currently available exams/events
     func toggleAutoSignup(value: Bool) {
-        preferenceService.setAutoSignup(autoSignup: value)
+        preferenceManager.autoSignup.toggle()
         if value && !self.registeredForExams {
             Task {
                 await registerAutoSignup()
@@ -267,7 +266,7 @@ final class AccountViewModel: ObservableObject {
                     try await notificationManager.scheduleNotification(
                         for: notification,
                         type: .booking,
-                        userOffset: preferenceService.getNotificationOffset()
+                        userOffset: preferenceManager.notificationOffset
                     )
                     AppLogger.shared.debug("Scheduled one notification with id: \(notification.id)")
                 } catch let failure {

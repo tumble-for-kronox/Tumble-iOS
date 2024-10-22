@@ -9,14 +9,16 @@ import SwiftUI
 import Combine
 
 final class LoginViewModel: ObservableObject {
-    @Inject private var preferenceService: PreferenceService
-    @Inject private var userController: UserController
+    
+    private let popupFactory: PopupFactory = .shared
+    private let userController: UserController = .shared
+    
+    @Inject private var preferenceManager: PreferenceManager
     @Inject private var schoolManager: SchoolManager
     
     @Published var attemptingLogin: Bool = false
     @Published var authSchoolId: Int = -1
     
-    let popupFactory: PopupFactory = .shared
     lazy var schools: [School] = schoolManager.getSchools()
     var cancellable: AnyCancellable? = nil
     
@@ -25,7 +27,7 @@ final class LoginViewModel: ObservableObject {
     }
     
     private func setupDataPublishers() {
-        let authSchoolIdPublisher = preferenceService.$authSchoolId.receive(on: RunLoop.main)
+        let authSchoolIdPublisher = preferenceManager.$authSchoolId.receive(on: RunLoop.main)
         cancellable = authSchoolIdPublisher
             .sink { [weak self] authSchoolId in
                 self?.authSchoolId = authSchoolId
@@ -33,7 +35,7 @@ final class LoginViewModel: ObservableObject {
     }
     
     func setDefaultAuthSchool(schoolId: Int) {
-        preferenceService.setAuthSchool(id: schoolId)
+        preferenceManager.authSchoolId = schoolId
     }
     
     func login(

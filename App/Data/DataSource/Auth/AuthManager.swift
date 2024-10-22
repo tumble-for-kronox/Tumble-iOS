@@ -11,6 +11,7 @@ class AuthManager {
     private let urlRequestUtils = NetworkUtilities.shared
     private let keychainManager = KeyChainManager()
     private let urlSession: URLSession = URLSession.shared
+    private let networkController: NetworkController = .shared
     
     enum AuthError: Swift.Error {
         case autoLoginError(user: TumbleUser)
@@ -78,7 +79,7 @@ class AuthManager {
 
             return TumbleUser(username: user.username, name: kronoxUser.name)
         } catch {
-            if Network.shared.connected {
+            if networkController.connected {
                 try await logOutUser()
                 throw AuthError.requestError
             }

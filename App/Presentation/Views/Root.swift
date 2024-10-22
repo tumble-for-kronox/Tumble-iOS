@@ -9,7 +9,7 @@ import SwiftUI
 
 struct Root: View {
     
-    @AppStorage(StoreKey.appearance.rawValue) private var appearance = AppearanceTypes.system.rawValue
+    @AppStorage(SharedPreferenceKey.appearance.rawValue) private var appearance = AppearanceTypes.system.rawValue
     let viewModel: ParentViewModel = ViewModelFactory.shared.makeViewModelParent()
     
     var body: some View {

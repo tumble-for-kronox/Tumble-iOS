@@ -15,7 +15,7 @@ import SwiftUI
 final class SearchViewModel: ObservableObject {
     let viewModelFactory: ViewModelFactory = .shared
     
-    @Inject var preferenceService: PreferenceService
+    @Inject var preferenceManager: PreferenceManager
     @Inject var kronoxManager: KronoxManager
     @Inject var notificationManager: NotificationManager
     @Inject var schoolManager: SchoolManager

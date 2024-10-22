@@ -18,7 +18,7 @@ enum NotificationSetState {
 
 final class EventDetailsSheetViewModel: ObservableObject {
     @Inject var notificationManager: NotificationManager
-    @Inject var preferenceService: PreferenceService
+    @Inject var preferenceManager: PreferenceManager
     @Inject var realmManager: RealmManager
     
     @Published var event: Event
@@ -34,7 +34,7 @@ final class EventDetailsSheetViewModel: ObservableObject {
         self.event = event
         color = event.course?.color.toColor() ?? .white
         oldColor = event.course?.color.toColor() ?? .white
-        notificationOffset = preferenceService.getNotificationOffset()
+        notificationOffset = preferenceManager.notificationOffset
         Task.detached(priority: .userInitiated) { [weak self] in
             guard let self else { return }
             let allowed = await self.userAllowedNotifications()
@@ -69,7 +69,7 @@ final class EventDetailsSheetViewModel: ObservableObject {
         
         isNotificationSetForEvent = .loading
         
-        let userOffset: Int = preferenceService.getNotificationOffset()
+        let userOffset: Int = preferenceManager.notificationOffset
         
         // Create notification for event without categoryIdentifier,
         // since it does not need to be set for the entire course

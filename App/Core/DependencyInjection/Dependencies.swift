@@ -13,11 +13,9 @@ actor Dependencies {
     init() {
         @Provider var kronoxManager = KronoxManager()
         @Provider var notificationManager = NotificationManager()
-        @Provider var preferenceService = PreferenceService()
+        @Provider var preferenceManager = PreferenceManager()
         @Provider var authManager = AuthManager()
-        @Provider var userController = UserController()
         @Provider var schoolManager = SchoolManager()
         @Provider var realmManager = RealmManager()
-        @Provider var networkController = Network()
     }
 }

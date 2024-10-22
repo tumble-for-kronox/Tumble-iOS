@@ -12,9 +12,12 @@ import SwiftUI
 /// currently authorized in the application. Also attempts
 /// to authorize the session on startup.
 final class UserController: ObservableObject {
+    
+    static let shared: UserController = .init()
+    
     @Inject var authManager: AuthManager
     @Inject var kronoxManager: KronoxManager
-    @Inject var preferenceService: PreferenceService
+    @Inject var preferenceManager: PreferenceManager
     
     @Published var authStatus: AuthStatus = .unAuthorized {
         didSet {
@@ -29,10 +32,10 @@ final class UserController: ObservableObject {
         setupNotificationObservers()
         /// If the user isn't opening the app for the first time,
         /// try logging them in automatically
-        if !preferenceService.getIsFirstOpen() {
+        if !preferenceManager.firstOpen {
             Task.detached(priority: .userInitiated) { [weak self] in
                 guard let self else { return }
-                let authSchoolId = self.preferenceService.authSchoolId
+                let authSchoolId = self.preferenceManager.authSchoolId
                 await self.autoLogin(authSchoolId: authSchoolId)
             }
         }
