@@ -26,6 +26,7 @@ struct PreferenceSettings: View {
                         }
                     }
                 )
+                Divider()
                 SettingsNavigationButton(
                     title: NSLocalizedString("Appearance", comment: ""),
                     current: NSLocalizedString($viewModel.appearance.wrappedValue.rawValue, comment: ""),
@@ -38,6 +39,7 @@ struct PreferenceSettings: View {
                         )
                     )
                 )
+                Divider()
                 SettingsNavigationButton(
                     title: NSLocalizedString("Notification offset", comment: ""),
                     leadingIcon: "clock",

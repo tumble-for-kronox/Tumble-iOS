@@ -19,7 +19,7 @@ struct SettingsOptions<T: SettingsOption & Equatable>: View {
                         option: option,
                         selectedOption: $selectedOption
                     )
-                    if !(allOptions.last?.id == option.id) {
+                    if option != allOptions.last {
                         Divider()
                     }
                 }

@@ -24,11 +24,11 @@ struct SettingsRadioButton<T: SettingsOption & Equatable>: View {
                     .padding(.leading, Spacing.extraSmall)
                 Spacer()
                 if selectedOption == option {
-                    Image(systemName: "checkmark")
+                    Image(systemName: "circle.fill")
                         .font(.system(size: 12, weight: .semibold))
                         .frame(width: 25, height: 25)
-                        .foregroundColor(.onPrimary)
-                        .background(Color.primary)
+                        .foregroundColor(.primary)
+                        .background(Color.primary.opacity(0.2))
                         .clipShape(Circle())
                 } else {
                     Circle()
