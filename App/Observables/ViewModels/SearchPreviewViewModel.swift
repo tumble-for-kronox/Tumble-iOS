@@ -11,7 +11,7 @@ import RealmSwift
 
 final class SearchPreviewViewModel: ObservableObject {
     
-    @Inject private var preferenceService: PreferenceService
+    @Inject private var preferenceManager: PreferenceManager
     @Inject private var kronoxManager: KronoxManager
     @Inject private var notificationManager: NotificationManager
     @Inject private var schoolManager: SchoolManager
@@ -49,7 +49,7 @@ final class SearchPreviewViewModel: ObservableObject {
                     } else {
                         self?.errorMessage = NSLocalizedString("An unexpected error occurred. Please try again later.", comment: "")
                     }
-                    AppLogger.shared.info("Error occured: \(error)")
+                    AppLogger.shared.debug("Error occured: \(error)")
                 }
             }
         }

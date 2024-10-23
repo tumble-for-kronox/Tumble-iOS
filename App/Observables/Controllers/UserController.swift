@@ -12,13 +12,16 @@ import SwiftUI
 /// currently authorized in the application. Also attempts
 /// to authorize the session on startup.
 final class UserController: ObservableObject {
+    
+    static let shared: UserController = .init()
+    
     @Inject var authManager: AuthManager
     @Inject var kronoxManager: KronoxManager
-    @Inject var preferenceService: PreferenceService
+    @Inject var preferenceManager: PreferenceManager
     
     @Published var authStatus: AuthStatus = .unAuthorized {
         didSet {
-            AppLogger.shared.info("Auth Status: \(authStatus)")
+            AppLogger.shared.debug("Auth Status: \(authStatus)")
         }
     }
     @Published var user: TumbleUser? = nil
@@ -29,10 +32,10 @@ final class UserController: ObservableObject {
         setupNotificationObservers()
         /// If the user isn't opening the app for the first time,
         /// try logging them in automatically
-        if !preferenceService.getIsFirstOpen() {
+        if !preferenceManager.firstOpen {
             Task.detached(priority: .userInitiated) { [weak self] in
                 guard let self else { return }
-                let authSchoolId = self.preferenceService.authSchoolId
+                let authSchoolId = self.preferenceManager.authSchoolId
                 await self.autoLogin(authSchoolId: authSchoolId)
             }
         }
@@ -48,7 +51,7 @@ final class UserController: ObservableObject {
     }
     
     @objc func shouldLogOutOnFirstOpen() {
-        AppLogger.shared.info("Logging out user entirely, in case one exists on first opening the app")
+        AppLogger.shared.debug("Logging out user entirely, in case one exists on first opening the app")
         Task.detached(priority: .high) { [weak self] in
             try await self?.logOut()
         }

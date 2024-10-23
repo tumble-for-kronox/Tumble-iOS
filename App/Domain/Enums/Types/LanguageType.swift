@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum LanguageTypes: String, Identifiable {
+enum LanguageType: String, Identifiable {
     var id: UUID {
         return UUID()
     }
@@ -38,7 +38,7 @@ enum LanguageTypes: String, Identifiable {
         }
     }
     
-    static func fromLocaleName(_ localeName: String) -> LanguageTypes? {
+    static func fromLocaleName(_ localeName: String) -> LanguageType? {
         return allCases.first(where: { $0.rawValue == localeName })
     }
 }

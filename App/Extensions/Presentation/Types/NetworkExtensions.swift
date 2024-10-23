@@ -10,7 +10,7 @@ import Foundation
 extension NetworkSettings {
     init() {
         let defaultEnvironment = Bundle.main.object(forInfoDictionaryKey: "DEFAULT_NETWORK_SETTINGS") as? String
-        let storedEnvironment = UserDefaults.standard.value(forKey: StoreKey.networkSettings.rawValue) as? String
+        let storedEnvironment = UserDefaults.standard.value(forKey: SharedPreferenceKey.networkSettings.rawValue) as? String
         let resolvedEnvironment = storedEnvironment ?? defaultEnvironment
         switch resolvedEnvironment {
         case "development":

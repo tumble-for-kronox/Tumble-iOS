@@ -7,27 +7,28 @@
 
 import SwiftUI
 
-struct SettingsRadioButton: View {
-    let title: String
-    @Binding var isSelected: Bool
-    
+struct SettingsRadioButton<T: SettingsOption & Equatable>: View {
+    let option: T
+    @Binding var selectedOption: T
+
     var body: some View {
         Button(action: {
             HapticsController.triggerHapticLight()
-            isSelected = true
+            AppLogger.shared.debug("New selection: \(option.displayName)")
+            selectedOption = option
         }) {
             HStack {
-                Text(title)
+                Text(option.displayName)
                     .font(.system(size: 18, weight: .regular))
                     .foregroundColor(.onSurface)
                     .padding(.leading, Spacing.extraSmall)
                 Spacer()
-                if isSelected {
-                    Image(systemName: "checkmark")
+                if selectedOption == option {
+                    Image(systemName: "circle.fill")
                         .font(.system(size: 12, weight: .semibold))
                         .frame(width: 25, height: 25)
-                        .foregroundColor(.onPrimary)
-                        .background(Color.primary)
+                        .foregroundColor(.primary)
+                        .background(Color.primary.opacity(0.2))
                         .clipShape(Circle())
                 } else {
                     Circle()
@@ -40,3 +41,4 @@ struct SettingsRadioButton: View {
         }
     }
 }
+

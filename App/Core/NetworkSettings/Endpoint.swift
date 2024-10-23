@@ -11,6 +11,8 @@ import Foundation
 /// possible request. It dynamically generates url components
 /// based on selected Endpoint case, and is then passed to the NetworkManager.
 enum Endpoint {
+    
+    /// Tumble API
     case searchProgramme(searchQuery: String, schoolId: String)
     case schedule(scheduleId: String, schoolId: String)
     case userEvents(schoolId: String)
@@ -114,6 +116,7 @@ enum Endpoint {
                 URLQueryItem(name: "schoolId", value: schoolId)
             ]
         }
+        
         return components.url!
     }
 }

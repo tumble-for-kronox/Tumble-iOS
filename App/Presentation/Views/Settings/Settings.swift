@@ -10,50 +10,19 @@ import SwiftUI
 import MijickPopupView
 
 struct Settings: View {
-    
-    @AppStorage(StoreKey.appearance.rawValue) var appearance: String = AppearanceTypes.system.rawValue
-    @AppStorage(StoreKey.notificationOffset.rawValue) var offset: Int = 60
     @ObservedObject var viewModel: SettingsViewModel
-    
     @ObservedResults(Schedule.self, configuration: realmConfig) var schedules
-    
-    let currentLocale = Bundle.main.preferredLocalizations.first
     let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
-    
     @State private var showShareSheet: Bool = false
     
     var body: some View {
         SettingsList {
             SettingsListGroup {
                 SettingsNavigationButton(
-                    title: NSLocalizedString("Appearance", comment: ""),
-                    current: NSLocalizedString($appearance.wrappedValue, comment: ""),
-                    leadingIcon: "moon",
-                    leadingIconBackgroundColor: .purple,
-                    destination: AnyView(AppearanceSettings(appearance: $appearance))
-                )
-                Divider()
-                SettingsExternalButton(
-                    title: NSLocalizedString("App language", comment: ""),
-                    current: currentLocale != nil ? LanguageTypes.fromLocaleName(currentLocale!)?.displayName : nil,
-                    leadingIcon: "globe",
-                    leadingIconBackgroundColor: .blue,
-                    action: {
-                        if let settingsURL = URL(string: UIApplication.openSettingsURLString) {
-                            UIApplication.shared.open(settingsURL)
-                        }
-                    }
-                )
-            }
-            SettingsListGroup {
-                SettingsNavigationButton(
-                    title: NSLocalizedString("Notification offset", comment: ""),
-                    leadingIcon: "clock",
-                    leadingIconBackgroundColor: .red,
-                    destination: AnyView(NotificationOffsetSettings(
-                        offset: $offset,
-                        rescheduleNotifications: rescheduleNotifications
-                    ))
+                    title: NSLocalizedString("Preferences", comment: ""),
+                    leadingIcon: "gear",
+                    leadingIconBackgroundColor: .gray,
+                    destination: AnyView(PreferenceSettings(viewModel: viewModel))
                 )
                 Divider()
                 SettingsNavigationButton(
@@ -76,14 +45,14 @@ struct Settings: View {
                 SettingsExternalButton(
                     title: NSLocalizedString("Share feedback", comment: ""),
                     leadingIcon: "envelope",
-                    leadingIconBackgroundColor: .blue,
+                    leadingIconBackgroundColor: .red,
                     action: UIApplication.shared.shareFeedback
                 )
                 Divider()
                 SettingsExternalButton(
                     title: NSLocalizedString("Share the app", comment: ""),
                     leadingIcon: "square.and.arrow.up",
-                    leadingIconBackgroundColor: .green,
+                    leadingIconBackgroundColor: .blue,
                     action: {
                         showShareSheet = true
                     }
@@ -103,6 +72,13 @@ struct Settings: View {
                     leadingIconBackgroundColor: .blue,
                     action: UIApplication.shared.openDiscord
                 )
+                Divider()
+                SettingsNavigationButton(
+                    title: NSLocalizedString("Contributors", comment: ""),
+                    leadingIcon: "person.2.fill",
+                    leadingIconBackgroundColor: .purple,
+                    destination: AnyView(Contributors(viewModel: viewModel))
+                )
             }
             if let appVersion = appVersion {
                 Text("Tumble, iOS v.\(appVersion)")
@@ -116,37 +92,5 @@ struct Settings: View {
         })
         .navigationTitle(NSLocalizedString("Settings", comment: ""))
         .navigationBarTitleDisplayMode(.inline)
-    }
-    
-    
-    fileprivate func rescheduleNotifications(previousOffset: Int, newOffset: Int) {
-        viewModel.rescheduleNotifications(previousOffset: previousOffset, newOffset: newOffset)
-    }
-    
-    fileprivate func clearAllNotifications() {
-        if schedulesAvailable {
-            viewModel.clearAllNotifications()
-        } else {
-            PopupToast(popup: PopupFactory.shared.noAvailableBookmarks()).showAndStack()
-        }
-    }
-    
-    fileprivate func scheduleNotificationsForAllCourses() {
-        if schedulesAvailable {
-            let allEvents = Array(schedules)
-                .filter { $0.toggled }
-                .flatMap { $0.days }
-                .flatMap { $0.events }
-                .filter { !($0.dateComponents!.hasDatePassed()) }
-            Task {
-                await viewModel.scheduleNotificationsForAllEvents(allEvents: allEvents)
-            }
-        } else {
-            PopupToast(popup: PopupFactory.shared.noAvailableBookmarks()).showAndStack()
-        }
-    }
-    
-    var schedulesAvailable: Bool {
-        !schedules.isEmpty || !schedules.filter({ $0.toggled }).isEmpty
     }
 }

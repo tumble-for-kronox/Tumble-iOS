@@ -12,10 +12,12 @@ import Foundation
 /// confirmation for a specific users available Events or
 /// Resources for their specific account and school.
 final class ResourceViewModel: ObservableObject {
-    @Inject var userController: UserController
+    
+    let userController: UserController = .shared
+    
     @Inject var kronoxManager: KronoxManager
     @Inject var notificationManager: NotificationManager
-    @Inject var preferenceService: PreferenceService
+    @Inject var preferenceManager: PreferenceManager
     @Inject var schoolManager: SchoolManager
     
     @Published var completeUserEvent: Response.KronoxCompleteUserEvent? = nil
@@ -29,7 +31,7 @@ final class ResourceViewModel: ObservableObject {
         }
     }
     
-    lazy var authSchoolId: Int = preferenceService.authSchoolId
+    lazy var authSchoolId: Int = preferenceManager.authSchoolId
     
     /// When a user presses a date in the `ResourceDatePicker`
     /// and waits for any available resources for this date

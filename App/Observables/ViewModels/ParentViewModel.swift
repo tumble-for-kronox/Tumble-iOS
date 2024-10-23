@@ -13,13 +13,13 @@ import SwiftUI
 /// ViewModel responsible for performing any startup code,
 /// as well as instantiating any other child viewmodels
 final class ParentViewModel: ObservableObject {
-    var viewModelFactory: ViewModelFactory = .shared
+    private let viewModelFactory: ViewModelFactory = .shared
+    private let networkController: NetworkController = .shared
     
-    @Inject private var preferenceService: PreferenceService
+    @Inject private var preferenceManager: PreferenceManager
     @Inject private var kronoxManager: KronoxManager
     @Inject private var schoolManager: SchoolManager
     @Inject private var realmManager: RealmManager
-    @Inject private var networkController: Network
     
     lazy var homeViewModel: HomeViewModel = viewModelFactory.makeViewModelHome()
     lazy var bookmarksViewModel: BookmarksViewModel = viewModelFactory.makeViewModelBookmarks()
@@ -61,10 +61,10 @@ final class ParentViewModel: ObservableObject {
     }
     
     private func logOutIfFirstOpen() {
-        if preferenceService.getIsFirstOpen() {
-            AppLogger.shared.info("First open detected")
+        if preferenceManager.firstOpen {
+            AppLogger.shared.debug("First open detected")
+            preferenceManager.firstOpen.toggle()
             NotificationCenter.default.post(name: .logOutFirstOpen, object: nil)
-            preferenceService.setFirstOpen()
         }
     }
     
@@ -85,8 +85,8 @@ final class ParentViewModel: ObservableObject {
     /// Initializes any data publishers in order to register changes to comonly
     /// used variables across the app
     private func setupPublishers() {
-        let authSchoolIdPublisher = preferenceService.$authSchoolId.receive(on: RunLoop.main)
-        let onBoardingPublisher = preferenceService.$userOnBoarded.receive(on: RunLoop.main)
+        let authSchoolIdPublisher = preferenceManager.$authSchoolId.receive(on: RunLoop.main)
+        let onBoardingPublisher = preferenceManager.$userOnboarded.receive(on: RunLoop.main)
         let networkConnectionPublisher = networkController.$connected.receive(on: RunLoop.main)
         
         Publishers.CombineLatest3(authSchoolIdPublisher, onBoardingPublisher, networkConnectionPublisher)
@@ -106,10 +106,8 @@ final class ParentViewModel: ObservableObject {
     }
     
     private func updateShouldOccur() -> Bool {
-        if let lastUpdate = preferenceService.getLastUpdated() {
-            if let threeHoursAgo = Calendar.current.date(byAdding: .hour, value: -3, to: Date.now) {
-                return lastUpdate <= threeHoursAgo
-            }
+        if let threeHoursAgo = Calendar.current.date(byAdding: .hour, value: -3, to: Date.now) {
+            return preferenceManager.lastUpdated <= threeHoursAgo
         }
         return true
     }
@@ -178,7 +176,7 @@ final class ParentViewModel: ObservableObject {
                         
                         DispatchQueue.main.async {
                             self.appController.isUpdatingBookmarks = false
-                            self.preferenceService.setLastUpdated(time: Date())
+                            self.preferenceManager.lastUpdated = Date.now
                             self.updateAttempted = true
                         }
                     } catch {
@@ -191,14 +189,14 @@ final class ParentViewModel: ObservableObject {
             } else {
                 DispatchQueue.main.async {
                     self.appController.isUpdatingBookmarks = false
-                    self.preferenceService.setLastUpdated(time: Date())
+                    self.preferenceManager.lastUpdated = Date.now
                     self.updateAttempted = true
                 }
             }
         } else {
             DispatchQueue.main.async {
                 self.appController.isUpdatingBookmarks = false
-                self.preferenceService.setLastUpdated(time: Date())
+                self.preferenceManager.lastUpdated = Date.now
                 self.updateAttempted = true
             }
         }
@@ -209,7 +207,7 @@ final class ParentViewModel: ObservableObject {
     /// Toggles the onboarding preference parameter
     func finishOnboarding() {
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-            self?.preferenceService.setUserOnboarded()
+            self?.preferenceManager.userOnboarded.toggle()
         }
     }
 

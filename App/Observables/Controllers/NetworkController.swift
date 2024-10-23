@@ -8,10 +8,8 @@
 import Network
 import SwiftUI
 
-class Network: ObservableObject {
-    
-    static let shared: Network = .init()
-    
+class NetworkController: ObservableObject {
+    static let shared: NetworkController = .init()
     let monitor = NWPathMonitor()
     let queue = DispatchQueue(label: "Network monitor")
     @Published private(set) var connected: Bool = false

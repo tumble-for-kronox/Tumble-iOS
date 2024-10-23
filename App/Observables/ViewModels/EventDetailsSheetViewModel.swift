@@ -18,14 +18,14 @@ enum NotificationSetState {
 
 final class EventDetailsSheetViewModel: ObservableObject {
     @Inject var notificationManager: NotificationManager
-    @Inject var preferenceService: PreferenceService
+    @Inject var preferenceManager: PreferenceManager
     @Inject var realmManager: RealmManager
     
     @Published var event: Event
     @Published var color: Color
     @Published var isNotificationSetForEvent: NotificationSetState = .loading
     @Published var isNotificationSetForCourse: NotificationSetState = .loading
-    @Published var notificationOffset: Int = 60
+    @Published var notificationOffset: NotificationOffset = .hour
     @Published var notificationsAllowed: Bool = false
     
     private let oldColor: Color
@@ -34,7 +34,7 @@ final class EventDetailsSheetViewModel: ObservableObject {
         self.event = event
         color = event.course?.color.toColor() ?? .white
         oldColor = event.course?.color.toColor() ?? .white
-        notificationOffset = preferenceService.getNotificationOffset()
+        notificationOffset = preferenceManager.notificationOffset
         Task.detached(priority: .userInitiated) { [weak self] in
             guard let self else { return }
             let allowed = await self.userAllowedNotifications()
@@ -69,7 +69,7 @@ final class EventDetailsSheetViewModel: ObservableObject {
         
         isNotificationSetForEvent = .loading
         
-        let userOffset: Int = preferenceService.getNotificationOffset()
+        let userOffset: NotificationOffset = preferenceManager.notificationOffset
         
         // Create notification for event without categoryIdentifier,
         // since it does not need to be set for the entire course
@@ -84,7 +84,7 @@ final class EventDetailsSheetViewModel: ObservableObject {
             guard let self else { return }
             do {
                 try await self.notificationManager
-                    .scheduleNotification(for: notification, type: .event, userOffset: userOffset)
+                    .scheduleNotification(for: notification, type: .event, userOffset: userOffset.rawValue)
                 DispatchQueue.main.async {
                     self.isNotificationSetForEvent = .set
                 }
@@ -147,7 +147,7 @@ final class EventDetailsSheetViewModel: ObservableObject {
                 try await notificationManager.scheduleNotification(
                     for: notification,
                     type: .event,
-                    userOffset: notificationOffset
+                    userOffset: notificationOffset.rawValue
                 )
                 AppLogger.shared.debug("Set notification for \(event.title)")
             } else {

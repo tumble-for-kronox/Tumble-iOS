@@ -13,7 +13,6 @@ import SwiftUI
 final class HomeViewModel: ObservableObject {
     @Inject var kronoxManager: KronoxManager
     @Inject var realmManager: RealmManager
-    @Inject var networkController: Network
     
     @Published var newsSectionStatus: GenericPageStatus = .loading
     @Published var news: Response.NewsItems? = nil
@@ -25,6 +24,7 @@ final class HomeViewModel: ObservableObject {
     private var initialisedSession: Bool = false
     private let viewModelFactory: ViewModelFactory = .shared
     private let appController: AppController = .shared
+    private let networkController: NetworkController = .shared
     private var schedulesToken: NotificationToken?
     private var cancellables = Set<AnyCancellable>()
     

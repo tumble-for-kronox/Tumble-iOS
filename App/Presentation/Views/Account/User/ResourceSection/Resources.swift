@@ -31,38 +31,9 @@ struct Resources: View {
         ScrollView(showsIndicators: false) {
             ScrollViewReader { _ in
                 Refreshable(coordinateSpaceName: scrollSpace, onRefresh: getResourcesAndEvents)
+                    .padding(.top, Spacing.small)
                 VStack {
                     PullToRefreshIndicator()
-                        .padding(.bottom, -15)
-                        .padding(.top, Spacing.small)
-                    ResourceSectionDivider(title: NSLocalizedString("User options", comment: "")) {
-                        Toggle(isOn: $parentViewModel.autoSignupEnabled) {
-                            Text(NSLocalizedString("Automatic exam signup", comment: ""))
-                                .sectionDividerEmpty()
-                        }
-                        .onChange(of: parentViewModel.autoSignupEnabled, perform: { newValue in
-                            if newValue {
-                                showingConfirmationDialog = true
-                            } else {
-                                toggleAutomaticExamSignup(newValue)
-                            }
-                        })
-                        .padding(.bottom)
-                        .toggleStyle(SwitchToggleStyle(tint: .primary))
-                        .alert(isPresented: $showingConfirmationDialog) {
-                            Alert(
-                                title: Text(NSLocalizedString("Confirm Activation", comment: "")),
-                                message: Text(NSLocalizedString("Are you sure you want to enable this experimental feature?", comment: "")),
-                                primaryButton: .default(Text(NSLocalizedString("Yes", comment: ""))) {
-                                    toggleAutomaticExamSignup(true)
-                                },
-                                secondaryButton: .cancel(Text(NSLocalizedString("Cancel", comment: ""))) {
-                                    parentViewModel.autoSignupEnabled = false
-                                }
-                            )
-                        }
-                    }
-                    .padding(.top)
                     ResourceSectionDivider(title: NSLocalizedString("Your bookings", comment: ""), resourceType: .resource,
                                            destination: AnyView(
                                                ResourceBookings(
@@ -186,16 +157,6 @@ struct Resources: View {
                 parentViewModel.bookingSectionState = .loaded
             }
         }
-    }
-    
-    fileprivate func toggleAutomaticExamSignup(_ value: Bool) {
-        parentViewModel.toggleAutoSignup(value: value)
-        if value {
-            PopupToast(popup: popupFactory.autoSignupEnabled()).showAndStack()
-        } else {
-            PopupToast(popup: popupFactory.autoSignupDisabled()).showAndStack()
-        }
-        AppLogger.shared.info("Toggled to \(value)")
     }
 }
 

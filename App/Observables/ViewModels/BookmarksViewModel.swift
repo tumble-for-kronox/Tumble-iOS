@@ -22,7 +22,7 @@ final class BookmarksViewModel: ObservableObject {
     let appController: AppController = .shared
     let scheduleViewTypes: [ViewType] = ViewType.allCases
     
-    @Inject var preferenceService: PreferenceService
+    @Inject var preferenceManager: PreferenceManager
     @Inject var schoolManager: SchoolManager
     @Inject var realmManager: RealmManager
     
@@ -48,7 +48,7 @@ final class BookmarksViewModel: ObservableObject {
     
     init() {
         defaultViewType = .list
-        defaultViewType = preferenceService.getDefaultViewType()
+        defaultViewType = ViewType.allCases[preferenceManager.viewTypeIndex]
         setupPublishers()
     }
 
@@ -99,7 +99,7 @@ final class BookmarksViewModel: ObservableObject {
     
     private func updatePreferenceViewType() {
         let viewTypeIndex: Int = scheduleViewTypes.firstIndex(of: defaultViewType)!
-        preferenceService.setViewType(viewType: viewTypeIndex)
+        preferenceManager.viewTypeIndex = viewTypeIndex
     }
     
     /// Creates any calendar and list events, parsing through the schedules that

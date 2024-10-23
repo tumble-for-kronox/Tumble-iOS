@@ -11,34 +11,104 @@ import RealmSwift
 import SwiftUI
 
 final class SettingsViewModel: ObservableObject {
-    @Inject var preferenceService: PreferenceService
+    @Inject var preferenceManager: PreferenceManager
     @Inject var notificationManager: NotificationManager
     @Inject var schoolManager: SchoolManager
     @Inject var realmManager: RealmManager
+    @Inject var githubApiManager: GithubApiManager
     
     @Published var bookmarks: [Bookmark]?
     @Published var presentSidebarSheet: Bool = false
     @Published var authStatus: AuthStatus = .unAuthorized
-    @Published var authSchoolId: Int = -1
+    @Published var contributorPageStatus: GenericPageStatus = .loading
     @Published var schoolName: String = ""
+    @Published var contributors: [Contributor] = []
+    
+    @Published var authSchoolId: Int = -1
+    @Published var appearance: AppearanceType = AppearanceType.system {
+        didSet {
+            if oldValue != appearance {
+                self.setAppearance(appearance: appearance)
+            }
+        }
+    }
+    @Published var notificationOffset: NotificationOffset = .hour {
+        didSet {
+            if oldValue != notificationOffset {
+                self.rescheduleNotifications(previousOffset: oldValue.rawValue, newOffset: notificationOffset.rawValue)
+                self.setNotificationOffset(offset: notificationOffset)
+            }
+        }
+    }
+    @Published var autoSignup: Bool = false {
+        didSet {
+            if oldValue != autoSignup {
+                AppLogger.shared.debug("Auto signup is \(autoSignup)")
+                self.setAutoSignup(value: autoSignup)
+            }
+        }
+    }
     
     let popupFactory: PopupFactory = PopupFactory.shared
+    private let userController: UserController = .shared
     private lazy var schools: [School] = schoolManager.getSchools()
-    private var cancellable: AnyCancellable? = nil
+    private var cancellables: Set<AnyCancellable> = []
+    private var cancellableTask: Task<Void, Never>?
     
     init() { setUpDataPublishers() }
     
     private func setUpDataPublishers() {
-        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-            guard let self else { return }
-            let schoolIdPublisher = self.preferenceService.$authSchoolId.receive(on: RunLoop.main)
-            
-            self.cancellable = schoolIdPublisher.sink { schoolId in
-                self.authSchoolId = schoolId
-                self.schoolName = self.schools.first(where: { $0.id == schoolId })?.name ?? ""
+        
+        let authSchoolIdPublisher = preferenceManager.$authSchoolId.receive(on: RunLoop.main)
+        let appearancePublisher = preferenceManager.$appearance.receive(on: RunLoop.main)
+        let notificationOffsetPublisher = preferenceManager.$notificationOffset.receive(on: RunLoop.main)
+        let autoSignupPublisher = preferenceManager.$autoSignup.receive(on: RunLoop.main)
+        let authStatusPublisher = userController.$authStatus.receive(on: RunLoop.main)
+        
+        Publishers.CombineLatest4(authSchoolIdPublisher, appearancePublisher, notificationOffsetPublisher, autoSignupPublisher)
+            .sink { [weak self] authSchoolId, appearance, notificationOffset, autoSignup in
+                self?.authSchoolId = authSchoolId
+                self?.notificationOffset = notificationOffset
+                self?.appearance = appearance
+                self?.autoSignup = autoSignup
+                
+                self?.schoolName = self?.schools.first(where: { $0.id == authSchoolId })?.name ?? ""
+                
             }
-            
+            .store(in: &cancellables)
+        
+        authStatusPublisher.sink { [weak self] authStatus in
+            self?.authStatus = authStatus
         }
+        .store(in: &cancellables)
+    }
+    
+    func getRepoContributors() {
+        if !contributors.isEmpty {
+            return
+        }
+            
+        cancellableTask?.cancel()
+        cancellableTask = Task.detached(priority: .userInitiated) { [weak self] in
+            do {
+                let contributors = try await self?.githubApiManager.getRepoContributors()
+                DispatchQueue.main.async { [weak self] in
+                    AppLogger.shared.debug("Retrieved all contributors")
+                    self?.contributors = contributors ?? []
+                    self?.contributorPageStatus = .loaded
+                }
+            } catch {
+                AppLogger.shared.debug("Error retrieving contributors: \(error)")
+                DispatchQueue.main.async { [weak self] in
+                    self?.contributorPageStatus = .error
+                }
+            }
+        }
+    }
+    
+    func cancelContributorFetch() {
+        cancellableTask?.cancel()
+        AppLogger.shared.debug("Contributor fetch task cancelled")
     }
     
     func removeNotifications(for id: String, referencing events: [Event]) {
@@ -89,7 +159,7 @@ final class SettingsViewModel: ObservableObject {
                 try await notificationManager.scheduleNotification(
                     for: notification,
                     type: .event,
-                    userOffset: preferenceService.getNotificationOffset()
+                    userOffset: preferenceManager.notificationOffset.rawValue
                 )
                 scheduledNotifications += 1
                 AppLogger.shared.debug("One notification set")
@@ -106,6 +176,18 @@ final class SettingsViewModel: ObservableObject {
             }
         }
     }
+    
+    func setAppearance(appearance: AppearanceType) {
+        preferenceManager.appearance = appearance
+    }
+    
+    func setNotificationOffset(offset: NotificationOffset) {
+        preferenceManager.notificationOffset = offset
+    }
+    
+    func setAutoSignup(value: Bool) {
+        preferenceManager.autoSignup = value
+    }
 
     
     func deleteBookmark(schedule: Schedule) {
@@ -117,7 +199,8 @@ final class SettingsViewModel: ObservableObject {
     }
     
     deinit {
-        cancellable?.cancel()
+        cancellableTask?.cancel()
+        cancellables.forEach { $0.cancel() }
     }
 
 }

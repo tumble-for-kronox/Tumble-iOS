@@ -74,9 +74,9 @@ func getCurrentDate(truncate: Bool = false) -> String {
 
 func getThemeColorScheme(appearance: String) -> ColorScheme {
     switch appearance {
-    case AppearanceTypes.dark.rawValue:
+    case AppearanceType.dark.rawValue:
         return .dark
-    case AppearanceTypes.light.rawValue:
+    case AppearanceType.light.rawValue:
         return .light
     default:
         if UITraitCollection.current.userInterfaceStyle == .dark {

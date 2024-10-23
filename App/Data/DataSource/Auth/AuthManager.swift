@@ -8,9 +8,10 @@
 import Foundation
 
 class AuthManager {
-    private let urlRequestUtils = NetworkUtilities.shared
+    private let urlRequestUtils: NetworkUtilities = .shared
     private let keychainManager = KeyChainManager()
-    private let urlSession: URLSession = URLSession.shared
+    private let urlSession: URLSession = .shared
+    private let networkController: NetworkController = .shared
     
     enum AuthError: Swift.Error {
         case autoLoginError(user: TumbleUser)
@@ -26,7 +27,7 @@ class AuthManager {
     }
     
     func logOutUser() async throws {
-        AppLogger.shared.info("Logging out user")
+        AppLogger.shared.debug("Logging out user")
         try await clearKeychainData(for: [TokenType.refreshToken.rawValue, TokenType.sessionDetails.rawValue, "tumble-user"])
     }
 
@@ -45,7 +46,7 @@ class AuthManager {
     // MARK: - Private Methods
 
     private func createLoginRequest(authSchoolId: Int, user: NetworkRequest.KronoxUserLogin) throws -> URLRequest {
-        return try urlRequestUtils.createUrlRequest(
+        return try urlRequestUtils.createTumbleUrlRequest(
             method: .post,
             endpoint: .login(schoolId: String(authSchoolId)),
             body: user
@@ -78,7 +79,7 @@ class AuthManager {
 
             return TumbleUser(username: user.username, name: kronoxUser.name)
         } catch {
-            if Network.shared.connected {
+            if networkController.connected {
                 try await logOutUser()
                 throw AuthError.requestError
             }
@@ -106,7 +107,7 @@ class AuthManager {
     }
 
     private func createAutoLoginRequest(authSchoolId: Int, refreshToken: Token? = nil, sessionDetails: Token? = nil) throws -> URLRequest {
-        return try urlRequestUtils.createUrlRequest(
+        return try urlRequestUtils.createTumbleUrlRequest(
             method: .get,
             endpoint: .users(schoolId: String(authSchoolId)),
             refreshToken: refreshToken?.value,
@@ -126,7 +127,7 @@ class AuthManager {
     func getUser() async -> TumbleUser? {
         guard let data = try? await keychainManager.readKeyChain(for: "tumble-user", account: "Tumble for Kronox"),
               let user = try? JSONDecoder().decode(TumbleUser.self, from: data) else {
-            AppLogger.shared.info("Could not decode Tumble user")
+            AppLogger.shared.debug("Could not decode Tumble user")
             return nil
         }
         return user

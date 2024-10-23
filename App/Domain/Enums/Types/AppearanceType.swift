@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum AppearanceTypes: String, Identifiable {
+enum AppearanceType: String, SettingsOption {
     var id: UUID {
         return UUID()
     }
@@ -27,7 +27,7 @@ enum AppearanceTypes: String, Identifiable {
         }
     }
     
-    static func fromRawValue(_ rawValue: String) -> AppearanceTypes? {
+    static func fromRawValue(_ rawValue: String) -> AppearanceType? {
         return allCases.first(where: { $0.rawValue == rawValue })
     }
     
