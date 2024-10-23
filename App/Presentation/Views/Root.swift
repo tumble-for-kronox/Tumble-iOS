@@ -16,8 +16,16 @@ struct Root: View {
         ZStack {
             AppParent(viewModel: viewModel)
         }
-        .preferredColorScheme(getThemeColorScheme(appearance: appearance))
         .edgesIgnoringSafeArea(.all)
         .ignoresSafeArea(.keyboard)
+        .onChange(of: appearance) { newValue in
+            changeTheme(to: newValue)
+        }
+    }
+    
+    func changeTheme(to theme: String) {
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+            windowScene.windows.first?.rootViewController?.overrideUserInterfaceStyle = getThemeColorScheme(appearance: appearance)
+        }
     }
 }
