@@ -55,5 +55,12 @@ struct AppParent: View {
             OnBoarding(finishOnBoarding: viewModel.finishOnboarding)
         })
         .navigationViewStyle(StackNavigationViewStyle())
+        .onOpenURL(perform: { url in
+            /// To be changed to user preference
+            if true {
+                guard let event = RealmManager().getEventByEventId(eventId: url.absoluteString) else { return }
+                AppController.shared.eventSheet = EventDetailsSheetModel(event: event)
+            }
+        })
     }
 }
