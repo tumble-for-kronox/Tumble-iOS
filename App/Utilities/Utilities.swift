@@ -72,18 +72,14 @@ func getCurrentDate(truncate: Bool = false) -> String {
     return dateString
 }
 
-func getThemeColorScheme(appearance: String) -> ColorScheme {
+func getThemeColorScheme(appearance: String) -> UIUserInterfaceStyle {
     switch appearance {
     case AppearanceType.dark.rawValue:
         return .dark
     case AppearanceType.light.rawValue:
         return .light
     default:
-        if UITraitCollection.current.userInterfaceStyle == .dark {
-            return .dark
-        } else {
-            return .light
-        }
+        return .unspecified
     }
 }
 
