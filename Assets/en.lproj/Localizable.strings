@@ -114,6 +114,8 @@
 
 "Bosnian"="Bosnian";
 
+"Russian"="Russian";
+
 "Home"="Home";
 
 "Bookmarks"="Bookmarks";
@@ -469,3 +471,5 @@
 "The map for this campus is not available yet"="The map for this campus is not available yet";
 
 "View the event locations"="View the event locations";
+
+"Open event from widget"="Open event from widget";

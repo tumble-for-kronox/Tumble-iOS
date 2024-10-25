@@ -114,6 +114,8 @@
 
 "Bosnian"="Боснийский";
 
+"Russian"="Русский";
+
 "Home"="Главная";
 
 "Bookmarks"="Закладки";
@@ -469,3 +471,5 @@
 "The map for this campus is not available yet"="Карта этого кампуса еще недоступна";
 
 "View the event locations"="Посмотреть место события";
+
+"Open event from widget"="Открывать событие из виджета";

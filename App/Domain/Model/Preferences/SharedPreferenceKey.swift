@@ -18,4 +18,5 @@ enum SharedPreferenceKey: String {
     case networkSettings = "network_settings"
     case lastUpdated = "last_updated"
     case firstOpen = "first_open"
+    case openEventFromWidget = "open_event_from_widget"
 }

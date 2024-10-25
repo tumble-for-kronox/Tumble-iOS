@@ -118,6 +118,8 @@
 
 "Bosnian"="البوسنية";
 
+"Russian"="الروسية";
+
 "Home"="الصفحة الرئيسية";
 
 "Bookmarks"="المُفضلة";
@@ -474,3 +476,5 @@
 "The map for this campus is not available yet"="خريطة هذا الحرم الجامعي غير متاحة بعد";
 
 "View the event locations"="عرض مواقع الحدث";
+
+"Open event from widget"="افتح الحدث من الويدجت";

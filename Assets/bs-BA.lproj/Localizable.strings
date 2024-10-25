@@ -118,6 +118,8 @@
 
 "Bosnian"="Bosanski";
 
+"Russian"="Ruski";
+
 "Home"="Dom";
 
 "Bookmarks"="Bookmarks";
@@ -473,3 +475,5 @@
 "The map for this campus is not available yet"="Karta ovog kampusa još nije dostupna";
 
 "View the event locations"="Pogledaj lokacije događaja";
+
+"Open event from widget"="Otvori događaj iz widgeta";

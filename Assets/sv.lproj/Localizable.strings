@@ -118,6 +118,8 @@
 
 "Bosnian"="Bosniska";
 
+"Russian"="Ryska";
+
 "Home"="Hem";
 
 "Bookmarks"="Bokmärken";
@@ -473,3 +475,5 @@
 "The map for this campus is not available yet"="Kartan för detta campus är inte tillgänglig ännu";
 
 "View the event locations"="Visa evenemangsplatserna";
+
+"Open event from widget"="Öppna evenemanget från widget";

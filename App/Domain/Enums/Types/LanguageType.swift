@@ -18,8 +18,9 @@ enum LanguageType: String, Identifiable {
     case french = "fr"
     case german = "de"
     case bosnian = "bs-BA"
+    case russian = "ru"
     
-    static var allCases = [english, swedish, italian, french, german, bosnian]
+    static var allCases = [english, swedish, italian, french, german, bosnian, russian]
     
     var displayName: String {
         switch self {
@@ -35,6 +36,8 @@ enum LanguageType: String, Identifiable {
             return NSLocalizedString("German", comment: "")
         case .bosnian:
             return NSLocalizedString("Bosnian", comment: "")
+        case .russian:
+            return NSLocalizedString("Russian", comment: "")
         }
     }
     

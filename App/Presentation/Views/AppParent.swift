@@ -57,7 +57,7 @@ struct AppParent: View {
         .navigationViewStyle(StackNavigationViewStyle())
         .onOpenURL(perform: { url in
             /// To be changed to user preference
-            if true {
+            if PreferenceManager().openEventFromWidget {
                 guard let event = RealmManager().getEventByEventId(eventId: url.absoluteString) else { return }
                 AppController.shared.eventSheet = EventDetailsSheetModel(event: event)
             }

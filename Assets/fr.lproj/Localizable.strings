@@ -118,6 +118,8 @@
 
 "Bosnian"="Bosnien";
 
+"Russian"="Russe";
+
 "Home"="Accueil";
 
 "Bookmarks"="Favoris";
@@ -473,3 +475,5 @@
 "The map for this campus is not available yet"="La carte de ce campus n'est pas encore disponible";
 
 "View the event locations"="Voir les lieux de l'événement";
+
+"Open event from widget"="Ouvrir l'événement depuis le widget";

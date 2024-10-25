@@ -53,8 +53,15 @@ struct PreferenceSettings: View {
                 )
                 
             }
-            if viewModel.authStatus == .authorized {
-                SettingsListGroup {
+            SettingsListGroup {
+                SettingsToggleButton(
+                    title: NSLocalizedString("Open event from widget", comment: ""),
+                    leadingIcon: "doc.text.magnifyingglass",
+                    leadingIconBackgroundColor: Color(uiColor: UIColor.systemTeal),
+                    condition: $viewModel.openEventFromWidget
+                )
+                if viewModel.authStatus == .authorized {
+                    Divider()
                     SettingsToggleButton(
                         title: NSLocalizedString("Automatic exam signup", comment: ""),
                         leadingIcon: "paperclip",
