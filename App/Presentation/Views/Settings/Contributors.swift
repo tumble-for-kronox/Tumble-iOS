@@ -63,7 +63,7 @@ struct ContributorRow: View {
                 Text(contributor.login)
                     .font(.headline)
                     .foregroundColor(.onSurface)
-                Text("\(contributor.contributions) contributions")
+                Text(String(format: NSLocalizedString("%@ contributions", comment: ""), String(contributor.contributions)))
                     .font(.subheadline)
                     .foregroundColor(.onSurface.opacity(0.8))
                 Link(NSLocalizedString("View Profile", comment: ""), destination: URL(string: contributor.htmlURL)!)
