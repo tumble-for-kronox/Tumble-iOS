@@ -48,6 +48,13 @@ final class SettingsViewModel: ObservableObject {
             }
         }
     }
+    @Published var openEventFromWidget: Bool = true {
+        didSet {
+            if oldValue != openEventFromWidget {
+                self.setOpenEventFromWidget(value: openEventFromWidget)
+            }
+        }
+    }
     
     let popupFactory: PopupFactory = PopupFactory.shared
     private let userController: UserController = .shared
@@ -189,6 +196,9 @@ final class SettingsViewModel: ObservableObject {
         preferenceManager.autoSignup = value
     }
 
+    func setOpenEventFromWidget(value: Bool) {
+        preferenceManager.openEventFromWidget = value
+    }
     
     func deleteBookmark(schedule: Schedule) {
         realmManager.deleteSchedule(schedule: schedule)

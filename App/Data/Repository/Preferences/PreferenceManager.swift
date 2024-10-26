@@ -22,6 +22,7 @@ class PreferenceManager: ObservableObject {
     @Published var viewTypeIndex: Int
     @Published var lastUpdated: Date
     @Published var firstOpen: Bool
+    @Published var openEventFromWidget: Bool
     
     private var cancellables = Set<AnyCancellable>()
     
@@ -34,7 +35,8 @@ class PreferenceManager: ObservableObject {
         languagePreference: LanguagePreference = LanguagePreference(),
         viewTypePreference: ViewTypeIndexPreference = ViewTypeIndexPreference(),
         lastUpdatedPreference: LastUpdatedPreference = LastUpdatedPreference(),
-        firstOpenPreference: FirstOpenPreference = FirstOpenPreference()
+        firstOpenPreference: FirstOpenPreference = FirstOpenPreference(),
+        openEventFromWidgetPreference: OpenEventFromWidgetPreference = OpenEventFromWidgetPreference()
     ) {
         self.userOnboarded = onboardingPreference.get()
         self.authSchoolId = authSchoolPreference.get()
@@ -45,6 +47,7 @@ class PreferenceManager: ObservableObject {
         self.viewTypeIndex = viewTypePreference.get()
         self.lastUpdated = lastUpdatedPreference.get()
         self.firstOpen = firstOpenPreference.get()
+        self.openEventFromWidget = openEventFromWidgetPreference.get()
 
         // Bind preferences using enums
         bindPreference($userOnboarded, initialValue: userOnboarded, to: onboardingPreference)
@@ -56,6 +59,7 @@ class PreferenceManager: ObservableObject {
         bindPreference($viewTypeIndex, initialValue: viewTypeIndex, to: viewTypePreference)
         bindPreference($lastUpdated, initialValue: lastUpdated, to: lastUpdatedPreference)
         bindPreference($firstOpen, initialValue: firstOpen, to: firstOpenPreference)
+        bindPreference($openEventFromWidget, initialValue: openEventFromWidget, to: openEventFromWidgetPreference)
     }
     
     // Regular binding for simple types
