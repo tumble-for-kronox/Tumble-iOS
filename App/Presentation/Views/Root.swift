@@ -21,11 +21,20 @@ struct Root: View {
         .onChange(of: appearance) { newValue in
             changeTheme(to: newValue)
         }
+        .onAppear {
+            changeTheme(to: appearance)
+        }
     }
     
     func changeTheme(to theme: String) {
-        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
-            windowScene.windows.first?.rootViewController?.overrideUserInterfaceStyle = getThemeColorScheme(appearance: appearance)
+        let style = getThemeColorScheme(appearance: theme)
+        
+        for scene in UIApplication.shared.connectedScenes {
+            if let windowScene = scene as? UIWindowScene {
+                for window in windowScene.windows {
+                    window.overrideUserInterfaceStyle = style
+                }
+            }
         }
     }
 }
