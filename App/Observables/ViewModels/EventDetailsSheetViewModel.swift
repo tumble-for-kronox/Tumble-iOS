@@ -66,7 +66,6 @@ final class EventDetailsSheetViewModel: ObservableObject {
     }
     
     @MainActor func scheduleNotificationForEvent() {
-        
         isNotificationSetForEvent = .loading
         
         let userOffset: NotificationOffset = preferenceManager.notificationOffset
@@ -79,7 +78,7 @@ final class EventDetailsSheetViewModel: ObservableObject {
             categoryIdentifier: nil,
             content: self.event.toDictionary()
         )
-        
+                
         Task.detached(priority: .userInitiated) { [weak self] in
             guard let self else { return }
             do {

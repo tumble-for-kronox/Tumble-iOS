@@ -22,7 +22,7 @@ class NotificationManager {
             switch type {
             case .event:
                 if let eventNotification = notification as? EventNotification {
-                    let request = self.requestEventNotification(for: eventNotification, userOffset: userOffset)
+                    let request = try self.requestEventNotification(for: eventNotification, userOffset: userOffset)
                     try await self.notificationCenter.add(request)
                 }
             case .booking:
@@ -159,13 +159,14 @@ private extension NotificationManager {
     func requestEventNotification(
         for notification: EventNotification,
         userOffset: Int
-    ) -> UNNotificationRequest {
+    ) throws -> UNNotificationRequest {
         AppLogger.shared.debug("Making notification request for -> \(notification.id)")
         let content = UNMutableNotificationContent()
         let event = notification.content?.toEvent()
-        content.title = (event?.course?.englishName ?? "")!
-        content.subtitle = (event?.title)!
-        // Optional course id
+        guard let event = event else { throw NotificationError.internal(reason: "Event could not be parsed") }
+        
+        content.title = (event.course?.englishName ?? "")
+        content.subtitle = (event.title)
         content.categoryIdentifier = notification.categoryIdentifier ?? ""
         content.sound = .default
         content.badge = 1

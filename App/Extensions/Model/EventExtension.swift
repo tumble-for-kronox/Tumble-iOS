@@ -12,6 +12,7 @@ extension Event {
         var dictionary: [String: Any] = [:]
         
         dictionary["title"] = title
+        dictionary["schoolId"] = schoolId
         dictionary["from"] = from
         dictionary["to"] = to
         dictionary["eventId"] = eventId
