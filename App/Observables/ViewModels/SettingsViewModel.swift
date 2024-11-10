@@ -70,24 +70,26 @@ final class SettingsViewModel: ObservableObject {
         let appearancePublisher = preferenceManager.$appearance.receive(on: RunLoop.main)
         let notificationOffsetPublisher = preferenceManager.$notificationOffset.receive(on: RunLoop.main)
         let autoSignupPublisher = preferenceManager.$autoSignup.receive(on: RunLoop.main)
+        let openEventFromWidgetPublisher = preferenceManager.$openEventFromWidget.receive(on: RunLoop.main)
         let authStatusPublisher = userController.$authStatus.receive(on: RunLoop.main)
         
-        Publishers.CombineLatest4(authSchoolIdPublisher, appearancePublisher, notificationOffsetPublisher, autoSignupPublisher)
-            .sink { [weak self] authSchoolId, appearance, notificationOffset, autoSignup in
+        Publishers.CombineLatest3(authSchoolIdPublisher, appearancePublisher, notificationOffsetPublisher)
+            .sink { [weak self] authSchoolId, appearance, notificationOffset in
                 self?.authSchoolId = authSchoolId
                 self?.notificationOffset = notificationOffset
                 self?.appearance = appearance
-                self?.autoSignup = autoSignup
                 
                 self?.schoolName = self?.schools.first(where: { $0.id == authSchoolId })?.name ?? ""
-                
             }
             .store(in: &cancellables)
         
-        authStatusPublisher.sink { [weak self] authStatus in
-            self?.authStatus = authStatus
-        }
-        .store(in: &cancellables)
+        Publishers.CombineLatest3(autoSignupPublisher, authStatusPublisher, openEventFromWidgetPublisher)
+            .sink { [weak self] autoSignup, authStatus, openEventFromWidget in
+                self?.autoSignup = autoSignup
+                self?.authStatus = authStatus
+                self?.openEventFromWidget = openEventFromWidget
+            }
+            .store(in: &cancellables)
     }
     
     func getRepoContributors() {
