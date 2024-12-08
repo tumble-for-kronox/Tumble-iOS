@@ -154,10 +154,7 @@ final class AccountViewModel: ObservableObject {
     func logOut() async {
         do {
             try await userController.logOut(user: currentUser)
-            Task {
-                await getUserBookingsForSection()
-                await getUserEventsForSection()
-            }
+            getResourcesAndEvents()
             await notificationManager.cancelNotifications(with: "Booking")
         } catch {
             AppLogger.shared.error("Failed to log out user: \(error)")
@@ -213,6 +210,15 @@ final class AccountViewModel: ObservableObject {
         }
     }
     
+    func getResourcesAndEvents() {
+        Task {
+            async let bookings: () = getUserBookingsForSection()
+            async let events: () = getUserEventsForSection()
+
+            await (bookings, events)
+        }
+    }
+    
     /// Removes a registered event from the users account,
     /// as well as the locally stored object
     func unregisterForEvent(eventId: String) async {
@@ -240,10 +246,7 @@ final class AccountViewModel: ObservableObject {
     func toggleAutoSignup(value: Bool) {
         preferenceManager.autoSignup.toggle()
         if value && !self.registeredForExams {
-            Task {
-                await registerAutoSignup()
-                await getUserEventsForSection()
-            }
+            getResourcesAndEvents()
         }
     }
     
@@ -313,10 +316,7 @@ final class AccountViewModel: ObservableObject {
         guard preferenceManager.currentUser != user else { return }
         do {
             try await userController.changeUser(to: user)
-            Task {
-                await getUserBookingsForSection()
-                await getUserEventsForSection()
-            }
+            getResourcesAndEvents()
         } catch {
             AppLogger.shared.error("Failed to change currentUser to: \(user)")
         }

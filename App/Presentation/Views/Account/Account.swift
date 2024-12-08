@@ -21,15 +21,15 @@ struct Account: View {
                 case .authorized:
                     UserOverview(viewModel: viewModel)
                 case .unAuthorized:
-                    AccountLogin()
+                    AccountLogin(isAddAccount: false)
                 }
             }
             .frame(maxHeight: .infinity)
             .ignoresSafeArea(.keyboard)
             .navigationBarTitleDisplayMode(.inline)
-            .if(viewModel.authStatus == .authorized, transform: { view in
+            .if(viewModel.authStatus == .authorized) { view in
                 view.navigationTitle(NSLocalizedString("Account", comment: ""))
-            })
+            }
             .navigationBarItems(trailing: HStack {
                 if viewModel.authStatus == .authorized {
                     SignOutButton(showConfirmationDialog: {
