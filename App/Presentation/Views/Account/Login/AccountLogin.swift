@@ -13,6 +13,7 @@ enum FocusedField {
 }
 
 struct AccountLogin: View {
+    let isAddAccount: Bool
     @ObservedObject var viewModel: LoginViewModel = .init()
     @ObservedObject var appController: AppController = .shared
     
@@ -30,7 +31,7 @@ struct AccountLogin: View {
                     .ignoresSafeArea() // Allow tapping outside the content to dismiss the keyboard
                 
                 VStack(alignment: .leading) {
-                    LoginHeader()
+                    LoginHeader(isAddAccount: isAddAccount)
                     VStack(spacing: Spacing.extraLarge) {
                         HStack {
                             schoolSelectionMenu

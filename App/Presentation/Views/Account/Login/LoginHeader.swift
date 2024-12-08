@@ -8,14 +8,16 @@
 import SwiftUI
 
 struct LoginHeader: View {
+    let isAddAccount: Bool
     var body: some View {
         VStack(alignment: .leading, spacing: Spacing.small) {
-            Text(NSLocalizedString("Log in", comment: ""))
+            Text(NSLocalizedString(isAddAccount ? "Add account" : "Log in", comment: ""))
                 .infoHeaderMedium()
                 .padding(.leading, Spacing.medium)
-            Text(NSLocalizedString("Please log in to continue", comment: ""))
+            Text(NSLocalizedString(isAddAccount ? "You can later switch between your accounts" : "Please log in to continue", comment: ""))
                 .infoBodyMedium(opacity: 0.75)
-                .multilineTextAlignment(.center)
+                .multilineTextAlignment(.leading)
+                .fixedSize(horizontal: false, vertical: true)
         }
         .padding(.bottom, Spacing.medium)
     }
@@ -23,6 +25,6 @@ struct LoginHeader: View {
 
 struct LoginHeader_Previews: PreviewProvider {
     static var previews: some View {
-        LoginHeader()
+        LoginHeader(isAddAccount: true)
     }
 }

@@ -12,47 +12,83 @@ struct UserOverview: View {
     @ObservedObject var appController: AppController = .shared
         
     @State private var collapsedHeader: Bool = false
+    @State private var isSelecting: Bool = false
+    @State private var isNavigatingToAddAccount: Bool = false
     
     var body: some View {
         VStack(spacing: 0) {
-            HStack {
-                if let name = viewModel.userDisplayName,
-                   let username = viewModel.username
-                {
-                    UserAvatar(name: name, collapsedHeader: $collapsedHeader)
-                        .padding(.trailing, 5)
-                    VStack(alignment: .leading, spacing: 0) {
-                        Text(name)
-                            .font(.system(size: collapsedHeader ? 20 : 22, weight: .semibold))
-                        if !collapsedHeader {
-                            Text(username)
-                                .font(.system(size: 16, weight: .regular))
-                            Text(viewModel.schoolName)
-                                .font(.system(size: 14, weight: .semibold))
-                                .padding(.top, Spacing.small)
+            VStack(spacing: Spacing.medium) {
+                UserHeader(collapsedHeader: $collapsedHeader, viewModel: viewModel)
+                if isSelecting {
+                    Divider()
+                    VStack(alignment: .leading, spacing: Spacing.medium) {
+                        ForEach(viewModel.users, id:\.username) { user in
+                            UserOptionView(user: user, viewModel: viewModel) {
+                                withAnimation(.easeInOut) {
+                                    isSelecting = false
+                                    HapticsController.triggerHapticLight()
+                                    Task {
+                                        await viewModel.setCurrentUser(to: user.username)
+                                    }
+                                }
+                            }
+                        }
+                        Button {
+                            withAnimation(.easeInOut) {
+                                isNavigatingToAddAccount = true
+                                isSelecting = false
+                            }
+                        } label: {
+                            HStack {
+                                Text(NSLocalizedString("Add account", comment: ""))
+                                    .font(.system(size: 16, weight: .semibold))
+                                    .foregroundColor(.onPrimary)
+                                Image(systemName: "plus")
+                                    .font(.system(size: 14, weight: .semibold))
+                                    .foregroundColor(.onPrimary)
+                            }
+                            .padding(10)
+                            .background(Color.primary)
+                            .cornerRadius(15)
                         }
                     }
-                    .padding(Spacing.small)
                 }
             }
-            .padding(.horizontal, Spacing.medium)
-            .frame(maxWidth: .infinity, alignment: .leading)
+            .frame(maxWidth: .infinity)
+            .padding(Spacing.medium)
+            .background(Color.surface)
+            .cornerRadius(10)
+            .padding([.horizontal, .top], Spacing.medium)
+            .onTapGesture {
+                if viewModel.users.count > 1 {
+                    withAnimation(.easeInOut) {
+                        isSelecting.toggle()
+                    }
+                } else {
+                    isNavigatingToAddAccount = true
+                }
+            }
             Divider()
                 .foregroundColor(.onBackground)
                 .padding(.top, Spacing.medium)
             Resources(
                 parentViewModel: viewModel,
-                getResourcesAndEvents: getResourcesAndEvents,
+                getResourcesAndEvents: viewModel.getResourcesAndEvents,
                 collapsedHeader: $collapsedHeader
             )
         }
         .background(Color.background)
-    }
-    
-    fileprivate func getResourcesAndEvents() {
-        Task {
-            await viewModel.getUserBookingsForSection()
-            await viewModel.getUserEventsForSection()
+        .background(
+            NavigationLink(
+                destination: AccountLogin(isAddAccount: true),
+                isActive: $isNavigatingToAddAccount
+            ) {
+                EmptyView()
+            }
+        )
+        .onChange(of: viewModel.currentUser) { newValue in
+            isNavigatingToAddAccount = false
+            viewModel.getResourcesAndEvents()
         }
     }
 }

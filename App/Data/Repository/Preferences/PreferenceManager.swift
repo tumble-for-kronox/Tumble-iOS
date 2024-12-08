@@ -23,6 +23,7 @@ class PreferenceManager: ObservableObject {
     @Published var lastUpdated: Date
     @Published var firstOpen: Bool
     @Published var openEventFromWidget: Bool
+    @Published var currentUser: String
     
     private var cancellables = Set<AnyCancellable>()
     
@@ -36,7 +37,8 @@ class PreferenceManager: ObservableObject {
         viewTypePreference: ViewTypeIndexPreference = ViewTypeIndexPreference(),
         lastUpdatedPreference: LastUpdatedPreference = LastUpdatedPreference(),
         firstOpenPreference: FirstOpenPreference = FirstOpenPreference(),
-        openEventFromWidgetPreference: OpenEventFromWidgetPreference = OpenEventFromWidgetPreference()
+        openEventFromWidgetPreference: OpenEventFromWidgetPreference = OpenEventFromWidgetPreference(),
+        currentUserPreference: CurrentUserPreference = CurrentUserPreference()
     ) {
         self.userOnboarded = onboardingPreference.get()
         self.authSchoolId = authSchoolPreference.get()
@@ -48,6 +50,7 @@ class PreferenceManager: ObservableObject {
         self.lastUpdated = lastUpdatedPreference.get()
         self.firstOpen = firstOpenPreference.get()
         self.openEventFromWidget = openEventFromWidgetPreference.get()
+        self.currentUser = currentUserPreference.get()
 
         // Bind preferences using enums
         bindPreference($userOnboarded, initialValue: userOnboarded, to: onboardingPreference)
@@ -60,6 +63,7 @@ class PreferenceManager: ObservableObject {
         bindPreference($lastUpdated, initialValue: lastUpdated, to: lastUpdatedPreference)
         bindPreference($firstOpen, initialValue: firstOpen, to: firstOpenPreference)
         bindPreference($openEventFromWidget, initialValue: openEventFromWidget, to: openEventFromWidgetPreference)
+        bindPreference($currentUser, initialValue: currentUser, to: currentUserPreference)
     }
     
     // Regular binding for simple types
