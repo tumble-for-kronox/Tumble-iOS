@@ -13,7 +13,7 @@ import Foundation
 /// for KronoX events, and booking and unbooking of resources.
 final class AccountViewModel: ObservableObject {
     let viewModelFactory: ViewModelFactory = .shared
-    @Published var userController: UserController = .shared
+    let userController: UserController = .shared
     
     @Inject var kronoxManager: KronoxManager
     @Inject var notificationManager: NotificationManager
@@ -246,6 +246,9 @@ final class AccountViewModel: ObservableObject {
     func toggleAutoSignup(value: Bool) {
         preferenceManager.autoSignup.toggle()
         if value && !self.registeredForExams {
+            Task {
+                await registerAutoSignup()
+            }
             getResourcesAndEvents()
         }
     }
