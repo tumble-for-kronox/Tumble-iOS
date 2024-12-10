@@ -25,6 +25,7 @@ final class UserController: ObservableObject {
         }
     }
     @Published var user: TumbleUser? = nil
+    @Published var users: [TumbleUser] = []
     @Published var refreshToken: Token? = nil
     @Published var sessionDetails: Token? = nil
     
@@ -35,8 +36,8 @@ final class UserController: ObservableObject {
         if !preferenceManager.firstOpen {
             Task.detached(priority: .userInitiated) { [weak self] in
                 guard let self else { return }
-                let authSchoolId = self.preferenceManager.authSchoolId
-                await self.autoLogin(authSchoolId: authSchoolId)
+                users = await authManager.getUsers()
+                await self.autoLogin()
             }
         }
     }
@@ -51,19 +52,22 @@ final class UserController: ObservableObject {
     }
     
     @objc func shouldLogOutOnFirstOpen() {
-        AppLogger.shared.debug("Logging out user entirely, in case one exists on first opening the app")
+        AppLogger.shared.debug("Logging out users entirely, in case some exist on first opening the app")
         Task.detached(priority: .high) { [weak self] in
-            try await self?.logOut()
+            try await self?.authManager.setUsers([])
         }
     }
     
     /// Attempts to log out user, and also remove any keychain items
     /// saved that are related to authorization - tokens, passwords, etc.
-    func logOut() async throws {
-        try await authManager.logOutUser()
+    func logOut(user: String) async throws {
+        users = try await authManager.logOutUser(user: user)
         AppLogger.shared.debug("Successfully deleted items from KeyChain")
-        DispatchQueue.main.async { [weak self] in
-            self?.authStatus = .unAuthorized
+        if let firstUser = users.first {
+            self.user = firstUser
+            try await changeUser(to: firstUser.username)
+        } else {
+            self.authStatus = .unAuthorized
         }
     }
     
@@ -78,9 +82,14 @@ final class UserController: ObservableObject {
         do {
             let userRequest = NetworkRequest.KronoxUserLogin(username: username, password: password)
             let user: TumbleUser = try await authManager.loginUser(authSchoolId: authSchoolId, user: userRequest)
-            try await self.authManager.setUser(user)
             let refreshToken: Token? = await authManager.getToken(.refreshToken)
             let sessionDetails: Token? = await authManager.getToken(.sessionDetails)
+            
+            user.refreshToken = refreshToken?.value
+            user.sessionDetails = sessionDetails?.value
+            user.schoolId = authSchoolId
+            users = try await self.authManager.addUser(user)
+            
             DispatchQueue.main.async {
                 AppLogger.shared.debug("Successfully logged in user \(user.username)")
                 self.user = user
@@ -88,33 +97,34 @@ final class UserController: ObservableObject {
                 self.sessionDetails = sessionDetails
                 self.authStatus = .authorized
             }
+            
+            try await changeUser(to: user.username)
         } catch {
-            DispatchQueue.main.async {
-                AppLogger.shared.error("Failed to log in user -> \(error)")
-                self.authStatus = .unAuthorized
-            }
+            AppLogger.shared.error("Failed to log in user -> \(error)")
             throw Error.generic(reason: "Failed to log in user")
         }
     }
     
     /// Attempts to automatically log in the user by finding any available
     /// information in the keychain storage of the phone.
-    func autoLogin(authSchoolId: Int) async {
+    func autoLogin() async {
         AppLogger.shared.debug("Attempting auto login for user", source: "UserController")
         let refreshToken: Token? = await authManager.getToken(.refreshToken)
         let sessionDetails: Token? = await authManager.getToken(.sessionDetails)
         
         guard refreshToken != nil, sessionDetails != nil else {
-            DispatchQueue.main.async {
-                self.authStatus = .unAuthorized
-            }
+            try? await logOut(user: preferenceManager.currentUser)
             return
         }
         
         do {
-            let user: TumbleUser = try await authManager.autoLoginUser(authSchoolId: authSchoolId)
-            try await self.authManager.setUser(user)
+            let autoLoginUser = users.first { $0.username == preferenceManager.currentUser }
+            let user: TumbleUser = try await authManager.autoLoginUser(authSchoolId: autoLoginUser?.schoolId ?? -1, user: autoLoginUser)
             
+            user.refreshToken = refreshToken!.value
+            user.sessionDetails = sessionDetails!.value
+            user.schoolId = autoLoginUser!.schoolId
+
             DispatchQueue.main.async {
                 self.user = user
                 self.refreshToken = refreshToken
@@ -128,9 +138,32 @@ final class UserController: ObservableObject {
             }
         } catch {
             AppLogger.shared.error("Failed to log in user: \(error)")
-            DispatchQueue.main.async {
-                self.authStatus = .unAuthorized
-            }
+            try? await logOut(user: preferenceManager.currentUser)
+        }
+    }
+    
+    func changeUser(to username: String) async throws {
+        if let user = users.first(where: { $0.username == username }) {
+            try await updateSavedTokens(with: user)
+            preferenceManager.authSchoolId = user.schoolId
+            preferenceManager.currentUser = user.username
+            self.user = user
+        } else {
+            AppLogger.shared.error("Could not find user: \(username)")
+        }
+    }
+    
+    private func updateSavedTokens(with user: TumbleUser?) async throws {
+        if let refreshToken = user?.refreshToken,
+           let sessionDetails = user?.sessionDetails {
+            let refreshToken = Token(value: refreshToken, createdDate: Date.now)
+            let sessionDetails = Token(value: sessionDetails, createdDate: Date.now)
+            
+            try await authManager.setToken(refreshToken, for: .refreshToken)
+            try await authManager.setToken(sessionDetails, for: .sessionDetails)
+            
+            self.refreshToken = refreshToken
+            self.sessionDetails = sessionDetails
         }
     }
     

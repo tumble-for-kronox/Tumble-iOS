@@ -19,4 +19,5 @@ enum SharedPreferenceKey: String {
     case lastUpdated = "last_updated"
     case firstOpen = "first_open"
     case openEventFromWidget = "open_event_from_widget"
+    case currentUser = "current_user"
 }

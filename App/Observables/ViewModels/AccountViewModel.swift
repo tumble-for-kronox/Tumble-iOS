@@ -31,6 +31,7 @@ final class AccountViewModel: ObservableObject {
     @Published var authSchoolId: Int = -1
     @Published var autoSignupEnabled: Bool = false
     @Published var registeredForExams: Bool = false
+    @Published var currentUser: String = ""
     
     private var resourceSectionDataTask: URLSessionDataTask? = nil
     private var eventSectionDataTask: URLSessionDataTask? = nil
@@ -44,8 +45,12 @@ final class AccountViewModel: ObservableObject {
         return userController.user?.username
     }
     
+    var users: [TumbleUser] {
+        return userController.users
+    }
+    
     var schoolName: String {
-        return schools.first(where: { $0.id == authSchoolId})?.name ?? ""
+        return schools.first(where: { $0.id == userController.user?.schoolId })?.name ?? ""
     }
     
     /// AccountViewModel is responsible for instantiating
@@ -77,15 +82,17 @@ final class AccountViewModel: ObservableObject {
         let authStatusPublisher = userController.$authStatus.receive(on: RunLoop.main)
         let authSchoolIdPublisher = preferenceManager.$authSchoolId.receive(on: RunLoop.main)
         let autoSignupPublisher = preferenceManager.$autoSignup.receive(on: RunLoop.main)
+        let currentUserPublisher = preferenceManager.$currentUser.receive(on: RunLoop.main)
 
-        Publishers.CombineLatest3(authStatusPublisher, authSchoolIdPublisher, autoSignupPublisher)
-            .sink { [weak self] authStatus, authSchoolId, autoSignupEnabled in
+        Publishers.CombineLatest4(authStatusPublisher, authSchoolIdPublisher, autoSignupPublisher, currentUserPublisher)
+            .sink { [weak self] authStatus, authSchoolId, autoSignupEnabled, currentUser in
                 guard let self else { return }
                 
                 DispatchQueue.main.async {
                     self.authStatus = authStatus
                     self.authSchoolId = authSchoolId
                     self.autoSignupEnabled = autoSignupEnabled
+                    self.currentUser = currentUser
 
                     if authStatus == .authorized && !self.registeredForExams && self.autoSignupEnabled {
                         Task.detached(priority: .userInitiated) {
@@ -146,7 +153,8 @@ final class AccountViewModel: ObservableObject {
     /// that were done when any bookings were created.
     func logOut() async {
         do {
-            try await userController.logOut()
+            try await userController.logOut(user: currentUser)
+            getResourcesAndEvents()
             await notificationManager.cancelNotifications(with: "Booking")
         } catch {
             AppLogger.shared.error("Failed to log out user: \(error)")
@@ -202,6 +210,15 @@ final class AccountViewModel: ObservableObject {
         }
     }
     
+    func getResourcesAndEvents() {
+        Task {
+            async let bookings: () = getUserBookingsForSection()
+            async let events: () = getUserEventsForSection()
+
+            await (bookings, events)
+        }
+    }
+    
     /// Removes a registered event from the users account,
     /// as well as the locally stored object
     func unregisterForEvent(eventId: String) async {
@@ -231,8 +248,8 @@ final class AccountViewModel: ObservableObject {
         if value && !self.registeredForExams {
             Task {
                 await registerAutoSignup()
-                await getUserEventsForSection()
             }
+            getResourcesAndEvents()
         }
     }
     
@@ -297,6 +314,17 @@ final class AccountViewModel: ObservableObject {
         }
     }
     
+    /// Sets current user, updates tokens in keychain, updates user resources
+    func setCurrentUser(to user: String) async {
+        guard preferenceManager.currentUser != user else { return }
+        do {
+            try await userController.changeUser(to: user)
+            getResourcesAndEvents()
+        } catch {
+            AppLogger.shared.error("Failed to change currentUser to: \(user)")
+        }
+    }
+
     deinit {
         NotificationCenter.default.removeObserver(self)
         cancellables.forEach { $0.cancel() }
