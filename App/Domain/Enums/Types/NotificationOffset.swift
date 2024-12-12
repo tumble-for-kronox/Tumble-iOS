@@ -14,7 +14,7 @@ enum NotificationOffset: Int, SettingsOption {
     case threeHours = 180
     
     var displayName: String {
-        return String(format: "%d minutes", self.rawValue)
+        return String(format: "%d %@", self.rawValue, NSLocalizedString("minutes", comment: ""))
     }
     
     static var allCases: [NotificationOffset] = [.fifteen, .thirty, .hour, .threeHours]
