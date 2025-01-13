@@ -17,7 +17,6 @@ struct UpcomingEventCardButton: View {
                     Text(event.title)
                         .font(.system(size: 17, weight: .medium))
                         .foregroundColor(.onSurface)
-                        .lineLimit(1)
                         .truncationMode(.tail)
                 }
                 HStack {

@@ -38,8 +38,10 @@ struct SearchPreviewList: View {
                     }
                 }
             }
-            .padding(.horizontal, Spacing.medium)
         }
+        .cornerRadius(15)
+        .padding(.horizontal, Spacing.medium)
+        .ignoresSafeArea()
     }
     
     func createDays() -> [Response.Day]? {

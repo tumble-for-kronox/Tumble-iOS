@@ -13,6 +13,7 @@ struct NextLocation: View {
     
     var body: some View {
         Button(action: {
+            HapticsController.triggerHapticLight()
             sheetOpen = true
         }, label: {
             HStack(alignment: .center) {
