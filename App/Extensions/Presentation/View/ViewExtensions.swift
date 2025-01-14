@@ -33,7 +33,7 @@ extension View {
     
     func searchBox() -> some View {
         padding(10)
-            .background(Color.gray.opacity(0.3))
+            .background(Color.gray.opacity(0.2))
             .cornerRadius(10)
     }
     

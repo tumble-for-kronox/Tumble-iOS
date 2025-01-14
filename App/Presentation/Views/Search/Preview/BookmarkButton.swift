@@ -51,6 +51,7 @@ struct BookmarkButton: View {
             }
         }
         .buttonStyle(PillStyle(color: .primary))
-        .padding(Spacing.medium)
+        .padding(.leading, Spacing.medium)
+        .padding(.top, Spacing.extraSmall)
     }
 }

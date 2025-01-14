@@ -54,7 +54,7 @@ struct EventDetailsBody: View {
             DetailsBuilder(title: NSLocalizedString("Locations", comment: ""), image: "mappin.and.ellipse") {
                 if event.locations.count > 0 {
                     HStack {
-                        VStack {
+                        VStack(alignment: .leading) {
                             ForEach(event.locations, id: \.self) { location in
                                 Text(location.locationId.capitalized)
                                     .font(.system(size: 16))

@@ -14,15 +14,15 @@ struct NextClass: View {
     var body: some View {
         VStack(alignment: .leading, spacing: Spacing.medium) {
             HStack {
+                Text(NSLocalizedString("Next class", comment: ""))
+                    .font(.system(size: 18, weight: .semibold))
+                    .foregroundColor(.onBackground)
+                Spacer()
                 if let nextClass = nextClass {
                     Text(nextClass.from.formatDate() ?? "")
                         .font(.system(size: 16, weight: .medium))
                         .foregroundColor(.gray)
                 }
-                Spacer()
-                Text(NSLocalizedString("Next class", comment: ""))
-                    .font(.system(size: 18, weight: .semibold))
-                    .foregroundColor(.onBackground)
             }
             if let nextClass = nextClass, let course = nextClass.course {
                 let color: Color = course.color.toColor()

@@ -25,7 +25,6 @@ struct EventCardButton: View {
                         Text(event.title ?? NSLocalizedString("No title", comment: ""))
                             .font(.system(size: 17, weight: .medium))
                             .foregroundColor(.onSurface)
-                            .lineLimit(1)
                             .truncationMode(.tail)
                     }
                     HStack {

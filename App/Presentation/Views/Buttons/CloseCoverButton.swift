@@ -13,11 +13,13 @@ struct CloseCoverButton: View {
     
     var body: some View {
         Button(action: onClick, label: {
-            Image(systemName: "xmark")
-                .foregroundColor(.onBackground)
-                .font(.system(size: 24, weight: .medium))
+            Image(systemName: "xmark.circle.fill")
+                .foregroundColor(.onBackground.opacity(0.6))
+                .font(.system(size: 28, weight: .medium))
+                .symbolRenderingMode(.hierarchical)
         })
-        .padding()
+        .padding(.trailing, Spacing.medium)
+        .padding(.top, Spacing.small)
     }
 }
 

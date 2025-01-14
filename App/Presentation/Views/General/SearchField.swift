@@ -45,6 +45,7 @@ struct SearchField: View {
                     }
                     .buttonStyle(SearchMenuActionStyle())
                 }
+                .transition(AnyTransition.move(edge: .trailing).combined(with: .opacity))
             }
         }
     }
