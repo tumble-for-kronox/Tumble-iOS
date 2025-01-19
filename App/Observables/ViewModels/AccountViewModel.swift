@@ -29,7 +29,6 @@ final class AccountViewModel: ObservableObject {
     @Published var resourceDetailsSheetModel: ResourceDetailSheetModel? = nil
     @Published var examDetailSheetModel: ExamDetailSheetModel? = nil
     @Published var authSchoolId: Int = -1
-    @Published var autoSignupEnabled: Bool = false
     @Published var registeredForExams: Bool = false
     @Published var currentUser: String = ""
     
@@ -81,25 +80,16 @@ final class AccountViewModel: ObservableObject {
     private func setupPublishers() {
         let authStatusPublisher = userController.$authStatus.receive(on: RunLoop.main)
         let authSchoolIdPublisher = preferenceManager.$authSchoolId.receive(on: RunLoop.main)
-        let autoSignupPublisher = preferenceManager.$autoSignup.receive(on: RunLoop.main)
         let currentUserPublisher = preferenceManager.$currentUser.receive(on: RunLoop.main)
 
-        Publishers.CombineLatest4(authStatusPublisher, authSchoolIdPublisher, autoSignupPublisher, currentUserPublisher)
-            .sink { [weak self] authStatus, authSchoolId, autoSignupEnabled, currentUser in
+        Publishers.CombineLatest3(authStatusPublisher, authSchoolIdPublisher, currentUserPublisher)
+            .sink { [weak self] authStatus, authSchoolId, currentUser in
                 guard let self else { return }
                 
                 DispatchQueue.main.async {
                     self.authStatus = authStatus
                     self.authSchoolId = authSchoolId
-                    self.autoSignupEnabled = autoSignupEnabled
                     self.currentUser = currentUser
-
-                    if authStatus == .authorized && !self.registeredForExams && self.autoSignupEnabled {
-                        Task.detached(priority: .userInitiated) {
-                            AppLogger.shared.debug("Auto signup is \(autoSignupEnabled), registering for exams")
-                            await self.registerAutoSignup()
-                        }
-                    }
                 }
             }
             .store(in: &cancellables)
@@ -241,18 +231,6 @@ final class AccountViewModel: ObservableObject {
         }
     }
     
-    /// Registers the user for automatic event/exam signup,
-    /// and attempts to sign up for any currently available exams/events
-    func toggleAutoSignup(value: Bool) {
-        preferenceManager.autoSignup.toggle()
-        if value && !self.registeredForExams {
-            Task {
-                await registerAutoSignup()
-            }
-            getResourcesAndEvents()
-        }
-    }
-    
     /// Decides if there are any user bookings for the current user, and if so attempts
     /// to schedule any confirmation notifications for those bookings
     func checkNotificationsForUserBookings(bookings: Response.KronoxUserBookings? = nil) async {
@@ -273,8 +251,8 @@ final class AccountViewModel: ObservableObject {
             }
         } catch {
             AppLogger.shared.debug("\(error)")
-            DispatchQueue.main.async {
-                self.bookingSectionState = .error
+            DispatchQueue.main.async { [weak self] in
+                self?.bookingSectionState = .error
             }
         }
     }
@@ -296,21 +274,6 @@ final class AccountViewModel: ObservableObject {
             } else {
                 AppLogger.shared.error("Failed to retrieve date components for booking")
             }
-        }
-    }
-
-    /// Registers for any available events through auto signup
-    func registerAutoSignup() async {
-        AppLogger.shared.debug("Attempting to automatically sign up for exams")
-        do {
-            let request = Endpoint.registerAllEvents(schoolId: String(authSchoolId))
-            let _: Response.KronoxEventRegistration?
-            = try await kronoxManager.put(
-                request, refreshToken: userController.refreshToken?.value,
-                sessionDetails: userController.sessionDetails?.value, body: NetworkRequest.Empty())
-            self.registeredForExams = true
-        } catch {
-            AppLogger.shared.error("Failed to sign up for exams: \(error)")
         }
     }
     

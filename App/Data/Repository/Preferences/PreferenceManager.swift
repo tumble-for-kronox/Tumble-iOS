@@ -16,7 +16,6 @@ class PreferenceManager: ObservableObject {
     @Published var userOnboarded: Bool
     @Published var authSchoolId: Int
     @Published var appearance: AppearanceType  // Using AppearanceType directly
-    @Published var autoSignup: Bool
     @Published var notificationOffset: NotificationOffset  // Using NotificationOffset directly
     @Published var language: String
     @Published var viewTypeIndex: Int
@@ -31,7 +30,6 @@ class PreferenceManager: ObservableObject {
         onboardingPreference: OnboardingPreference = OnboardingPreference(),
         authSchoolPreference: AuthSchoolPreference = AuthSchoolPreference(),
         appearancePreference: AppearancePreference = AppearancePreference(),
-        autoSignupPreference: AutoSignupPreference = AutoSignupPreference(),
         notificationOffsetPreference: NotificationOffsetPreference = NotificationOffsetPreference(),
         languagePreference: LanguagePreference = LanguagePreference(),
         viewTypePreference: ViewTypeIndexPreference = ViewTypeIndexPreference(),
@@ -43,7 +41,6 @@ class PreferenceManager: ObservableObject {
         self.userOnboarded = onboardingPreference.get()
         self.authSchoolId = authSchoolPreference.get()
         self.appearance = AppearanceType.fromRawValue(appearancePreference.get()) ?? .system  // Convert String to enum
-        self.autoSignup = autoSignupPreference.get()
         self.notificationOffset = NotificationOffset(rawValue: notificationOffsetPreference.get()) ?? .hour  // Convert Int to enum
         self.language = languagePreference.get()
         self.viewTypeIndex = viewTypePreference.get()
@@ -56,7 +53,6 @@ class PreferenceManager: ObservableObject {
         bindPreference($userOnboarded, initialValue: userOnboarded, to: onboardingPreference)
         bindPreference($authSchoolId, initialValue: authSchoolId, to: authSchoolPreference)
         bindEnumPreference($appearance, initialValue: appearance, to: appearancePreference)  // Special handling for AppearanceType
-        bindPreference($autoSignup, initialValue: autoSignup, to: autoSignupPreference)
         bindEnumPreference($notificationOffset, initialValue: notificationOffset, to: notificationOffsetPreference)  // Special handling for NotificationOffset
         bindPreference($language, initialValue: language, to: languagePreference)
         bindPreference($viewTypeIndex, initialValue: viewTypeIndex, to: viewTypePreference)
