@@ -47,7 +47,6 @@
 		D40D80CC29265C36008CA68D /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40D80CB29265C36008CA68D /* SearchViewModel.swift */; };
 		D40DEEE42CC7C11900FBBA87 /* OnboardingPreference.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40DEEE32CC7C11200FBBA87 /* OnboardingPreference.swift */; };
 		D40DEEE82CC7C13100FBBA87 /* AppearancePreference.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40DEEE72CC7C12D00FBBA87 /* AppearancePreference.swift */; };
-		D40DEEEA2CC7C18B00FBBA87 /* AutoSingupPreference.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40DEEE92CC7C18900FBBA87 /* AutoSingupPreference.swift */; };
 		D40DEEEC2CC7C1E800FBBA87 /* NotificationOffsetPreference.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40DEEEB2CC7C1E400FBBA87 /* NotificationOffsetPreference.swift */; };
 		D40DEEEE2CC7C20800FBBA87 /* LanguagePreference.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40DEEED2CC7C20500FBBA87 /* LanguagePreference.swift */; };
 		D40DEEF02CC7C21A00FBBA87 /* ViewTypeIndexPreference.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40DEEEF2CC7C21800FBBA87 /* ViewTypeIndexPreference.swift */; };
@@ -387,7 +386,6 @@
 		D40D80CB29265C36008CA68D /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		D40DEEE32CC7C11200FBBA87 /* OnboardingPreference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPreference.swift; sourceTree = "<group>"; };
 		D40DEEE72CC7C12D00FBBA87 /* AppearancePreference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearancePreference.swift; sourceTree = "<group>"; };
-		D40DEEE92CC7C18900FBBA87 /* AutoSingupPreference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoSingupPreference.swift; sourceTree = "<group>"; };
 		D40DEEEB2CC7C1E400FBBA87 /* NotificationOffsetPreference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationOffsetPreference.swift; sourceTree = "<group>"; };
 		D40DEEED2CC7C20500FBBA87 /* LanguagePreference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguagePreference.swift; sourceTree = "<group>"; };
 		D40DEEEF2CC7C21800FBBA87 /* ViewTypeIndexPreference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewTypeIndexPreference.swift; sourceTree = "<group>"; };
@@ -802,7 +800,6 @@
 				D40DEEEF2CC7C21800FBBA87 /* ViewTypeIndexPreference.swift */,
 				D40DEEED2CC7C20500FBBA87 /* LanguagePreference.swift */,
 				D40DEEEB2CC7C1E400FBBA87 /* NotificationOffsetPreference.swift */,
-				D40DEEE92CC7C18900FBBA87 /* AutoSingupPreference.swift */,
 				D40DEEE72CC7C12D00FBBA87 /* AppearancePreference.swift */,
 				D40DEEE32CC7C11200FBBA87 /* OnboardingPreference.swift */,
 				1C5F66F02CCADE790098CAAF /* OpenEventFromWidgetPreference.swift */,
@@ -1759,7 +1756,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1520;
-				LastUpgradeCheck = 1500;
+				LastUpgradeCheck = 1620;
 				TargetAttributes = {
 					D4722144292454560063BDB7 = {
 						CreatedOnToolsVersion = 14.1;
@@ -1999,7 +1996,6 @@
 				D4EEFB5029DA15440007A209 /* SettingsNavigationButton.swift in Sources */,
 				D458606329DCF72300B77513 /* NewsItemDetails.swift in Sources */,
 				D407B61F2CC7E12900186CDB /* NetworkController.swift in Sources */,
-				D40DEEEA2CC7C18B00FBBA87 /* AutoSingupPreference.swift in Sources */,
 				D454204129BE982000EF0FC9 /* HapticsController.swift in Sources */,
 				D43294E029E0ABAA00842884 /* HomeStatus.swift in Sources */,
 				D42DFD5E29BD5BC9002942D7 /* PillStyle.swift in Sources */,
@@ -2209,7 +2205,6 @@
 		D4563E822985FE9A003261FA /* Debug copy */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
@@ -2235,7 +2230,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.8.0;
+				MARKETING_VERSION = 3.9.1;
 				NETWORK_SETTINGS = testing;
 				NEW_SETTING = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.tumble;
@@ -2372,7 +2367,6 @@
 		D4722154292454570063BDB7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
@@ -2398,7 +2392,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.8.0;
+				MARKETING_VERSION = 3.9.1;
 				NETWORK_SETTINGS = testing;
 				NEW_SETTING = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.tumble;
@@ -2417,7 +2411,6 @@
 		D4722155292454570063BDB7 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
@@ -2444,7 +2437,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.8.0;
+				MARKETING_VERSION = 3.9.1;
 				NETWORK_SETTINGS = production;
 				NEW_SETTING = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.tumble;

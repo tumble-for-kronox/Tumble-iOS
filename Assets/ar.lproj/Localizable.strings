@@ -345,12 +345,6 @@
 
 "We couldn't unbook the specified resource"="لم نتمكن من إلغاء حجز المصدر المحدد";
 
-"Automatic signup"="التسجيل التلقائي";
-
-"Automatic exam/event signup has been enabled, but make sure you are always registered for exams through your institution."="تم تمكين التسجيل التلقائي للاختبارات/الأحداث، ولكن تأكد من تسجيلك دائمًا للاختبارات من خلال مؤسستك.";
-
-"Automatic exam/event signup has been disabled."="تم تعطيل التسجيل التلقائي للاختبارات/الأحداث.";
-
 "See all"="عرض الكل";
 
 "Book more"="حجز المزيد";

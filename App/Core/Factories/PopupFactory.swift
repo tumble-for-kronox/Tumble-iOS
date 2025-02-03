@@ -115,24 +115,6 @@ class PopupFactory {
         )
     }
     
-    func autoSignupEnabled() -> Popup {
-        Popup(
-            type: .info,
-            title: NSLocalizedString("Automatic signup", comment: ""),
-            message: NSLocalizedString(
-                "Automatic exam/event signup has been enabled, but make sure you are always registered for exams through your institution.",
-                comment: "")
-        )
-    }
-    
-    func autoSignupDisabled() -> Popup {
-        Popup(
-            type: .info,
-            title: NSLocalizedString("Automatic signup", comment: ""),
-            message: NSLocalizedString("Automatic exam/event signup has been disabled.", comment: "")
-        )
-    }
-    
     func genericError() -> Popup {
         Popup(type: .error, title: NSLocalizedString("Something went wrong", comment: ""))
     }

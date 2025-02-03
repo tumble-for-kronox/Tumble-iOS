@@ -13,7 +13,6 @@ enum SharedPreferenceKey: String {
     case userOnboarded = "user_onboarded"
     case locale = "locale"
     case notificationOffset = "notification_offset"
-    case autoSignup = "auto_signup"
     case viewType = "view_type"
     case networkSettings = "network_settings"
     case lastUpdated = "last_updated"

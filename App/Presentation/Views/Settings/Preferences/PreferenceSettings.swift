@@ -60,15 +60,6 @@ struct PreferenceSettings: View {
                     leadingIconBackgroundColor: Color(uiColor: UIColor.systemTeal),
                     condition: $viewModel.openEventFromWidget
                 )
-                if viewModel.authStatus == .authorized {
-                    Divider()
-                    SettingsToggleButton(
-                        title: NSLocalizedString("Automatic exam signup", comment: ""),
-                        leadingIcon: "paperclip",
-                        leadingIconBackgroundColor: .primary,
-                        condition: $viewModel.autoSignup
-                    )
-                }
             }
         }
     }

@@ -40,14 +40,6 @@ final class SettingsViewModel: ObservableObject {
             }
         }
     }
-    @Published var autoSignup: Bool = false {
-        didSet {
-            if oldValue != autoSignup {
-                AppLogger.shared.debug("Auto signup is \(autoSignup)")
-                self.setAutoSignup(value: autoSignup)
-            }
-        }
-    }
     @Published var openEventFromWidget: Bool = true {
         didSet {
             if oldValue != openEventFromWidget {
@@ -69,7 +61,6 @@ final class SettingsViewModel: ObservableObject {
         let authSchoolIdPublisher = preferenceManager.$authSchoolId.receive(on: RunLoop.main)
         let appearancePublisher = preferenceManager.$appearance.receive(on: RunLoop.main)
         let notificationOffsetPublisher = preferenceManager.$notificationOffset.receive(on: RunLoop.main)
-        let autoSignupPublisher = preferenceManager.$autoSignup.receive(on: RunLoop.main)
         let openEventFromWidgetPublisher = preferenceManager.$openEventFromWidget.receive(on: RunLoop.main)
         let authStatusPublisher = userController.$authStatus.receive(on: RunLoop.main)
         
@@ -83,9 +74,8 @@ final class SettingsViewModel: ObservableObject {
             }
             .store(in: &cancellables)
         
-        Publishers.CombineLatest3(autoSignupPublisher, authStatusPublisher, openEventFromWidgetPublisher)
-            .sink { [weak self] autoSignup, authStatus, openEventFromWidget in
-                self?.autoSignup = autoSignup
+        Publishers.CombineLatest(authStatusPublisher, openEventFromWidgetPublisher)
+            .sink { [weak self] authStatus, openEventFromWidget in
                 self?.authStatus = authStatus
                 self?.openEventFromWidget = openEventFromWidget
             }
@@ -192,10 +182,6 @@ final class SettingsViewModel: ObservableObject {
     
     func setNotificationOffset(offset: NotificationOffset) {
         preferenceManager.notificationOffset = offset
-    }
-    
-    func setAutoSignup(value: Bool) {
-        preferenceManager.autoSignup = value
     }
 
     func setOpenEventFromWidget(value: Bool) {
