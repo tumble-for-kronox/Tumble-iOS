@@ -15,8 +15,6 @@ extension NetworkSettings {
         switch resolvedEnvironment {
         case "development":
             self = Environments.development
-        case "kubernetes":
-            self = Environments.kubernetes
         default:
             self = Environments.production
         }
