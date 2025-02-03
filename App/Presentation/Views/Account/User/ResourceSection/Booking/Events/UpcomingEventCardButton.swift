@@ -24,7 +24,7 @@ struct UpcomingEventCardButton: View {
                         .font(.system(size: 15))
                         .foregroundColor(.onSurface.opacity(0.7))
                     if let eventDate = event.eventStart.toDate(),
-                       let eventEnd = event.eventEnd.toDate(),
+                       let eventEnd = event.eventEnd.convertToHoursAndMinutes(),
                        let eventStart = event.eventStart.convertToHoursAndMinutes()
                     {
                         Text(String(format: NSLocalizedString("%@, from %@ to %@", comment: ""), eventDate, eventStart, eventEnd))
