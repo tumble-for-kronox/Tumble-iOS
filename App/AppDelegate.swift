@@ -76,7 +76,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     }
 
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        AppLogger.shared.error("Registered for remote notifications for the current device token: \(deviceToken)")
+        AppLogger.shared.debug("Registered for remote notifications for the current device token: \(deviceToken)")
     }
 
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
