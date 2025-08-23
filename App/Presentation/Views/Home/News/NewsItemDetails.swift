@@ -17,25 +17,33 @@ struct NewsItemDetails: View {
     
     var body: some View {
         ScrollView(showsIndicators: false) {
-            VStack(alignment: .leading) {
+            VStack(alignment: .leading, spacing: Spacing.small) {
+                if (!newsItem.topic.isEmpty) {
+                    Text(newsItem.topic.uppercased())
+                        .font(.system(size: 14, weight: .semibold))
+                        .foregroundStyle(Color.onPrimary)
+                        .padding(.horizontal, Spacing.small)
+                        .padding(.vertical, Spacing.extraSmall)
+                        .background(Color.primary)
+                        .clipShape(RoundedRectangle(cornerRadius: 100))
+                }
+                if let date = isoDateFormatter.date(from: newsItem.timestamp) {
+                    Text(localizedLongDateFormatter.string(from: date))
+                        .font(.system(size: 12, weight: .medium))
+                        .foregroundColor(.onBackground.opacity(0.8))
+                        .padding(.top, Spacing.small)
+                }
                 Text(newsItem.title)
-                    .font(.system(size: 30, weight: .semibold))
+                    .font(.system(size: 26, weight: .semibold))
                     .foregroundColor(.onBackground)
-                    .padding(.bottom, Spacing.large)
-                Text(newsItem.timestamp.formatDate() ?? "")
-                    .font(.system(size: 20, weight: .medium))
-                    .foregroundColor(.onBackground.opacity(0.8))
             }
             .frame(maxWidth: .infinity, alignment: .leading)
-            VStack(alignment: .leading) {
-                Divider()
-                    .opacity(0.8)
-                    .padding(.vertical, Spacing.medium)
-                Text(newsItem.body)
-                    .font(.system(size: 16, weight: .regular))
-                    .foregroundColor(.onBackground)
-            }
-            .padding(.trailing, Spacing.small)
+            Text(newsItem.body)
+                .font(.system(size: 16, weight: .regular))
+                .foregroundColor(.onBackground)
+                .padding(Spacing.medium)
+                .background(Color.surface)
+                .cornerRadius(15)
             Spacer()
         }
         .padding(.horizontal, Spacing.medium)
